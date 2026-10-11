@@ -87,9 +87,5 @@ Lean development, statement review, and repository preparation.
 ## License and acknowledgements
 
 Apache License 2.0. See [LICENSE](LICENSE).
-The supporting geometry includes adapted code from
-[Christian Merten's pi1](https://github.com/chrisflav/pi1),
-[Anthropic's Fermat's Last Theorem project](https://github.com/anthropics/fermats-last-theorem),
-and [Lean Eval](https://github.com/leanprover/lean-eval).
-Original source headers and third-party notices are preserved in the sources
-and [NOTICE](NOTICE).
+Supporting code includes adaptations from [pi1](https://github.com/chrisflav/pi1)
+and [Anthropic FLT](https://github.com/anthropics/fermats-last-theorem); see [NOTICE](NOTICE).

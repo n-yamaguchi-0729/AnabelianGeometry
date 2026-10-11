@@ -180,20 +180,6 @@ https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536
 Upstream attribution:
 https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/ATTRIBUTION.md
 
-LeanEval
---------
-
-The statements in Lean4/JacobianVarieties/JacobianChallenge.lean are adapted from
-Christian Merten's LeanEval algebraic-geometric Jacobian challenge:
-https://github.com/leanprover/lean-eval/blob/38361be884302c7edce1908c4aef8296eb2cb27e/LeanEval/AlgebraicGeometry/JacobianChallenge.lean
-Copyright (c) 2026 Christian Merten. All rights reserved.
-Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Christian Merten
-
-The file separately identifies local constructions and proofs:
-Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
-Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
-
 Dependencies
 ------------
 
