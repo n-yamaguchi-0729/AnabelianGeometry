@@ -27,25 +27,13 @@ The following fundamental-group results are over algebraically closed fields
 of characteristic zero. They use the actual geometric fiber functor on finite
 étale covers.
 
-**[Slimness for proper hyperbolic curves](Lean4/AnabelianGeometry/GeometricFundamentalGroup/ProperCurveSlim.lean)**
-
-Slimness of the étale fundamental group of a smooth proper curve model of genus at least two.
-
-**[Slimness for open hyperbolic curves](Lean4/AnabelianGeometry/GeometricFundamentalGroup/OpenCurveSlim.lean)**
-
-Slimness for an open curve with nonempty boundary and `2g + r − 2 > 0`, under the stated normality, local Noetherianity and quasi-compactness hypotheses.
-
-**[The fundamental group in genus zero](Lean4/AnabelianGeometry/GeometricFundamentalGroup/GenusZeroFundamentalGroup.lean)**
-
-Triviality of the fundamental group of a proper genus-zero curve model.
-
-**[The affine line and one-puncture curves](Lean4/AnabelianGeometry/GeometricFundamentalGroup/AffineLineFundamentalGroup.lean)**
-
-Triviality of the fundamental group of the affine line. The [one-puncture theorem](Lean4/AnabelianGeometry/GeometricFundamentalGroup/OnePunctureGenusZero.lean) treats the complement of a point on a proper genus-zero curve.
-
-**[Two-puncture comparison](Lean4/AnabelianGeometry/GeometricFundamentalGroup/TwoPuncturesFundamentalGroup.lean)**
-
-The fundamental group of a genus-zero curve with two punctures is topologically isomorphic to the profinite integers.
+| Result | Mathematical content |
+| --- | --- |
+| [Proper curve slimness](Lean4/AnabelianGeometry/GeometricFundamentalGroup/ProperCurveSlim.lean) | Slimness of the étale fundamental group of a smooth proper curve model of genus at least two. |
+| [Open curve slimness](Lean4/AnabelianGeometry/GeometricFundamentalGroup/OpenCurveSlim.lean) | Slimness for an open curve with nonempty boundary and `2g + r − 2 > 0`, under the stated normality, local Noetherianity and quasi-compactness hypotheses. |
+| [Genus-zero fundamental group](Lean4/AnabelianGeometry/GeometricFundamentalGroup/GenusZeroFundamentalGroup.lean) | Triviality of the fundamental group of a proper genus-zero curve model. |
+| [Affine line and one puncture](Lean4/AnabelianGeometry/GeometricFundamentalGroup/AffineLineFundamentalGroup.lean) | Triviality of the fundamental group of the affine line. The [one-puncture theorem](Lean4/AnabelianGeometry/GeometricFundamentalGroup/OnePunctureGenusZero.lean) treats the complement of a point on a proper genus-zero curve. |
+| [Two-puncture comparison](Lean4/AnabelianGeometry/GeometricFundamentalGroup/TwoPuncturesFundamentalGroup.lean) | The fundamental group of a genus-zero curve with two punctures is topologically isomorphic to the profinite integers. |
 
 A profinite group is *slim* if every open subgroup has trivial centralizer in
 the ambient group. The proofs realize open subgroups by finite étale covers
