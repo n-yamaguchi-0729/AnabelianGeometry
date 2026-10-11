@@ -78,7 +78,7 @@ all libraries in dependency order, with warnings treated as errors.
 
 ## Authorship and AI-written code
 
-All original code in this library is written by AI (OpenAI Codex).
+All original code in this library is written by OpenAI Codex.
 [Naganori Yamaguchi](https://github.com/n-yamaguchi-0729) sets the mathematical
 goals and scope, directs development, and maintains the library.
 
