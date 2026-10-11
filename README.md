@@ -7,6 +7,9 @@ A Lean 4 library **under development**, aiming to formalize the Grothendieck
 conjecture for hyperbolic curves. It currently develops geometric étale
 fundamental groups, their slimness, and explicit genus-zero calculations.
 
+This library is extracted from [NYLL](https://github.com/n-yamaguchi-0729/NYLL).
+Bundled dependencies use the same `Nyll` imports as the complete library.
+
 ## Scope
 
 The intended Grothendieck theorem identifies isomorphisms of hyperbolic curves
@@ -22,11 +25,20 @@ of characteristic zero. They use the actual geometric fiber functor on finite
 
 | Result | Mathematical content |
 | --- | --- |
-| [Proper curve slimness](Lean4/AnabelianGeometry/GeometricFundamentalGroup/ProperCurveSlim.lean) | Slimness of the étale fundamental group of a smooth proper curve model of genus at least two. |
-| [Open curve slimness](Lean4/AnabelianGeometry/GeometricFundamentalGroup/OpenCurveSlim.lean) | Slimness for an open curve with nonempty boundary and `2g + r − 2 > 0`, under the stated normality, local Noetherianity and quasi-compactness hypotheses. |
-| [Genus-zero fundamental group](Lean4/AnabelianGeometry/GeometricFundamentalGroup/GenusZeroFundamentalGroup.lean) | Triviality of the fundamental group of a proper genus-zero curve model. |
-| [Affine line and one puncture](Lean4/AnabelianGeometry/GeometricFundamentalGroup/AffineLineFundamentalGroup.lean) | Triviality of the fundamental group of the affine line. The [one-puncture theorem](Lean4/AnabelianGeometry/GeometricFundamentalGroup/OnePunctureGenusZero.lean) treats the complement of a point on a proper genus-zero curve. |
-| [Two-puncture comparison](Lean4/AnabelianGeometry/GeometricFundamentalGroup/TwoPuncturesFundamentalGroup.lean) | The fundamental group of a genus-zero curve with two punctures is topologically isomorphic to the profinite integers. |
+| [Proper curve slimness](Nyll/AnabelianGeometry/GeometricFundamentalGroup/ProperCurveSlim.lean) | Slimness of the étale fundamental group of a smooth proper curve model of genus at least two. |
+| [Open curve slimness](Nyll/AnabelianGeometry/GeometricFundamentalGroup/OpenCurveSlim.lean) | Slimness for an open curve with nonempty boundary and `2g + r − 2 > 0`, under the stated normality, local Noetherianity and quasi-compactness hypotheses. |
+| [Genus-zero fundamental group](Nyll/AnabelianGeometry/GeometricFundamentalGroup/GenusZeroFundamentalGroup.lean) | Triviality of the fundamental group of a proper genus-zero curve model. |
+| [Affine line and one puncture](Nyll/AnabelianGeometry/GeometricFundamentalGroup/AffineLineFundamentalGroup.lean) | Triviality of the fundamental group of the affine line. The [one-puncture theorem](Nyll/AnabelianGeometry/GeometricFundamentalGroup/OnePunctureGenusZero.lean) treats the complement of a point on a proper genus-zero curve. |
+| [Two-puncture comparison](Nyll/AnabelianGeometry/GeometricFundamentalGroup/TwoPuncturesFundamentalGroup.lean) | The fundamental group of a genus-zero curve with two punctures is topologically isomorphic to the profinite integers. |
+
+Further proved results include projective-line cross-ratio and multiplicative
+rigidity, Kummer power-class separation over number fields, separation and
+normalizer criteria for cuspidal inertia, and residue-rank and generic-point
+comparisons for the weight filtration. Their precise hypotheses are in
+[Projective line](Nyll/AnabelianGeometry/ProjectiveLine/All.lean),
+[Kummer theory](Nyll/AnabelianGeometry/KummerTheory/All.lean),
+[Cuspidal inertia](Nyll/AnabelianGeometry/CuspidalInertia/All.lean), and
+[Weight filtration](Nyll/AnabelianGeometry/WeightFiltration/All.lean).
 
 A profinite group is *slim* if every open subgroup has trivial centralizer in
 the ambient group. The proofs realize open subgroups by finite étale covers
@@ -38,22 +50,17 @@ The Grothendieck conjecture itself is not yet proved in this library.
 The arithmetic reconstruction needed for this correspondence remains open
 in the formalization.
 
-[`exists_surfacePresentation_charZero`](Lean4/AnabelianGeometry/GeometricFundamentalGroup/CharZeroPresentation.lean),
-the profinite surface presentation with boundary inertia, is currently an
-unproved statement containing one `sorry`. The main results listed above do
-not depend on this statement. Importing `AnabelianGeometry.All` includes it.
-
 ## Public API
 
 ```lean
-import AnabelianGeometry.All
+import Nyll.AnabelianGeometry.All
 ```
 
 The main slimness results can be imported independently:
 
 ```lean
-import AnabelianGeometry.GeometricFundamentalGroup.ProperCurveSlim
-import AnabelianGeometry.GeometricFundamentalGroup.OpenCurveSlim
+import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProperCurveSlim
+import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenCurveSlim
 ```
 
 ## Build
@@ -63,11 +70,11 @@ and [`lakefile.toml`](lakefile.toml).
 
 ```console
 lake exe cache get
-lake build
+lake --wfail build
 ```
 
-[CI](.github/workflows/lean.yml) checks imports and builds the library,
-allowing only the unproved presentation described above.
+[CI](.github/workflows/lean.yml) checks the complete import closure and builds
+all libraries in dependency order, with warnings treated as errors.
 
 ## Authorship and AI assistance
 

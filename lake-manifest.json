@@ -111,7 +111,7 @@
       "configFile": "lakefile.toml"
     }
   ],
-  "name": "AnabelianGeometry",
+  "name": "Nyll",
   "lakeDir": ".lake",
   "fixedToolchain": false
 }

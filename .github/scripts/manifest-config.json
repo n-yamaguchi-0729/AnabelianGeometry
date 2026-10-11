@@ -1,41 +1,41 @@
 {
   "owners": {
     "ProCGroups": [
-      "ProCGroups"
+      "Nyll.ProCGroups"
     ],
     "ValuedFieldTheory": [
-      "ValuedFieldTheory"
+      "Nyll.ValuedFieldTheory"
     ],
     "GaloisCohomology": [
-      "GaloisCohomology"
+      "Nyll.GaloisCohomology"
     ],
     "SchemeTheory": [
-      "SchemeTheory"
+      "Nyll.SchemeTheory"
     ],
     "ClassFieldTheory": [
-      "ClassFieldTheory"
+      "Nyll.ClassFieldTheory"
     ],
     "AlgebraicCurves": [
-      "AlgebraicCurves"
+      "Nyll.AlgebraicCurves"
     ],
     "EtaleFundamentalGroups": [
-      "EtaleFundamentalGroups"
+      "Nyll.EtaleFundamentalGroups"
     ],
     "EtaleCohomology": [
-      "EtaleCohomology"
+      "Nyll.EtaleCohomology"
     ],
     "JacobianVarieties": [
-      "JacobianVarieties"
+      "Nyll.JacobianVarieties"
     ],
     "AnabelianGeometry": [
-      "AnabelianGeometry"
+      "Nyll.AnabelianGeometry"
     ],
     "EntryPoint": [
-      "All"
+      "Nyll"
     ]
   },
   "roots": [
-    "All"
+    "Nyll"
   ],
   "leanToolchain": "leanprover/lean4:v4.35.0-rc2",
   "mathlibRevision": "065356127b1dc0016f66b7283ce0ce2c4055aa55",
