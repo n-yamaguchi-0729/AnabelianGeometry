@@ -7,8 +7,6 @@ A Lean 4 library **under development**, aiming to formalize the Grothendieck
 conjecture for hyperbolic curves. It currently develops geometric étale
 fundamental groups, their slimness, and explicit genus-zero calculations.
 
-All original code in this library is written by OpenAI Codex.
-
 This library is extracted from [NYLL](https://github.com/n-yamaguchi-0729/NYLL).
 Bundled dependencies use the same `Nyll` imports as the complete library.
 
@@ -79,6 +77,8 @@ lake --wfail build
 all libraries in dependency order, with warnings treated as errors.
 
 ## Authorship
+
+All original code in this library is written by OpenAI Codex.
 
 [Naganori Yamaguchi](https://github.com/n-yamaguchi-0729) sets the mathematical
 goals and scope, directs development, and maintains the library.
