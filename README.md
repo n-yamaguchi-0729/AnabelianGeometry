@@ -6,26 +6,19 @@
 A Lean 4 library **under development**, aiming to formalize the Grothendieck
 conjecture for hyperbolic curves. It currently develops geometric étale
 fundamental groups, their slimness, and explicit genus-zero calculations.
-The Grothendieck conjecture itself is not yet proved in this library.
 
-## Public API
+## Scope
 
-```lean
-import AnabelianGeometry.All
-```
-
-The main slimness results can be imported independently:
-
-```lean
-import AnabelianGeometry.GeometricFundamentalGroup.ProperCurveSlim
-import AnabelianGeometry.GeometricFundamentalGroup.OpenCurveSlim
-```
-
-## Main results
+The intended Grothendieck theorem identifies isomorphisms of hyperbolic curves
+over a finitely generated field of characteristic zero with continuous
+isomorphisms of their arithmetic fundamental groups over the absolute Galois
+group, modulo conjugation by the target's geometric fundamental group.
 
 The following fundamental-group results are over algebraically closed fields
 of characteristic zero. They use the actual geometric fiber functor on finite
 étale covers.
+
+## Main results
 
 | Result | Mathematical content |
 | --- | --- |
@@ -39,12 +32,9 @@ A profinite group is *slim* if every open subgroup has trivial centralizer in
 the ambient group. The proofs realize open subgroups by finite étale covers
 and use geometric cohomology and ramification calculations.
 
-## Scope
+## Incomplete results
 
-The intended Grothendieck theorem identifies isomorphisms of hyperbolic curves
-over a finitely generated field of characteristic zero with continuous
-isomorphisms of their arithmetic fundamental groups over the absolute Galois
-group, modulo conjugation by the target's geometric fundamental group.
+The Grothendieck conjecture itself is not yet proved in this library.
 The arithmetic reconstruction needed for this correspondence remains open
 in the formalization.
 
@@ -52,6 +42,19 @@ in the formalization.
 the profinite surface presentation with boundary inertia, is currently an
 unproved statement containing one `sorry`. The main results listed above do
 not depend on this statement. Importing `AnabelianGeometry.All` includes it.
+
+## Public API
+
+```lean
+import AnabelianGeometry.All
+```
+
+The main slimness results can be imported independently:
+
+```lean
+import AnabelianGeometry.GeometricFundamentalGroup.ProperCurveSlim
+import AnabelianGeometry.GeometricFundamentalGroup.OpenCurveSlim
+```
 
 ## Build
 
