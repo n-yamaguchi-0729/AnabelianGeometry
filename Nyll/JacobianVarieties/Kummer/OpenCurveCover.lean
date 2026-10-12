@@ -6,7 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 import Nyll.JacobianVarieties.Kummer.OpenLocalUnits
 import Nyll.AlgebraicCurves.Geometry.Schemes.isFinite_and_etale_fromNormalization_kummer_of_isIntegrallyClosed
-import Nyll.SchemeTheory.FiniteEtale.Basic
+import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
 import Nyll.SchemeTheory.LocalGeometry.SmoothStalkNormality
 import Mathlib.Topology.Compactness.Compact
 

@@ -5,7 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentEtaleAutomorphisms
-import Nyll.SchemeTheory.FiniteEtale.Basic
+import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
 import Mathlib.AlgebraicGeometry.AffineScheme
 import Mathlib.GroupTheory.SpecificGroups.Cyclic.Basic
 

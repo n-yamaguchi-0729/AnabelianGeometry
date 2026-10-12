@@ -7,7 +7,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerCovers
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentFundamentalGroupQuotients
 import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.EtaleFundamentalGroups.FiniteEtale.GaloisCategory
+import Nyll.EtaleFundamentalGroups.Pi1.FiniteEtale.GaloisCategory
 import Mathlib.CategoryTheory.Galois.Topology
 import Mathlib.GroupTheory.QuotientGroup.Basic
 

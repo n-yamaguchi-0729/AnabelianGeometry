@@ -7,7 +7,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.TwoPuncturesGenusZero
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentProfiniteIntegers
 import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
-import Nyll.SchemeTheory.Affine.Over
+import Nyll.SchemeTheory.Pi1.Affine.Over
 import Nyll.ProCGroups.Completion.ProCInteger
 import Nyll.ProCGroups.Generation.Basic
 

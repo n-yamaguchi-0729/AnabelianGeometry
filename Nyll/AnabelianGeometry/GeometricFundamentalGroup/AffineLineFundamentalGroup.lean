@@ -8,7 +8,7 @@ import Nyll.AnabelianGeometry.GeometricFundamentalGroup.AffineLineEtaleAlgebra
 import Nyll.SchemeTheory.LocalGeometry.ConnectedDomainStalks
 import Nyll.SchemeTheory.LocalGeometry.SmoothStalkNormality
 import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.EtaleFundamentalGroups.FiniteEtale.GaloisCategory
+import Nyll.EtaleFundamentalGroups.Pi1.FiniteEtale.GaloisCategory
 import Mathlib.CategoryTheory.Galois.Prorepresentability
 import Mathlib.AlgebraicGeometry.Noetherian
 

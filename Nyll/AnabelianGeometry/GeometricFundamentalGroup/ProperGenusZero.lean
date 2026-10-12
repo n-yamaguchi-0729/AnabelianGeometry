@@ -8,7 +8,7 @@ import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroFundamentalGrou
 import Nyll.AlgebraicCurves.Cohomology.Finite_H0_H1_structureSheaf_of_isAlgClosed
 import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurve_exists_curveModel_iso_germToFunctionField_eq_of_isAlgClosed
 import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
-import Nyll.SchemeTheory.Affine.Over
+import Nyll.SchemeTheory.Pi1.Affine.Over
 
 /-!
 # The proper genus-zero case from structure-sheaf cohomology

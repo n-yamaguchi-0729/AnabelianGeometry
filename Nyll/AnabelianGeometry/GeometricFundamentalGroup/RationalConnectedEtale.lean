@@ -8,7 +8,7 @@ import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalEtaleIsomorphism
 import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurve_exists_curveModel_iso_germToFunctionField_eq_of_isAlgClosed
 import Nyll.SchemeTheory.LocalGeometry.ConnectedDomainStalks
 import Nyll.SchemeTheory.LocalGeometry.SmoothStalkNormality
-import Nyll.SchemeTheory.FiniteEtale.Basic
+import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
 import Mathlib.AlgebraicGeometry.Morphisms.Smooth
 import Mathlib.AlgebraicGeometry.Noetherian
 

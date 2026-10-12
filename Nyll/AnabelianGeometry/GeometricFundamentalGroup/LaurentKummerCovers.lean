@@ -7,7 +7,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerAlgebra
 import Nyll.EtaleFundamentalGroups.GaloisCovers.Basic
 import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.SchemeTheory.FiniteEtale.Basic
+import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
 import Mathlib.AlgebraicGeometry.Morphisms.FlatRank
 import Mathlib.RingTheory.Spectrum.Prime.FreeLocus
 

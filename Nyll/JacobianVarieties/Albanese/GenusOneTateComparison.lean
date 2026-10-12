@@ -10,7 +10,7 @@ import Nyll.AlgebraicCurves.Geometry.Picard.RelativeGroupLaw
 import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianTateComparison
 import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
 import Nyll.ProCGroups.Abelian.FullTateModule
-import Nyll.SchemeTheory.Affine.Over
+import Nyll.SchemeTheory.Pi1.Affine.Over
 import Mathlib.AlgebraicGeometry.AlgClosed.Basic
 import Mathlib.Topology.JacobsonSpace
 

@@ -6,7 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalConnectedEtale
 import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.EtaleFundamentalGroups.FiniteEtale.GaloisCategory
+import Nyll.EtaleFundamentalGroups.Pi1.FiniteEtale.GaloisCategory
 import Mathlib.CategoryTheory.Galois.Prorepresentability
 
 /-!

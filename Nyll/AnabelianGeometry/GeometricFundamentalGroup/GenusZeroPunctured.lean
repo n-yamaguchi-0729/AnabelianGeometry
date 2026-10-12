@@ -13,7 +13,7 @@ import Nyll.AlgebraicCurves.Places.Rational.Basic
 import Nyll.AlgebraicCurves.Models.CurveModel_exists_curveModel_iso_of_algEquiv
 import Nyll.AlgebraicCurves.Models.CurveModel_exists_iso_comp_toBase_eq_placeOfPoint_congr_eq
 import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
-import Nyll.SchemeTheory.Affine.Over
+import Nyll.SchemeTheory.Pi1.Affine.Over
 import Mathlib.FieldTheory.RatFunc.AsPolynomial
 
 /-!
