@@ -8,7 +8,9 @@ conjecture for hyperbolic curves. It currently develops geometric étale
 fundamental groups, their slimness, and explicit genus-zero calculations.
 
 This library is extracted from [NYLL](https://github.com/n-yamaguchi-0729/NYLL).
-Bundled dependencies use the same `Nyll` imports as the complete library.
+<!-- nyll-publication:distribution:begin -->
+Only the module-level import closure of `Nyll.AnabelianGeometry.All` is bundled. Dependencies retain their canonical `Nyll` imports.
+<!-- nyll-publication:distribution:end -->
 
 ## Scope
 
@@ -85,6 +87,9 @@ goals and scope, directs development, and maintains the library.
 
 ## License and acknowledgements
 
+<!-- nyll-publication:credits:begin -->
 Apache License 2.0. See [LICENSE](LICENSE).
-Supporting code includes adaptations from [pi1](https://github.com/chrisflav/pi1)
-and [Anthropic FLT](https://github.com/anthropics/fermats-last-theorem); see [NOTICE](NOTICE).
+
+Included adaptations from [pi1](https://github.com/chrisflav/pi1) and [Anthropic’s Fermat’s Last Theorem project](https://github.com/anthropics/fermats-last-theorem) retain their source-specific copyrights and authors.
+The included-file inventories and preserved upstream notices are in [NOTICE](NOTICE).
+<!-- nyll-publication:credits:end -->

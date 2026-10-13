@@ -83,5 +83,8 @@
     "EtaleCohomology",
     "JacobianVarieties",
     "AnabelianGeometry"
+  ],
+  "primaryRoots": [
+    "Nyll.AnabelianGeometry.All"
   ]
 }

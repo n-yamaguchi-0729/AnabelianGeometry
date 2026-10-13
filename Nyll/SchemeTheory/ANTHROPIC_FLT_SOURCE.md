@@ -1,229 +1,121 @@
-# Anthropic FLT sources in SchemeTheory
+# Anthropic FLT sources included in this extract
 
-These files adapt the fixed upstream sources listed below. Local paths in this
-document are relative to `Nyll/SchemeTheory`; historical module names in the
-relocation table have the additional `Nyll.` prefix in this distribution.
+[ANTHROPIC_FLT_NOTICE](ANTHROPIC_FLT_NOTICE) and
+[ANTHROPIC_FLT_ATTRIBUTION.md](ANTHROPIC_FLT_ATTRIBUTION.md) preserve
+the upstream documents byte-for-byte, including earlier FLT and Mathlib
+credits. References to “this repository” in those copies mean the upstream
+repository, not this extract. The included local source files are listed below.
 
-## Fixed source and notices
-
-- Repository: [Anthropic Fermat's Last Theorem](https://github.com/anthropics/fermats-last-theorem)
-- Fixed revision: `aa2d8b34692b16c70f699536de0d8e75b9a3e9ef`
-- [Upstream NOTICE](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/NOTICE) and
-  [upstream ATTRIBUTION.md](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/ATTRIBUTION.md) are copied byte-for-byte as
-  [ANTHROPIC_FLT_NOTICE](ANTHROPIC_FLT_NOTICE) and
-  [ANTHROPIC_FLT_ATTRIBUTION.md](ANTHROPIC_FLT_ATTRIBUTION.md). “This repository” in
-  those copies denotes the upstream repository. Retain the earlier FLT, flt-regular
-  and Mathlib rights and author notices identified there; Anthropic is not asserted
-  to be the sole author of every upstream contribution.
-- The three proof files below have no per-file attribution row in that pinned
-  ATTRIBUTION.md. Their absent headers are not a basis for inventing an author list.
-- Licence: Apache 2.0, covered by the repository LICENSE.
-
-## Exact source-to-owner map
-
-### `FaithfullyFlatModuleDatum.lean`
-
-- Declaration: `Module.FaithfullyFlat.isBaseChange_eqLocus_of_descentDatum`
-- [Proof source](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Module_FaithfullyFlat_isBaseChange_eqLocus_of_descentDatum.lean)
-- [Public statement](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Theorems/Thm_Module_FaithfullyFlat_isBaseChange_eqLocus_of_descentDatum.lean)
-
-### `FaithfullyFlatAlgebraEqualizer.lean`
-
-- Declaration: `Algebra.bijective_tensorProduct_equalizer_of_faithfullyFlat_of_descentDatum`
-- [Proof source](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Algebra_bijective_tensorProduct_equalizer_of_faithfullyFlat_of_descentDatum.lean)
-- [Public statement](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Theorems/Thm_Algebra_bijective_tensorProduct_equalizer_of_faithfullyFlat_of_descentDatum.lean)
-
-### `FaithfullyFlatGradedAlgebraEqualizer.lean`
-
-- Declaration: `Algebra.bijective_tensorProduct_equalizer_of_faithfullyFlat_of_cocycle`
-- [Proof source](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Algebra_bijective_tensorProduct_equalizer_of_faithfullyFlat_of_cocycle.lean)
-- [Public statement](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Theorems/Thm_Algebra_bijective_tensorProduct_equalizer_of_faithfullyFlat_of_cocycle.lean)
-
-## Local changes
-
-All three owners directly contain proofs; the generated `P2M.Util` elaborator and
-separate proof/card wrappers are not imported. Bare `Mathlib` imports are replaced
-with explicit leaf imports. `autoImplicit false` is retained, and no new axiom or
-unproved assumption is introduced.
-
-- Module datum: implementation helpers are private in a mathematical namespace.
-  The unused `S17DescCanon` structure and canonical-datum example are omitted.
-  Injectivity of `n ↦ n ⊗ 1` uses Mathlib's sharper
-  `Algebra.TensorProduct.mk_one_injective_of_isScalarTower` and tensor commutation:
-  the existing upstairs module structure supplies a retraction, without needing
-  faithful flatness for that helper. Only genuinely unused private-helper class
-  assumptions are omitted. A typed `LinearMap.range κ` boundary normalizes the
-  equalizer witness before destructuring, preserving the chosen tensor dictionaries.
-- Ordinary algebra: the upstream module-to-algebra comparison proof is retained.
-  The two large heartbeat overrides are removed; an unused equation name is omitted.
-  Linear tensor operations in the proof are explicitly root-qualified, avoiding
-  accidental resolution to `Algebra.TensorProduct` inside the public theorem namespace.
-  The cocycle comparison uses an explicitly typed pointwise equality. In the public
-  statement and proof, `Commute.all _ _` now names the two mapped operands explicitly.
-  This changes that proof-argument expression, not the quantified assumptions or
-  mathematical conclusion. The
-  final linear/algebra map comparison uses a typed local algebra homomorphism and
-  fully applied tensor-lift and map-add equalities, avoiding dictionary-sensitive
-  rewriting through the commutativity proof argument.
-- Graded algebra: the ordinary theorem supplies bijectivity. Only the additional
-  homogeneous-component invariance proof remains, eliminating its duplicated
-  ordinary-descent proof. Its degree-preservation hypothesis is unchanged. The
-  public `Commute.all` proof also names both actual mapped operands explicitly.
-- Current-API edits: `TensorProduct.inductionOn` replaces the deprecated three-case
-  induction theorem, obsolete coercion simplifier arguments are removed, and broad
-  simplifier calls are narrowed. These are adaptations, not claims of byte-identical
-  proof bodies.
-
-## Versions
-
-Upstream used Lean `v4.33.1` and Mathlib
-`db584cd6d46c92f209a44c0f1c829460d327499d`. This distribution uses the
-versions pinned in `lean-toolchain` and `lake-manifest.json`.
-
-## Faithful flatness on the open image
-
-`RingTheory/Descent/FaithfullyFlatOnOpenImage.lean` extracts two helpers from
-[P2M/Sol/S_Algebra_FinitePresentation_of_faithfullyFlat_of_finitePresentation.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Algebra_FinitePresentation_of_faithfullyFlat_of_finitePresentation.lean#L17-L61), rather than importing the full finite-presentation proof:
-
-- `LFPRingC.exists_ideal_range_comap` becomes
-  `PrimeSpectrum.exists_ideal_range_comap_of_flat_of_finitePresentation`. For a flat
-  finitely presented algebra, it constructs an ideal whose zero-locus complement
-  is the image on spectra. Its hypotheses and conclusion are unchanged.
-- `LFPRingC.faithfullyFlat_baseChange_of_map_eq_top` becomes
-  `Module.Flat.faithfullyFlat_baseChange_of_map_eq_top`. A flat algebra becomes
-  faithfully flat after a base change that makes the specified image ideal the
-  unit ideal. The original one-way image-containment hypothesis is retained;
-  finite presentation is not added to this second statement.
-
-The first lemma is a small conversion of Mathlib's
-`PrimeSpectrum.isOpenMap_comap_of_hasGoingDown_of_finitePresentation` and the
-closed-set/ideal correspondence, not a new proof of Chevalley's theorem. The second
-reuses `Module.FaithfullyFlat.of_comap_surjective`,
-`PrimeSpectrum.nontrivial_iff_mem_rangeComap`, residue-field functoriality and tensor
-base-change cancellation. The inspected Mathlib owners expose those components,
-not this ideal-controlled base-change interface. The standalone upstream
-`nontrivial_tensor_of_field` helper is replaced by direct use of Mathlib's existing
-`Module.FaithfullyFlat.nontrivial_tensorProduct_iff_right`.
-
-Only public helper names, explicit imports, and these implementation details change:
-the residue-field map's definitional compatibility is given directly, the needed
-fibre nontriviality is made an explicit local instance, and tensor cancellation is
-root-qualified. No new algebraic hypothesis, global instance, axiom, heartbeat
-extension or linter suppression is introduced. The pinned source file has no
-individual row in the retained upstream ATTRIBUTION; all existing notices continue
-to apply. Additional style changes replace three `haveI` bindings with `have` and one
-`letI` with `let`, preserving the local types and values.
-
-## Relocated flatness proofs
-
-The following names under `SchemeTheory/RingTheory/Flat/` are the new proof
-owners; the old AC paths become import-only compatibility facades. All existing
-declaration names, including historical implementation namespaces, and all proof
-bodies are preserved. Only their local imports are redirected. Namespace spelling
-does not create a reverse library dependency.
-
-- `RingTheory/Flat/LocalCriterion.lean` moves `AlgebraicCurves/Foundations/CommutativeAlgebra/Module_flat_of_comap_maximalIdeal_rTensor_injective.lean`; [fixed proof source](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Module_flat_of_comap_maximalIdeal_rTensor_injective.lean)
-- `RingTheory/Flat/GenericFlatness.lean` moves `AlgebraicCurves/Foundations/CommutativeAlgebra/Module_Flat_exists_ne_zero_flat_localization_tensorProduct.lean`; [fixed proof source](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Module_Flat_exists_ne_zero_flat_localization_tensorProduct.lean)
-- `RingTheory/Flat/OpenLocus.lean` moves `AlgebraicCurves/Foundations/CommutativeAlgebra/Module_Flat_isOpen_setOf_flat_localization_atPrime.lean`; [fixed proof source](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Module_Flat_isOpen_setOf_flat_localization_atPrime.lean)
-- `RingTheory/Flat/FiniteSubalgebraLocalization.lean` moves `AlgebraicCurves/Foundations/CommutativeAlgebra/Module_Flat_exists_fg_subalgebra_flat_localization_tensorProduct.lean`; [fixed proof source](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Module_Flat_exists_fg_subalgebra_flat_localization_tensorProduct.lean)
-- `RingTheory/Flat/FiniteSubalgebra.lean` moves `AlgebraicCurves/Foundations/Algebra/Module_Flat_exists_fg_subalgebra_flat_tensorProduct.lean`; [fixed proof source](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Module_Flat_exists_fg_subalgebra_flat_tensorProduct.lean)
-
-The two actual direct consumers outside this closed set are updated to import the
-new owner directly:
-
-- `AlgebraicCurves/Foundations/Algebra/Module_Flat_of_finitePresentation_of_forall_flat_residueField_tensorProduct.lean`
-- `AlgebraicCurves/Geometry/Schemes/Flat_exists_fg_subalgebra_of_flat_pullback_snd.lean`
-
-The existing AC topic aggregates continue to reach the old import-only facades.
-`SchemeTheory.RingTheory.Flat.All` reaches all five new owners, and
-`SchemeTheory.RingTheory.All` imports that topic aggregate. The descent aggregate
-reaches both new descent leaves. The new common-library proof closure contains no
-AC/JV import. Importing both an old facade and its new owner loads one proof copy.
-
-## Source-side finiteness descent
-
-- `RingTheory/Descent/FiniteType.lean`: [proof](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Algebra_FiniteType_of_faithfullyFlat_of_finitePresentation.lean), [original statement](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Theorems/Thm_Algebra_FiniteType_of_faithfullyFlat_of_finitePresentation.lean)
-- `RingTheory/Descent/FinitePresentation.lean`: [proof](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Algebra_FinitePresentation_of_faithfullyFlat_of_finitePresentation.lean), [original statement](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Theorems/Thm_Algebra_FinitePresentation_of_faithfullyFlat_of_finitePresentation.lean)
-
-The two upstream proofs repeat polynomial quotient/model and coefficient-lifting
-code. The model equivalence and relation-ideal transport have one implementation
-in the finite-type owner and are reused by the finite-presentation owner. Existing
-Mathlib APIs replace the duplicated coefficient support and lifting helpers
-(`MvPolynomial.coeffs`, `MvPolynomial.mem_range_map_iff_coeffs_subset`), tensor
-inclusion-surjectivity helper (`Algebra.TensorProduct.includeRight_surjective`),
-and finite-generation lifting helper
-(`Ideal.fg_of_fg_map_of_fg_inf_ker_of_surjective`). The finite-presentation owner
-reuses the already qualified open-image lemmas instead of copying them.
-
-Other adaptations are explicit leaf imports; current `TensorProduct.inductionOn` and local-instance syntax; explicit scalar-map operands; use of the canonical
-residue-field algebra map rather than installing duplicate module structures; and
-narrow proof rewrites instead of bare simplifier calls in the two new owners.
-Generated `P2M.Util`, theorem-card wrappers, and upstream umbrella imports are not
-included. The final public statements are checked against the original cards.
-The tensor induction proofs have only the current `tmul` and `add` alternatives;
-Mathlib derives the zero case internally. The helper `θ_injective` omits its
-unused surjectivity hypothesis on `A' → A`: its proof uses the canonical
-surjection `A' → A'/J`, supplied by `Ideal.Quotient.mk_surjective`. The single
-caller is adjusted accordingly, and the final public theorem hypotheses are
-unchanged. In `θ`, the quotient-lift proof supplies the actual element explicitly
-to the ideal inclusion (`hJ (x := a) ha`), without hiding an unused variable.
-
-The retained Apache 2.0 licence, NOTICE and ATTRIBUTION cover this batch. None of
-the seven corresponding proof paths has an individual row in the pinned
-ATTRIBUTION; this is not an attribution to Anthropic alone. Existing source notices
-are retained verbatim in the relocated files and facades, and both new headers
-link to their exact proof, statement and notices.
-
-## AC foundation relocation on 2026-10-08
-
-The following sources moved from AlgebraicCurves to SchemeTheory. Existing proof bodies,
-public declaration names, namespaces, headers and upstream references are preserved.
-This relocation does not resolve existing uncertainties about exact source-file
-correspondence. In particular, LocalAlgebra, FreeModuleRegularScalar and
-SmoothStalkNormality retain the unresolved attribution notes in their source headers.
-The upstream NOTICE and ATTRIBUTION copies above are unchanged.
-
-| Previous local module | Current local module |
-|---|---|
-| `AlgebraicCurves.Foundations.Algebra.Module_depth_quotSMulTop_succ_eq` | `SchemeTheory.RingTheory.ModuleDepthRegularQuotient` |
-| `AlgebraicCurves.Foundations.Algebra.isSMulRegular_iff_of_free` | `SchemeTheory.RingTheory.FreeModuleRegularScalar` |
-| `AlgebraicCurves.Foundations.CommutativeAlgebra.Algebra_Smooth_isDomain_and_isIntegrallyClosed_of_isIntegrallyClosed_of_isLocalization_atPrime` | `SchemeTheory.RingTheory.Descent.SmoothAtPrimeNormality` |
-| `AlgebraicCurves.Foundations.CommutativeAlgebra.CohenMacaulay` | `SchemeTheory.RingTheory.CohenMacaulay` |
-| `AlgebraicCurves.Foundations.CommutativeAlgebra.IsRegularLocalRing_depth_self_eq_ringKrullDim` | `SchemeTheory.RingTheory.RegularLocalDepth` |
-| `AlgebraicCurves.Foundations.CommutativeAlgebra.IsRegularLocalRing_isDomain` | `SchemeTheory.RingTheory.RegularLocalDomain` |
-| `AlgebraicCurves.Foundations.CommutativeAlgebra.LocalAlgebra` | `SchemeTheory.RingTheory.LocalAlgebra` |
-| `AlgebraicCurves.Foundations.CommutativeAlgebra.Module_depth_le_ringKrullDim` | `SchemeTheory.RingTheory.ModuleDepthBound` |
-| `AlgebraicCurves.Foundations.CommutativeAlgebra.Module_exists_mem_maximalIdeal_isSMulRegular_isSMulRegular` | `SchemeTheory.RingTheory.CommonRegularElement` |
-| `AlgebraicCurves.Foundations.CommutativeAlgebra.Module_free_of_depth_eq_ringKrullDim_of_isRegularLocalRing` | `SchemeTheory.RingTheory.RegularLocalDepthFreeness` |
-| `AlgebraicCurves.Foundations.CommutativeAlgebra.RingTheory_Sequence_isWeaklyRegular_of_free` | `SchemeTheory.RingTheory.FreeModuleRegularSequence` |
-| `AlgebraicCurves.Foundations.CommutativeAlgebra.RingTheory_Sequence_isWeaklyRegular_of_free_aux` | `SchemeTheory.RingTheory.FreeModuleRegularSequenceAux` |
-| `AlgebraicCurves.Geometry.Curves.GeometricallyIntegral_of_isPullback_of_geometricallyIntegral` | `SchemeTheory.Morphisms.GeometricallyIntegralFieldDescent` |
-| `AlgebraicCurves.Geometry.Curves.GeometricallyIrreducible_of_irreducibleSpace_of_isAlgClosed` | `SchemeTheory.Morphisms.GeometricallyIrreducibleOverAlgebraicallyClosed` |
-| `AlgebraicCurves.Geometry.Schemes.Smooth_isDomain_and_isIntegrallyClosed_stalk` | `SchemeTheory.LocalGeometry.SmoothStalkNormality` |
-
-## Quasicoherent section localization
-
-`Modules/AbelianSectionLocalization.lean` extracts and generalizes the finite-cover
-kernel bound and compact-open gluing argument from
-[the pinned section-localization proof](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_isLocalization_basicOpen_of_locallyTrivial_of_qcqs.lean).
-Its immediate local source is
-`AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isLocalization_basicOpen_of_locallyTrivial_of_qcqs.lean`.
-The finite affine cover, maximum exponent, overlap annihilation, and two-open
-sheaf gluing are retained. Powers of a supplied natural endomorphism replace
-scalar multiplication inside the gluing core. This keeps the individual section
-rings and module actions outside that proof.
-
-`Modules/SectionLocalization.lean` supplies the actual multiplication
-endomorphism and restriction maps. `Modules/QuasicoherentAffineLocalization.lean`
-supplies affine localization from Mathlib's quasicoherence, `fromTildeΓ`, and
-`IsLocalizedModule` owners. Thus the new endpoint applies to a quasicoherent
-module on a quasi-compact, quasi-separated open. The original locally-trivial
-public theorem and helper statements retain their exact types; three helper
-proofs delegate to the shared owners with the existing affine supplier.
-
-The full original notice is retained in the adapted core and compatibility
-owner. The pinned ATTRIBUTION has no individual row for this upstream proof;
-no earlier author list is inferred from that absence. The unchanged copied
-NOTICE and ATTRIBUTION above remain applicable. The old compatibility owner's transparency override was removed. These results supply section localization;
-they do not establish quasicoherent extension, global algebra approximation,
-or proper base change.
+| Included source | Upstream attribution |
+| --- | --- |
+| [Nyll/SchemeTheory/CategoryTheory/OverTotalPresheaf.lean](CategoryTheory/OverTotalPresheaf.lean) | [Def_CategoryTheory_OverTotalPresheaf.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_CategoryTheory_OverTotalPresheaf.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_iff_of_cochain_equiv.lean](Cohomology/Cech/OModulePresheaf_cechFinite_iff_of_cochain_equiv.lean) | [S_AlgebraicGeometry_OModulePresheaf_cechFinite_iff_of_cochain_equiv.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_iff_of_cochain_equiv.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_of_affSES_left.lean](Cohomology/Cech/OModulePresheaf_cechFinite_of_affSES_left.lean) | [S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_left.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_left.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_of_affSES_mid.lean](Cohomology/Cech/OModulePresheaf_cechFinite_of_affSES_mid.lean) | [S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_mid.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_affSES_mid.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_of_affSES_right.lean](Cohomology/Cech/OModulePresheaf_cechFinite_of_affSES_right.lean) | Source identified by code comparison; exact upstream file unresolved. |
+| [Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_of_forall_cechFinite_idealPowQuot.lean](Cohomology/Cech/OModulePresheaf_cechFinite_of_forall_cechFinite_idealPowQuot.lean) | [S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_cechFinite_idealPowQuot.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_cechFinite_idealPowQuot.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_of_forall_integral.lean](Cohomology/Cech/OModulePresheaf_cechFinite_of_forall_integral.lean) | [S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_integral.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_forall_integral.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_of_isProper.lean](Cohomology/Cech/OModulePresheaf_cechFinite_of_isProper.lean) | [S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_isProper.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_of_isProper.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_preimage_of_ih.lean](Cohomology/Cech/OModulePresheaf_cechFinite_preimage_of_ih.lean) | [S_AlgebraicGeometry_OModulePresheaf_cechFinite_preimage_of_ih.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_preimage_of_ih.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_pushforward_iff.lean](Cohomology/Cech/OModulePresheaf_cechFinite_pushforward_iff.lean) | [S_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_iff.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_iff.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_pushforward_of_isIntegral_of_ih.lean](Cohomology/Cech/OModulePresheaf_cechFinite_pushforward_of_isIntegral_of_ih.lean) | [S_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_of_isIntegral_of_ih.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_pushforward_of_isIntegral_of_ih.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_unit_of_isClosedImmersion_proj.lean](Cohomology/Cech/OModulePresheaf_cechFinite_unit_of_isClosedImmersion_proj.lean) | [S_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isClosedImmersion_proj.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isClosedImmersion_proj.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_unit_of_isIntegral_of_ih.lean](Cohomology/Cech/OModulePresheaf_cechFinite_unit_of_isIntegral_of_ih.lean) | [S_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isIntegral_of_ih.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_cechFinite_unit_of_isIntegral_of_ih.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/OrderedAffineCoverCech.lean](Cohomology/Cech/OrderedAffineCoverCech.lean) | [Def_AlgebraicGeometry_OrderedAffineCoverCech.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_OrderedAffineCoverCech.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/OrderedAffineCoverOf.lean](Cohomology/Cech/OrderedAffineCoverOf.lean) | [Def_AlgebraicGeometry_OrderedAffineCoverOf.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_OrderedAffineCoverOf.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCechGradedModule.lean](Cohomology/Cech/ProjSpaceCechGradedModule.lean) | [Def_AlgebraicGeometry_ProjSpaceCechGradedModule.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_ProjSpaceCechGradedModule.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCechTwist.lean](Cohomology/Cech/ProjSpaceCechTwist.lean) | [Def_AlgebraicGeometry_ProjSpaceCechTwist.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_ProjSpaceCechTwist.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCech_GradedModule_Presentation_finite_H_of_ses.lean](Cohomology/Cech/ProjSpaceCech_GradedModule_Presentation_finite_H_of_ses.lean) | [S_ProjSpaceCech_GradedModule_Presentation_finite_H_of_ses.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_ProjSpaceCech_GradedModule_Presentation_finite_H_of_ses.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCech_GradedModule_Presentation_ker_isFG.lean](Cohomology/Cech/ProjSpaceCech_GradedModule_Presentation_ker_isFG.lean) | [S_ProjSpaceCech_GradedModule_Presentation_ker_isFG.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_ProjSpaceCech_GradedModule_Presentation_ker_isFG.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCech_GradedModule_d_sq.lean](Cohomology/Cech/ProjSpaceCech_GradedModule_d_sq.lean) | [S_ProjSpaceCech_GradedModule_d_sq.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_ProjSpaceCech_GradedModule_d_sq.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCech_GradedModule_finite_cohomology_of_isFG.lean](Cohomology/Cech/ProjSpaceCech_GradedModule_finite_cohomology_of_isFG.lean) | [S_ProjSpaceCech_GradedModule_finite_cohomology_of_isFG.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_ProjSpaceCech_GradedModule_finite_cohomology_of_isFG.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCech_GradedModule_nonempty_HEquiv_FD.lean](Cohomology/Cech/ProjSpaceCech_GradedModule_nonempty_HEquiv_FD.lean) | [S_ProjSpaceCech_GradedModule_nonempty_HEquiv_FD.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_ProjSpaceCech_GradedModule_nonempty_HEquiv_FD.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCech_GradedModule_nonempty_HEquiv_pi.lean](Cohomology/Cech/ProjSpaceCech_GradedModule_nonempty_HEquiv_pi.lean) | [S_ProjSpaceCech_GradedModule_nonempty_HEquiv_pi.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_ProjSpaceCech_GradedModule_nonempty_HEquiv_pi.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCech_Twist_d_sq.lean](Cohomology/Cech/ProjSpaceCech_Twist_d_sq.lean) | [S_ProjSpaceCech_Twist_d_sq.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_ProjSpaceCech_Twist_d_sq.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCech_Twist_finite_cohomology.lean](Cohomology/Cech/ProjSpaceCech_Twist_finite_cohomology.lean) | [S_ProjSpaceCech_Twist_finite_cohomology.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_ProjSpaceCech_Twist_finite_cohomology.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/Scheme_OrderedAffineCoverOf_aug_injective.lean](Cohomology/Cech/Scheme_OrderedAffineCoverOf_aug_injective.lean) | [S_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_aug_injective.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_aug_injective.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/Scheme_OrderedAffineCoverOf_ker_d_succ_le_range_d_of_isAffineOpen.lean](Cohomology/Cech/Scheme_OrderedAffineCoverOf_ker_d_succ_le_range_d_of_isAffineOpen.lean) | [S_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_succ_le_range_d_of_isAffineOpen.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_succ_le_range_d_of_isAffineOpen.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/Scheme_OrderedAffineCoverOf_ker_d_zero_eq_range_aug.lean](Cohomology/Cech/Scheme_OrderedAffineCoverOf_ker_d_zero_eq_range_aug.lean) | [S_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_zero_eq_range_aug.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_Scheme_OrderedAffineCoverOf_ker_d_zero_eq_range_aug.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/TwoAffineOpenCover.lean](Cohomology/Cech/TwoAffineOpenCover.lean) | [Def_AlgebraicGeometry_TwoAffineOpenCover.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_TwoAffineOpenCover.lean) |
+| [Nyll/SchemeTheory/Cohomology/Cech/TwoChartCech.lean](Cohomology/Cech/TwoChartCech.lean) | [Def_AlgebraicGeometry_TwoChartCech.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_TwoChartCech.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/CoherentBaseChange.lean](Cohomology/Sheaves/CoherentBaseChange.lean) | [Def_AlgebraicGeometry_CoherentBaseChange.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_CoherentBaseChange.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/DoubleComplex.lean](Cohomology/Sheaves/DoubleComplex.lean) | [Def_AlgebraicGeometry_DoubleComplex.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_DoubleComplex.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheafConstructions.lean](Cohomology/Sheaves/OModulePresheafConstructions.lean) | [Def_AlgebraicGeometry_OModulePresheafConstructions.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_OModulePresheafConstructions.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheafHom.lean](Cohomology/Sheaves/OModulePresheafHom.lean) | [Def_AlgebraicGeometry_OModulePresheafHom.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_OModulePresheafHom.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheafIdealFiltration.lean](Cohomology/Sheaves/OModulePresheafIdealFiltration.lean) | [Def_AlgebraicGeometry_OModulePresheafIdealFiltration.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_OModulePresheafIdealFiltration.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheafLerayBicomplex.lean](Cohomology/Sheaves/OModulePresheafLerayBicomplex.lean) | [Def_AlgebraicGeometry_OModulePresheafLerayBicomplex.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_OModulePresheafLerayBicomplex.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheafLerayDoubleComplex.lean](Cohomology/Sheaves/OModulePresheafLerayDoubleComplex.lean) | [Def_AlgebraicGeometry_OModulePresheafLerayDoubleComplex.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_OModulePresheafLerayDoubleComplex.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_AffSES_exists_connectingHom.lean](Cohomology/Sheaves/OModulePresheaf_AffSES_exists_connectingHom.lean) | [S_AlgebraicGeometry_OModulePresheaf_AffSES_exists_connectingHom.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_AffSES_exists_connectingHom.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_dV_comp_biAug.lean](Cohomology/Sheaves/OModulePresheaf_Leray_dV_comp_biAug.lean) | [S_AlgebraicGeometry_OModulePresheaf_Leray_dV_comp_biAug.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_dV_comp_biAug.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_exists_chowSES.lean](Cohomology/Sheaves/OModulePresheaf_Leray_exists_chowSES.lean) | [S_AlgebraicGeometry_OModulePresheaf_Leray_exists_chowSES.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_exists_chowSES.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_exists_hom_relHPresheaf_zero.lean](Cohomology/Sheaves/OModulePresheaf_Leray_exists_hom_relHPresheaf_zero.lean) | [S_AlgebraicGeometry_OModulePresheaf_Leray_exists_hom_relHPresheaf_zero.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_exists_hom_relHPresheaf_zero.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_isCoherent_relHPresheaf_chow.lean](Cohomology/Sheaves/OModulePresheaf_Leray_isCoherent_relHPresheaf_chow.lean) | [S_AlgebraicGeometry_OModulePresheaf_Leray_isCoherent_relHPresheaf_chow.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_isCoherent_relHPresheaf_chow.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_isQuasicoherent_relHPresheaf_chow.lean](Cohomology/Sheaves/OModulePresheaf_Leray_isQuasicoherent_relHPresheaf_chow.lean) | [S_AlgebraicGeometry_OModulePresheaf_Leray_isQuasicoherent_relHPresheaf_chow.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_isQuasicoherent_relHPresheaf_chow.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_nonempty_E2I_equiv.lean](Cohomology/Sheaves/OModulePresheaf_Leray_nonempty_E2I_equiv.lean) | [S_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_E2I_equiv.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_E2I_equiv.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_nonempty_HTot_equiv.lean](Cohomology/Sheaves/OModulePresheaf_Leray_nonempty_HTot_equiv.lean) | [S_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_HTot_equiv.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_HTot_equiv.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_nonempty_relHPresheaf_obj_equiv_of_isAffineOpen.lean](Cohomology/Sheaves/OModulePresheaf_Leray_nonempty_relHPresheaf_obj_equiv_of_isAffineOpen.lean) | [S_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_relHPresheaf_obj_equiv_of_isAffineOpen.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_nonempty_relHPresheaf_obj_equiv_of_isAffineOpen.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_rows_exact.lean](Cohomology/Sheaves/OModulePresheaf_Leray_rows_exact.lean) | [S_AlgebraicGeometry_OModulePresheaf_Leray_rows_exact.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_rows_exact.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_supportedIn_relHPresheaf_chow.lean](Cohomology/Sheaves/OModulePresheaf_Leray_supportedIn_relHPresheaf_chow.lean) | [S_AlgebraicGeometry_OModulePresheaf_Leray_supportedIn_relHPresheaf_chow.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_Leray_supportedIn_relHPresheaf_chow.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_d_comp_d.lean](Cohomology/Sheaves/OModulePresheaf_d_comp_d.lean) | [S_AlgebraicGeometry_OModulePresheaf_d_comp_d.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_d_comp_d.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_exists_basicOpen_sections_free_of_isIntegral.lean](Cohomology/Sheaves/OModulePresheaf_exists_basicOpen_sections_free_of_isIntegral.lean) | [S_AlgebraicGeometry_OModulePresheaf_exists_basicOpen_sections_free_of_isIntegral.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_exists_basicOpen_sections_free_of_isIntegral.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_exists_idealPowSub_eq_bot.lean](Cohomology/Sheaves/OModulePresheaf_exists_idealPowSub_eq_bot.lean) | [S_AlgebraicGeometry_OModulePresheaf_exists_idealPowSub_eq_bot.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_exists_idealPowSub_eq_bot.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_hasDevissageStep.lean](Cohomology/Sheaves/OModulePresheaf_hasDevissageStep.lean) | [S_AlgebraicGeometry_OModulePresheaf_hasDevissageStep.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_hasDevissageStep.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_isCoherent_coker.lean](Cohomology/Sheaves/OModulePresheaf_isCoherent_coker.lean) | Source identified by code comparison; exact upstream file unresolved. |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_isCoherent_idealPowQuot.lean](Cohomology/Sheaves/OModulePresheaf_isCoherent_idealPowQuot.lean) | Source identified by code comparison; exact upstream file unresolved. |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_isQuasicoherent_coker.lean](Cohomology/Sheaves/OModulePresheaf_isQuasicoherent_coker.lean) | [S_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_coker.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_coker.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_isQuasicoherent_idealPowQuot.lean](Cohomology/Sheaves/OModulePresheaf_isQuasicoherent_idealPowQuot.lean) | [S_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_idealPowQuot.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_OModulePresheaf_isQuasicoherent_idealPowQuot.lean) |
+| [Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_supportedIn_idealPowQuot.lean](Cohomology/Sheaves/OModulePresheaf_supportedIn_idealPowQuot.lean) | Source identified by code comparison; exact upstream file unresolved. |
+| [Nyll/SchemeTheory/Descent/FGSubalgebra.lean](Descent/FGSubalgebra.lean) | [Def_AlgebraicGeometry_FGSubalgebra.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_FGSubalgebra.lean) |
+| [Nyll/SchemeTheory/Divisors/Scheme_isIntegral_subscheme_vanishingIdeal.lean](Divisors/Scheme_isIntegral_subscheme_vanishingIdeal.lean) | [S_AlgebraicGeometry_Scheme_isIntegral_subscheme_vanishingIdeal.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_Scheme_isIntegral_subscheme_vanishingIdeal.lean) |
+| [Nyll/SchemeTheory/HomologicalAlgebra/DoubleComplex_Convergence_finite_E2_q0.lean](HomologicalAlgebra/DoubleComplex_Convergence_finite_E2_q0.lean) | [S_DoubleComplex_Convergence_finite_E2_q0.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_DoubleComplex_Convergence_finite_E2_q0.lean) |
+| [Nyll/SchemeTheory/HomologicalAlgebra/DoubleComplex_boundedSpectralSequence.lean](HomologicalAlgebra/DoubleComplex_boundedSpectralSequence.lean) | [S_DoubleComplex_boundedSpectralSequence.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_DoubleComplex_boundedSpectralSequence.lean) |
+| [Nyll/SchemeTheory/LocalGeometry/LocalRepresentabilityULift.lean](LocalGeometry/LocalRepresentabilityULift.lean) | [Def_AlgebraicGeometry_LocalRepresentabilityULift.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_LocalRepresentabilityULift.lean) |
+| [Nyll/SchemeTheory/LocalGeometry/SmoothStalkNormality.lean](LocalGeometry/SmoothStalkNormality.lean) | Source identified by code comparison; exact upstream file unresolved. |
+| [Nyll/SchemeTheory/Modules/AffineSectionsBaseChange.lean](Modules/AffineSectionsBaseChange.lean) | [S_AlgebraicGeometry_Scheme_Modules_IsInvertible_exists_baseChange_sections_linearEquiv_pullback.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_IsInvertible_exists_baseChange_sections_linearEquiv_pullback.lean) |
+| [Nyll/SchemeTheory/Modules/FrameDescent.lean](Modules/FrameDescent.lean) | [S_AlgebraicGeometry_Scheme_Modules_exists_frame_of_frame_pullback.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_exists_frame_of_frame_pullback.lean) |
+| [Nyll/SchemeTheory/Modules/FrameFromTrivialization.lean](Modules/FrameFromTrivialization.lean) | [S_AlgebraicGeometry_Scheme_Modules_exists_isFrameOn_of_pullback_iso_unit.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_exists_isFrameOn_of_pullback_iso_unit.lean) |
+| [Nyll/SchemeTheory/Modules/FrameLocality.lean](Modules/FrameLocality.lean) | [S_AlgebraicGeometry_Scheme_Modules_bijective_smul_of_forall_exists_bijective_smul.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_bijective_smul_of_forall_exists_bijective_smul.lean) |
+| [Nyll/SchemeTheory/Modules/Frames.lean](Modules/Frames.lean) | [Def_AlgebraicGeometry_ModulesSectionsTensor.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_ModulesSectionsTensor.lean) |
+| [Nyll/SchemeTheory/Modules/InternalHomSheaf.lean](Modules/InternalHomSheaf.lean) | [S_PresheafOfModules_isSheaf_ihomObj.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_PresheafOfModules_isSheaf_ihomObj.lean) |
+| [Nyll/SchemeTheory/Modules/Invertible.lean](Modules/Invertible.lean) | [Def_AlgebraicGeometry_RelativePicardFunctor.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_RelativePicardFunctor.lean) |
+| [Nyll/SchemeTheory/Modules/LocallyTrivialSectionsLocalization.lean](Modules/LocallyTrivialSectionsLocalization.lean) | [S_AlgebraicGeometry_Scheme_Modules_isLocalization_basicOpen_of_locallyTrivial.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_isLocalization_basicOpen_of_locallyTrivial.lean) |
+| [Nyll/SchemeTheory/Modules/Monoidal.lean](Modules/Monoidal.lean) | [Def_SheafOfModules_Monoidal.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_SheafOfModules_Monoidal.lean) |
+| [Nyll/SchemeTheory/Modules/OpenImmersionUnit.lean](Modules/OpenImmersionUnit.lean) | [S_AlgebraicGeometry_Scheme_Modules_bijective_unit_app_of_le_opensRange.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_bijective_unit_app_of_le_opensRange.lean) |
+| [Nyll/SchemeTheory/Modules/PresheafInternalHom.lean](Modules/PresheafInternalHom.lean) | [Def_PresheafOfModules_InternalHom.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_PresheafOfModules_InternalHom.lean) |
+| [Nyll/SchemeTheory/Modules/PresheafPullbackMonoidal.lean](Modules/PresheafPullbackMonoidal.lean) | [Def_PresheafOfModules_PullbackMonoidal.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_PresheafOfModules_PullbackMonoidal.lean) |
+| [Nyll/SchemeTheory/Modules/ProjectivePresentation.lean](Modules/ProjectivePresentation.lean) | [Def_AlgebraicGeometry_ModulesProjPresentation.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_ModulesProjPresentation.lean) |
+| [Nyll/SchemeTheory/Modules/ProjectivePresentationBaseChange.lean](Modules/ProjectivePresentationBaseChange.lean) | [S_AlgebraicGeometry_Scheme_Modules_ProjPresentation_exists_baseChange_of_isPullback.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_ProjPresentation_exists_baseChange_of_isPullback.lean) |
+| [Nyll/SchemeTheory/Modules/ProjectivePresentationFromFrames.lean](Modules/ProjectivePresentationFromFrames.lean) | [S_AlgebraicGeometry_Scheme_Modules_exists_projPresentation_of_iSup_eq_top.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_exists_projPresentation_of_iSup_eq_top.lean) |
+| [Nyll/SchemeTheory/Modules/PullbackFrame.lean](Modules/PullbackFrame.lean) | [S_AlgebraicGeometry_Scheme_Modules_bijective_smul_unit_app_of_bijective_smul.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_bijective_smul_unit_app_of_bijective_smul.lean) |
+| [Nyll/SchemeTheory/Modules/PullbackLocalSection.lean](Modules/PullbackLocalSection.lean) | [Def_AlgebraicGeometry_ModulesPullbackLocalSection.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_ModulesPullbackLocalSection.lean) |
+| [Nyll/SchemeTheory/Modules/PullbackMonoidal.lean](Modules/PullbackMonoidal.lean) | [Def_AlgebraicGeometry_ModulesPullbackMonoidal.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_ModulesPullbackMonoidal.lean) |
+| [Nyll/SchemeTheory/Modules/PullbackUnitComposition.lean](Modules/PullbackUnitComposition.lean) | [S_AlgebraicGeometry_Scheme_Modules_unit_app_comp_pullbackComp_inv.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_unit_app_comp_pullbackComp_inv.lean) |
+| [Nyll/SchemeTheory/Modules/PushforwardRestrict.lean](Modules/PushforwardRestrict.lean) | [Def_AlgebraicGeometry_ModulesPushforwardRestrict.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_ModulesPushforwardRestrict.lean) |
+| [Nyll/SchemeTheory/Modules/SectionsLocalizationFiniteCover.lean](Modules/SectionsLocalizationFiniteCover.lean) | [S_AlgebraicGeometry_Scheme_Modules_isLocalization_basicOpen_of_finite_basicOpen_cover.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_isLocalization_basicOpen_of_finite_basicOpen_cover.lean) |
+| [Nyll/SchemeTheory/Modules/SheafificationMonoidal.lean](Modules/SheafificationMonoidal.lean) | [S_PresheafOfModules_isMonoidal_inverseImage_W_toPresheaf.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_PresheafOfModules_isMonoidal_inverseImage_W_toPresheaf.lean) |
+| [Nyll/SchemeTheory/Modules/TensorPowers.lean](Modules/TensorPowers.lean) | Source identified by code comparison; exact upstream file unresolved. |
+| [Nyll/SchemeTheory/Modules/TensorSectionMaps.lean](Modules/TensorSectionMaps.lean) | [S_AlgebraicGeometry_Scheme_Modules_tensorHom_app_tensorSections.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_tensorHom_app_tensorSections.lean) |
+| [Nyll/SchemeTheory/Modules/TensorSectionSheafification.lean](Modules/TensorSectionSheafification.lean) | [S_AlgebraicGeometry_Scheme_Modules_sheafify_mu_app_tensorSections.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_Scheme_Modules_sheafify_mu_app_tensorSections.lean) |
+| [Nyll/SchemeTheory/Modules/TensorSections.lean](Modules/TensorSections.lean) | [Def_AlgebraicGeometry_ModulesSectionsTensor.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_ModulesSectionsTensor.lean) |
+| [Nyll/SchemeTheory/Morphisms/ChowDatumProj_nonempty_of.lean](Morphisms/ChowDatumProj_nonempty_of.lean) | [S_AlgebraicGeometry_ChowDatumProj_nonempty_of.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_ChowDatumProj_nonempty_of.lean) |
+| [Nyll/SchemeTheory/Morphisms/ChowDatum_nonempty.lean](Morphisms/ChowDatum_nonempty.lean) | [S_AlgebraicGeometry_ChowDatum_nonempty.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_ChowDatum_nonempty.lean) |
+| [Nyll/SchemeTheory/Morphisms/GeometricallyIrreducibleOverAlgebraicallyClosed.lean](Morphisms/GeometricallyIrreducibleOverAlgebraicallyClosed.lean) | [S_AlgebraicGeometry_GeometricallyIrreducible_of_irreducibleSpace_of_isAlgClosed.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_GeometricallyIrreducible_of_irreducibleSpace_of_isAlgClosed.lean) |
+| [Nyll/SchemeTheory/ProjectiveSpace/BaseChange.lean](ProjectiveSpace/BaseChange.lean) | [S_AlgebraicGeometry_ProjSpace_isPullback_map.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_ProjSpace_isPullback_map.lean) |
+| [Nyll/SchemeTheory/ProjectiveSpace/Basic.lean](ProjectiveSpace/Basic.lean) | [Def_AlgebraicGeometry_ProjSpace.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_ProjSpace.lean) |
+| [Nyll/SchemeTheory/ProjectiveSpace/Cover.lean](ProjectiveSpace/Cover.lean) | [Def_AlgebraicGeometry_ProjSpaceCover.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/Definitions/Def_AlgebraicGeometry_ProjSpaceCover.lean) |
+| [Nyll/SchemeTheory/RingTheory/CommonRegularElement.lean](RingTheory/CommonRegularElement.lean) | [S_Module_exists_mem_maximalIdeal_isSMulRegular_isSMulRegular.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Module_exists_mem_maximalIdeal_isSMulRegular_isSMulRegular.lean) |
+| [Nyll/SchemeTheory/RingTheory/Descent/EtaleAtPrimeNormality.lean](RingTheory/Descent/EtaleAtPrimeNormality.lean) | [S_Algebra_Etale_isDomain_and_isIntegrallyClosed_of_isLocalization_atPrime.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Algebra_Etale_isDomain_and_isIntegrallyClosed_of_isLocalization_atPrime.lean) |
+| [Nyll/SchemeTheory/RingTheory/Descent/SmoothAtPrimeNormality.lean](RingTheory/Descent/SmoothAtPrimeNormality.lean) | [S_Algebra_Smooth_isDomain_and_isIntegrallyClosed_of_isIntegrallyClosed_of_isLocalization_atPrime.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Algebra_Smooth_isDomain_and_isIntegrallyClosed_of_isIntegrallyClosed_of_isLocalization_atPrime.lean) |
+| [Nyll/SchemeTheory/RingTheory/Flat/FiniteSubalgebraLocalization.lean](RingTheory/Flat/FiniteSubalgebraLocalization.lean) | [S_Module_Flat_exists_fg_subalgebra_flat_localization_tensorProduct.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Module_Flat_exists_fg_subalgebra_flat_localization_tensorProduct.lean) |
+| [Nyll/SchemeTheory/RingTheory/Flat/LocalCriterion.lean](RingTheory/Flat/LocalCriterion.lean) | [S_Module_flat_of_comap_maximalIdeal_rTensor_injective.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Module_flat_of_comap_maximalIdeal_rTensor_injective.lean) |
+| [Nyll/SchemeTheory/RingTheory/FreeModuleRegularScalar.lean](RingTheory/FreeModuleRegularScalar.lean) | Source identified by code comparison; exact upstream file unresolved. |
+| [Nyll/SchemeTheory/RingTheory/FreeModuleRegularSequenceAux.lean](RingTheory/FreeModuleRegularSequenceAux.lean) | [S_RingTheory_Sequence_isWeaklyRegular_of_free_aux.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_RingTheory_Sequence_isWeaklyRegular_of_free_aux.lean) |
+| [Nyll/SchemeTheory/RingTheory/LocalAlgebra.lean](RingTheory/LocalAlgebra.lean) | Source identified by code comparison; exact upstream file unresolved. |
+| [Nyll/SchemeTheory/RingTheory/ModuleDepthBound.lean](RingTheory/ModuleDepthBound.lean) | [S_Module_depth_le_ringKrullDim.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Module_depth_le_ringKrullDim.lean) |
+| [Nyll/SchemeTheory/RingTheory/ModuleDepthRegularQuotient.lean](RingTheory/ModuleDepthRegularQuotient.lean) | [S_Module_depth_quotSMulTop_succ_eq.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Module_depth_quotSMulTop_succ_eq.lean) |
+| [Nyll/SchemeTheory/RingTheory/Module_Finite_of_ker_le_range_of_isNoetherianRing.lean](RingTheory/Module_Finite_of_ker_le_range_of_isNoetherianRing.lean) | Source identified by code comparison; exact upstream file unresolved. |
+| [Nyll/SchemeTheory/RingTheory/RegularLocalDepth.lean](RingTheory/RegularLocalDepth.lean) | [S_IsRegularLocalRing_depth_self_eq_ringKrullDim.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_IsRegularLocalRing_depth_self_eq_ringKrullDim.lean) |
+| [Nyll/SchemeTheory/RingTheory/RegularLocalDepthFreeness.lean](RingTheory/RegularLocalDepthFreeness.lean) | [S_Module_free_of_depth_eq_ringKrullDim_of_isRegularLocalRing.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Module_free_of_depth_eq_ringKrullDim_of_isRegularLocalRing.lean) |
+| [Nyll/SchemeTheory/RingTheory/RegularLocalDomain.lean](RingTheory/RegularLocalDomain.lean) | [S_IsRegularLocalRing_isDomain.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_IsRegularLocalRing_isDomain.lean) |
+| [Nyll/SchemeTheory/RingTheory/SeparableConstantsTensor.lean](RingTheory/SeparableConstantsTensor.lean) | [S_Algebra_TensorProduct_isField_of_isSeparable_of_forall_isSeparable_mem_range.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_Algebra_TensorProduct_isField_of_isSeparable_of_forall_isSeparable_mem_range.lean) |
+| [Nyll/SchemeTheory/RingTheory/SmoothReduced.lean](RingTheory/SmoothReduced.lean) | [S_AlgebraicGeometry_isReduced_of_smooth_of_field.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicGeometry_isReduced_of_smooth_of_field.lean) |

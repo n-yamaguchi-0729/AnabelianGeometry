@@ -1,522 +1,1179 @@
 COPYRIGHT AND THIRD-PARTY NOTICES
 
-This project is released under the Apache License, Version 2.0 (see LICENSE).
-Original contributions: Copyright 2026 Naganori Yamaguchi.
-Authors: Naganori Yamaguchi (assisted by OpenAI Codex).
-https://github.com/n-yamaguchi-0729
-
-The source files retain their original copyright, author and provenance notices.
-The notice for original contributions does not replace third-party attribution or
-assign authorship to material whose provenance has not been established.
+Apache License, Version 2.0. See LICENSE.
+The following notices apply only to the Lean files included in this extract.
+Source-specific copyright and author notices remain in those files.
 
 pi1
 ---
 
-This project incorporates and adapts code from Christian Merten's pi1:
 https://github.com/chrisflav/pi1
 License: Apache License, Version 2.0.
-Comparison revision: 5c5c0171efc863ce9990171bdf46d7cb5fd582fb
-https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/LICENSE
-
-The exact commit originally copied remains unverified; the comparison revision
-above must not be read as an established original import revision. Where the
-upstream file has no copyright notice, no copyright holder is inferred from its
-author list. The file-by-file attribution below follows the preserved headers.
-
-Local changes include module splitting and relocation, import updates, adaptation
-to Lean and Mathlib APIs, and completed local proofs. These changes are not
-asserted to be upstream work. Local contribution and additional Mathlib notices
-remain in the corresponding source headers.
-
-The mapping is extracted from the fixed NYLL source at:
-https://github.com/n-yamaguchi-0729/NYLL/tree/04db6c198b64f54df97780130bf14529436c0c41
-
-The complete NYLL provenance record and upstream license are included at:
+Comparison revision: 5c5c0171efc863ce9990171bdf46d7cb5fd582fb. Original import commit unverified.
+Included-file attribution and exact license:
 Nyll/EtaleFundamentalGroups/Pi1/ATTRIBUTION.md
-Nyll/EtaleFundamentalGroups/Pi1/UPSTREAM.json
-Nyll/EtaleFundamentalGroups/Pi1/README.md
 Nyll/EtaleFundamentalGroups/Pi1/LICENSE
-These describe the whole NYLL source; this standalone repository may contain
-only a subset. The current local files included here are listed below.
-
-Nyll/EtaleFundamentalGroups/Pi1/GaloisCategories/FundamentalGroup.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/Mathlib/CategoryTheory/Galois/IsFundamentalGroup.lean
-  Authors: Christian Merten
-  The cited upstream file has no copyright notice; the copyright holder is unverified.
-
-Nyll/EtaleFundamentalGroups/Pi1/GeometricFiber/FieldPoints.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/FundamentalGroup/Point.lean
-  Copyright (c) 2025 Christian Merten. All rights reserved.
-  Authors: Christian Merten
 
 Nyll/EtaleFundamentalGroups/GeometricFiber/FundamentalGroup.lean
-  Local extension; retained upstream statements and local proofs are distinguished in the source.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/FundamentalGroup/Point.lean
-  Copyright (c) 2025 Christian Merten. All rights reserved.
-  Authors: Christian Merten
+Role: nyll_extension
+Copyright (c) 2025 Christian Merten. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten
 
 Nyll/EtaleFundamentalGroups/Pi1/FiniteEtale/GaloisCategory.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/FundamentalGroup/Galois.lean
-  Copyright (c) 2025 Christian Merten. All rights reserved.
-  Authors: Christian Merten
+Role: adapted_upstream_port
+Copyright (c) 2025 Christian Merten. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten
 
-Nyll/SchemeTheory/Pi1/Morphisms/Smooth.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/Mathlib/RingTheory/RingHom/Smooth.lean
-  Copyright (c) 2025 Christian Merten. All rights reserved.
-  Authors: Christian Merten
+Nyll/EtaleFundamentalGroups/Pi1/GaloisCategories/FundamentalGroup.lean
+Role: adapted_upstream_port
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten
+The cited pi1 file has no copyright or Authors header. Its copyright holder
+requires review. The Authors line above is retained from the previous NYLL
+integration and is not a verbatim attribution from the cited upstream file.
 
-Nyll/SchemeTheory/Pi1/Morphisms/SmoothLocus.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/RingTheory/Smooth/StandardSmoothSmooth.lean
-  Copyright (c) 2024 Christian Merten. All rights reserved.
-  Authors: Christian Merten
-
-Nyll/SchemeTheory/Pi1/Morphisms/Flat.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/Mathlib/AlgebraicGeometry/Morphisms/Flat.lean
-  Copyright (c) 2024 Christian Merten. All rights reserved.
-  Authors: Christian Merten, Andrew Yang
-
-Nyll/SchemeTheory/Pi1/Morphisms/Finite.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/Mathlib/AlgebraicGeometry/Morphisms/Finite.lean
-  Copyright (c) 2025 Christian Merten. All rights reserved.
-  Authors: Christian Merten
-
-Nyll/SchemeTheory/Pi1/Descent/FlatEqualizer.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/Mathlib/RingTheory/Flat/Equalizer.lean
-  Copyright (c) 2024 Christian Merten. All rights reserved.
-  Authors: Christian Merten
-
-Nyll/SchemeTheory/Pi1/Descent/EqualizerScalars.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/Mathlib/RingTheory/Flat/Equalizer.lean
-  Copyright (c) 2024 Christian Merten. All rights reserved.
-  Authors: Christian Merten
+Nyll/EtaleFundamentalGroups/Pi1/GeometricFiber/FieldPoints.lean
+Role: adapted_upstream_port
+Copyright (c) 2025 Christian Merten. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten
 
 Nyll/SchemeTheory/Descent/EqualizerScalars.lean
-  Local extension; retained upstream statements and local proofs are distinguished in the source.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/Mathlib/RingTheory/Flat/Equalizer.lean
-  Copyright (c) 2024 Christian Merten. All rights reserved.
-  Authors: Christian Merten
-
-Nyll/SchemeTheory/Pi1/Etale/RingHom.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/Mathlib/RingTheory/RingHom/Etale.lean
-  Copyright (c) 2025 Christian Merten. All rights reserved.
-  Authors: Christian Merten
-
-Nyll/SchemeTheory/Pi1/RingTheory/QuotientProducts.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/Mathlib/RingTheory/Ideal/Quotient/Operations.lean
-  Authors: Christian Merten
-  The cited upstream file has no copyright notice; the copyright holder is unverified.
-
-Nyll/SchemeTheory/Pi1/FunctionFields/Transcendence.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/RingTheory/Transcendence.lean
-  Authors: Christian Merten
-  The cited upstream file has no copyright notice; the copyright holder is unverified.
-
-Nyll/SchemeTheory/Pi1/Affine/Property.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/FundamentalGroup/AffineAnd.lean
-  Copyright (c) 2025 Christian Merten. All rights reserved.
-  Authors: Christian Merten
-
-Nyll/SchemeTheory/Pi1/Affine/GeometricIrreducibility.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/Mathlib/RingTheory/Geometric.lean
-  Authors: Christian Merten
-  The cited upstream file has no copyright notice; the copyright holder is unverified.
-
-Nyll/SchemeTheory/Pi1/Affine/Over.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/FundamentalGroup/AffineColimits.lean
-  Copyright (c) 2025 Christian Merten. All rights reserved.
-  Authors: Christian Merten
-
-Nyll/SchemeTheory/Pi1/FiniteEtale/Geometry.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/FundamentalGroup/Galois.lean
-  Copyright (c) 2025 Christian Merten. All rights reserved.
-  Authors: Christian Merten
-
-Nyll/SchemeTheory/Pi1/FiniteEtale/Basic.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/FundamentalGroup/FiniteEtale.lean
-  Copyright (c) 2025 Christian Merten. All rights reserved.
-  Authors: Christian Merten
-
-Nyll/SchemeTheory/Pi1/FiniteEtale/Algebra/Equalizer.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/RingTheory/FiniteEtale/Equalizer.lean
-  Authors: Christian Merten
-  The cited upstream file has no copyright notice; the copyright holder is unverified.
-
-Nyll/SchemeTheory/Pi1/FiniteEtale/Algebra/Basic.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/RingTheory/FiniteEtale/Basic.lean
-  Authors: Christian Merten
-  The cited upstream file has no copyright notice; the copyright holder is unverified.
-
-Nyll/SchemeTheory/Pi1/FiniteEtale/Algebra/Splitting.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/RingTheory/KerTensor.lean
-  Authors: Christian Merten
-  The cited upstream file has no copyright notice; the copyright holder is unverified.
+Role: nyll_extension
+Copyright (c) 2026 Naganori Yamaguchi. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
+https://github.com/n-yamaguchi-0729
 
 Nyll/SchemeTheory/FiniteEtale/Algebra/EtaleSplitting.lean
-  Local extension; retained upstream statements and local proofs are distinguished in the source.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/RingTheory/KerTensor.lean
-  Authors: Christian Merten
-  The cited upstream file has no copyright notice; the copyright holder is unverified.
+Role: nyll_extension
+Copyright (c) 2026 Naganori Yamaguchi. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
+https://github.com/n-yamaguchi-0729
+
+Nyll/SchemeTheory/Pi1/Affine/Over.lean
+Role: adapted_upstream_port
+Copyright (c) 2025 Christian Merten. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten
+
+Nyll/SchemeTheory/Pi1/Affine/Property.lean
+Role: adapted_upstream_port
+Copyright (c) 2025 Christian Merten. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten
+
+Nyll/SchemeTheory/Pi1/Descent/EqualizerScalars.lean
+Role: adapted_upstream_port
+Copyright (c) 2024 Christian Merten. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten
+
+Adapted from the pinned pi1 source:
+https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/Mathlib/RingTheory/Flat/Equalizer.lean
+Original mathlib source:
+https://github.com/leanprover-community/mathlib4/blob/53f8a93a7739dd4eb33926f645811ebb6cee21bf/Mathlib/RingTheory/Flat/Equalizer.lean
+
+Nyll/SchemeTheory/Pi1/Descent/FlatEqualizer.lean
+Role: adapted_upstream_port
+Copyright (c) 2024 Christian Merten. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten
+
+Adapted from the pinned pi1 source:
+https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/Mathlib/RingTheory/Flat/Equalizer.lean
+Original mathlib source:
+https://github.com/leanprover-community/mathlib4/blob/53f8a93a7739dd4eb33926f645811ebb6cee21bf/Mathlib/RingTheory/Flat/Equalizer.lean
+
+Nyll/SchemeTheory/Pi1/Etale/RingHom.lean
+Role: adapted_upstream_port
+Copyright (c) 2025 Christian Merten. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten
+
+Adapted from the pinned pi1 source:
+https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/Mathlib/RingTheory/RingHom/Etale.lean
+Original mathlib source:
+https://github.com/leanprover-community/mathlib4/blob/53f8a93a7739dd4eb33926f645811ebb6cee21bf/Mathlib/RingTheory/RingHom/Etale.lean
+
+Nyll/SchemeTheory/Pi1/FiniteEtale/Algebra/Basic.lean
+Role: adapted_upstream_port
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten
+The cited pi1 file has no copyright notice; its holder requires review.
+
+Adapted from the pinned pi1 source:
+https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/RingTheory/FiniteEtale/Basic.lean
 
 Nyll/SchemeTheory/Pi1/FiniteEtale/Algebra/Descent.lean
-  Adapted upstream port.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/RingTheory/FiniteEtale/Descent.lean
-  Authors: Christian Merten
-  The cited upstream file has no copyright notice; the copyright holder is unverified.
+Role: adapted_upstream_port
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten
+The cited pi1 file has no copyright notice; its holder requires review.
 
-Nyll/SchemeTheory/FiniteEtale/Forget/FiniteCoequalizers.lean
-  Local extension; retained upstream statements and local proofs are distinguished in the source.
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/RingTheory/KerTensor.lean
-  Authors: Christian Merten
-  The cited upstream file has no copyright notice; the copyright holder is unverified.
+Adapted from the pinned pi1 source:
+https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/RingTheory/FiniteEtale/Descent.lean
 
-Retired NYLL port (now provided by Mathlib): Nyll/SchemeTheory/Morphisms/FlatRank.lean
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/FundamentalGroup/Rank.lean
-  Authors: Christian Merten
-  The cited upstream file has no copyright notice; the copyright holder is unverified.
+Nyll/SchemeTheory/Pi1/FiniteEtale/Algebra/Equalizer.lean
+Role: adapted_upstream_port
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten
+The cited pi1 file has no copyright notice; its holder requires review.
 
-Retired NYLL port (now provided by Mathlib): Nyll/SchemeTheory/Morphisms/ClosedImmersion.lean
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/Mathlib/AlgebraicGeometry/Limits.lean
-  Authors: Christian Merten
-  The cited upstream file has no copyright notice; the copyright holder is unverified.
+Adapted from the pinned pi1 source:
+https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/RingTheory/FiniteEtale/Equalizer.lean
 
-Retired NYLL port (now provided by Mathlib): Nyll/SchemeTheory/RingTheory/Finite.lean
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/Mathlib/RingTheory/RingHom/Finite.lean
-  Authors: Christian Merten
-  The cited upstream file has no copyright notice; the copyright holder is unverified.
+Nyll/SchemeTheory/Pi1/FiniteEtale/Algebra/Splitting.lean
+Role: adapted_upstream_port
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten
+The cited pi1 file has no copyright notice; its holder requires review.
 
-Retired NYLL port (now provided by Mathlib): Nyll/SchemeTheory/CategoryTheory/Over.lean
-  Upstream: https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/Mathlib/CategoryTheory/Limits/MorphismProperty.lean
-  Copyright (c) 2024 Christian Merten. All rights reserved.
-  Authors: Christian Merten
+Adapted from the pinned pi1 source:
+https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/RingTheory/KerTensor.lean
 
-Anthropic Fermat's Last Theorem
+Nyll/SchemeTheory/Pi1/FiniteEtale/Basic.lean
+Role: adapted_upstream_port
+Copyright (c) 2025 Christian Merten. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten
+
+Nyll/SchemeTheory/Pi1/FiniteEtale/Geometry.lean
+Role: adapted_upstream_port
+Copyright (c) 2025 Christian Merten. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten
+
+Nyll/SchemeTheory/Pi1/Morphisms/Finite.lean
+Role: adapted_upstream_port
+Copyright (c) 2025 Christian Merten. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten
+
+Nyll/SchemeTheory/Pi1/Morphisms/Flat.lean
+Role: adapted_upstream_port
+Copyright (c) 2024 Christian Merten. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten, Andrew Yang
+
+Adapted from the pinned pi1 source:
+https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/Mathlib/AlgebraicGeometry/Morphisms/Flat.lean
+Original mathlib source:
+https://github.com/leanprover-community/mathlib4/blob/53f8a93a7739dd4eb33926f645811ebb6cee21bf/Mathlib/AlgebraicGeometry/Morphisms/Flat.lean
+
+Nyll/SchemeTheory/Pi1/Morphisms/Smooth.lean
+Role: adapted_upstream_port
+Copyright (c) 2025 Christian Merten. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten
+
+Nyll/SchemeTheory/Pi1/RingTheory/QuotientProducts.lean
+Role: adapted_upstream_port
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Christian Merten
+The cited pi1 file has no copyright notice; its holder requires review.
+
+Adapted from the pinned pi1 source:
+https://github.com/chrisflav/pi1/blob/5c5c0171efc863ce9990171bdf46d7cb5fd582fb/Pi1/Mathlib/RingTheory/Ideal/Quotient/Operations.lean
+
+Anthropic FLT: AlgebraicCurves
 ------------------------------
 
-This project incorporates and adapts code from:
-https://github.com/anthropics/fermats-last-theorem
 Copyright 2026 Anthropic, PBC.
 License: Apache License, Version 2.0.
-Reference revision: aa2d8b34692b16c70f699536de0d8e75b9a3e9ef
+Included-file source mapping: Nyll/AlgebraicCurves/ANTHROPIC_FLT_SOURCE.md
+Preserved upstream NOTICE: Nyll/AlgebraicCurves/ANTHROPIC_FLT_NOTICE
+Preserved earlier-source attribution: Nyll/AlgebraicCurves/ANTHROPIC_FLT_ATTRIBUTION.md
+Earlier copyright holders and authors are not replaced by Anthropic.
 
-Local adaptations include module organization, imports, Lean and Mathlib API
-updates, and proof changes. Source headers identify the upstream proof or
-statement where its correspondence has been established. Unresolved source-file
-correspondence remains explicitly identified in the affected headers; an absent
-per-file attribution row is not evidence of sole authorship by Anthropic.
+Nyll/AlgebraicCurves/Cohomology/AdeleSpace_eq_of_genusReached.lean
+Nyll/AlgebraicCurves/Cohomology/Adelic/Index.lean
+Nyll/AlgebraicCurves/Cohomology/Adelic/Repartitions.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/CoherentBaseChange_FibreH0Family_isClosed_setOf_le_h0.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/CoherentBaseChange_TwoTermComplex_natCast_finrank_ker_baseChange_sub_natCast_finrank_quotient_range_eq_chi.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/CoherentBaseChange_TwoTermComplex_projective_ker_of_isReduced_of_fibreH0_const.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/DivisorSections.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/Maps.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/OModulePresheaf_cechFinite_ofModules_of_locallyTrivial.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/OModulePresheaf_cechFinite_toOrderedAffineCover_iff.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/OModulePresheaf_cechFinite_unit_of_isProper.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/OModulePresheaf_nonempty_cechEquiv_ofModules_of_isQuasicoherent_of_isSeparated.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/OModulePresheaf_nonempty_cechEquiv_ofModules_of_iso.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/OModulePresheaf_nonempty_cechEquiv_ofModules_of_orderEmbedding_of_forall_lt.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/OModulePresheaf_nonempty_cechEquiv_ofModules_pullback_comap_twist_pushforwardUnit.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/OModulePresheaf_nonempty_cechEquiv_of_orderIso.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/OModulePresheaf_nonempty_cechEquiv_of_orderIso_orderDual.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/OModulePresheaf_nonempty_cech_baseChange_equiv_of_locallyTrivial.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/ProjSpaceCech_GradedModule_HMap_bijective_of_cochainMap_bijective.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/ProjSpaceCech_GradedModule_Hom_HMap_bijective_of_saturated.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/ProjSpaceCech_GradedModule_Hom_cochainMap_bijective_of_saturated.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/ProjSpaceCech_GradedModule_Hom_secMap_bijective_of_saturated.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/ProjSpaceCech_GradedModule_Hom_secMap_injective.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/ProjSpaceCech_GradedModule_Presentation_subsingleton_H_of_ses.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/ProjSpaceCech_GradedModule_subsingleton_cohomology_shift_of_isFG.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/ProjSpaceCech_Twist_subsingleton_cohomology_of_lt.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/ProjSpaceCech_Twist_subsingleton_cohomology_of_neg_le.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/ProjSpaceCech_Twist_subsingleton_cohomology_succ_of_le.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/Scheme_Modules_ProjPresentation_exists_forall_mul_pow_le_cechFinrank_zero_tensorPow.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/Scheme_TwoAffineOpenCover_exists_cech_sectionsOf_baseChange_equiv_of_locallyTrivial.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/Scheme_TwoAffineOpenCover_finrank_cechDiff_baseChange_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/Scheme_TwoAffineOpenCover_finrank_ker_cechDiff_baseChange_eq_one.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/Scheme_TwoAffineOpenCover_isLocallyConstant_finrank_ker_sub_finrank_coker_cechDiff_baseChange.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/TwoChartCechSectionsOf.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/TwoChartCech_Cover_squareZeroUnit_cohomologous_iff_and_exists.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/TwoChartCech_GluedLines.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/TwoChartCech_Mumford_bijective_cokerMapBaseChange.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/TwoChartCech_Mumford_bijective_kerMapBaseChange.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/TwoChartCech_Mumford_finite_K0.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/TwoChartCech_Mumford_flat_K0.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/TwoChartCech_Mumford_projective_K0.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/TwoChartCech_Mumford_projective_ker_of_fibre_surjective.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/TwoChartCech_Sections_finite_H0_of_chartFinite.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/TwoChartCech_Sections_finite_H1_of_chartFinite.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/TwoChartCech_exists_fibreH0Family.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/TwoChartCech_exists_twoTermComplex_kerMapBaseChange_bijective.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/TwoChartCech_finrank_ker_baseChange_eq_of_field_extension.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/TwoChartCech_isClosed_setOf_le_finrank_ker_baseChange.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/TwoChartCech_isLocallyConstant_fibreEulerChar.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/TwoChartCech_kerMap_injective_of_H0_eq_zero.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/TwoChartCech_nonempty_kerBaseChangeTowerEquiv.lean
+Nyll/AlgebraicCurves/Cohomology/Cech/TwoChartCech_projective_ker_of_isReduced_of_kerMapBaseChange_bijective.lean
+Nyll/AlgebraicCurves/Cohomology/CechH1ToH1_bijective.lean
+Nyll/AlgebraicCurves/Cohomology/CechRiemannRoch_of_genusReached.lean
+Nyll/AlgebraicCurves/Cohomology/Finite_H0_H1_structureSheaf_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/Cohomology/Finite_H0_H1_structureSheaf_of_smoothProperCurve.lean
+Nyll/AlgebraicCurves/Cohomology/Finite_H1_of_genusReached.lean
+Nyll/AlgebraicCurves/Cohomology/Finrank_H0_H1_sectionsOf_of_range_eq_lSpaceOn.lean
+Nyll/AlgebraicCurves/Cohomology/IndexOfSpecialty_eq_finrank_H1.lean
+Nyll/AlgebraicCurves/Cohomology/Mem_adeleSpace_iff_mem_repartitions.lean
+Nyll/AlgebraicCurves/Cohomology/Nonempty_linearEquiv_cechH0_and_cechH1.lean
+Nyll/AlgebraicCurves/Cohomology/Nonempty_linearEquiv_cechH0_and_cechH1_sectionsOf.lean
+Nyll/AlgebraicCurves/Cohomology/Nonempty_linearEquiv_cechH0_and_cechH1_sectionsOf_of_range_eq_lSpaceOn.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/Ell_add_of_forall_eq_ord.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/Ell_eq_zero_of_degree_neg.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/Ell_le_degree_add_ellZero.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/Eq_genusFF_of_forall_ell_sub_ell_eq.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/Exists_canonicalDivisor_genus_riemannRoch.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/Exists_forall_adicValuation_sub_le_of_riemannGenusReachedAt.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/Exists_genus_riemannIndex_of_isCurveOver.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/Exists_genus_riemannIndex_of_stichtenothGenusExists.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/Exists_indexOfSpecialty_nsmul_single_eq_zero_of_genusReached.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/Exists_mem_lSpaceOn_adicValuation_eq_of_riemannGenusReachedAt.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/Exists_riemannGenusReachedAt_of_bounded.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/FiniteDimensional_lSpace.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/FiniteDimensional_lSpace_zero.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/FunctionFieldRiemannRoch_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/FunctionFieldRiemannRoch_of_isAlgClosed_of_isCurveOver.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/FunctionFieldRiemannRoch_of_residueTheoremK_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/GenusFF_eq_of_algEquiv.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/GenusFF_ratFunc_eq_zero_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/Genus_eq_genusFF.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/Genus_ratFunc_eq_zero_of_perfectField.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/IndexOfSpecialty_eq_of_genusReached.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/LSpace_eq_bot_of_degree_neg.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/OmegaSpace_finite_of_genusReached.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/Pic0_subsingleton_of_genusFF_eq_zero.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/RROpens_exists_effective_sub_add_smul_single_mem_principal.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/RROpens_exists_injective_ell_sub_sum_single_eq_one_of_le_card.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/RiemannGenusBounded_of_indexFinite.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/RiemannGenusReachedAt_eq_of_ge.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/StichtenothGenusExists_of_isCurveOver.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/Two_mul_genusFF_sub_two_eq_of_isSeparable_of_tame.lean
+Nyll/AlgebraicCurves/Cohomology/RiemannRoch/Two_mul_genus_sub_two_eq_of_degree_canonical.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/IsIso_baseChangeHom_pushforward_of_forall_fibre.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheafEulerChar.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheafOfModules.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheafTensor.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_AffHom_nonempty_H0_equiv_and_HSucc_equiv_of_bijective.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_coeff_eq_rankAtStalk_mul_coeff_of_forall_eulerChar_twist_tensorPow_eq.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_d_zero_ofModules_eq_zero_iff_existsUnique.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_eq_zero_of_forall_res_basicOpen_eq_zero.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_eulerChar_eq_add_of_affSES.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_exists_affSES_tensor_of_flat.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_exists_cochain_baseChange_equiv_of_locallyTrivial.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_exists_eulerChar_twist_pushforwardUnit_succ_sub_eq.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_exists_polynomial_forall_eulerChar_tensor_tensorPow_eq.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_exists_polynomial_forall_eulerChar_twist_tensorPow_eq.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_exists_twoTermComplex_kerMapBaseChange_bijective_ofModules.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_flat_cochain_ofModules_of_locallyTrivial.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_forall_coherent_of_forall_integral.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_forall_of_forall_idealAnnihilates.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_forall_pushforward_of_isIntegral.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_isCoherent_isQuasicoherent_supportedIn_pushforwardUnit.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_isCoherent_ker.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_isCoherent_ofModules_of_locallyTrivial.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_isQuasicoherent_idealPow.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_isQuasicoherent_isCoherent_supportedIn_tensor.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_isQuasicoherent_ker.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_isQuasicoherent_ofModules_of_locallyTrivial.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_ker_d_succ_le_range_d_of_isQuasicoherent.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_projective_H0_and_bijective_kerBaseChangeHom_of_isReduced_of_finrank_eq.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_subsingleton_HSucc_and_eulerChar_eq_sum_range_of_card_le.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_subsingleton_HSucc_of_isQuasicoherent.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/OModulePresheaf_subsingleton_HSucc_zero_ofModules_of_subsingleton.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/RelEffCartierDiv_eulerChar_tensor_lineBundle_eq.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/RelEffCartierDiv_exists_I_eq_zeroSchemeIdeal_of_eulerChar_eq.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/Scheme_IdealSheafData_IsInvertible_eulerChar_sectionsOf_tensor_invModule_eq.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/Scheme_Modules_FiniteBySections_exists_polynomial_coeff_pos_forall_eulerChar_tensorPow_eq.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/Scheme_Modules_IsInvertible_nontrivial_H0_sectionsOf_of_le_eulerChar_sub.lean
+Nyll/AlgebraicCurves/Cohomology/Sheaves/Scheme_Modules_IsInvertible_subsingleton_H1_sectionsOf_of_le_eulerChar_sub.lean
+Nyll/AlgebraicCurves/Cohomology/WeilDualityAdelic_of_functionFieldRiemannRoch_of_stichtenothGenusExists.lean
+Nyll/AlgebraicCurves/Differentials/DCoordGenerates_of_isCurveOver.lean
+Nyll/AlgebraicCurves/Differentials/Exists_transcendental_isSeparable_of_finrank_kaehlerDifferential_eq_one.lean
+Nyll/AlgebraicCurves/Differentials/Kaehler/KaehlerDifferential_D_ne_zero_of_transcendental.lean
+Nyll/AlgebraicCurves/Differentials/Kaehler/KaehlerDifferential_span_D_eq_top_of_transcendental.lean
+Nyll/AlgebraicCurves/Differentials/Kaehler/Weil.lean
+Nyll/AlgebraicCurves/Differentials/KaehlerRankOne_of_transcendental.lean
+Nyll/AlgebraicCurves/Differentials/LocalUnitDerivativeRegular_of_isCurveOver.lean
+Nyll/AlgebraicCurves/Differentials/Maps.lean
+Nyll/AlgebraicCurves/Differentials/Order.lean
+Nyll/AlgebraicCurves/Differentials/Residues/Basic.lean
+Nyll/AlgebraicCurves/Differentials/Residues/Canonical.lean
+Nyll/AlgebraicCurves/Differentials/Residues/Construction.lean
+Nyll/AlgebraicCurves/Differentials/Residues/FibreIdentity.lean
+Nyll/AlgebraicCurves/Differentials/Residues/FibreResidueIdentityAlong_of_separableAlong_of_dCoordGenerates.lean
+Nyll/AlgebraicCurves/Differentials/Residues/ResidueTheoremK_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/Differentials/Residues/ResidueTheoremK_ratFunc_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/Differentials/Residues/ResidueTheorem_of_residueTheoremK.lean
+Nyll/AlgebraicCurves/Differentials/Residues/ResidueTraceCompletionCommute_v2.lean
+Nyll/AlgebraicCurves/Differentials/Residues/TateAgreement.lean
+Nyll/AlgebraicCurves/Differentials/Residues/TateAgreement_v2.lean
+Nyll/AlgebraicCurves/Differentials/Residues/TateChainRule.lean
+Nyll/AlgebraicCurves/Differentials/Residues/TateCommFinite.lean
+Nyll/AlgebraicCurves/Differentials/Residues/TateTrace.lean
+Nyll/AlgebraicCurves/Differentials/Residues/TateTraceCompat_of_isSeparable.lean
+Nyll/AlgebraicCurves/Differentials/Uniformizer.lean
+Nyll/AlgebraicCurves/Divisors/Canonical.lean
+Nyll/AlgebraicCurves/Divisors/ClassGroup.lean
+Nyll/AlgebraicCurves/Divisors/Correspondences.lean
+Nyll/AlgebraicCurves/Divisors/Degree_poleDivisor_eq_finrank_adjoin_of_isAlgClosed_of_transcendental.lean
+Nyll/AlgebraicCurves/Divisors/Divisor_degree_eq_finrank_adjoin_of_eq_max_neg_ord.lean
+Nyll/AlgebraicCurves/Divisors/Divisor_degree_eq_sum_support.lean
+Nyll/AlgebraicCurves/Divisors/Divisor_degree_le_finrank_adjoin_of_eq_max_neg_ord.lean
+Nyll/AlgebraicCurves/Divisors/Divisor_evalFun_single_sub_single.lean
+Nyll/AlgebraicCurves/Divisors/Divisor_evalFun_zsmul.lean
+Nyll/AlgebraicCurves/Divisors/Divisor_exists_degZero_ord_eq_mul_of_dvd_ord.lean
+Nyll/AlgebraicCurves/Divisors/Divisor_finrank_adjoin_le_degree_of_eq_max_neg_ord.lean
+Nyll/AlgebraicCurves/Divisors/Divisor_isPrincipal_of_genus_eq_zero.lean
+Nyll/AlgebraicCurves/Divisors/Exists_list_isPrincipal_sub_sum_single_sub_smul_single.lean
+Nyll/AlgebraicCurves/Divisors/Exists_poleDivisor_of_transcendental.lean
+Nyll/AlgebraicCurves/Divisors/HasCanonicalDivisor_of_isCurveOver.lean
+Nyll/AlgebraicCurves/Divisors/HasPrincipalDivisors_of_finiteDimensional_of_isSeparable.lean
+Nyll/AlgebraicCurves/Divisors/HasPrincipalDivisors_of_transcendental_of_isSeparable.lean
+Nyll/AlgebraicCurves/Divisors/InstHasCanonicalDivisorRatFuncPerfectField.lean
+Nyll/AlgebraicCurves/Divisors/Maps.lean
+Nyll/AlgebraicCurves/Divisors/Pic0Congr.lean
+Nyll/AlgebraicCurves/Divisors/PoleData.lean
+Nyll/AlgebraicCurves/Divisors/Semilinear.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/AlgHom_existsUnique_lift_trivSqZeroExt_of_cotangent_linearMap.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/AlgHom_exists_cotangent_linearMap_of_fst_eq.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Algebra_IsStandardSmooth_exists_isStandardSmoothOfRelativeDimension_of_field.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Algebra_exists_ne_zero_algebraicIndependent_forall_isIntegral_pow_smul_of_finiteType.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Algebra_trdeg_quotient_lt.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/LinearMap_exists_ker_linearEquiv_and_quotient_linearEquiv_of_surjective_of_forall_exact.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/LinearMap_finrank_ker_sub_finrank_quotient_range_eq_add_of_exact.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/LinearMap_isOpen_setOf_surjective_baseChange_residueField.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/LinearMap_nonempty_kerModRange_equiv_of_equiv_comm.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/LinearMap_sum_neg_one_pow_mul_finrank_eq_zero_of_exact.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Module_Flat_of_finitePresentation_of_forall_flat_residueField_tensorProduct.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Module_Invertible_of_projective_of_forall_finrank_eq_one.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Module_Invertible_of_ringEquiv.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Module_IsDirectLimit_exists_invertible_linearEquiv_baseChange.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Module_IsDirectLimit_exists_linearEquiv_of_finitePresentation.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Module_IsDirectLimit_exists_stage_linearEquiv_of_finitePresentation_compat.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Module_Projective_exists_baseChange_quotient_iso_of_squareZero.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Module_Projective_exists_linearEquiv_of_baseChange_quotient_of_squareZero_of_compat.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Module_Projective_nonempty_linearEquiv_of_baseChange_quotient_of_squareZero.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Module_finitePresentation_of_rankAtStalk_eq.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Module_finrank_baseChange_eq_of_quotient_squareZero_linearEquiv.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Module_finrank_baseChange_eq_one_of_rankAtStalk_eq_one.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Module_flat_of_isLocalHom_of_finite_of_isZero_tor_one_residueField.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Module_free_coker_and_ker_baseChange_of_ker_le_range_residueField.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Module_ker_baseChange_field_of_subsingleton_H1.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Module_ker_baseChange_field_of_subsingleton_H1_of_projective.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/Module_rankAtStalk_eq_of_forall_localizedModule_equiv.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/PresheafOfModules_ExteriorPower.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/RingHom_finiteDimensional_adjoin_range_of_finite_of_forall_mem_range.lean
+Nyll/AlgebraicCurves/Foundations/Algebra/RingHom_isPushout_eqLocus_of_finiteLocallyFree_equivalenceRelation.lean
+Nyll/AlgebraicCurves/Foundations/CategoryTheory/CategoryTheory_MonoidalClosed_isIso_ev_app_and_isIso_curry_braiding_ev_of_tensor_iso_unit.lean
+Nyll/AlgebraicCurves/Foundations/CategoryTheory/CategoryTheory_MorphismProperty_widePullback_base.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/AlgHom_injective_of_finite_of_isFractionRing.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/Algebra_finrank_quotient_span_sub_eq_of_isLocalization_away_of_mul_eq_one.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/HomogeneousIdeal_exists_homogeneous_pos_mem_forall_notMem.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/Ideal_exists_isPrime_le_and_le_and_ringKrullDim_quotient_eq_one.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/Ideal_exists_mem_and_mem_and_radical_span_singleton_isPrime.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/Ideal_exists_ne_zero_and_forall_isMaximal_radical_map_isPrime.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/Ideal_height_add_ringKrullDim_quotient_eq_ringKrullDim_of_finiteType.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/Ideal_height_eq_height_under_of_finiteType_of_isIntegral.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/Ideal_height_eq_height_under_of_isIntegrallyClosed_of_isIntegral.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/Ideal_map_comap_eq_self_of_map_includeLeft_eq_map_includeRight.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/Ideal_natCast_le_ringKrullDim_quotient_of_mem_minimalPrimes_map_of_algebraicIndependent.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/IsIntegrallyClosed_exists_algebraMap_eq_of_forall_height_eq_one.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/IsIntegrallyClosed_height_eq_one_of_mem_associatedPrimes.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/IsIntegrallyClosed_integralClosure_eq_adjoin_and_etale_and_finite_of_eq_mul_pow.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/IsIntegrallyClosed_integralClosure_eq_adjoin_root_X_pow_sub_C_of_isUnit.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/IsLocalRing_flat_of_isScalarTower_of_flat_of_flat_quotient_maximalIdeal_map.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/IsLocalRing_isRegular_of_systemOfParameters.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/IsRegularLocalRing_quotient_span_singleton_of_notMem_sq_of_forall_minimalPrimes_notMem.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/IsRegularRing_uniqueFactorizationMonoid_of_isLocalRing.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/Mathlib_RingTheory_RegularLocalRingFlatLocalAscent.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/Mathlib_RingTheory_RegularLocalRingQuotientRegular.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/Mathlib_RingTheory_SmoothAlgebraOverFieldRegularStalks.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/Mathlib_RingTheory_SmoothFieldFiberRegularStalksStandardSmoothReduction.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/Module_Flat_of_isLocalHom_of_isRegularLocalRing_of_ringKrullDim_quotient_eq_zero.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/Module_flat_of_isLocalHom_of_isNoetherianRing_of_finite_of_tor_one_residueField_isZero.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/RingTheory_Sequence_IsWeaklyRegular_isZero_tor_one_quotient_ofList.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/TwoChartCech_GrothendieckComplex_nonempty_of_isLocalRing.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/UniqueFactorizationMonoid_of_isLocalization_away_of_prime.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/isRegularLocalRing_localization_atPrime_of_etale_of_comap.lean
+Nyll/AlgebraicCurves/Foundations/CommutativeAlgebra/isRegularLocalRing_localization_atPrime_of_isStandardSmooth.lean
+Nyll/AlgebraicCurves/Foundations/FieldTheory/AdjoinRoot_etale_and_finite_X_pow_sub_C_of_isUnit.lean
+Nyll/AlgebraicCurves/Foundations/FieldTheory/Algebra_IsSeparable_of_finrank_fieldRange_frobenius_eq.lean
+Nyll/AlgebraicCurves/Foundations/FieldTheory/Algebra_TensorProduct_isField_of_isSeparable_of_forall_isSeparable_mem_range.lean
+Nyll/AlgebraicCurves/Foundations/FieldTheory/Algebra_TensorProduct_nilradical_isPrime_of_isAlgebraic_of_forall_isSeparable_mem_range.lean
+Nyll/AlgebraicCurves/Foundations/FieldTheory/Algebra_exists_monic_irreducible_map_algebraicClosure_hypersurfaceModel_of_forall_isSeparable.lean
+Nyll/AlgebraicCurves/Foundations/FieldTheory/FrobeniusSubfield.lean
+Nyll/AlgebraicCurves/Foundations/FieldTheory/IntermediateField_mem_adjoin_sum_mul_of_isSeparable_of_algebraicIndependent.lean
+Nyll/AlgebraicCurves/Foundations/FieldTheory/Module_Flat_mem_nonZeroDivisors_and_flat_quotient_span_of_forall_isAlgClosed.lean
+Nyll/AlgebraicCurves/Foundations/HomologicalAlgebra/Module_exists_mumfordTruncation_of_flat_complex.lean
+Nyll/AlgebraicCurves/Foundations/HomologicalAlgebra/Module_exists_twoTermComplex_kerMapBaseChange_bijective_of_flat_complex.lean
+Nyll/AlgebraicCurves/Foundations/Polynomial/Algebra_levelSet_finite_free_finrank_of_flat_polynomial.lean
+Nyll/AlgebraicCurves/Foundations/Polynomial/MvPolynomial_exists_ne_zero_and_forall_irreducible_map_of_irreducible_map_algebraicClosure.lean
+Nyll/AlgebraicCurves/Foundations/Polynomial/Polynomial_irreducible_map_map_algebraicClosure_of_separable_of_forall_isSeparable_mem_range.lean
+Nyll/AlgebraicCurves/Foundations/Polynomial/fwdDiff_iter_succ_eq_zero_iff_exists_polynomial_natDegree_le.lean
+Nyll/AlgebraicCurves/FunctionFields/CompletionTraceSum_of_isSeparable.lean
+Nyll/AlgebraicCurves/FunctionFields/ConstantsAreBase_of_exists_isRational.lean
+Nyll/AlgebraicCurves/FunctionFields/ConstantsAreBase_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/FunctionFields/ConstantsAreBase_of_isAlgClosed_of_transcendental.lean
+Nyll/AlgebraicCurves/FunctionFields/CurveOver.lean
+Nyll/AlgebraicCurves/FunctionFields/EssFiniteType_functionField.lean
+Nyll/AlgebraicCurves/FunctionFields/EssFiniteType_of_transcendental_of_finiteDimensional.lean
+Nyll/AlgebraicCurves/FunctionFields/Exists_mem_D_eq_smul_D_of_isCurveOver.lean
+Nyll/AlgebraicCurves/FunctionFields/Exists_separating_transcendental_of_perfectField.lean
+Nyll/AlgebraicCurves/FunctionFields/FiniteDimensional_adjoin_of_transcendental.lean
+Nyll/AlgebraicCurves/FunctionFields/FunctionField_exists_ratFuncAlgHom_apply_X_eq.lean
+Nyll/AlgebraicCurves/FunctionFields/Infinite_setOf_isClosed_singleton.lean
+Nyll/AlgebraicCurves/FunctionFields/InstIsCurveOverRatFunc.lean
+Nyll/AlgebraicCurves/FunctionFields/IsCurveOver_exists_separating_transcendental.lean
+Nyll/AlgebraicCurves/FunctionFields/IsCurveOver_finiteDimensional_adjoin_simple_of_transcendental_of_essFiniteType.lean
+Nyll/AlgebraicCurves/FunctionFields/IsCurveOver_iff_exists_transcendental_finiteDimensional.lean
+Nyll/AlgebraicCurves/FunctionFields/IsCurveOver_of_transcendental.lean
+Nyll/AlgebraicCurves/FunctionFields/IsCurveOver_of_transcendental_of_perfectField.lean
+Nyll/AlgebraicCurves/FunctionFields/IsCurveOver_ratFunc.lean
+Nyll/AlgebraicCurves/FunctionFields/LinearIndependent_pow_mul.lean
+Nyll/AlgebraicCurves/Geometry/AbelianSchemes/AbelianSchemePropertyBundle.lean
+Nyll/AlgebraicCurves/Geometry/AbelianSchemes/GroupLaw/AlgebraicPoints.lean
+Nyll/AlgebraicCurves/Geometry/AbelianSchemes/GroupLaw/EndDegree.lean
+Nyll/AlgebraicCurves/Geometry/AbelianSchemes/GroupLaw/Kernel.lean
+Nyll/AlgebraicCurves/Geometry/AbelianSchemes/GroupLaw/Translation.lean
+Nyll/AlgebraicCurves/Geometry/AbelianSchemes/Theorems/AbelianSchemePropertyBundle_flat_of_isFinite.lean
+Nyll/AlgebraicCurves/Geometry/AbelianSchemes/Theorems/AbelianSchemePropertyBundle_geometricallyIntegral.lean
+Nyll/AlgebraicCurves/Geometry/AbelianSchemes/Theorems/AbelianSchemePropertyBundle_isIntegral_of_field.lean
+Nyll/AlgebraicCurves/Geometry/AbelianSchemes/Theorems/RelativeGroupLaw_eq_of_mem_irreducibleComponents_of_apply_closedPoint_mem.lean
+Nyll/AlgebraicCurves/Geometry/AbelianSchemes/Theorems/RelativeGroupLaw_etale_schemeNsmul_of_isUnit_of_smoothOfRelativeDimension.lean
+Nyll/AlgebraicCurves/Geometry/AbelianSchemes/Theorems/RelativeGroupLaw_exists_isOpenImmersion_irreducibleSpace_range_eq_connectedComponent_finiteIndex.lean
+Nyll/AlgebraicCurves/Geometry/AbelianSchemes/Theorems/RelativeGroupLaw_formallyUnramified_schemeNsmul_of_forall_sqZero.lean
+Nyll/AlgebraicCurves/Geometry/AbelianSchemes/Theorems/RelativeGroupLaw_formallyUnramified_schemeNsmul_of_isUnit_of_isLocalRing.lean
+Nyll/AlgebraicCurves/Geometry/AbelianSchemes/Theorems/RelativeGroupLaw_isFinite_endKerStr_and_natCard_eq_endDegree_of_etale.lean
+Nyll/AlgebraicCurves/Geometry/AbelianSchemes/Theorems/RelativeGroupLaw_isFinite_of_isFinite_endKerStr.lean
+Nyll/AlgebraicCurves/Geometry/AbelianSchemes/Theorems/RelativeGroupLaw_surjective_and_endDegree_eq_finrank_of_isFinite_of_flat.lean
+Nyll/AlgebraicCurves/Geometry/Curves/GeometricallyConnected_descendsAlong_surjective.lean
+Nyll/AlgebraicCurves/Geometry/Curves/GeometricallyConnected_of_comp_of_surjective.lean
+Nyll/AlgebraicCurves/Geometry/Curves/GeometricallyIntegral_isIntegral_of_flat_of_universallyOpen.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurveBase.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurveFiniteMapData.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_FiniteMapData_exists_baseChange.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_FiniteMapData_exists_hom_proj_preimage_basicOpen_eq.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_FiniteMapData_exists_isAffineOpen_le_preimage_of_finset.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_FiniteMapData_finite_H0_H1_lineBundle.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_FiniteMapData_finite_H0_H1_sectionsOf.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_bijective_algebraMap_sections_baseChange_of_finiteMapData.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_exists_curveModel_iso_germToFunctionField_eq_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_exists_curveModel_iso_pullback_germToFunctionField_eq_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_exists_curveModel_iso_pullback_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_exists_curveModel_riemannRoch_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_exists_finiteMapData_le_isUnit.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_exists_finiteMapData_le_isUnit_of_twoAffineOpenCover.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_exists_forall_le_exists_section_invModule_disjoint_of_twoAffineOpenCover.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_exists_genus_forall_geometricFibre_riemannRoch_imp_eq_of_twoAffineOpenCover.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_exists_section_invModule_pow_ker_disjoint.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_exists_section_invModule_pow_ker_notMem_support_of_isMaximal.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_exists_section_pullback_invModule_pow_ker_notMem_support_of_twoAffineOpenCover.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_exists_twoAffineOpenCover_of_section.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_free_and_finrank_quotient_span_of_generates_ker_pow.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_subsingleton_H1_and_finrank_H0_sectionsOf_pullback_invModule_pow_ker.lean
+Nyll/AlgebraicCurves/Geometry/Curves/SmoothProperCurve_surjective_unit_app_top_invModule_pow_ker.lean
+Nyll/AlgebraicCurves/Geometry/Curves/exists_smoothProperCurve_hom_comp_eq_of_ringKrullDim_eq_one.lean
+Nyll/AlgebraicCurves/Geometry/Curves/geometricallyIntegral_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/Geometry/Curves/isDomain_tensorProduct_sections_of_geometricallyIntegral.lean
+Nyll/AlgebraicCurves/Geometry/Curves/isIntegral_of_smooth_of_geometricallyConnected.lean
+Nyll/AlgebraicCurves/Geometry/Curves/mem_of_isProper_of_forall_smoothProperCurve_mem.lean
+Nyll/AlgebraicCurves/Geometry/Deformation/Scheme_exists_tangentPoints_equiv_linearMap_cotangentSpace.lean
+Nyll/AlgebraicCurves/Geometry/Deformation/SquareZeroDeformation.lean
+Nyll/AlgebraicCurves/Geometry/Deformation/smoothOfRelativeDimension_of_finrank_cotangentSpace_eq.lean
+Nyll/AlgebraicCurves/Geometry/IsClosed_singleton_of_ne_genericPoint.lean
+Nyll/AlgebraicCurves/Geometry/Map_ne_zero_of_tame.lean
+Nyll/AlgebraicCurves/Geometry/Nonempty_algEquiv_functionField_of_iso.lean
+Nyll/AlgebraicCurves/Geometry/One_le_deg.lean
+Nyll/AlgebraicCurves/Geometry/Picard/AlgEquivZeroCut.lean
+Nyll/AlgebraicCurves/Geometry/Picard/AlgEquivZeroGroupCut.lean
+Nyll/AlgebraicCurves/Geometry/Picard/ChartSections.lean
+Nyll/AlgebraicCurves/Geometry/Picard/Exists_twoAffineOpenCover_fibre_linearEquiv_sectionsOf_of_isPullback.lean
+Nyll/AlgebraicCurves/Geometry/Picard/Functor.lean
+Nyll/AlgebraicCurves/Geometry/Picard/IsAlgEquivZero_eulerChar_sectionsOf_tensor_eq.lean
+Nyll/AlgebraicCurves/Geometry/Picard/IsPullback_baseChangeSnd.lean
+Nyll/AlgebraicCurves/Geometry/Picard/Nonempty_pullback_sectionTwist_iso.lean
+Nyll/AlgebraicCurves/Geometry/Picard/Pullback.lean
+Nyll/AlgebraicCurves/Geometry/Picard/RelSubPic/BaseChange.lean
+Nyll/AlgebraicCurves/Geometry/Picard/RelSubPic/Group.lean
+Nyll/AlgebraicCurves/Geometry/Picard/RelSubPic/Presheaf.lean
+Nyll/AlgebraicCurves/Geometry/Picard/RelativeGroupLaw.lean
+Nyll/AlgebraicCurves/Geometry/Picard/RelativeGroupLawGrpObj.lean
+Nyll/AlgebraicCurves/Geometry/Picard/RigidifiedLineBundle_exists_iso_map_pullback_rigSection_comp_eq.lean
+Nyll/AlgebraicCurves/Geometry/Picard/RigidifiedLineBundle_iso_eq_of_map_pullback_rigSection_comp_eq.lean
+Nyll/AlgebraicCurves/Geometry/Picard/RigidifiedLineBundle_iso_eq_of_map_pullback_rigSection_comp_eq_of_surjective.lean
+Nyll/AlgebraicCurves/Geometry/Picard/RigidifiedLineBundle_nonempty_iso_of_pullbackAlong_openCover_of_bijective_sections.lean
+Nyll/AlgebraicCurves/Geometry/Picard/RigidifiedLineBundle_nonempty_iso_unit_of_forall_pullbackAlong_point.lean
+Nyll/AlgebraicCurves/Geometry/Picard/StageHom.lean
+Nyll/AlgebraicCurves/Geometry/Picard/SubPicCondition.lean
+Nyll/AlgebraicCurves/Geometry/Picard/Subsingleton_H1_and_finrank_H0_fibre_tensor_sectionTwist_of_fibrewiseAlgEquivZero.lean
+Nyll/AlgebraicCurves/Geometry/Picard/Subsingleton_H1_and_finrank_H0_fibre_tensor_sectionTwist_of_fibrewiseAlgEquivZero_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/Geometry/Projective/ProjSpace_exists_forall_subsingleton_HSucc_twist.lean
+Nyll/AlgebraicCurves/Geometry/Projective/ProjSpace_exists_isFG_hom_injective_saturated_twistGradedModule.lean
+Nyll/AlgebraicCurves/Geometry/Projective/ProjSpace_exists_sec_shift_twistGradedModule_equiv.lean
+Nyll/AlgebraicCurves/Geometry/Projective/ProjTwistDatum.lean
+Nyll/AlgebraicCurves/Geometry/Projective/Scheme_Modules_projective_sections_of_locallyTrivial.lean
+Nyll/AlgebraicCurves/Geometry/Projective/Scheme_TwoAffineOpenCover_exists_isInvertible_sectionsOf_equiv_of_projective.lean
+Nyll/AlgebraicCurves/Geometry/Projective/Scheme_TwoAffineOpenCover_sectionsOf_isInvertible_projective_finite_finrank.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/AffineLimit.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/AffineLimit_homIsLFP_of_locallyOfFinitePresentation.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/AffineLimit_locallyOfFiniteType_of_forall_exists_fg_factor.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/AffineLimit_presheafULift_isOpenImmersion_and_isLocallySurjective_of_locallyOfFiniteType.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/FGSubalgebraTensorStage.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/FGSubalgebra_nonempty_isColimit_cocone.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/IsAffineOpen_range_algebraMap_functionField_eq_iInf.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/IsFinite_ringKrullDim_stalk_quotient_eq_zero.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/IsIrreducible_topologicalKrullDim_add_one_le_of_isClosed_of_ne.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/IsSeparated_of_comp_of_universallyClosed_of_surjective.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/LocallyOfFiniteType_of_comp_of_isFinite_of_flat_of_surjective.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/MumfordTruncation.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/OrderedAffineCoverComap.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/RegularLocalRingQuotientNonZeroDivisorAscent.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/RegularLocalRingRegularSequenceAscent.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/RigidifiedLineBundleOfInvertible.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/SchemeHomOver.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/SchemeHomOverBaseChange.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/SchemeHomOver_ext_of_forall_algebraicClosure_point_of_isReduced_of_flat.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_Hom_exists_isClosed_irreducible_subset_fiber_of_not_quasiFiniteAt.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_Hom_finrank_comp_of_finrank_eq_const.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_Hom_isFinite_and_finrank_subschemeIota_ker_pow_of_comp_eq_id.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_Hom_isInvertible_ker_of_comp_eq_id.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_Hom_nonempty_pullback_ker_pow_invModule_iso_of_isIso.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_Hom_ord_eq_of_ker_pow_ideal_eq_span.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_Opens_finite_preimage_singleton_toSpecPolynomial.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_Opens_isProper_toSpecPolynomial_of_maximal.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_Opens_range_algebraMap_functionField_eq_iInf.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_OrderedAffineCover_nonempty_of_compactSpace.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_PartialMap_mem_domain_toRationalMap_of_valuationRing_stalk.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_RationalMap_exists_specializes_ringKrullDim_le_one_of_not_mem_domain.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_bijective_algebraMap_sections_baseChange_of_isReduced.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_bijective_kerBaseChangeHom_and_surjective_unit_app_of_subsingleton_H1.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_exists_baseChangeIsos_structureSheaf.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_exists_ideal_pullback_cover_ringEquiv_quotient_appLE_of_squareZero.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_exists_isPullback_snd_specMap_algebraOfHom.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_exists_linearEquiv_overlap_quotient_baseChange_of_lift_of_compat.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_exists_linearEquiv_sectionsOf_H0.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_exists_linearEquiv_sectionsOf_of_iso.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_exists_sectionsOf_baseChange_equiv_of_locallyTrivial.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_exists_sectionsOf_overlap_linearEquiv_baseChange_of_isInvertible.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_exists_sectionsOf_pullback_stageHom_equiv_lineBundle_appLE.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_exists_sectionsOf_unit_equiv_structureSheafSections.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_exists_stage_baseChangeIsos_structureSheaf.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_exists_stage_sectionsOf_baseChange_equiv_of_locallyTrivial.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_finiteType_algebraOfHom.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_finite_H0_H1_structureSheaf.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_finite_H0_and_subsingleton_H1_sectionsOf_pushforward_of_isFinite.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_finrank_H0_sectionsOf_baseChange_eq_and_subsingleton_H1_iff.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_finrank_H1_sectionsOf_unit_eq_and_finrank_H0_eq_one.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_flat_sections_of_flat.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_isOpen_setOf_subsingleton_H1_fibre.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_nonempty_iso_iff_exists_units_of_sectionsOf_equiv_lineBundle.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_nonempty_iso_of_sectionsOf_linearEquiv_of_isInvertible.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_nonempty_iso_pullback_baseChangeSnd_of_sectionsOf_lift_appLE_of_overlap_iso.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_subsingleton_H1_sectionsOf_of_subsingleton_H1.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_TwoAffineOpenCover_toH0_bijective.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_bijective_algebraMap_sections_baseChange_of_bijective_of_field.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_bijective_algebraMap_sections_of_isProper_of_isIntegral.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_exists_affine_quotient_of_finiteLocallyFree_equivalenceRelation.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_exists_isOpenImmersion_of_functionField_iso.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_exists_iso_comp_eq_of_isOpenImmersion_of_isProper.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_finite_setOf_forall_mem_iff_mul_mem_of_isClosed_of_compl_subset_of_isAffineOpen.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_forall_mem_iff_of_subset_union_preimage_or_disjoint.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Scheme_subset_basicOpen_or_disjoint_of_isProper_of_isIrreducible.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/SmoothOfRelativeDimension_isDiscreteValuationRing_stalk_of_isClosed.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/SmoothOfRelativeDimension_isDiscreteValuationRing_stalk_of_section.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/SmoothOfRelativeDimension_le_topologicalKrullDim.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/SmoothOfRelativeDimension_topologicalKrullDim_le.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/Smooth_isRegularLocalRing_stalk.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/bijective_appTop_pullback_snd_of_forall_bijective_algebraMap_sections.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/existsUnique_extension_to_affine_of_isIntegrallyClosed_stalk.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/existsUnique_lift_fromNormalization_kummer_of_isAffineOpen.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/exists_eq_pullback_snd_comp_of_isProper.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/exists_etale_of_formallyUnramified_stalkMap.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/exists_isAffineOpen_forall_mem_of_isAffineHom_proj.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/exists_over_hom_base_closedPoint_eq_of_isClosed_singleton.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/exists_pow_eq_of_section_fromNormalization_kummer.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/exists_root_fromNormalization_kummer_existsUnique_lift.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/isFinite_and_etale_fromNormalization_kummer_of_isIntegrallyClosed.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/isIntegral_of_isLocallyNoetherian_of_connectedSpace_of_forall_isDomain_stalk.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/isReduced_of_smooth_of_field.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/isReduced_of_smooth_over_field.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/not_isAffine_of_isProper_of_smoothOfRelativeDimension_one.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/prodKerGraph_comap_mapOnProdOver.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/ringKrullDim_stalk_eq_of_isFinite_endomorphism.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/smoothOfRelativeDimension_of_irreducibleSpace.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/subsingleton_H1_and_finrank_H0_sectionsOf_tensor_invModule_pow_ker_of_isAlgEquivZero.lean
+Nyll/AlgebraicCurves/Geometry/Schemes/valuationRing_stalk_of_smoothOfRelativeDimension_one.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/IdealSheafHom.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/IdealSheafModule.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/IdealSheafModuleMaps.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/ModulesBaseChangeHom.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/ModulesDet.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/ModulesIhomSections.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/ModulesProjectionMorphism.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/ModulesPushforwardRestrict.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/ModulesRigidify.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/ModulesSectionZeroScheme.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/ModulesTildePullback.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/RelativeSectionTwist.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_IsInvertible_epi_unit_app_tensor_invModule_pow_and_exists_shortExact.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_IsInvertible_exists_divisor_range_invModule_eq_lSpaceOn.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_IsInvertible_exists_divisor_range_module_eq_lSpaceOn.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_IsInvertible_isInvertible_module.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_IsInvertible_isIso_pullbackModuleComparison.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_IsInvertible_mul_left_cancel.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_IsInvertible_nonempty_mul_invModule_iso_tensor.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_IsInvertible_nonempty_mul_module_iso_tensor.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_IsInvertible_nonempty_pullback_invModule_iso.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_IsInvertible_zeroSchemeIdeal_invModuleSection.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_comap_injective_of_flat_of_surjective.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_comap_mul.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_eq_of_forall_comap_openCover_eq.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_exists_comap_eq_of_openCover.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_ideal_comap_of_le.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_isInvertible_of_isInvertible_comap.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_isReduced_subscheme_vanishingIdeal_and_le_ker.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_mono_whiskerLeft_moduleIota.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_pullbackModuleComparison_locallySurjective.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_IdealSheafData_range_moduleIota_app_and_injective.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_FiniteBySections_tensor.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_Hom_epi_iff_locallySurjective.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_Hom_isIso_of_forall_exists_isIso_pullback_map.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_Hom_isIso_of_isIso_app_of_iSup_eq_top.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_Hom_mono_iff_injective.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsFrameOn_nonempty_pullback_iso_unit.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsFrameOn_tensorPowSection.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsFrameOn_tensorSections.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_bijective_lift_tensorSectionsBilin.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_coeffIdeal_le_and_ideal_zeroSchemeIdeal_eq.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_comap_zeroSchemeIdeal.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_dual.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_dual_tensor.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_existsUnique_app_eq_smul.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_exists_bijective_smul_of_le_preimage_basicOpen_of_forall_isMaximal.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_exists_divisor_range_eq_lSpaceOn.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_exists_dual_iso_module_zeroSchemeIdeal.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_exists_functionField_presentation.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_exists_idealSheafData_tensor_linearEquiv_of_presentation.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_exists_isFrameOn.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_exists_iso_invModule_zeroSchemeIdeal.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_exists_nonempty_pullback_baseChangeSnd_iso_unit_of_forall_point.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_exists_ratio_section.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_exists_sectionsOf_equiv_lineBundle_one_add_of_pullback_quotient_isNilpotent.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_exists_tensor_inverse.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_genericPoint_notMem_support_zeroSchemeIdeal.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_ideal_zeroSchemeIdeal_eq_span_of_app_eq_smul.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_isFrameOn_app_of_disjoint_support_zeroSchemeIdeal.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_isInvertible_zeroSchemeIdeal_and_flat.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_isIso_ev_app_and_isIso_curry_braiding_ev.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_isIso_ev_app_tensorUnit.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_isIso_of_locallySurjective.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_nonempty_iso_tensorUnit_of_field.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_nonempty_iso_unit_of_forall_invertible_free.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_nonempty_iso_unit_of_pullback_squareZero.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_nonempty_pullback_rigidify_iso.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_nonempty_rigidify_pullback_tensor_iso.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_pullbackSection_eq_zero_iff_mem_support.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_pullbackSection_transposeSection_eq_zero_iff.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_pullback_dual.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_rigidify.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_tensor.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_zeroSchemeIdeal_eq_of_app_eq_smul.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsInvertible_zeroSchemeIdeal_tensorHom.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsLocallyFreeOfRank_of_forall_exists_opens.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_IsLocallyFreeOfRank_pullback.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_ProjPresentation_exists_linearMap_sections_tensorPow_twistObj.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_ProjPresentation_isFinite_toProj_of_finite_setOf_forall_pullbackSection_eq_zero_iff.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_ProjPresentation_subset_support_zeroSchemeIdeal_or_disjoint.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_baseChangeHom_comp_horizontal.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_bijective_lift_tensorSectionsBilin_of_isQuasicoherent.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_exists_app_eq_of_exact_of_app_eq_zero.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_exists_basicOpen_forall_exists_frame.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_exists_basicOpen_forall_exists_frame_of_frame_pullback.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_exists_eq_mul_and_eq_add_ord_of_presentations.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_exists_eq_sub_of_cocycle_of_isAffineOpen.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_exists_eq_sum_smul_pullbackSection_of_isReduced_of_finrank_eq.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_exists_eq_sum_smul_pullbackSection_of_subsingleton_HSucc.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_exists_fibreProduct_sections_bijective.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_exists_forall_eq_mul_of_presentations.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_exists_hom_restrict_eq_of_isOpenImmersion.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_exists_hom_tensorPow_three_support_zeroSchemeIdeal_eq.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_exists_isFrameOn_tensorPow_three_of_forall_nonempty_pullback_tensor_iso.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_exists_isInvertible_hom_ne_zero_finite_setOf_stabilizer.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_exists_isInvertible_pullbackSection_eq_zero_iff_notMem_of_isAffineOpen.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_exists_iso_pullback_of_isPullback.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_exists_linearEquiv_sections_baseChange_of_locallyTrivial.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_exists_shortExact_ker_module_tensor_of_isClosedImmersion.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_exists_unit_range_eq_lSpaceOn_zero.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_finite_sections_of_locallyTrivial.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_finrank_baseChange_sections_eq_one_of_locallyTrivial.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_hom_ext_of_isIso_fromTildeGamma.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isClosed_setOf_le_finrank_sections_pullback_residueField.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isIso_baseChangeHom_iff_of_isPullback.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isIso_baseChangeHom_of_forall_exists_isPullback.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isIso_baseChangeHom_of_isOpenImmersion.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isIso_baseChangeHom_of_twoAffineOpenCover.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isIso_baseChange_sections_of_isIso_fromTildeGamma.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isIso_fromTildeGamma_iff_isLocalizedModule.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isIso_fromTildeGamma_of_isLocalization_basicOpen.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isIso_fromTildeGamma_of_locallyTrivial.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isIso_fromTildeGamma_pushforward_of_locallyTrivial.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isIso_projectionMorphism_of_iso_free.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isIso_pullback_map_projectionMorphism_iff.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isLocallyFreeOfRank_one_iff_isInvertible.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isLocallyFreeOfRank_pushforward_of_forall_exists_isPullback.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isLocallyFreeOfRank_pushforward_of_twoAffineOpenCover.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isLocallyFreeOfRank_tilde.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isPrincipal_sub_single_of_presentation_ker_pow.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isPrincipal_sub_sub_of_presentations_tensor.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_isStackFor_openCover.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_leftUnitor_hom_app_tensorSections.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_nonempty_pullback_iso_of_bijective_app_of_le_opensRange.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_nonempty_pullback_tensorPow_iso.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_nonempty_pullback_tensor_pullback_iso_of_trivial_on_open.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_nonempty_pushforward_unit_tensor_iso_pushforward_pullback_of_isClosedImmersion.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_ofUnitSection_sectionDual_app.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_projectionMorphism_naturality.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_pullbackComp_pullbackCongr_pasteSquares_app.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_pullbackTensorObjIso_hom_app_pullbackLocalSection.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_pullbackTensorUnitObjIso_hom_app_pullbackLocalSection_unitSection.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_pullbackUnitIso_hom_app_pullbackLocalSection_toUnitSection.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_pullback_map_projectionMorphism_comp_counit.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_rankAtStalk_sections_eq_one_of_locallyTrivial.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_surjective_app_of_shortExact_of_locallyTrivial.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_toDescentData_essSurj_of_openCover.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_toDescentData_map_bijective_of_openCover.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_whiskerRight_app_tensorSections.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_zeroSchemeIdeal_comp_eq_of_isIso.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/Scheme_Modules_zeroSchemeIdeal_comp_le.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/tilde_pullbackSpecIso_hom_app_top_unit_toOpen.lean
+Nyll/AlgebraicCurves/Geometry/Sheaves/tilde_pullbackSpecIso_unit.lean
+Nyll/AlgebraicCurves/Hilbert/SymmetricPowerData.lean
+Nyll/AlgebraicCurves/Models/Basic.lean
+Nyll/AlgebraicCurves/Models/ChartAlgebra.lean
+Nyll/AlgebraicCurves/Models/Construction.lean
+Nyll/AlgebraicCurves/Models/CurveModel_eq_genusFF_of_forall_ell_sub_ell_eq.lean
+Nyll/AlgebraicCurves/Models/CurveModel_exists_algHom_finiteAlong_pointEquivPlace_restrictAlong_of_isFinite.lean
+Nyll/AlgebraicCurves/Models/CurveModel_exists_comp_toBase_eq_id_and_base_closedPoint_eq_of_deg_eq_one.lean
+Nyll/AlgebraicCurves/Models/CurveModel_exists_curveModel_iso_ffEquiv_symm_germToFunctionField_eq_of_algEquiv.lean
+Nyll/AlgebraicCurves/Models/CurveModel_exists_curveModel_iso_of_algEquiv.lean
+Nyll/AlgebraicCurves/Models/CurveModel_exists_divisorClassMap.lean
+Nyll/AlgebraicCurves/Models/CurveModel_exists_finite_flat_hom_of_algHom.lean
+Nyll/AlgebraicCurves/Models/CurveModel_exists_iso_comp_toBase_eq_placeOfPoint_congr_eq.lean
+Nyll/AlgebraicCurves/Models/CurveModel_ffEquiv_symm_stalkMap_eq_algebraMap.lean
+Nyll/AlgebraicCurves/Models/CurveModel_finrank_H0_sectionsOf_invModule_prod_ker_tensor_module_prod_ker_eq_ell.lean
+Nyll/AlgebraicCurves/Models/CurveModel_infinite_place.lean
+Nyll/AlgebraicCurves/Models/CurveModel_isProper_smooth_places_affineCover_glued.lean
+Nyll/AlgebraicCurves/Models/CurveModel_ker_comap_eq_prod_ker_pow_ramificationIndex.lean
+Nyll/AlgebraicCurves/Models/CurveModel_nonempty_of_perfectField.lean
+Nyll/AlgebraicCurves/Models/CurveModel_ramificationIndexAlong_pointEquivPlace_eq_one_of_formallyUnramified.lean
+Nyll/AlgebraicCurves/Models/CurveModel_range_sections_eq_map_eval2_polyPart_invPolyPart_of_coe_eq_compl.lean
+Nyll/AlgebraicCurves/Models/Eq_of_range_stalk_eq.lean
+Nyll/AlgebraicCurves/Models/Exists_closedPoint_range_stalk_eq.lean
+Nyll/AlgebraicCurves/Models/Exists_isAffineOpen_forall_mem_of_finset.lean
+Nyll/AlgebraicCurves/Models/Exists_isAffineOpen_sup_eq_top.lean
+Nyll/AlgebraicCurves/Models/Exists_transcendental_mem_range_stalk_iff_ne.lean
+Nyll/AlgebraicCurves/Models/Finite_compl_of_isOpen.lean
+Nyll/AlgebraicCurves/Models/Gluing/Scheme_Opens_isAffineOpen_and_finite_aeval_of_twoChart.lean
+Nyll/AlgebraicCurves/Models/Gluing/Scheme_Opens_isAffineOpen_and_finite_aeval_of_twoChart_right.lean
+Nyll/AlgebraicCurves/Models/Gluing/SmoothProperCurve_exists_twoChartPoleDatum_of_section_invModule.lean
+Nyll/AlgebraicCurves/Models/Gluing/SmoothProperCurve_exists_twoChartPoleDatum_transcendental_le_isUnit_of_twoAffineOpenCover.lean
+Nyll/AlgebraicCurves/Models/Gluing/SmoothProperCurve_exists_twoChart_of_section_invModule.lean
+Nyll/AlgebraicCurves/Models/Gluing/SmoothProperCurve_finrank_levelSet_field_of_twoChartPoleDatum.lean
+Nyll/AlgebraicCurves/Models/Gluing/SmoothProperCurve_flat_aeval_of_twoChartPoleDatum.lean
+Nyll/AlgebraicCurves/Models/Gluing/SmoothProperCurve_injective_aeval_tensor_of_twoChartPoleDatum.lean
+Nyll/AlgebraicCurves/Models/Gluing/SmoothProperCurve_levelSet_free_of_twoChartPoleDatum.lean
+Nyll/AlgebraicCurves/Models/Gluing/SmoothProperCurve_nontrivial_tensor_sections_of_twoChartPoleDatum.lean
+Nyll/AlgebraicCurves/Models/Gluing/SmoothProperCurve_transcendental_app_of_twoChart_of_section_mem.lean
+Nyll/AlgebraicCurves/Models/IsAffineOpen_of_maximal_domain.lean
+Nyll/AlgebraicCurves/Models/IsCurveOver_of_isIntegral_of_smoothOfRelativeDimension_one.lean
+Nyll/AlgebraicCurves/Models/IsCurveOver_of_ringEquiv_functionField_of_isIntegral_of_smoothOfRelativeDimension_one.lean
+Nyll/AlgebraicCurves/Models/Places.lean
+Nyll/AlgebraicCurves/Models/Range_algebraMap_functionField_eq_iInf_of_isAffineOpen.lean
+Nyll/AlgebraicCurves/Models/Smoothness.lean
+Nyll/AlgebraicCurves/Places/Completion.lean
+Nyll/AlgebraicCurves/Places/Evaluation.lean
+Nyll/AlgebraicCurves/Places/Exists_finset_sum_neg_ord_eq_finrank_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/Places/Exists_placeEquiv_ord_eq_and_ell_mapDomain_eq.lean
+Nyll/AlgebraicCurves/Places/Exists_place_notMem_ord_neg_and_forall_ord_eq_one.lean
+Nyll/AlgebraicCurves/Places/Exists_place_range_stalk_eq.lean
+Nyll/AlgebraicCurves/Places/Finite_setOf_ord_ne_zero_of_finiteDimensional.lean
+Nyll/AlgebraicCurves/Places/Finsum_ramificationIndex_ratFunc_sub_one_eq_of_tame.lean
+Nyll/AlgebraicCurves/Places/LocalUnramifiedRamification.lean
+Nyll/AlgebraicCurves/Places/OverDVR.lean
+Nyll/AlgebraicCurves/Places/Place_adicValuation_isTrivialOn.lean
+Nyll/AlgebraicCurves/Places/Place_deg_ne_zero_of_finiteDimensional_adjoin.lean
+Nyll/AlgebraicCurves/Places/Place_evalAt_algebraMap.lean
+Nyll/AlgebraicCurves/Places/Place_evalAt_congr.lean
+Nyll/AlgebraicCurves/Places/Place_evalAt_inv.lean
+Nyll/AlgebraicCurves/Places/Place_evalAt_ne_zero.lean
+Nyll/AlgebraicCurves/Places/Place_evalAt_zpow.lean
+Nyll/AlgebraicCurves/Places/Place_exists_comap_eq_toValuationSubring.lean
+Nyll/AlgebraicCurves/Places/Place_exists_equiv_comap_eq_and_ord_eq_and_deg_eq_of_ringEquiv.lean
+Nyll/AlgebraicCurves/Places/Place_exists_forall_adicValuation_sub_eq.lean
+Nyll/AlgebraicCurves/Places/Place_exists_forall_adicValuation_sub_le.lean
+Nyll/AlgebraicCurves/Places/Place_exists_forall_ord_eq.lean
+Nyll/AlgebraicCurves/Places/Place_exists_forall_ord_eq_finset.lean
+Nyll/AlgebraicCurves/Places/Place_exists_not_mem_and_forall_ne_mem.lean
+Nyll/AlgebraicCurves/Places/Place_exists_ord_algebraMap_eq_mul_ord.lean
+Nyll/AlgebraicCurves/Places/Place_exists_ord_neg_of_transcendental.lean
+Nyll/AlgebraicCurves/Places/Place_exists_ord_pos.lean
+Nyll/AlgebraicCurves/Places/Place_exists_restrict_eq.lean
+Nyll/AlgebraicCurves/Places/Place_exists_toValuationSubring_eq_comap_ringHom_of_isSeparable.lean
+Nyll/AlgebraicCurves/Places/Place_finite_residueField_of_finiteDimensional.lean
+Nyll/AlgebraicCurves/Places/Place_inertiaDegAlong_eq_one_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/Places/Place_inertiaDeg_pos_of_finiteDimensional.lean
+Nyll/AlgebraicCurves/Places/Place_isRational_iff_deg_eq_one.lean
+Nyll/AlgebraicCurves/Places/Place_isRational_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/Places/Place_mem_iff_ord_nonneg.lean
+Nyll/AlgebraicCurves/Places/Place_mem_of_ord_nonneg.lean
+Nyll/AlgebraicCurves/Places/Place_mem_range_algebraMap_of_forall_ord_eq_zero_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/Places/Place_mem_toValuationSubring_of_isIntegral_adjoin.lean
+Nyll/AlgebraicCurves/Places/Place_min_ord_le_ord_add.lean
+Nyll/AlgebraicCurves/Places/Place_ord_add_eq_of_lt.lean
+Nyll/AlgebraicCurves/Places/Place_ord_algebraMap.lean
+Nyll/AlgebraicCurves/Places/Place_ord_eq_neg_log_of_valuationSubring_eq.lean
+Nyll/AlgebraicCurves/Places/Place_ord_nonneg_of_mem.lean
+Nyll/AlgebraicCurves/Places/Place_restrictAlong_surjective.lean
+Nyll/AlgebraicCurves/Places/Place_restrict_eq_of_forall_mem.lean
+Nyll/AlgebraicCurves/Places/Place_sum_ramificationIndex_mul_inertiaDeg.lean
+Nyll/AlgebraicCurves/Places/Place_sum_ramificationIndex_mul_inertiaDeg_fiberOver.lean
+Nyll/AlgebraicCurves/Places/Place_transcendental_of_ord_ne_zero.lean
+Nyll/AlgebraicCurves/Places/PlacesOf_union_eq_univ_of_sup_eq_top.lean
+Nyll/AlgebraicCurves/Places/Rational/Basic.lean
+Nyll/AlgebraicCurves/Places/Rational/Classification.lean
+Nyll/AlgebraicCurves/Places/Rational/Infinity.lean
+Nyll/AlgebraicCurves/Places/Rational/RationalFunctionField_deg_eq_one_of_forall_ne_ofHeightOneSpectrum.lean
+Nyll/AlgebraicCurves/Places/Rational/RationalFunctionField_deg_eq_one_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/Places/Rational/RationalFunctionField_deg_ne_zero.lean
+Nyll/AlgebraicCurves/Places/Rational/RationalFunctionField_degree_eq_zero_of_forall_eq_ord.lean
+Nyll/AlgebraicCurves/Places/Rational/RationalFunctionField_degree_eq_zero_of_forall_eq_ord_algebraMap.lean
+Nyll/AlgebraicCurves/Places/Rational/RationalFunctionField_exists_algebraMap_of_forall_ord_eq_zero.lean
+Nyll/AlgebraicCurves/Places/Rational/RationalFunctionField_exists_forall_ne_ofHeightOneSpectrum.lean
+Nyll/AlgebraicCurves/Places/Rational/RationalFunctionField_finite_setOf_ord_ne_zero.lean
+Nyll/AlgebraicCurves/Places/Rational/RationalFunctionField_indexOfSpecialtyFinite_of_ratFunc_tower.lean
+Nyll/AlgebraicCurves/Places/Rational/RationalFunctionField_ord_X_sub_C.lean
+Nyll/AlgebraicCurves/Places/Rational/RationalFunctionField_ord_eq_neg_intDegree_of_forall_ne_ofHeightOneSpectrum.lean
+Nyll/AlgebraicCurves/Places/Rational/RationalFunctionField_ord_ofHeightOneSpectrum_eq_neg_log.lean
+Nyll/AlgebraicCurves/Places/Rational/RationalFunctionField_ord_ofHeightOneSpectrum_of_span.lean
+Nyll/AlgebraicCurves/Places/Rational/RationalFunctionField_ord_placeInfty_X.lean
+Nyll/AlgebraicCurves/Places/Rational/RationalFunctionField_stichtenothGenusExists.lean
+Nyll/AlgebraicCurves/Places/Rational/RationalFunctionField_subsingleton_setOf_forall_ne_ofHeightOneSpectrum.lean
+Nyll/AlgebraicCurves/Places/Rational/RationalFunctionField_toValuationSubring_eq_of_forall_ne_ofHeightOneSpectrum.lean
+Nyll/AlgebraicCurves/RelativeDivisors/Cartier.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDivFunctor.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDivOfPoint.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDivRestrict.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDivSum.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDivSupportedIn.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDivTwist2.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_IsUniversal_exists_sumMap.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_IsUniversal_geometricallyConnected.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_IsUniversal_isProper.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_existsUnique_pullbackAlong_eq_of_isPullback_of_isAffine.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_exists_I_eq_ker_graphOver_mul.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_exists_I_eq_mul.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_exists_I_eq_prodKerGraph.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_exists_I_eq_prodKerGraph_of_isAlgClosed.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_exists_I_eq_zeroSchemeIdeal.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_exists_I_eq_zeroSchemeIdeal_of_ne_zero_of_isProper.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_exists_isUniversal.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_exists_isUniversal_of_isAffine.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_exists_sameDivisorScheme.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_exists_snd_apply_eq_and_notMem_support.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_exists_split.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_exists_supportedIn_of_forall_finset.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_isInvertible_I.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_isInvertible_twistModule_and_nonempty_pullback_iso.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_isOpenImmersion_presheaf_supportedIn_incl.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_isRepresentable_supportedIn.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_isSheaf_functor.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_isUniversal_empty.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_nonempty_twistModule_pullbackAlong_iso_pullback.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_pullbackAlong_injective.lean
+Nyll/AlgebraicCurves/RelativeDivisors/RelEffCartierDiv_pullbackAlong_ofPoint.lean
+Nyll/AlgebraicCurves/RelativeDivisors/UniversalData.lean
+Nyll/AlgebraicCurves/Valuations/AdicCompletion.lean
+Nyll/AlgebraicCurves/Valuations/Algebra_IsStandardSmoothOfRelativeDimension_isDiscreteValuationRing_localization_atPrime.lean
+Nyll/AlgebraicCurves/Valuations/Ideal_height_eq_one_of_isDiscreteValuationRing_localization_atPrime.lean
+Nyll/AlgebraicCurves/Valuations/IsIntegrallyClosed_isDiscreteValuationRing_localization_of_mem_associatedPrimes.lean
+Nyll/AlgebraicCurves/Valuations/IsIntegrallyClosed_isDiscreteValuationRing_of_maximalIdeal_mem_associatedPrimes.lean
 
-The complete upstream NOTICE and ATTRIBUTION.md at the reference revision are
-reproduced verbatim below, once each. They include earlier notices for the
-Imperial College London FLT project, flt-regular and Mathlib. References to
-"this repository", file paths, counts, bundled web assets and ATTRIBUTION.md
-inside those reproduced texts describe the upstream Anthropic repository.
-Its ATTRIBUTION.md is included in this NOTICE, rather than as a separate file.
-No upstream web assets are bundled here.
+Anthropic FLT: JacobianVarieties
+--------------------------------
 
-Upstream notice:
-https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/NOTICE
-Upstream attribution:
-https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/ATTRIBUTION.md
-
-Dependencies
-------------
-
-Mathlib: https://github.com/leanprover-community/mathlib4
-Copyright (c) the respective Mathlib authors, as recorded in its source headers.
+Copyright 2026 Anthropic, PBC.
 License: Apache License, Version 2.0.
-Lean: https://github.com/leanprover/lean4
-The toolchain and Lake dependencies are fetched at build time. Their pinned
-versions and upstream locations are recorded in lean-toolchain and
-lake-manifest.json.
+Included-file source mapping: Nyll/JacobianVarieties/ANTHROPIC_FLT_SOURCE.md
+Preserved upstream NOTICE: Nyll/JacobianVarieties/ANTHROPIC_FLT_NOTICE
+Preserved earlier-source attribution: Nyll/JacobianVarieties/ANTHROPIC_FLT_ATTRIBUTION.md
+Earlier copyright holders and authors are not replaced by Anthropic.
 
-===== BEGIN UPSTREAM ANTHROPIC NOTICE (VERBATIM) =====
-Fermat's Last Theorem in Lean 4
-Copyright 2026 Anthropic, PBC
+Nyll/JacobianVarieties/Pic0/Pic0_exists_mk_eq_and_dvd_ord_of_mem_torsion.lean
+Nyll/JacobianVarieties/Pic0/Pic0_exists_nsmul_eq_of_jacobianPack_of_natCast_ne_zero.lean
+Nyll/JacobianVarieties/Pic0/Pic0_mk_eq_zero_iff_exists_pow.lean
+Nyll/JacobianVarieties/Pic0/RelativePic0DesignationBaseChange.lean
+Nyll/JacobianVarieties/Picard/AbelJacobiFamily.lean
+Nyll/JacobianVarieties/Picard/AbelianSchemePropertyBundle_exists_isInvertible_finiteBySections.lean
+Nyll/JacobianVarieties/Picard/BaseChange_points_mul_poincare_compat.lean
+Nyll/JacobianVarieties/Picard/CurveModel_exists_representsRelSubPic_abelJacobi_of_isAlgClosed.lean
+Nyll/JacobianVarieties/Picard/CurveModel_finrank_cotangentSpace_zeroSection_eq_genusFF_of_representsRelSubPic.lean
+Nyll/JacobianVarieties/Picard/CurveModel_smoothOfRelativeDimension_genusFF_of_representsRelSubPic.lean
+Nyll/JacobianVarieties/Picard/Designation.lean
+Nyll/JacobianVarieties/Picard/EulerChar_fibre_sectionTwist_tensor_idealModule_eq_one.lean
+Nyll/JacobianVarieties/Picard/Exists_abelJacobi_of_representsRelSubPic.lean
+Nyll/JacobianVarieties/Picard/Exists_chart_subsingleton_H1_fibre.lean
+Nyll/JacobianVarieties/Picard/Exists_openChart_relSubPicPresheaf_algEquivZeroCut_of_relEffCartierDiv.lean
+Nyll/JacobianVarieties/Picard/Exists_openCharts_relSubPicPresheaf_algEquivZeroCut_of_finiteMapData_of_isReduced.lean
+Nyll/JacobianVarieties/Picard/Exists_opens_range_subset_iff_forall_subsingleton_H1_fibre.lean
+Nyll/JacobianVarieties/Picard/Exists_pic0_equiv_points_abelJacobi_of_curveModel.lean
+Nyll/JacobianVarieties/Picard/Exists_pic0_equiv_points_of_representsRelSubPic_of_abelJacobi.lean
+Nyll/JacobianVarieties/Picard/Exists_relEffCartierDiv_lineBundle_iso_of_forall_fibre.lean
+Nyll/JacobianVarieties/Picard/Exists_relEffCartierDiv_twistModule_iso_of_subsingleton_H1.lean
+Nyll/JacobianVarieties/Picard/Exists_representsRelSubPic_algEquivZeroCut_of_finiteMapData_of_isReduced.lean
+Nyll/JacobianVarieties/Picard/Exists_representsRelSubPic_algEquivZeroCut_of_isAlgClosed.lean
+Nyll/JacobianVarieties/Picard/Exists_representsRelSubPic_baseChange.lean
+Nyll/JacobianVarieties/Picard/Exists_trivialModDeformations_map_H1_tensor_natural.lean
+Nyll/JacobianVarieties/Picard/Exists_twoAffineOpenCover_fibre_finrank_H0_eq_and_finrank_H1_eq.lean
+Nyll/JacobianVarieties/Picard/Exists_twoAffineOpenCover_fibre_finrank_H0_eq_and_subsingleton_H1_iff.lean
+Nyll/JacobianVarieties/Picard/Exists_twoAffineOpenCover_fibre_finrank_eq_finrank_cechDiff_baseChange_residueField.lean
+Nyll/JacobianVarieties/Picard/Finrank_H0_fibre_eq_one_of_subsingleton_H1.lean
+Nyll/JacobianVarieties/Picard/Finrank_H0_unit_fibre_eq_one.lean
+Nyll/JacobianVarieties/Picard/Finrank_H1_unit_fibre_eq_of_eulerChar_chart.lean
+Nyll/JacobianVarieties/Picard/HasChartSections_forall_geometricFibre_riemannRoch_imp_eq.lean
+Nyll/JacobianVarieties/Picard/IsAlgEquivZero_iff_eulerChar_sectionsOf_eq.lean
+Nyll/JacobianVarieties/Picard/IsAlgEquivZero_nonempty_iso_tensorUnit_of_ne_zero.lean
+Nyll/JacobianVarieties/Picard/IsAlgEquivZero_of_iso_pointSubBasepoint.lean
+Nyll/JacobianVarieties/Picard/IsAlgEquivZero_of_iso_pointsSubBasepoint.lean
+Nyll/JacobianVarieties/Picard/IsAlgEquivZero_pointSubBasepoint.lean
+Nyll/JacobianVarieties/Picard/IsClosed_setOf_exists_fibreModule_iso_unit.lean
+Nyll/JacobianVarieties/Picard/IsLFPInj_relPicardPresheaf.lean
+Nyll/JacobianVarieties/Picard/IsLFPInj_relSubPicPresheaf_algEquivZeroCut.lean
+Nyll/JacobianVarieties/Picard/IsLFPSurj_relPicardPresheaf.lean
+Nyll/JacobianVarieties/Picard/IsLFPSurj_relSubPicPresheaf_algEquivZeroCut.lean
+Nyll/JacobianVarieties/Picard/IsLocallyFreeOfRank_pushforward_of_forall_fibre.lean
+Nyll/JacobianVarieties/Picard/IsLocallyFreeOfRank_pushforward_of_forall_fibre_of_finiteType.lean
+Nyll/JacobianVarieties/Picard/IsOpen_setOf_forall_fibre_subsingleton_H1.lean
+Nyll/JacobianVarieties/Picard/IsOpen_setOf_isAlgEquivZero_fibre.lean
+Nyll/JacobianVarieties/Picard/IsProper_and_geometricallyConnected_of_representsRelSubPic_algEquivZeroCut_of_finiteMapData.lean
+Nyll/JacobianVarieties/Picard/IsSeparated_of_representsRelSubPic_algEquivZeroCut_of_finiteMapData.lean
+Nyll/JacobianVarieties/Picard/IsSheaf_relSubPicPresheaf_algEquivZeroCut_zariski_of_bijective_sections.lean
+Nyll/JacobianVarieties/Picard/IsSheaf_relSubPicPresheaf_algEquivZeroCut_zariski_of_finiteMapData.lean
+Nyll/JacobianVarieties/Picard/LFP_exists_fg_nonempty_iso_pullbackAlong.lean
+Nyll/JacobianVarieties/Picard/LocallyOfFiniteType_of_representsRelSubPic_algEquivZeroCut_of_finiteMapData.lean
+Nyll/JacobianVarieties/Picard/Nonempty_ajFamily_fibre_iso.lean
+Nyll/JacobianVarieties/Picard/Nonempty_invModule_prodKerGraph_tensor_module_pow_iso_pointsSubBasepointModule.lean
+Nyll/JacobianVarieties/Picard/Pullback_map_counit_app_ne_zero_of_forall_fibre.lean
+Nyll/JacobianVarieties/Picard/RelEffCartierDiv_I_eq_of_lineBundle_iso_tensor_pullback_of_forall_fibre.lean
+Nyll/JacobianVarieties/Picard/RelEffCartierDiv_eq_pullbackAlong_of_twistModule_iso.lean
+Nyll/JacobianVarieties/Picard/RelEffCartierDiv_isAlgEquivZero_twistModule_fibre.lean
+Nyll/JacobianVarieties/Picard/RelSubPicGlue.lean
+Nyll/JacobianVarieties/Picard/RelativeGroupLaw_endDegree_nsmul_idPoint_eq_pow_of_natCast_ne_zero.lean
+Nyll/JacobianVarieties/Picard/RelativeGroupLaw_exists_isInvertible_nonempty_pullback_inv_iso_coeff_pos_forall_eulerChar_tensorPow_eq.lean
+Nyll/JacobianVarieties/Picard/Representation.lean
+Nyll/JacobianVarieties/Picard/RepresentsRelSubPicBaseChange.lean
+Nyll/JacobianVarieties/Picard/RepresentsRelSubPicGroup.lean
+Nyll/JacobianVarieties/Picard/RepresentsRelSubPicPresheaf.lean
+Nyll/JacobianVarieties/Picard/RepresentsRelSubPicPullback.lean
+Nyll/JacobianVarieties/Picard/RepresentsRelSubPic_nonempty_poincare_pullbackAlong_mul_iso.lean
+Nyll/JacobianVarieties/Picard/RepresentsRelSubPic_nonempty_poincare_pullbackAlong_one_iso.lean
+Nyll/JacobianVarieties/Picard/RigidifiedLineBundle_exists_gluing_openCover_of_bijective_sections.lean
+Nyll/JacobianVarieties/Picard/RigidifiedLineBundle_exists_of_squareZero_of_twoAffineOpenCover.lean
+Nyll/JacobianVarieties/Picard/RigidifiedLineBundle_fibrewiseAlgEquivZero_of_iso_pointsSubBasepointModule.lean
+Nyll/JacobianVarieties/Picard/RigidifiedLineBundle_fibrewiseAlgEquivZero_of_pullbackAlong_openCover.lean
+Nyll/JacobianVarieties/Picard/RigidifiedLineBundle_nonempty_iso_unit_pullback_rigSection_of_squareZero_of_pullback_iso.lean
+Nyll/JacobianVarieties/Picard/RigidifiedLineBundle_subsingleton_iso_map_pullback_rigSection_comp_eq.lean
+Nyll/JacobianVarieties/Picard/Scheme_Modules_forall_nonempty_pullback_translate_tensor_iso.lean
+Nyll/JacobianVarieties/Picard/Scheme_Modules_nonempty_iso_tensorUnit_of_pullback_three_slices.lean
+Nyll/JacobianVarieties/Picard/Scheme_Modules_nonempty_iso_tensorUnit_of_pullback_three_slices_of_smoothOfRelativeDimension_one.lean
+Nyll/JacobianVarieties/Picard/Scheme_Modules_nonempty_pullback_mul_mul_tensor_iso.lean
+Nyll/JacobianVarieties/Picard/Scheme_Modules_nonempty_pullback_zpow_iso_tensorPow_of_symmetric.lean
+Nyll/JacobianVarieties/Picard/Smooth_of_representsRelSubPic_algEquivZeroCut_of_finiteMapData.lean
+Nyll/JacobianVarieties/Picard/Subsingleton_H1_fibre_of_subsingleton_H1_residueField_chart.lean
+Nyll/JacobianVarieties/Picard/Surjective_of_poincare_pullbackAlong_iso_twistModule.lean
+Nyll/JacobianVarieties/Picard/ThetaBundle.lean
 
-This repository is made available under the Apache License, Version 2.0 (see the file LICENSE).
+Anthropic FLT: SchemeTheory
+---------------------------
 
-Portions of this repository are derived from the third-party works listed in items 1-3 below, each licensed under
-the Apache License, Version 2.0; item 4 lists the libraries bundled with the web pages, under their own licences.
-The file ATTRIBUTION.md lists, file by file, the files of this repository that contain such material (106 files
-with material from items 1 and 2, 54 under Definitions/ and 52 under P2M/Sol/; and, in its §4, the 23 files that
-reproduce Mathlib text, item 3), with the upstream file each portion comes from and that file's copyright holder
-and authors. The Lean files are published byte-for-byte as they were checked and carry no attribution headers,
-apart from five files that retained an FLT-project notice in place (marked in ATTRIBUTION.md) and the Mathlib
-provenance header of Definitions/Def_Compat_Mathlib430.lean; for all the others ATTRIBUTION.md is where the
-per-file notices are reproduced. The notices below cover the works as a whole.
+Copyright 2026 Anthropic, PBC.
+License: Apache License, Version 2.0.
+Included-file source mapping: Nyll/SchemeTheory/ANTHROPIC_FLT_SOURCE.md
+Preserved upstream NOTICE: Nyll/SchemeTheory/ANTHROPIC_FLT_NOTICE
+Preserved earlier-source attribution: Nyll/SchemeTheory/ANTHROPIC_FLT_ATTRIBUTION.md
+Earlier copyright holders and authors are not replaced by Anthropic.
 
-1. The FLT project — the Lean formalisation of Fermat's Last Theorem led by Kevin Buzzard at
-   Imperial College London. https://github.com/ImperialCollegeLondon/FLT
-   Material was taken from the project's `main` branch as of 2026-05-21, two files from commit
-   8387d589441c1097d606ea89370c4165147255d5 (2026-05-27) and one from commit
-   7a87d3b25db19d008cd45b29edd2b92803e785b1, as recorded per file in ATTRIBUTION.md.
-   Copyright (c) 2024-2026 Kevin Buzzard, Andrew Yang, Matthew Jasper, Salvatore Mercuri, Javier López-Contreras,
-   Madison Crim, Yaël Dillies, David Ledvinka, Ruben Van de Velde and the other authors named in the per-file
-   notices (Anatole Dedecker, Bhavik Mehta, Bryan Wang Peng Jun, David Renshaw, James Sundstrom, Michael Rothgang,
-   Pietro Monticone, William Coram), and the FLT project contributors.
-   Released under the Apache License, Version 2.0 ("Released under Apache 2.0 license as described in the file
-   LICENSE" in the per-file notices; that project's LICENSE file is the Apache License, Version 2.0, the same licence as in this
-   repository's LICENSE file).
-   104 files of this repository contain such material: definition modules under Definitions/ (in particular
-   Def_Mathlib_*.lean — the project's "FLT/Mathlib" files —, Def_DedekindDomain_*, Def_Deformations_*, Def_HaarMeasure_*,
-   Def_NumberField_*, Def_FLTPrelim_FreyPackage/GaloisRep, Def_AbstractHeckeOperator, Def_Patching_SystemTypes,
-   Def_Representation_AbsolutelyIrreducible and others) and proof modules under P2M/Sol/ that inline upstream lemmas
-   (patching, depth, adic valuations and finite adeles, restricted products, Haar characters, Frobenius elements,
-   the Frey curve); ATTRIBUTION.md §§1-2 is the complete list.
+Nyll/SchemeTheory/CategoryTheory/OverTotalPresheaf.lean
+Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_iff_of_cochain_equiv.lean
+Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_of_affSES_left.lean
+Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_of_affSES_mid.lean
+Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_of_affSES_right.lean
+Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_of_forall_cechFinite_idealPowQuot.lean
+Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_of_forall_integral.lean
+Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_of_isProper.lean
+Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_preimage_of_ih.lean
+Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_pushforward_iff.lean
+Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_pushforward_of_isIntegral_of_ih.lean
+Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_unit_of_isClosedImmersion_proj.lean
+Nyll/SchemeTheory/Cohomology/Cech/OModulePresheaf_cechFinite_unit_of_isIntegral_of_ih.lean
+Nyll/SchemeTheory/Cohomology/Cech/OrderedAffineCoverCech.lean
+Nyll/SchemeTheory/Cohomology/Cech/OrderedAffineCoverOf.lean
+Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCechGradedModule.lean
+Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCechTwist.lean
+Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCech_GradedModule_Presentation_finite_H_of_ses.lean
+Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCech_GradedModule_Presentation_ker_isFG.lean
+Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCech_GradedModule_d_sq.lean
+Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCech_GradedModule_finite_cohomology_of_isFG.lean
+Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCech_GradedModule_nonempty_HEquiv_FD.lean
+Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCech_GradedModule_nonempty_HEquiv_pi.lean
+Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCech_Twist_d_sq.lean
+Nyll/SchemeTheory/Cohomology/Cech/ProjSpaceCech_Twist_finite_cohomology.lean
+Nyll/SchemeTheory/Cohomology/Cech/Scheme_OrderedAffineCoverOf_aug_injective.lean
+Nyll/SchemeTheory/Cohomology/Cech/Scheme_OrderedAffineCoverOf_ker_d_succ_le_range_d_of_isAffineOpen.lean
+Nyll/SchemeTheory/Cohomology/Cech/Scheme_OrderedAffineCoverOf_ker_d_zero_eq_range_aug.lean
+Nyll/SchemeTheory/Cohomology/Cech/TwoAffineOpenCover.lean
+Nyll/SchemeTheory/Cohomology/Cech/TwoChartCech.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/CoherentBaseChange.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/DoubleComplex.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheafConstructions.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheafHom.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheafIdealFiltration.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheafLerayBicomplex.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheafLerayDoubleComplex.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_AffSES_exists_connectingHom.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_dV_comp_biAug.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_exists_chowSES.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_exists_hom_relHPresheaf_zero.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_isCoherent_relHPresheaf_chow.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_isQuasicoherent_relHPresheaf_chow.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_nonempty_E2I_equiv.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_nonempty_HTot_equiv.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_nonempty_relHPresheaf_obj_equiv_of_isAffineOpen.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_rows_exact.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_Leray_supportedIn_relHPresheaf_chow.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_d_comp_d.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_exists_basicOpen_sections_free_of_isIntegral.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_exists_idealPowSub_eq_bot.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_hasDevissageStep.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_isCoherent_coker.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_isCoherent_idealPowQuot.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_isQuasicoherent_coker.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_isQuasicoherent_idealPowQuot.lean
+Nyll/SchemeTheory/Cohomology/Sheaves/OModulePresheaf_supportedIn_idealPowQuot.lean
+Nyll/SchemeTheory/Descent/FGSubalgebra.lean
+Nyll/SchemeTheory/Divisors/Scheme_isIntegral_subscheme_vanishingIdeal.lean
+Nyll/SchemeTheory/HomologicalAlgebra/DoubleComplex_Convergence_finite_E2_q0.lean
+Nyll/SchemeTheory/HomologicalAlgebra/DoubleComplex_boundedSpectralSequence.lean
+Nyll/SchemeTheory/LocalGeometry/LocalRepresentabilityULift.lean
+Nyll/SchemeTheory/LocalGeometry/SmoothStalkNormality.lean
+Nyll/SchemeTheory/Modules/AffineSectionsBaseChange.lean
+Nyll/SchemeTheory/Modules/FrameDescent.lean
+Nyll/SchemeTheory/Modules/FrameFromTrivialization.lean
+Nyll/SchemeTheory/Modules/FrameLocality.lean
+Nyll/SchemeTheory/Modules/Frames.lean
+Nyll/SchemeTheory/Modules/InternalHomSheaf.lean
+Nyll/SchemeTheory/Modules/Invertible.lean
+Nyll/SchemeTheory/Modules/LocallyTrivialSectionsLocalization.lean
+Nyll/SchemeTheory/Modules/Monoidal.lean
+Nyll/SchemeTheory/Modules/OpenImmersionUnit.lean
+Nyll/SchemeTheory/Modules/PresheafInternalHom.lean
+Nyll/SchemeTheory/Modules/PresheafPullbackMonoidal.lean
+Nyll/SchemeTheory/Modules/ProjectivePresentation.lean
+Nyll/SchemeTheory/Modules/ProjectivePresentationBaseChange.lean
+Nyll/SchemeTheory/Modules/ProjectivePresentationFromFrames.lean
+Nyll/SchemeTheory/Modules/PullbackFrame.lean
+Nyll/SchemeTheory/Modules/PullbackLocalSection.lean
+Nyll/SchemeTheory/Modules/PullbackMonoidal.lean
+Nyll/SchemeTheory/Modules/PullbackUnitComposition.lean
+Nyll/SchemeTheory/Modules/PushforwardRestrict.lean
+Nyll/SchemeTheory/Modules/SectionsLocalizationFiniteCover.lean
+Nyll/SchemeTheory/Modules/SheafificationMonoidal.lean
+Nyll/SchemeTheory/Modules/TensorPowers.lean
+Nyll/SchemeTheory/Modules/TensorSectionMaps.lean
+Nyll/SchemeTheory/Modules/TensorSectionSheafification.lean
+Nyll/SchemeTheory/Modules/TensorSections.lean
+Nyll/SchemeTheory/Morphisms/ChowDatumProj_nonempty_of.lean
+Nyll/SchemeTheory/Morphisms/ChowDatum_nonempty.lean
+Nyll/SchemeTheory/Morphisms/GeometricallyIrreducibleOverAlgebraicallyClosed.lean
+Nyll/SchemeTheory/ProjectiveSpace/BaseChange.lean
+Nyll/SchemeTheory/ProjectiveSpace/Basic.lean
+Nyll/SchemeTheory/ProjectiveSpace/Cover.lean
+Nyll/SchemeTheory/RingTheory/CommonRegularElement.lean
+Nyll/SchemeTheory/RingTheory/Descent/EtaleAtPrimeNormality.lean
+Nyll/SchemeTheory/RingTheory/Descent/SmoothAtPrimeNormality.lean
+Nyll/SchemeTheory/RingTheory/Flat/FiniteSubalgebraLocalization.lean
+Nyll/SchemeTheory/RingTheory/Flat/LocalCriterion.lean
+Nyll/SchemeTheory/RingTheory/FreeModuleRegularScalar.lean
+Nyll/SchemeTheory/RingTheory/FreeModuleRegularSequenceAux.lean
+Nyll/SchemeTheory/RingTheory/LocalAlgebra.lean
+Nyll/SchemeTheory/RingTheory/ModuleDepthBound.lean
+Nyll/SchemeTheory/RingTheory/ModuleDepthRegularQuotient.lean
+Nyll/SchemeTheory/RingTheory/Module_Finite_of_ker_le_range_of_isNoetherianRing.lean
+Nyll/SchemeTheory/RingTheory/RegularLocalDepth.lean
+Nyll/SchemeTheory/RingTheory/RegularLocalDepthFreeness.lean
+Nyll/SchemeTheory/RingTheory/RegularLocalDomain.lean
+Nyll/SchemeTheory/RingTheory/SeparableConstantsTensor.lean
+Nyll/SchemeTheory/RingTheory/SmoothReduced.lean
 
-2. flt-regular — the Lean formalisation of Fermat's Last Theorem for regular primes (Kummer's theorem).
-   https://github.com/leanprover-community/flt-regular
-   A. J. Best, C. Birkbeck, R. Brasca, E. Rodriguez Boidi, R. Van de Velde, A. Yang, "A complete formalization of
-   Fermat's Last Theorem for regular primes in Lean", arXiv:2410.01466.
-   Copyright (c) the flt-regular authors, as recorded in that repository.
-   Released under the Apache License, Version 2.0.
-   P2M/Sol/S_flt_regular.lean is a port, with proofs, of that project's FltRegular/NumberTheory/* (regular primes,
-   cyclotomic units, Hilbert 90/92/94, Kummer's lemma), FltRegular/MayAssume/*, FltRegular/CaseI/* and FltRegular/CaseII/*
-   files, ending in the theorem that Fermat's Last Theorem holds for odd regular prime exponents; it is used here for
-   the exponents 7, 11 and 13. P2M/Sol/S_IsCyclotomicExtension_Rat_seven_pid.lean adapts FltRegular/SmallNumbers/*.
-   That project's per-file headers are not reproduced in this revision; this notice and ATTRIBUTION.md §3 stand in
-   their place.
+Additional source-specific credits
+----------------------------------
 
-3. Mathlib — https://github.com/leanprover-community/mathlib4
-   Copyright (c) the respective Mathlib authors, as recorded in the headers of the Mathlib source files.
-   Released under the Apache License, Version 2.0.
-   This repository is built against a pinned Mathlib revision (see lake-manifest.json); some files adapt or restate
-   Mathlib material. One file copies Mathlib text wholesale: Definitions/Def_Compat_Mathlib430.lean reproduces,
-   under new names and without their docstrings, the Mathlib v4.30.0 (commit
-   c5ea00351c28e24afc9f0f84379aa41082b1188f) text of a few definitions, lemmas and one notation whose form changed
-   in Mathlib v4.33.0 — verbatim apart from four lines marked `-- [port]` — each copied block headed by the Mathlib
-   file and line range it is taken from, together with two small bridging declarations of our own
-   (Representation.ofMulActionFinsuppEquiv, Rep.ofMulActionFinsuppIso), three one-line `example` checks and, in its
-   last block, four lemmas adapted and re-proved from Mathlib/NumberTheory/RamificationInertia/Galois.lean rather
-   than copied. In addition, twenty-two other modules (twenty-one under P2M/Sol/, one under Definitions/) inline or
-   adapt an individual proof or auxiliary construction from one of thirteen further Mathlib files — for example the
-   exactness construction of Mathlib/RingTheory/AdicCompletion/Exactness.lean and the proof of `integral_comp_abs`
-   from Mathlib/MeasureTheory/Measure/Lebesgue/Integral.lean — typically a private Mathlib lemma re-proved in
-   place. ATTRIBUTION.md §4 lists the modules so identified, each with the Mathlib file drawn on and that file's
-   copyright and author lines, twenty-one Mathlib files in all. Shorter restatements of Mathlib lemmas elsewhere in
-   the tree have not been traced individually; this notice covers Mathlib as a whole.
+Nyll/EtaleCohomology/Sites/EtaleSlice.lean
+Copyright (c) 2019 Johan Commelin. All rights reserved.
+Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Johan Commelin, Bhavik Mehta,
+  Naganori Yamaguchi (assisted by OpenAI Codex)
 
-4. Libraries bundled with the web pages, in html/assets/vendor/ (used only by the html/ documentation, not by the Lean
-   build), each distributed under its own licence; html/assets/vendor/LICENSES.txt lists them:
-   - KaTeX 0.18.4 (katex/katex.min.js, and katex/katex-embedded.css with the KaTeX fonts inlined).
-     Copyright (c) 2013-2020 Khan Academy and other contributors. MIT License, reproduced in
-     html/assets/vendor/katex/LICENSE. The bundled KaTeX fonts are Copyright (c) 2009-2010 Design Science, Inc. and
-     Copyright (c) 2014-2018 Khan Academy, under the SIL Open Font License 1.1, whose text and the fonts' notice are
-     reproduced in html/assets/vendor/katex/FONTS-LICENSE.txt.
-   - @hpcc-js/wasm 2.35.0 (graphviz.umd.js: Graphviz compiled to WebAssembly). Apache License, Version 2.0, reproduced
-     in html/assets/vendor/graphviz.LICENSE.txt. It includes Graphviz as compiled code, licensed under the Eclipse
-     Public License 1.0 / Common Public License; the Graphviz source code is published at
-     https://gitlab.com/graphviz/graphviz (Eclipse Public License 1.0).
+Nyll/SchemeTheory/CategoryTheory/DescentComparison.lean
+Copyright (c) 2026 Naganori Yamaguchi. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
+https://github.com/n-yamaguchi-0729
 
-The Lean 4 toolchain (https://github.com/leanprover/lean4) and the other Lake packages listed in lake-manifest.json
-are dependencies fetched at build time and are not distributed in this repository.
-===== END UPSTREAM ANTHROPIC NOTICE =====
+The descent comparison constructions used here are from Mathlib:
 
-===== BEGIN UPSTREAM ANTHROPIC ATTRIBUTION.md (VERBATIM) =====
-# ATTRIBUTION — third-party material in this repository, file by file
+DescentData.lean: Copyright (c) 2025 Joël Riou. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Joël Riou, Christian Merten
+https://github.com/leanprover-community/mathlib4/blob/065356127b1dc0016f66b7283ce0ce2c4055aa55/Mathlib/CategoryTheory/Sites/Descent/DescentData.lean
 
-This file accompanies `NOTICE`. It lists every file of this repository that we have identified as containing Lean text taken or adapted from a third-party project (106 files with material from the Imperial College London FLT project or the flt-regular project, §§1–3: 54 under `Definitions/`, 52 under `P2M/Sol/`; and the 23 files that reproduce Mathlib text, §4), names the upstream file(s), and reproduces the upstream copyright holder and author list. The Lean files are published byte-for-byte as they were checked and carry no attribution headers, apart from five files that retained an upstream notice in place (marked below) and the Mathlib provenance header of `Definitions/Def_Compat_Mathlib430.lean` (§4); for all the others this table is where the per-file notices are reproduced. Everything listed is licensed upstream under the Apache License, Version 2.0, the licence of this repository.
-
-## How this table was made
-
-The Lean files of this repository were assembled by AI agents and were published without their comments, so upstream headers did not survive in place. To restore the attribution we compared, line by line after normalising whitespace and dropping `import`/`open`/`namespace`/`section` lines, every one of the 60,478 `.lean` files of the tree as it then stood on Lean 4.30.0 (its 60,474 modules, `lakefile.lean` and three Lean files under `verification/`, of which this release keeps two) against the copies of Imperial College London FLT files that had been brought into our working tree in May 2026 with their original headers intact (97 files from the upstream `main` branch as of 2026-05-21, plus three files of ours that were themselves ports of the upstream Frey-package and torsion files), and we cross-checked the result against the provenance notes that the files carried before their comments were removed (two files were ported directly from upstream commit `8387d589` of 2026-05-27 and are identified from those notes). A file is listed when it shares with an upstream file at least five distinctive lines (lines of 20 or more characters that occur in at most three upstream files and at most twelve files of this repository), or at least three such lines covering at least half of the upstream file; a few shorter passages found on review are listed too. "Extent" is the share of the file's non-blank code lines found in the named upstream file(s); it is approximate, and where a file lists several upstream files some of the matched lines are common to those files. The flt-regular rows rest on the pre-publication provenance notes alone (we had no copy of that project to compare against). The files published here are the port of that tree to Lean 4.33.1 and Mathlib v4.33.0: the port renamed Mathlib lemmas and adjusted proofs mechanically in 65 of the 106 listed files (under a tenth of the lines of each, except the 31-line `Definitions/Def_Mathlib_RingTheory_DedekindDomain_AdicValuation.lean`) and left the other 41 byte-identical, so the extents below, computed on the Lean 4.30.0 text, remain approximately right; which files are listed is unaffected. Limits of the method are stated in §5.
-
-## 1. Files containing material from the Imperial College London FLT project
-
-Upstream: <https://github.com/ImperialCollegeLondon/FLT>, branch `main` as of 2026-05-21 (the date our copies were taken; we did not record the commit hash) unless a commit is given. 90 files. Upstream paths are relative to that repository.
-
-| File in this repository | Extent | Upstream file(s) — copyright holder; authors (verbatim from the upstream header) |
-|---|---|---|
-| `Definitions/Def_AbstractHeckeOperator.lean` | whole file (100%) | `FLT/AutomorphicForm/QuaternionAlgebra/HeckeOperators/Abstract.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Andrew Yang, Matthew Jasper |
-| `Definitions/Def_CategoryTheory_Subfunctor_OfIsTerminal.lean` | whole file (100%) | `FLT/Deformations/Subfunctor.lean` — © 2025 Andrew Yang; authors: Andrew Yang |
-| `Definitions/Def_DedekindDomain_AdicValuation_InlineSpecific.lean` | whole file (98%) | `FLT/DedekindDomain/AdicValuation.lean` — © 2025 Matthew Jasper; authors: Matthew Jasper<br>`FLT/Mathlib/RingTheory/Valuation/ValuationSubring.lean` — © 2025 Ruben Van de Velde; authors: Ruben Van de Velde, Kevin Buzzard, Salvatore Mercuri<br>`FLT/Mathlib/RingTheory/DedekindDomain/AdicValuation.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Salvatore Mercuri |
-| `Definitions/Def_DedekindDomain_Completion_BaseChange.lean` | whole file | `FLT/DedekindDomain/Completion/BaseChange.lean` — commit 8387d589 (2026-05-27); © 2025 Kevin Buzzard; authors: Kevin Buzzard, Andrew Yang, Matthew Jasper (see §5)<br>`FLT/Mathlib/Algebra/Algebra/Bilinear.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Salvatore Mercuri, Ruben Van de Velde<br>`FLT/Mathlib/Algebra/Algebra/Pi.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Salvatore Mercuri<br>`FLT/Mathlib/RingTheory/TensorProduct/Basis.lean` — © 2025 Matthew Jasper; authors: Matthew Jasper<br>`FLT/DedekindDomain/IntegralClosure.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Andrew Yang, Matthew Jasper<br>`FLT/Mathlib/Algebra/Module/Submodule/Basic.lean` — © 2025 Yaël Dillies; authors: Yaël Dillies, Kevin Buzzard, Matthew Jasper<br>`FLT/DedekindDomain/AdicValuation.lean` — © 2025 Matthew Jasper; authors: Matthew Jasper |
-| `Definitions/Def_DedekindDomain_FiniteAdeleRing_BaseChange.lean` | whole file | `FLT/DedekindDomain/FiniteAdeleRing/BaseChange.lean` — commit 8387d589 (2026-05-27); © 2025 Kevin Buzzard; authors: Kevin Buzzard, Matthew Jasper (see §5)<br>`FLT/Mathlib/Topology/Algebra/RestrictedProduct/Module.lean` — © 2025 Matthew Jasper; authors: Matthew Jasper<br>`FLT/Mathlib/Topology/Algebra/Algebra/Hom.lean` — © 2026 Salvatore Mercuri; authors: Salvatore Mercuri, Kevin Buzzard<br>`FLT/Mathlib/LinearAlgebra/Pi.lean` — © 2025 Salvatore Mercuri; authors: Salvatore Mercuri, Kevin Buzzard<br>`FLT/Mathlib/Algebra/Algebra/Hom.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Salvatore Mercuri<br>`FLT/Mathlib/RingTheory/DedekindDomain/FiniteAdeleRing.lean` — © 2025 Salvatore Mercuri; authors: Salvatore Mercuri, Kevin Buzzard |
-| `Definitions/Def_DedekindDomain_FiniteAdeleRing_IsDirectLimitRestricted.lean` | whole file (100%) | `FLT/DedekindDomain/FiniteAdeleRing/IsDirectLimitRestricted.lean` — © 2025 Madison Crim; authors: Madison Crim |
-| `Definitions/Def_DedekindDomain_FiniteAdeleRing_TensorPi.lean` | whole file (100%) | `FLT/DedekindDomain/FiniteAdeleRing/TensorPi.lean` — © 2025 Madison Crim; authors: Madison Crim |
-| `Definitions/Def_DedekindDomain_FiniteAdeleRing_TensorRestrictedProduct.lean` | whole file (100%) | `FLT/DedekindDomain/FiniteAdeleRing/TensorRestrictedProduct.lean` — © 2025 Matthew Jasper; authors: Matthew Jasper |
-| `Definitions/Def_DedekindDomain_IntegralClosure.lean` | whole file (100%) | `FLT/DedekindDomain/IntegralClosure.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Andrew Yang, Matthew Jasper |
-| `Definitions/Def_Deformations_ContinuousSMulDiscrete.lean` | whole file (100%) | `FLT/Deformations/RepresentationTheory/ContinuousSMulDiscrete.lean` — © 2025 Andrew Yang; authors: Andrew Yang |
-| `Definitions/Def_Deformations_Deformations_Lemmas.lean` | whole file (100%) | `FLT/Deformations/Lemmas.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Ruben Van de Velde<br>`FLT/Deformations/RepresentationTheory/IntegralClosure.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard |
-| `Definitions/Def_Deformations_Frobenius.lean` | whole file (100%) | `FLT/Deformations/RepresentationTheory/Frobenius.lean` — © 2025 Andrew Yang; authors: Andrew Yang |
-| `Definitions/Def_Deformations_IsProartinian.lean` | whole file (98%) | `FLT/Patching/Utils/AdicTopology.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard<br>`FLT/Deformations/IsProartinian.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Ruben Van de Velde<br>`FLT/Patching/Utils/InverseLimit.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard |
-| `Definitions/Def_Deformations_IsResidueAlgebra.lean` | whole file (100%) | `FLT/Deformations/IsResidueAlgebra.lean` — © 2025 Javier López-Contreras; authors: Javier López-Contreras, Kevin Buzzard |
-| `Definitions/Def_Deformations_LiftFunctor.lean` | whole file (100%) | `FLT/Deformations/LiftFunctor.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Ruben Van de Velde |
-| `Definitions/Def_Deformations_MvPowerSeriesObj.lean` | portions (≈8%) | `FLT/Deformations/Categories.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Pietro Monticone |
-| `Definitions/Def_Deformations_ProartinianCat.lean` | whole file (100%) | `FLT/Deformations/Categories.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Pietro Monticone |
-| `Definitions/Def_Deformations_ProartinianCompact.lean` | portions (≈16%; about six lines — the proof that a proper open ideal of a pro-Artinian ring has Artinian local quotient — match FLT/Deformations/IsProartinian.lean) | `FLT/Deformations/IsProartinian.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Ruben Van de Velde |
-| `Definitions/Def_ExtCitation_LocalLevelResidues.lean` | portions (≈20%) | `FLT/Deformations/RepresentationTheory/AbsoluteGaloisGroup.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Ruben Van de Velde<br>`FLT/Deformations/Lemmas.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Ruben Van de Velde |
-| `Definitions/Def_HaarMeasure_HaarChar_AddEquiv.lean` | whole file (100%) | `FLT/HaarMeasure/HaarChar/AddEquiv.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, James Sundstrom, Ruben Van de Velde, Anatole Dedecker, Bryan Wang Peng Jun, David Renshaw |
-| `Definitions/Def_HaarMeasure_HaarChar_Ring.lean` | whole file (100%) | `FLT/HaarMeasure/HaarChar/Ring.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard |
-| `Definitions/Def_M4aHerbrand_FiniteTensorEquiv.lean` | portions (≈3%) | `FLT/DedekindDomain/IntegralClosure.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Andrew Yang, Matthew Jasper |
-| `Definitions/Def_Mathlib_Algebra_Algebra_Hom.lean` | whole file (100%) | `FLT/Mathlib/Algebra/Algebra/Hom.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Salvatore Mercuri<br>`FLT/Mathlib/Topology/Algebra/Algebra/Hom.lean` — © 2026 Salvatore Mercuri; authors: Salvatore Mercuri, Kevin Buzzard |
-| `Definitions/Def_Mathlib_Algebra_IsDirectLimit.lean` | whole file (100%) | `FLT/Mathlib/Algebra/IsDirectLimit.lean` — © 2025 Madison Crim; authors: Madison Crim |
-| `Definitions/Def_Mathlib_IsModuleTopology.lean` | whole file (100%) | `FLT/Mathlib/Topology/Algebra/Module/ModuleTopology.lean` — © 2024 Kevin Buzzard; authors: Kevin Buzzard, Pietro Monticone, Salvatore Mercuri, Matthew Jasper, Ruben Van de Velde, William Coram<br>`FLT/Mathlib/Algebra/Algebra/Tower.lean` — © 2025 Salvatore Mercuri; authors: Salvatore Mercuri, Kevin Buzzard<br>`FLT/Deformations/ContinuousRepresentation/IsTopologicalModule.lean` — © 2025 Javier López-Contreras; authors: Javier López-Contreras |
-| `Definitions/Def_Mathlib_LinearAlgebra_Countable.lean` | whole file (100%) | `FLT/Mathlib/LinearAlgebra/Countable.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard |
-| `Definitions/Def_Mathlib_MeasureTheory_Constructions_BorelSpace_RestrictedProduct.lean` | whole file (100%) | `FLT/Mathlib/MeasureTheory/Constructions/BorelSpace/RestrictedProduct.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard |
-| `Definitions/Def_Mathlib_MeasureTheory_Group_Action.lean` | whole file (100%) | `FLT/Mathlib/MeasureTheory/Group/Action.lean` — © 2024 Yaël Dillies; authors: Yaël Dillies, Kevin Buzzard, Ruben Van de Velde, David Ledvinka |
-| `Definitions/Def_Mathlib_MeasureTheory_Group_Measure.lean` | whole file (100%) | `FLT/Mathlib/MeasureTheory/Group/Measure.lean` — © 2025 David Ledvinka; authors: David Ledvinka |
-| `Definitions/Def_Mathlib_MeasureTheory_Measure_Typeclasses_Finite.lean` | whole file (100%) | `FLT/Mathlib/MeasureTheory/Measure/Typeclasses/Finite.lean` — © 2025 David Ledvinka; authors: David Ledvinka |
-| `Definitions/Def_Mathlib_Order_Filter_Cofinite.lean` | whole file (100%) | `FLT/Mathlib/Order/Filter/Cofinite.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard |
-| `Definitions/Def_Mathlib_RightActionInstances.lean` | whole file (100%) | `FLT/Hacks/RightActionInstances.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Pietro Monticone |
-| `Definitions/Def_Mathlib_RingTheory_DedekindDomain_AdicValuation.lean` | whole file (100%) | `FLT/Mathlib/RingTheory/DedekindDomain/AdicValuation.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Salvatore Mercuri |
-| `Definitions/Def_Mathlib_RingTheory_Ideal_Quotient_Basic.lean` | whole file (100%) | `FLT/Mathlib/RingTheory/Ideal/Quotient/Basic.lean` — © 2025 Salvatore Mercuri; authors: Salvatore Mercuri, Kevin Buzzard |
-| `Definitions/Def_Mathlib_RingTheory_Localization_BaseChange.lean` | whole file (100%) | `FLT/Mathlib/RingTheory/Localization/BaseChange.lean` — © 2025 Matthew Jasper; authors: Matthew Jasper |
-| `Definitions/Def_Mathlib_RingTheory_LocalRing_Defs.lean` | whole file (100%) | `FLT/Mathlib/RingTheory/LocalRing/Defs.lean` — © 2025 Javier López-Contreras; authors: Javier López-Contreras, Kevin Buzzard |
-| `Definitions/Def_Mathlib_Topology_Algebra_ContinuousMonoidHom.lean` | whole file (100%) | `FLT/Mathlib/Topology/Algebra/ContinuousMonoidHom.lean` — © 2025 Salvatore Mercuri; authors: Salvatore Mercuri, Kevin Buzzard |
-| `Definitions/Def_Mathlib_Topology_Algebra_Group_Units.lean` | whole file (100%) | `FLT/Mathlib/Topology/Algebra/Group/Units.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Ruben Van de Velde |
-| `Definitions/Def_Mathlib_Topology_Algebra_Module_Quotient.lean` | whole file (100%) | `FLT/Mathlib/Topology/Algebra/Module/Quotient.lean` — © 2025 Salvatore Mercuri; authors: Salvatore Mercuri, Kevin Buzzard, Pietro Monticone |
-| `Definitions/Def_Mathlib_Topology_Algebra_RestrictedProduct_Basic.lean` | whole file (100%) | `FLT/Mathlib/Topology/Algebra/RestrictedProduct/Basic.lean` — © 2025 Matthew Jasper; authors: Matthew Jasper, Kevin Buzzard, Ruben Van de Velde<br>`FLT/Mathlib/Topology/Algebra/RestrictedProduct/TopologicalSpace.lean` — © 2025 Matthew Jasper; authors: Matthew Jasper, Kevin Buzzard, Bhavik Mehta, Ruben Van de Velde, Bryan Wang Peng Jun, Pietro Monticone<br>`FLT/Mathlib/Topology/Algebra/RestrictedProduct/Equiv.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Salvatore Mercuri |
-| `Definitions/Def_Mathlib_Topology_Algebra_RestrictedProduct_Equiv.lean` | whole file (100%) | `FLT/Mathlib/Topology/Algebra/RestrictedProduct/Equiv.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Salvatore Mercuri<br>`FLT/Mathlib/Topology/Algebra/RestrictedProduct/TopologicalSpace.lean` — © 2025 Matthew Jasper; authors: Matthew Jasper, Kevin Buzzard, Bhavik Mehta, Ruben Van de Velde, Bryan Wang Peng Jun, Pietro Monticone<br>`FLT/Mathlib/Topology/Algebra/RestrictedProduct/Basic.lean` — © 2025 Matthew Jasper; authors: Matthew Jasper, Kevin Buzzard, Ruben Van de Velde |
-| `Definitions/Def_Mathlib_Topology_Algebra_RestrictedProduct_TopologicalSpace.lean` | whole file (100%) | `FLT/Mathlib/Topology/Algebra/RestrictedProduct/TopologicalSpace.lean` — © 2025 Matthew Jasper; authors: Matthew Jasper, Kevin Buzzard, Bhavik Mehta, Ruben Van de Velde, Bryan Wang Peng Jun, Pietro Monticone<br>`FLT/Mathlib/Topology/Algebra/RestrictedProduct/Equiv.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Salvatore Mercuri<br>`FLT/Mathlib/Topology/Algebra/RestrictedProduct/Basic.lean` — © 2025 Matthew Jasper; authors: Matthew Jasper, Kevin Buzzard, Ruben Van de Velde |
-| `Definitions/Def_Mathlib_Topology_Algebra_UniformRing.lean` | whole file (100%) | `FLT/Mathlib/Topology/Algebra/UniformRing.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Salvatore Mercuri |
-| `Definitions/Def_Mathlib_Topology_Algebra_Valued_WithZeroMulInt.lean` | whole file (100%) | `FLT/Mathlib/Topology/Algebra/Valued/WithZeroMulInt.lean` — © 2025 Salvatore Mercuri; authors: Salvatore Mercuri |
-| `Definitions/Def_Mathlib_Topology_Bases.lean` | whole file (100%) | `FLT/Mathlib/Topology/Bases.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard |
-| `Definitions/Def_NumberField_Completion_Finite.lean` | whole file (100%) | `FLT/NumberField/Completion/Finite.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard |
-| `Definitions/Def_NumberField_Extension.lean` | whole file (100%) | `FLT/NumberField/InfinitePlace/Extension.lean` — © 2025 Salvatore Mercuri; authors: Salvatore Mercuri |
-| `Definitions/Def_NumberField_HeightOneSpectrum.lean` | whole file (100%) | `FLT/NumberField/HeightOneSpectrum.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard |
-| `Definitions/Def_Patching_SystemTypes.lean` | portions (≈42%; pre-publication provenance note: 'typeclass/predicate definitions of the Taylor–Wiles–Kisin patching set-up, itself ported from ImperialCollegeLondon/FLT (Andrew Yang, Kevin Buzzard et al.)') | `FLT/Patching/Utils/TopologicallyFG.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard<br>`FLT/Patching/Utils/Depth.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Michael Rothgang<br>`FLT/Patching/Utils/AdicTopology.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard<br>`FLT/Patching/Algebra.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Yaël Dillies<br>`FLT/Patching/Module.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Pietro Monticone, David Renshaw |
-| `Definitions/Def_Representation_AbsolutelyIrreducible.lean` | whole file (82%) | `FLT/Mathlib/RepresentationTheory/Basic.lean` — © 2024 Javier López-Contreras; authors: Javier López-Contreras, Kevin Buzzard<br>`FLT/Deformations/RepresentationTheory/Irreducible.lean` — © 2024 Javier López-Contreras; authors: Javier López-Contreras, Kevin Buzzard |
-| `Definitions/Def_ValuationSubring_RatPlaceCenterHelpers.lean` | portions (≈18%) | `FLT/Deformations/RepresentationTheory/IntegralClosure.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard<br>`FLT/Deformations/Lemmas.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Ruben Van de Velde |
-| `P2M/Sol/S_Algebra_PatchingDatum_nonempty_patchingLevel_bot.lean` | large part (≈61%); upstream notices also retained in place before the included portions | `FLT/Patching/Module.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Pietro Monticone, David Renshaw<br>`FLT/Patching/Over.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Pietro Monticone<br>`FLT/Patching/Utils/Lemmas.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Pietro Monticone, Ruben Van de Velde<br>`FLT/Patching/Algebra.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Yaël Dillies<br>`FLT/Patching/System.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Ruben Van de Velde<br>`FLT/Patching/Ultraproduct.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard<br>`FLT/Patching/Utils/StructureFiniteness.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard<br>`FLT/Patching/Utils/AdicTopology.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard<br>`FLT/Patching/Utils/InverseLimit.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard<br>`FLT/Patching/Utils/TopologicallyFG.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard<br>`FLT/Patching/REqualsT.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard<br>`FLT/Deformations/Lemmas.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Ruben Van de Velde |
-| `P2M/Sol/S_AlgebraicCurve_fibreResidueIdentityAlong_of_separableAlong_of_dCoordGenerates.lean` | one short lemma (`IsLocalRing.maximalIdeal_le`) | `FLT/Mathlib/RingTheory/LocalRing/MaximalIdeal/Basic.lean` — © 2025 Salvatore Mercuri; authors: Salvatore Mercuri, Kevin Buzzard |
-| `P2M/Sol/S_AlgebraicCurve_residueTheorem_of_residueTheorem_ratFunc_of_residueTraceCompletionCommute.lean` | one short lemma (`IsLocalRing.maximalIdeal_le`) | `FLT/Mathlib/RingTheory/LocalRing/MaximalIdeal/Basic.lean` — © 2025 Salvatore Mercuri; authors: Salvatore Mercuri, Kevin Buzzard |
-| `P2M/Sol/S_AlgebraicCurve_residueTheoremK_of_isAlgClosed.lean` | one short lemma (`IsLocalRing.maximalIdeal_le`) | `FLT/Mathlib/RingTheory/LocalRing/MaximalIdeal/Basic.lean` — © 2025 Salvatore Mercuri; authors: Salvatore Mercuri, Kevin Buzzard |
-| `P2M/Sol/S_AlgebraicCurve_tateAgreement_v2.lean` | one short lemma (`IsLocalRing.maximalIdeal_le`) | `FLT/Mathlib/RingTheory/LocalRing/MaximalIdeal/Basic.lean` — © 2025 Salvatore Mercuri; authors: Salvatore Mercuri, Kevin Buzzard |
-| `P2M/Sol/S_AlgebraicCurve_tateAgreement.lean` | one short lemma (`IsLocalRing.maximalIdeal_le`) | `FLT/Mathlib/RingTheory/LocalRing/MaximalIdeal/Basic.lean` — © 2025 Salvatore Mercuri; authors: Salvatore Mercuri, Kevin Buzzard |
-| `P2M/Sol/S_AlgebraicCurve_tateChainRule.lean` | a short passage (a few lines) | `FLT/Mathlib/RingTheory/Valuation/ValuationSubring.lean` — © 2025 Ruben Van de Velde; authors: Ruben Van de Velde, Kevin Buzzard, Salvatore Mercuri<br>`FLT/Mathlib/RingTheory/LocalRing/MaximalIdeal/Basic.lean` — © 2025 Salvatore Mercuri; authors: Salvatore Mercuri, Kevin Buzzard |
-| `P2M/Sol/S_AlgebraicCurve_tateCommFinite.lean` | portions (≈4%) | `FLT/Mathlib/RingTheory/Valuation/ValuationSubring.lean` — © 2025 Ruben Van de Velde; authors: Ruben Van de Velde, Kevin Buzzard, Salvatore Mercuri<br>`FLT/Mathlib/RingTheory/LocalRing/MaximalIdeal/Basic.lean` — © 2025 Salvatore Mercuri; authors: Salvatore Mercuri, Kevin Buzzard |
-| `P2M/Sol/S_AlgebraicCurve_tateTraceCompat_of_isSeparable.lean` | a short passage (a few lines) | `FLT/Mathlib/RingTheory/Valuation/ValuationSubring.lean` — © 2025 Ruben Van de Velde; authors: Ruben Van de Velde, Kevin Buzzard, Salvatore Mercuri<br>`FLT/Mathlib/RingTheory/LocalRing/MaximalIdeal/Basic.lean` — © 2025 Salvatore Mercuri; authors: Salvatore Mercuri, Kevin Buzzard |
-| `P2M/Sol/S_ExtCitation_exists_frobenius_pow_inv_mul_mem_inertia_sup_level.lean` | portions (≈20%) | `FLT/Deformations/RepresentationTheory/AbsoluteGaloisGroup.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Ruben Van de Velde<br>`FLT/Deformations/Lemmas.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Ruben Van de Velde |
-| `P2M/Sol/S_ExtCitation_exists_isFrobeniusAt_apply_primeLocalToGlobal.lean` | large part (≈44%) | `FLT/Deformations/RepresentationTheory/AbsoluteGaloisGroup.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Ruben Van de Velde<br>`FLT/Deformations/Lemmas.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Ruben Van de Velde |
-| `P2M/Sol/S_groupCohomology_exists_mem_split_adjoin_rootsOfUnity_of_padic.lean` | a short passage (a few lines) | `FLT/Deformations/RepresentationTheory/AbsoluteGaloisGroup.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Ruben Van de Velde |
-| `P2M/Sol/S_groupCohomology_isMulCoboundary1_of_isMulCocycle1_of_level.lean` | portions (≈9%) | `FLT/Deformations/RepresentationTheory/AbsoluteGaloisGroup.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Ruben Van de Velde |
-| `P2M/Sol/S_IsDedekindDomain_FiniteAdeleRing_exists_forall_sub_algebraMap_mem_adicCompletionIntegers.lean` | large part (≈61%) | `FLT/DedekindDomain/AdicValuation.lean` — © 2025 Matthew Jasper; authors: Matthew Jasper<br>`FLT/Mathlib/RingTheory/DedekindDomain/AdicValuation.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Salvatore Mercuri |
-| `P2M/Sol/S_IsDedekindDomain_FiniteAdeleRing_exists_sub_algebraMap_mem_adicCompletionIntegers.lean` | portions (≈28%) | `FLT/DedekindDomain/AdicValuation.lean` — © 2025 Matthew Jasper; authors: Matthew Jasper |
-| `P2M/Sol/S_IsLocalRing_isRegular_of_systemOfParameters.lean` | portions (≈10%) | `FLT/Patching/Utils/Depth.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Michael Rothgang |
-| `P2M/Sol/S_IsProartinian_finite_quotient_of_isOpen.lean` | portions (≈25%; the same six-line passage as in Def_Deformations_ProartinianCompact) | `FLT/Deformations/IsProartinian.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Ruben Van de Velde |
-| `P2M/Sol/S_IsRegularLocalRing_depth_self_eq_ringKrullDim.lean` | portions (≈12%) | `FLT/Patching/Utils/Depth.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Michael Rothgang |
-| `P2M/Sol/S_isSMulRegular_iff_of_free.lean` | whole file (93%) | `FLT/Patching/Utils/Depth.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Michael Rothgang |
-| `P2M/Sol/S_M4aHerbrand_nonempty_ideleGaloisDescent.lean` | a short passage (a few lines) | `FLT/DedekindDomain/IntegralClosure.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Andrew Yang, Matthew Jasper |
-| `P2M/Sol/S_Module_depth_eq_depth_of_finite_of_isLocalHom.lean` | portions (≈8%) | `FLT/Patching/Utils/Depth.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Michael Rothgang |
-| `P2M/Sol/S_Module_depth_le_ringKrullDim_quotient_of_mem_associatedPrimes.lean` | portions (≈17%) | `FLT/Patching/Utils/Depth.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Michael Rothgang |
-| `P2M/Sol/S_Module_depth_le_ringKrullDim.lean` | large part (≈75%) | `FLT/Patching/Utils/Depth.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Michael Rothgang |
-| `P2M/Sol/S_Module_depth_quotient_eq_depth.lean` | portions (≈17%) | `FLT/Patching/Utils/Depth.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Michael Rothgang |
-| `P2M/Sol/S_Module_depth_quotSMulTop_succ_eq.lean` | portions (≈17%) | `FLT/Patching/Utils/Depth.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Michael Rothgang |
-| `P2M/Sol/S_Module_free_of_depth_eq_ringKrullDim_of_isRegularLocalRing.lean` | portions (≈12%) | `FLT/Patching/Utils/Depth.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Michael Rothgang |
-| `P2M/Sol/S_MvPowerSeries_depth_self_eq_ringKrullDim_fin_of_isDiscreteValuationRing.lean` | portions (≈9%) | `FLT/Patching/Utils/Depth.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Michael Rothgang |
-| `P2M/Sol/S_MvPowerSeries_depth_self_fin_eq_of_isDiscreteValuationRing.lean` | portions (≈9%) | `FLT/Patching/Utils/Depth.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Michael Rothgang |
-| `P2M/Sol/S_MvPowerSeries_ringKrullDim_fin_eq_of_isDiscreteValuationRing.lean` | portions (≈9%) | `FLT/Patching/Utils/Depth.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Michael Rothgang |
-| `P2M/Sol/S_NumberField_count_normalizedFactors_differentIdeal_le_of_mem_primesOverFinset_three.lean` | portions (≈9%); upstream notices also retained in place before the included portions | `FLT/DedekindDomain/AdicValuation.lean` — © 2025 Matthew Jasper; authors: Matthew Jasper<br>`FLT/Mathlib/Topology/Algebra/Valued/WithZeroMulInt.lean` — © 2025 Salvatore Mercuri; authors: Salvatore Mercuri<br>`FLT/Mathlib/RingTheory/Valuation/ValuationSubring.lean` — © 2025 Ruben Van de Velde; authors: Ruben Van de Velde, Kevin Buzzard, Salvatore Mercuri<br>`FLT/Deformations/RepresentationTheory/AbsoluteGaloisGroup.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Ruben Van de Velde<br>`FLT/Mathlib/RingTheory/DedekindDomain/AdicValuation.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Salvatore Mercuri<br>`FLT/NumberField/Completion/Finite.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard<br>`FLT/Deformations/RepresentationTheory/GaloisRep.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Ruben Van de Velde, Pietro Monticone<br>`FLT/Mathlib/RingTheory/LocalRing/MaximalIdeal/Basic.lean` — © 2025 Salvatore Mercuri; authors: Salvatore Mercuri, Kevin Buzzard |
-| `P2M/Sol/S_NumberField_finrank_le_two_of_isGalois_of_isUnramifiedAt_of_finrank_dvd_sixteen.lean` | portions (≈3%) | `FLT/Deformations/Lemmas.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Ruben Van de Velde |
-| `P2M/Sol/S_Representation_isAbsolutelyIrreducible_iff_isIrreducible_and_surjective_algebraMap_end.lean` | portions (≈3%) | `FLT/Mathlib/RepresentationTheory/Basic.lean` — © 2024 Javier López-Contreras; authors: Javier López-Contreras, Kevin Buzzard |
-| `P2M/Sol/S_RingTheory_Sequence_isWeaklyRegular_of_free_aux.lean` | large part (≈64%) | `FLT/Patching/Utils/Depth.lean` — © 2025 Andrew Yang; authors: Andrew Yang, Kevin Buzzard, Michael Rothgang |
-| `P2M/Sol/S_Submodule_fg_and_span_eq_top_ofFiniteIdele.lean` | portions (≈21%) | `FLT/DedekindDomain/AdicValuation.lean` — © 2025 Matthew Jasper; authors: Matthew Jasper<br>`FLT/Mathlib/RingTheory/DedekindDomain/AdicValuation.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Salvatore Mercuri |
-| `P2M/Sol/S_Submodule_finiteAdeleBox_conjByFiniteIdele.lean` | portions (≈20%) | `FLT/DedekindDomain/AdicValuation.lean` — © 2025 Matthew Jasper; authors: Matthew Jasper<br>`FLT/Mathlib/RingTheory/DedekindDomain/AdicValuation.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Salvatore Mercuri |
-| `P2M/Sol/S_Submodule_finiteAdeleBox_ofFiniteIdele.lean` | portions (≈26%) | `FLT/DedekindDomain/AdicValuation.lean` — © 2025 Matthew Jasper; authors: Matthew Jasper<br>`FLT/Mathlib/RingTheory/DedekindDomain/AdicValuation.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Salvatore Mercuri |
-| `P2M/Sol/S_Submodule_ofFiniteIdele_eq_ofFiniteIdele_iff.lean` | portions (≈26%) | `FLT/DedekindDomain/AdicValuation.lean` — © 2025 Matthew Jasper; authors: Matthew Jasper<br>`FLT/Mathlib/RingTheory/DedekindDomain/AdicValuation.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Salvatore Mercuri |
-| `P2M/Sol/S_TraceFibrePushforward_exists_forall_tracePushforward_eq_indicator_of_forall_eq_indicator.lean` | a short passage — one short instance (SeparableSpace (v.adicCompletion K)), ≈6 lines | `FLT/Mathlib/RingTheory/DedekindDomain/AdicValuation.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard, Salvatore Mercuri |
-| `P2M/Sol/S_WeierstrassCurve_exists_intermediateField_countable_map_eq_and_finrankAlong_eq.lean` | a short passage (a few lines); upstream notices also retained in place before the included portions | `FLT/Mathlib/LinearAlgebra/Countable.lean` — © 2025 Kevin Buzzard; authors: Kevin Buzzard |
-
-## 2. Files containing Imperial College London FLT material through an intermediate port
-
-In May 2026 we ported the upstream Frey-package file and the torsion Galois-module file by hand into our working tree, restructuring them and adding material of our own; the files below contain text from those two ports (extents count only lines traceable to them, as best we can tell). The upstream paths and author lists given here are as recorded in our port's notes and have not been re-checked against the upstream repository, whose file headers are authoritative, with one exception: the notice of `FLT/EllipticCurve/Torsion.lean` below is the upstream file's own, at the commit named. 14 files.
-
-| File in this repository | Extent | Upstream file (as recorded) — authors (as recorded) |
-|---|---|---|
-| `Definitions/Def_FLTPrelim_FreyPackage.lean` | adapted (upstream notice retained in place, from our May port) | `FLT/Basic/FreyPackage.lean` — authors recorded in our intermediate port: Kevin Buzzard, Ruben Van de Velde, Pietro Monticone (path as recorded in our port) |
-| `Definitions/Def_FLTPrelim_GaloisRep.lean` | adapted (upstream notice retained in place, from our May port) | `FLT/EllipticCurve/Torsion.lean` (commit 7a87d3b25db1) — © 2024 Kevin Buzzard; authors: Kevin Buzzard (path as recorded in our port; the notice retained inside our file is our May port's generic one, the upstream notice is reproduced here) |
-| `Definitions/Def_FreyCurve_Basic.lean` | large part (≈74%) | `FLT/Basic/FreyPackage.lean` — authors recorded in our intermediate port: Kevin Buzzard, Ruben Van de Velde, Pietro Monticone (path as recorded in our port) |
-| `P2M/Sol/S_FreyPackage_dvd_freyCurveInt_discr_iff.lean` | portions (≈23%) | `FLT/Basic/FreyPackage.lean` — authors recorded in our intermediate port: Kevin Buzzard, Ruben Van de Velde, Pietro Monticone (path as recorded in our port) |
-| `P2M/Sol/S_FreyPackage_frey_exists_p_torsion_integral_abscissa_of_stable_line.lean` | portions (≈3%) | `FLT/Basic/FreyPackage.lean` — authors recorded in our intermediate port: Kevin Buzzard, Ruben Van de Velde, Pietro Monticone (path as recorded in our port) |
-| `P2M/Sol/S_FreyPackage_frey_exists_p_torsion_integral_abscissa.lean` | portions (≈3%) | `FLT/Basic/FreyPackage.lean` — authors recorded in our intermediate port: Kevin Buzzard, Ruben Van de Velde, Pietro Monticone (path as recorded in our port) |
-| `P2M/Sol/S_FreyPackage_frey_isModular.lean` | portions (≈13%) | `FLT/Basic/FreyPackage.lean` — authors recorded in our intermediate port: Kevin Buzzard, Ruben Van de Velde, Pietro Monticone (path as recorded in our port) |
-| `P2M/Sol/S_FreyPackage_frey_isSemistableModel.lean` | portions (≈30%) | `FLT/Basic/FreyPackage.lean` — authors recorded in our intermediate port: Kevin Buzzard, Ruben Van de Velde, Pietro Monticone (path as recorded in our port) |
-| `P2M/Sol/S_FreyPackage_freyCurveInt_discr_ne_zero.lean` | portions (≈28%) | `FLT/Basic/FreyPackage.lean` — authors recorded in our intermediate port: Kevin Buzzard, Ruben Van de Velde, Pietro Monticone (path as recorded in our port) |
-| `P2M/Sol/S_FreyPackage_freyCurveInt_map.lean` | portions (≈28%) | `FLT/Basic/FreyPackage.lean` — authors recorded in our intermediate port: Kevin Buzzard, Ruben Van de Velde, Pietro Monticone (path as recorded in our port) |
-| `P2M/Sol/S_FreyPackage_freyGaloisRep_isUnramifiedAt.lean` | portions (≈22%) | `FLT/Basic/FreyPackage.lean` — authors recorded in our intermediate port: Kevin Buzzard, Ruben Van de Velde, Pietro Monticone (path as recorded in our port) |
-| `P2M/Sol/S_FreyPackage_not_dvd_freyCurveInt_c4.lean` | portions (≈27%) | `FLT/Basic/FreyPackage.lean` — authors recorded in our intermediate port: Kevin Buzzard, Ruben Van de Velde, Pietro Monticone (path as recorded in our port) |
-| `P2M/Sol/S_FreyPackage_padicValInt_freyCurveInt_discr.lean` | portions (≈28%) | `FLT/Basic/FreyPackage.lean` — authors recorded in our intermediate port: Kevin Buzzard, Ruben Van de Velde, Pietro Monticone (path as recorded in our port) |
-| `P2M/Sol/S_FreyPackage_padicValInt_two_freyCurveInt_discr.lean` | portions (≈26%) | `FLT/Basic/FreyPackage.lean` — authors recorded in our intermediate port: Kevin Buzzard, Ruben Van de Velde, Pietro Monticone (path as recorded in our port) |
-
-## 3. Files containing material from the flt-regular project
-
-Upstream: <https://github.com/leanprover-community/flt-regular> — *A complete formalization of Fermat's Last Theorem for regular primes in Lean*, Alex J. Best, Christopher Birkbeck, Riccardo Brasca, Eric Rodriguez Boidi, Ruben Van de Velde, Andrew Yang (arXiv:2410.01466). Apache License, Version 2.0. That project's per-file headers are not reproduced in this revision; the project, its authors and the files drawn on are named instead.
-
-| File in this repository | Extent | Upstream files |
-|---|---|---|
-| `P2M/Sol/S_flt_regular.lean` | large part: a port with proofs (about 4,200 lines) of the regular-prime case — regular primes, cyclotomic units, Hilbert 90/92/94, Kummer's lemma, case I, case II | `FltRegular/NumberTheory/RegularPrimes.lean`, `FltRegular/NumberTheory/Cyclotomic/CyclRat.lean`, `FltRegular/NumberTheory/Cyclotomic/MoreLemmas.lean`, `FltRegular/NumberTheory/Cyclotomic/UnitLemmas.lean`, `FltRegular/NumberTheory/Cyclotomic/CaseI.lean`, `FltRegular/NumberTheory/CyclotomicRing.lean`, `FltRegular/NumberTheory/SystemOfUnits.lean`, `FltRegular/NumberTheory/Hilbert92.lean`, `FltRegular/NumberTheory/Unramified.lean`, `FltRegular/NumberTheory/Hilbert94.lean`, `FltRegular/NumberTheory/KummersLemma/Field.lean`, `FltRegular/MayAssume/Lemmas.lean`, `FltRegular/CaseI/AuxLemmas.lean`, `FltRegular/CaseI/Statement.lean`, `FltRegular/CaseII/AuxLemmas.lean`, `FltRegular/CaseII/InductionStep.lean`, `FltRegular/CaseII/Statement.lean`, `FltRegular/FltRegular.lean` |
-| `P2M/Sol/S_IsCyclotomicExtension_Rat_seven_pid.lean` | portions: the class-number-one computation for the 7th cyclotomic field | `FltRegular/SmallNumbers/PID.lean`, `FltRegular/SmallNumbers/Seven/Seven.lean` |
-
-## 4. Mathlib
-
-This repository is built on Mathlib (<https://github.com/leanprover-community/mathlib4>, Apache-2.0, copyright the Mathlib authors as recorded in its file headers), which is fetched at build time and not distributed here. The `Definitions/Def_Mathlib_*` files listed in §1 are the Imperial College London project's "FLT/Mathlib" staging files, not copies of Mathlib files. Mathlib text nevertheless occurs in the tree in two ways.
-
-First, one file copies Mathlib text wholesale. `Definitions/Def_Compat_Mathlib430.lean` reproduces, under new names and without their docstrings, the Mathlib v4.30.0 (commit `c5ea00351c28e24afc9f0f84379aa41082b1188f`) text of a few definitions, lemmas and one notation whose form changed in Mathlib v4.33.0 — verbatim apart from four lines marked `-- [port]` — each copied block headed by the Mathlib file and line range it is taken from; it also contains two small bridging declarations of our own (`Representation.ofMulActionFinsuppEquiv`, `Rep.ofMulActionFinsuppIso`), three one-line `example` checks and, in its last block, four lemmas adapted and re-proved from `Mathlib/NumberTheory/RamificationInertia/Galois.lean` rather than copied. The eight Mathlib files it draws on and their notices (identical at Mathlib v4.30.0 and v4.33.0; each header, here and in the second table, continues "All rights reserved. Released under Apache 2.0 license as described in the file LICENSE.") are listed in the first table below.
-
-Second, some modules re-prove a Mathlib lemma in place — usually a private or auxiliary Mathlib result the module needed — and in doing so reproduce its proof text. To find these we compared every `.lean` file of this repository, line by line after normalising whitespace and dropping `import`/`open`/`namespace`/`section` lines, against every file of Mathlib v4.33.0 (commit `db584cd6d46c92f209a44c0f1c829460d327499d`) and v4.30.0, and list below the modules this comparison identified as sharing a run of roughly eight or more consecutive lines with a Mathlib file, setting aside matches that are only routine structure-instance boilerplate. Twenty-two modules are listed (twenty-one under `P2M/Sol/`, one under `Definitions/`; one of them, `P2M/Sol/S_flt_regular.lean`, also appears in §3 for its flt-regular material); the second table below gives for each the Mathlib file, that file's copyright holder and authors (verbatim from its header), what was taken, and the approximate extent. The comparison is sensitive to how lines are normalised; shorter restatements, and proofs that follow a Mathlib argument without reproducing its text, are not listed individually; Mathlib as a whole is credited in `NOTICE`.
-
-| Mathlib file | Copyright holder; authors (verbatim from the file header) |
-|---|---|
-| `Mathlib/RepresentationTheory/Basic.lean` | Copyright (c) 2022 Antoine Labelle; Authors: Antoine Labelle |
-| `Mathlib/RepresentationTheory/Rep/Basic.lean` | Copyright (c) 2026 Yunzhou Xie; Authors: Edison Xie, Kim Morrison |
-| `Mathlib/Algebra/Group/End.lean` | Copyright (c) 2018 Johannes Hölzl; Authors: Johannes Hölzl, Callum Sutton, Yury Kudryashov |
-| `Mathlib/Algebra/GroupWithZero/Action/Basic.lean` | Copyright (c) 2018 Chris Hughes; Authors: Chris Hughes, Yury Kudryashov |
-| `Mathlib/Algebra/Ring/AddAut.lean` | Copyright (c) 2022 Yury Kudryashov; Authors: Yury Kudryashov |
-| `Mathlib/Algebra/Ring/Action/Submonoid.lean` | Copyright (c) 2024 David Ang; Authors: David Ang |
-| `Mathlib/NumberTheory/EllipticDivisibilitySequence.lean` | Copyright (c) 2024 David Kurniadi Angdinata; Authors: David Kurniadi Angdinata |
-| `Mathlib/NumberTheory/RamificationInertia/Galois.lean` | Copyright (c) 2024 Yongle Hu; Authors: Yongle Hu, Jiedong Jiang |
-
-| File of this repository | Mathlib file | Copyright holder; authors (verbatim from the file header) | Material taken (approximate extent) |
-|---|---|---|---|
-| `P2M/Sol/S_AdicCompletion_map_algebraLinearMap_injective_and_mem_range_iff_of_isInvariant.lean` | `Mathlib/RingTheory/AdicCompletion/Exactness.lean` | Copyright (c) 2024 Judith Ludwig, Christian Merten; Authors: Judith Ludwig, Christian Merten | the auxiliary construction `mapExactAuxDelta` / `mapExactAux` and the proofs of `AdicCompletion.map_injective` and `AdicCompletion.map_exact`, adapted (≈65 lines, about three fifths of the Mathlib file's proof text) |
-| `P2M/Sol/S_NumberField_TateGlobal_exists_differentiable_eq_partialEulerProduct_of_exists_mem_normOneIdeles_ne_one.lean` | `Mathlib/MeasureTheory/Measure/Lebesgue/Integral.lean` | Copyright (c) 2017 Johannes Hölzl; Authors: Johannes Hölzl, Sébastien Gouëzel, Yury Kudryashov | the proof of `integral_comp_abs`, inlined (≈18 lines) |
-| `P2M/Sol/S_NumberField_TateGlobal_exists_meromorphicOn_eq_partialEulerProduct.lean` | `Mathlib/MeasureTheory/Measure/Lebesgue/Integral.lean` | Copyright (c) 2017 Johannes Hölzl; Authors: Johannes Hölzl, Sébastien Gouëzel, Yury Kudryashov | the proof of `integral_comp_abs`, inlined (≈18 lines) |
-| `P2M/Sol/S_NumberField_TateGlobal_exists_meromorphicOn_analyticAt_one_eq_partialEulerProduct_of_ne_one.lean` | `Mathlib/MeasureTheory/Measure/Lebesgue/Integral.lean` | Copyright (c) 2017 Johannes Hölzl; Authors: Johannes Hölzl, Sébastien Gouëzel, Yury Kudryashov | the proof of `integral_comp_abs`, inlined (≈18 lines) |
-| `P2M/Sol/S_LanglandsTunnell_ArchPlace_complexZeta_complexTestFun_complexCharFun_eq_pi_mul_GammaComplex.lean` | `Mathlib/MeasureTheory/Measure/Lebesgue/Integral.lean` | Copyright (c) 2017 Johannes Hölzl; Authors: Johannes Hölzl, Sébastien Gouëzel, Yury Kudryashov | the proof of `integral_comp_abs`, inlined (≈18 lines) |
-| `P2M/Sol/S_LanglandsTunnell_ArchPlace_realZeta_realTestFun_realCharFun_eq_GammaReal.lean` | `Mathlib/MeasureTheory/Measure/Lebesgue/Integral.lean` | Copyright (c) 2017 Johannes Hölzl; Authors: Johannes Hölzl, Sébastien Gouëzel, Yury Kudryashov | the proof of `integral_comp_abs`, inlined (≈18 lines) |
-| `P2M/Sol/S_NumberField_exists_isBigO_card_absNorm_le_mk_eq_sub.lean` | `Mathlib/NumberTheory/NumberField/Ideal/Asymptotics.lean` | Copyright (c) 2025 Xavier Roblot; Authors: Xavier Roblot | the auxiliary statements `tendsto_norm_le_and_mk_eq_div_atTop_aux₁` / `_aux₂` (the ideal-counting bijection), adapted (≈25 lines) |
-| `Definitions/Def_AlgebraicGeometry_LocalRepresentabilityULift.lean` | `Mathlib/AlgebraicGeometry/Sites/Representability.lean` | Copyright (c) 2024 Calle Sönne; Authors: Calle Sönne, Joël Riou, Ravi Vakil | the `glueData` construction for a locally representable functor and `glueData_openCover_map`, adapted to a universe-lifted setting (≈20–35 lines) |
-| `P2M/Sol/S_AlgebraicGeometry_exists_etale_nhd_of_flat_stalkMap_of_map_maximalIdeal_eq_of_isIso_residueFieldMap.lean` | `Mathlib/RingTheory/Smooth/Fiber.lean` | Copyright (c) 2026 Andrew Yang; Authors: Andrew Yang | the proof of `Algebra.IsSmoothAt.of_formallySmooth_fiber`, adapted (≈20 lines) |
-| `P2M/Sol/S_ExtCitation_Cyclotomic_thaine_relation_plusField.lean` | `Mathlib/RepresentationTheory/Homological/GroupCohomology/Hilbert90.lean` | Copyright (c) 2023 Amelia Livingston; Authors: Riccardo Brasca, Amelia Livingston | the proof of `exists_mul_galRestrict_of_norm_eq_one` (integral form of Hilbert's Theorem 90), restated as a private lemma (≈17 lines) |
-| `P2M/Sol/S_AutomorphicForm_setIntegral_residualProj_mul_conj_eq_sum_integral_maximalCompact_residue_pairing_slab.lean` | `Mathlib/Analysis/MellinInversion.lean` | Copyright (c) 2024 Lawrence Wu; Authors: Lawrence Wu | the private auxiliary lemmas `rexp_neg_deriv_aux`, `rexp_neg_image_aux`, `rexp_neg_injOn_aux`, `rexp_cexp_aux`, verbatim (≈13 lines) |
-| `P2M/Sol/S_NumberField_not_tendsto_tprod_eulerProduct_nhdsGT_one_nhds_zero_of_three_four_one.lean` | `Mathlib/NumberTheory/LSeries/Nonvanishing.lean` | Copyright (c) 2024 Michael Stoll; Authors: Michael Stoll, David Loeffler | the proof of the private lemma `re_log_comb_nonneg'` (the 3-4-1 inequality), inlined (≈10 lines) |
-| `P2M/Sol/S_NumberField_TateGlobal_exists_forall_one_le_mul_norm_apply_of_differentiable_of_eq_partialEulerProduct.lean` | `Mathlib/NumberTheory/LSeries/Nonvanishing.lean` | Copyright (c) 2024 Michael Stoll; Authors: Michael Stoll, David Loeffler | the proof of the private lemma `re_log_comb_nonneg'`, inlined (≈10 lines) |
-| `P2M/Sol/S_NumberField_TateGlobal_exists_one_le_mul_norm_of_eq_sub_mul_partialEulerProduct_normPowChar.lean` | `Mathlib/NumberTheory/LSeries/Nonvanishing.lean` | Copyright (c) 2024 Michael Stoll; Authors: Michael Stoll, David Loeffler | the proof of the private lemma `re_log_comb_nonneg'`, inlined (≈10 lines) |
-| `P2M/Sol/S_AlgebraicGeometry_locallyOfFinitePresentation_diagonal_of_locallyOfFiniteType.lean` | `Mathlib/AlgebraicGeometry/Morphisms/Separated.lean` | Copyright (c) 2024 Christian Merten; Authors: Christian Merten, Andrew Yang | the opening of the proof of `isClosedImmersion_diagonal_restrict_diagonalCoverDiagonalRange` (the cover `U` and `hU`), adapted (≈8 lines) |
-| `P2M/Sol/S_AlgebraicGeometry_exists_ideal_eq_bot_iff_eq_and_map_and_fg_of_locallyOfFiniteType.lean` | `Mathlib/AlgebraicGeometry/Morphisms/Separated.lean` | Copyright (c) 2024 Christian Merten; Authors: Christian Merten, Andrew Yang | the same passage of `isClosedImmersion_diagonal_restrict_diagonalCoverDiagonalRange`, adapted (≈8 lines) |
-| `P2M/Sol/S_AlgebraicCurve_TwoChartIntegralModel_mem_chartAlg_image_iff_exists_eq_sum_mul_pow_of_powerBasis_of_isUnit_discr.lean` | `Mathlib/RingTheory/Discriminant.lean` | Copyright (c) 2021 Riccardo Brasca; Authors: Riccardo Brasca | most of the proof of `Algebra.discr_mul_isIntegral_mem_adjoin`, adapted (≈18 lines) |
-| `P2M/Sol/S_flt_regular.lean` | `Mathlib/LinearAlgebra/LinearIndependent/Lemmas.lean` | Copyright (c) 2020 Anne Baanen; Authors: Johannes Hölzl, Mario Carneiro, Alexander Bentkamp, Anne Baanen | the statement and proof of `LinearIndependent.update`, restated as a private lemma (≈15 lines); this file is also listed in §3 |
-| `P2M/Sol/S_AlgebraicGeometry_Scheme_IdealSheafData_isInvertible_of_isInvertible_comap.lean` | `Mathlib/RingTheory/Finiteness/Descent.lean` | Copyright (c) 2026 Christian Merten; Authors: Christian Merten | the map `f` and the range computation from the proof of `Ideal.FG.of_FG_map_of_faithfullyFlat`, adapted to a flat algebra (≈18 lines) |
-| `P2M/Sol/S_EisensteinSeries_exists_modularForm_coe_eq_eisensteinG.lean` | `Mathlib/NumberTheory/ModularForms/EisensteinSeries/IsBoundedAtImInfty.lean` | Copyright (c) 2024 Chris Birkbeck; Authors: Chris Birkbeck | the proof of `EisensteinSeries.isBoundedAtImInfty_eisensteinSeriesSIF` with its auxiliary norm bound, adapted to this repository's `eisensteinG` (≈15 lines) |
-| `P2M/Sol/S_EisensteinSeries_qExpansion_eisensteinG_coeff.lean` | `Mathlib/NumberTheory/ModularForms/EisensteinSeries/IsBoundedAtImInfty.lean` | Copyright (c) 2024 Chris Birkbeck; Authors: Chris Birkbeck | the same proof of `EisensteinSeries.isBoundedAtImInfty_eisensteinSeriesSIF`, adapted (≈15 lines) |
-| `P2M/Sol/S_EisensteinSeries_exists_modularForm_gamma_apply_eq_tsum_eisSummand.lean` | `Mathlib/NumberTheory/ModularForms/EisensteinSeries/IsBoundedAtImInfty.lean` | Copyright (c) 2024 Chris Birkbeck; Authors: Chris Birkbeck | the same proof of `EisensteinSeries.isBoundedAtImInfty_eisensteinSeriesSIF` with its auxiliary norm bound under another name, adapted (≈13 lines) |
-
-## 5. What we are not certain of
-
-- **Coverage.** The comparison corpus was the set of upstream files present in our working tree (100 files). Upstream files that were never copied into our tree cannot be detected by this method; for those we relied on the pre-publication provenance notes, which name no further Imperial College London or flt-regular files beyond those listed. If further material is recognised, the omission is ours and unintentional.
-- **Two headers supplied from upstream.** `Definitions/Def_DedekindDomain_Completion_BaseChange.lean` and `Definitions/Def_DedekindDomain_FiniteAdeleRing_BaseChange.lean` are ports of `FLT/DedekindDomain/Completion/BaseChange.lean` and `FLT/DedekindDomain/FiniteAdeleRing/BaseChange.lean` at upstream commit `8387d589441c1097d606ea89370c4165147255d5`; our copies did not retain those two files' notices, so the copyright and author lines given for them in §1 were read from the upstream files at that commit and are reproduced here.
-- **Upstream revision.** Our copies record the upstream branch (`main`) and the date (2026-05-21), not a commit hash; one file (`FLT/EllipticCurve/Torsion.lean`) was recorded at commit `7a87d3b25db19d008cd45b29edd2b92803e785b1`, two at `8387d589…` as above.
-- **§2 paths and author lists** come from our own May porting notes ("FLT/Basic/FreyPackage.lean … Kevin Buzzard, Ruben Van de Velde, Pietro Monticone"; "FLT/EllipticCurve/Torsion.lean"), as does the notice retained in `Definitions/Def_FLTPrelim_FreyPackage.lean`; apart from the notice of `FLT/EllipticCurve/Torsion.lean`, read from the upstream file at commit `7a87d3b25db19d008cd45b29edd2b92803e785b1` and reproduced in §2, none has been re-checked against the upstream repository.
-- **flt-regular per-file headers** are not reproduced in this revision; §3 names the project and its authors instead.
-- **Small passages.** Below the thresholds above (a handful of shared lines) we did not attribute systematically; such passages are typically routine instance declarations or one-line lemmas. A few found on review are listed.
-===== END UPSTREAM ANTHROPIC ATTRIBUTION.md =====
+DescentDataPrime.lean: Copyright (c) 2026 Joël Riou. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Joël Riou, Christian Merten
+https://github.com/leanprover-community/mathlib4/blob/065356127b1dc0016f66b7283ce0ce2c4055aa55/Mathlib/CategoryTheory/Sites/Descent/DescentDataPrime.lean
