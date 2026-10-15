@@ -3080,7 +3080,7 @@
     "Nyll/SchemeTheory/WeilRestriction/LocalRepresenterDiagram.lean": "00c980a492d156c245f4c5a0fa2bf20c0fd52ec0b5e78189ae921e784b954b3e",
     "Nyll/SchemeTheory/WeilRestriction/LocalRepresenters.lean": "c2cf325de990a221f8ec48321e67b678477af27acaa3c8110d44c6ffe3964a7b",
     "Nyll/ValuedFieldTheory/Ramification/HilbertRamification/RootsOfUnityFieldEmbedding.lean": "f0294936df433cecb85ccf92d5de94980625427233a2d27ec80ba048eb31f9c4",
-    "README.md": "d0f6537c20b87e7132d900bb137b17dafdd6be242e0ecb29603212a3ba9d1694",
+    "README.md": "88e9e835c0adbd09f0b585d7da440989eea5074f2e2ce1d1bc65c1dd6c80e7b6",
     "lake-manifest.json": "ad850380b47b59868a88c7b76f8775a3fa5a55e432e1d111a007ff2ebf056ded",
     "lakefile.toml": "d16a5a43be3860904a37cf94a7ac804fd40be98d197ca09bea4c784521f1267e",
     "lean-toolchain": "8dc8d6f560141069d9073e370611716ef77ada0da8ffa37e2149f44b2e63ac7a"

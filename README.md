@@ -7,6 +7,8 @@ A Lean 4 library **under development**, aiming to formalize the Grothendieck
 conjecture for hyperbolic curves. It currently develops geometric étale
 fundamental groups, their slimness, and explicit genus-zero calculations.
 
+[Library overview and selected results](https://n-yamaguchi-0729.github.io/NYLL/libraries/anabelian-geometry/).
+
 This library is extracted from [NYLL](https://github.com/n-yamaguchi-0729/NYLL).
 <!-- nyll-publication:distribution:begin -->
 Only the module-level import closure of `Nyll.AnabelianGeometry.All` is bundled. Dependencies retain their canonical `Nyll` imports.
