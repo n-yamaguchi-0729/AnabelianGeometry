@@ -20,47 +20,13 @@ fields of characteristic zero.
 
 ## Main results
 
-### Grothendieck’s conjecture for genus-zero curves over number fields
-
-<!-- nyll-publication:anabelian-genus-zero:begin -->
-Let k be a number field and let U₁ and U₂ be opens in smooth proper
-geometrically integral curves of geometric genus zero, each with at least
-three geometric boundary points. A continuous isomorphism of their pointed
-arithmetic fundamental groups commuting with the maps to G_k implies that
-U₁ and U₂ are isomorphic over k: [`exists_schemeIso_of_genusZero_arithmeticFundamentalGroupEquiv`](Nyll/AnabelianGeometry/WeightFiltration/GenusZeroNakamura.lean#L638).
-
-For complements of finite sets of at least three k-rational points on
-the projective line, [`exists_projectiveTransformation_with_inertia_of_arithmeticFundamentalGroupEquiv`](Nyll/AnabelianGeometry/WeightFiltration/RationalConfigurationNakamura.lean#L554) also constructs a projective
-linear transformation carrying one puncture set to the other, together
-with the puncture bijection characterized by geometric inertia conjugacy.
-
-These are weak reconstruction results in the direction of
-[Nakamura’s genus-zero theorem](https://doi.org/10.1515/crll.1990.411.205):
-the conclusion produces a curve isomorphism. It does not identify its
-induced fundamental-group map with the supplied isomorphism.
-<!-- nyll-publication:anabelian-genus-zero:end -->
-
-### Geometric fundamental groups
-
 | Result | Mathematical content |
 | --- | --- |
+| [Grothendieck’s conjecture for genus-zero curves over number fields — weak reconstruction](Nyll/AnabelianGeometry/WeightFiltration/GenusZeroNakamura.lean#L638) | For opens in smooth proper geometrically integral genus-zero curves over a number field, each with at least three geometric punctures, an isomorphism of pointed arithmetic fundamental groups over G_k implies an isomorphism of the curves over k. This does not identify the induced group map with the supplied isomorphism. |
 | [Proper curve slimness](Nyll/AnabelianGeometry/GeometricFundamentalGroup/ProperCurveSlim.lean) | Slimness of the étale fundamental group of a smooth proper curve model of genus at least two. |
 | [Open curve slimness](Nyll/AnabelianGeometry/GeometricFundamentalGroup/OpenCurveSlim.lean) | Slimness for an open curve with nonempty boundary and `2g + r − 2 > 0`, under the stated normality, local Noetherianity and quasi-compactness hypotheses. |
-| [Genus-zero fundamental group](Nyll/AnabelianGeometry/GeometricFundamentalGroup/GenusZeroFundamentalGroup.lean) | Triviality of the fundamental group of a proper genus-zero curve model. |
-| [Affine line and one puncture](Nyll/AnabelianGeometry/GeometricFundamentalGroup/AffineLineFundamentalGroup.lean) | Triviality of the fundamental group of the affine line. The [one-puncture theorem](Nyll/AnabelianGeometry/GeometricFundamentalGroup/OnePunctureGenusZero.lean) treats the complement of a point on a proper genus-zero curve. |
-| [Two-puncture comparison](Nyll/AnabelianGeometry/GeometricFundamentalGroup/TwoPuncturesFundamentalGroup.lean) | The fundamental group of a genus-zero curve with two punctures is topologically isomorphic to the profinite integers. |
 
-Further proved results include projective-line cross-ratio and multiplicative
-rigidity, Kummer power-class separation over number fields, separation and
-normalizer criteria for cuspidal inertia, and residue-rank and generic-point
-comparisons for the weight filtration. Their precise hypotheses are in
-[Projective line](Nyll/AnabelianGeometry/ProjectiveLine/All.lean),
-[Kummer theory](Nyll/AnabelianGeometry/KummerTheory/All.lean),
-[Cuspidal inertia](Nyll/AnabelianGeometry/CuspidalInertia/All.lean), and
-[Weight filtration](Nyll/AnabelianGeometry/WeightFiltration/All.lean).
-
-A profinite group is *slim* if every open subgroup has trivial centralizer in
-the ambient group.
+A profinite group is slim if every open subgroup has trivial centralizer in the ambient group.
 
 ## Incomplete results
 
@@ -73,29 +39,33 @@ generated characteristic-zero fields remain unfinished.
 
 ## Public API
 
+Use [leanprover/lean4:v4.35.0-rc2](lean-toolchain) and the Mathlib revision pinned in
+[lake-manifest.json](lake-manifest.json). Add this dependency to your project’s
+lakefile.toml:
+
+```toml
+[[require]]
+name = "Nyll"
+git = "https://github.com/n-yamaguchi-0729/AnabelianGeometry.git"
+rev = "main"
+```
+
+Run `lake update Nyll`, then commit your generated lake-manifest.json to retain
+the resolved revisions. Import the library in a Lean file:
+
 ```lean
 import Nyll.AnabelianGeometry.All
 ```
 
-The main slimness results can be imported independently:
+The standalone distributions share the package name Nyll. Choose one distribution;
+for several libraries together, use [NYLL](https://github.com/n-yamaguchi-0729/NYLL).
 
-```lean
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProperCurveSlim
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenCurveSlim
-```
+To build a checkout of this repository, run from its root:
 
-## Build
-
-The toolchain and dependencies are pinned in [`lean-toolchain`](lean-toolchain)
-and [`lakefile.toml`](lakefile.toml).
-
-```console
+```sh
 lake exe cache get
 lake --wfail build
 ```
-
-[CI](.github/workflows/lean.yml) checks the complete import closure and builds
-all libraries in dependency order, with warnings treated as errors.
 
 ## Authorship
 
