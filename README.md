@@ -6,8 +6,8 @@
 This Lean component of [NYLL](https://github.com/n-yamaguchi-0729/NYLL) studies the recovery of algebraic curves from
 their étale fundamental groups, with results on genus-zero reconstruction
 over number fields, geometric slimness and explicit fundamental-group calculations.
-The [mathematical guide](https://n-yamaguchi-0729.github.io/NYLL/libraries/anabelian-geometry/) explains the proved reconstruction statement and distinguishes it
-from the full Grothendieck correspondence, which remains a further goal.
+The [mathematical guide](https://n-yamaguchi-0729.github.io/NYLL/libraries/anabelian-geometry/) presents the reconstruction theorems and geometric applications
+with links to their formal proofs.
 
 ## Scope
 
@@ -15,11 +15,7 @@ from the full Grothendieck correspondence, which remains a further goal.
 The arithmetic results concern smooth geometrically integral genus-zero curves
 over number fields with at least three geometric punctures. The geometric
 slimness and fundamental-group calculations below concern algebraically closed
-fields of characteristic zero. All use the actual finite étale fiber functors.
-
-The broader target is the Grothendieck correspondence for hyperbolic curves:
-curve isomorphisms should correspond to arithmetic fundamental-group
-isomorphisms over the absolute Galois group, modulo geometric inner conjugation.
+fields of characteristic zero.
 <!-- nyll-publication:anabelian-scope:end -->
 
 ## Main results
@@ -32,10 +28,6 @@ geometrically integral curves of geometric genus zero, each with at least
 three geometric boundary points. A continuous isomorphism of their pointed
 arithmetic fundamental groups commuting with the maps to G_k implies that
 U₁ and U₂ are isomorphic over k: [`exists_schemeIso_of_genusZero_arithmeticFundamentalGroupEquiv`](Nyll/AnabelianGeometry/WeightFiltration/GenusZeroNakamura.lean#L638).
-
-No rational point, split compactification, rational boundary, supplied
-finite-cover model, or inertia correspondence is required as input.
-The finite models and their descent are constructed in the proof.
 
 For complements of finite sets of at least three k-rational points on
 the projective line, [`exists_projectiveTransformation_with_inertia_of_arithmeticFundamentalGroupEquiv`](Nyll/AnabelianGeometry/WeightFiltration/RationalConfigurationNakamura.lean#L554) also constructs a projective
@@ -68,26 +60,16 @@ comparisons for the weight filtration. Their precise hypotheses are in
 [Weight filtration](Nyll/AnabelianGeometry/WeightFiltration/All.lean).
 
 A profinite group is *slim* if every open subgroup has trivial centralizer in
-the ambient group. The proofs realize open subgroups by finite étale covers
-and use geometric cohomology and ramification calculations.
+the ambient group.
 
 ## Incomplete results
 
 <!-- nyll-publication:anabelian-reconstruction:begin -->
 Realization of a prescribed arithmetic fundamental-group isomorphism by the
 reconstructed curve map, uniqueness in that correspondence, and reconstruction
-for general hyperbolic curves of positive genus remain unfinished.
-The selected arithmetic results are over number fields; the general finitely
-generated characteristic-zero base-field theorem is not claimed here.
+for general hyperbolic curves of positive genus or more general finitely
+generated characteristic-zero fields remain unfinished.
 <!-- nyll-publication:anabelian-reconstruction:end -->
-
-## Included sources
-
-<!-- nyll-publication:distribution:begin -->
-Only the module-level import closure of `Nyll.AnabelianGeometry.All` is bundled. Dependencies retain their canonical `Nyll` imports.
-
-Supporting modules are included from [AbelianVarieties](Nyll/AbelianVarieties/), [AlgebraicCurves](Nyll/AlgebraicCurves/), [ClassFieldTheory](Nyll/ClassFieldTheory/), [EtaleCohomology](Nyll/EtaleCohomology/), [EtaleFundamentalGroups](Nyll/EtaleFundamentalGroups/), [GaloisCohomology](Nyll/GaloisCohomology/), [JacobianVarieties](Nyll/JacobianVarieties/), [ProCGroups](Nyll/ProCGroups/), [SchemeTheory](Nyll/SchemeTheory/), [ValuedFieldTheory](Nyll/ValuedFieldTheory/), [Yamaguchi26AbfaithfulGalois](Nyll/Yamaguchi26AbfaithfulGalois/). These dependency libraries are included only to the extent required by the imports.
-<!-- nyll-publication:distribution:end -->
 
 ## Public API
 
