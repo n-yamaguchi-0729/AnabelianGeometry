@@ -3,19 +3,11 @@
 [![Lean](https://github.com/n-yamaguchi-0729/AnabelianGeometry/actions/workflows/lean.yml/badge.svg)](https://github.com/n-yamaguchi-0729/AnabelianGeometry/actions/workflows/lean.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-A Lean 4 library proving genus-zero weak reconstruction over number fields,
-geometric fundamental-group slimness, and explicit genus-zero calculations.
-Weak reconstruction establishes a curve isomorphism; realizing the supplied
-group isomorphism and the full Grothendieck correspondence remain further goals.
-
-[Library overview and selected results](https://n-yamaguchi-0729.github.io/NYLL/libraries/anabelian-geometry/).
-
-This library is extracted from [NYLL](https://github.com/n-yamaguchi-0729/NYLL).
-<!-- nyll-publication:distribution:begin -->
-Only the module-level import closure of `Nyll.AnabelianGeometry.All` is bundled. Dependencies retain their canonical `Nyll` imports.
-
-Supporting modules are included from [AbelianVarieties](Nyll/AbelianVarieties/), [AlgebraicCurves](Nyll/AlgebraicCurves/), [ClassFieldTheory](Nyll/ClassFieldTheory/), [EtaleCohomology](Nyll/EtaleCohomology/), [EtaleFundamentalGroups](Nyll/EtaleFundamentalGroups/), [GaloisCohomology](Nyll/GaloisCohomology/), [JacobianVarieties](Nyll/JacobianVarieties/), [ProCGroups](Nyll/ProCGroups/), [SchemeTheory](Nyll/SchemeTheory/), [ValuedFieldTheory](Nyll/ValuedFieldTheory/), [Yamaguchi26AbfaithfulGalois](Nyll/Yamaguchi26AbfaithfulGalois/). These dependency libraries are included only to the extent required by the imports.
-<!-- nyll-publication:distribution:end -->
+This Lean component of [NYLL](https://github.com/n-yamaguchi-0729/NYLL) studies the recovery of algebraic curves from
+their étale fundamental groups, with results on genus-zero reconstruction
+over number fields, geometric slimness and explicit fundamental-group calculations.
+The [mathematical guide](https://n-yamaguchi-0729.github.io/NYLL/libraries/anabelian-geometry/) explains the proved reconstruction statement and distinguishes it
+from the full Grothendieck correspondence, which remains a further goal.
 
 ## Scope
 
@@ -30,7 +22,9 @@ curve isomorphisms should correspond to arithmetic fundamental-group
 isomorphisms over the absolute Galois group, modulo geometric inner conjugation.
 <!-- nyll-publication:anabelian-scope:end -->
 
-## Genus-zero arithmetic reconstruction
+## Main results
+
+### Grothendieck’s conjecture for genus-zero curves over number fields
 
 <!-- nyll-publication:anabelian-genus-zero:begin -->
 Let k be a number field and let U₁ and U₂ be opens in smooth proper
@@ -54,7 +48,7 @@ the conclusion produces a curve isomorphism. It does not identify its
 induced fundamental-group map with the supplied isomorphism.
 <!-- nyll-publication:anabelian-genus-zero:end -->
 
-## Main results
+### Geometric fundamental groups
 
 | Result | Mathematical content |
 | --- | --- |
@@ -86,6 +80,14 @@ for general hyperbolic curves of positive genus remain unfinished.
 The selected arithmetic results are over number fields; the general finitely
 generated characteristic-zero base-field theorem is not claimed here.
 <!-- nyll-publication:anabelian-reconstruction:end -->
+
+## Included sources
+
+<!-- nyll-publication:distribution:begin -->
+Only the module-level import closure of `Nyll.AnabelianGeometry.All` is bundled. Dependencies retain their canonical `Nyll` imports.
+
+Supporting modules are included from [AbelianVarieties](Nyll/AbelianVarieties/), [AlgebraicCurves](Nyll/AlgebraicCurves/), [ClassFieldTheory](Nyll/ClassFieldTheory/), [EtaleCohomology](Nyll/EtaleCohomology/), [EtaleFundamentalGroups](Nyll/EtaleFundamentalGroups/), [GaloisCohomology](Nyll/GaloisCohomology/), [JacobianVarieties](Nyll/JacobianVarieties/), [ProCGroups](Nyll/ProCGroups/), [SchemeTheory](Nyll/SchemeTheory/), [ValuedFieldTheory](Nyll/ValuedFieldTheory/), [Yamaguchi26AbfaithfulGalois](Nyll/Yamaguchi26AbfaithfulGalois/). These dependency libraries are included only to the extent required by the imports.
+<!-- nyll-publication:distribution:end -->
 
 ## Public API
 
