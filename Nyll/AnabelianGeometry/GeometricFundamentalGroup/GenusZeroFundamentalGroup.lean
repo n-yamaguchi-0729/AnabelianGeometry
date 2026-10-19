@@ -6,8 +6,8 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroParameter
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalFundamentalGroup
-import Nyll.AlgebraicCurves.Places.Exists_place_notMem_ord_neg_and_forall_ord_eq_one
-import Nyll.AlgebraicCurves.Models.CurveModel_exists_curveModel_iso_of_algEquiv
+import Nyll.AlgebraicCurves.Places.Orders.NotMemOrdNegOrdEqOne
+import Nyll.AlgebraicCurves.Models.FunctionFields.CurveModelIsoAlgEquiv
 import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
 import Nyll.SchemeTheory.Pi1.Affine.Over
 import Mathlib.FieldTheory.RatFunc.AsPolynomial

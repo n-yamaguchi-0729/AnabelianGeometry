@@ -13,7 +13,7 @@ AI assistance in local adaptation and maintenance: OpenAI Codex.
 
 import Mathlib.AlgebraicGeometry.Morphisms.Proper
 import Mathlib.AlgebraicGeometry.Morphisms.Smooth
-import Nyll.AlgebraicCurves.Geometry.Picard.RelativeGroupLaw
+import Nyll.AlgebraicCurves.Geometry.Picard.GroupLaw.RelativeGroupLaw
 
 /-!
 Smoothness, properness, connected fibres and existence of a relative group law over an affine

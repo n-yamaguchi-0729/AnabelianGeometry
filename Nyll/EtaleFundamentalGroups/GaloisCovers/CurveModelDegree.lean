@@ -4,7 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.FiniteEtaleRiemannHurwitz
+import Nyll.AlgebraicCurves.Models.Points.AlgEquivPointPlaceCompHomEqAlgAutSmulPointPlace
+import Nyll.AlgebraicCurves.Models.Ramification.FiniteEtaleRiemannHurwitz
 import Nyll.EtaleFundamentalGroups.GaloisCovers.FunctionFieldAutomorphisms
 
 /-! # Comparing the actual étale cover degree with curve-model degree -/
@@ -14,6 +15,9 @@ noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve
 open CategoryTheory.PreGaloisCategory EtaleFundamentalGroups
 open AlgebraicCurves.Models.Proofs
+open
+  CurveModel_exists_algEquiv_pointEquivPlace_comp_hom_eq_ofAlgAut_smul_pointEquivPlace
+open AlgebraicCurve.CurveModel.ModelIndepSol
 open CurveModel_exists_algHom_finiteAlong_pointEquivPlace_restrictAlong_of_isFinite.AlgebraicCurve
 
 namespace AlgebraicCurve.CurveModel
@@ -43,10 +47,10 @@ theorem finrankAlong_finiteEtaleFieldMap_eq_functionField
   let phi := M.finiteEtaleFieldMap N d hd
   let : Algebra F E := algebraAlong phi
   have hmap :
-      (FFLeg.FunctionFieldPull.pull d
+      (FunctionFieldPull.pull d
         (FFLeg.specializes_genericPoint K M N d d.surjective)).hom =
       d.functionFieldMap d.surjective.denseRange := by
-    unfold FFLeg.FunctionFieldPull.pull Scheme.Hom.functionFieldMap
+    unfold FunctionFieldPull.pull Scheme.Hom.functionFieldMap
     rw [eqToHom_stalk_eq_specializes M.C
       (d.map_genericPoint_of_denseRange d.surjective.denseRange).symm]
   change Module.finrank F E = Module.finrank M.C.functionField N.C.functionField
@@ -56,7 +60,7 @@ theorem finrankAlong_finiteEtaleFieldMap_eq_functionField
   change d.functionFieldMap d.surjective.denseRange (M.ffEquiv x) = N.ffEquiv (phi x)
   change d.functionFieldMap d.surjective.denseRange (M.ffEquiv x) =
     N.ffEquiv (N.ffEquiv.symm
-      (FFLeg.FunctionFieldPull.pull d
+      (FunctionFieldPull.pull d
         (FFLeg.specializes_genericPoint K M N d d.surjective) (M.ffEquiv x)))
   rw [N.ffEquiv.apply_symm_apply]
   exact (congrArg (fun q : M.C.functionField →+* N.C.functionField =>

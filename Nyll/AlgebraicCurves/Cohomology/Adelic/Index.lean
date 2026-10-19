@@ -56,7 +56,7 @@ theorem algebraMap_mem_lSpace_zero (c : K) :
   exact v.adicValuation_algebraMap_le_one c
 
 theorem one_mem_lSpace_zero : (1 : F) ∈ LSpace (0 : Divisor K F) := by
-  simpa using algebraMap_mem_lSpace_zero (K := K) (F := F) 1
+  simpa only [map_one] using algebraMap_mem_lSpace_zero (K := K) (F := F) 1
 
 /-- The functions bounded by the zero divisor are exactly the base-field constants. -/
 def ConstantsAreBase (K F : Type*) [Field K] [Field F] [Algebra K F] : Prop :=
@@ -100,7 +100,7 @@ theorem diagonalHom_apply (f : F) (v : Place K F) : diagonalHom K F f v = f := r
 
 theorem diagonalHom_injective [Nonempty (Place K F)] :
     Function.Injective (diagonalHom K F) := fun f g h => by
-  simpa using congrFun h (Classical.arbitrary (Place K F))
+  exact congrFun h (Classical.arbitrary (Place K F))
 
 theorem diagonal_mem_adeleBdd_iff {f : F} :
     diagonalHom K F f ∈ adeleBdd D ↔ f ∈ LSpace D := by
@@ -254,12 +254,12 @@ theorem mulAdele_mem_adeleBdd_sub {f : F} (hf : f ≠ 0) {P : Divisor K F}
 theorem mulAdele_globalSub_le (f : F) :
     (globalSub K F).map (mulAdele K f) ≤ globalSub K F := by
   rintro _ ⟨α, ⟨g, rfl⟩, rfl⟩
-  exact ⟨f * g, funext fun v => by simp⟩
+  exact ⟨f * g, funext fun v => rfl⟩
 
 theorem mulAdele_mem_adeleSpace [HasPrincipalDivisors K F] (f : F) {α : Place K F → F}
     (hα : α ∈ adeleSpace K F) : mulAdele K f α ∈ adeleSpace K F := by
   rcases eq_or_ne f 0 with rfl | hf
-  · have h0 : mulAdele K (0 : F) α = 0 := funext fun v => by simp
+  · have h0 : mulAdele K (0 : F) α = 0 := funext fun v => zero_mul (α v)
     rw [h0]; exact (adeleSpace K F).zero_mem
   · obtain ⟨D, hD⟩ := mem_adeleSpace_iff.mp hα
     obtain ⟨P, hP, _⟩ := HasPrincipalDivisors.exists_divisor (K := K) f hf
@@ -298,7 +298,7 @@ theorem adeleSpaceMul_mul [HasPrincipalDivisors K F] (f g : F) :
 @[simp]
 theorem weilSmul_one [HasPrincipalDivisors K F] :
     weilSmul K F (1 : F) = LinearMap.id := by
-  unfold weilSmul; rw [adeleSpaceMul_one]; ext; simp
+  rw [weilSmul, adeleSpaceMul_one, LinearMap.dualMap_id]
 
 theorem weilSmul_mul [HasPrincipalDivisors K F] (f g : F) :
     weilSmul K F (f * g) = (weilSmul K F g).comp (weilSmul K F f) := by
@@ -359,13 +359,13 @@ def residuePairing [HasPrincipalDivisors K F] (W D : Divisor K F)
       = weilSmul K F (g₁ : F) φ + weilSmul K F (g₂ : F) φ
     ext α; simp only [weilSmul_apply, LinearMap.add_apply]
     rw [← map_add]; congr 1
-    exact Subtype.ext (funext fun v => by simp [add_mul])
+    exact Subtype.ext (funext fun v => add_mul _ _ _)
   map_smul' c g := by
     refine Subtype.ext ?_
     change weilSmul K F (c • (g : F)) φ = c • weilSmul K F (g : F) φ
     ext α; simp only [weilSmul_apply, LinearMap.smul_apply]
     rw [← map_smul]; congr 1
-    exact Subtype.ext (funext fun v => by simp [Algebra.smul_def]; ring)
+    exact Subtype.ext (funext fun v => smul_mul_assoc c (g : F) _)
 @[simp]
 theorem residuePairing_apply_coe [HasPrincipalDivisors K F] (W D : Divisor K F)
     {φ : Module.Dual K (adeleSpace K F)} (hφ : φ ∈ omegaSpace W) (g : LSpace (W - D)) :

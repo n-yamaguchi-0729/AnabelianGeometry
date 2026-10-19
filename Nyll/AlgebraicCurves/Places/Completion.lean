@@ -10,6 +10,7 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
+import Mathlib.Algebra.Algebra.Basic
 import Mathlib.Algebra.Order.Ring.IsNonarchimedean
 import Mathlib.Algebra.Order.Ring.Abs
 import Mathlib.RingTheory.Henselian
@@ -17,8 +18,9 @@ import Mathlib.RingTheory.SimpleRing.Principal
 import Mathlib.Topology.Algebra.Module.FiniteDimension
 import Mathlib.Topology.Algebra.Valued.NormedValued
 import Mathlib.Topology.UniformSpace.Uniformizable
-import Nyll.AlgebraicCurves.Divisors.Maps
-import Nyll.AlgebraicCurves.Valuations.AdicCompletion
+import Nyll.AlgebraicCurves.Divisors.Maps.Maps
+import Nyll.ValuedFieldTheory.Valuation.Completion.AdicCompletion
+import Nyll.AlgebraicCurves.Places.Basic
 
 /-!
 # Completion
@@ -26,13 +28,6 @@ import Nyll.AlgebraicCurves.Valuations.AdicCompletion
 Completions at places carry the induced maps of finite extensions, their integral valuation
 subrings, completed traces, and constant-field maps.
 -/
-
-instance {K L : Type*} [Field K] [Semiring L] (O : ValuationSubring K) [Algebra K L] :
-    Algebra O L where
-  smul r x := r.1 • x
-  algebraMap := (algebraMap K L).comp (algebraMap O K)
-  commutes' _ _ := by simp [Algebra.commutes]
-  smul_def' _ _ := by simp [← Algebra.smul_def]; rfl
 
 noncomputable section
 
@@ -59,11 +54,11 @@ variable {K F F' : Type*} [Field K] [Field F] [Field F'] [Algebra K F] [Algebra 
 variable (F)
 variable [Algebra F F'] [IsScalarTower K F F'] [Algebra.IsIntegral F F'] (W : Place K F')
 
-theorem kw_ffgc_adicValuation_algebraMap (x : F) :
+theorem adicValuation_algebraMap_eq_one (x : F) :
     W.adicValuation (algebraMap F F' x)
       = (W.restrict F).adicValuation x ^ W.ramificationIndex F := by
   rcases eq_or_ne x 0 with rfl | hx
-  · simp [adicValuation, zero_pow (W.ramificationIndex_pos (F := F)).ne']
+  · simp only [map_zero, zero_pow (W.ramificationIndex_pos (F := F)).ne']
   · have hord := W.ord_restrict (F := F) x
     have hax : algebraMap F F' x ≠ 0 :=
       (map_ne_zero_iff _ (algebraMap F F').injective).mpr hx
@@ -75,15 +70,15 @@ theorem kw_ffgc_adicValuation_algebraMap (x : F) :
       rw [← zpow_natCast, log_zpow, zsmul_eq_mul, Int.cast_natCast]; linarith
     rw [← exp_log hW0, hlog, exp_log (pow_ne_zero _ hV0)]
 
-theorem kw_ffgc_valued_withValMapAlgebraMap
+theorem valued_withValMapAlgebraMap
     (x : WithVal ((W.restrict F).heightOneSpectrum.valuation F)) :
     Valued.v (WithVal.map ((W.restrict F).heightOneSpectrum.valuation F)
       (W.heightOneSpectrum.valuation F') (algebraMap F F') x)
         = Valued.v x ^ W.ramificationIndex F := by
   rw [WithVal.map_apply, WithVal.valued_toVal]
-  exact kw_ffgc_adicValuation_algebraMap F W x.ofVal
+  exact adicValuation_algebraMap_eq_one F W x.ofVal
 
-theorem kw_ffgc_uniformContinuous_withValMapAlgebraMap :
+theorem uniformContinuous_withValMapAlgebraMap :
     UniformContinuous (WithVal.map ((W.restrict F).heightOneSpectrum.valuation F)
       (W.heightOneSpectrum.valuation F') (algebraMap F F')) := by
   refine uniformContinuous_of_continuousAt_zero _ ?_
@@ -107,7 +102,7 @@ theorem kw_ffgc_uniformContinuous_withValMapAlgebraMap :
   refine ⟨Units.mk0 _ hδ0, fun x hx => ?_⟩
   simp only [Set.mem_ofPred_eq, Units.val_mk0] at hx ⊢
   rw [Valuation.restrict_lt_iff, hx₀v] at hx
-  rw [Valuation.restrict_lt_iff_lt_embedding, kw_ffgc_valued_withValMapAlgebraMap F W x]
+  rw [Valuation.restrict_lt_iff_lt_embedding, valued_withValMapAlgebraMap F W x]
   calc Valued.v x ^ W.ramificationIndex F
       ≤ Valued.v x ^ 1 :=
         pow_le_pow_right_of_le_one' (hx.trans_le (min_le_right _ _)).le
@@ -130,11 +125,11 @@ def kw_ffgc_adicCompletionComap : (W.restrict F).adicCompletion →+* W.adicComp
     (UniformSpace.Completion.mapRingHom
       (WithVal.map ((W.restrict F).heightOneSpectrum.valuation F)
         (W.heightOneSpectrum.valuation F') (algebraMap F F'))
-      (kw_ffgc_uniformContinuous_withValMapAlgebraMap F W).continuous)).comp
+      (uniformContinuous_withValMapAlgebraMap F W).continuous)).comp
     (IsDedekindDomain.HeightOneSpectrum.adicCompletion.equiv F
       (W.restrict F).heightOneSpectrum).toRingHom
 
-theorem kw_ffgc_continuous_adicCompletionComap :
+theorem continuous_adicCompletionComap :
     Continuous (kw_ffgc_adicCompletionComap F W) := by
   have h : ⇑(kw_ffgc_adicCompletionComap F W) =
       IsDedekindDomain.HeightOneSpectrum.adicCompletion.ofCompletion ∘ UniformSpace.Completion.map
@@ -146,7 +141,7 @@ theorem kw_ffgc_continuous_adicCompletionComap :
     (UniformSpace.Completion.continuous_map.comp
       (IsDedekindDomain.HeightOneSpectrum.adicCompletion.continuous_toCompletion F _))
 
-theorem kw_ffgc_adicCompletionComap_coe
+theorem adicCompletionComap_coe
     (x : WithVal ((W.restrict F).heightOneSpectrum.valuation F)) :
     kw_ffgc_adicCompletionComap F W (x : (W.restrict F).adicCompletion)
       = (WithVal.map ((W.restrict F).heightOneSpectrum.valuation F)
@@ -154,10 +149,10 @@ theorem kw_ffgc_adicCompletionComap_coe
   by
   apply IsDedekindDomain.HeightOneSpectrum.adicCompletion.ext
   exact UniformSpace.Completion.mapRingHom_coe
-    (kw_ffgc_uniformContinuous_withValMapAlgebraMap F W).continuous x
+    (uniformContinuous_withValMapAlgebraMap F W).continuous x
 
 open WithZeroTopology in
-theorem kw_ffgc_valued_adicCompletionComap (x : (W.restrict F).adicCompletion) :
+theorem valued_adicCompletionComap (x : (W.restrict F).adicCompletion) :
     Valued.v (kw_ffgc_adicCompletionComap F W x)
       = Valued.v x ^ W.ramificationIndex F := by
   obtain ⟨x, rfl⟩ :=
@@ -167,16 +162,16 @@ theorem kw_ffgc_valued_adicCompletionComap (x : (W.restrict F).adicCompletion) :
     refine isClosed_eq
       ((Valued.continuous_valuation_of_surjective
         (W.heightOneSpectrum.valuedAdicCompletion_surjective F')).comp
-        ((kw_ffgc_continuous_adicCompletionComap F W).comp
+        ((continuous_adicCompletionComap F W).comp
           (IsDedekindDomain.HeightOneSpectrum.adicCompletion.continuous_ofCompletion F _)))
       (((Valued.continuous_valuation_of_surjective
         ((W.restrict F).heightOneSpectrum.valuedAdicCompletion_surjective F)).comp
           (IsDedekindDomain.HeightOneSpectrum.adicCompletion.continuous_ofCompletion F _)).pow _)
   | ih a =>
-    rw [kw_ffgc_adicCompletionComap_coe]
+    rw [adicCompletionComap_coe]
     simp only [IsDedekindDomain.HeightOneSpectrum.adicCompletion.valued_ofCompletion,
       Valued.valuedCompletion_apply]
-    exact kw_ffgc_valued_withValMapAlgebraMap F W a
+    exact valued_withValMapAlgebraMap F W a
 
 end CompletionComap
 
@@ -194,20 +189,20 @@ variable {K F F' : Type*} [Field K] [Field F] [Field F'] [Algebra K F] [Algebra 
 variable (F)
 variable [Algebra F F'] [IsScalarTower K F F'] [Algebra.IsIntegral F F'] (W : Place K F')
 
-theorem kw_ffgc_adicCompletionComap_mem_integers
+theorem adicCompletionComap_mem_integers
     {x : (W.restrict F).adicCompletion} (hx : x ∈ (W.restrict F).adicCompletionIntegers) :
     kw_ffgc_adicCompletionComap F W x ∈ W.adicCompletionIntegers := by
   rw [HeightOneSpectrum.mem_adicCompletionIntegers] at hx ⊢
-  rw [kw_ffgc_valued_adicCompletionComap]
+  rw [valued_adicCompletionComap]
   exact pow_le_one' hx _
 
 /-- The induced map on integral valuation subrings of the two completions. -/
 def kw_ffgc_adicCompletionComapIntegers :
     (W.restrict F).adicCompletionIntegers →+* W.adicCompletionIntegers :=
   (kw_ffgc_adicCompletionComap F W).restrict _ _
-    fun _ hx => kw_ffgc_adicCompletionComap_mem_integers F W hx
+    fun _ hx => adicCompletionComap_mem_integers F W hx
 @[simp]
-theorem kw_ffgc_adicCompletionComapIntegers_coe
+theorem adicCompletionComapIntegers_coe
     (x : (W.restrict F).adicCompletionIntegers) :
     (kw_ffgc_adicCompletionComapIntegers F W x : W.adicCompletion)
       = kw_ffgc_adicCompletionComap F W (x : (W.restrict F).adicCompletion) := rfl
@@ -232,7 +227,7 @@ scoped instance kw_ffgc_algebraAdicCompletionComap :
     Algebra (W.restrict F).adicCompletion W.adicCompletion :=
   (kw_ffgc_adicCompletionComap F W).toAlgebra
 
-theorem kw_ffgc_algebraMap_adicCompletionComap_eq :
+theorem algebraMap_adicCompletionComap_eq :
     algebraMap (W.restrict F).adicCompletion W.adicCompletion
       = kw_ffgc_adicCompletionComap F W := rfl
 
@@ -253,7 +248,7 @@ instance kw_ffgc_isScalarTower_integersCompletionCompletion :
 instance kw_ffgc_isScalarTower_integersIntegersCompletion :
     IsScalarTower (W.restrict F).adicCompletionIntegers
       W.adicCompletionIntegers W.adicCompletion :=
-  IsScalarTower.of_algebraMap_eq fun x => (kw_ffgc_adicCompletionComapIntegers_coe F W x).symm
+  IsScalarTower.of_algebraMap_eq fun x => (adicCompletionComapIntegers_coe F W x).symm
 
 end CompletionAlgebra
 
@@ -314,8 +309,8 @@ variable [Algebra F F'] [IsScalarTower K F F'] [Algebra.IsIntegral F F'] (W : Pl
 instance kw_ffgc_continuousSMul_adicCompletionComap :
     ContinuousSMul (W.restrict F).adicCompletion W.adicCompletion :=
   continuousSMul_of_algebraMap _ _ (by
-    rw [kw_ffgc_algebraMap_adicCompletionComap_eq]
-    exact kw_ffgc_continuous_adicCompletionComap F W)
+    rw [algebraMap_adicCompletionComap_eq]
+    exact continuous_adicCompletionComap F W)
 
 end ClosedAdjoin
 
@@ -335,23 +330,23 @@ variable {K F F' : Type*} [Field K] [Field F] [Field F'] [Algebra K F] [Algebra 
 variable (F)
 variable [Algebra F F'] [IsScalarTower K F F'] [Algebra.IsIntegral F F'] (W : Place K F')
 
-theorem kw_ffgc_adicCompletionComap_algebraMap_algebraMap (c : F) :
+theorem adicCompletionComap_algebraMap_algebraMap (c : F) :
     algebraMap F' W.adicCompletion (algebraMap F F' c)
       = algebraMap (W.restrict F).adicCompletion W.adicCompletion
           (algebraMap F (W.restrict F).adicCompletion c) := by
-  rw [kw_ffgc_algebraMap_adicCompletionComap_eq,
+  rw [algebraMap_adicCompletionComap_eq,
     show algebraMap F (W.restrict F).adicCompletion c
       = ((WithVal.toVal ((W.restrict F).heightOneSpectrum.valuation F) c
           : WithVal ((W.restrict F).heightOneSpectrum.valuation F))
           : (W.restrict F).adicCompletion) from rfl,
-    kw_ffgc_adicCompletionComap_coe]
+    adicCompletionComap_coe]
   rfl
 
-theorem kw_ffgc_algebraMap_smul_algebraMap (c : F) (b : F') :
+theorem algebraMap_smul_algebraMap (c : F) (b : F') :
     algebraMap F (W.restrict F).adicCompletion c • algebraMap F' W.adicCompletion b
       = algebraMap F' W.adicCompletion (c • b) := by
   rw [Algebra.smul_def, Algebra.smul_def, map_mul,
-    kw_ffgc_adicCompletionComap_algebraMap_algebraMap]
+    adicCompletionComap_algebraMap_algebraMap]
 
 /-- Linear combinations of the chosen field basis with coefficients in the base completion. -/
 def kw_ffgc_completionLinearCombination {ι : Type*} [Fintype ι] (b : Module.Basis ι F F') :
@@ -360,14 +355,14 @@ def kw_ffgc_completionLinearCombination {ι : Type*} [Fintype ι] (b : Module.Ba
   Fintype.linearCombination (W.restrict F).adicCompletion
     (fun i => algebraMap F' W.adicCompletion (b i))
 
-theorem kw_ffgc_denseRange_completionLinearCombination {ι : Type*} [Fintype ι]
+theorem denseRange_completionLinearCombination {ι : Type*} [Fintype ι]
     (b : Module.Basis ι F F') :
     DenseRange (kw_ffgc_completionLinearCombination F W b) := by
   apply (IsDedekindDomain.HeightOneSpectrum.denseRange_algebraMap F' W.heightOneSpectrum).mono
   rintro _ ⟨l, rfl⟩
   refine ⟨fun i => algebraMap F (W.restrict F).adicCompletion (b.repr l i), ?_⟩
   simp only [kw_ffgc_completionLinearCombination, Fintype.linearCombination_apply,
-    kw_ffgc_algebraMap_smul_algebraMap, ← map_sum]
+    algebraMap_smul_algebraMap, ← map_sum]
   congr 1
   exact b.sum_repr l
 
@@ -381,7 +376,7 @@ instance kw_ffgc_finiteDimensional_adicCompletion [FiniteDimensional F F'] :
     rw [← Set.range_eq_univ, ← LinearMap.coe_range,
       ← (LinearMap.range
           (kw_ffgc_completionLinearCombination F W b)).closed_of_finiteDimensional.closure_eq]
-    exact (kw_ffgc_denseRange_completionLinearCombination F W b).closure_range)
+    exact (denseRange_completionLinearCombination F W b).closure_range)
 
 end FiniteDimensional
 
@@ -397,12 +392,12 @@ abbrev kw_ffgc_completionTrace [FiniteDimensional F F'] :
   Algebra.trace (W.restrict F).adicCompletion W.adicCompletion
 
 /-- The completed trace restricted to the original extension field. -/
-def kw_ffgc_completionTraceF' [FiniteDimensional F F'] : F' →ₗ[F] (W.restrict F).adicCompletion :=
+def completionTraceF' [FiniteDimensional F F'] : F' →ₗ[F] (W.restrict F).adicCompletion :=
   { toFun := fun g => kw_ffgc_completionTrace F W (algebraMap F' W.adicCompletion g)
     map_add' := fun x y => by simp only [map_add]
     map_smul' := fun c x => by
       simp only [Algebra.smul_def, map_mul, RingHom.id_apply,
-        kw_ffgc_adicCompletionComap_algebraMap_algebraMap]
+        adicCompletionComap_algebraMap_algebraMap]
       rw [← Algebra.smul_def, LinearMap.map_smul, Algebra.smul_def]
       rfl }
 
@@ -420,60 +415,31 @@ section LocalResidueCompletion
 
 variable {K E : Type*} [Field K] [Field E] [Algebra K E]
 
-theorem kwHgfV352_valued_algebraMap_adicCompletion (v : Place K E) (x : E) :
+theorem valued_algebraMap_adicCompletion (v : Place K E) (x : E) :
     Valued.v (algebraMap E v.adicCompletion x) = v.heightOneSpectrum.valuation E x := by
   have h := IsDedekindDomain.HeightOneSpectrum.valuedAdicCompletion_eq_valuation'
     (K := E) v.heightOneSpectrum x
   exact h
 
-namespace Place
-
-private theorem mem_of_ord_nonneg_placeCompletionAux {K F : Type*} [Field K] [Field F] [Algebra K F]
-    (v : Place K F) {f : F} (hf : f ≠ 0) (h : 0 ≤ v.ord f) :
-    f ∈ v.toValuationSubring := by
-  obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
-  obtain ⟨u, hu⟩ := v.exists_unit_mul_zpow hf hπ
-  rw [hu, show v.ord f = (((v.ord f).toNat : ℕ) : ℤ) from (Int.toNat_of_nonneg h).symm,
-    zpow_natCast]
-  exact mul_mem (u : v.toValuationSubring).2 (pow_mem (π : v.toValuationSubring).2 _)
-
-private theorem ord_nonneg_of_mem_placeCompletionAux {K F : Type*} [Field K] [Field F] [Algebra K F]
-    (v : Place K F) {f : F} (hf : f ∈ v.toValuationSubring) : 0 ≤ v.ord f := by
-  rcases eq_or_ne f 0 with rfl | hf0
-  · simp
-  obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
-  obtain ⟨n, u, hu⟩ :=
-    IsDiscreteValuationRing.eq_unit_mul_pow_irreducible
-      (x := (⟨f, hf⟩ : v.toValuationSubring)) (by simpa [Subtype.ext_iff] using hf0) hπ
-  have hcoe : f = ((u : v.toValuationSubring) : F) * ((π : F) ^ (n : ℤ)) := by
-    have h := congrArg (Subtype.val) hu
-    push_cast at h
-    rw [zpow_natCast]
-    exact h
-  rw [hcoe, v.ord_unit_smul_zpow u hπ (n : ℤ)]
-  exact Int.natCast_nonneg n
-
-end Place
-
-theorem kwHgfV352_algebraMap_mem_adicCompletionIntegers_iff (v : Place K E) (x : E) :
+theorem algebraMap_mem_adicCompletionIntegers_iff (v : Place K E) (x : E) :
     algebraMap E v.adicCompletion x ∈ v.adicCompletionIntegers ↔ x ∈ v.toValuationSubring := by
   rcases eq_or_ne x 0 with rfl | hx0
   · simp only [map_zero]; exact iff_of_true (zero_mem _) (zero_mem _)
   have hval : Valued.v (algebraMap E v.adicCompletion x) = v.adicValuation x :=
-    kwHgfV352_valued_algebraMap_adicCompletion v x
+    valued_algebraMap_adicCompletion v x
   have hne : v.adicValuation x ≠ 0 := v.adicValuation_ne_zero hx0
   have hlog_iff : WithZero.log (v.adicValuation x) ≤ 0 ↔ v.adicValuation x ≤ 1 := by
     rw [WithZero.log_le_iff_le_exp hne, WithZero.exp_zero]
   constructor
   · intro h
-    refine v.mem_of_ord_nonneg_placeCompletionAux hx0 (neg_nonneg.mpr ?_)
+    refine v.mem_of_ord_nonneg hx0 (neg_nonneg.mpr ?_)
     exact hlog_iff.mpr (hval ▸ h)
   · intro h
     change Valued.v (algebraMap E v.adicCompletion x) ≤ 1
     rw [hval]
-    exact hlog_iff.mp (neg_nonneg.mp (v.ord_nonneg_of_mem_placeCompletionAux h))
+    exact hlog_iff.mp (neg_nonneg.mp (v.ord_nonneg_of_mem h))
 
-theorem kwHgfV352_exists_sub_mem_adicCompletionIntegers (v : Place K E)
+theorem exists_sub_mem_adicCompletionIntegers (v : Place K E)
     (xh : v.adicCompletion) :
     ∃ x : E, algebraMap E v.adicCompletion x - xh ∈ v.adicCompletionIntegers := by
   have hdense : DenseRange (algebraMap E v.adicCompletion) :=
@@ -481,7 +447,7 @@ theorem kwHgfV352_exists_sub_mem_adicCompletionIntegers (v : Place K E)
   have hopen : IsOpen ((xh + ·) '' (v.adicCompletionIntegers : Set v.adicCompletion)) :=
     (Homeomorph.addLeft xh).isOpenMap _ (Valued.isOpen_valuationSubring v.adicCompletion)
   have hmem : xh ∈ (xh + ·) '' (v.adicCompletionIntegers : Set v.adicCompletion) :=
-    ⟨0, zero_mem _, by simp⟩
+    ⟨0, zero_mem _, add_zero xh⟩
   obtain ⟨e, he⟩ := hdense.exists_mem_open hopen ⟨xh, hmem⟩
   obtain ⟨o, hoMem, hoEq⟩ := he
   exact ⟨e, by rw [← hoEq]; simpa using hoMem⟩
@@ -504,7 +470,7 @@ variable {K L : Type*} [Field K] [Field L] [Algebra K L] (u : Place K L)
 theorem algebraMap_K_mem_adicCompletionIntegers (c : K) :
     algebraMap K u.adicCompletion c ∈ u.adicCompletionIntegers := by
   rw [IsScalarTower.algebraMap_apply K L u.adicCompletion]
-  exact (kwHgfV352_algebraMap_mem_adicCompletionIntegers_iff u _).mpr (u.algebraMap_mem' c)
+  exact (algebraMap_mem_adicCompletionIntegers_iff u _).mpr (u.algebraMap_mem' c)
 
 /-- The map from the constant field to the integral valuation subring of the completion. -/
 def algebraMapKIntegers : K →+* u.adicCompletionIntegers where

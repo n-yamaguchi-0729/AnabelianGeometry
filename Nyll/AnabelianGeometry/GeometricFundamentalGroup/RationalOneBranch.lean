@@ -4,11 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Places.Finsum_ramificationIndex_ratFunc_sub_one_eq_of_tame
-import Nyll.AlgebraicCurves.Places.Place_sum_ramificationIndex_mul_inertiaDeg_fiberOver
-import Nyll.AlgebraicCurves.Places.Place_inertiaDeg_eq_one_of_isRational
-import Nyll.AlgebraicCurves.Places.Place_isRational_of_isAlgClosed
-import Nyll.AlgebraicCurves.Places.Place_exists_restrict_eq
+import Nyll.AlgebraicCurves.Places.Ramification.FinsumRamificationIndexRatFuncSubOneEq
+import Nyll.AlgebraicCurves.Places.Ramification.SumRamificationIndexMulInertiaDegFiberOver
+import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegEqOneIsRational
+import Nyll.AlgebraicCurves.Places.Degree.IsRationalAlgClosed
+import Nyll.AlgebraicCurves.Places.Restriction.RestrictEq
 import Mathlib.Algebra.BigOperators.Finprod
 import Mathlib.LinearAlgebra.Dimension.FreeAndStrongRankCondition
 

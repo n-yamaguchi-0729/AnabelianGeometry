@@ -339,8 +339,8 @@ variable (F : OModulePresheaf π)
 /-- The affine morphism from the zero presheaf to F. -/
 def AffHom.zeroFrom : AffHom (zero π) F where
   app _ := 0
-  app_smul _ _ _ := by simp
-  naturality _ := by ext; simp
+  app_smul _ _ _ := by simp only [LinearMap.zero_apply, smul_zero]
+  naturality _ := by rw [LinearMap.zero_comp, LinearMap.comp_zero]
 
 /-- The affine morphism from F to the zero presheaf. -/
 def AffHom.zeroTo : AffHom F (zero π) where

@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.All
+import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.All
 import Nyll.AnabelianGeometry.ProjectiveLine.All
 import Nyll.AnabelianGeometry.KummerTheory.All
 import Nyll.AnabelianGeometry.CuspidalInertia.All

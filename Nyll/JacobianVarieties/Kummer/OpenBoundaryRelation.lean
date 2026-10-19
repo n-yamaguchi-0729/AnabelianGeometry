@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.EssFiniteType_functionField
+import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
 import Nyll.JacobianVarieties.Kummer.OpenBoundaryRealization
 
 /-!

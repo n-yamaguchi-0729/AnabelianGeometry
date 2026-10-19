@@ -70,7 +70,7 @@ def restrictAlgHom (c : X ⟶ Spec (.of R)) {U V : X.Opens} (h : V ≤ U) :
       change (c.appLE ⊤ U le_top ≫ X.presheaf.map (homOfLE h).op).hom _ = (c.appLE ⊤ V le_top).hom _
       exact congrArg
         (fun φ => φ.hom ((Scheme.ΓSpecIso (.of R)).inv.hom r))
-        (Scheme.Hom.appLE_map c (by simp) (homOfLE h).op) }
+        (Scheme.Hom.appLE_map c (U := ⊤) (V := U) le_top (homOfLE h).op) }
 
 variable (𝒱 : X.TwoAffineOpenCover) (c : X ⟶ Spec (.of R))
 

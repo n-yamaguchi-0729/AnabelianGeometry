@@ -6,12 +6,12 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroParameter
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalTwoBranches
-import Nyll.AlgebraicCurves.FunctionFields.IsCurveOver_of_isAlgClosed_of_transcendental
-import Nyll.AlgebraicCurves.FunctionFields.EssFiniteType_of_transcendental_of_finiteDimensional
-import Nyll.AlgebraicCurves.FunctionFields.IsCurveOver_ratFunc
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.GenusFF_ratFunc_eq_zero_of_isAlgClosed
-import Nyll.AlgebraicCurves.Places.Place_mem_range_algebraMap_of_forall_ord_eq_zero_of_isAlgClosed
-import Nyll.AlgebraicCurves.Places.Place_ord_algebraMap
+import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveAlgClosed
+import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeTranscendental
+import Nyll.AlgebraicCurves.FunctionFields.Rational.CurveRatFunc
+import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Genus.GenusFFRatFuncEqZeroAlgClosed
+import Nyll.AlgebraicCurves.Places.Orders.MemRangeAlgebraMapOrdEqZeroAlgClosed
+import Nyll.AlgebraicCurves.Places.Basic
 
 /-!
 # Power coordinates for rational covers with two branch places

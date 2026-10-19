@@ -6,6 +6,9 @@ https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536
 Upstream NOTICE: https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/NOTICE
 Upstream per-file ATTRIBUTION (earlier FLT and Mathlib notices): https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/ATTRIBUTION.md
 
+The finite-place order criterion is also adapted from:
+https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicCurve_RationalFunctionField_ord_placeOfPoint_algebraMap.lean
+
 Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
@@ -15,7 +18,7 @@ import Mathlib.FieldTheory.RatFunc.Basic
 import Mathlib.RingTheory.Henselian
 import Mathlib.RingTheory.RegularLocalRing.Defs
 import Mathlib.RingTheory.SimpleRing.Principal
-import Nyll.AlgebraicCurves.Divisors.ClassGroup
+import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
 
 /-!
 # Basic
@@ -35,22 +38,6 @@ namespace AlgebraicCurve
 namespace Place
 
 variable {K F : Type*} [Field K] [Field F] [Algebra K F] (v : Place K F)
-
-theorem adicValuation_valuationSubring :
-    v.adicValuation.valuationSubring = v.toValuationSubring := by
-  ext x
-  rw [Valuation.mem_valuationSubring_iff]
-  constructor
-  · intro hx
-    obtain ⟨a, rfl⟩ := IsDiscreteValuationRing.exists_lift_of_le_one hx
-    exact a.2
-  · intro hx
-    exact v.heightOneSpectrum.valuation_le_one (⟨x, hx⟩ : v.toValuationSubring)
-
-theorem mem_iff_adicValuation_le_one {f : F} :
-    f ∈ v.toValuationSubring ↔ v.adicValuation f ≤ 1 := by
-  rw [← v.adicValuation_valuationSubring]
-  exact Valuation.mem_valuationSubring_iff _ _
 
 instance : v.adicValuation.IsRankOneDiscrete :=
   IsDiscreteValuationRing.isRankOneDiscrete v.toValuationSubring F
@@ -133,7 +120,7 @@ theorem exists_irreducible_span (w : HeightOneSpectrum K[X]) :
   refine ⟨p, ?_, hp⟩
   have hp0 : p ≠ 0 := by
     rintro rfl
-    exact w.ne_bot (hp.trans (by simp))
+    exact w.ne_bot (hp.trans (Ideal.span_singleton_eq_bot.mpr rfl))
   have hpr := w.isPrime
   rw [hp] at hpr
   exact ((Ideal.span_singleton_prime hp0).mp hpr).irreducible
@@ -146,6 +133,11 @@ theorem finitePlace_def {p : K[X]} (hp : Irreducible p) :
     finitePlace K hp = Place.ofHeightOneSpectrum (heightOneSpectrumOfIrreducible K hp) := rfl
 
 section ResidueDegree
+
+theorem ord_finitePlace_ne_zero_iff {p : K[X]} (hp : Irreducible p) {q : K[X]} (hq : q ≠ 0) :
+    (finitePlace K hp).ord (algebraMap K[X] (RatFunc K) q) ≠ 0 ↔ p ∣ q := by
+  rw [finitePlace, Place.ord_ofHeightOneSpectrum_ne_zero_iff (K := K) _ hq,
+    heightOneSpectrumOfIrreducible_asIdeal, Ideal.mem_span_singleton]
 
 theorem algebraMap_mem_ofHeightOneSpectrum (w : HeightOneSpectrum K[X]) (q : K[X]) :
     algebraMap K[X] (RatFunc K) q ∈
@@ -380,7 +372,7 @@ theorem coe_congrValuationSubringEquiv_apply (v : Place K F) (x : v.toValuationS
 theorem ord_congrRingEquiv (v : Place K F) (f : F) :
     (congrRingEquiv e he v).ord (e f) = v.ord f := by
   rcases eq_or_ne f 0 with rfl | hf
-  · simp
+  · simp only [map_zero, Place.ord_zero]
   obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
   obtain ⟨u, hu⟩ := v.exists_unit_mul_zpow hf hπ
   have hπ' : Irreducible (comapSymmRingEquiv e v.toValuationSubring π) :=

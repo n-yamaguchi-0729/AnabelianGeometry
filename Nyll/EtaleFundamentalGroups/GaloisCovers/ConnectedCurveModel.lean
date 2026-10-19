@@ -4,11 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.FiniteEtaleHyperbolicGenus
-import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurve_exists_curveModel_iso_germToFunctionField_eq_of_isAlgClosed
+import Nyll.AlgebraicCurves.Models.Ramification.FiniteEtaleHyperbolicGenus
+import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveCurveModelIsoFunctionFieldGermEq
 import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
 import Nyll.EtaleFundamentalGroups.FiniteEtale.Integral
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalkNormality
+import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
 import Nyll.SchemeTheory.Normalization.Normal
 
 /-! # Curve models of actual connected finite étale covers

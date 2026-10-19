@@ -10,7 +10,7 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup
+import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
 import Mathlib.FieldTheory.RatFunc.Valuation
 import Mathlib.RingTheory.SimpleRing.Principal
 
@@ -37,7 +37,8 @@ theorem nontrivial_valueGroup_inftyValuation :
     (by rw [RatFunc.inftyValuation.X]; exact exp_ne_zero), ?_, ?_⟩
   · exact MonoidWithZeroHom.mem_valueGroup _ ⟨RatFunc.X, rfl⟩
   · rw [ne_eq, Units.ext_iff, Units.val_mk0, Units.val_one, RatFunc.inftyValuation.X]
-    simp
+    rw [exp_eq_one]
+    exact one_ne_zero
 
 /-- The place defined by the rational-function-field valuation at infinity. -/
 def placeInfty : Place K (RatFunc K) :=

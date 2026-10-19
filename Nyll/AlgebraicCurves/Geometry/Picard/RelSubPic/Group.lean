@@ -10,15 +10,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Picard.Functor
-import Nyll.AlgebraicCurves.Geometry.Picard.SubPicCondition
+import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
+import Nyll.AlgebraicCurves.Geometry.Picard.Representability.SubPicCondition
 import Nyll.AlgebraicCurves.Geometry.Picard.RelSubPic.Presheaf
-import Nyll.AlgebraicCurves.Geometry.Picard.RelativeGroupLawGrpObj
+import Nyll.AlgebraicCurves.Geometry.Picard.GroupLaw.RelativeGroupLawGrpObj
 import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.AbelianSchemePropertyBundle
-import Nyll.SchemeTheory.Modules.Monoidal
-import Nyll.SchemeTheory.Modules.PullbackMonoidal
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Scheme_Modules_IsInvertible_tensor
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Scheme_Modules_IsInvertible_exists_tensor_inverse
+import Nyll.SchemeTheory.Modules.Tensor.Monoidal
+import Nyll.SchemeTheory.Modules.Tensor.PullbackMonoidal
+import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleTensor
+import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleTensorInverse
 
 /-!
 Tensor products and the commutative-group presheaf associated with a group-stable Picard

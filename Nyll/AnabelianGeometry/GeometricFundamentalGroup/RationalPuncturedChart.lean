@@ -4,12 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.CurveModel_exists_comp_toBase_eq_id_and_base_closedPoint_eq_of_deg_eq_one
-import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurve_exists_finiteMapData_le_isUnit
-import Nyll.AlgebraicCurves.Geometry.Curves.geometricallyIntegral_of_isAlgClosed
-import Nyll.AlgebraicCurves.Models.CurveModel_range_sections_eq_map_eval2_polyPart_invPolyPart_of_coe_eq_compl
+import Nyll.AlgebraicCurves.Models.Points.CompToBaseEqIdBaseClosedPointEq
+import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveFiniteMapDataLeIsUnit
+import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyIntegralAlgClosed
+import Nyll.AlgebraicCurves.Models.Charts.RangeSectionsEqMapEval2PolyPartInvPolyPart
 import Nyll.AlgebraicCurves.Places.Rational.Classification
-import Nyll.AlgebraicCurves.Places.Rational.RationalFunctionField_deg_placeInfty
+import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
 import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
 
 /-!

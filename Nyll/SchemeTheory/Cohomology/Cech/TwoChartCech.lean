@@ -138,7 +138,7 @@ variable {R : Type u} [CommRing R] (𝒰 : Cover.{u, v} R)
   M01 := 𝒰.A01
   r0 := 𝒰.ρ0.toLinearMap
   r1 := (t : 𝒰.A01) • 𝒰.ρ1.toLinearMap
-  r0_smul a m := by simp
+  r0_smul a m := 𝒰.ρ0.map_mul a m
   r1_smul a m := by simp [mul_left_comm]
 
 @[simp] theorem lineBundle_r0_apply (t : 𝒰.A01ˣ) (p : 𝒰.A0) : (𝒰.lineBundle t).r0 p = 𝒰.ρ0 p := rfl
@@ -272,47 +272,6 @@ theorem Sections.mem_H0_ofSubmodules_iff {R : Type u} [CommRing R] {F : Type v} 
     p ∈ (Sections.ofSubmodules N0 N1 N01 h0 h1).H0 ↔ (p.1 : F) = p.2 :=
   ((Sections.ofSubmodules N0 N1 N01 h0 h1).mem_H0_iff p).trans
     ⟨fun h => congrArg Subtype.val h, fun h => Subtype.ext h⟩
-
-section Gates
-
-example (R : Type u) [CommRing R] (a b : R) :
-    (a, b) ∈ (Cover.trivial R).structureSheaf.H0 ↔ a = b :=
-  (Cover.trivial R).mem_H0_structureSheaf_iff (a, b)
-
-example : ((1 : (Cover.trivial ℤ).A0), (1 : (Cover.trivial ℤ).A1)) ∉
-    ((Cover.trivial ℤ).lineBundle (-1)).H0 := by
-  rw [Cover.mem_H0_lineBundle_iff]
-  change ¬ ((1 : ℤ) = (-1 : ℤ) * 1)
-  decide
-
-example : ((1 : (Cover.trivial ℤ).A0), (-1 : (Cover.trivial ℤ).A1)) ∈
-    ((Cover.trivial ℤ).lineBundle (-1)).H0 := by
-  rw [Cover.mem_H0_lineBundle_iff]
-  change ((1 : ℤ) = (-1 : ℤ) * -1)
-  decide
-
-example (R : Type u) [CommRing R] : GrothendieckComplex (0 : R →ₗ[R] R) where
-  G := { C0 := R, C1 := R, d := 0 }
-  ι0 := LinearMap.id
-  ι1 := LinearMap.id
-  comm := by simp
-  bijective_kerMap A _ _ := by
-    have h : ∀ x,
-        (kerMapBaseChange (0 : R →ₗ[R] R) 0 LinearMap.id LinearMap.id (by simp) A x) = x :=
-      fun x => Subtype.ext (by simp [kerMapBaseChange, LinearMap.restrict_apply])
-    exact ⟨fun x y hxy => by rwa [h, h] at hxy, fun y => ⟨y, h y⟩⟩
-  bijective_cokerMap A _ _ := by
-    have h : ∀ z,
-        cokerMapBaseChange (0 : R →ₗ[R] R) 0 LinearMap.id LinearMap.id (by simp) A z = z := by
-      intro z
-      induction z using Submodule.Quotient.induction_on with
-      | _ z =>
-        change Submodule.Quotient.mk ((LinearMap.id.baseChange A) z) =
-          Submodule.Quotient.mk z
-        rw [LinearMap.baseChange_id, LinearMap.id_apply]
-    exact ⟨fun x y hxy => by rwa [h, h] at hxy, fun y => ⟨y, h y⟩⟩
-
-end Gates
 
 end TwoChartCech
 

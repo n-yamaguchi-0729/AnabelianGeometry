@@ -11,7 +11,7 @@ AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
 import Mathlib.AlgebraicGeometry.Morphisms.FlatRank
-import Nyll.AlgebraicCurves.Geometry.Picard.RelativeGroupLaw
+import Nyll.AlgebraicCurves.Geometry.Picard.GroupLaw.RelativeGroupLaw
 import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.Kernel
 import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
 

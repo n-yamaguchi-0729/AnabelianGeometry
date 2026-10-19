@@ -121,7 +121,7 @@ theorem essImage_res_iff_ker_le_ker_ρAut
         intro a
         rw [hrho a]
         change Y.obj.ρ a ≫ 𝟙 Y.obj.V = 𝟙 Y.obj.V ≫ Y.obj.ρ a
-        simp)
+        rw [Category.comp_id, Category.id_comp])
     let X : ContAction FintypeCat.{w} G := ⟨A, hA⟩
     let e : (ContAction.res FintypeCat h).obj X ≅ Y :=
       ObjectProperty.isoMk _ eA

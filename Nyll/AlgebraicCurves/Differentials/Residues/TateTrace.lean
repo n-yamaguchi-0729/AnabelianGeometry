@@ -10,14 +10,14 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup
-import Nyll.AlgebraicCurves.Divisors.Maps
-import Nyll.AlgebraicCurves.Differentials.Order
-import Nyll.AlgebraicCurves.Differentials.Uniformizer
-import Nyll.AlgebraicCurves.Divisors.Canonical
+import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+import Nyll.AlgebraicCurves.Divisors.Maps.Maps
+import Nyll.AlgebraicCurves.Differentials.Local.Order
+import Nyll.AlgebraicCurves.Differentials.Local.Uniformizer
+import Nyll.AlgebraicCurves.Divisors.Principal.Canonical
 import Nyll.AlgebraicCurves.Cohomology.Adelic.Index
 import Nyll.AlgebraicCurves.Differentials.Residues.Basic
-import Nyll.AlgebraicCurves.Valuations.AdicCompletion
+import Nyll.ValuedFieldTheory.Valuation.Completion.AdicCompletion
 import Mathlib.LinearAlgebra.Trace
 import Mathlib.RingTheory.Trace.Defs
 import Mathlib.LinearAlgebra.Projection
@@ -197,7 +197,7 @@ variable [HasCanonicalLocalResidueKStar K E]
 completion integers. -/
 def kwHgfV352_localResidueCompletion (v : Place K E) (xh : v.adicCompletion) :
     v.ResidueField :=
-  v.localResidue (kwHgfV352_exists_sub_mem_adicCompletionIntegers v xh).choose
+  v.localResidue (exists_sub_mem_adicCompletionIntegers v xh).choose
 
 end LocalResidueCompletion
 
@@ -211,7 +211,7 @@ variable [Algebra.IsIntegral E F] [HasPrincipalDivisors K E] [HasPrincipalDiviso
 def kwHgfV352_completionTraceAt [FiniteDimensional E F]
     (v : Place K E) (w' : Place K F) (hw' : w' ∈ v.fiber F) (g : F) :
     v.adicCompletion :=
-  Place.mem_fiber.mp hw' ▸ kw_ffgc_completionTraceF' E w' g
+  Place.mem_fiber.mp hw' ▸ completionTraceF' E w' g
 
 end CompletionTraceAt
 
@@ -282,7 +282,7 @@ def adicIntegersKSubmod : Submodule K u.adicCompletion where
     rw [Algebra.smul_def]
     exact mul_mem (by
       rw [IsScalarTower.algebraMap_apply K L u.adicCompletion]
-      exact (kwHgfV352_algebraMap_mem_adicCompletionIntegers_iff u _).mpr
+      exact (algebraMap_mem_adicCompletionIntegers_iff u _).mpr
         (u.algebraMap_mem' c)) hx
 
 /-- A projection onto the completion integers along a chosen complementary submodule. -/

@@ -6,9 +6,9 @@ https://github.com/n-yamaguchi-0729
 -/
 
 import Nyll.JacobianVarieties.Kummer.OpenCurveCoverAction
-import Nyll.AlgebraicCurves.Geometry.Schemes.exists_root_fromNormalization_kummer_existsUnique_lift
+import Nyll.AlgebraicCurves.Geometry.Schemes.Kummer.RootFromNormalizationKummerUniqueLift
 import Mathlib.AlgebraicGeometry.Morphisms.SchemeTheoreticallyDominant
-import Nyll.AlgebraicCurves.Places.Exists_place_range_stalk_eq
+import Nyll.AlgebraicCurves.Places.ValuationRings.RangeStalkEq
 
 /-!
 # Local root coordinates for the actual Kummer action

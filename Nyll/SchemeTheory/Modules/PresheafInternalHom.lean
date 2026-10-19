@@ -97,12 +97,24 @@ instance (X : Cᵒᵖ) : SMul (R.obj X) (naturalFamilies F N X) where
     (x : F.obj Y) : (φ - ψ).1 f x = φ.1 f x - ψ.1 f x := rfl
 
 instance (X : Cᵒᵖ) : Module (R.obj X) (naturalFamilies F N X) where
-  one_smul φ := by ext Y f x; simp
-  mul_smul r s φ := by ext Y f x; simp [mul_smul]
-  smul_zero r := by ext Y f x; simp
-  smul_add r φ ψ := by ext Y f x; simp
-  add_smul r s φ := by ext Y f x; simp [add_smul]
-  zero_smul φ := by ext Y f x; simp
+  one_smul φ := by
+    ext Y f x
+    simp only [smul_app, map_one, one_smul]
+  mul_smul r s φ := by
+    ext Y f x
+    simp only [smul_app, map_mul, mul_smul]
+  smul_zero r := by
+    ext Y f x
+    simp only [smul_app, zero_app, smul_zero]
+  smul_add r φ ψ := by
+    ext Y f x
+    simp only [smul_app, add_app, smul_add]
+  add_smul r s φ := by
+    ext Y f x
+    simp only [smul_app, add_app, map_add, add_smul]
+  zero_smul φ := by
+    ext Y f x
+    simp only [smul_app, zero_app, map_zero, zero_smul]
 
 variable (F N)
 
@@ -141,7 +153,7 @@ def postcomp {N' : PresheafOfModules.{u} (R ⋙ forget₂ _ _)} (ψ : N ⟶ N') 
     naturalFamilies F N X →+ naturalFamilies F N' X where
   toFun φ := ⟨fun Y f =>
     { toFun := fun x => ψ.app Y (φ.1 f x)
-      map_add' := fun x x' => by simp
+      map_add' := fun x x' => by rw [map_add, map_add]
       map_smul' := fun r x => by
         rw [(φ.1 f).map_smul]
         exact (ψ.app Y).hom.map_smul r _ }, by

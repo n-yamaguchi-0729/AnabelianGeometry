@@ -188,6 +188,35 @@ lemma etaleSigmaSection_restrict (G : Sheaf X.smallEtaleTopology (Type u))
 
 end Sigma
 
+/-- Sections on a disjoint union are determined by their restrictions. -/
+lemma etaleSigmaSection_ext {X : Scheme.{u}} {ι : Type u}
+    (U : ι → X.Etale) (G : Sheaf X.smallEtaleTopology (Type u))
+    {s t : G.obj.obj (op (etaleSigma U))}
+    (h : ∀ i, G.obj.map (etaleSigmaInj U i).op s =
+      G.obj.map (etaleSigmaInj U i).op t) : s = t := by
+  apply X.smallEtaleTopology.yonedaEquiv.symm.injective
+  apply Cofan.IsColimit.hom_ext (etaleSigmaYonedaIsColimit U)
+  intro i
+  apply X.smallEtaleTopology.yonedaEquiv.injective
+  rw [cofan_mk_inj, ← X.smallEtaleTopology.yonedaEquiv_naturality,
+    Equiv.apply_symm_apply, ← X.smallEtaleTopology.yonedaEquiv_naturality,
+    Equiv.apply_symm_apply]
+  exact h i
+
+/-- Componentwise surjectivity on a disjoint union gives surjectivity on
+sections of that union, using the existing sheaf gluing construction. -/
+theorem etaleSigma_sections_surjective {X : Scheme.{u}} {ι : Type u}
+    (U : ι → X.Etale) {F G : Sheaf X.smallEtaleTopology (Type u)}
+    (η : F ⟶ G) (h : ∀ i, Function.Surjective (η.hom.app (op (U i)))) :
+    Function.Surjective (η.hom.app (op (etaleSigma U))) := by
+  intro s
+  choose t ht using fun i => h i (G.obj.map (etaleSigmaInj U i).op s)
+  refine ⟨etaleSigmaSection U F t, ?_⟩
+  apply etaleSigmaSection_ext U G
+  intro i
+  rw [← η.hom.naturality_apply, etaleSigmaSection_restrict]
+  exact ht i
+
 /-- The universal property of a Cartesian square, in the small étale categories. -/
 lemma etalePostcompose_hom_bijective_of_isPullback
     {A B : Scheme.{u}} (f : A ⟶ B) [Etale f] (W : A.Etale) (V : B.Etale)

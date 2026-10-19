@@ -12,7 +12,7 @@ AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
 import Nyll.AlgebraicCurves.Differentials.Residues.Basic
-import Nyll.AlgebraicCurves.Differentials.Maps
+import Nyll.AlgebraicCurves.Differentials.Maps.Maps
 import Nyll.AlgebraicCurves.Cohomology.Cech.Maps
 
 /-!

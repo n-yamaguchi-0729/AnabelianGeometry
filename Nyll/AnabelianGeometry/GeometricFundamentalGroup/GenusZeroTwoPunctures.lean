@@ -6,11 +6,11 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalTwoPuncturedChart
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroParameter
-import Nyll.AlgebraicCurves.Places.Rational.RationalFunctionField_ord_X_sub_C
-import Nyll.AlgebraicCurves.Places.Rational.RationalFunctionField_ord_placeInfty_X
+import Nyll.AlgebraicCurves.Places.Rational.RatFuncOrdXSubC
+import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
 import Nyll.AlgebraicCurves.Places.Rational.Basic
-import Nyll.AlgebraicCurves.Models.CurveModel_exists_curveModel_iso_of_algEquiv
-import Nyll.AlgebraicCurves.Models.CurveModel_exists_iso_comp_toBase_eq_placeOfPoint_congr_eq
+import Nyll.AlgebraicCurves.Models.FunctionFields.CurveModelIsoAlgEquiv
+import Nyll.AlgebraicCurves.Models.Points.IsoCompToBaseEqPlaceOfPointCongrEq
 import Mathlib.FieldTheory.RatFunc.AsPolynomial
 import Mathlib.AlgebraicGeometry.Restrict
 

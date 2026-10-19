@@ -5,8 +5,8 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroTwoPunctures
-import Nyll.AlgebraicCurves.Cohomology.Finite_H0_H1_structureSheaf_of_isAlgClosed
-import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurve_exists_curveModel_iso_germToFunctionField_eq_of_isAlgClosed
+import Nyll.AlgebraicCurves.Cohomology.FiniteH0H1StructureSheafAlgClosed
+import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveCurveModelIsoFunctionFieldGermEq
 import Mathlib.AlgebraicGeometry.Restrict
 
 /-!

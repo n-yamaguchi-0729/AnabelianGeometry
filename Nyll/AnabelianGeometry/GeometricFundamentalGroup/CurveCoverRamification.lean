@@ -4,9 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.CurveModel_exists_algHom_finiteAlong_pointEquivPlace_restrictAlong_of_isFinite
-import Nyll.AlgebraicCurves.Models.CurveModel_ker_comap_eq_prod_ker_pow_ramificationIndex
-import Nyll.AlgebraicCurves.Geometry.Schemes.SmoothOfRelativeDimension_isDiscreteValuationRing_stalk_of_isClosed
+import Nyll.AlgebraicCurves.Models.Points.AlgHomFiniteAlongPointPlaceRestrictAlong
+import Nyll.AlgebraicCurves.Models.Ramification.Ramification
+import Nyll.AlgebraicCurves.Geometry.Schemes.Smooth.SmoothOfRelativeDimensionDVRStalkIsClosed
 import Mathlib.AlgebraicGeometry.Morphisms.Etale
 import Mathlib.RingTheory.Unramified.LocalRing
 
@@ -25,7 +25,6 @@ open CategoryTheory AlgebraicGeometry AlgebraicCurve IsLocalRing
 
 namespace AnabelianGeometry.GeometricFundamentalGroup
 
-open AlgebraicCurves.Models.Proofs.CurveModel_ker_comap_eq_prod_ker_pow_ramificationIndex in
 /-- A finite flat cover supplies a function-field map whose ramification index is one
 where the actual scheme stalk map is formally unramified. -/
 theorem exists_functionFieldMap_ramification_eq_one_at_unramified_stalk
@@ -75,7 +74,7 @@ theorem exists_functionFieldMap_ramification_eq_one_at_unramified_stalk
     show IsLocalHom (π.stalkMap p.1).hom from inferInstance
   have hmap := Algebra.FormallyUnramified.map_maximalIdeal
     (R := M.C.presheaf.stalk (π.base p.1)) (S := N.C.presheaf.stalk p.1)
-  have he := HG1b.map_stalkMap_maximalIdeal_eq_pow M N π hπ hplace y
+  have he := CurveModel.map_stalkMap_maximalIdeal_eq_pow_ramificationIndex M N π hπ hplace y
   have hdvr : IsDiscreteValuationRing (N.C.presheaf.stalk p.1) :=
     SmoothOfRelativeDimension.isDiscreteValuationRing_stalk_of_isClosed N.toBase p.1 p.2
   have hp : maximalIdeal (N.C.presheaf.stalk p.1) ^ w.ramificationIndex F =

@@ -4,14 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup
-import Nyll.AlgebraicCurves.Divisors.Divisor_exists_degZero_ord_eq_mul_of_dvd_ord
-import Nyll.AlgebraicCurves.Divisors.Pic0_mk_eq_zero_iff
-import Nyll.AlgebraicCurves.FunctionFields.CurveOver
-import Nyll.AlgebraicCurves.FunctionFields.IsCurveOver_exists_separating_transcendental
-import Nyll.AlgebraicCurves.Places.Place_mem_range_algebraMap_of_forall_ord_eq_zero_of_isAlgClosed
-import Nyll.JacobianVarieties.Pic0.Pic0_exists_mk_eq_and_dvd_ord_of_mem_torsion
-import Nyll.JacobianVarieties.Pic0.Pic0_mk_eq_zero_iff_exists_pow
+import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+import Nyll.AlgebraicCurves.Divisors.Degree.DegZeroOrdEqMulDvdOrd
+import Nyll.AlgebraicCurves.Divisors.ClassGroup.PicardZero
+import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
+import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveSeparatingTranscendental
+import Nyll.AlgebraicCurves.Places.Orders.MemRangeAlgebraMapOrdEqZeroAlgClosed
+import Nyll.JacobianVarieties.Pic0.MkEqDvdOrdMemTorsion
+import Nyll.JacobianVarieties.Pic0.MkEqZeroIffPow
 import Mathlib.Algebra.Group.Hom.Basic
 import Mathlib.Data.PNat.Defs
 import Mathlib.FieldTheory.IsAlgClosed.Basic

@@ -6,8 +6,8 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroPunctured
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.AffineLineFundamentalGroup
-import Nyll.AlgebraicCurves.Cohomology.Finite_H0_H1_structureSheaf_of_isAlgClosed
-import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurve_exists_curveModel_iso_germToFunctionField_eq_of_isAlgClosed
+import Nyll.AlgebraicCurves.Cohomology.FiniteH0H1StructureSheafAlgClosed
+import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveCurveModelIsoFunctionFieldGermEq
 import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
 import Nyll.SchemeTheory.Pi1.Affine.Over
 

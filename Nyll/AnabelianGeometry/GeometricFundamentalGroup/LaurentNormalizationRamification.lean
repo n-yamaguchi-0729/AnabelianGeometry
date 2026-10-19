@@ -5,7 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.AffineNormalizationRamification
-import Nyll.AlgebraicCurves.Models.CurveModel_range_sections_eq_map_eval2_polyPart_invPolyPart_of_coe_eq_compl
+import Nyll.AlgebraicCurves.Models.Charts.RangeSectionsEqMapEval2PolyPartInvPolyPart
 import Mathlib.Algebra.Polynomial.Laurent
 import Mathlib.RingTheory.Localization.LocalizationLocalization
 import Mathlib.RingTheory.DedekindDomain.Dvr

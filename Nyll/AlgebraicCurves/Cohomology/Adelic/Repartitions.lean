@@ -10,7 +10,7 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup
+import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
 
 /-!
 Repartitions and Riemann--Roch spaces defined by valuation bounds.
@@ -31,33 +31,28 @@ theorem adicValuation_le_one_of_mem {x : F} (hx : x ∈ v.toValuationSubring) :
     v.adicValuation x ≤ 1 := by
   have h := (v.adicValuation_coe ⟨x, hx⟩).trans_le
     (v.heightOneSpectrum.intValuation_le_one ⟨x, hx⟩)
-  simpa using h
+  exact h
 
 theorem adicValuation_algebraMap_le_one (a : K) :
     v.adicValuation (algebraMap K F a) ≤ 1 :=
   v.adicValuation_le_one_of_mem (v.algebraMap_mem' a)
 
-theorem adicValuation_eq_exp_neg_ord {f : F} (hf : f ≠ 0) :
-    v.adicValuation f = exp (-v.ord f) := by
-  unfold ord
-  rw [neg_neg, exp_log (v.adicValuation_ne_zero hf)]
-
 theorem adicValuation_le_exp_iff {f : F} {n : ℤ} :
     v.adicValuation f ≤ exp n ↔ f = 0 ∨ -n ≤ v.ord f := by
   rcases eq_or_ne f 0 with rfl | hf
-  · simp
+  · exact iff_of_true (by rw [map_zero]; exact zero_le) (Or.inl rfl)
   · rw [v.adicValuation_eq_exp_neg_ord hf, exp_le_exp, neg_le, or_iff_right hf]
 
 theorem adicValuation_le_one_iff {f : F} :
     v.adicValuation f ≤ 1 ↔ f = 0 ∨ 0 ≤ v.ord f := by
-  simpa using v.adicValuation_le_exp_iff (n := 0)
+  simpa only [exp_zero, neg_zero] using v.adicValuation_le_exp_iff (n := 0)
 
 theorem not_adicValuation_le_one_iff {f : F} :
     ¬v.adicValuation f ≤ 1 ↔ v.ord f < 0 := by
   rw [v.adicValuation_le_one_iff, not_or, not_le]
   constructor
   · exact fun h => h.2
-  · exact fun h => ⟨fun h0 => by simp [h0] at h, h⟩
+  · exact fun h => ⟨fun h0 => by rw [h0, v.ord_zero] at h; exact (lt_irrefl _ h), h⟩
 
 end Place
 
@@ -89,7 +84,7 @@ theorem mem_repartitions_of_forall_le_exp (D : Divisor K F) (α : Place K F → 
   mem_repartitions_of_finite <| D.support.finite_toSet.subset fun v hv => by
     rw [Finset.mem_coe, Finsupp.mem_support_iff]
     intro hD0
-    exact hv ((h v).trans (by rw [hD0]; simp))
+    exact hv (by simpa only [hD0, exp_zero] using h v)
 
 /-- The repartitions satisfying the valuation bounds specified by a divisor. -/
 def repartitionsOf (D : Divisor K F) : Submodule K ↥(repartitions K F) where
@@ -98,7 +93,8 @@ def repartitionsOf (D : Divisor K F) : Submodule K ↥(repartitions K F) where
   zero_mem' := by
     intro v
     change v.adicValuation (0 : F) ≤ exp (D v)
-    simp
+    rw [map_zero]
+    exact zero_le
   add_mem' := by
     intro α β hα hβ v
     exact (Valuation.map_add _ _ _).trans (max_le (hα v) (hβ v))
@@ -124,7 +120,8 @@ def riemannRochSpace (D : Divisor K F) : Submodule K F where
   carrier := {f | ∀ v : Place K F, v.adicValuation f ≤ exp (D v)}
   zero_mem' := by
     intro v
-    simp
+    rw [map_zero]
+    exact zero_le
   add_mem' := by
     intro f g hf hg v
     exact (Valuation.map_add _ _ _).trans (max_le (hf v) (hg v))

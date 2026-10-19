@@ -4,10 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.IsClosed_singleton_of_ne_genericPoint
-import Nyll.AlgebraicCurves.Models.Basic
-import Nyll.AlgebraicCurves.Places.Place_exists_ord_eq_one
-import Nyll.AlgebraicCurves.Places.Place_mem_of_ord_nonneg
+import Nyll.AlgebraicCurves.Geometry.IsClosedSingletonNeGenericPoint
+import Nyll.AlgebraicCurves.Models.Construction.Basic
+import Nyll.AlgebraicCurves.Places.Basic
 import Nyll.JacobianVarieties.Kummer.OpenDivisorResidues
 import Nyll.SchemeTheory.FunctionFields.StalkFunctoriality
 

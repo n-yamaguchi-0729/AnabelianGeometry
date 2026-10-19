@@ -5,7 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
 import Nyll.SchemeTheory.Normalization.FiniteNormalSource
-import Nyll.EtaleFundamentalGroups.Normalization.GenericFieldSource
+import Nyll.SchemeTheory.FunctionFields.GenericFieldSource
 import Nyll.EtaleFundamentalGroups.Inertia.NormalizationSourceIso
 
 /-! # Actual finite normal models from a specified generic field source -/

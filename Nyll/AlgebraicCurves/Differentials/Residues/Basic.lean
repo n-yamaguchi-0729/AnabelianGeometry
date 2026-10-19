@@ -10,8 +10,8 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Differentials.Uniformizer
-import Nyll.AlgebraicCurves.Divisors.Canonical
+import Nyll.AlgebraicCurves.Differentials.Local.Uniformizer
+import Nyll.AlgebraicCurves.Divisors.Principal.Canonical
 import Nyll.AlgebraicCurves.Cohomology.Adelic.Index
 
 /-!

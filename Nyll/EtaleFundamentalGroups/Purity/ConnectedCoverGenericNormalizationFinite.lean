@@ -29,7 +29,7 @@ private theorem eqToHom_stalk_eq_stalkCongr
     eqToHom (congrArg (fun w ↦ Z.presheaf.stalk w) h) =
       (Z.presheaf.stalkCongr (.of_eq h)).hom := by
   subst z'
-  simp
+  exact (Z.presheaf.stalkSpecializes_refl z).symm
 
 private theorem functionFieldMap_comp_of_denseRange
     {T S R : Scheme.{u}} [IsIntegral T] [IsIntegral S] [IsIntegral R]

@@ -89,7 +89,7 @@ lemma OverTotal.ext' {T : C} {a b : G.OverTotal T} (h₁ : a.1 = b.1)
   dsimp only at h₂
   rw [← h₂]
   symm
-  exact map_op_apply_eq_self _ (by simp) x
+  exact map_op_apply_eq_self _ rfl x
 
 variable (G)
 
@@ -99,11 +99,15 @@ def overTotal : Cᵒᵖ ⥤ Type (max w v) where
   map {T T'} φ := TypeCat.ofHom fun a =>
     ⟨φ.unop ≫ a.1, G.map (Over.homMk φ.unop rfl : Over.mk (φ.unop ≫ a.1) ⟶ Over.mk a.1).op a.2⟩
   map_id T := TypeCat.homEquiv.injective (funext fun a =>
-    OverTotal.ext' (by simp) (map_op_map_op_apply_eq_self _ _ (by
+    OverTotal.ext' (by
+      change (𝟙 T.unop) ≫ a.1 = a.1
+      exact id_comp a.1) (map_op_map_op_apply_eq_self _ _ (by
       change (𝟙 _) ≫ (𝟙 _) = 𝟙 _
       exact id_comp _) _))
   map_comp {T T' T''} φ ψ := TypeCat.homEquiv.injective (funext fun a =>
-    OverTotal.ext' (by simp) (map_op_map_op_apply_eq _ _ _ _ (by
+    OverTotal.ext' (by
+      change (ψ.unop ≫ φ.unop) ≫ a.1 = ψ.unop ≫ (φ.unop ≫ a.1)
+      exact assoc _ _ _) (map_op_map_op_apply_eq _ _ _ _ (by
       change (𝟙 _) ≫ (ψ.unop ≫ φ.unop) = ψ.unop ≫ φ.unop
       exact id_comp _) _))
 
@@ -123,7 +127,7 @@ lemma OverTotal.toFibre_congr (T : Over S) {b b' : G.OverTotal T.left}
 
 /-- Include a section of G(T) in the total presheaf over the arrow T.hom. -/
 def OverTotal.ofFibre (T : Over S) (x : G.obj (op T)) : G.OverTotal T.left :=
-  ⟨T.hom, G.map (Over.homMk (𝟙 T.left) (by simp) : Over.mk T.hom ⟶ T).op x⟩
+  ⟨T.hom, G.map (Over.homMk (𝟙 T.left) (id_comp _) : Over.mk T.hom ⟶ T).op x⟩
 
 @[simp] lemma OverTotal.ofFibre_fst (T : Over S) (x : G.obj (op T)) :
     (OverTotal.ofFibre T x).1 = T.hom := rfl
@@ -277,7 +281,7 @@ theorem overTotal_isSheaf (J : GrothendieckTopology C) [J.Subcanonical]
         = OverTotal.toFibre A (G.overTotal.map g.left.op ⟨t', z'⟩) h1 :=
           (map_op_map_op_apply_eq_map_op _ _ _ (by
             change (𝟙 A.left) ≫ g.left = g.left
-            simp) _).symm
+            exact id_comp _) _).symm
       _ = y g hg := OverTotal.toFibre_congr A (ha g.left hg) _ _
 
 end CategoryTheory.Functor

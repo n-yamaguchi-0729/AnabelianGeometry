@@ -5,7 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
 import Nyll.JacobianVarieties.Kummer.FiniteH1Cardinality
-import Nyll.AlgebraicCurves.Models.FiniteEtaleRiemannHurwitz
+import Nyll.AlgebraicCurves.Models.Ramification.FiniteEtaleRiemannHurwitz
 import Nyll.EtaleFundamentalGroups.Cohomology.GaloisH1Descent
 import Mathlib.Tactic.Linarith
 

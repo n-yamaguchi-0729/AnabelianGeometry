@@ -7,8 +7,8 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 import Nyll.EtaleFundamentalGroups.Cohomology.SchemePullback
 import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverSquareBoundary
 import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverInvariants
-import Nyll.AlgebraicCurves.Models.OpenCoverRiemannHurwitz
-import Nyll.AlgebraicCurves.Models.RationalPointExistence
+import Nyll.AlgebraicCurves.Models.Ramification.OpenCoverRiemannHurwitz
+import Nyll.AlgebraicCurves.Models.Points.RationalPointExistence
 import Nyll.JacobianVarieties.Kummer.OpenFiniteH1Cardinality
 
 /-!

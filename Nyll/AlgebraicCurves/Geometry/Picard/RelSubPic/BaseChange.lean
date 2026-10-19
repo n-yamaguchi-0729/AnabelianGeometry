@@ -11,9 +11,9 @@ AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
 import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
-import Nyll.AlgebraicCurves.Geometry.Picard.Functor
-import Nyll.AlgebraicCurves.Geometry.Picard.SubPicCondition
-import Nyll.AlgebraicCurves.Geometry.Picard.AlgEquivZeroCut
+import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
+import Nyll.AlgebraicCurves.Geometry.Picard.Representability.SubPicCondition
+import Nyll.AlgebraicCurves.Geometry.Picard.AlgebraicEquivalence.AlgEquivZeroCut
 import Nyll.AlgebraicCurves.Geometry.Picard.RelSubPic.Presheaf
 import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.AbelianSchemePropertyBundle
 import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveBase

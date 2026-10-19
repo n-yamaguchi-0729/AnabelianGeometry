@@ -6,9 +6,9 @@ https://github.com/n-yamaguchi-0729
 -/
 
 import Nyll.JacobianVarieties.Kummer.OpenCurveCoverCharacter
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenFunctionField
-import Nyll.AlgebraicCurves.Geometry.Schemes.exists_root_fromNormalization_kummer_existsUnique_lift
-import Nyll.AlgebraicCurves.Geometry.Schemes.exists_pow_eq_of_section_fromNormalization_kummer
+import Nyll.SchemeTheory.FunctionFields.OpenImmersion
+import Nyll.AlgebraicCurves.Geometry.Schemes.Kummer.RootFromNormalizationKummerUniqueLift
+import Nyll.AlgebraicCurves.Geometry.Schemes.Kummer.PowEqSectionFromNormalizationKummer
 import Mathlib.RingTheory.Localization.FractionRing
 
 /-!

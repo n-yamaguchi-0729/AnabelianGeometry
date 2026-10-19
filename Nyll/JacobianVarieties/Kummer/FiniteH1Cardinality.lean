@@ -4,10 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Picard.CurveModel_exists_representsRelSubPic_abelJacobi_of_isAlgClosed
-import Nyll.JacobianVarieties.Picard.TorsionCardinality
-import Nyll.JacobianVarieties.Picard.TorsionAlgebraicPoints
-import Nyll.JacobianVarieties.Picard.CurveModel_smoothOfRelativeDimension_genusFF_of_representsRelSubPic
+import Nyll.JacobianVarieties.Picard.Representability.CurveModelPicardRepresentabilityAbelJacobi
+import Nyll.JacobianVarieties.Picard.Torsion.TorsionCardinality
+import Nyll.JacobianVarieties.Picard.Torsion.TorsionAlgebraicPoints
+import Nyll.JacobianVarieties.Picard.CurveModelSmoothOfRelativeDimensionGenusFF
 import Nyll.JacobianVarieties.Kummer.DivisorClassCohomologyComparison
 
 /-!

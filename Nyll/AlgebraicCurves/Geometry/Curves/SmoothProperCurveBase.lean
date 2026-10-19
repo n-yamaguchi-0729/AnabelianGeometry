@@ -78,16 +78,12 @@ abbrev specMap : Spec (CommRingCat.of T) ⟶ Spec (CommRingCat.of R) :=
 abbrev baseChange : pullback c (specMap R T) ⟶ Spec (CommRingCat.of T) :=
   pullback.snd c (specMap R T)
 
-example [SmoothOfRelativeDimension 1 c] : SmoothOfRelativeDimension 1 (baseChange R c T) :=
-  inferInstance
-example [IsProper c] : IsProper (baseChange R c T) := inferInstance
-example [GeometricallyIntegral c] : GeometricallyIntegral (baseChange R c T) := inferInstance
-
 variable {R c}
 
 /-- The section of the scalar-extension pullback induced by the original section. -/
 def sectionBaseChange (ε : SchemeHomOver (𝟙 _) c) : SchemeHomOver (𝟙 _) (baseChange R c T) :=
-  ⟨pullback.lift (specMap R T ≫ ε.1) (𝟙 _) (by rw [Category.assoc, ε.2]; simp),
+  ⟨pullback.lift (specMap R T ≫ ε.1) (𝟙 _)
+      (by rw [Category.assoc, ε.2, Category.comp_id, Category.id_comp]),
     pullback.lift_snd _ _ _⟩
 @[simp]
 theorem sectionBaseChange_coe_fst (ε : SchemeHomOver (𝟙 _) c) :
@@ -103,9 +99,6 @@ end BaseChange
 instance isIntegral_pullback_Spec_field [GeometricallyIntegral c] {K : Type u} [Field K]
     (ξ : Spec (CommRingCat.of K) ⟶ Spec (CommRingCat.of R)) : IsIntegral (pullback c ξ) :=
   GeometricallyIntegral.geometrically_isIntegral _ _ _ (.of_hasPullback c ξ)
-
-example [GeometricallyIntegral c] (K : Type u) [Field K] [Algebra R K] :
-    IsIntegral (pullback c (specMap R K)) := inferInstance
 
 end SmoothProperCurve
 

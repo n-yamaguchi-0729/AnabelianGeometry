@@ -10,8 +10,9 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
+import Nyll.AlgebraicCurves.Places.Basic
 import Nyll.AlgebraicCurves.Cohomology.Cech.DivisorSections
-import Nyll.AlgebraicCurves.Divisors.Correspondences
+import Nyll.AlgebraicCurves.Divisors.Correspondences.Correspondences
 
 /-!
 Pullback and trace on divisor-section Cech cohomology along an integral field embedding.
@@ -103,16 +104,6 @@ theorem zero_le_ord_of_mem_toValuationSubring (v : Place K F) {f : F} (hf : f �
   rcases eq_or_ne f 0 with rfl | hf0
   · rw [v.ord_zero]
   · exact ((v.adicValuation_le_one_iff).mp (v.adicValuation_le_one_of_mem hf)).resolve_left hf0
-
-theorem mem_toValuationSubring_of_ord_nonneg (v : Place K F) {f : F} (h : 0 ≤ v.ord f) :
-    f ∈ v.toValuationSubring := by
-  rcases eq_or_ne f 0 with rfl | hf
-  · exact zero_mem _
-  obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
-  obtain ⟨u, hu⟩ := v.exists_unit_mul_zpow hf hπ
-  rw [hu, show v.ord f = (((v.ord f).toNat : ℕ) : ℤ) from (Int.toNat_of_nonneg h).symm,
-    zpow_natCast]
-  exact mul_mem (u : v.toValuationSubring).2 (pow_mem (π : v.toValuationSubring).2 _)
 
 theorem mem_lSpaceOn_zero_iff_forall_mem {S : Set (Place K F)} {f : F} :
     f ∈ lSpaceOn S (0 : Divisor K F) ↔ ∀ v ∈ S, f ∈ v.toValuationSubring := by

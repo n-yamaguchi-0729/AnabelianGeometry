@@ -6,7 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 import Nyll.JacobianVarieties.Kummer.CurveCoverGenericCharacter
 import Nyll.JacobianVarieties.Kummer.OpenCurveCoverGenericCharacter
-import Nyll.AlgebraicCurves.Models.FunctionFieldScalarFunctoriality
+import Nyll.SchemeTheory.FunctionFields.ScalarFunctoriality
 
 /-!
 # Restriction of actual generic Kummer characters to an open curve

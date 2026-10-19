@@ -4,10 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.EssFiniteType_functionField
+import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
 import Nyll.JacobianVarieties.Kummer.OpenDivisorResidueLifting
-import Nyll.AlgebraicCurves.Places.Place_deg_eq_one_of_isAlgClosed
-import Nyll.AlgebraicCurves.Places.Place_deg_ne_zero_of_finiteDimensional_adjoin
+import Nyll.AlgebraicCurves.Places.Degree.DegEqOneAlgClosed
+import Nyll.AlgebraicCurves.Places.Degree.DegNeZeroFiniteDimensionalAdjoin
 import Mathlib.Algebra.BigOperators.Finsupp.Basic
 
 /-!

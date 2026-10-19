@@ -24,8 +24,14 @@
     "EtaleCohomology": [
       "Nyll.EtaleCohomology"
     ],
+    "AbelianVarieties": [
+      "Nyll.AbelianVarieties"
+    ],
     "JacobianVarieties": [
       "Nyll.JacobianVarieties"
+    ],
+    "Yamaguchi26AbfaithfulGalois": [
+      "Nyll.Yamaguchi26AbfaithfulGalois"
     ],
     "AnabelianGeometry": [
       "Nyll.AnabelianGeometry"
@@ -69,7 +75,9 @@
     "AlgebraicCurves": 2,
     "EtaleFundamentalGroups": 2,
     "EtaleCohomology": 2,
+    "AbelianVarieties": 2,
     "JacobianVarieties": 3,
+    "Yamaguchi26AbfaithfulGalois": 3,
     "AnabelianGeometry": 3
   },
   "orderedLibraries": [
@@ -81,7 +89,9 @@
     "AlgebraicCurves",
     "EtaleFundamentalGroups",
     "EtaleCohomology",
+    "AbelianVarieties",
     "JacobianVarieties",
+    "Yamaguchi26AbfaithfulGalois",
     "AnabelianGeometry"
   ],
   "primaryRoots": [

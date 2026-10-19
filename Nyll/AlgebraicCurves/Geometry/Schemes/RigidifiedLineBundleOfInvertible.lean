@@ -10,15 +10,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Picard.Functor
+import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
 import Nyll.AlgebraicCurves.Geometry.Picard.RelSubPic.Group
-import Nyll.SchemeTheory.Modules.Monoidal
-import Nyll.SchemeTheory.Modules.PullbackMonoidal
-import Nyll.AlgebraicCurves.Geometry.Sheaves.ModulesRigidify
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Scheme_Modules_IsInvertible_dual
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Scheme_Modules_IsInvertible_pullback_dual
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Scheme_Modules_IsInvertible_dual_tensor
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Scheme_Modules_IsInvertible_tensor
+import Nyll.SchemeTheory.Modules.Tensor.Monoidal
+import Nyll.SchemeTheory.Modules.Tensor.PullbackMonoidal
+import Nyll.SchemeTheory.Modules.Invertible.Rigidify
+import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleDual
+import Nyll.AlgebraicCurves.Geometry.Sheaves.Pullback.InvertiblePullbackDual
+import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleDualTensor
+import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleTensor
 
 /-!
 Rigidified line bundles, their tensor products and tensor inverses, and compatibility with

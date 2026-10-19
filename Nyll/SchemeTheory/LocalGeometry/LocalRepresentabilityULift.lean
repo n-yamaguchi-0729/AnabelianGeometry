@@ -52,7 +52,8 @@ lemma presheafULift_monomorphisms_le_monomorphisms :
   suffices ∀ {X : C} {a b : uliftYoneda.{w}.obj X ⟶ F}, a ≫ f = b ≫ f → a = b from
     ⟨fun _ _ h ↦ hom_ext_uliftYoneda (fun _ _ ↦ this (by simp only [assoc, h]))⟩
   intro X a b h
-  suffices hf.rep.lift (g := a ≫ f) a (𝟙 X) (by simp) =
+  suffices hf.rep.lift (g := a ≫ f) a (𝟙 X)
+      (by rw [Functor.map_id, Category.id_comp]) =
       hf.rep.lift b (𝟙 X) (by simp [← h]) by
     simpa using uliftYoneda.{w}.congr_map this =≫ (hf.rep.fst (a ≫ f))
   have : Mono (hf.rep.snd (a ≫ f)) := hf.property_snd (a ≫ f)

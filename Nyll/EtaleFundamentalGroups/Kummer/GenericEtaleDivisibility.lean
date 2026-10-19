@@ -4,15 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.CurveModel_exists_algHom_finiteAlong_pointEquivPlace_restrictAlong_of_isFinite
-import Nyll.AlgebraicCurves.Models.CurveModel_ramificationIndexAlong_pointEquivPlace_eq_one_of_formallyUnramified
-import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurve_exists_curveModel_iso_germToFunctionField_eq_of_isAlgClosed
-import Nyll.EtaleFundamentalGroups.Normalization.GenericFieldSource
+import Nyll.AlgebraicCurves.Models.Points.AlgEquivPointPlaceCompHomEqAlgAutSmulPointPlace
+import Nyll.AlgebraicCurves.Models.Points.AlgHomFiniteAlongPointPlaceRestrictAlong
+import Nyll.AlgebraicCurves.Models.Ramification.RamificationIndexPointPlaceEqOne
+import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveCurveModelIsoFunctionFieldGermEq
+import Nyll.SchemeTheory.FunctionFields.GenericFieldSource
 import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
 import Nyll.EtaleFundamentalGroups.FiniteEtale.Integral
 import Nyll.SchemeTheory.Morphisms.DominantBaseChange
 import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalkNormality
+import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
 import Nyll.SchemeTheory.Normalization.Normal
 import Mathlib.AlgebraicGeometry.Morphisms.Etale
 
@@ -29,6 +30,9 @@ noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve TopologicalSpace
 open CategoryTheory.PreGaloisCategory
 open AlgebraicCurves.Models.Proofs
+open
+  CurveModel_exists_algEquiv_pointEquivPlace_comp_hom_eq_ofAlgAut_smul_pointEquivPlace
+open AlgebraicCurve.CurveModel.ModelIndepSol
 open
   CurveModel_exists_algHom_finiteAlong_pointEquivPlace_restrictAlong_of_isFinite.AlgebraicCurve
 
@@ -51,7 +55,7 @@ private theorem ord_dvd_of_model_root
   have hφ : φ.toRingHom.IsIntegral := FFLeg.isIntegral_phi K M N d hd d.surjective
   let ξ := FFLeg.specializes_genericPoint K M N d d.surjective
   let g : M.C.functionField →+* N.C.functionField :=
-    (FFLeg.FunctionFieldPull.pull d ξ).hom
+    (FunctionFieldPull.pull d ξ).hom
   have hg : Spec.map (CommRingCat.ofHom g) ≫ M.C.fromSpecStalk (genericPoint M.C) =
       N.C.fromSpecStalk (genericPoint N.C) ≫ d := by
     change Spec.map (M.C.presheaf.stalkSpecializes ξ ≫ d.stalkMap (genericPoint N.C)) ≫ _ = _

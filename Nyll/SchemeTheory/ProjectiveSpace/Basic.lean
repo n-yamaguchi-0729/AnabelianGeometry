@@ -46,7 +46,7 @@ local notation "𝒜" => MvPolynomial.homogeneousSubmodule (Fin (n + 1)) R
 def grad0Equiv : R ≃+* (𝒜 0) where
   toFun r := ⟨C r, (mem_homogeneousSubmodule 0 _).mpr (isHomogeneous_C _ r)⟩
   invFun p := MvPolynomial.constantCoeff p.1
-  left_inv r := by simp
+  left_inv r := by simp only [MvPolynomial.constantCoeff_C]
   right_inv p := by
     ext : 1
     have hp : p.1.IsHomogeneous 0 := (mem_homogeneousSubmodule 0 _).mp p.2
@@ -62,8 +62,8 @@ def grad0Equiv : R ≃+* (𝒜 0) where
       by_cases hi : i ∈ d.support
       · exact (Finset.sum_eq_zero_iff_of_nonneg (fun _ _ => Nat.zero_le _)).mp hdeg i hi
       · exact Finsupp.notMem_support_iff.mp hi
-  map_mul' a b := by ext : 1; simp
-  map_add' a b := by ext : 1; simp
+  map_mul' a b := Subtype.ext (map_mul MvPolynomial.C a b)
+  map_add' a b := Subtype.ext (map_add MvPolynomial.C a b)
 
 /-- The structure morphism of projective space to the coefficient spectrum. -/
 def π : Proj 𝒜 ⟶ Spec (.of R) :=

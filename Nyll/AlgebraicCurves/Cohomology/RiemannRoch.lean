@@ -11,8 +11,8 @@ AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
 import Nyll.AlgebraicCurves.Cohomology.Adelic.Index
-import Nyll.AlgebraicCurves.Divisors.Canonical
-import Nyll.AlgebraicCurves.FunctionFields.CurveOver
+import Nyll.AlgebraicCurves.Divisors.Principal.Canonical
+import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
 
 /-!
 Function-field Riemann--Roch and Weil duality statements.

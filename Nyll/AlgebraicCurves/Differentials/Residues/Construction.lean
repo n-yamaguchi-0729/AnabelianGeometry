@@ -13,9 +13,10 @@ AI assistance in local adaptation and maintenance: OpenAI Codex.
 import Mathlib.RingTheory.AdicCompletion.LocalRing
 import Mathlib.FieldTheory.RatFunc.Basic
 import Nyll.AlgebraicCurves.Differentials.Residues.Basic
-import Nyll.AlgebraicCurves.FunctionFields.CurveOver
-import Nyll.AlgebraicCurves.Divisors.Maps
+import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
+import Nyll.AlgebraicCurves.Divisors.Maps.Maps
 import Nyll.AlgebraicCurves.Places.Completion
+import Nyll.AlgebraicCurves.Places.Basic
 import Nyll.AlgebraicCurves.Differentials.Kaehler.Weil
 
 /-!
@@ -207,33 +208,6 @@ theorem coe_uniformizerSubring : (v.uniformizerSubring : F) = v.uniformizer := r
 theorem irreducible_uniformizerSubring : Irreducible v.uniformizerSubring :=
   (IsDiscreteValuationRing.exists_irreducible v.toValuationSubring).choose_spec
 
-private theorem ord_nonneg_of_mem {f : F} (hf : f ∈ v.toValuationSubring) : 0 ≤ v.ord f := by
-  rcases eq_or_ne f 0 with rfl | hf0
-  · simp
-  obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
-  obtain ⟨n, u, hu⟩ :=
-    IsDiscreteValuationRing.eq_unit_mul_pow_irreducible
-      (x := (⟨f, hf⟩ : v.toValuationSubring)) (by simpa [Subtype.ext_iff] using hf0) hπ
-  have hcoe : f = ((u : v.toValuationSubring) : F) * ((π : F) ^ (n : ℤ)) := by
-    have h := congrArg (Subtype.val) hu
-    push_cast at h
-    rw [zpow_natCast]
-    exact h
-  rw [hcoe, v.ord_unit_smul_zpow u hπ (n : ℤ)]
-  exact Int.natCast_nonneg n
-
-private theorem mem_of_ord_nonneg {f : F} (hf : f ≠ 0) (h : 0 ≤ v.ord f) :
-    f ∈ v.toValuationSubring := by
-  obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
-  obtain ⟨u, hu⟩ := v.exists_unit_mul_zpow hf hπ
-  rw [hu, show v.ord f = (((v.ord f).toNat : ℕ) : ℤ) from (Int.toNat_of_nonneg h).symm,
-    zpow_natCast]
-  exact mul_mem (u : v.toValuationSubring).2 (pow_mem (π : v.toValuationSubring).2 _)
-
-private theorem mem_iff_ord_nonneg {f : F} (hf : f ≠ 0) :
-    f ∈ v.toValuationSubring ↔ 0 ≤ v.ord f :=
-  ⟨v.ord_nonneg_of_mem, v.mem_of_ord_nonneg hf⟩
-
 theorem uniformizerSubring_mem_maximalIdeal :
     v.uniformizerSubring ∈ IsLocalRing.maximalIdeal v.toValuationSubring :=
   (IsLocalRing.mem_maximalIdeal _).mpr v.irreducible_uniformizerSubring.not_isUnit
@@ -315,7 +289,7 @@ theorem gate_hasLocalResidue_uniformizer_inv (v : Place K F) :
   v.gate_localResidue_uniformizer_inv
 
 omit [HasCanonicalLocalResidueKStar K F] in
-theorem gate_uniformizer_inv_mem_simplePoleSubmodule (v : Place K F) :
+theorem uniformizer_inv_mem_simplePoleSubmodule (v : Place K F) :
     v.uniformizer⁻¹ ∈ v.simplePoleSubmodule ∧ v.uniformizer⁻¹ ∉ v.toValuationSubring := by
   refine ⟨?_, ?_⟩
   · rw [Place.mem_simplePoleSubmodule, mul_inv_cancel₀ v.uniformizer_ne_zero]
@@ -1497,11 +1471,11 @@ theorem ker_residueHat (v : Place K F) :
     have hx0 : lg37_residueHat v x = 0 := RingHom.mem_ker.mp hx
     have htop : ((maximalIdeal v.toValuationSubring) ^ 1 • ⊤ :
         Ideal v.toValuationSubring) = (maximalIdeal v.toValuationSubring) ^ 1 := by
-      ext a; simp
+      rw [Ideal.smul_eq_mul, ← Ideal.one_eq_top, mul_one]
     have h2 : AdicCompletion.evalₐ (maximalIdeal v.toValuationSubring) 1 x = 0 := by
       have hfac : Ideal.Quotient.factor
           (show (maximalIdeal v.toValuationSubring) ^ 1
-              ≤ maximalIdeal v.toValuationSubring by simp)
+              ≤ maximalIdeal v.toValuationSubring from (pow_one _).le)
           (AdicCompletion.evalₐ (maximalIdeal v.toValuationSubring) 1 x) = 0 :=
         (AdicCompletion.factorₐ_evalₐ_one
           (I := maximalIdeal v.toValuationSubring) x).trans hx0
@@ -1852,7 +1826,7 @@ theorem aCoeff_shift_pow (v : Place K F) (S : Lg37CompletionSection v) (n k : �
           * x)
       = aCoeff v S n x := by
   induction k with
-  | zero => simp
+  | zero => rw [Nat.add_zero, pow_zero, one_mul]
   | succ k ih =>
     have hstep : (algebraMap v.toValuationSubring (lg37_completion v)
           v.uniformizerSubring) ^ (k + 1) * x
@@ -1983,7 +1957,8 @@ theorem resStar_simplePole (v : Place K F) (S : Lg37CompletionSection v) (f : F)
     resStar v S f = IsLocalRing.residue _ ⟨v.uniformizer * f, hf⟩ := by
   have hM : (-v.ord f).toNat ≤ 1 := by
     rcases eq_or_ne f 0 with rfl | hf0
-    · rw [v.ord_zero]; simp
+    · rw [v.ord_zero, neg_zero, Int.toNat_zero]
+      exact Nat.zero_le _
     · have hge : (0 : ℤ) ≤ v.ord (v.uniformizer * f) :=
         (v.mem_iff_ord_nonneg (mul_ne_zero v.uniformizer_ne_zero hf0)).mp hf
       rw [v.ord_mul v.uniformizer_ne_zero hf0, v.ord_uniformizer] at hge
@@ -2011,7 +1986,8 @@ theorem resStar_higherPoleMonomial (v : Place K F) (S : Lg37CompletionSection v)
   have hord : v.ord (v.uniformizer ^ (n + 1))⁻¹ = -((n : ℤ) + 1) := by
     rw [v.ord_inv, v.ord_uniformizer_pow]; push_cast; ring
   have hM : (-v.ord (v.uniformizer ^ (n + 1))⁻¹).toNat = n + 1 := by
-    rw [hord]; simp
+    rw [hord, neg_neg]
+    omega
   have hle : (-v.ord (v.uniformizer ^ (n + 1))⁻¹).toNat ≤ n + 1 := le_of_eq hM
   rw [← aCoeff_clearedHat_of_le v S (v.uniformizer ^ (n + 1))⁻¹ hle]
   unfold clearedHat

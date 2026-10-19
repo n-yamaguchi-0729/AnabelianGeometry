@@ -5,7 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
 import Nyll.EtaleFundamentalGroups.GaloisCovers.CurveModelDegree
-import Nyll.AlgebraicCurves.Models.FiniteEtaleHyperbolicGenus
+import Nyll.AlgebraicCurves.Models.Ramification.FiniteEtaleHyperbolicGenus
 
 /-! # Nonidentity actual deck transformations force degree greater than one -/
 

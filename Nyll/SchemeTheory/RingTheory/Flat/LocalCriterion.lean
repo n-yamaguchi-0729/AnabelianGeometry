@@ -208,7 +208,9 @@ theorem torVanish_of_torsion (I : Ideal R)
       rw [LinearEquiv.apply_symm_apply]
     rw [this]
     simp only [mr, Finsupp.mapRange.linearMap_apply, Finsupp.linearCombination_apply]
-    rw [Finsupp.sum_mapRange_index (fun _ => by simp)]
+    rw [Finsupp.sum_mapRange_index (f := I.subtype) (g := z)
+      (h := fun (i : N₂) (a : R) ↦ a • _root_.id i)
+      (fun i ↦ zero_smul R (_root_.id i))]
     rw [map_finsuppSum]
     apply Finset.sum_eq_zero
     intro n _
@@ -219,7 +221,7 @@ theorem torVanish_of_torsion (I : Ideal R)
   have hsmul_mem : ∀ (a : I) (x : FreeCover R N₂), (a : R) • x ∈ LinearMap.range κ := by
     intro a x
     refine ⟨Finsupp.mapRange (fun r => (⟨a * r, I.mul_mem_right r a.2⟩ : I))
-      (by ext; simp) (e x), ?_⟩
+      (Subtype.ext (mul_zero (a : R))) (e x), ?_⟩
     apply e.injective
     change e (e.symm (mr _)) = e ((a : R) • x)
     rw [LinearEquiv.apply_symm_apply, map_smul]
@@ -379,8 +381,10 @@ theorem torVanish_of_torsion_pow (I : Ideal R)
     intro N _ _ hN
     have : Subsingleton N := by
       refine ⟨fun x y => ?_⟩
-      have hx : (1 : R) • x = 0 := hN (a := ⟨1, by simp⟩)
-      have hy : (1 : R) • y = 0 := hN (a := ⟨1, by simp⟩)
+      have hx : (1 : R) • x = 0 :=
+        hN (a := ⟨1, by rw [pow_zero, Ideal.one_eq_top]; exact Submodule.mem_top⟩)
+      have hy : (1 : R) • y = 0 :=
+        hN (a := ⟨1, by rw [pow_zero, Ideal.one_eq_top]; exact Submodule.mem_top⟩)
       rw [one_smul] at hx hy
       rw [hx, hy]
     exact torVanish_of_subsingleton
@@ -522,12 +526,12 @@ theorem finite_lTensor_ideal [IsNoetherianRing R] [Module.Finite S M] (𝔞 : Id
         simp only [Finset.coe_image, Finset.coe_product, Set.mem_image, Set.mem_prod,
           Prod.exists]
         exact ⟨m, a, ⟨hm, ha⟩, rfl⟩
-      | zero => simp
+      | zero => rw [TensorProduct.tmul_zero]; exact Submodule.zero_mem _
       | add a b _ _ iha ihb => rw [TensorProduct.tmul_add]; exact Submodule.add_mem _ iha ihb
       | smul r a _ iha =>
         rw [TensorProduct.tmul_smul, ← algebraMap_smul S r]
         exact Submodule.smul_mem _ _ iha
-    | zero => simp
+    | zero => rw [TensorProduct.zero_tmul]; exact Submodule.zero_mem _
     | add m m' _ _ ihm ihm' => rw [TensorProduct.add_tmul]; exact Submodule.add_mem _ ihm ihm'
     | smul r m _ ihm =>
       rw [← TensorProduct.smul_tmul']
@@ -622,7 +626,9 @@ theorem isLocalizedModule_id_of_units (T : Submonoid R)
       refine ⟨(↑w⁻¹ : S) • b, ?_⟩
       change (t : R) • ((↑w⁻¹ : S) • b) = b
       rw [hsmul, smul_smul, Units.mul_inv, one_smul]
-  surj y := ⟨(y, 1), by simp⟩
+  surj y := ⟨(y, 1), by
+    change (1 : R) • y = y
+    exact one_smul R y⟩
   exists_of_eq h := ⟨1, by simpa using h⟩
 
 theorem isTorsionBySet_baseChange (p : Ideal R) [p.IsPrime] {Q : Type*} [AddCommGroup Q]

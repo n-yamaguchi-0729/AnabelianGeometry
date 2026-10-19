@@ -11,8 +11,8 @@ AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
 import Nyll.AlgebraicCurves.Differentials.Residues.Basic
-import Nyll.AlgebraicCurves.FunctionFields.CurveOver
-import Nyll.AlgebraicCurves.Divisors.Maps
+import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
+import Nyll.AlgebraicCurves.Divisors.Maps.Maps
 import Nyll.AlgebraicCurves.Places.Completion
 import Nyll.AlgebraicCurves.Differentials.Residues.Construction
 import Nyll.AlgebraicCurves.Differentials.Kaehler.Weil
@@ -164,7 +164,7 @@ variable (v : Place K F)
 
 private theorem ord_nonneg_of_mem_loc {f : F} (hf : f ∈ v.toValuationSubring) : 0 ≤ v.ord f := by
   rcases eq_or_ne f 0 with rfl | hf0
-  · simp
+  · rw [v.ord_zero]
   obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
   obtain ⟨n, u, hu⟩ :=
     IsDiscreteValuationRing.eq_unit_mul_pow_irreducible

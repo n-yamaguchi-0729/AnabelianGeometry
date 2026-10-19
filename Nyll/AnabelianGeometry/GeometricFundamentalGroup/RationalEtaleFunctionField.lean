@@ -7,7 +7,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.CurveCoverRamification
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalOneBranch
 import Nyll.AlgebraicCurves.Places.Rational.Basic
-import Nyll.AlgebraicCurves.FunctionFields.IsCurveOver_ratFunc
+import Nyll.AlgebraicCurves.FunctionFields.Rational.CurveRatFunc
 import Mathlib.RingTheory.EssentialFiniteness
 
 /-!

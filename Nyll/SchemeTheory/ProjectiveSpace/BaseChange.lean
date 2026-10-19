@@ -93,7 +93,8 @@ theorem algebraMap_eq_mk_zero {S : Type u} [CommRing S]
   refine HomogeneousLocalization.val_injective (𝒜 := homogeneousSubmodule (Fin (n + 1)) S)
     (Submonoid.powers (X j)) ?_
   rw [val_algebraMap, Away.val_mk, ← Localization.mk_one_eq_algebraMap]
-  exact Localization.mk_eq_mk_iff.mpr (Localization.r_of_eq (by simp))
+  exact Localization.mk_eq_mk_iff.mpr
+    (Localization.r_of_eq (by simp only [pow_zero, OneMemClass.coe_one, one_mul]))
 
 theorem awayMapX_algebraMap (j : Fin (n + 1)) :
     (awayMapX R A n j).comp (algebraMap R (Away 𝒜R (X j)))
@@ -198,8 +199,9 @@ theorem aeval_ratio_injective :
           (d.mapDomain Subtype.val + Finsupp.single j (N - ∑ k ∈ d.support, d k)))
           (p.coeff d) := by
     intro d _
-    rw [MvPolynomial.monomial_eq, Finsupp.prod_add_index (by simp)
-        (by intros; exact pow_add _ _ _),
+    rw [MvPolynomial.monomial_eq, Finsupp.prod_add_index'
+        (h := fun k e => (X k : MvPolynomial (Fin (n + 1)) S) ^ e)
+        (fun k => pow_zero (X k)) (fun k a b => pow_add (X k) a b),
       show ((Finsupp.single j (N - ∑ k ∈ d.support, d k)).prod
             fun i e => (X i : MvPolynomial (Fin (n + 1)) S) ^ e)
           = (X j)^(N - ∑ k ∈ d.support, d k) from
@@ -217,8 +219,9 @@ theorem aeval_ratio_injective :
     rw [Finset.sum_congr rfl (fun d _ => if_congr
       ⟨fun h => exponent_inj n j N h, fun h => h ▸ rfl⟩ rfl rfl),
       Finset.sum_ite_eq' p.support d₀ (fun d => p.coeff d), ite_eq_left hd₀] at hcoef
-    exact hcoef.trans (by simp)
-  · exact (MvPolynomial.notMem_support_iff.mp hd₀).trans (by simp)
+    simpa only [AddMonoidAlgebra.coeff_zero, Finsupp.zero_apply] using hcoef
+  · simpa only [AddMonoidAlgebra.coeff_zero, Finsupp.zero_apply] using
+      (MvPolynomial.notMem_support_iff.mp hd₀)
 
 /-- The algebra equivalence identifying the standard chart with a polynomial ring in coordinate
     ratios. -/
@@ -521,7 +524,8 @@ theorem isPullback_map' :
           ((affineOpenCover R n).openCover.f j ≫ π R n) gmap
           (π R n) gmap
           ((affineOpenCover R n).openCover.f j)
-          (𝟙 _) (𝟙 _) (by simp) (by simp)
+          (𝟙 _) (𝟙 _) (by rw [Category.comp_id])
+          (by rw [Category.comp_id, Category.id_comp])
         refine this.trans ?_
         rw [show Set.range (𝟙 (Spec (.of A)) : Spec (.of A) ⟶ Spec (.of A)) =
           Set.univ from Set.range_id,

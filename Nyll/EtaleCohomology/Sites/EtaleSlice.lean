@@ -7,12 +7,14 @@ Authors: Johan Commelin, Bhavik Mehta,
 -/
 
 import Nyll.EtaleCohomology.Sites.EtaleRestriction
+import Mathlib.Algebra.Category.Grp.Basic
 import Mathlib.AlgebraicGeometry.Morphisms.Etale
 import Mathlib.CategoryTheory.Adjunction.Basic
 import Mathlib.CategoryTheory.Comma.Over.Basic
 import Mathlib.CategoryTheory.Equivalence
 import Mathlib.CategoryTheory.MorphismProperty.Comma
 import Mathlib.CategoryTheory.Opposites
+import Mathlib.CategoryTheory.Sites.Equivalence
 import Mathlib.CategoryTheory.Yoneda
 
 /-!
@@ -111,5 +113,44 @@ def representableByEtaleSlice (F : X.Etaleᵒᵖ ⥤ Type v) (W : U.left.Etale)
         Functor.leftUnitor (Over.forget U)
   exact r.ofIso ((Functor.associator E.functor.op (etalePostcompose U.hom).op F).symm ≪≫
     Functor.isoWhiskerRight (NatIso.op e.symm) F)
+
+/-- A covering sieve of the small étale site is detected on its underlying schemes. -/
+lemma smallEtale_mem_iff_underlying {Y : Scheme.{u}} {V : Y.Etale} (S : Sieve V) :
+    S ∈ Y.smallEtaleTopology V ↔
+      S.functorPushforward (Scheme.Etale.forget Y ⋙ Over.forget Y) ∈
+        Scheme.etaleTopology V.left := by
+  let : (Scheme.Etale.forget Y).LocallyCoverDense (Scheme.etaleTopology.over Y) :=
+    inferInstanceAs ((MorphismProperty.Over.forget
+      (show MorphismProperty Scheme.{u} from @Etale) ⊤ Y).LocallyCoverDense _)
+  change S ∈ (Scheme.Etale.forget Y).restrictedTopology
+    (Scheme.etaleTopology.over Y) V ↔ _
+  rw [Functor.mem_restrictedTopology_iff, GrothendieckTopology.mem_over_iff]
+  change (S.functorPushforward (Scheme.Etale.forget Y)).functorPushforward
+    (Over.forget Y) ∈ Scheme.etaleTopology V.left ↔ _
+  rw [← Sieve.functorPushforward_comp]
+
+/-- The slice equivalence identifies the actual small étale covering topologies. -/
+instance etaleSliceBackward_isDenseSubsite :
+    (etaleSliceEquiv U).inverse.IsDenseSubsite U.left.smallEtaleTopology
+      (X.smallEtaleTopology.over U) where
+  functorPushforward_mem_iff {V S} := by
+    rw [GrothendieckTopology.mem_over_iff]
+    change (S.functorPushforward (etaleSliceBackward U)).functorPushforward
+      (Over.forget U) ∈ X.smallEtaleTopology _ ↔ S ∈ U.left.smallEtaleTopology V
+    rw [← Sieve.functorPushforward_comp]
+    change S.functorPushforward (etalePostcompose U.hom) ∈
+      X.smallEtaleTopology ((etalePostcompose U.hom).obj V) ↔
+        S ∈ U.left.smallEtaleTopology V
+    rw [smallEtale_mem_iff_underlying, smallEtale_mem_iff_underlying,
+      ← Sieve.functorPushforward_comp]
+    rfl
+
+/-- Abelian sheaves on the localized small site are the actual small étale
+abelian sheaves on the étale scheme. -/
+def etaleSliceAbelianSheafEquivalence :
+    Sheaf (X.smallEtaleTopology.over U) AddCommGrpCat.{u} ≌
+      Sheaf U.left.smallEtaleTopology AddCommGrpCat.{u} :=
+  (etaleSliceEquiv U).sheafCongr (X.smallEtaleTopology.over U)
+    U.left.smallEtaleTopology AddCommGrpCat.{u}
 
 end EtaleCohomology

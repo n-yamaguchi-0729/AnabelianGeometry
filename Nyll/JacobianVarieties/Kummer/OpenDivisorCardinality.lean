@@ -4,11 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.EssFiniteType_functionField
+import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
 import Nyll.JacobianVarieties.Kummer.OpenBoundaryRelation
 import Nyll.JacobianVarieties.Kummer.BoundaryResidueCardinality
 import Nyll.JacobianVarieties.Kummer.FiniteH1Cardinality
-import Nyll.AlgebraicCurves.Geometry.Curves.geometricallyIntegral_of_isAlgClosed
+import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyIntegralAlgClosed
 
 /-!
 # Cardinality of open divisorial Kummer classes

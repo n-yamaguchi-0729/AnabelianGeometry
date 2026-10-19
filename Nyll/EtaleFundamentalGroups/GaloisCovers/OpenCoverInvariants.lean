@@ -6,7 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverDegree
 import Nyll.EtaleFundamentalGroups.GaloisCovers.FunctionFieldAutomorphisms
-import Nyll.AlgebraicCurves.Places.Place_restrictAlong_surjective
+import Nyll.AlgebraicCurves.Places.Restriction.RestrictAlongSurjective
 
 /-! # Degree and nonempty boundary of actual open covers -/
 

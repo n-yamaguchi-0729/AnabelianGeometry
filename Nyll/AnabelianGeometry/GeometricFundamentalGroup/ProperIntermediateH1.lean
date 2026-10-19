@@ -9,8 +9,8 @@ import Nyll.EtaleFundamentalGroups.GaloisCovers.ConnectedCurveModel
 import Nyll.EtaleFundamentalGroups.GaloisCovers.CurveModelDeckDegree
 import Nyll.EtaleFundamentalGroups.GaloisCovers.DeckIsomorphismTransport
 import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1IsomorphismPullback
-import Nyll.AlgebraicCurves.Models.RationalPointExistence
-import Nyll.AlgebraicCurves.Geometry.Curves.geometricallyIntegral_of_isAlgClosed
+import Nyll.AlgebraicCurves.Models.Points.RationalPointExistence
+import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyIntegralAlgClosed
 
 /-! # Actual intermediate covers of a proper hyperbolic curve
 

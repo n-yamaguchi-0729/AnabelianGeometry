@@ -4,10 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.OpenBoundary
-import Nyll.AlgebraicCurves.Models.FunctionFieldScalarFunctoriality
-import Nyll.AlgebraicCurves.Places.Place_exists_equiv_comap_eq_and_ord_eq_and_deg_eq_of_ringEquiv
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenFunctionField
+import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
+import Nyll.SchemeTheory.FunctionFields.ScalarFunctoriality
+import Nyll.AlgebraicCurves.Places.Restriction.EquivComapEqOrdEqDegEq
+import Nyll.SchemeTheory.FunctionFields.OpenImmersion
 
 /-! # Actual interior places under the open function-field identification -/
 

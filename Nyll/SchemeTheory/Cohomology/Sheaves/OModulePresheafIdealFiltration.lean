@@ -60,7 +60,7 @@ theorem idealSections_pow_res (I : V.IdealSheafData) (k : ℕ)
     intro m
     rw [Ideal.map_pow]
     induction m with
-    | zero => simp
+    | zero => simp only [pow_zero, le_refl]
     | succ m ih => rw [pow_succ, pow_succ]; exact Ideal.mul_mono ih hle
   exact hmap k (Ideal.mem_map_of_mem _ ha)
 

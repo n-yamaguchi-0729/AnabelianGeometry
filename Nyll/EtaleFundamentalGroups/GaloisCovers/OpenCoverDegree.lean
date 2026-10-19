@@ -4,10 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.FiniteCurveBoundaryMap
-import Nyll.EtaleFundamentalGroups.Normalization.GenericFieldSourceNaturality
+import Nyll.AlgebraicCurves.Models.Ramification.FiniteCurveBoundaryMap
+import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
 import Nyll.EtaleFundamentalGroups.FiniteEtale.FunctionField
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenFunctionField
+import Nyll.SchemeTheory.FunctionFields.OpenImmersion
 
 /-! # The degree of the compactified map is the actual open-cover degree -/
 

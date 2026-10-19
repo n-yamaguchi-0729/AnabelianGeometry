@@ -47,6 +47,16 @@ theorem fundamentalGroupHom_surjective_of_isPreimmersion_of_isDominant
   let : IsConnected W := hW
   exact pullback_obj_isConnected_of_isPreimmersion_of_isDominant j W
 
+/-- The generic-point morphism of an integral scheme is dominant. -/
+theorem genericPoint_isDominant (X : Scheme.{u}) [IsIntegral X] :
+    IsDominant (X.fromSpecStalk (genericPoint X)) := by
+  rw [isDominant_iff, DenseRange, dense_iff_closure_eq]
+  apply Set.eq_univ_of_forall
+  intro x
+  apply (genericPoint_specializes x).mem_closed isClosed_closure
+  exact subset_closure ⟨IsLocalRing.closedPoint (CommRingCat.of X.functionField),
+    Scheme.fromSpecStalk_closedPoint (X := X) (x := genericPoint X)⟩
+
 /-- The canonical absolute Galois map at the geometric generic point.
 The field fundamental group is identified using the separable closure
 inside the algebraic closure. -/
@@ -68,13 +78,7 @@ theorem genericAbsoluteGaloisHom_surjective
   let j := X.fromSpecStalk (genericPoint X)
   let : QuasiCompact j :=
     { isCompact_preimage := fun U _ _ ↦ (Set.toFinite (j ⁻¹' U)).isCompact }
-  let : IsDominant j := by
-    rw [isDominant_iff, DenseRange, dense_iff_closure_eq]
-    apply Set.eq_univ_of_forall
-    intro x
-    apply (genericPoint_specializes x).mem_closed isClosed_closure
-    exact subset_closure ⟨IsLocalRing.closedPoint (CommRingCat.of X.functionField),
-      Scheme.fromSpecStalk_closedPoint (X := X) (x := genericPoint X)⟩
+  let : IsDominant j := genericPoint_isDominant X
   have hj : Function.Surjective
       (fundamentalGroupHom j
         (Spec.map (CommRingCat.ofHom
@@ -83,3 +87,4 @@ theorem genericAbsoluteGaloisHom_surjective
   exact hj.comp (absoluteGaloisEquivFundamentalGroup X.functionField).surjective
 
 end AlgebraicGeometry.FiniteEtale
+

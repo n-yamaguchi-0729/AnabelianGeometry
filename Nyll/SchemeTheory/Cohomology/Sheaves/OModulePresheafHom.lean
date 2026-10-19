@@ -34,7 +34,8 @@ variable (π : V ⟶ Spec (.of R)) (K : V.OrderedAffineCover)
 theorem isAffineOpen_inf_of_isSeparated [IsSeparated π] {U W : V.Opens} (hU : IsAffineOpen U)
     (hW : IsAffineOpen W) : IsAffineOpen (U ⊓ W) := by
   have : IsAffineHom (pullback.diagonal π) := inferInstance
-  exact isAffineHom_diagonal_iff.mp this ⊤ (isAffineOpen_top _) U (by simp) W (by simp) hU hW
+  exact isAffineHom_diagonal_iff.mp this ⊤ (isAffineOpen_top _)
+    U (fun _ _ ↦ trivial) W (fun _ _ ↦ trivial) hU hW
 
 theorem isAffineOpen_inter [IsSeparated π] {i : ℕ} (s : K.Idx i) : IsAffineOpen (K.inter s) := by
   suffices h : ∀ (n : ℕ) (t : Fin (n + 1) → K.ι), IsAffineOpen (⨅ j, K.U (t j)) from h i s.1

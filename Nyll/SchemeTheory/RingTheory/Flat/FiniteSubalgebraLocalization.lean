@@ -114,7 +114,7 @@ theorem mem_span_of_mapRange_baseChange_eq_zero (J : Ideal A) (ι : Type*)
       ext i'
       simp only [LinearMap.baseChange_tmul, e₁, TensorProduct.finsuppRight_apply_tmul_apply,
         Finsupp.lsingle_apply, Finsupp.single_apply]
-      split_ifs <;> simp
+      split_ifs <;> simp only [TensorProduct.tmul_zero]
     | add x y hx hy => simp [map_add, hx, hy]
   have hw_eq : w = (e₁ w).sum fun i t =>
       (Finsupp.lsingle i : J →ₗ[A] (ι →₀ J)).baseChange D t := by
@@ -192,7 +192,9 @@ theorem exists_generators_of_ker_baseChange (J : Ideal A) (S : Submonoid D)
     intro z
     rw [← hfg.linearMap_ker_eq, LinearMap.mem_ker, hvκ]
     simp only [mr, Finsupp.mapRange.linearMap_apply, Finsupp.linearCombination_apply]
-    rw [Finsupp.sum_mapRange_index (fun _ => by simp), map_finsuppSum]
+    rw [Finsupp.sum_mapRange_index (f := J.subtype) (g := z)
+      (h := fun (i : N₂) (a : A) ↦ a • _root_.id i)
+      (fun i ↦ zero_smul A (_root_.id i)), map_finsuppSum]
     apply Finset.sum_eq_zero
     intro n _
     simp only [id_eq, Submodule.coe_subtype, map_smul]
@@ -202,7 +204,7 @@ theorem exists_generators_of_ker_baseChange (J : Ideal A) (S : Submonoid D)
   have hsmul_mem : ∀ (a : J) (x : FreeCover A N₂), (a : A) • x ∈ LinearMap.range κ := by
     intro a x
     refine ⟨Finsupp.mapRange (fun r => (⟨a * r, J.mul_mem_right r a.2⟩ : J))
-      (by ext; simp) (e x), ?_⟩
+      (Subtype.ext (mul_zero (a : A))) (e x), ?_⟩
     apply e.injective
     change e (e.symm (mr _)) = e ((a : A) • x)
     rw [LinearEquiv.apply_symm_apply, map_smul]
@@ -254,7 +256,7 @@ theorem exists_generators_of_ker_baseChange (J : Ideal A) (S : Submonoid D)
   have huy : (u.baseChange D) y = (u.baseChange D) y₀ := by
     rw [hy_def, map_sub, ← LinearMap.comp_apply (f := u.baseChange D),
       ← LinearMap.baseChange_comp, hu_ker]
-    simp
+    rw [LinearMap.baseChange_zero, LinearMap.zero_apply, sub_zero]
   have hy : (L.subtype.baseChange D) y = 0 := by
     rw [hy_def, map_sub, ← LinearMap.comp_apply (f := L.subtype.baseChange D),
       ← LinearMap.baseChange_comp]
@@ -456,7 +458,7 @@ theorem mem_J_map (h : A →ₐ[R₀] A') {a : A} (ha : a ∈ J p₀ A) : h a �
 /-- The R0-linear map between the extended ideals induced by h. -/
 def ιJ (h : A →ₐ[R₀] A') : ↥(J p₀ A) →ₗ[R₀] ↥(J p₀ A') where
   toFun j := ⟨h j, mem_J_map p₀ h j.2⟩
-  map_add' j j' := Subtype.ext (by simp)
+  map_add' j j' := Subtype.ext (map_add h (j : A) (j' : A))
   map_smul' r j := Subtype.ext (by simp [Algebra.smul_def])
 
 @[scoped simp] theorem coe_ιJ (h : A →ₐ[R₀] A') (j : J p₀ A) : (ιJ p₀ h j : A') = h j := rfl
@@ -479,12 +481,23 @@ def ξ (h : A →ₐ[R₀] A') :
     { toFun := fun d =>
         (TensorProduct.mk A' (A' ⊗[R₀] B₀) ↥(J p₀ A') (δ B₀ h d)).toAddMonoidHom.comp
           (ιJ p₀ h).toAddMonoidHom
-      map_zero' := by ext; simp
-      map_add' := by intros; ext; simp }
+      map_zero' := by
+        apply AddMonoidHom.ext
+        intro j
+        change δ B₀ h 0 ⊗ₜ[A'] ιJ p₀ h j = 0
+        rw [map_zero]
+        exact TensorProduct.zero_tmul _ _
+      map_add' d₁ d₂ := by
+        apply AddMonoidHom.ext
+        intro j
+        change δ B₀ h (d₁ + d₂) ⊗ₜ[A'] ιJ p₀ h j =
+          δ B₀ h d₁ ⊗ₜ[A'] ιJ p₀ h j + δ B₀ h d₂ ⊗ₜ[A'] ιJ p₀ h j
+        rw [map_add, TensorProduct.add_tmul] }
     (by
       intro a d j
       change δ B₀ h (a • d) ⊗ₜ[A'] ιJ p₀ h j = δ B₀ h d ⊗ₜ[A'] ιJ p₀ h (a • j)
-      have : ιJ p₀ h (a • j) = h a • ιJ p₀ h j := Subtype.ext (by simp)
+      have : ιJ p₀ h (a • j) = h a • ιJ p₀ h j :=
+        Subtype.ext (map_mul h a (j : A))
       rw [δ_smul, this, TensorProduct.smul_tmul])
 
 @[scoped simp] theorem ξ_tmul (h : A →ₐ[R₀] A') (d : A ⊗[R₀] B₀) (j : J p₀ A) :
@@ -604,7 +617,8 @@ theorem Θ_naturality {N'' : Type*} [AddCommGroup N''] [Module A' N''] [Module A
     Θ B₀ A A' N'' ((φ'.restrictScalars A).baseChange (A ⊗[R₀] B₀) y) =
       (φ'.baseChange (A' ⊗[R₀] B₀)) (Θ B₀ A A' N' y) := by
   induction y using TensorProduct.inductionOn with
-  | tmul d n => simp
+  | tmul d n =>
+      simp only [LinearMap.baseChange_tmul, Θ_tmul, LinearMap.restrictScalars_apply]
   | add x y hx hy => simp only [map_add, hx, hy]
 
 theorem Θ_span_le (Z : Set ((A ⊗[R₀] B₀) ⊗[A] N')) {y : (A ⊗[R₀] B₀) ⊗[A] N'}
@@ -612,7 +626,7 @@ theorem Θ_span_le (Z : Set ((A ⊗[R₀] B₀) ⊗[A] N')) {y : (A ⊗[R₀] B�
     Θ B₀ A A' N' y ∈ Submodule.span (A' ⊗[R₀] B₀) (Θ B₀ A A' N' '' Z) := by
   induction hy using Submodule.span_induction with
   | mem z hz => exact Submodule.subset_span ⟨z, hz, rfl⟩
-  | zero => simp
+  | zero => rw [map_zero]; exact Submodule.zero_mem _
   | add x y _ _ hx hy => rw [map_add]; exact Submodule.add_mem _ hx hy
   | smul c x _ hx => rw [Θ_smul]; exact Submodule.smul_mem _ _ hx
 
@@ -730,7 +744,8 @@ theorem Ψ_ξ (h : A →ₐ[R₀] A') (x : (A ⊗[R₀] B₀) ⊗[A] ↥(J p₀ 
   | tmul d j =>
     induction d using TensorProduct.inductionOn with
     | tmul a b =>
-      have : ιJ p₀ h (a • j) = h a • ιJ p₀ h j := Subtype.ext (by simp)
+      have : ιJ p₀ h (a • j) = h a • ιJ p₀ h j :=
+        Subtype.ext (map_mul h a (j : A))
       rw [ξ_tmul, δ_tmul, Ψ, Ψ, Φ_tmul, Φ_tmul, LinearMap.rTensor_tmul, this]
     | add x y hx hy =>
       rw [TensorProduct.add_tmul, AddMonoidHom.map_add, LinearEquiv.map_add,
@@ -805,7 +820,9 @@ theorem exists_fg_le_JR (E₀ : Subalgebra R₀ R) (hE₀ : E₀.FG) (N : Submod
   classical
   obtain ⟨s, rfl⟩ := hN
   induction s using Finset.induction_on with
-  | empty => exact ⟨E₀, le_rfl, hE₀, by simp⟩
+  | empty => exact ⟨E₀, le_rfl, hE₀, by
+      rw [Finset.coe_empty, Submodule.span_empty]
+      exact bot_le⟩
   | insert g s _ ih =>
     obtain ⟨E, hE₀E, hE, hsE⟩ := ih
     obtain ⟨E', hE', hgE'⟩ := exists_fg_mem_JR p₀ g
@@ -950,7 +967,11 @@ theorem exists_fg_T_torsion [IsNoetherianRing R₀] [Algebra.FiniteType R₀ B�
       ∃ E : Subalgebra R₀ R, E.FG ∧ ∀ t ∈ s, Tors B₀ p₀ P E t := by
     intro s
     induction s using Finset.induction_on with
-    | empty => intro; exact ⟨⊥, Subalgebra.fg_bot, by simp⟩
+    | empty =>
+        intro _
+        exact ⟨⊥, Subalgebra.fg_bot, by
+          intro t ht
+          exact (Finset.notMem_empty t ht).elim⟩
     | insert a s _ ih =>
       intro hs
       rw [Finset.coe_insert, Set.insert_subset_iff] at hs

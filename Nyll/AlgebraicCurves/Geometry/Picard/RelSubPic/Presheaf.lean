@@ -10,8 +10,8 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Picard.Functor
-import Nyll.AlgebraicCurves.Geometry.Picard.SubPicCondition
+import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
+import Nyll.AlgebraicCurves.Geometry.Picard.Representability.SubPicCondition
 
 /-!
 Presheaves of rigidified line-bundle classes satisfying a pullback-stable Picard condition.

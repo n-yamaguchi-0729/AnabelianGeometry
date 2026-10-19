@@ -4,13 +4,22 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.ProjectiveLine.CrossRatio
 import Nyll.AnabelianGeometry.ProjectiveLine.InversionRigidity
+import Nyll.AnabelianGeometry.ProjectiveLine.FieldMap
+import Nyll.AnabelianGeometry.ProjectiveLine.ConfigurationScalarExtension
+import Nyll.AnabelianGeometry.ProjectiveLine.ProjectiveRigidity
+import Nyll.AnabelianGeometry.ProjectiveLine.LinearFieldMap
+import Nyll.AnabelianGeometry.ProjectiveLine.GaloisDescent
+import Nyll.AnabelianGeometry.ProjectiveLine.ConfigurationGaloisDescent
+import Nyll.AnabelianGeometry.ProjectiveLine.RatFuncAutomorphism
+import Nyll.AnabelianGeometry.ProjectiveLine.SchemeRigidity
+import Nyll.AnabelianGeometry.ProjectiveLine.SemilinearConfigurationRigidity
 import Nyll.AnabelianGeometry.ProjectiveLine.MultiplicativeRigidity
 import Nyll.AnabelianGeometry.ProjectiveLine.ComplexConfiguration
 import Nyll.AnabelianGeometry.ProjectiveLine.EmbeddedMultiplicativeRigidity
 import Nyll.AnabelianGeometry.ProjectiveLine.NumberFieldConfiguration
-import Nyll.AnabelianGeometry.ProjectiveLine.CrossRatioSeparation
-import Nyll.AnabelianGeometry.ProjectiveLine.CoordinateChange
-import Nyll.AnabelianGeometry.ProjectiveLine.Normalization
-import Nyll.AnabelianGeometry.ProjectiveLine.Configuration
+import Nyll.AnabelianGeometry.ProjectiveLine.SchemeOpenRestriction
+import Nyll.AnabelianGeometry.ProjectiveLine.ActualSquareRootValueRatio
+import Nyll.AnabelianGeometry.ProjectiveLine.SamePunctureFourCyclicClasses
+import Nyll.AnabelianGeometry.ProjectiveLine.SameLiftedCrossRatioRigidity
+import Nyll.AnabelianGeometry.ProjectiveLine.LinearSchemeScalarExtension

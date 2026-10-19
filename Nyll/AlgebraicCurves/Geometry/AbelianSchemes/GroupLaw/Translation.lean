@@ -12,9 +12,9 @@ AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
 import Mathlib.AlgebraicGeometry.Modules.Sheaf
-import Nyll.AlgebraicCurves.Geometry.Picard.RelativeGroupLaw
+import Nyll.AlgebraicCurves.Geometry.Picard.GroupLaw.RelativeGroupLaw
 import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.Kernel
-import Nyll.AlgebraicCurves.Geometry.Picard.Functor
+import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
 
 /-!
 # Translation

@@ -4,19 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.IsClosed_singleton_of_ne_genericPoint
-import Nyll.AlgebraicCurves.Geometry.Schemes.isFinite_and_etale_fromNormalization_kummer_of_isIntegrallyClosed
-import Nyll.AlgebraicCurves.Geometry.Schemes.exists_pow_eq_of_section_fromNormalization_kummer
-import Nyll.AlgebraicCurves.Models.Basic
-import Nyll.AlgebraicCurves.Places.Place_exists_ord_eq_one
-import Nyll.AlgebraicCurves.Places.Place_mem_of_ord_nonneg
+import Nyll.AlgebraicCurves.Geometry.IsClosedSingletonNeGenericPoint
+import Nyll.AlgebraicCurves.Geometry.Schemes.Kummer.FiniteEtaleFromNormalizationKummer
+import Nyll.AlgebraicCurves.Geometry.Schemes.Kummer.PowEqSectionFromNormalizationKummer
+import Nyll.AlgebraicCurves.Models.Construction.Basic
+import Nyll.AlgebraicCurves.Places.Basic
 import Nyll.JacobianVarieties.Kummer.DivisorClasses
 import Mathlib.AlgebraicGeometry.FunctionField
 import Mathlib.AlgebraicGeometry.Morphisms.QuasiCompact
 import Mathlib.AlgebraicGeometry.Normalization
 import Mathlib.Topology.Compactness.Compact
 import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalkNormality
+import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
 
 /-!
 # Finite etale Kummer covers of actual curve models

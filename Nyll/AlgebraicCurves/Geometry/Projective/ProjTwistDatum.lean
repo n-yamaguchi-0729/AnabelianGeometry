@@ -115,7 +115,7 @@ def TwistCompat (m : ℕ) (U : X.Opens) (g : ∀ i : Fin (N + 1), Γ(X, U ⊓ pu
 def twistSections (m : ℕ) (U : X.Opens) : AddSubgroup (∀ i : Fin (N + 1), Γ(X, U ⊓ pullbackChart φ
   i)) where
   carrier := {g | TwistCompat φ m U g}
-  zero_mem' := fun i j => by simp
+  zero_mem' := fun i j => by simp only [Pi.zero_apply, map_zero, mul_zero]
   add_mem' := by
     intro g g' hg hg' i j
     simp only [Pi.add_apply, map_add, hg i j, hg' i j, mul_add]

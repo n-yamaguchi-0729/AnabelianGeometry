@@ -31,7 +31,7 @@ def lSpaceOn (S : Set (Place K F)) (D : Divisor K F) : Submodule K F where
   carrier := {f | ∀ v ∈ S, v.adicValuation f ≤ exp (D v)}
   add_mem' := fun {f g} hf hg v hv =>
     (Valuation.map_add _ f g).trans (max_le (hf v hv) (hg v hv))
-  zero_mem' := fun v _ => by simp
+  zero_mem' := fun v _ => by rw [map_zero]; exact zero_le
   smul_mem' := fun c f hf v hv => by
     change v.adicValuation (c • f) ≤ exp (D v)
     rw [Algebra.smul_def, map_mul]
@@ -52,7 +52,11 @@ theorem mem_lSpaceOn_iff_ord {S : Set (Place K F)} {D : Divisor K F} {f : F} :
 @[simp] theorem lSpaceOn_empty (D : Divisor K F) :
     lSpaceOn (∅ : Set (Place K F)) D = ⊤ := by
   ext f
-  simp [mem_lSpaceOn_iff]
+  constructor
+  · intro _
+    exact Submodule.mem_top
+  · intro _ v hv
+    exact (Set.notMem_empty v hv).elim
 
 theorem lSpaceOn_anti {S₀ S₁ : Set (Place K F)} (h : S₀ ⊆ S₁) (D : Divisor K F) :
     lSpaceOn S₁ D ≤ lSpaceOn S₀ D := fun _ hf v hv => hf v (h hv)
@@ -84,7 +88,7 @@ theorem lSpaceOn_eq_iInf_singleton (S : Set (Place K F)) (D : Divisor K F) :
 theorem mem_lSpaceOn_singleton_iff {v : Place K F} {D : Divisor K F} {f : F} :
     f ∈ lSpaceOn {v} D ↔ f = 0 ∨ -D v ≤ v.ord f := by
   rw [mem_lSpaceOn_iff_ord]
-  simp
+  simp only [Set.mem_singleton_iff, forall_eq]
 
 /-- The two-chart section system formed from divisor-bounded functions. -/
 @[reducible] def cechSections (S₀ S₁ : Set (Place K F)) (D : Divisor K F) :
@@ -138,12 +142,14 @@ theorem map_subtype_range_cechDiff (S₀ S₁ : Set (Place K F)) (D : Divisor K 
         ⟨((-⟨f, hf⟩ : lSpaceOn S₀ D), 0), ?_⟩, rfl⟩
       apply Subtype.ext
       rw [coe_cechDiff_apply]
-      simp
+      change (0 : F) - -f = f
+      rw [zero_sub, neg_neg]
     · intro f hf
       refine ⟨⟨f, lSpaceOn_anti Set.inter_subset_right D hf⟩, ⟨(0, ⟨f, hf⟩), ?_⟩, rfl⟩
       apply Subtype.ext
       rw [coe_cechDiff_apply]
-      simp
+      change f - (0 : F) = f
+      exact sub_zero f
 
 theorem mem_range_cechDiff_iff {S₀ S₁ : Set (Place K F)} {D : Divisor K F}
     (g : lSpaceOn (S₀ ∩ S₁) D) :
@@ -188,7 +194,10 @@ def offChartIndicator (S : Set (Place K F)) : ↥(repartitions K F) :=
     convert Set.finite_empty
     ext v
     simp only [Set.mem_ofPred_eq, Set.mem_empty_iff_false, iff_false, not_not]
-    split_ifs <;> simp)⟩
+    split_ifs
+    · rw [map_zero]
+      exact zero_le
+    · rw [map_one])⟩
 
 open Classical in
 theorem coe_offChartIndicator_apply (S : Set (Place K F)) (v : Place K F) :
@@ -213,7 +222,9 @@ theorem coe_extendOffChart_apply (S₀ : Set (Place K F)) (f : F) (v : Place K F
   change ((offChartIndicator K S₀ : Place K F → F) * algebraMap F (Place K F → F) f) v = _
   rw [Pi.mul_apply, coe_offChartIndicator_apply, Pi.algebraMap_apply, Algebra.algebraMap_self,
     RingHom.id_apply]
-  split_ifs <;> simp
+  split_ifs
+  · exact zero_mul f
+  · exact one_mul f
 
 theorem coe_extendOffChart_apply_of_mem {S₀ : Set (Place K F)} (f : F) {v : Place K F}
     (hv : v ∈ S₀) : (extendOffChart K S₀ f : Place K F → F) v = 0 := by
@@ -235,7 +246,8 @@ theorem algebraMap_sub_extendOffChart_mem_repartitionsOf {S₀ : Set (Place K F)
   · rw [coe_extendOffChart_apply_of_mem f hv, sub_zero]
     exact hf v hv
   · rw [coe_extendOffChart_apply_of_not_mem f hv, sub_self]
-    simp
+    rw [map_zero]
+    exact zero_le
 
 theorem extendOffChart_mem_repartitionsOf {S₀ S₁ : Set (Place K F)} (hcover : S₀ ∪ S₁ = Set.univ)
     {D : Divisor K F} {f : F} (hf : f ∈ lSpaceOn S₁ D) :
@@ -243,7 +255,8 @@ theorem extendOffChart_mem_repartitionsOf {S₀ S₁ : Set (Place K F)} (hcover 
   intro v
   by_cases hv : v ∈ S₀
   · rw [coe_extendOffChart_apply_of_mem f hv]
-    simp
+    rw [map_zero]
+    exact zero_le
   · rw [coe_extendOffChart_apply_of_not_mem f hv]
     have hv₁ : v ∈ S₁ := by
       have : v ∈ S₀ ∪ S₁ := hcover ▸ Set.mem_univ v

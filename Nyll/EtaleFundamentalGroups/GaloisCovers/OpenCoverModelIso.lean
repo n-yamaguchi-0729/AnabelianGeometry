@@ -6,8 +6,8 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverFiniteModel
 import Nyll.EtaleFundamentalGroups.GaloisCovers.CompactificationBoundary
-import Nyll.EtaleFundamentalGroups.Normalization.FiniteNormalFieldSource
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalkNormality
+import Nyll.EtaleFundamentalGroups.Normalization.FiniteNormalFieldSourceGeneric
+import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
 
 /-!
 # The actual normalization compactification is a smooth proper curve model
@@ -34,17 +34,19 @@ private local instance fieldSpecQuasiCompact
 private theorem transport_normalization_model
     {A B N : Scheme} (g q : A ⟶ B)
     [QuasiCompact g] [QuasiSeparated g] [QuasiCompact q] [QuasiSeparated q]
-    (h : g = q) (d : N ⟶ B)
+    (h : g = q) (d : N ⟶ B) (p : A ⟶ N)
     (e : g.normalization ≅ N)
-    (he : e.hom ≫ d = g.fromNormalization) :
-    ∃ e' : q.normalization ≅ N, e'.hom ≫ d = q.fromNormalization := by
+    (he : e.hom ≫ d = g.fromNormalization)
+    (hep : g.toNormalization ≫ e.hom = p) :
+    ∃ e' : q.normalization ≅ N, e'.hom ≫ d = q.fromNormalization ∧
+      q.toNormalization ≫ e'.hom = p := by
   subst q
-  exact ⟨e, he⟩
+  exact ⟨e, he, hep⟩
 
 /-- The actual proper normalization has a smooth proper curve-model
 identification over the original base, not just a function-field equivalence. -/
-theorem exists_curveModel_iso_open_cover_normalization
-    {K F : Type} [Field K] [IsAlgClosed K] [CharZero K]
+theorem exists_curveModel_iso_open_cover_normalization_with_generic
+    {K F : Type} [Field K] [CharZero K]
     [Field F] [Algebra K F]
     (M : CurveModel K F) {X : Scheme}
     [IsIntegral X] [IsNormalIntegral X] [IsLocallyNoetherian X]
@@ -56,7 +58,10 @@ theorem exists_curveModel_iso_open_cover_normalization
     ∃ (N : CurveModel K W.left.functionField) (d : N.C ⟶ M.C),
       d ≫ M.toBase = N.toBase ∧ IsFinite d ∧
       ∃ e : (FiniteEtale.connectedCoverGenericComposite W ≫ j).normalization ≅ N.C,
-        e.hom ≫ d = (FiniteEtale.connectedCoverGenericComposite W ≫ j).fromNormalization := by
+        e.hom ≫ d = (FiniteEtale.connectedCoverGenericComposite W ≫ j).fromNormalization ∧
+        (FiniteEtale.connectedCoverGenericComposite W ≫ j).toNormalization ≫ e.hom =
+          Spec.map (CommRingCat.ofHom N.ffEquiv.symm.toRingHom) ≫
+            N.C.fromSpecStalk (genericPoint N.C) := by
   intro hIntegral cW algW
   obtain ⟨N, d, hd, hfinite, hgeneric⟩ :=
     exists_finite_curveModel_map_of_open_cover M j W
@@ -86,10 +91,32 @@ theorem exists_curveModel_iso_open_cover_normalization
     simpa only [FiniteEtale.connectedCoverGenericComposite,
       FiniteEtale.connectedCoverGenericMorphism, Scheme.genericExtensionMorphism,
       hid, Spec.map_id, Category.id_comp, Category.assoc] using hgeneric
-  obtain ⟨e, he⟩ := transport_normalization_model (p ≫ d)
-    (FiniteEtale.connectedCoverGenericComposite W ≫ j) hp d
+  obtain ⟨e, he, hep⟩ := transport_normalization_model (p ≫ d)
+    (FiniteEtale.connectedCoverGenericComposite W ≫ j) hp d p
     (finiteNormalFieldSourceIso d p)
     (finiteNormalFieldSourceIso_hom_fromNormalization d p)
+    (toNormalization_finiteNormalFieldSourceIso_hom d p)
+  exact ⟨N, d, hd, hfinite, e, he, hep⟩
+
+/-- The actual proper normalization has a smooth proper curve-model
+identification over the original base, not just a function-field equivalence. -/
+theorem exists_curveModel_iso_open_cover_normalization
+    {K F : Type} [Field K] [CharZero K]
+    [Field F] [Algebra K F]
+    (M : CurveModel K F) {X : Scheme}
+    [IsIntegral X] [IsNormalIntegral X] [IsLocallyNoetherian X]
+    (j : X ⟶ M.C) [IsOpenImmersion j] [QuasiCompact j] [QuasiSeparated j]
+    (W : FiniteEtale X) [IsConnected W] :
+    let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
+    let cW : W.left ⟶ Spec (.of K) := W.hom ≫ j ≫ M.toBase
+    let : Algebra K W.left.functionField := (baseToFunctionField cW).toAlgebra
+    ∃ (N : CurveModel K W.left.functionField) (d : N.C ⟶ M.C),
+      d ≫ M.toBase = N.toBase ∧ IsFinite d ∧
+      ∃ e : (FiniteEtale.connectedCoverGenericComposite W ≫ j).normalization ≅ N.C,
+        e.hom ≫ d = (FiniteEtale.connectedCoverGenericComposite W ≫ j).fromNormalization := by
+  intro hIntegral cW algW
+  obtain ⟨N, d, hd, hfinite, e, he, _⟩ :=
+    exists_curveModel_iso_open_cover_normalization_with_generic M j W
   exact ⟨N, d, hd, hfinite, e, he⟩
 
 end EtaleFundamentalGroups

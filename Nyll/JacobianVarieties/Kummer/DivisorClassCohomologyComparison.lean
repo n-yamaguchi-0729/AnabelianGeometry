@@ -17,7 +17,7 @@ import Nyll.EtaleFundamentalGroups.GeometricFiber.BasePoint
 import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointSeparableComparison
 import Nyll.EtaleFundamentalGroups.Kummer.GenericCharacterRootCover
 import Nyll.EtaleFundamentalGroups.Kummer.GenericEtaleDivisibility
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalkNormality
+import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
 import Nyll.SchemeTheory.Normalization.Normal
 import Nyll.JacobianVarieties.Kummer.CurveCoverGenericCharacter
 import Nyll.GaloisCohomology.Kummer.Concrete.SeparableKummerH1

@@ -4,9 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Two_mul_genusFF_sub_two_eq_of_isSeparable_of_tame
-import Nyll.AlgebraicCurves.Places.Place_sum_ramificationIndexAlong_mul_inertiaDegAlong
-import Nyll.AlgebraicCurves.Places.Place_inertiaDegAlong_eq_one_of_isAlgClosed
+import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.TwoMulGenusFFSubTwoEqSeparable
+import Nyll.AlgebraicCurves.Places.Ramification.SumRamificationIndexMulInertiaDegAlong
+import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegAlongEqOneAlgClosed
 import Mathlib.Algebra.BigOperators.Finprod
 
 /-!

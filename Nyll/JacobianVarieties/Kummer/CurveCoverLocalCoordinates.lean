@@ -6,8 +6,8 @@ https://github.com/n-yamaguchi-0729
 -/
 
 import Nyll.JacobianVarieties.Kummer.CurveCover
-import Nyll.AlgebraicCurves.Geometry.Schemes.exists_root_fromNormalization_kummer_existsUnique_lift
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalkNormality
+import Nyll.AlgebraicCurves.Geometry.Schemes.Kummer.RootFromNormalizationKummerUniqueLift
+import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
 import Mathlib.AlgebraicGeometry.Normalization
 
 /-!

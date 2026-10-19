@@ -5,7 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
 import Nyll.JacobianVarieties.Kummer.OpenDivisorResidues
-import Nyll.JacobianVarieties.Picard.CurveModelDivisibility
+import Nyll.JacobianVarieties.Picard.Torsion.CurveModelDivisibility
 
 /-!
 # Lifting boundary divisor residues to actual functions

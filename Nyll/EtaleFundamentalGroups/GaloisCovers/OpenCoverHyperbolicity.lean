@@ -5,7 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
 import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverSquareBoundary
-import Nyll.AlgebraicCurves.Models.OpenCoverRiemannHurwitz
+import Nyll.AlgebraicCurves.Models.Ramification.OpenCoverRiemannHurwitz
 
 /-!
 # Actual connected finite étale covers preserve open hyperbolicity

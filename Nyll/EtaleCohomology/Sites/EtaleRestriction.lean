@@ -104,3 +104,158 @@ def etaleSetPullbackRestrictionIso : etaleSetPullback f ≅ etaleRestriction f (
     (etaleRestrictionPushforwardAdjunction f (Type u))
 
 end EtaleCohomology
+
+namespace EtaleCohomology
+
+section CartesianRestriction
+
+variable {X Y U : Scheme.{u}} (i : U ⟶ X) [Etale i] (f : Y ⟶ X)
+
+/-- Pullback pasting on the actual small étale sites for any cartesian square. -/
+def etaleRestrictionBaseChangeSiteIsoOfIsPullback
+    {P : Scheme.{u}} (p : P ⟶ U) (g : P ⟶ Y) [Etale g]
+    (H : IsPullback p g i f) :
+    etaleBaseChange p ⋙ etalePostcompose g ≅
+      etalePostcompose i ⋙ etaleBaseChange f := by
+  refine NatIso.ofComponents (fun V =>
+    MorphismProperty.Over.isoMk
+      (P := show MorphismProperty Scheme.{u} from @Etale) (Q := ⊤)
+      ((IsPullback.of_hasPullback V.hom p).paste_vert H).isoPullback
+      ((IsPullback.of_hasPullback V.hom p).paste_vert H).isoPullback_hom_snd) ?_
+  intro V W a
+  apply MorphismProperty.Over.Hom.ext
+  have hαcompat :
+      (pullback.fst V.hom p ≫ a.left) ≫ W.hom =
+        pullback.snd V.hom p ≫ p := by
+    calc
+      (pullback.fst V.hom p ≫ a.left) ≫ W.hom =
+          pullback.fst V.hom p ≫ (a.left ≫ W.hom) :=
+        Category.assoc _ _ _
+      _ = pullback.fst V.hom p ≫ V.hom :=
+        congrArg (fun k => pullback.fst V.hom p ≫ k) a.w
+      _ = pullback.snd V.hom p ≫ p :=
+        pullback.condition
+  have hβcompat :
+      (pullback.fst (V.hom ≫ i) f ≫ a.left) ≫ (W.hom ≫ i) =
+        pullback.snd (V.hom ≫ i) f ≫ f := by
+    calc
+      (pullback.fst (V.hom ≫ i) f ≫ a.left) ≫ (W.hom ≫ i) =
+          (pullback.fst (V.hom ≫ i) f ≫ (a.left ≫ W.hom)) ≫ i := by
+        simp only [Category.assoc]
+      _ = (pullback.fst (V.hom ≫ i) f ≫ V.hom) ≫ i :=
+        congrArg (fun k => (pullback.fst (V.hom ≫ i) f ≫ k) ≫ i) a.w
+      _ = pullback.snd (V.hom ≫ i) f ≫ f := by
+        rw [Category.assoc, pullback.condition]
+  let α : pullback V.hom p ⟶
+      pullback W.hom p :=
+    pullback.lift (pullback.fst V.hom p ≫ a.left)
+      (pullback.snd V.hom p) hαcompat
+  let β : pullback (V.hom ≫ i) f ⟶ pullback (W.hom ≫ i) f :=
+    pullback.lift (pullback.fst (V.hom ≫ i) f ≫ a.left)
+      (pullback.snd (V.hom ≫ i) f) hβcompat
+  let cV : pullback V.hom p ≅ pullback (V.hom ≫ i) f :=
+    ((IsPullback.of_hasPullback V.hom p).paste_vert H).isoPullback
+  let cW : pullback W.hom p ≅ pullback (W.hom ≫ i) f :=
+    ((IsPullback.of_hasPullback W.hom p).paste_vert H).isoPullback
+  have hα₁ : α ≫ pullback.fst W.hom p =
+      pullback.fst V.hom p ≫ a.left :=
+    pullback.lift_fst (pullback.fst V.hom p ≫ a.left)
+      (pullback.snd V.hom p) hαcompat
+  have hα₂ : α ≫ pullback.snd W.hom p =
+      pullback.snd V.hom p :=
+    pullback.lift_snd (pullback.fst V.hom p ≫ a.left)
+      (pullback.snd V.hom p) hαcompat
+  have hβ₁ : β ≫ pullback.fst (W.hom ≫ i) f =
+      pullback.fst (V.hom ≫ i) f ≫ a.left :=
+    pullback.lift_fst (pullback.fst (V.hom ≫ i) f ≫ a.left)
+      (pullback.snd (V.hom ≫ i) f) hβcompat
+  have hβ₂ : β ≫ pullback.snd (W.hom ≫ i) f =
+      pullback.snd (V.hom ≫ i) f :=
+    pullback.lift_snd (pullback.fst (V.hom ≫ i) f ≫ a.left)
+      (pullback.snd (V.hom ≫ i) f) hβcompat
+  have hcV₁ : cV.hom ≫ pullback.fst (V.hom ≫ i) f =
+      pullback.fst V.hom p :=
+    ((IsPullback.of_hasPullback V.hom p).paste_vert H).isoPullback_hom_fst
+  have hcV₂ : cV.hom ≫ pullback.snd (V.hom ≫ i) f =
+      pullback.snd V.hom p ≫ g :=
+    ((IsPullback.of_hasPullback V.hom p).paste_vert H).isoPullback_hom_snd
+  have hcW₁ : cW.hom ≫ pullback.fst (W.hom ≫ i) f =
+      pullback.fst W.hom p :=
+    ((IsPullback.of_hasPullback W.hom p).paste_vert H).isoPullback_hom_fst
+  have hcW₂ : cW.hom ≫ pullback.snd (W.hom ≫ i) f =
+      pullback.snd W.hom p ≫ g :=
+    ((IsPullback.of_hasPullback W.hom p).paste_vert H).isoPullback_hom_snd
+  change
+    α ≫ cW.hom = cV.hom ≫ β
+  apply pullback.hom_ext
+  · calc
+      α ≫ cW.hom ≫ pullback.fst (W.hom ≫ i) f =
+          α ≫ (cW.hom ≫ pullback.fst (W.hom ≫ i) f) := rfl
+      _ = α ≫ pullback.fst W.hom p :=
+        congrArg (fun k => α ≫ k) hcW₁
+      _ = pullback.fst V.hom p ≫ a.left := hα₁
+      _ = (cV.hom ≫ pullback.fst (V.hom ≫ i) f) ≫ a.left :=
+        congrArg (fun k => k ≫ a.left) hcV₁.symm
+      _ = cV.hom ≫ (pullback.fst (V.hom ≫ i) f ≫ a.left) :=
+        Category.assoc cV.hom (pullback.fst (V.hom ≫ i) f) a.left
+      _ = cV.hom ≫ (β ≫ pullback.fst (W.hom ≫ i) f) :=
+        congrArg (fun k => cV.hom ≫ k) hβ₁.symm
+      _ = cV.hom ≫ β ≫ pullback.fst (W.hom ≫ i) f := rfl
+  · calc
+      α ≫ cW.hom ≫ pullback.snd (W.hom ≫ i) f =
+          α ≫ (cW.hom ≫ pullback.snd (W.hom ≫ i) f) := rfl
+      _ = α ≫ (pullback.snd W.hom p ≫ g) :=
+        congrArg (fun k => α ≫ k) hcW₂
+      _ = pullback.snd V.hom p ≫ g :=
+        congrArg (fun k => k ≫ g) hα₂
+      _ = cV.hom ≫ pullback.snd (V.hom ≫ i) f := hcV₂.symm
+      _ = cV.hom ≫ (β ≫ pullback.snd (W.hom ≫ i) f) :=
+        congrArg (fun k => cV.hom ≫ k) hβ₂.symm
+      _ = cV.hom ≫ β ≫ pullback.snd (W.hom ≫ i) f := rfl
+
+/-- Pullback pasting for the canonical base-change square. -/
+def etaleRestrictionBaseChangeSiteIso :
+    etaleBaseChange (pullback.fst i f) ⋙ etalePostcompose (pullback.snd i f) ≅
+      etalePostcompose i ⋙ etaleBaseChange f :=
+  etaleRestrictionBaseChangeSiteIsoOfIsPullback i f (pullback.fst i f) (pullback.snd i f)
+    (IsPullback.of_hasPullback i f)
+
+variable (A : Type v) [Category.{w} A]
+
+/-- Actual direct image commutes with restriction to an étale base change.
+No properness or finiteness hypothesis is imposed on the original morphism. -/
+def etaleRestrictionPushforwardBaseChangeIsoOfIsPullback
+    {P : Scheme.{u}} (p : P ⟶ U) (g : P ⟶ Y) [Etale g]
+    (H : IsPullback p g i f) :
+    (etaleBaseChange f).sheafPushforwardContinuous A
+        X.smallEtaleTopology Y.smallEtaleTopology ⋙ etaleRestriction i A ≅
+      etaleRestriction g A ⋙
+        (etaleBaseChange p).sheafPushforwardContinuous A
+          U.smallEtaleTopology P.smallEtaleTopology := by
+  let : (etaleBaseChange p ⋙ etalePostcompose g).IsContinuous
+      U.smallEtaleTopology Y.smallEtaleTopology :=
+    Functor.isContinuous_comp (etaleBaseChange p) (etalePostcompose g)
+      U.smallEtaleTopology P.smallEtaleTopology Y.smallEtaleTopology
+  exact Functor.sheafPushforwardContinuousComp'
+      (etaleRestrictionBaseChangeSiteIsoOfIsPullback i f p g H).symm A
+      U.smallEtaleTopology X.smallEtaleTopology Y.smallEtaleTopology ≪≫
+    (Functor.sheafPushforwardContinuousComp
+      (etaleBaseChange p) (etalePostcompose g)
+      A U.smallEtaleTopology P.smallEtaleTopology
+      Y.smallEtaleTopology).symm
+
+/-- Actual direct image commutes with restriction to an étale base change.
+No properness or finiteness hypothesis is imposed on the original morphism. -/
+def etaleRestrictionPushforwardBaseChangeIso :
+    (etaleBaseChange f).sheafPushforwardContinuous A
+        X.smallEtaleTopology Y.smallEtaleTopology ⋙ etaleRestriction i A ≅
+      etaleRestriction (pullback.snd i f) A ⋙
+        (etaleBaseChange (pullback.fst i f)).sheafPushforwardContinuous A
+          U.smallEtaleTopology (pullback i f).smallEtaleTopology :=
+  etaleRestrictionPushforwardBaseChangeIsoOfIsPullback i f A
+    (pullback.fst i f) (pullback.snd i f)
+    (IsPullback.of_hasPullback i f)
+
+end CartesianRestriction
+
+end EtaleCohomology

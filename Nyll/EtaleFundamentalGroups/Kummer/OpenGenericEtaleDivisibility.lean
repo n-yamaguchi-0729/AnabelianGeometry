@@ -4,13 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.EtaleLocalRootDivisibility
-import Nyll.EtaleFundamentalGroups.Normalization.GenericFieldSourceNaturality
+import Nyll.AlgebraicCurves.Models.Ramification.EtaleLocalRootDivisibility
+import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
 import Nyll.EtaleFundamentalGroups.GeometricFiber.RationalPointLift
 import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
 import Nyll.EtaleFundamentalGroups.FiniteEtale.Integral
 import Nyll.SchemeTheory.Morphisms.DominantBaseChange
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalkNormality
+import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
 import Nyll.SchemeTheory.Normalization.Normal
 
 /-!

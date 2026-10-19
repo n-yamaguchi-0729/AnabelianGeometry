@@ -4,11 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Pic0_subsingleton_of_genusFF_eq_zero
-import Nyll.AlgebraicCurves.Divisors.Pic0_mk_eq_zero_iff
-import Nyll.AlgebraicCurves.FunctionFields.IsCurveOver_finiteDimensional_adjoin_simple_of_transcendental_of_essFiniteType
-import Nyll.AlgebraicCurves.Places.Exists_finset_sum_neg_ord_eq_finrank_of_isAlgClosed
-import Nyll.AlgebraicCurves.Places.Place_transcendental_of_ord_ne_zero
+import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.Pic0SubsingletonGenusFFEqZero
+import Nyll.AlgebraicCurves.Divisors.ClassGroup.PicardZero
+import Nyll.AlgebraicCurves.FunctionFields.Extensions.CurveFiniteDimensionalAdjoinSimple
+import Nyll.AlgebraicCurves.Places.Orders.FinsetSumNegOrdEqFinrank
+import Nyll.AlgebraicCurves.Places.Orders.TranscendentalOrdNeZero
 import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
 
 /-!

@@ -7,9 +7,9 @@ https://github.com/n-yamaguchi-0729
 
 import Nyll.JacobianVarieties.Kummer.CurveCover
 import Nyll.JacobianVarieties.Kummer.DivisorClasses
-import Nyll.AlgebraicCurves.Geometry.Schemes.exists_root_fromNormalization_kummer_existsUnique_lift
-import Nyll.AlgebraicCurves.Models.Basic
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalkNormality
+import Nyll.AlgebraicCurves.Geometry.Schemes.Kummer.RootFromNormalizationKummerUniqueLift
+import Nyll.AlgebraicCurves.Models.Construction.Basic
+import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
 import Mathlib.AlgebraicGeometry.FunctionField
 import Mathlib.RingTheory.Localization.FractionRing
 

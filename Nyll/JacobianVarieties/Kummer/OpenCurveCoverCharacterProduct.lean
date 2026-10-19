@@ -11,7 +11,7 @@ import Nyll.JacobianVarieties.Kummer.OpenCurveCoverAction
 import Nyll.JacobianVarieties.Kummer.OpenCurveCoverTorsor
 import Nyll.EtaleFundamentalGroups.GeometricFiber.BasePoint
 import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointSurjective
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalkNormality
+import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
 import Nyll.SchemeTheory.Normalization.Normal
 import Mathlib.FieldTheory.IsSepClosed
 

@@ -79,7 +79,7 @@ theorem GradedModule.noncommProd_one (s : Finset (Fin (n + 1)))
     (f : Fin (n + 1) → (D.M →ₗ[R] D.M)) (hc : _) (hf : ∀ j ∈ s, f j = 1) :
     s.noncommProd f hc = 1 := by
   induction s using Finset.induction with
-  | empty => simp
+  | empty => exact Finset.noncommProd_empty _ _
   | insert j s hj ih =>
     rw [Finset.noncommProd_insert_of_notMem _ _ _ _ hj,
       hf j (Finset.mem_insert_self j s),
@@ -89,7 +89,7 @@ theorem GradedModule.noncommProd_one (s : Finset (Fin (n + 1)))
 
 theorem GradedModule.monMul_zero :
     GradedModule.monMul D 0 = LinearMap.id := by
-  exact GradedModule.noncommProd_one D _ _ _ (fun j _ => by simp)
+  exact GradedModule.noncommProd_one D _ _ _ (fun j _ => pow_zero (D.xMul j))
 
 theorem GradedModule.monMul_add (a b : Fin (n + 1) → ℕ) :
     GradedModule.monMul D (a + b)
@@ -234,7 +234,7 @@ theorem GradedModule.sec_mk_eq {x y : GradedModule.Frac D I} :
   exact Quotient.eq
 
 instance GradedModule.sec.instZero : Zero (GradedModule.sec D I) :=
-  ⟨GradedModule.sec.mk D I ⟨0, fun _ _ => rfl, 0, by simp⟩⟩
+  ⟨GradedModule.sec.mk D I ⟨0, fun _ _ => rfl, 0, Submodule.zero_mem _⟩⟩
 
 instance GradedModule.sec.instAdd : Add (GradedModule.sec D I) where
   add := Quotient.map₂
@@ -297,9 +297,9 @@ theorem GradedModule.sec_mk_neg (x : GradedModule.Frac D I) :
   rfl
 
 theorem GradedModule.sec_mk_zero_num (a : Fin (n + 1) → ℕ) (ha : ∀ j ∉ I, a j = 0) :
-    GradedModule.sec.mk D I ⟨a, ha, 0, by simp⟩ = 0 := by
+    GradedModule.sec.mk D I ⟨a, ha, 0, Submodule.zero_mem _⟩ = 0 := by
   refine (GradedModule.sec_mk_eq D I).mpr ⟨0, fun _ _ => rfl, ?_⟩
-  simp
+  simp only [map_zero]
 
 theorem GradedModule.sec_mk_congr {a a' : Fin (n + 1) → ℕ} (ha : ∀ j ∉ I, a j = 0)
     (ha' : ∀ j ∉ I, a' j = 0) (haa : a = a') {m : D.M} (hm : m ∈ D.grade (∑ j, (a j : ℤ))) :
@@ -328,7 +328,7 @@ instance GradedModule.sec.instAddCommGroup : AddCommGroup (GradedModule.sec D I)
   neg_add_cancel := by
     rintro ⟨x⟩
     refine (GradedModule.sec_mk_eq D I).mpr ⟨0, fun _ _ => rfl, ?_⟩
-    simp
+    simp only [map_neg, neg_add_cancel, map_zero]
   add_comm := by
     rintro ⟨x⟩ ⟨y⟩
     refine (GradedModule.sec_mk_eq D I).mpr ⟨0, fun _ _ => rfl, ?_⟩
@@ -341,12 +341,12 @@ instance GradedModule.sec.instAddCommGroup : AddCommGroup (GradedModule.sec D I)
 instance GradedModule.sec.instModule : Module R (GradedModule.sec D I) where
   one_smul := by
     rintro ⟨x⟩
-    exact (GradedModule.sec_mk_eq D I).mpr ⟨0, fun _ _ => rfl, by simp⟩
+    exact (GradedModule.sec_mk_eq D I).mpr ⟨0, fun _ _ => rfl, by simp only [one_smul]⟩
   mul_smul r s := by
     rintro ⟨x⟩
     exact (GradedModule.sec_mk_eq D I).mpr ⟨0, fun _ _ => rfl, by simp [mul_smul]⟩
   smul_zero r := by
-    exact (GradedModule.sec_mk_eq D I).mpr ⟨0, fun _ _ => rfl, by simp⟩
+    exact (GradedModule.sec_mk_eq D I).mpr ⟨0, fun _ _ => rfl, by simp only [smul_zero, map_zero]⟩
   smul_add r := by
     rintro ⟨x⟩ ⟨y⟩
     exact (GradedModule.sec_mk_eq D I).mpr ⟨0, fun _ _ => rfl, by simp [smul_add]⟩
@@ -356,7 +356,7 @@ instance GradedModule.sec.instModule : Module R (GradedModule.sec D I) where
     simp only [zero_add, map_add, map_smul, ← GradedModule.monMul_add_apply, add_smul]
   zero_smul := by
     rintro ⟨x⟩
-    exact (GradedModule.sec_mk_eq D I).mpr ⟨0, fun _ _ => rfl, by simp⟩
+    exact (GradedModule.sec_mk_eq D I).mpr ⟨0, fun _ _ => rfl, by simp only [zero_smul, map_zero]⟩
 
 theorem GradedModule.sec_mk_add (a : Fin (n + 1) → ℕ) (ha : ∀ j ∉ I, a j = 0)
     {m m' : D.M} (hm : m ∈ D.grade (∑ j, (a j : ℤ))) (hm' : m' ∈ D.grade (∑ j, (a j : ℤ))) :
@@ -382,10 +382,10 @@ def GradedModule.secIncl {I J : Finset (Fin (n + 1))} (hIJ : I ⊆ J) :
     (fun _ _ ⟨c, hc, heq⟩ => ⟨c, fun j hj => hc j (fun h => hj (hIJ h)), heq⟩)
   map_add' := by
     rintro ⟨x⟩ ⟨y⟩
-    exact (GradedModule.sec_mk_eq D J).mpr ⟨0, fun _ _ => rfl, by simp⟩
+    exact (GradedModule.sec_mk_eq D J).mpr ⟨0, fun _ _ => rfl, rfl⟩
   map_smul' := by
     rintro r ⟨x⟩
-    exact (GradedModule.sec_mk_eq D J).mpr ⟨0, fun _ _ => rfl, by simp⟩
+    exact (GradedModule.sec_mk_eq D J).mpr ⟨0, fun _ _ => rfl, rfl⟩
 
 theorem GradedModule.secIncl_mk {I J : Finset (Fin (n + 1))} (hIJ : I ⊆ J)
     (x : GradedModule.Frac D I) :
@@ -658,7 +658,7 @@ theorem GradedModule.Hom.map_monMul (φ : GradedModule.Hom D₁ D₂) (a : Fin (
         = (s.noncommProd (fun j => D₂.xMul j ^ a j) hc₂) (φ.toLinearMap m) from h Finset.univ _ _
   intro s
   induction s using Finset.induction with
-  | empty => intro _ _; simp
+  | empty => intro _ _; simp only [Finset.noncommProd_empty, Module.End.one_apply]
   | insert j s hj ih =>
     intro hc₁ hc₂
     rw [Finset.noncommProd_insert_of_notMem _ _ _ _ hj,

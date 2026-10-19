@@ -4,12 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.CurveModel_nonempty_of_perfectField
-import Nyll.AlgebraicCurves.Models.CurveModel_exists_finite_flat_hom_of_algHom
-import Nyll.AlgebraicCurves.Models.IsCurveOver_of_isIntegral_of_smoothOfRelativeDimension_one
-import Nyll.AlgebraicCurves.FunctionFields.IsCurveOver_iff_exists_transcendental_finiteDimensional
+import Mathlib.Algebra.CharZero.Infinite
+import Nyll.AlgebraicCurves.Models.Construction.BasicPerfectField
+import Nyll.AlgebraicCurves.Models.FunctionFields.FiniteFlatHomAlgHom
+import Nyll.AlgebraicCurves.Models.Construction.CurveIsIntegral
+import Nyll.AlgebraicCurves.FunctionFields.Extensions.CurveIffTranscendentalFiniteDimensional
 import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenPlaceTransport
-import Nyll.EtaleFundamentalGroups.Normalization.GenericFieldSourceNaturality
+import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
 import Nyll.EtaleFundamentalGroups.Purity.ConnectedCoverGenericNormalizationFinite
 
 /-!
@@ -33,7 +34,7 @@ attribute [local instance] CurveModel.isIntegral CurveModel.isProper CurveModel.
 /-- The function field of a connected finite étale open cover has a smooth
 proper model whose finite map extends the original generic morphism. -/
 theorem exists_finite_curveModel_map_of_open_cover
-    {K F : Type} [Field K] [IsAlgClosed K] [CharZero K]
+    {K F : Type} [Field K] [CharZero K]
     [Field F] [Algebra K F]
     (M : CurveModel K F) {X : Scheme} [IsIntegral X] [IsNormalIntegral X]
     (j : X ⟶ M.C) [IsOpenImmersion j]
