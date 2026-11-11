@@ -4,21 +4,23 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameNormalizationMap
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteRawTameTower
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteRawTameValue
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameOrderTower
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameIndex
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationTowerOrder
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationLocalTower
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.CanonicalCharacterTower
-import Mathlib.FieldTheory.Galois.GaloisClosure
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameNormalizationMap
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteRawTameTower
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteRawTameValue
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameOrderTower
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameIndex
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationTowerOrder
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationLocalTower
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.CanonicalCharacterTower
+public import Mathlib.FieldTheory.Galois.GaloisClosure
 
 /-!
 # Tower compatibility of canonical tame coordinates
@@ -26,6 +28,8 @@ import Mathlib.FieldTheory.Galois.GaloisClosure
 Proves compatibility of finite tame coordinates with the power maps determined by tame-order
 ratios. Deduces independence of the finite stage when tame orders agree.
 -/
+
+@[expose] public section
 
 noncomputable section
 

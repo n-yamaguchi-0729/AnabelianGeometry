@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.KummerTheory.CyclotomicPowerDescent
-import Mathlib.RingTheory.Norm.Basic
-import Mathlib.Data.Int.GCD
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.CyclotomicPowerDescent
+public import Mathlib.RingTheory.Norm.Basic
+public import Mathlib.Data.Int.GCD
 
 /-!
 # Exact power descent under coprimality
@@ -15,6 +17,8 @@ Norms descend powers across extensions of coprime degree. A central
 cyclotomic automorphism gives a second exact descent criterion when its
 displacement is coprime to the exponent.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.KummerTheory
 

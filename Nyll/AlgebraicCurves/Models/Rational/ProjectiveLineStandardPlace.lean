@@ -4,16 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineRatFuncModel
-import Nyll.SchemeTheory.FunctionFields.OpenImmersionSections
-import Nyll.SchemeTheory.ProjectiveSpace.RationalPuncturePointInjective
-import Nyll.AlgebraicCurves.Models.Points.HasValuePlaceOfPointSubAlgebraMapMem
-import Nyll.AlgebraicCurves.Places.Evaluation.HasValueIffMemEqOrOrdSubPos
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncOrdXSubC
-import Nyll.AlgebraicCurves.Places.Rational.Basic
-import Nyll.AlgebraicCurves.Places.Rational.Infinity
-import Nyll.AlgebraicCurves.Models.Sections.RationalSectionBoundaryPlace
-import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
+module
+
+public import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineRatFuncModel
+public import Nyll.SchemeTheory.FunctionFields.OpenImmersionSections
+public import Nyll.SchemeTheory.ProjectiveSpace.RationalPuncturePointInjective
+public import Nyll.AlgebraicCurves.Models.Points.HasValuePlaceOfPointSubAlgebraMapMem
+public import Nyll.AlgebraicCurves.Places.Evaluation.HasValueIffMemEqOrOrdSubPos
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncOrdXSubC
+public import Nyll.AlgebraicCurves.Places.Rational.Basic
+public import Nyll.AlgebraicCurves.Places.Rational.Infinity
+public import Nyll.AlgebraicCurves.Models.Sections.RationalSectionBoundaryPlace
+public import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
+public import Nyll.SchemeTheory.ProjectiveSpace.CrossRatio
 
 /-! # Standard places of the literal projective-line RatFunc model
 
@@ -21,6 +24,9 @@ The original model place at a rational projective point is identified with
 the canonical finite or infinite RatFunc place. The finite-point proof uses
 the actual standard chart and the actual open-immersion function-field map.
 -/
+
+@[expose] public section
+universe u
 
 noncomputable section
 attribute [local instance] Classical.propDecidable
@@ -32,28 +38,16 @@ open AlgebraicCurves.Geometry.Projective.Proofs.ProjSpace_isPullback_map.Algebra
 
 namespace AlgebraicGeometry.ProjSpace
 
-attribute [local instance] MvPolynomial.gradedAlgebra
+attribute [local instance] MvPolynomial.gradedAlgebra projectiveSpace_isIntegral
 
-local instance standardPlace_projectiveLine_integral (k : Type) [Field k] :
-    IsIntegral (Proj (MvPolynomial.homogeneousSubmodule (Fin (1 + 1)) k) : Scheme) :=
-  projectiveSpace_isIntegral k 1
-
-local instance standardPlace_polynomialFunctionFieldAlgebra
-    (R : Type) [CommRing R] [IsDomain R] :
-    Algebra R (Spec (CommRingCat.of R)).functionField :=
-  RingHom.toAlgebra
-    ((StructureSheaf.toStalk R
-        (show PrimeSpectrum.Top R from genericPoint (Spec (CommRingCat.of R)))) :
-      CommRingCat.of R ⟶ (Spec (CommRingCat.of R)).functionField).hom
-
-local instance standardPlace_image_nonempty (k : Type) [Field k] :
+local instance standardPlace_image_nonempty (k : Type u) [Field k] :
     Nonempty (projectiveLinePolynomialChart k ''ᵁ ⊤ :
       (projectiveLineRatFuncModel k).C.Opens) :=
   ⟨⟨projectiveLinePolynomialChart k
       (genericPoint (Spec (CommRingCat.of (Polynomial k)))),
     genericPoint (Spec (CommRingCat.of (Polynomial k))), trivial, rfl⟩⟩
 
-variable (k : Type) [Field k]
+variable (k : Type u) [Field k]
 
 /-- The place of the actual rational section, using the original model's
 closed-point map and the original homogeneous coordinates. -/
@@ -74,6 +68,9 @@ theorem projectiveLinePolynomialChart_fieldValue (f : Polynomial k) :
           ((Scheme.ΓSpecIso (CommRingCat.of (Polynomial k))).inv f))) =
         algebraMap (Polynomial k) (RatFunc k) f := by
   intro U hU
+  let : Algebra (Polynomial k)
+      (Spec (CommRingCat.of (Polynomial k)) : Scheme.{u}).functionField :=
+    projectiveLineAffineFunctionFieldAlgebra (Polynomial k)
   change (polynomialFunctionFieldEquiv k).symm
     ((projectiveLinePolynomialChart k).functionFieldRingEquivOfIsOpenImmersion
       ((projectiveLineRatFuncModel k).C.germToFunctionField
@@ -134,7 +131,7 @@ theorem literalRationalPuncturePlace_hasValue_X (v : k × k) (hv : v ≠ 0)
     simpa using
       linearForm_zero_chart_coordinate v 1 hvj x hlinear 0
   let : IsOpenImmersion (show
-      (Spec (CommRingCat.of (Polynomial k)) : Scheme) ⟶
+      (Spec (CommRingCat.of (Polynomial k)) : Scheme.{u}) ⟶
         (projectiveLineRatFuncModel k).C from projectiveLinePolynomialChart k) :=
     projectiveLinePolynomialChart_isOpenImmersion (k := k)
   have hread := (projectiveLineRatFuncModel k).hasValue_placeOfPoint_of_sub_algebraMap_mem
@@ -203,7 +200,7 @@ end AlgebraicGeometry.ProjSpace
 namespace AlgebraicGeometry.ProjSpace
 
 attribute [local instance] MvPolynomial.gradedAlgebra
-variable (k : Type) [Field k]
+variable (k : Type u) [Field k]
 
 /-- The literal point construction is a rational section over the original
 constant field, so its original model place is rational. -/

@@ -10,30 +10,36 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.FieldTheory.Separable
-import Mathlib.FieldTheory.SeparableDegree
-import Mathlib.RingTheory.Algebraic.Basic
-import Mathlib.FieldTheory.PrimitiveElement
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Algebra
-import Mathlib.RingTheory.AlgebraicIndependent.AlgebraicClosure
-import Mathlib.RingTheory.Localization.Module
-import Mathlib.RingTheory.Polynomial.RationalRoot
-import Mathlib.RingTheory.Polynomial.Resultant.Basic
-import Mathlib.LinearAlgebra.Lagrange
-import Mathlib.Algebra.Polynomial.Lifts
-import Mathlib.RingTheory.Polynomial.UniqueFactorization
-import Mathlib.Data.Fin.Tuple.Basic
-import Mathlib.Data.Fintype.Pigeonhole
-import Mathlib.Data.Nat.Find
-import Mathlib.Tactic.Choose
-import Mathlib.Tactic.Convert
-import Mathlib.Tactic.LinearCombination
-import Mathlib.Tactic.Ring.RingNF
-import Mathlib.Tactic.Set
+module
+
+public import Mathlib.RingTheory.Localization.FractionRing
+public import Mathlib.Algebra.MvPolynomial.Eval
+public import Mathlib.FieldTheory.Separable
+public import Mathlib.FieldTheory.SeparableDegree
+public import Mathlib.RingTheory.Algebraic.Basic
+public import Mathlib.FieldTheory.PrimitiveElement
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Algebra
+public import Mathlib.RingTheory.AlgebraicIndependent.AlgebraicClosure
+public import Mathlib.RingTheory.Localization.Module
+public import Mathlib.RingTheory.Polynomial.RationalRoot
+public import Mathlib.RingTheory.Polynomial.Resultant.Basic
+public import Mathlib.LinearAlgebra.Lagrange
+public import Mathlib.Algebra.Polynomial.Lifts
+public import Mathlib.RingTheory.Polynomial.UniqueFactorization
+public import Mathlib.Data.Fin.Tuple.Basic
+public import Mathlib.Data.Fintype.Pigeonhole
+public import Mathlib.Data.Nat.Find
+public import Mathlib.Tactic.Choose
+public import Mathlib.Tactic.Convert
+public import Mathlib.Tactic.LinearCombination
+public import Mathlib.Tactic.Ring.RingNF
+public import Mathlib.Tactic.Set
 
 /-!
 # Intermediate Field mem adjoin sum mul of is Separable of algebraic Independent
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -149,7 +155,7 @@ theorem mem_adjoin_simple_of_isSeparable_of_transcendental [Infinite F]
       exact div_mul_cancel₀ _ hs
   choose r s hs hrs using hrep
   set c : F[X] := ∏ i ∈ Finset.range d, s i with hc
-  have hcL : ιF c = ∏ i ∈ Finset.range d, ιF (s i) := by simp [hc, map_prod]
+  have hcL : ιF c = ∏ i ∈ Finset.range d, ιF (s i) := by rw [hc, map_prod]
   have hcL0 : ιF c ≠ 0 := by
     rw [hcL]; exact Finset.prod_ne_zero_iff.mpr fun i _ => hs i
   set qL : L[X] := q.map (algebraMap Ft L) with hqL
@@ -192,8 +198,9 @@ theorem mem_adjoin_simple_of_isSeparable_of_transcendental [Infinite F]
     rw [← hQLdeg, ← hQmap, hQmonic.natDegree_map]
   let KM := FractionRing M[X]
   let lamM : KM →ₐ[M] L := IsFractionRing.liftAlgHom (K := KM) hιM_inj
-  have hlamM_alg : ∀ p : M[X], lamM (algebraMap M[X] KM p) = ιM p := fun p => by
-    simp [lamM]
+  have hlamM_alg : ∀ p : M[X], lamM (algebraMap M[X] KM p) = ιM p := fun p =>
+    IsFractionRing.lift_algebraMap (K := KM)
+      (g := (ιM : M[X] →+* L)) hιM_inj p
   have hlamM_range : lamM.fieldRange = M⟮t⟯ :=
     IsFractionRing.liftAlgHom_fieldRange_eq_of_range_eq hιM_inj
       (Algebra.adjoin_singleton_eq_range_aeval M t).symm
@@ -202,10 +209,8 @@ theorem mem_adjoin_simple_of_isSeparable_of_transcendental [Infinite F]
     exact AlgHom.mem_fieldRange.mp this
   set QM : M[X][X] := Q.map (mapRingHom φ) with hQM
   have hQMmonic : QM.Monic := hQmonic.map _
-  have hcompHom : (ιM : M[X] →+* L).comp (mapRingHom φ) = (ιF : F[X] →+* L) := by
-    ext p
-    · simp [ιM, ιF, hφ]
-    · simp [ιM, ιF]
+  have hcompHom : (ιM : M[X] →+* L).comp (mapRingHom φ) = (ιF : F[X] →+* L) :=
+    RingHom.ext hcomp
   have hevalQM : eval₂ (ιM : M[X] →+* L) y₁ QM = 0 := by
     rw [hQM, eval₂_map, hcompHom]
     have : eval₂ (ιF : F[X] →+* L) y₁ Q = aeval y₁ (Q.map (ιF : F[X] →+* L)) := by
@@ -435,7 +440,8 @@ theorem linearIndependent_powerBasis_over_adjoin {ι : Type*} {x : ι → E}
   let P : _ → MvPolynomial ι F := fun j => hx.aevalEquiv.symm (g j)
   have hgP : ∀ j, (g j : E) = MvPolynomial.aeval x (P j) := by
     intro j
-    have : g j = hx.aevalEquiv (P j) := by simp [P]
+    have : g j = hx.aevalEquiv (P j) :=
+      (hx.aevalEquiv.apply_symm_apply (g j)).symm
     conv_lhs => rw [this]
     rfl
   set Q : MvPolynomial ι A :=
@@ -466,7 +472,8 @@ theorem linearIndependent_powerBasis_over_adjoin {ι : Type*} {x : ι → E}
     have := linearIndependent_iff'.mp pb.basis.linearIndependent u (fun j => (P j).coeff m)
       (hcoeff m) j hj
     simpa using this
-  have : g i = hx.aevalEquiv (P i) := by simp [P]
+  have : g i = hx.aevalEquiv (P i) :=
+    (hx.aevalEquiv.apply_symm_apply (g i)).symm
   rw [this, hPzero i hi, map_zero]
 
 theorem exists_bound_finrank_adjoin_of_fg (hfg : (⊤ : IntermediateField F E).FG) :
@@ -646,7 +653,8 @@ noncomputable def tau (b : Fin (n + 1) → K) :
 
 @[scoped simp] theorem tau_X (b : Fin (n + 1) → K) (i : Fin (n + 1)) :
     tau K n b (MvPolynomial.X i) = MvPolynomial.X i + MvPolynomial.C (b i) := by
-  simp [tau]
+  exact MvPolynomial.aeval_X (R := K)
+    (fun j => MvPolynomial.X j + MvPolynomial.C (b j)) i
 
 /-- The automorphism of the rational function field induced by translation of the polynomial
 variables. -/
@@ -657,7 +665,7 @@ noncomputable def sigma (b : Fin (n + 1) → K) :
 
 theorem sigma_algebraMap (b : Fin (n + 1) → K) (p : MvPolynomial (Fin (n + 1)) K) :
     sigma k K n b (algebraMap _ _ p) = algebraMap _ _ (tau K n b p) := by
-  simp [sigma]
+  exact IsFractionRing.algEquivOfAlgEquiv_algebraMap (tau K n b) p
 
 theorem sigma_X (b : Fin (n + 1) → K) (i : Fin (n + 1)) :
     sigma k K n b (algebraMap _ _ (MvPolynomial.X i : MvPolynomial (Fin (n + 1)) K)) =
@@ -725,7 +733,7 @@ theorem transcendental_shift (x : Fin (n + 1) → Ω) (ξ δ : Ω)
   have hfξ : f iξ = X iξ + C a₁ * X iδ := by simp [hf, hiξ]
   have hfδ : f iδ = X iξ + C a₂ * X iδ := by simp [hf, hiδ]
   have hgx : ∀ i : Fin (n + 1), g i.castSucc.castSucc = X i.castSucc.castSucc := by
-    intro i; simp [hg]
+    intro i; rw [hg, Fin.snoc_castSucc, Fin.snoc_castSucc]
   have hgξ : g iξ = C (a₂ * e) * X iξ - C (a₁ * e) * X iδ := by simp [hg, hiξ]
   have hgδ : g iδ = C e * (X iδ - X iξ) := by simp [hg, hiδ]
   have heC : C a₂ * C e - C a₁ * C e = 1 := by

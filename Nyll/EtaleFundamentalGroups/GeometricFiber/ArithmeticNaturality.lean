@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticSurjective
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedComposition
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticSurjective
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedComposition
 
 /-!
 # Naturality of the actual arithmetic fundamental-group map
@@ -14,6 +16,8 @@ The existing pointed composition theorem identifies both geometric-point
 comparisons. The chosen field-fiber comparison depends only on the composite
 point, so no new comparison or additional conjugator is needed.
 -/
+
+@[expose] public section
 
 noncomputable section
 

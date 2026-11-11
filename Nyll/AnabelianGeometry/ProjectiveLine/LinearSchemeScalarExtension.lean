@@ -4,14 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.ProjectiveLine.LinearFieldMap
-import Nyll.SchemeTheory.ProjectiveSpace.RationalPunctureCoordinateChange
+module
+
+public import Nyll.AnabelianGeometry.ProjectiveLine.LinearFieldMap
+public import Nyll.SchemeTheory.ProjectiveSpace.RationalPunctureCoordinateChange
+public import Nyll.SchemeTheory.ProjectiveSpace.Basic
 
 /-! # Scalar extension of the actual projective linear morphism
 
 The coefficientwise extension commutes with the projective-space projection
 as a scheme morphism, including the pullback on regular functions.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicGeometry.ProjSpace

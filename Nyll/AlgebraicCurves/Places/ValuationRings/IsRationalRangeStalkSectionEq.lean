@@ -10,12 +10,18 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Models.Construction.Basic
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+module
+
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.AlgebraicCurves.Places.Basic
+public import Nyll.SchemeTheory.FunctionFields.StructureMorphism
 
 /-!
 # Place is Rational of range stalk section eq
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -48,12 +54,11 @@ open RatPlaceAux in
 theorem _root_.AlgebraicCurve.Place.isRational_of_range_stalk_section_eq
     {k : Type u} [Field k] {X : Scheme.{u}} (c : X ⟶ Spec (CommRingCat.of k)) [IsIntegral X]
     (σ : Spec (CommRingCat.of k) ⟶ X) (hσ : σ ≫ c = 𝟙 _) :
-    letI := (AlgebraicCurve.baseToFunctionField c).toAlgebra
+    let := (AlgebraicCurve.baseToFunctionField c).toAlgebra
     ∀ (v : AlgebraicCurve.Place k X.functionField),
       (algebraMap (X.presheaf.stalk (σ.base (IsLocalRing.closedPoint k))) X.functionField).range =
         v.toValuationSubring.toSubring → v.IsRational := by
-  let := (AlgebraicCurve.baseToFunctionField c).toAlgebra
-  intro v hv
+  intro sharedOwner1 v hv
   set x : X := σ.base (closedPoint k) with hxdef
   let A : Type u := X.presheaf.stalk x
   let φ : A →+* X.functionField := algebraMap A X.functionField

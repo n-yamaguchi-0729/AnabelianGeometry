@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationResidueMap
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationTower
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationLocalTower
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
-import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
-import Mathlib.RingTheory.Localization.AtPrime.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationResidueMap
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationTower
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationLocalTower
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+public import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
 
 /-!
 # Local coefficient maps to the ambient residue field
@@ -19,6 +21,8 @@ import Mathlib.RingTheory.Localization.AtPrime.Basic
 Maps finite local normalizations into the original residue field. Identifies these maps with the
 finite residue embeddings and proves their finite tower compatibility.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -44,9 +48,9 @@ variable (A : Type u) (K : Type v) (L : Type w)
 /-- The actual finite local normalization maps into the original residue
 field by localizing its literal ambient inclusion and then taking residue. -/
 def actualFiniteLocalResidueMap (E : FiniteGaloisIntermediateField K L) :
-    letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+    let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
     Localization.AtPrime (finiteAbsoluteNormalizationPrime A K L Q E) →+* Q.ResidueField := by
-  letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+  intro sharedDefinitionOwner1
   exact (IsLocalRing.residue (Localization.AtPrime Q)).comp
     (Localization.localRingHom (finiteAbsoluteNormalizationPrime A K L Q E) Q
       (finiteAbsoluteNormalizationRingMap A K L E) rfl)
@@ -56,12 +60,12 @@ by the existing canonical tame coordinate. -/
 theorem actualFiniteLocalResidueMap_eq_residueMap_comp
     [IsFractionRing A K] [IsGalois K L]
     (E : FiniteGaloisIntermediateField K L) :
-    letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+    let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
     actualFiniteLocalResidueMap A K L Q E =
       (actualFiniteNormalizationResidueMap A K L Q E).comp
         (IsLocalRing.residue
           (Localization.AtPrime (finiteAbsoluteNormalizationPrime A K L Q E))) := by
-  let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+  intro sharedOwner1
   let : IsLocalHom
       (Localization.localRingHom (finiteAbsoluteNormalizationPrime A K L Q E) Q
         (finiteAbsoluteNormalizationRingMap A K L E) rfl) :=
@@ -76,13 +80,12 @@ theorem actualFiniteLocalResidueMap_eq_residueMap_comp
 finite tower triangle. -/
 theorem actualFiniteLocalResidueMap_tower
     (E F : FiniteGaloisIntermediateField K L) (h : E ≤ F) :
-    letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
-    letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q F
+    let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+    let := finiteAbsoluteNormalizationPrime_isPrime A K L Q F
     (actualFiniteLocalResidueMap A K L Q F).comp
         (actualFiniteNormalizationTowerLocalRingMap A K L Q E F h) =
       actualFiniteLocalResidueMap A K L Q E := by
-  let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
-  let := finiteAbsoluteNormalizationPrime_isPrime A K L Q F
+  intro sharedOwner1 sharedOwner2
   have hlocal := Localization.localRingHom_comp
     (finiteAbsoluteNormalizationPrime A K L Q E)
     (finiteAbsoluteNormalizationPrime A K L Q F) Q

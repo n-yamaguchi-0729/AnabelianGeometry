@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AlgebraicClosure
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackFiberPoint
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AlgebraicClosure
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackFiberPoint
 
 /-!
 # The literal point action of the extended residue Galois comparison
@@ -14,6 +16,8 @@ The canonical extension of the separable-closure fiber carries a compatible
 automorphism to its actual spectrum action on the larger geometric point.
 The original fundamental-group morphism preserves this same point action.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -34,7 +38,7 @@ theorem absoluteGaloisToExtendedFiberAut_point
     (hρ : ρ.comp (algebraMap C Ω) = (algebraMap C Ω).comp σ.toRingHom)
     (X : FiniteEtale (Spec (.of k))) (x : (fib k Ω).obj X) :
     (fiberObjEquivHom (ξ k Ω) X
-      ((absoluteGaloisToExtendedFiberAut k C Ω σ).hom.app X x)).left =
+      ((absoluteGaloisToExtendedFiberAut k C Ω σ).asIso.hom.app X x)).left =
       Spec.map (CommRingCat.ofHom ρ) ≫ (fiberObjEquivHom (ξ k Ω) X x).left := by
   have : IsSepClosed C := IsSepClosure.sep_closed k
   let t := fieldFiberExtensionIso k C Ω
@@ -77,10 +81,10 @@ theorem fundamentalGroupHom_point_of_point_action
     {S T : Scheme.{u}} (f : S ⟶ T) (s : Spec (.of Ω) ⟶ S)
     (a : π₁ᵉᵗ(s)) (ρ : Ω →+* Ω)
     (ha : ∀ (X : FiniteEtale S) (x : (fiber s).obj X),
-      (fiberObjEquivHom s X (a.hom.app X x)).left =
+      (fiberObjEquivHom s X (a.asIso.hom.app X x)).left =
         Spec.map (CommRingCat.ofHom ρ) ≫ (fiberObjEquivHom s X x).left)
     (Y : FiniteEtale T) (y : (fiber (s ≫ f)).obj Y) :
-    (fiberObjEquivHom (s ≫ f) Y ((fundamentalGroupHom f s a).hom.app Y y)).left =
+    (fiberObjEquivHom (s ≫ f) Y ((fundamentalGroupHom f s a).asIso.hom.app Y y)).left =
       Spec.map (CommRingCat.ofHom ρ) ≫ (fiberObjEquivHom (s ≫ f) Y y).left := by
   obtain ⟨x, rfl⟩ := ((ConcreteCategory.isIso_iff_bijective
     ((pullbackFiberIso f s).hom.app Y)).mp inferInstance).surjective y

@@ -4,15 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.H1Character
-import Nyll.EtaleFundamentalGroups.Cohomology.H1CharacterPullback
-import Nyll.EtaleFundamentalGroups.Cohomology.SchemePullback
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenNormalFundamentalGroup
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Mathlib.Topology.Algebra.OpenSubgroup
-import Mathlib.GroupTheory.Index
-import Mathlib.Algebra.Group.Subgroup.Ker
-import Mathlib.Data.Nat.Prime.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1Character
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1CharacterPullback
+public import Nyll.EtaleFundamentalGroups.Cohomology.SchemePullback
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenNormalFundamentalGroup
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Mathlib.Topology.Algebra.OpenSubgroup
+public import Mathlib.GroupTheory.Index
+public import Mathlib.Algebra.Group.Subgroup.Ker
+public import Mathlib.Data.Nat.Prime.Basic
 
 /-!
 # Killing actual finite-coefficient H¹ on a finite étale cover
@@ -29,6 +31,8 @@ The result here allows any finite abelian constant coefficients and asserts
 finite étale effacement, with geometric fiber degree dividing the order of
 the coefficient group. The higher-degree K(pi,1) comparison is not asserted.
 -/
+
+@[expose] public section
 
 noncomputable section
 

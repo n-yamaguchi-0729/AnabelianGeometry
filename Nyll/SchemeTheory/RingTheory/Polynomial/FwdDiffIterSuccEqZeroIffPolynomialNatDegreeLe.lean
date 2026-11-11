@@ -10,16 +10,20 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Algebra.Group.ForwardDiff
-import Mathlib.Algebra.Polynomial.Roots
-import Mathlib.RingTheory.Polynomial.Pochhammer
-import Mathlib.Tactic.Ring.RingNF
-import Mathlib.Tactic.SimpRw
-import Mathlib.Tactic.WLOG
+module
+
+public import Mathlib.Algebra.Group.ForwardDiff
+public import Mathlib.Algebra.Polynomial.Roots
+public import Mathlib.RingTheory.Polynomial.Pochhammer
+public import Mathlib.Tactic.Ring.RingNF
+public import Mathlib.Tactic.SimpRw
+public import Mathlib.Tactic.WLOG
 
 /-!
 # fwd Diff iter succ eq zero iff exists polynomial nat Degree le
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

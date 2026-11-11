@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.ResidueAbelianCharacters
-import Nyll.AnabelianGeometry.WeightFiltration.CharacterAnnihilatorTransport
-import Nyll.AnabelianGeometry.WeightFiltration.ResidueNumericalInvariants
-import Nyll.AlgebraicCurves.Models.Points.RationalPointExistence
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.ResidueAbelianCharacters
+public import Nyll.AnabelianGeometry.WeightFiltration.CharacterAnnihilatorTransport
+public import Nyll.AnabelianGeometry.WeightFiltration.ResidueNumericalInvariants
+public import Nyll.AlgebraicCurves.Models.Points.RationalPointExistence
 
 /-!
 # Numerical invariants under boundary-preserving abelian equivalences
@@ -16,6 +18,8 @@ The actual compactification kernel determines the genus, and, when the
 boundary is nonempty on both sides, its cardinality. Individual inertia
 subgroups need not be matched for this argument.
 -/
+
+@[expose] public section
 
 noncomputable section
 

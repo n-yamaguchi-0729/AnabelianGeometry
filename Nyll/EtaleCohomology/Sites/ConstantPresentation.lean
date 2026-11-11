@@ -4,17 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Sites.ConstantRepresentable
-import Mathlib.AlgebraicGeometry.Morphisms.Etale
-import Mathlib.AlgebraicGeometry.Sites.Etale
-import Mathlib.AlgebraicGeometry.Sites.Small
-import Mathlib.Algebra.Module.Submodule.Equiv
-import Mathlib.Algebra.Module.Submodule.Range
-import Mathlib.CategoryTheory.Sites.LocallyInjective
-import Mathlib.CategoryTheory.Sites.LocallySurjective
-import Mathlib.RingTheory.Finiteness.Defs
-import Mathlib.LinearAlgebra.Finsupp.LinearCombination
-import Mathlib.Algebra.Category.ModuleCat.Basic
+module
+
+public import Nyll.EtaleCohomology.Sites.ConstantRepresentable
+public import Mathlib.AlgebraicGeometry.Morphisms.Etale
+public import Mathlib.AlgebraicGeometry.Sites.Etale
+public import Mathlib.AlgebraicGeometry.Sites.Small
+public import Mathlib.Algebra.Module.Submodule.Equiv
+public import Mathlib.Algebra.Module.Submodule.Range
+public import Mathlib.CategoryTheory.Sites.LocallyInjective
+public import Mathlib.CategoryTheory.Sites.LocallySurjective
+public import Mathlib.RingTheory.Finiteness.Defs
+public import Mathlib.LinearAlgebra.Finsupp.LinearCombination
+public import Mathlib.Algebra.Category.ModuleCat.Basic
 
 /-!
 # Local factorization of finitely generated constant modules
@@ -25,6 +27,8 @@ intersection of covering image sieves puts all generators in the image. On
 a neighborhood containing a chosen point, local injectivity of the constant
 presentation is genuine injectivity, so the resulting lift is linear.
 -/
+
+@[expose] public section
 
 noncomputable section
 universe u

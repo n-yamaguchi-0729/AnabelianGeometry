@@ -4,12 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryInertiaCentralizer
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaProcyclic
-import Nyll.AnabelianGeometry.CuspidalInertia.CyclicDetection
-import Nyll.AnabelianGeometry.CuspidalInertia.FiniteQuotientSeparation
+module
+
+public import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryInertiaCentralizer
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaProcyclic
+public import Nyll.AnabelianGeometry.CuspidalInertia.CyclicDetection
+public import Nyll.AnabelianGeometry.CuspidalInertia.FiniteQuotientSeparation
 
 /-! # Recognition of actual boundary inertia by relative tests -/
+
+@[expose] public section
 
 noncomputable section
 

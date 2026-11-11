@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperLocalSectionAlgebra
-import Nyll.SchemeTheory.Affine.SpecFlatBaseChangeSections
-import Nyll.SchemeTheory.FiniteEtale.Algebra.EtaleFromLocalizations
-import Nyll.AlgebraicCurves.Geometry.Schemes.Sections.FiniteAppTopProper
-import Mathlib.RingTheory.LocalProperties.Projective
-import Mathlib.RingTheory.Localization.BaseChange
-import Mathlib.Algebra.Module.FinitePresentation
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperLocalSectionAlgebra
+public import Nyll.SchemeTheory.Affine.SpecFlatBaseChangeSections
+public import Nyll.SchemeTheory.FiniteEtale.Algebra.EtaleFromLocalizations
+public import Nyll.SchemeTheory.Morphisms.ProperGlobalSectionsFinite
+public import Mathlib.RingTheory.LocalProperties.Projective
+public import Mathlib.RingTheory.Localization.BaseChange
+public import Mathlib.Algebra.Module.FinitePresentation
 
 /-!
 # Finite étale sections over a Noetherian affine base
@@ -20,6 +22,8 @@ with sections of the localized family. The proved local-family theorem gives
 finite projectivity and étaleness there. Localization detects projectivity
 and the vanishing of differentials for the original section algebra.
 -/
+
+@[expose] public section
 
 noncomputable section
 

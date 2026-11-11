@@ -4,17 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Etale.ClosedNeighborhoodLift
-import Nyll.SchemeTheory.Etale.ClosedNeighborhoodEqualizer
-import Mathlib.CategoryTheory.Filtered.Final
-import Mathlib.CategoryTheory.Functor.Flat
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.Pasting
-import Nyll.EtaleCohomology.Sites.BaseChange
-import Mathlib.AlgebraicGeometry.Sites.EtalePoint
-import Mathlib.CategoryTheory.MorphismProperty.Comma
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.HasPullback
-import Mathlib.CategoryTheory.Elements
-import Mathlib.CategoryTheory.Comma.StructuredArrow.Basic
+module
+
+public import Nyll.SchemeTheory.Etale.ClosedNeighborhoodLift
+public import Nyll.SchemeTheory.Etale.ClosedNeighborhoodEqualizer
+public import Mathlib.CategoryTheory.Filtered.Final
+public import Mathlib.CategoryTheory.Functor.Flat
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.Pasting
+public import Nyll.EtaleCohomology.Sites.BaseChange
+public import Mathlib.AlgebraicGeometry.Sites.EtalePoint
+public import Mathlib.CategoryTheory.MorphismProperty.Comma
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.HasPullback
+public import Mathlib.CategoryTheory.Elements
+public import Mathlib.CategoryTheory.Comma.StructuredArrow.Basic
 
 /-!
 # Closed-subscheme neighborhoods and geometric points
@@ -30,6 +32,8 @@ costructured arrow categories are connected and the neighborhood functor
 is initial, allowing stalks to be computed on ambient neighborhoods.
 -/
 
+
+@[expose] public section
 
 noncomputable section
 

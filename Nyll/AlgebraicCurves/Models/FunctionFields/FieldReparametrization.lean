@@ -10,8 +10,10 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
-import Nyll.AlgebraicCurves.Places.Rational.Basic
+module
+
+public import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
+public import Nyll.AlgebraicCurves.Places.Rational.Basic
 
 /-! # Field-coordinate reparametrization of a curve model
 
@@ -19,6 +21,8 @@ Transport the function-field identification and places along a base-field algebr
 equivalence while retaining the literal curve, structure map, and boundary points.
 The constructor and boundary equivalence are extracted from the attributed owner.
 -/
+
+@[expose] public section
 
 noncomputable section
 universe u v w

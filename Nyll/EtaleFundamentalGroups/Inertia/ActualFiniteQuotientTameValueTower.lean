@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameValue
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinateTower
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameOrderTower
-import Mathlib.FieldTheory.Galois.GaloisClosure
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameValue
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinateTower
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameOrderTower
+public import Mathlib.FieldTheory.Galois.GaloisClosure
 
 /-!
 # Actual quotient-scalar compatibility over every divisible pair of degrees
@@ -15,6 +17,8 @@ import Mathlib.FieldTheory.Galois.GaloisClosure
 The common-upper-stage calculation uses the existing normalized raw maps.
 No finite root group is opened while the third finite stage is in scope.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

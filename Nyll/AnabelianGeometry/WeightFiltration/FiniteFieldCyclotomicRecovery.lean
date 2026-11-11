@@ -3,11 +3,13 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsResidueAction
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsSurjectivity
-import Mathlib.FieldTheory.Finite.Basic
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
-import Mathlib.FieldTheory.Perfect
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsResidueAction
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsSurjectivity
+public import Mathlib.FieldTheory.Finite.Basic
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+public import Mathlib.FieldTheory.Perfect
 
 /-! # Characteristic and Frobenius in the actual roots representation
 
@@ -23,6 +25,8 @@ or recovery of its geometric subgroup from an unmarked arithmetic group, is
 asserted here. In particular these statements do not replace the geometric
 parts of Yamaguchi, arXiv:2302.09253, Lemmas 1.4 and 1.8.
 -/
+
+@[expose] public section
 
 noncomputable section
 open EtaleFundamentalGroups.Inertia ProCGroups.InverseSystems
@@ -83,7 +87,7 @@ theorem primeToRoots_prime_pow_surjective_iff
     let : NeZero (ℓ : E) := ⟨hℓE⟩
     let : NeZero ℓ := ⟨hℓ.ne_zero⟩
     let n : InvertibleExponent k := ⟨ℓ, isUnit_iff_ne_zero.mpr hℓk⟩
-    obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_primitiveRoot E ℓ
+    obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_isPrimitiveRoot E ℓ
     let η : rootsOfUnity n.val E := hζ.toRootsOfUnity
     obtain ⟨t, ht⟩ := primeToRoots_projection_surjective k E n η
     obtain ⟨u, hu⟩ := hsurj t

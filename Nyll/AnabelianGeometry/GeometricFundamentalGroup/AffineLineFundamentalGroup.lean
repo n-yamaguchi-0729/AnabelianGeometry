@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.AffineLineEtaleAlgebra
-import Nyll.SchemeTheory.LocalGeometry.ConnectedDomainStalks
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.EtaleFundamentalGroups.Pi1.FiniteEtale.GaloisCategory
-import Mathlib.CategoryTheory.Galois.Prorepresentability
-import Mathlib.AlgebraicGeometry.Noetherian
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.AffineLineEtaleAlgebra
+public import Nyll.SchemeTheory.LocalGeometry.ConnectedDomainStalks
+public import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Nyll.EtaleFundamentalGroups.Pi1.FiniteEtale.GaloisCategory
+public import Mathlib.CategoryTheory.Galois.Prorepresentability
+public import Mathlib.AlgebraicGeometry.Noetherian
 
 /-!
 # The etale fundamental group of the affine line in characteristic zero
@@ -21,6 +23,8 @@ and Riemann--Hurwitz argument. The original scheme morphism is therefore an isom
 The actual geometric fibre functor and Galois reconstruction then give triviality of
 the etale fundamental group.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -107,14 +111,15 @@ theorem subsingleton_fundamentalGroup_affineLine
     Subsingleton π₁ᵉᵗ(ξ) := by
   constructor
   intro σ τ
-  apply Iso.ext
-  apply (endEquivAutGalois (fiber ξ)).injective
-  apply AutGalois.ext
-  intro A
-  have connected : ConnectedSpace A.obj.left := connectedSpace_left_of_isConnected A.obj
-  have singleton : Subsingleton ((fiber ξ).obj A.obj) :=
-    subsingleton_fiber_of_connected_affineLine ξ A.obj
-  apply evaluation_aut_injective_of_isConnected (fiber ξ) A.obj A.pt
-  exact Subsingleton.elim _ _
+  have hEnd : Aut.toEnd σ = Aut.toEnd τ := by
+    apply (endEquivAutGalois (fiber ξ)).injective
+    apply AutGalois.ext
+    intro A
+    have connected : ConnectedSpace A.obj.left := connectedSpace_left_of_isConnected A.obj
+    have singleton : Subsingleton ((fiber ξ).obj A.obj) :=
+      subsingleton_fiber_of_connected_affineLine ξ A.obj
+    apply evaluation_aut_injective_of_isConnected (fiber ξ) A.obj A.pt
+    exact Subsingleton.elim _ _
+  exact Aut.ext (Iso.ext (congrArg End.asHom hEnd))
 
 end AnabelianGeometry.GeometricFundamentalGroup

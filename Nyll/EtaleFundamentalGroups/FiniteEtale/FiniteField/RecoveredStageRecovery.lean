@@ -3,16 +3,20 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.RecoveredFiniteStage
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.RecoveredCoefficientRecovery
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.OverCoefficientCover
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.CommonCoverRecovery
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.RecoveredFiniteStage
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.RecoveredCoefficientRecovery
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.OverCoefficientCover
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.CommonCoverRecovery
 
 /-!
 # Recovered Stage Recovery
 
 The actual recovered finite-stage charts form an open cover of the input scheme.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory Limits Opposite AlgebraicGeometry
@@ -34,7 +38,6 @@ local notation "φE" => Spec.map (CommRingCat.ofHom
   (algebraMap k (IntermediateField.adjoin k (s : Set L))))
 local notation "ψ" => Spec.map (CommRingCat.ofHom
   (AlgHom.toRingHom (IntermediateField.val (IntermediateField.adjoin k (s : Set L)))))
-local notation "𝒰E" => constantFieldOpenCover k (IntermediateField.adjoin k (s : Set L)) S f 𝒰
 local notation "a" => (fun i : 𝒰.I₀ => Comma.hom (M i) ≫ 𝒰.f i)
 local notation "V₀" => (fun ij : 𝒰.I₀ × 𝒰.I₀ =>
   pullback (Comma.hom (M (Prod.fst ij)) ≫ 𝒰.f (Prod.fst ij)) (𝒰.f (Prod.snd ij)))
@@ -46,12 +49,6 @@ local notation "VE" => (fun ij : 𝒰.I₀ × 𝒰.I₀ =>
   coefficientOverlapOver φE f (𝒰.f (Prod.fst ij)) (𝒰.f (Prod.snd ij)) (Comma.hom (M (Prod.fst ij))))
 local notation "dE" => (fun i j : 𝒰.I₀ =>
   coefficientOverlapInclusion φE f (𝒰.f i) (𝒰.f j) (Comma.hom (M i)))
-local notation "yE" => (fun i : 𝒰.I₀ =>
-  coefficientLocalModelStructure φE f (𝒰.f i) (Comma.hom (M i)))
-local notation "ℓE" => (fun i j : 𝒰.I₀ =>
-  coefficientOverlapSecondMap φE f (𝒰.f i) (𝒰.f j) (Comma.hom (M i)))
-local notation "hVE" => (fun i j : 𝒰.I₀ =>
-  coefficientOverlap_isPullback φE f (𝒰.f i) (𝒰.f j) (Comma.hom (M i)))
 
 variable (g : ∀ ij : 𝒰.I₀ × 𝒰.I₀, pullback (Spec.map (CommRingCat.ofHom (algebraMap k
   (IntermediateField.adjoin k (s : Set L))))) ((pullback.fst ((M ij.1).hom ≫ 𝒰.f ij.1) (𝒰.f ij.2)

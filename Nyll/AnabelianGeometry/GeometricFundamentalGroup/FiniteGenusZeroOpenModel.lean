@@ -4,13 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteGenusZeroModel
-import Nyll.AlgebraicCurves.Models.Rational.RationalBoundaryConfigurationIso
-import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
-import Nyll.AlgebraicCurves.Models.ConstantExtension.SemilinearTower
-import Nyll.AlgebraicCurves.Models.Sections.RationalSectionBoundaryPlace
-import Mathlib.AlgebraicGeometry.AlgClosed.Basic
-import Mathlib.AlgebraicGeometry.Morphisms.UnderlyingMap
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteGenusZeroModel
+public import Nyll.AlgebraicCurves.Models.Rational.RationalBoundaryConfigurationIso
+public import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
+public import Nyll.AlgebraicCurves.Models.ConstantExtension.SemilinearTower
+public import Nyll.AlgebraicCurves.Models.Sections.RationalSectionBoundaryPlace
+public import Mathlib.AlgebraicGeometry.AlgClosed.Basic
+public import Mathlib.AlgebraicGeometry.Morphisms.UnderlyingMap
+public import Nyll.AlgebraicCurves.Geometry.IsClosedSingletonNeGenericPoint
 
 /-! # An actual split model of an open genus-zero curve
 
@@ -19,6 +22,8 @@ of extension of constants then shows that every boundary point of the finite
 model is the image of one of the descended sections. The actual finite open
 is therefore a literal rational-configuration open.
 -/
+
+@[expose] public section
 
 noncomputable section
 

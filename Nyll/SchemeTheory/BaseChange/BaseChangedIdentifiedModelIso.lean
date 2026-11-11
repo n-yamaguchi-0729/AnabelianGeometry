@@ -3,7 +3,9 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Basic
+module
+
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Basic
 
 /-! # Base change of the already identified original model cover
 
@@ -12,6 +14,8 @@ on the given coefficient pullback. The already constructed cover-model
 isomorphism then supplies its base-changed isomorphism, retaining the base
 projection and the original model chart after coefficient projection.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory
 

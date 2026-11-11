@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.StrictHenselian.OrdinaryHenselization
-import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkChangeField
-import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkHenselianMap
-import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkFlat
-import Nyll.SchemeTheory.Etale.HenselianLocalSection
-import Mathlib.AlgebraicGeometry.Morphisms.Etale
-import Mathlib.AlgebraicGeometry.Morphisms.RingHomProperties
-import Mathlib.RingTheory.RingHom.Etale
+module
+
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.OrdinaryHenselization
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkChangeField
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkHenselianMap
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkFlat
+public import Nyll.SchemeTheory.Etale.HenselianLocalSection
+public import Mathlib.AlgebraicGeometry.Morphisms.Etale
+public import Mathlib.AlgebraicGeometry.Morphisms.RingHomProperties
+public import Mathlib.RingTheory.RingHom.Etale
 
 /-!
 # The universal property of the constructed ordinary henselization
@@ -25,6 +27,8 @@ Local maps with the same base map have the same residue map, because
 Henselian étale lift then makes their section maps equal. Every germ admits
 such an affine refinement, proving uniqueness on the original colimit.
 -/
+
+@[expose] public section
 
 noncomputable section
 

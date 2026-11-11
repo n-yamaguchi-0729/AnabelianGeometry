@@ -4,14 +4,20 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
-import Nyll.SchemeTheory.FunctionFields.ScalarFunctoriality
-import Nyll.AlgebraicCurves.Places.Restriction.EquivComapEqOrdEqDegEq
-import Nyll.SchemeTheory.FunctionFields.OpenImmersion
+module
+
+public import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
+public import Nyll.SchemeTheory.FunctionFields.ScalarFunctoriality
+public import Nyll.AlgebraicCurves.Places.Restriction.EquivComapEqOrdEqDegEq
+public import Nyll.SchemeTheory.FunctionFields.OpenImmersion
 
 /-! # Actual interior places under the open function-field identification -/
 
+@[expose] public section
+
 noncomputable section
+
+universe u v
 
 open CategoryTheory AlgebraicGeometry TopologicalSpace
 
@@ -19,12 +25,12 @@ namespace AlgebraicCurve.CurveModel
 
 attribute [local instance] CurveModel.isIntegral CurveModel.isProper CurveModel.smooth
 
-variable {K F : Type} [Field K] [Field F] [Algebra K F]
+variable {K : Type u} {F : Type v} [Field K] [Field F] [Algebra K F]
 
 /-- The literal function-field identification of the open curve preserves
 the scalar map from its actual structure morphism. -/
 theorem openFunctionFieldEquiv_algebraMap
-    (M : CurveModel K F) {X : Scheme} [IsIntegral X]
+    (M : CurveModel K F) {X : Scheme.{u}} [IsIntegral X]
     (j : X ⟶ M.C) [IsOpenImmersion j] (a : K) :
     (M.ffEquiv.trans j.functionFieldRingEquivOfIsOpenImmersion)
         (algebraMap K F a) = baseToFunctionField (j ≫ M.toBase) a := by
@@ -37,7 +43,7 @@ theorem openFunctionFieldEquiv_algebraMap
 /-- Membership in the valuation ring at an interior model point is
 equivalent to membership in the actual local-ring image of the open curve. -/
 theorem openFunctionFieldEquiv_mem_stalk_range_iff
-    (M : CurveModel K F) {X : Scheme} [IsIntegral X]
+    (M : CurveModel K F) {X : Scheme.{u}} [IsIntegral X]
     (j : X ⟶ M.C) [IsOpenImmersion j]
     (x : X) (z : closedPoints M.C) (hz : z.val = j x) (a : F) :
     (M.ffEquiv.trans j.functionFieldRingEquivOfIsOpenImmersion) a ∈
@@ -69,7 +75,7 @@ theorem openFunctionFieldEquiv_mem_stalk_range_iff
 actual stalk image, and its order function is unchanged. The equivalence
 of places is obtained from the existing field-isomorphism theorem. -/
 theorem exists_openPlaceEquiv_stalk_range_ord
-    (M : CurveModel K F) {X : Scheme} [IsIntegral X]
+    (M : CurveModel K F) {X : Scheme.{u}} [IsIntegral X]
     (j : X ⟶ M.C) [IsOpenImmersion j] :
     let : Algebra K X.functionField := (baseToFunctionField (j ≫ M.toBase)).toAlgebra
     ∃ Φ : Place K F ≃ Place K X.functionField,

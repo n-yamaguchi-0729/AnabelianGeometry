@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.Valuation.ValuationSubring
-import Mathlib.RingTheory.LocalRing.MaximalIdeal.Basic
-import Mathlib.Algebra.Group.Units.Equiv
+module
+
+public import Mathlib.RingTheory.Valuation.ValuationSubring
+public import Mathlib.RingTheory.LocalRing.MaximalIdeal.Basic
+public import Mathlib.Algebra.Group.Units.Equiv
 
 /-!
 # Actual principal-unit multipliers and field-unit quotients
@@ -16,6 +18,8 @@ to the field-unit predicate used by Hilbert ramification. The proof constructs
 the required units and uses the valuation alternative, without any fraction
 field scalar dictionaries or a supplied subgroup comparison.
 -/
+
+@[expose] public section
 
 noncomputable section
 

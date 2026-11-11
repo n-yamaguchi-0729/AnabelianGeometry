@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.StrictHenselian.SeparablyClosedFractionResidue
-import Mathlib.Algebra.Polynomial.Eval.Irreducible
-import Mathlib.Algebra.Polynomial.Lifts
-import Mathlib.Algebra.Polynomial.Monic
-import Mathlib.FieldTheory.IsSepClosed
-import Mathlib.RingTheory.Henselian
+module
+
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.SeparablyClosedFractionResidue
+public import Mathlib.Algebra.Polynomial.Eval.Irreducible
+public import Mathlib.Algebra.Polynomial.Lifts
+public import Mathlib.Algebra.Polynomial.Monic
+public import Mathlib.FieldTheory.IsSepClosed
+public import Mathlib.RingTheory.Henselian
 
 /-!
 # Normal local domains with separably closed fraction field
@@ -20,6 +22,8 @@ closedness force that factor to be linear. This gives the Hensel lift.
 
 Reference: https://stacks.math.columbia.edu/tag/0BSQ
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.StrictHenselian
 

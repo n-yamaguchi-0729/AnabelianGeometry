@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingFiniteTameCharacter
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacterConjugation
-import Mathlib.RingTheory.RootsOfUnity.Basic
-import Mathlib.GroupTheory.GroupAction.ConjAct
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingFiniteTameCharacter
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacterConjugation
+public import Mathlib.RingTheory.RootsOfUnity.Basic
+public import Mathlib.GroupTheory.GroupAction.ConjAct
 
 /-!
 # Uniformizer and conjugation formulas for tame characters
@@ -15,6 +17,8 @@ import Mathlib.GroupTheory.GroupAction.ConjAct
 Computes powers of the tame character using any uniformizer and proves their compatibility with
 conjugation and the residue-field action.
 -/
+
+@[expose] public section
 
 noncomputable section
 

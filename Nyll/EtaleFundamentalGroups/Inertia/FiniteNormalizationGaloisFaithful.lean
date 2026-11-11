@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalFiniteNormalizationInertia
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelFieldAlgebra
-import Nyll.SchemeTheory.Normalization.NormalizationAutomorphismGroupMap
-import Nyll.SchemeTheory.Normalization.ScalarRestrictionGroupMap
-import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalFiniteNormalizationInertia
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelFieldAlgebra
+public import Nyll.SchemeTheory.Normalization.NormalizationAutomorphismGroupMap
+public import Nyll.SchemeTheory.Normalization.ScalarRestrictionGroupMap
+public import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
 
 /-!
 # Faithfulness of actual finite normalization automorphisms
@@ -17,6 +19,8 @@ import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
 Fraction-field uniqueness proves faithfulness in the native finite field
 owner. The actual finite-stage map then uses that closed result.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

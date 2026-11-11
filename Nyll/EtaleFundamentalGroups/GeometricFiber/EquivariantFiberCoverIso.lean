@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Mathlib.CategoryTheory.Galois.Full
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackFiberPoint
+module
+
+public import Mathlib.CategoryTheory.Galois.Full
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackFiberPoint
 
 /-! # Recovering the actual cover isomorphism from its original fiber map
 
@@ -14,6 +16,8 @@ changing that equivalence. The pointed pullback comparison then realizes
 equivariance under an actual base-change group image as an isomorphism of
 the two actual pulled-back covers, with the original fiber map retained.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory
 open scoped FintypeCatDiscrete

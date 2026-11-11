@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+module
+
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
 
 /-!
 # Recovering a radical ratio from simultaneous twists
@@ -19,6 +21,8 @@ already been reconstructed from an étale fundamental group.
 The argument works over any field, hence in particular over number fields
 and their cyclotomic extensions.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.KummerTheory
 

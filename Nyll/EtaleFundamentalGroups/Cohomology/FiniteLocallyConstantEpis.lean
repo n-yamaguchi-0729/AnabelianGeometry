@@ -4,12 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Constructible.Monodromy
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteLocallyConstantDetection
-import Mathlib.Algebra.Category.Grp.EpiMono
-import Mathlib.Algebra.Category.Grp.AB
-import Mathlib.CategoryTheory.Functor.EpiMono
-import Mathlib.CategoryTheory.Sites.Point.Conservative
+module
+
+public import Nyll.EtaleCohomology.Constructible.Monodromy
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteLocallyConstantDetection
+public import Mathlib.Algebra.Category.Grp.EpiMono
+public import Mathlib.Algebra.Category.Grp.AB
+public import Mathlib.CategoryTheory.Functor.EpiMono
+public import Mathlib.CategoryTheory.Sites.Point.Conservative
+public import Mathlib.CategoryTheory.Sites.Point.Skyscraper
 
 /-!
 # Surjectivity detected at one geometric stalk
@@ -20,6 +23,8 @@ Galois fiber functors reflect epimorphisms and every geometric fiber functor
 preserves them. The conservative family of geometric points then detects
 the epimorphism in the ambient category of all abelian sheaves.
 -/
+
+@[expose] public section
 
 noncomputable section
 

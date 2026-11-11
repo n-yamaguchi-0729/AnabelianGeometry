@@ -4,22 +4,30 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Picard.AlgebraicPointsEquivariance
-import Nyll.JacobianVarieties.Picard.BaseChange.ConormAlgebraicPoints
-import Nyll.JacobianVarieties.Picard.Torsion.DivisionPointDivisors
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationFieldDisplacement
-import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
-import Nyll.AlgebraicCurves.Models.ConstantExtension.CurveModelSemilinearFixedField
+module
+
+public import Nyll.AlgebraicCurves.Geometry.Picard.AlgebraicPointsEquivariance
+public import Nyll.JacobianVarieties.Picard.BaseChange.ConormAlgebraicPoints
+public import Nyll.JacobianVarieties.Picard.Torsion.DivisionPointDivisors
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianUnitMultiplicationAlgebraicPoints
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianUnitMonodromy
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianUnitTorsionFiber
+public import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
+public import Nyll.AlgebraicCurves.Models.ConstantExtension.CurveModelSemilinearFixedField
 
 /-!
 # Divisors of actual Abel--Jacobi division points
 
 The Picard comparison and its coefficient equivariance are constructed from
 the representing Picard scheme and the Abel--Jacobi point formula. A point
-of the actual multiplication fibre then supplies a moving divisor and a
+of the actual invertible-index multiplication fibre supplies a moving divisor and a
 division function. Its coefficient displacement is proved to be the actual
 multiplication-monodromy point, with no assumed action comparison.
 -/
+
+@[expose] public section
+
+universe u
 
 noncomputable section
 
@@ -41,11 +49,12 @@ attribute [local instance]
 
 /-- The actual division divisor difference is the conorm of the original
 multiplication-monodromy point in the Picard coordinates furnished by the
-Abel--Jacobi point formula. Both the action and conorm comparisons are proved. -/
+Abel--Jacobi point formula. The index is invertible in the constants;
+both the action and conorm comparisons are proved in arbitrary characteristic. -/
 theorem exists_abelJacobi_division_divisor_displacement
-    {K L Ω F₀ F : Type} [Field K] [IsAlgClosed K] [CharZero K]
+    {K L Ω F₀ F : Type u} [Field K] [IsAlgClosed K]
     [Field L] [Algebra K L] [Field Ω] [IsAlgClosed Ω] [Algebra K Ω]
-    [Algebra L Ω] [IsScalarTower K L Ω] [IsSepClosed Ω] [IsSepClosure L Ω]
+    [Algebra L Ω] [IsScalarTower K L Ω] [IsSepClosed Ω]
     [Field F₀] [Algebra K F₀] [IsCurveOver K F₀]
     [Field F] [Algebra Ω F] [IsCurveOver Ω F]
     [Algebra F₀ F] [Algebra K F]
@@ -62,7 +71,7 @@ theorem exists_abelJacobi_division_divisor_displacement
     (hD : RepresentsRelSubPic M₀.toBase ε (algEquivZeroCut M₀.toBase ε) D)
     [Smooth D.toBase] [IsProper D.toBase] [GeometricallyConnected D.toBase]
     (aj : SchemeHomOver M₀.toBase D.toBase)
-    (hclass : ∀ (L : Type) [Field L] (t : Spec (.of L) ⟶ Spec (.of K))
+    (hclass : ∀ (L : Type u) [Field L] (t : Spec (.of L) ⟶ Spec (.of K))
       (x : SchemeHomOver t M₀.toBase),
       Nonempty ((hD.poincare.pullbackAlong
         ⟨x.1 ≫ aj.1, (Category.assoc _ _ _).trans
@@ -87,7 +96,7 @@ theorem exists_abelJacobi_division_divisor_displacement
       Spec.map (CommRingCat.ofHom (algebraMap L Ω)) ≫ u.1)
     (hs : s.1 ≫ eC.hom ≫ pullback.fst M₀.toBase (specMap K Ω) =
       specMap K Ω ≫ ε.1)
-    (n : ℕ+) :
+    (n : ℕ+) (hn : IsUnit ((n : ℕ) : K)) :
     let G := RepresentsRelSubPic.relativeGroupLaw
       (P := algEquivZeroGroupCut M₀.toBase ε) hD
     let hc : G.IsCommutative := RepresentsRelSubPic.relativeGroupLaw_isCommutative
@@ -103,7 +112,7 @@ theorem exists_abelJacobi_division_divisor_displacement
             Finsupp.single (M₀.pointEquivPlace ε) 1 ∧
           (RelativeGroupLaw.AlgPoints.toPoint (e₀ (Pic0.mk Dv))).1 = a.1 ≫ aj.1) →
     ∀ (τ : FiniteEtale.fiber ξ.1 ≅ FiniteEtale.fiber (G.one (𝟙 (Spec (.of K)))).1)
-      (z : (FiniteEtale.fiber ξ.1).obj (G.multiplicationCover hc n))
+      (z : (FiniteEtale.fiber ξ.1).obj (RelativeGroupLaw.UnitMultiplication.cover G hc ⟨n, hn⟩))
       (S : Finset (Place Ω F)),
     ∃ (e : Pic0 Ω F ≃+ G.AlgPoints hc Ω)
       (B E : Divisor.degZero (K := Ω) (F := F)) (f : F),
@@ -116,7 +125,7 @@ theorem exists_abelJacobi_division_divisor_displacement
             a.1 ≫ eC.hom ≫ pullback.fst M₀.toBase (specMap K Ω) ≫ aj.1) ∧
       (B : Divisor Ω F) = Finsupp.single (M.pointEquivPlace x) 1 -
         Finsupp.single (M.pointEquivPlace s) 1 ∧
-      e (Pic0.mk E) = G.multiplicationFiberAlgPoint hc ξ n z ∧
+      e (Pic0.mk E) = RelativeGroupLaw.UnitMultiplication.fiberAlgPoint G hc ξ ⟨n, hn⟩ z ∧
       (∀ v ∈ (E : Divisor Ω F).support, v ∉ S) ∧
       f ≠ 0 ∧
       (∀ v : Place Ω F, v.ord f = (n : ℤ) * (E : Divisor Ω F) v -
@@ -138,7 +147,7 @@ theorem exists_abelJacobi_division_divisor_displacement
         γ • (B : Divisor Ω F) = (B : Divisor Ω F) ∧
         γ • Pic0.mk E - Pic0.mk E =
           conPic0 hfg hfg' hgen (e₀.symm
-            (G.multiplicationMonodromy hc n
+            (RelativeGroupLaw.UnitMultiplication.monodromy G hc ⟨n, hn⟩
               (continuousConjAut τ
                 (FiniteEtale.fundamentalGroupHom j.1
                   (Spec.map (CommRingCat.ofHom (algebraMap L Ω)))
@@ -157,11 +166,12 @@ theorem exists_abelJacobi_division_divisor_displacement
     change x.1 ≫ eC.hom ≫ pullback.fst M₀.toBase (specMap K Ω) ≫ aj.1 =
       Spec.map (CommRingCat.ofHom (algebraMap L Ω)) ≫ u.1 ≫ aj.1
     simpa only [Category.assoc] using congrArg (fun v => v ≫ aj.1) hx
-  have hQ : (n : ℕ) • G.multiplicationFiberAlgPoint hc ξ n z = e (Pic0.mk B) :=
-    (G.nsmul_multiplicationFiberAlgPoint hc ξ n z).trans heB.symm
+  have hQ : (n : ℕ) • RelativeGroupLaw.UnitMultiplication.fiberAlgPoint G hc ξ ⟨n, hn⟩ z =
+      e (Pic0.mk B) :=
+    (RelativeGroupLaw.UnitMultiplication.nsmul_fiberAlgPoint G hc ξ ⟨n, hn⟩ z).trans heB.symm
   obtain ⟨E, f, heE, havoid, hf, hord⟩ :=
     exists_divisor_of_algPoint_division G hc e (n : ℕ)
-      (G.multiplicationFiberAlgPoint hc ξ n z) B hQ S
+      (RelativeGroupLaw.UnitMultiplication.fiberAlgPoint G hc ξ ⟨n, hn⟩ z) B hQ S
   refine ⟨e, B, E, f, hpoint, hB, heE, havoid, hf, hord, ?_⟩
   intro σ
   obtain ⟨θ, γ, hproj, hbase, hγ, hfun, hplaces, he⟩ :=
@@ -197,6 +207,6 @@ theorem exists_abelJacobi_division_divisor_displacement
   rw [map_sub, he, heE,
     conorm_algPoints_of_point_formulas hfg hfg' hgen M₀ M eC heC hsq ε
       G hc aj e₀ e hpoint₀ hpoint, e₀.apply_symm_apply]
-  exact G.multiplicationFiberAlgPoint_field_displacement hc j n τ σ z
+  exact RelativeGroupLaw.UnitMultiplication.fiberAlgPoint_field_displacement G hc j ⟨n, hn⟩ τ σ z
 
 end JacobianVarieties.Picard

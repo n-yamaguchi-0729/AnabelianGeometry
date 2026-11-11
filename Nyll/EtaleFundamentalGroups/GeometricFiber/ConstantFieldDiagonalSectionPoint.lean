@@ -3,10 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FiberComparisonSectionPoint
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ConstantFieldInclusionFiberPoint
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldFunctoriality
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackFiberPoint
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FiberComparisonSectionPoint
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ConstantFieldInclusionFiberPoint
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldFunctoriality
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackFiberPoint
 
 /-! # The unchanged inclusion is supplied by the actual diagonal section
 
@@ -15,6 +17,8 @@ original constant-field cover. The field pullback comparison sends it to the
 literal inclusion E to κ. The ordinary pullback comparison sends it to the
 literal over-k point represented by the original geometric point over E.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory
 open scoped FintypeCatDiscrete

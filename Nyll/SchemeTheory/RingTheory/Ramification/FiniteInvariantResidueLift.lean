@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteInvariantRingImage
-import Mathlib.Algebra.Ring.Subring.Basic
-import Mathlib.RingTheory.Ideal.Quotient.Operations
-import Mathlib.RingTheory.Ideal.Over
-import Mathlib.RingTheory.Ideal.Maps
-import Mathlib.RingTheory.Invariant.Basic
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteInvariantRingImage
+public import Mathlib.Algebra.Ring.Subring.Basic
+public import Mathlib.RingTheory.Ideal.Quotient.Operations
+public import Mathlib.RingTheory.Ideal.Over
+public import Mathlib.RingTheory.Ideal.Maps
+public import Mathlib.RingTheory.Invariant.Basic
 
 /-!
 # Finite invariant residue lifts through native ring maps
@@ -21,6 +23,8 @@ finite stabilizer surjection then gives one group element satisfying all
 coefficient equations. No algebra from that kernel quotient to the target
 ring is introduced.
 -/
+
+@[expose] public section
 
 noncomputable section
 

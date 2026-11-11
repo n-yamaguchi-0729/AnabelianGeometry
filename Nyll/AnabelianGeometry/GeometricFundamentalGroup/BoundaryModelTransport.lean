@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
-import Nyll.AlgebraicCurves.Models.Construction.Transport
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
+module
+
+public import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
+public import Nyll.AlgebraicCurves.Models.Construction.Transport
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
 
 /-! # Boundary labels under an actual isomorphism of curve models
 
@@ -14,6 +16,8 @@ The comparison uses the images of closed points under the specified ambient
 isomorphism. In particular, passing to a rational-configuration model preserves
 the number of geometric punctures.
 -/
+
+@[expose] public section
 
 noncomputable section
 

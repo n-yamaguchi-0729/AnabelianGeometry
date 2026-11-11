@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.CharP.Reduced
-import Mathlib.Algebra.CharP.Frobenius
-import Mathlib.Algebra.Group.Subgroup.Finite
-import Mathlib.Data.Fintype.Card
+module
+
+public import Mathlib.Algebra.CharP.Reduced
+public import Mathlib.Algebra.CharP.Frobenius
+public import Mathlib.Algebra.Group.Subgroup.Finite
+public import Mathlib.Data.Fintype.Card
 
 /-!
 # Scaling finite residue characters by characteristic powers
@@ -16,6 +18,8 @@ Proves injectivity of exponential-characteristic-power maps on field units and s
 finite subgroups. Scaling a character by such a power preserves its kernel and, for a finite
 source group, its range.
 -/
+
+@[expose] public section
 
 namespace RamificationTheory.HilbertRamification
 

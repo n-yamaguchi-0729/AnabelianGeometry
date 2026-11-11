@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionFibers
-import Mathlib.Algebra.Category.Grp.AB
-import Mathlib.Algebra.Category.Grp.Limits
-import Mathlib.AlgebraicGeometry.Sites.EtalePoint
-import Mathlib.CategoryTheory.Limits.Connected
-import Mathlib.CategoryTheory.Limits.Preserves.Shapes.Pullbacks
-import Mathlib.CategoryTheory.Limits.Types.Pullbacks
-import Mathlib.CategoryTheory.Sites.Point.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionFibers
+public import Mathlib.Algebra.Category.Grp.AB
+public import Mathlib.Algebra.Category.Grp.Limits
+public import Mathlib.AlgebraicGeometry.Sites.EtalePoint
+public import Mathlib.CategoryTheory.Limits.Connected
+public import Mathlib.CategoryTheory.Limits.Preserves.Shapes.Pullbacks
+public import Mathlib.CategoryTheory.Limits.Types.Pullbacks
+public import Mathlib.CategoryTheory.Sites.Point.Basic
 
 /-!
 # The geometric stalk of an extension fiber
@@ -21,6 +23,8 @@ Since geometric stalks preserve finite limits, its stalk is the fiber of the
 stalk homomorphism. The comparison uses the forgetful functor's filtered
 colimit comparison, preserving the original abelian group structures.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -34,23 +38,28 @@ variable {X : Scheme.{u}}
   (S : ShortComplex (Sheaf X.smallEtaleTopology AddCommGrpCat.{u}))
   (t : (Functor.const X.Etaleᵒᵖ).obj PUnit ⟶ S.X₃.obj ⋙ forget AddCommGrpCat.{u})
 
-private abbrev fiberInclusion := (extensionFiberSubfunctor S t).ι
+/-- The inclusion of the actual extension fiber into the middle presheaf. -/
+abbrev fiberInclusion := (extensionFiberSubfunctor S t).ι
 
-private def fiberToPoint :
+/-- The extension fiber has its canonical map to the terminal presheaf. -/
+def fiberToPoint :
     (extensionFiber S t).obj ⟶ (Functor.const X.Etaleᵒᵖ).obj PUnit where
   app _ := ↾fun _ => PUnit.unit
 
-private theorem fiber_square :
+/-- The actual extension fiber gives a commutative pullback square. -/
+theorem fiber_square :
     fiberInclusion S t ≫ Functor.whiskerRight S.g.hom (forget AddCommGrpCat.{u}) =
       fiberToPoint S t ≫ t := by
   ext U e
   exact e.property
 
-private abbrev fiberCone :
+/-- The pullback cone of the actual extension fiber. -/
+abbrev fiberCone :
     PullbackCone (Functor.whiskerRight S.g.hom (forget AddCommGrpCat.{u})) t :=
   PullbackCone.mk (fiberInclusion S t) (fiberToPoint S t) (fiber_square S t)
 
-private def fiberConeIsLimit : IsLimit (fiberCone S t) := by
+/-- The extension fiber represents the pullback of the quotient section. -/
+def fiberConeIsLimit : IsLimit (fiberCone S t) := by
   refine PullbackCone.IsLimit.mk (fiber_square S t) ?_ ?_ ?_ ?_
   · intro c
     exact
@@ -77,18 +86,21 @@ private def fiberConeIsLimit : IsLimit (fiberCone S t) := by
 
 variable {Ω : Type u} [Field Ω] [IsSepClosed Ω] (ξ : Spec (.of Ω) ⟶ X)
 
-private def constantUnitPresheafStalkIso :
+/-- The stalk of the terminal constant presheaf is terminal. -/
+def constantUnitPresheafStalkIso :
     (Scheme.pointSmallEtale ξ).presheafFiber.obj
       ((Functor.const X.Etaleᵒᵖ).obj PUnit.{u + 1}) ≅ PUnit.{u + 1} :=
   (colimit.isColimit _).coconePointUniqueUpToIso
     (isColimitConstCocone (Scheme.pointSmallEtale ξ).fiber.Elementsᵒᵖ PUnit.{u + 1})
 
-private def quotientSectionSetStalk :
+/-- The quotient section evaluated in the underlying set stalk. -/
+def quotientSectionSetStalk :
     (Scheme.pointSmallEtale ξ).presheafFiber.obj (S.X₃.obj ⋙ forget AddCommGrpCat.{u}) :=
   (Scheme.pointSmallEtale ξ).presheafFiber.map t
     ((constantUnitPresheafStalkIso ξ).inv PUnit.unit)
 
-private def fiberSetStalkEquiv :
+/-- The set stalk of the extension fiber is the fiber of the stalk map. -/
+def fiberSetStalkEquiv :
     (Scheme.pointSmallEtale ξ).sheafFiber.obj (extensionFiber S t) ≃
       {b : (Scheme.pointSmallEtale ξ).presheafFiber.obj
         (S.X₂.obj ⋙ forget AddCommGrpCat.{u}) //

@@ -5,12 +5,28 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
-import Nyll.AlgebraicCurves.Geometry.WeilReciprocityAlgClosed
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Nyll.AlgebraicCurves.Places.Degree.IsRationalAlgClosed
-import Nyll.AlgebraicCurves.Divisors.Evaluation
-import Mathlib.Tactic.Abel
+/-
+The root-divisor calculation reuses the corresponding argument in NYLL's
+DivisorialPairingToHomInjectiveDivisibleCoprime module.
+Anthropic FLT upstream notice: Copyright 2026 Anthropic, PBC.
+Adapted upstream source (pinned comparison revision):
+https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicCurve_DivisorialWeilPairingData_toHom_injective_of_divisible_coprime_of_isAlgClosed.lean
+Upstream NOTICE:
+https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/NOTICE
+Upstream per-file ATTRIBUTION:
+https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/ATTRIBUTION.md
+-/
+
+module
+
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+public import Nyll.AlgebraicCurves.Divisors.Maps.Maps
+public import Nyll.AlgebraicCurves.Geometry.WeilReciprocityAlgClosed
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.AlgebraicCurves.Places.Degree.IsRationalAlgClosed
+public import Nyll.AlgebraicCurves.Divisors.Evaluation
+public import Mathlib.Tactic.Abel
+public import Mathlib.Tactic.Ring
 
 /-! # Actual roots from Weil reciprocity
 
@@ -18,11 +34,34 @@ Division divisors produce explicit roots by evaluation. The pointed formula
 retains the basepoint normalization, with no condition on the characteristic.
 -/
 
+@[expose] public section
+
 noncomputable section
 
 namespace AlgebraicCurve.Divisor
 
 variable {K F : Type*} [Field K] [Field F] [Algebra K F]
+
+/-- A root of a function with divisor `n • D` has the actual pullback
+of `D` as its divisor. Ramification is retained in the pullback. -/
+theorem ord_eq_pullback_of_pow_eq_algebraMap
+    {L : Type*} [Field L] [Algebra K L] [Algebra F L] [IsScalarTower K F L]
+    [Algebra.IsIntegral F L] [HasPrincipalDivisors K L]
+    {n : ℕ} [NeZero n] {f : F} {D : Divisor K F}
+    (hfD : ∀ v : Place K F, v.ord f = n * D v)
+    {h : L} (hh : h ^ n = algebraMap F L f) :
+    ∀ w : Place K L, w.ord h = pullback L D w := by
+  intro w
+  apply mul_left_cancel₀ (Nat.cast_ne_zero.mpr (NeZero.ne n) : (n : ℤ) ≠ 0)
+  calc
+    (n : ℤ) * w.ord h = w.ord (h ^ (n : ℤ)) := (w.ord_zpow h (n : ℤ)).symm
+    _ = w.ord (h ^ n) := by rw [zpow_natCast]
+    _ = w.ord (algebraMap F L f) := by rw [hh]
+    _ = (w.ramificationIndex F : ℤ) * (w.restrict F).ord f := w.ord_restrict f
+    _ = (w.ramificationIndex F : ℤ) * ((n : ℤ) * D (w.restrict F)) := by
+      rw [hfD (w.restrict F)]
+    _ = (n : ℤ) * ((w.ramificationIndex F : ℤ) * D (w.restrict F)) := by ring
+    _ = (n : ℤ) * pullback L D w := by rw [pullback_apply]
 
 section ClosedCurve
 

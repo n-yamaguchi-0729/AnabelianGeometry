@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.SourceIso
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticSurjective
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGalois
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ExtendedFiberGaloisAction
-import Nyll.EtaleFundamentalGroups.GeometricFiber.HenselianSpecializationConjugacy
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.SourceIso
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticSurjective
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGalois
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ExtendedFiberGaloisAction
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.HenselianSpecializationConjugacy
 
 /-!
 # The coefficient label of a source-induced arithmetic action
@@ -16,6 +18,8 @@ import Nyll.EtaleFundamentalGroups.GeometricFiber.HenselianSpecializationConjuga
 The original point formulas identify the source action with the extended
 absolute Galois action. All comparisons retain their specified field maps.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -39,15 +43,16 @@ theorem fundamentalGroupHom_sourceAction_eq_extendedGalois
     (hsource : e.hom ≫ xi = xi) (hbase : xi ≫ f = ξ k Ω) :
     (eqToIso (congrArg fiber hbase)).conjAut
         (fundamentalGroupHom f xi
-          (fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource))) =
+          (Aut.of (fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource)))) =
       absoluteGaloisToExtendedFiberAut k L Ω σ := by
-  let g : Aut (fiber xi) := fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource)
+  let g : Aut (fiber xi) := Aut.of (fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource))
   have hg (A : FiniteEtale X) (v : (fiber xi).obj A) :
-      (fiberObjEquivHom xi A (g.hom.app A v)).left =
+      (fiberObjEquivHom xi A (g.asIso.hom.app A v)).left =
         Spec.map (CommRingCat.ofHom ρ) ≫ (fiberObjEquivHom xi A v).left := by
     rw [fiberSourceIso_aut_point xi e hsource, he]
   have hp := fundamentalGroupHom_point_of_point_action f xi g ρ hg
   apply Aut.ext
+  apply Iso.ext
   ext A v
   apply (fiberObjEquivHom (ξ k Ω) A).injective
   ext1
@@ -64,7 +69,7 @@ theorem arithmeticFundamentalGroupHom_sourceAction
       (_hρ : ρ.comp (algebraMap L Ω) = (algebraMap L Ω).comp σ.toRingHom)
       (hsource : e.hom ≫ xi = xi),
       arithmeticFundamentalGroupHom k L f xi
-          (fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource)) =
+          (Aut.of (fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource))) =
         α * σ * α⁻¹ := by
   let : IsSepClosed L := IsSepClosure.sep_closed k
   let ε := suppliedGaloisEquivFundamentalGroup k L
@@ -73,10 +78,10 @@ theorem arithmeticFundamentalGroupHom_sourceAction
   let tc := q ≪≫ E.symm
   let t : fiber (xi ≫ f) ≅ fib k L :=
     (nonempty_fiber_iso (xi ≫ f) (ξ k L)).some
-  let δ : Aut (fib k L) := tc.symm ≪≫ t
+  let δ : Aut (fib k L) := Aut.of (tc.symm ≪≫ t)
   refine ⟨ε.symm δ, ?_⟩
   intro e ρ he σ hρ hsource
-  let g : Aut (fiber xi) := fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource)
+  let g : Aut (fiber xi) := Aut.of (fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource))
   have hfield := fundamentalGroupHom_sourceAction_eq_extendedGalois
     k L Ω f xi e ρ he σ hρ hsource hbase
   have hc : tc.conjAut (fundamentalGroupHom f xi g) = ε σ := by
@@ -84,7 +89,8 @@ theorem arithmeticFundamentalGroupHom_sourceAction
     rw [Iso.trans_conjAut, hfield]
     change E.symm.conjAut (E.conjAut (ε σ)) = ε σ
     apply Aut.ext
-    simp only [Iso.conjAut_hom, Iso.symm_self_conj]
+    simp only [Iso.conjAut_apply, Iso.symm_symm_eq, Iso.trans_assoc,
+      Iso.self_symm_id_assoc, Iso.self_symm_id, Iso.trans_refl]
   have hchoice := continuousConjAut_eq_conj tc t (fundamentalGroupHom f xi g)
   change t.conjAut (fundamentalGroupHom f xi g) =
     δ * tc.conjAut (fundamentalGroupHom f xi g) * δ⁻¹ at hchoice

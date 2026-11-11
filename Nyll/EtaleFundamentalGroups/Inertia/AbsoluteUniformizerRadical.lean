@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.FieldTheory.Galois.GaloisClosure
-import Mathlib.FieldTheory.IsSepClosed
-import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
+module
+
+public import Mathlib.FieldTheory.Galois.GaloisClosure
+public import Mathlib.FieldTheory.IsSepClosed
+public import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
 
 /-!
 # Finite Galois radicals inside the prescribed separable closure
@@ -19,6 +21,8 @@ localization into that construction.
 Reference: Stacks Project, Tag 0BUB.
 https://stacks.math.columbia.edu/tag/0BUB
 -/
+
+@[expose] public section
 
 noncomputable section
 

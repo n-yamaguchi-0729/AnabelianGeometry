@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryCoefficientEquivariance
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaCoordinateSeparation
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsResidueAction
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryCoefficientEquivariance
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaCoordinateSeparation
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsResidueAction
 
 /-! # Galois action on the actual boundary ranges
 
@@ -14,6 +16,8 @@ The source-action correction is retained. Consequently the ordinary geometric
 boundary action is compared with the same corrected ranges on both sides;
 no Galois equivariance of a prospective boundary correspondence is assumed.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory CategoryTheory.Limits AlgebraicCurve

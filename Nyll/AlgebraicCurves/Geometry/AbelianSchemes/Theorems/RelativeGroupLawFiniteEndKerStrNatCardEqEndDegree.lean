@@ -10,26 +10,31 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.Morphisms.Etale
-import Mathlib.AlgebraicGeometry.Morphisms.Proper
-import Mathlib.AlgebraicGeometry.ZariskisMainTheorem
-import Mathlib.AlgebraicGeometry.Morphisms.FlatRank
-import Mathlib.FieldTheory.IsAlgClosed.Basic
-import Mathlib.RingTheory.Etale.Field
-import Mathlib.RingTheory.Unramified.LocalStructure
-import Mathlib.Algebra.Algebra.Pi
-import Mathlib.LinearAlgebra.Dimension.Constructions
-import Mathlib.Tactic.Algebraize
-import Mathlib.Tactic.Push
-import Mathlib.Tactic.SplitIfs
-import Mathlib.Tactic.Set
-import Nyll.AlgebraicCurves.Geometry.Picard.GroupLaw.RelativeGroupLaw
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.EndDegree
+module
+
+public import Mathlib.AlgebraicGeometry.Morphisms.Etale
+public import Mathlib.AlgebraicGeometry.Morphisms.Proper
+public import Mathlib.AlgebraicGeometry.ZariskisMainTheorem
+public import Mathlib.AlgebraicGeometry.Morphisms.FlatRank
+public import Mathlib.FieldTheory.IsAlgClosed.Basic
+public import Mathlib.RingTheory.Etale.Field
+public import Mathlib.RingTheory.Unramified.LocalStructure
+public import Mathlib.Algebra.Algebra.Pi
+public import Mathlib.Algebra.GroupWithZero.Pi
+public import Mathlib.LinearAlgebra.Dimension.Constructions
+public import Mathlib.Tactic.Algebraize
+public import Mathlib.Tactic.Push
+public import Mathlib.Tactic.SplitIfs
+public import Mathlib.Tactic.Set
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.Basic
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.EndDegree
 
 /-!
 # Relative Group Law is Finite end Ker Str and nat Card eq end Degree of etale
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -130,9 +135,13 @@ theorem evalAlgHom_bijective (I : Type u) [Finite I] :
     exact one_ne_zero h
   · intro ψ
     have hmul : ∀ i j, e i * e j = if i = j then e i else 0 := fun i j => by
-      funext k
-      simp only [Pi.mul_apply, he]
-      split_ifs <;> simp_all
+      change (Pi.single i 1 : I → K) * Pi.single j 1 =
+        if i = j then Pi.single i 1 else 0
+      by_cases hij : i = j
+      · subst j
+        rw [ite_eq_left rfl, ← Pi.single_mul, mul_one]
+      · rw [ite_eq_right hij, ← Pi.single_mul_left, Pi.single_eq_of_ne hij,
+          mul_zero, Pi.single_zero]
     have hsum1 : ∑ i, e i = 1 := by
       funext k
       rw [Finset.sum_apply, Pi.one_apply, Finset.sum_eq_single k]

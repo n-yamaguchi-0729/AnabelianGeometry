@@ -3,8 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationBidirectionalCusps
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaConjugacySeparation
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationBidirectionalCusps
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaConjugacySeparation
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
 
 /-! # An actual bijection of the original rational puncture labels
 
@@ -13,6 +16,8 @@ inverse. Separation of the original inertia conjugacy classes makes the two
 chosen boundary maps mutually inverse. The existing boundary-place equivalences
 then return a bijection of the original finite configurations.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve AlgebraicGeometry.FiniteEtale
@@ -143,7 +148,7 @@ theorem rationalConfigurationChosenInertia_eq_conjugate_imp_eq
 /-- The bare arithmetic isomorphism supplies a bijection of the original punctures,
 with inertia conjugacy measured by the same geometric equivalence for every label. -/
 theorem bare_rationalConfiguration_punctureEquiv
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
@@ -193,7 +198,7 @@ theorem bare_rationalConfiguration_punctureEquiv
 /-- Canonical ambient closures leave only the bare configurations and arithmetic
 isomorphism as inputs to the actual puncture bijection. -/
 theorem bare_rationalConfiguration_punctureEquiv_canonical
-    (k : Type) [Field k] [NumberField k]
+    (k : Type) [Field k] [CharZero k] [Field.FG k]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (eP : rationalConfigurationArithmeticGroup k (AlgebraicClosure k) s
         (rationalConfigurationCanonicalAmbient k s) ≃ₜ*

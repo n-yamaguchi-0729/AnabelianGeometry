@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.PlaceKummerInertiaDetection
-import Mathlib.Algebra.Algebra.Tower
-import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
-import Nyll.AnabelianGeometry.WeightFiltration.OpenKummerRootFixedness
-import Nyll.SchemeTheory.FunctionFields.ScalarFunctoriality
-import Nyll.SchemeTheory.FunctionFields.OpenImmersion
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.PlaceKummerInertiaDetection
+public import Mathlib.Algebra.Algebra.Tower
+public import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
+public import Nyll.AnabelianGeometry.WeightFiltration.OpenKummerRootFixedness
+public import Nyll.SchemeTheory.FunctionFields.ScalarFunctoriality
+public import Nyll.SchemeTheory.FunctionFields.OpenImmersion
 
 /-!
 # Actual place inertia and open-curve Kummer residues
@@ -19,6 +21,8 @@ normalization inertia of a place exactly when the divisor order is zero
 modulo the coefficient exponent. The scalar restriction between the original
 function field and the open curve's function field is proved surjective.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -58,7 +62,7 @@ theorem openKummerCharacter_inertia_trivial_iff_residue_zero
       (p.ord (u.val : F) : ZMod (n : ℕ)) = 0 := by
   intro topology η ξ
   let : NeZero ((n : ℕ) : K) := ⟨hn.ne_zero⟩
-  have hroot := HasEnoughRootsOfUnity.exists_primitiveRoot K (n : ℕ)
+  have hroot := HasEnoughRootsOfUnity.exists_isPrimitiveRoot K (n : ℕ)
   have hsurj : Function.Surjective (algebraMap F X.functionField) := by
     rw [hfield]
     exact (j.functionFieldRingEquivOfIsOpenImmersion).surjective.comp M.ffEquiv.surjective

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.NativeCanonicalTameScalarData
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteResidueAction
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationAutomorphisms
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeCanonicalTameScalarData
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteResidueAction
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationAutomorphisms
 
 /-!
 # The canonical scalar action at the actual finite normalization
@@ -14,6 +16,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationAutomorphisms
 The factory closes the finite root interface before original inertia and
 decomposition elements occur. Every field is the already constructed map.
 -/
+
+@[expose] public section
 
 noncomputable section
 

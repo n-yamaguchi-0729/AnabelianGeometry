@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCategories.Functoriality
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.Functoriality
 
 /-!
 # Coherent maps on automorphism groups
@@ -13,6 +15,8 @@ The maps induced by composite functors compose strictly with the composite
 comparison. Replacing a functor by a naturally isomorphic one, and using
 that isomorphism in the fiber comparison, leaves the induced map unchanged.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -36,12 +40,12 @@ theorem autHomOfCompIso_isoFunctor
   apply Aut.ext
   ext X x
   change t.hom.app X (F.map (α.hom.app X)
-      (a.hom.app (H.obj X) (F.map (α.inv.app X) (t.inv.app X x)))) =
-    t.hom.app X (a.hom.app (K.obj X) (t.inv.app X x))
+      (a.asIso.hom.app (H.obj X) (F.map (α.inv.app X) (t.inv.app X x)))) =
+    t.hom.app X (a.asIso.hom.app (K.obj X) (t.inv.app X x))
   apply congrArg (t.hom.app X)
-  exact (ConcreteCategory.congr_hom (a.hom.naturality (α.hom.app X))
+  exact (ConcreteCategory.congr_hom (a.asIso.hom.naturality (α.hom.app X))
     (F.map (α.inv.app X) (t.inv.app X x))).symm.trans
-      (congrArg (a.hom.app (K.obj X))
+      (congrArg (a.asIso.hom.app (K.obj X))
         (FintypeCat.inv_hom_id_apply (F.mapIso (α.app X)) (t.inv.app X x)))
 
 /-- Induction on automorphism groups is compatible with composite functors

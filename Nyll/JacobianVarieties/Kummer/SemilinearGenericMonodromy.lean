@@ -4,10 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.ActualGenericWeilComparison
-import Nyll.JacobianVarieties.Kummer.SemilinearGenericCharacter
-import Nyll.JacobianVarieties.WeilPairing.CharZeroNondegeneracy
-import Nyll.JacobianVarieties.WeilPairing.DivisorialPairingPairSemilinearSmul
+module
+
+public import Nyll.JacobianVarieties.Kummer.ActualGenericWeilComparison
+public import Nyll.AlgebraicCurves.Models.Kummer.SemilinearGenericCharacter
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianUnitMonodromy
+public import Nyll.JacobianVarieties.WeilPairing.PrimeToCharacteristicNondegeneracy
+public import Nyll.JacobianVarieties.WeilPairing.DivisorialPairingPairSemilinearSmul
+public import Nyll.GaloisCohomology.Kummer.Concrete.SemilinearConjugation
+public import Nyll.ProCGroups.Abelian.FullTateModule
 
 /-!
 # Semilinear naturality of actual Abel--Jacobi multiplication monodromy
@@ -17,7 +22,11 @@ character formula determine the actual finite multiplication monodromy.
 A single specified Picard/points comparison is retained throughout.
 -/
 
+@[expose] public section
+
 noncomputable section
+
+universe u
 
 open CategoryTheory CategoryTheory.Limits CategoryTheory.MonoidalCategory
 open CategoryTheory.PreGaloisCategory
@@ -33,14 +42,13 @@ attribute [local instance] IsCurveOver.toHasPrincipalDivisors
 /-- The actual Abel--Jacobi multiplication monodromy is semilinear in the
 torsion coordinates of the same specified Picard/points comparison. -/
 theorem actual_abelJacobi_generic_monodromy_semilinear
-    {K F₀ : Type} [Field K] [IsAlgClosed K] [CharZero K]
+    {K F₀ : Type u} [Field K] [IsAlgClosed K]
     [Field F₀] [Algebra K F₀] [IsCurveOver K F₀]
     (M₀ : CurveModel K F₀)
     [Algebra K M₀.C.functionField]
     (hbase : algebraMap K M₀.C.functionField = baseToFunctionField M₀.toBase)
-    {Ω F : Type} [Field Ω] [IsAlgClosed Ω] [Algebra K Ω]
+    {Ω F : Type u} [Field Ω] [IsAlgClosed Ω] [Algebra K Ω]
     [Algebra M₀.C.functionField Ω] [IsScalarTower K M₀.C.functionField Ω]
-    [IsSepClosed Ω] [IsSepClosure M₀.C.functionField Ω]
     [Field F] [Algebra Ω F] [IsCurveOver Ω F]
     [Algebra F₀ F] [Algebra K F]
     [IsScalarTower K F₀ F] [IsScalarTower K Ω F]
@@ -55,7 +63,7 @@ theorem actual_abelJacobi_generic_monodromy_semilinear
     (hD : RepresentsRelSubPic M₀.toBase ε (algEquivZeroCut M₀.toBase ε) D)
     [Smooth D.toBase] [IsProper D.toBase] [GeometricallyConnected D.toBase]
     (aj : SchemeHomOver M₀.toBase D.toBase)
-    (hclass : ∀ (L : Type) [Field L] (t : Spec (.of L) ⟶ Spec (.of K))
+    (hclass : ∀ (L : Type u) [Field L] (t : Spec (.of L) ⟶ Spec (.of K))
       (x : SchemeHomOver t M₀.toBase),
       Nonempty ((hD.poincare.pullbackAlong
         ⟨x.1 ≫ aj.1, (Category.assoc _ _ _).trans
@@ -93,18 +101,19 @@ theorem actual_abelJacobi_generic_monodromy_semilinear
           (RelativeGroupLaw.AlgPoints.toPoint (e₀ (Pic0.mk Dv))).1 = v.1 ≫ aj.1) →
     ∀ (b : FiniteEtale.fiber (η ≫ q ≫ aj.1) ≅
         FiniteEtale.fiber (G.one (𝟙 (Spec (.of K)))).1)
-      (_z : (FiniteEtale.fiber (η ≫ q ≫ aj.1)).obj (G.multiplicationCover hc n))
+      (_z : (FiniteEtale.fiber (η ≫ q ≫ aj.1)).obj
+        (RelativeGroupLaw.UnitMultiplication.cover G hc ⟨n, hn⟩))
       (g : SemilinearAut K F₀) (φ : M₀.C.functionField ≃+* M₀.C.functionField)
       (_hφ : ∀ r : F₀, φ (M₀.ffEquiv r) = M₀.ffEquiv (SemilinearAut.toRingAut g r))
       (a : Ω ≃+* Ω)
       (ha : ∀ r : M₀.C.functionField,
         a (algebraMap M₀.C.functionField Ω r) = algebraMap M₀.C.functionField Ω (φ r))
       (σ : Ω ≃ₐ[M₀.C.functionField] Ω),
-      τn.symm (G.multiplicationMonodromy hc n
+      τn.symm (RelativeGroupLaw.UnitMultiplication.monodromy G hc ⟨n, hn⟩
         (continuousConjAut b (FiniteEtale.fundamentalGroupHom (q ≫ aj.1) η
           (toAut (FiniteEtale.fiber η) (Ω ≃ₐ[M₀.C.functionField] Ω)
             (KummerTheory.semilinearGaloisConjugate φ a ha σ))))) =
-        g • τn.symm (G.multiplicationMonodromy hc n
+        g • τn.symm (RelativeGroupLaw.UnitMultiplication.monodromy G hc ⟨n, hn⟩
           (continuousConjAut b (FiniteEtale.fundamentalGroupHom (q ≫ aj.1) η
             (toAut (FiniteEtale.fiber η) (Ω ≃ₐ[M₀.C.functionField] Ω) σ)))) := by
   intro G hc η q e₀ τn hτn hpoint b z g φ hφ a ha σ
@@ -115,7 +124,7 @@ theorem actual_abelJacobi_generic_monodromy_semilinear
     FiniteEtale.fundamentalGroupHom q η
       (toAut (FiniteEtale.fiber η) (Ω ≃ₐ[M₀.C.functionField] Ω) ρ)
   let t := fun ρ : Ω ≃ₐ[M₀.C.functionField] Ω =>
-    τn.symm (G.multiplicationMonodromy hc n
+    τn.symm (RelativeGroupLaw.UnitMultiplication.monodromy G hc ⟨n, hn⟩
       (continuousConjAut b (FiniteEtale.fundamentalGroupHom (q ≫ aj.1) η
         (toAut (FiniteEtale.fiber η) (Ω ≃ₐ[M₀.C.functionField] Ω) ρ))))
   have hpair (x : Pic0.torsion K F₀ n) (ρ : Ω ≃ₐ[M₀.C.functionField] Ω) :
@@ -135,7 +144,8 @@ theorem actual_abelJacobi_generic_monodromy_semilinear
     rw [w.pair_semilinearSmul, hpair, hpair]
     exact M₀.kummerTorsionCharacter_generic_semilinear n hn g φ hφ a ha x σ
   change t (KummerTheory.semilinearGaloisConjugate φ a ha σ) = g • t σ
-  apply w.toHom_injective_charZero hfg
+  have : NeZero (n : ℕ) := ⟨n.ne_zero⟩
+  apply w.toHom_injective_of_isUnit hfg hn
   apply Additive.toMul.injective
   ext x
   change w.pair (t (KummerTheory.semilinearGaloisConjugate φ a ha σ)) x =

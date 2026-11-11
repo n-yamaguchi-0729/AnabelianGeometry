@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.CommonFiniteRationalModels
-import Nyll.AlgebraicCurves.Models.Construction.LiteralArithmeticCurveModel
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricGenus
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.CommonFiniteRationalModels
+public import Nyll.AlgebraicCurves.Models.Construction.LiteralArithmeticCurveModel
+public import Nyll.AlgebraicCurves.Geometry.Curves.GeometricGenus
 
 /-! # Finite rational models from geometric genus and boundary size
 
@@ -14,6 +16,8 @@ The literal geometric function fields supply the curve models. The caller
 provides the original compactifications and opens, their geometric genera,
 and the number of geometric boundary points; no coordinate or model is input.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve
@@ -38,7 +42,7 @@ private theorem boundary_card_eq_closed_complement
 finite Galois extension, with the ambient and coefficient maps retained.
 Only geometric genus and the actual geometric boundary size are required. -/
 theorem exists_common_rational_models_of_geometricGenus_zero
-    (k : Type) [Field k] [NumberField k]
+    (k : Type) [Field k] [CharZero k]
     {C₁ C₂ : Scheme}
     (c₁ : C₁ ⟶ Spec (.of k)) (c₂ : C₂ ⟶ Spec (.of k))
     [IsProper c₁] [SmoothOfRelativeDimension 1 c₁] [GeometricallyIntegral c₁]

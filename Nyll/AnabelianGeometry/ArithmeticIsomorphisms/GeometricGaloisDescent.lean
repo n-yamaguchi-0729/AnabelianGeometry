@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.FiniteGaloisDescent
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteRationalModelBaseChange
-import Mathlib.FieldTheory.Normal.Basic
+module
+
+public import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.FiniteGaloisDescent
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteRationalModelBaseChange
+public import Mathlib.FieldTheory.Normal.Basic
 
 /-! # Descending a specified finite model from geometric equivariance
 
@@ -15,6 +17,8 @@ isomorphism. Restriction of coefficient automorphisms commutes with the
 literal tower projections; faithful flatness then detects equivariance over
 the finite field, where effective finite-Galois descent applies.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry.SmoothProperCurve

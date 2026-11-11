@@ -10,15 +10,19 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.RingTheory.Flat.EquationalCriterion
-import Nyll.SchemeTheory.Cohomology.Cech.TwoChartCech
-import Nyll.SchemeTheory.RingTheory.Flat.ModuleFlatKerLeRangeIsMaximalKerBaseChangeQuotientLeRange
-import Nyll.SchemeTheory.RingTheory.Flat.ModuleFlatFlatKerBijectiveKerBaseChangeHom
+module
+
+public import Mathlib.RingTheory.Flat.EquationalCriterion
+public import Nyll.SchemeTheory.Cohomology.Cech.TwoChartCech
+public import Nyll.SchemeTheory.RingTheory.Flat.ModuleFlatKerLeRangeIsMaximalKerBaseChangeQuotientLeRange
+public import Nyll.SchemeTheory.RingTheory.Flat.ModuleFlatFlatKerBijectiveKerBaseChangeHom
 
 /-!
 # Module Flat projective ker and bijective ker Base Change Hom of forall ker base Change le
 range
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

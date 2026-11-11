@@ -4,9 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.CategoryTheory.Galois.Equivalence
+module
+
+public import Mathlib.CategoryTheory.Galois.Equivalence
 
 /-! # Actual cover transport from an isomorphism of fundamental groups -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory

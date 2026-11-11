@@ -4,15 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalTwoPuncturedChart
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroParameter
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncOrdXSubC
-import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
-import Nyll.AlgebraicCurves.Places.Rational.Basic
-import Nyll.AlgebraicCurves.Models.FunctionFields.CurveModelIsoAlgEquiv
-import Nyll.AlgebraicCurves.Models.Points.IsoCompToBaseEqPlaceOfPointCongrEq
-import Mathlib.FieldTheory.RatFunc.AsPolynomial
-import Mathlib.AlgebraicGeometry.Restrict
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalTwoPuncturedChart
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroParameter
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncOrdXSubC
+public import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
+public import Nyll.AlgebraicCurves.Places.Rational.Basic
+public import Nyll.AlgebraicCurves.Models.FunctionFields.CurveModelIsoAlgEquiv
+public import Nyll.AlgebraicCurves.Models.Points.IsoCompToBaseEqPlaceOfPointCongrEq
+public import Mathlib.FieldTheory.RatFunc.AsPolynomial
+public import Mathlib.AlgebraicGeometry.Restrict
 
 /-!
 # Coordinates matching two specified punctures
@@ -22,6 +24,8 @@ field isomorphism carrying zero and infinity to precisely those places. The actu
 isomorphism therefore identifies their open complement with the Laurent polynomial chart.
 No characteristic restriction is needed for this geometric identification.
 -/
+
+@[expose] public section
 
 noncomputable section
 

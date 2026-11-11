@@ -4,14 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationResidueDVR
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationResidueCoefficient
-import Mathlib.FieldTheory.IsAlgClosed.Basic
-import Mathlib.FieldTheory.Normal.Basic
-import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
-import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationResidueDVR
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationResidueCoefficient
+public import Mathlib.FieldTheory.IsAlgClosed.Basic
+public import Mathlib.FieldTheory.Normal.Basic
+public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
+public import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
 
 /-! # RationalCuspDecompositionConstants -/
+
+@[expose] public section
 
 noncomputable section
 open SchemeTheory

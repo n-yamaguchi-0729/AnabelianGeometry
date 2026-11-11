@@ -3,11 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalCuspDecompositionProjection
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalCuspDecomposition
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticExactSequence
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalCuspDecompositionProjection
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalCuspDecomposition
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticExactSequence
 
 /-! # Geometric inertia conjugators from arithmetic corrections -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve
@@ -69,7 +73,7 @@ attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
   rationalConfigurationGeometricField_scalarTower
 
 theorem rationalConfiguration_arithmeticCorrection_chosenInertia
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card)
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
@@ -117,7 +121,7 @@ private theorem correction_map_cancel
     exact hi hyx ▸ hy
 
 theorem rationalConfiguration_arithmeticCorrection_geometricInertia
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card)
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]

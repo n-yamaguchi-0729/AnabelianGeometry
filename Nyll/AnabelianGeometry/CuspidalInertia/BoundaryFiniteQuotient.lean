@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Topology.Algebra.Group.Quotient
-import Mathlib.Algebra.Group.Pi.Basic
+module
+
+public import Mathlib.Topology.Algebra.Group.Quotient
+public import Mathlib.Algebra.Group.Pi.Basic
 
 /-!
 # Finite-coordinate detection in the diagonal boundary quotient
@@ -15,6 +17,8 @@ n-th powers after quotienting a finite product by its diagonal. Distinct
 boundary labels remain distinct at any coefficient whose square is not one,
 including the two-label case.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.CuspidalInertia
 

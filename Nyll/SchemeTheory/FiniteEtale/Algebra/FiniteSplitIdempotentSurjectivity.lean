@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.TotallySplit
-import Mathlib.LinearAlgebra.Pi
+module
+
+public import Mathlib.RingTheory.TotallySplit
+public import Mathlib.LinearAlgebra.Pi
 
 /-!
 # Surjectivity onto a split algebra from lifts of idempotents
@@ -15,6 +17,8 @@ their preimages and the scalar coefficient preimages exist, every element
 has an explicitly constructed preimage. For proper H⁰, the idempotents
 are lifted by the actual proper-section lifting theorem.
 -/
+
+@[expose] public section
 
 noncomputable section
 

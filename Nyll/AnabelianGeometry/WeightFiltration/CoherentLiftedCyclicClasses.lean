@@ -3,7 +3,9 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalCrossRatioWithInertia
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalCrossRatioWithInertia
 
 /-! # Cyclic cross ratios for a prescribed coherent puncture equivalence
 
@@ -13,6 +15,8 @@ an already retained lifted τ. No independent root signs, field map, or new
 puncture correspondence is assumed. The proof's temporary existential witness
 is identified with the given τ before any cross-ratio data are returned.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve
 open AlgebraicGeometry.FiniteEtale AlgebraicGeometry.ProjSpace
@@ -61,7 +65,7 @@ theorem inertiaLabelEquiv_unique
 matched square covers. The only supplied facts are its arithmetic inclusion
 square and actual inertia conjugacies, already retained by the construction. -/
 theorem bare_rationalConfiguration_crossRatio_cyclic_classes_fixed_inertia
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]

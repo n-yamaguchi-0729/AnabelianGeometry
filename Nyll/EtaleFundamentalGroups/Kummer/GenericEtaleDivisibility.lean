@@ -4,18 +4,20 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Points.AlgEquivPointPlaceCompHomEqAlgAutSmulPointPlace
-import Nyll.AlgebraicCurves.Models.Points.AlgHomFiniteAlongPointPlaceRestrictAlong
-import Nyll.AlgebraicCurves.Models.Ramification.RamificationIndexPointPlaceEqOne
-import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveCurveModelIsoFunctionFieldGermEq
-import Nyll.SchemeTheory.FunctionFields.GenericFieldSource
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Integral
-import Nyll.SchemeTheory.Morphisms.DominantBaseChange
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
-import Nyll.SchemeTheory.Normalization.Normal
-import Mathlib.AlgebraicGeometry.Morphisms.Etale
+module
+
+public import Nyll.AlgebraicCurves.Models.Points.AlgEquivPointPlaceCompHomEqAlgAutSmulPointPlace
+public import Nyll.AlgebraicCurves.Models.Points.AlgHomFiniteAlongPointPlaceRestrictAlong
+public import Nyll.AlgebraicCurves.Models.Ramification.RamificationIndexPointPlaceEqOne
+public import Nyll.AlgebraicCurves.Models.Construction.OfSmoothProperCurve
+public import Nyll.SchemeTheory.FunctionFields.GenericFieldSource
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Integral
+public import Nyll.SchemeTheory.Morphisms.DominantBaseChange
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+public import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
+public import Nyll.SchemeTheory.Normalization.Normal
+public import Mathlib.AlgebraicGeometry.Morphisms.Etale
 
 /-!
 # Divisibility of orders from an actual finite étale generic root cover
@@ -24,6 +26,10 @@ A root in the field forming the generic fiber of a finite étale cover has
 integral order at every point of the covering curve. The actual ramification
 index is one, so the original orders are divisible by the root exponent.
 -/
+
+@[expose] public section
+
+universe u v w
 
 noncomputable section
 
@@ -39,11 +45,14 @@ open
 namespace EtaleFundamentalGroups
 
 private theorem ord_dvd_of_model_root
-    (K : Type) [Field K] [IsAlgClosed K]
-    {F E L : Type} [Field F] [Field E] [Field L] [Algebra K F] [Algebra K E]
+    (K : Type u) [Field K] [IsAlgClosed K]
+    {F : Type v} {E : Type w} {L : Type u}
+    [Field F] [Field E] [Field L] [Algebra K F] [Algebra K E]
     (M : CurveModel K F) (N : CurveModel K E) [Algebra M.C.functionField L]
-    (d : N.C ⟶ M.C) (hd : d ≫ M.toBase = N.toBase) [IsFinite d] [Etale d]
-    (p : Spec (.of L) ⟶ N.C) [IsDominant p] [IsPreimmersion p]
+    (d : N.C ⟶ M.C) (hd : d ≫ M.toBase = N.toBase)
+    [hdFinite : IsFinite d] [hdEtale : Etale d]
+    (p : Spec (.of L) ⟶ N.C)
+    [hpDominant : IsDominant p] [hpPreimmersion : IsPreimmersion p]
     (hp : p ≫ d = Spec.map (CommRingCat.ofHom (algebraMap M.C.functionField L)) ≫
       M.C.fromSpecStalk (genericPoint M.C))
     (a : M.C.functionField) (b : L) (n : ℕ)
@@ -129,10 +138,10 @@ private theorem ord_dvd_of_model_root
 /-- If the actual generic fiber of a finite étale cover contains an `n`th
 root of a rational function, its order at every place is divisible by `n`. -/
 theorem ord_dvd_of_finiteEtale_generic_root
-    (K : Type) [Field K] [IsAlgClosed K]
-    {F : Type} [Field F] [Algebra K F] (M : CurveModel K F)
-    (L : Type) [Field L] [Algebra M.C.functionField L]
-    {Y : Scheme} (f : Y ⟶ M.C) [IsFinite f] [Etale f]
+    (K : Type u) [Field K] [IsAlgClosed K]
+    {F : Type v} [Field F] [Algebra K F] (M : CurveModel K F)
+    (L : Type u) [Field L] [Algebra M.C.functionField L]
+    {Y : Scheme.{u}} (f : Y ⟶ M.C) [IsFinite f] [Etale f]
     (e : pullback f (M.C.fromSpecStalk (genericPoint M.C)) ≅ Spec (.of L))
     (he : e.hom ≫ Spec.map (CommRingCat.ofHom (algebraMap M.C.functionField L)) =
       pullback.snd f (M.C.fromSpecStalk (genericPoint M.C)))
@@ -172,22 +181,11 @@ theorem ord_dvd_of_finiteEtale_generic_root
   have : SmoothOfRelativeDimension 1 cY :=
     smoothOfRelativeDimension_comp 0 1 f M.toBase
   let algY : Algebra K Y.functionField := (baseToFunctionField cY).toAlgebra
-  obtain ⟨hcurve, hfinite, N, i, hi, _⟩ :=
-    SmoothProperCurve.exists_curveModel_iso_germToFunctionField_eq_of_isAlgClosed K Y cY
-  let d : N.C ⟶ M.C := i.hom ≫ f
-  have hd : d ≫ M.toBase = N.toBase := by
-    change (i.hom ≫ f) ≫ M.toBase = N.toBase
-    exact (Category.assoc _ _ _).trans hi
-  have : IsFinite d := by dsimp only [d]; infer_instance
-  have : Etale d := by dsimp only [d]; infer_instance
-  let p' : Spec (.of L) ⟶ N.C := p ≫ i.inv
-  have : IsDominant p' := by dsimp only [p']; infer_instance
-  have : IsPreimmersion p' := by dsimp only [p']; infer_instance
-  have hp' : p' ≫ d =
-      Spec.map (CommRingCat.ofHom (algebraMap M.C.functionField L)) ≫ η := by
-    dsimp only [p', d]
-    rw [Category.assoc, i.inv_hom_id_assoc]
-    exact hp
-  exact ord_dvd_of_model_root K M N d hd p' hp' a b n hb
+  let N : CurveModel K Y.functionField := CurveModel.ofSmoothProperCurve cY
+  exact ord_dvd_of_model_root K M N f rfl p hp a b n hb
+    (hdFinite := inferInstanceAs (IsFinite f))
+    (hdEtale := inferInstanceAs (Etale f))
+    (hpDominant := inferInstanceAs (IsDominant p))
+    (hpPreimmersion := inferInstanceAs (IsPreimmersion p))
 
 end EtaleFundamentalGroups

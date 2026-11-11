@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 import Nyll.AnabelianGeometry.WeightFiltration.QuadraticBoundaryFieldInvariance
 import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticFieldComparisonConjugator
+import Nyll.GaloisCohomology.Kummer.Concrete.RootCharacters
 
 /-! # Quadratic Root Field Arbitrary Lift -/
 

@@ -3,12 +3,16 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareOriginalUnitFiniteBase
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairCoordinate
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationFiniteExtensionCoordinate
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationFiniteExtensionValues
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareOriginalUnitFiniteBase
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairCoordinate
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationFiniteExtensionCoordinate
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationFiniteExtensionValues
 
 /-! # Named pair square covers over the specified finite base -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve
@@ -18,8 +22,6 @@ open scoped RatFunc
 attribute [local instance] Classical.propDecidable
   MvPolynomial.gradedAlgebra Polynomial.algebra
 namespace AnabelianGeometry.WeightFiltration
-
-attribute [local instance] namedSquare_configurationOpen_integral
 
 theorem namedSquare_pair_exists_actual_finiteBase_configuration
     (k κ E : Type) [Field k] [Field κ] [Field E] [Algebra k E]

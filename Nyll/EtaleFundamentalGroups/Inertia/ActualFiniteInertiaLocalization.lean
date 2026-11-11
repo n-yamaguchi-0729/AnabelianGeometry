@@ -4,16 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalFiniteInertiaRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationCoefficientSquare
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationTowerAction
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationLocalTower
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Nyll.SchemeTheory.RingTheory.Localization.PrimeLocalizationSquare
-import Mathlib.Algebra.Group.Basic
-import Mathlib.RingTheory.Localization.AtPrime.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalFiniteInertiaRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationCoefficientSquare
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationTowerAction
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationLocalTower
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Nyll.SchemeTheory.RingTheory.Localization.PrimeLocalizationSquare
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
 
 /-!
 # Localization of finite inertia restrictions
@@ -21,6 +23,8 @@ import Mathlib.RingTheory.Localization.AtPrime.Basic
 Constructs the local ring maps induced by finite restrictions of original inertia. Proves their
 coefficient equations and compatibility with finite normalization towers.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -67,10 +71,10 @@ individual inertia localization. -/
 def actualFiniteInertiaLocalRingHom
     (E : FiniteGaloisIntermediateField K L)
     (σ : actualNormalizationInertiaGroup A K L Q) :
-    letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+    let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
     Localization.AtPrime (finiteAbsoluteNormalizationPrime A K L Q E) →+*
       Localization.AtPrime (finiteAbsoluteNormalizationPrime A K L Q E) := by
-  letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+  intro sharedDefinitionOwner1
   exact Localization.localRingHom
     (finiteAbsoluteNormalizationPrime A K L Q E)
     (finiteAbsoluteNormalizationPrime A K L Q E)
@@ -84,7 +88,7 @@ theorem actualFiniteInertiaLocalRingHom_algebraMap
     (E : FiniteGaloisIntermediateField K L)
     (σ : actualNormalizationInertiaGroup A K L Q)
     (b : finiteAbsoluteNormalizationAlgebra A K L E) :
-    letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+    let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
     (actualFiniteInertiaLocalRingHom A K L Q E σ).toFun
         (algebraMap (finiteAbsoluteNormalizationAlgebra A K L E)
           (Localization.AtPrime (finiteAbsoluteNormalizationPrime A K L Q E)) b) =
@@ -92,7 +96,7 @@ theorem actualFiniteInertiaLocalRingHom_algebraMap
         (Localization.AtPrime (finiteAbsoluteNormalizationPrime A K L Q E))
         ((actualFiniteNormalizationRestrictionRingHom A K L E
           (actualNormalizationInertiaElement A K L Q σ)).toFun b) := by
-  let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+  intro sharedOwner1
   exact Localization.localRingHom_to_map
     (finiteAbsoluteNormalizationPrime A K L Q E)
     (finiteAbsoluteNormalizationPrime A K L Q E)

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.StrictHenselian.SeparablyClosedFractionResidue
-import Mathlib.RingTheory.Ideal.GoingUp
-import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.SeparablyClosedFractionResidue
+public import Mathlib.RingTheory.Ideal.GoingUp
+public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
 
 /-!
 # The literal maximal quotient in the absolute residue-closure argument
@@ -20,6 +22,8 @@ quotient, without carrying the fraction field or its scalar structures.
 Reference: Stacks Project, Tag 0BUB.
 https://stacks.math.columbia.edu/tag/0BUB
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

@@ -10,15 +10,19 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.LinearAlgebra.TensorProduct.DirectLimit
-import Mathlib.RingTheory.Extension.Presentation.Basic
-import Mathlib.Tactic.Choose
-import Mathlib.Tactic.Ext
-import Nyll.SchemeTheory.Descent.AlgebraDirectLimit
+module
+
+public import Mathlib.LinearAlgebra.TensorProduct.DirectLimit
+public import Mathlib.RingTheory.Extension.Presentation.Basic
+public import Mathlib.Tactic.Choose
+public import Mathlib.Tactic.Ext
+public import Nyll.SchemeTheory.Descent.AlgebraDirectLimit
 
 /-!
 # Algebra exists alg Hom tensor Product map eq of finite Presentation of is Direct Limit
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.TorsionSpecializationWeights
-import Nyll.JacobianVarieties.WeilPairing.TransportedDivisorialPairing
-import Nyll.JacobianVarieties.Picard.Torsion.TorsionAlgebraicPoints
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.TorsionSpecializationWeights
+public import Nyll.JacobianVarieties.WeilPairing.TransportedDivisorialPairing
+public import Nyll.JacobianVarieties.Picard.Torsion.TorsionAlgebraicPoints
 
 /-!
 # Actual Picard pairing and specialization weight separation
@@ -16,6 +18,8 @@ proved divisorial Weil pairing and the same semilinear coefficient action.
 The caller supplies the actual Picard-to-point identification and good model,
 not an abstract perfect pairing or a vanishing assertion.
 -/
+
+@[expose] public section
 
 noncomputable section
 

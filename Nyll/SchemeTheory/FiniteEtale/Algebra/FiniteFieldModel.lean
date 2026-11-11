@@ -4,20 +4,22 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.FiniteEtale.Algebra.IntegralFiniteModel
-import Nyll.ValuedFieldTheory.Valuation.Completion.FiniteSubfieldTensor
-import Mathlib.Algebra.Algebra.Subalgebra.Basic
-import Mathlib.Algebra.Algebra.Tower
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
-import Mathlib.RingTheory.Algebraic.Integral
-import Mathlib.RingTheory.Etale.Finite
-import Mathlib.RingTheory.Flat.Basic
-import Mathlib.RingTheory.FiniteType
-import Mathlib.RingTheory.Finiteness.Basic
-import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
-import Mathlib.RingTheory.RingHom.Etale
-import Mathlib.RingTheory.TensorProduct.Finite
-import Mathlib.RingTheory.TensorProduct.Maps
+module
+
+public import Nyll.SchemeTheory.FiniteEtale.Algebra.IntegralFiniteModel
+public import Nyll.ValuedFieldTheory.Valuation.Completion.FiniteSubfieldTensor
+public import Mathlib.Algebra.Algebra.Subalgebra.Basic
+public import Mathlib.Algebra.Algebra.Tower
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+public import Mathlib.RingTheory.Algebraic.Integral
+public import Mathlib.RingTheory.Etale.Finite
+public import Mathlib.RingTheory.Flat.Basic
+public import Mathlib.RingTheory.FiniteType
+public import Mathlib.RingTheory.Finiteness.Basic
+public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
+public import Mathlib.RingTheory.RingHom.Etale
+public import Mathlib.RingTheory.TensorProduct.Finite
+public import Mathlib.RingTheory.TensorProduct.Maps
 
 /-!
 # Finite étale models after extending the constant field
@@ -29,6 +31,8 @@ finite-coefficient tensor lifting. The remaining step embeds the whole
 finitely generated model base into one finite constant extension and extends
 scalars along that embedding.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -83,10 +87,10 @@ private theorem exists_model_over_range
     (m : B →ₐ[R] S) (hm : Function.Injective m)
     (T : Subalgebra R S) (hT : T ≤ m.range)
     (A₀ : CommAlgCat.FiniteEtale.{u} T) :
-    letI : Algebra B S := m.toRingHom.toAlgebra
+    let : Algebra B S := m.toRingHom.toAlgebra
     ∃ A₁ : CommAlgCat.FiniteEtale.{u} B,
       Nonempty (S ⊗[T] A₀ ≃ₐ[S] S ⊗[B] A₁) := by
-  let : Algebra B S := m.toRingHom.toAlgebra
+  intro rangeAlgebra
   let em : B ≃ₐ[R] m.range := AlgEquiv.ofInjective m hm
   let f : T →ₐ[R] B :=
     em.symm.toAlgHom.comp (T.val.codRestrict m.range (fun x ↦ hT x.property))
@@ -109,7 +113,7 @@ theorem exists_finiteIntermediateField_model
     [Algebra k L] [Algebra k R] [Algebra.IsAlgebraic k L]
     (A : CommAlgCat.FiniteEtale.{u} (R ⊗[k] L)) :
     ∃ F : IntermediateField k L, FiniteDimensional k F ∧
-      letI : Algebra (R ⊗[k] F) (R ⊗[k] L) :=
+      let : Algebra (R ⊗[k] F) (R ⊗[k] L) :=
         (Algebra.TensorProduct.map (R := k) (S := R) (AlgHom.id R R) F.val).toRingHom.toAlgebra
       ∃ A₀ : CommAlgCat.FiniteEtale.{u} (R ⊗[k] F),
         Nonempty (A ≃ₐ[R ⊗[k] L] (R ⊗[k] L) ⊗[R ⊗[k] F] A₀) := by
@@ -125,7 +129,7 @@ theorem exists_finiteIntermediateField_model
   refine ⟨F, hF, ?_⟩
   let m : (R ⊗[k] F) →ₐ[R] (R ⊗[k] L) :=
     Algebra.TensorProduct.map (AlgHom.id R R) F.val
-  let : Algebra (R ⊗[k] F) (R ⊗[k] L) := m.toRingHom.toAlgebra
+  intro modelAlgebra
   have hm : Function.Injective m :=
     TensorProduct.map_injective_of_flat_flat
       (AlgHom.id k R).toLinearMap F.val.toLinearMap

@@ -4,15 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Genus.GenusOneDivisors
-import Nyll.AlgebraicCurves.Cohomology.Adelic.Index
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.PicardZero
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
-import Nyll.AlgebraicCurves.Models.Construction.Basic
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
-import Nyll.JacobianVarieties.Albanese.AbelJacobiFiniteSums
-import Nyll.JacobianVarieties.Picard.GroupLaw.RelativeGroupLawAbelJacobi
+module
+
+public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Genus.GenusOneDivisors
+public import Nyll.AlgebraicCurves.Cohomology.Adelic.Index
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.PicardZero
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
+public import Nyll.JacobianVarieties.Albanese.AbelJacobiFiniteSums
+public import Nyll.JacobianVarieties.Picard.GroupLaw.RelativeGroupLawAbelJacobi
 
 /-!
 # Points and divisor classes on a genus-one curve
@@ -22,6 +24,8 @@ bijective. Surjectivity constructs a point from a degree-one representative usin
 Riemann--Roch; injectivity uses uniqueness of that point. This is a statement about
 the actual point map, and does not by itself assert an isomorphism of schemes.
 -/
+
+@[expose] public section
 
 noncomputable section
 

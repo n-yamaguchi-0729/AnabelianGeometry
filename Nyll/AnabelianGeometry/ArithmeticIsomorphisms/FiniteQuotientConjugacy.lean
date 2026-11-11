@@ -4,15 +4,20 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.Basic
-import Nyll.ProCGroups.ProC.OpenNormalSubgroups.Separation
-import Mathlib.Topology.Compactness.Compact
+module
+
+public import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.Basic
+public import Nyll.ProCGroups.ProC.OpenNormalSubgroups.Separation
+public import Mathlib.Topology.Compactness.Compact
+public import Nyll.ProCGroups.Profinite.OpenSubgroups
 
 /-! # Simultaneous conjugacy detected in finite quotients
 
 At each finite level the same conjugator must work for every source element.
 Compactness then supplies one conjugator for all levels simultaneously.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.ArithmeticIsomorphisms
 

@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameExactness
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameCharacter
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameOrder
-import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
-import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationInertiaEquivalence
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingTameQuotientCardinality
-import Mathlib.GroupTheory.Index
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameExactness
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameCharacter
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameOrder
+public import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
+public import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationInertiaEquivalence
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingTameQuotientCardinality
+public import Mathlib.GroupTheory.Index
 
 /-!
 # Original ideal inertia quotient cardinality
@@ -18,6 +20,8 @@ import Mathlib.GroupTheory.Index
 The actual localization inertia equivalence transports the local tame-image
 cardinality to original ideal inertia modulo its independent wild subgroup.
 -/
+
+@[expose] public section
 
 noncomputable section
 

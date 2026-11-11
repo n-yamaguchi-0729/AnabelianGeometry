@@ -3,7 +3,9 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalCuspDecomposition
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalCuspDecomposition
 
 /-! # Decomposition transport for the already fixed arithmetic witnesses
 
@@ -12,6 +14,8 @@ witnesses. It never calls an existential arithmetic-recognition theorem again.
 Thus the previously selected pair functions, finite-cover units and scalar
 radicals can use these decomposition images without changing any choices.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicGeometry.FiniteEtale
@@ -22,7 +26,7 @@ namespace AnabelianGeometry.WeightFiltration
 /-- Add actual decomposition correspondence to the already obtained inertia
 correspondence, retaining the same geometric equivalence and puncture bijection. -/
 theorem rationalConfigurationChosenDecomposition_map_of_fixed_punctureEquiv
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]

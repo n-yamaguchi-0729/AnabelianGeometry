@@ -5,9 +5,11 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Mathlib.RingTheory.AdjoinRoot
-import Mathlib.RingTheory.RootsOfUnity.Basic
-import Mathlib.Algebra.Algebra.Equiv
+module
+
+public import Mathlib.RingTheory.AdjoinRoot
+public import Mathlib.RingTheory.RootsOfUnity.Basic
+public import Mathlib.Algebra.Algebra.Equiv
 
 /-!
 # Actual root-of-unity automorphisms of the Kummer algebra
@@ -16,6 +18,8 @@ Multiplication of the adjoined root by a root of unity gives an actual algebra
 automorphism. No irreducibility or domain hypothesis on the Kummer algebra is
 needed, so the construction includes disconnected Kummer covers.
 -/
+
+@[expose] public section
 
 noncomputable section
 

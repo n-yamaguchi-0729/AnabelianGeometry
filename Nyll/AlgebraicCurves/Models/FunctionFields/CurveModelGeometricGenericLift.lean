@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Construction.Basic
-import Mathlib.AlgebraicGeometry.Stalk
-import Mathlib.AlgebraicGeometry.Pullbacks
+module
+
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
+public import Mathlib.AlgebraicGeometry.Stalk
+public import Mathlib.AlgebraicGeometry.Pullbacks
 
 /-!
 # The actual geometric generic point on a scalar-extension curve
@@ -15,6 +17,10 @@ The structure morphism at the generic stalk is the spectrum of the actual
 base-field embedding. The pullback universal property then constructs the
 rational point over an extension of the function field.
 -/
+
+@[expose] public section
+
+universe u
 
 noncomputable section
 
@@ -25,7 +31,7 @@ namespace AlgebraicCurve
 /-- The generic point lies over the actual base-field homomorphism into
 the function field. -/
 theorem fromSpecStalk_generic_comp_toBase
-    {K : Type} [Field K] {X : Scheme} [IsIntegral X]
+    {K : Type u} [Field K] {X : Scheme.{u}} [IsIntegral X]
     (c : X ⟶ Spec (.of K)) :
     X.fromSpecStalk (genericPoint X) ≫ c =
       Spec.map (CommRingCat.ofHom (baseToFunctionField c)) := by
@@ -50,7 +56,7 @@ namespace CurveModel
 /-- Construct the actual geometric generic point as a rational point of
 the scalar-extension curve, with its exact projection. -/
 theorem exists_geometricGenericPoint
-    {K F Ω F' : Type} [Field K] [Field F] [Algebra K F]
+    {K F Ω F' : Type u} [Field K] [Field F] [Algebra K F]
     [Field Ω] [Algebra K Ω] [Field F'] [Algebra Ω F']
     (M₀ : CurveModel K F) (M : CurveModel Ω F')
     (e : M.C ≅ pullback M₀.toBase
@@ -87,7 +93,7 @@ end CurveModel
 
 /-- Absolute Galois automorphisms fix the actual generic projection. -/
 theorem generic_projection_fixed
-    {X : Scheme} [IsIntegral X] {Ω : Type} [Field Ω]
+    {X : Scheme.{u}} [IsIntegral X] {Ω : Type u} [Field Ω]
     [Algebra X.functionField Ω] (σ : Ω ≃ₐ[X.functionField] Ω) :
     Spec.map (CommRingCat.ofHom σ.toRingHom) ≫
       Spec.map (CommRingCat.ofHom (algebraMap X.functionField Ω)) ≫

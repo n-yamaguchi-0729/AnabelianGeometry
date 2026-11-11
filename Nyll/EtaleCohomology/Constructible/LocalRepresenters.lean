@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
-import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantSet
-import Nyll.EtaleCohomology.Sites.EtaleRestriction
-import Nyll.EtaleCohomology.Sites.SetPullbackComposition
-import Nyll.SchemeTheory.Etale.FiniteAffineCover
-import Mathlib.CategoryTheory.Sites.Subcanonical
-import Mathlib.CategoryTheory.Yoneda
+module
+
+public import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
+public import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantSet
+public import Nyll.EtaleCohomology.Sites.EtaleRestriction
+public import Nyll.EtaleCohomology.Sites.SetPullbackComposition
+public import Nyll.SchemeTheory.Etale.FiniteAffineCover
+public import Mathlib.CategoryTheory.Sites.Subcanonical
+public import Mathlib.CategoryTheory.Yoneda
 
 /-!
 # Local scheme representers of finite locally constant sheaves
@@ -20,6 +22,8 @@ restricted presheaf. Its representing equivalence is natural on the local
 small site, so its universal section can be used to construct descent maps.
 Global representability still requires effective descent.
 -/
+
+@[expose] public section
 
 noncomputable section
 

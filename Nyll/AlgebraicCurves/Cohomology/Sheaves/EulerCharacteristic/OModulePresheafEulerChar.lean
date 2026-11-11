@@ -11,13 +11,17 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.Cohomology.Cech.OrderedAffineCoverCech
-import Mathlib.LinearAlgebra.Dimension.Finrank
-import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafHom
+module
+
+public import Nyll.SchemeTheory.Cohomology.Cech.OrderedAffineCoverCech
+public import Mathlib.LinearAlgebra.Dimension.Finrank
+public import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafHom
 
 /-!
 # OModule Presheaf Euler Char
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.ProjectiveLine.MultiplicativeRigidity
-import Nyll.AnabelianGeometry.ProjectiveLine.ComplexConfiguration
+module
+
+public import Nyll.AnabelianGeometry.ProjectiveLine.MultiplicativeRigidity
+public import Nyll.AnabelianGeometry.ProjectiveLine.ComplexConfiguration
 
 /-!
 # Multiplicative reconstruction through a complex embedding
@@ -15,6 +17,8 @@ Together with the purely algebraic inversion argument, two cyclic
 multiplicative subgroups determine a parameter outside the explicit
 quadratic exceptional locus.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.ProjectiveLine
 

@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryRangeGaloisAction
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryRangeSeparation
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaSemilinear
-import Nyll.AnabelianGeometry.WeightFiltration.OpenBoundarySemilinear
-import Nyll.AnabelianGeometry.WeightFiltration.GenericCoefficientDuality
-import Nyll.AlgebraicCurves.Models.ConstantExtension.BaseChangeSemilinearAction
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryRangeGaloisAction
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryRangeSeparation
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaSemilinear
+public import Nyll.AnabelianGeometry.WeightFiltration.OpenBoundarySemilinear
+public import Nyll.AnabelianGeometry.WeightFiltration.GenericCoefficientDuality
+public import Nyll.AlgebraicCurves.Models.ConstantExtension.BaseChangeSemilinearAction
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
 
 /-!
 # Arithmetic coefficient equivariance of the original boundary inertia
@@ -19,6 +21,8 @@ The coefficient isomorphisms of the original open curve and compactification
 supply boundary preservation and the function-field square. A single fixed
 base-point correction gives the arithmetic action on all boundary parameters.
 -/
+
+@[expose] public section
 
 noncomputable section
 open NeronModelInfra
@@ -142,7 +146,7 @@ theorem exists_boundary_geometric_range_action :
   have hsource : e.hom ≫ (xi ≫ p₀) = xi ≫ p₀ := by
     rw [← Category.assoc, hp, Category.assoc, coefficientBaseChangeIso_hom_snd]
   let gA : Aut (fiber (xi ≫ p₀)) :=
-    fiberSourceIso (xi ≫ p₀) e ≪≫ eqToIso (congrArg fiber hsource)
+    Aut.of (fiberSourceIso (xi ≫ p₀) e ≪≫ eqToIso (congrArg fiber hsource))
   change arithmeticFundamentalGroupHom k K (i ≫ c) (xi ≫ p₀) gA = α * σ * α⁻¹ at hlabel
   let A := geometricAbelianGaloisAction k K U (i ≫ c) xi
   have hb (p : M.openBoundaryPlaces j)

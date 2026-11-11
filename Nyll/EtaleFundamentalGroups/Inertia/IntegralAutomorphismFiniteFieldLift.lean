@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
-import Mathlib.RingTheory.DedekindDomain.Basic
-import Mathlib.RingTheory.Localization.Integral
-import Mathlib.RingTheory.Localization.FractionRing
+module
+
+public import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
+public import Mathlib.RingTheory.DedekindDomain.Basic
+public import Mathlib.RingTheory.Localization.Integral
+public import Mathlib.RingTheory.Localization.FractionRing
 
 /-!
 # Finite fraction-field lifts of integral automorphisms
@@ -15,6 +17,8 @@ import Mathlib.RingTheory.Localization.FractionRing
 Extends an intrinsic finite-normalization automorphism to a finite extension of fraction fields
 with the corresponding coefficient square.
 -/
+
+@[expose] public section
 
 noncomputable section
 

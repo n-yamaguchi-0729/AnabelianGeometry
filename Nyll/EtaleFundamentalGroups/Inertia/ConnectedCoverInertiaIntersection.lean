@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.PointedCoverStabilizerPreimage
-import Nyll.EtaleFundamentalGroups.Inertia.InertiaImageIntersection
-import Nyll.EtaleFundamentalGroups.Inertia.GenericGaloisNaturality
-import Nyll.EtaleFundamentalGroups.Inertia.SameConnectedCoverImage
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.PointedCoverStabilizerPreimage
+public import Nyll.EtaleFundamentalGroups.Inertia.InertiaImageIntersection
+public import Nyll.EtaleFundamentalGroups.Inertia.GenericGaloisNaturality
+public import Nyll.EtaleFundamentalGroups.Inertia.SameConnectedCoverImage
 
 /-!
 # Restricted inertia images for arbitrary connected pointed covers
@@ -16,6 +18,8 @@ The prescribed lift determines the cover map and field restriction. The
 image of every restricted subgroup is its exact intersection with the
 actual cover image.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -37,18 +41,18 @@ theorem connectedCover_restrictedSubgroup_image
     (W : FiniteEtale U) [IsConnected W]
     (w : (fiber (U.genericExtensionMorphism Ω)).obj W)
     (I : Subgroup Gal(Ω/U.functionField)) :
-    letI : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
+    let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
     let K := U.functionField
     let L := W.left.functionField
-    letI : Algebra K L := finiteEtaleFunctionFieldAlgebra W
+    let : Algebra K L := finiteEtaleFunctionFieldAlgebra W
     let g := fiberObjEquivHom (U.genericExtensionMorphism Ω) W w
     let j := finiteEtaleGenericHomFunctionFieldAlgHom W g
-    letI : Algebra L Ω := j.toRingHom.toAlgebra
-    letI : IsScalarTower K L Ω := by
+    let : Algebra L Ω := j.toRingHom.toAlgebra
+    let : IsScalarTower K L Ω := by
       apply IsScalarTower.of_algebraMap_eq'
       ext z
       exact (j.commutes z).symm
-    letI : IsSepClosure L Ω :=
+    let : IsSepClosure L Ω :=
       ⟨IsSepClosure.sep_closed K,
         Algebra.isSeparable_tower_top_of_isSeparable K L Ω⟩
     let jL := W.left.fromSpecStalk (genericPoint W.left)
@@ -60,29 +64,8 @@ theorem connectedCover_restrictedSubgroup_image
     let r : Gal(Ω/L) →* Gal(Ω/K) := AlgEquiv.restrictScalarsHom K
     ((I.comap r).map qL).map i =
       I.map (absoluteGenericGaloisToFundamentalGroup U Ω) ⊓ i.range := by
-  let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
-  let K := U.functionField
-  let L := W.left.functionField
-  let : Algebra K L := finiteEtaleFunctionFieldAlgebra W
-  let g := fiberObjEquivHom (U.genericExtensionMorphism Ω) W w
-  let j := finiteEtaleGenericHomFunctionFieldAlgHom W g
-  let : Algebra L Ω := j.toRingHom.toAlgebra
-  let : IsScalarTower K L Ω := by
-    apply IsScalarTower.of_algebraMap_eq'
-    ext z
-    exact (j.commutes z).symm
-  let : IsSepClosure L Ω :=
-    ⟨IsSepClosure.sep_closed K,
-      Algebra.isSeparable_tower_top_of_isSeparable K L Ω⟩
-  let jL := W.left.fromSpecStalk (genericPoint W.left)
-  let hpoint : (ξ L Ω ≫ jL) ≫ W.hom = U.genericExtensionMorphism Ω :=
-    finiteEtaleGenericHomFunctionFieldAlgHom_spec_comp W g
-  let i := (pointedFundamentalGroupHom W.hom (ξ L Ω ≫ jL)
-    (U.genericExtensionMorphism Ω) hpoint).toMonoidHom
-  let qL := (fieldSourceAbsoluteGaloisHom L Ω jL).toMonoidHom
-  let r : Gal(Ω/L) →* Gal(Ω/K) := AlgEquiv.restrictScalarsHom K
-  change ((I.comap r).map qL).map i =
-    I.map (absoluteGenericGaloisToFundamentalGroup U Ω) ⊓ i.range
+  intro sharedOwner1 K L sharedOwner4 g j sharedOwner7 sharedOwner8 sharedOwner9 jL hpoint i qL
+    r
   have hi : i.range = MulAction.stabilizer π₁ᵉᵗ(U.genericExtensionMorphism Ω) w :=
     connectedCover_sameGenericLift_range Ω W w
   have hsquare : i.comp qL =

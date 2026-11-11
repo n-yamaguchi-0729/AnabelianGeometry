@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Sites.BaseChange
-import Nyll.EtaleCohomology.Sites.SetSheafFunctors
-import Mathlib.CategoryTheory.MorphismProperty.OverAdjunction
-import Mathlib.CategoryTheory.Sites.Continuous
-import Mathlib.CategoryTheory.Adjunction.Unique
+module
+
+public import Nyll.EtaleCohomology.Sites.BaseChange
+public import Nyll.EtaleCohomology.Sites.SetSheafFunctors
+public import Mathlib.CategoryTheory.MorphismProperty.OverAdjunction
+public import Mathlib.CategoryTheory.Sites.Continuous
+public import Mathlib.CategoryTheory.Adjunction.Unique
 
 /-!
 # Composition of inverse and direct image for étale sheaves of sets
@@ -17,6 +19,8 @@ Scheme-theoretic pullback pasting gives the comparison of direct images.
 The inverse image comparison follows from the constructed adjunctions and
 uniqueness of left adjoints. No conditions on the scheme morphisms are needed.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Field.Basic
-import Mathlib.Tactic.FieldSimp
-import Mathlib.Tactic.LinearCombination
-import Mathlib.Tactic.Ring
+module
+
+public import Mathlib.Algebra.Field.Basic
+public import Mathlib.Tactic.FieldSimp
+public import Mathlib.Tactic.LinearCombination
+public import Mathlib.Tactic.Ring
 
 /-!
 # Rigidity of a parameter and its complement under inversion
@@ -16,6 +18,8 @@ If both a parameter and its complement are known up to inversion, the only
 possible ambiguity lies on the polynomial `X² - X + 1`. These field identities
 are independent of the arithmetic mechanism that reconstructs the parameters.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.ProjectiveLine
 

@@ -3,20 +3,24 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquarePairFiniteBaseModelData
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquarePointedCoherentBaseChange
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareActualBoundaryCaller
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralGeometricMap
-import Nyll.AnabelianGeometry.WeightFiltration.NamedModelCoverGroupSquare
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
-import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationMatchedGenericAmbient
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationFiniteExtensionCoordinate
-import Nyll.AnabelianGeometry.KummerTheory.ProjectivePairSquareBaseChangeModel
-import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncConstantExtensionOrders
-import Nyll.EtaleFundamentalGroups.GaloisCovers.FunctionField
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquarePairFiniteBaseModelData
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquarePointedCoherentBaseChange
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareActualBoundaryCaller
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralGeometricMap
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedModelCoverGroupSquare
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationMatchedGenericAmbient
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationFiniteExtensionCoordinate
+public import Nyll.AnabelianGeometry.KummerTheory.ProjectivePairSquareBaseChangeModel
+public import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncConstantExtensionOrders
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.FunctionField
 
 /-! Models of named square covers at matched geometric generic points. -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve TopologicalSpace

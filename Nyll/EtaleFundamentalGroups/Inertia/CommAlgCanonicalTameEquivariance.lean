@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameCharacter
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealInertiaConjugate
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgStabilizerResidueMorphism
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgResidueRootsMap
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealCanonicalTameConjugation
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
-import Mathlib.RingTheory.Ideal.Pointwise
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameCharacter
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealInertiaConjugate
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgStabilizerResidueMorphism
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgResidueRootsMap
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealCanonicalTameConjugation
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
+public import Mathlib.RingTheory.Ideal.Pointwise
 
 /-!
 # Equivariance of intrinsic canonical tame characters
@@ -19,6 +21,8 @@ import Mathlib.RingTheory.Ideal.Pointwise
 Constructs the native residue action on canonical tame roots and identifies it with the
 localization action. Proves equivariance under stabilizer conjugation.
 -/
+
+@[expose] public section
 
 noncomputable section
 

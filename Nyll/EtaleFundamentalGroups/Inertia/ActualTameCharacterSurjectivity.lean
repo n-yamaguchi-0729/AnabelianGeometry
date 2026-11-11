@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacterContinuity
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinateSurjectivity
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameDegreeDirected
-import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationInertiaCompact
-import Nyll.ProCGroups.InverseSystems.CompatibilityAndSurjectivity
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacterContinuity
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinateSurjectivity
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameDegreeDirected
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationInertiaCompact
+public import Nyll.ProCGroups.InverseSystems.CompatibilityAndSurjectivity
 
 /-!
 # Surjectivity of the actual tame character
@@ -17,6 +19,8 @@ Compactness of the SAME original inertia, local constancy of the actual
 coordinates, their proved surjectivity, and directedness of the literal
 actual degree range supply the existing compact-limit theorem.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

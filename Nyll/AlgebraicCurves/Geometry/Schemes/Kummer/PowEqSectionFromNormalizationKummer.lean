@@ -10,24 +10,28 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Algebra.Polynomial.Eval.Defs
-import Mathlib.Algebra.Polynomial.Monic
-import Mathlib.AlgebraicGeometry.AffineScheme
-import Mathlib.AlgebraicGeometry.FunctionField
-import Mathlib.AlgebraicGeometry.Normalization
-import Mathlib.AlgebraicGeometry.Scheme
-import Mathlib.AlgebraicGeometry.Stalk
-import Mathlib.RingTheory.AdjoinRoot
-import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
-import Mathlib.RingTheory.IntegralClosure.IsIntegral.Defs
-import Mathlib.RingTheory.Localization.FractionRing
-import Mathlib.Topology.Sheaves.Stalks
-import Mathlib.Tactic.FieldSimp
-import Mathlib.Tactic.Ring.RingNF
+module
+
+public import Mathlib.Algebra.Polynomial.Eval.Defs
+public import Mathlib.Algebra.Polynomial.Monic
+public import Mathlib.AlgebraicGeometry.AffineScheme
+public import Mathlib.AlgebraicGeometry.FunctionField
+public import Mathlib.AlgebraicGeometry.Normalization
+public import Mathlib.AlgebraicGeometry.Scheme
+public import Mathlib.AlgebraicGeometry.Stalk
+public import Mathlib.RingTheory.AdjoinRoot
+public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
+public import Mathlib.RingTheory.IntegralClosure.IsIntegral.Defs
+public import Mathlib.RingTheory.Localization.FractionRing
+public import Mathlib.Topology.Sheaves.Stalks
+public import Mathlib.Tactic.FieldSimp
+public import Mathlib.Tactic.Ring.RingNF
 
 /-!
 # exists pow eq of section from Normalization kummer
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

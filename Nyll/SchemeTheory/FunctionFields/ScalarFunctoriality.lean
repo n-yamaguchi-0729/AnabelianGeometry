@@ -4,10 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.FunctionFields.StructureMorphism
-import Nyll.SchemeTheory.FunctionFields.StalkFunctoriality
+module
+
+public import Nyll.SchemeTheory.FunctionFields.StructureMorphism
+public import Nyll.SchemeTheory.FunctionFields.StalkFunctoriality
 
 /-! # Scalar compatibility of actual function-field pullback -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -45,8 +49,7 @@ def functionFieldAlgHomOver
     let : Algebra K X.functionField := (baseToFunctionField c).toAlgebra
     let : Algebra K Y.functionField := (baseToFunctionField (f ≫ c)).toAlgebra
     X.functionField →ₐ[K] Y.functionField := by
-  let : Algebra K X.functionField := (baseToFunctionField c).toAlgebra
-  let : Algebra K Y.functionField := (baseToFunctionField (f ≫ c)).toAlgebra
+  intro targetAlgebra sourceAlgebra
   exact
     { f.functionFieldMap hf with
       commutes' := functionFieldMap_baseToFunctionField c f hf }

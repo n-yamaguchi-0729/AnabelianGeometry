@@ -4,14 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.IntegralAutomorphismLocalizedWildOrder
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameOrder
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingPrincipalInertiaCriterion
-import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
-import Mathlib.RingTheory.IntegralDomain
-import Mathlib.GroupTheory.PGroup
-import Mathlib.Algebra.Ring.Aut
-import Mathlib.RingTheory.Ideal.Pointwise
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.IntegralAutomorphismLocalizedWildOrder
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameOrder
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingPrincipalInertiaCriterion
+public import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
+public import Mathlib.RingTheory.IntegralDomain
+public import Mathlib.GroupTheory.PGroup
+public import Mathlib.Algebra.Ring.Aut
+public import Mathlib.RingTheory.Ideal.Pointwise
+public import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
 
 /-!
 # Primary wild orders at finite ideals
@@ -19,6 +22,8 @@ import Mathlib.RingTheory.Ideal.Pointwise
 Proves that the principal-unit wild order of the original normalization action is a power of the
 residue exponential characteristic.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -83,13 +88,13 @@ theorem finiteIdealWildOrder_exists_expChar_pow
       intro b
       have hb := RingEquiv.congr_fun hn b
       have hi : (⇑(σ : B ≃ₐ[A] B))^[p ^ n] b = b := by
-        simpa only [RingAut.coe_pow, AlgEquiv.coe_ringEquiv, RingAut.one_apply] using hb
+        simpa only [RingAut.coe_pow, AlgEquiv.coe_toRingEquiv, RingAut.one_apply] using hb
       exact (congrFun (AlgEquiv.coe_pow (σ : B ≃ₐ[A] B) (p ^ n)) b).trans hi
     · intro hchar hprincipal
       have hn : (σ : B ≃ₐ[A] B).toRingEquiv = RingEquiv.refl B :=
         h.2 (by simpa only [he σ] using hprincipal)
       clear hprincipal h hσ hσ' hQ qPrime hchar Q
-      exact AlgEquiv.coe_ringEquiv_injective hn
+      exact AlgEquiv.toRingEquiv_injective hn
   clear he
   change ∀ (Q : Ideal B) [Q.IsPrime] (hQ : Q ≠ ⊥),
     ∃ n : ℕ, finiteIdealWildOrder B G Q hQ = (ringExpChar Q.ResidueField) ^ n

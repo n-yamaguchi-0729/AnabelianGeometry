@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.DiscreteValuationRing.Basic
-import Mathlib.RingTheory.OrderOfVanishing.Basic
-import Mathlib.RingTheory.RamificationInertia.Ramification
+module
+
+public import Mathlib.RingTheory.DiscreteValuationRing.Basic
+public import Mathlib.RingTheory.OrderOfVanishing.Basic
+public import Mathlib.RingTheory.RamificationInertia.Ramification
 
 /-!
 # Uniformizer radicals force divisibility of the ramification index
@@ -18,6 +20,8 @@ hypothesis is used.
 
 Reference: https://stacks.math.columbia.edu/tag/0BUB
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,27 +4,29 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Constructible.LocalRepresenterGluing
-import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
-import Nyll.EtaleCohomology.Constructible.SigmaRepresenter
-import Nyll.EtaleCohomology.Sites.EtaleRestriction
-import Nyll.EtaleCohomology.Sites.EtaleSlice
-import Nyll.EtaleCohomology.Sites.LocallyDirectedCover
-import Nyll.EtaleCohomology.Sites.Subcanonical
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
-import Nyll.SchemeTheory.WeilRestriction.LocalRepresenters
-import Mathlib.AlgebraicGeometry.Cover.MorphismProperty
-import Mathlib.AlgebraicGeometry.Cover.Open
-import Mathlib.AlgebraicGeometry.Morphisms.Etale
-import Mathlib.AlgebraicGeometry.RelativeGluing
-import Mathlib.AlgebraicGeometry.Sites.Etale
-import Mathlib.CategoryTheory.Limits.Types.Multiequalizer
-import Mathlib.CategoryTheory.MorphismProperty.Comma
-import Mathlib.CategoryTheory.Opposites
-import Mathlib.CategoryTheory.Sites.Hypercover.One
-import Mathlib.CategoryTheory.Sites.Subcanonical
-import Mathlib.CategoryTheory.Yoneda
-import Mathlib.Logic.Function.Basic
+module
+
+public import Nyll.EtaleCohomology.Constructible.LocalRepresenterGluing
+public import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
+public import Nyll.EtaleCohomology.Constructible.SigmaRepresenter
+public import Nyll.EtaleCohomology.Sites.EtaleRestriction
+public import Nyll.EtaleCohomology.Sites.EtaleSlice
+public import Nyll.EtaleCohomology.Sites.LocallyDirectedCover
+public import Nyll.EtaleCohomology.Sites.Subcanonical
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+public import Nyll.SchemeTheory.WeilRestriction.LocalRepresenters
+public import Mathlib.AlgebraicGeometry.Cover.MorphismProperty
+public import Mathlib.AlgebraicGeometry.Cover.Open
+public import Mathlib.AlgebraicGeometry.Morphisms.Etale
+public import Mathlib.AlgebraicGeometry.RelativeGluing
+public import Mathlib.AlgebraicGeometry.Sites.Etale
+public import Mathlib.CategoryTheory.Limits.Types.Multiequalizer
+public import Mathlib.CategoryTheory.MorphismProperty.Comma
+public import Mathlib.CategoryTheory.Opposites
+public import Mathlib.CategoryTheory.Sites.Hypercover.One
+public import Mathlib.CategoryTheory.Sites.Subcanonical
+public import Mathlib.CategoryTheory.Yoneda
+public import Mathlib.Logic.Function.Basic
 
 /-!
 # Representability by gluing on the small étale site
@@ -38,6 +40,8 @@ then makes it an isomorphism on the whole base.
 The cover may have any small index type. No affine, quasi-compact, quasi-separated,
 connected, or noetherian assumption is made on the base.
 -/
+
+@[expose] public section
 
 noncomputable section
 universe u v w

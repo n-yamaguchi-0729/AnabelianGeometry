@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteDivisorialFiniteQuotientCompatibility
-import Nyll.EtaleFundamentalGroups.Kummer.Normalization.FiniteEtaleGaloisCoverNormalizationAction
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteDivisorialFiniteQuotientCompatibility
+public import Nyll.EtaleFundamentalGroups.Kummer.Normalization.FiniteEtaleGaloisCoverNormalizationAction
 
 /-!
 # Absolute divisorial inertia in finite pointed quotients
@@ -17,6 +19,8 @@ the level of generic lifts avoids unfolding the absolute map while constructing
 the induced function-field homomorphism.
 -/
 
+@[expose] public section
+
 noncomputable section
 
 open AlgebraicGeometry CategoryTheory
@@ -27,7 +31,7 @@ namespace EtaleFundamentalGroups.Inertia
 
 universe u
 
-private theorem fieldGeometricPoint_comp_genericExtensionMorphism'
+theorem fieldGeometricPoint_comp_genericExtensionMorphism'
     (U : Scheme.{u}) [IsIntegral U]
     (Omega : Type u) [Field Omega] [Algebra U.functionField Omega] :
     ξ U.functionField Omega ≫
@@ -37,28 +41,6 @@ private theorem fieldGeometricPoint_comp_genericExtensionMorphism'
   rw [← Spec.map_comp_assoc]
   congr 1
 
-private theorem fiberObjEquivHom_eqToIso_left'
-    {Omega : Type u} [Field Omega] [IsSepClosed Omega]
-    {U : Scheme.{u}}
-    {xi xi' : Spec (.of Omega) ⟶ U} (h : xi = xi')
-    (W : FiniteEtale U) (w : (fiber xi).obj W) :
-    (fiberObjEquivHom xi' W
-        ((eqToIso (congrArg fiber h)).hom.app W w)).left =
-      (fiberObjEquivHom xi W w).left := by
-  subst xi'
-  rfl
-
-private theorem fiberObjEquivHom_eqToIso_inv_left'
-    {Omega : Type u} [Field Omega] [IsSepClosed Omega]
-    {U : Scheme.{u}}
-    {xi xi' : Spec (.of Omega) ⟶ U} (h : xi = xi')
-    (W : FiniteEtale U) (w : (fiber xi').obj W) :
-    (fiberObjEquivHom xi W
-        ((eqToIso (congrArg fiber h)).inv.app W w)).left =
-      (fiberObjEquivHom xi' W w).left := by
-  subst xi'
-  rfl
-
 private theorem absoluteGaloisFiberAction_left'
     {K Omega : Type u} [Field K] [Field Omega] [Algebra K Omega]
     [IsSepClosure K Omega] [IsSepClosed Omega]
@@ -67,7 +49,7 @@ private theorem absoluteGaloisFiberAction_left'
     (sigma : Gal(Omega/K)) :
     (fiberObjEquivHom (ξ K Omega) W
       ((absoluteGaloisToFiberAutMulEquiv K Omega
-        (IsSepClosure.sep_closed K) sigma).hom.app W y)).left =
+        (IsSepClosure.sep_closed K) sigma).asIso.hom.app W y)).left =
       Spec.map (CommRingCat.ofHom sigma.toRingEquiv.toRingHom) ≫
         (fiberObjEquivHom (ξ K Omega) W y).left := by
   rw [absoluteGaloisToFiberAutMulEquiv,
@@ -109,7 +91,7 @@ private theorem fundamentalGroupHom_absoluteGalois_left'
     (fiberObjEquivHom (ξ K Omega ≫ f) W
       ((fundamentalGroupHom f (ξ K Omega)
         (absoluteGaloisToFiberAutMulEquiv K Omega
-          (IsSepClosure.sep_closed K) sigma)).hom.app W x)).left =
+          (IsSepClosure.sep_closed K) sigma)).asIso.hom.app W x)).left =
       Spec.map (CommRingCat.ofHom sigma.toRingEquiv.toRingHom) ≫
         (fiberObjEquivHom (ξ K Omega ≫ f) W x).left := by
   let eta := ξ K Omega
@@ -122,8 +104,8 @@ private theorem fundamentalGroupHom_absoluteGalois_left'
   have hp : p.hom.app W y = x :=
     FintypeCat.inv_hom_id_apply (p.app W) x
   have hfund :
-      (fundamentalGroupHom f eta a).hom.app W x =
-        p.hom.app W (a.hom.app ((pullback f).obj W) y) := by
+      (fundamentalGroupHom f eta a).asIso.hom.app W x =
+        p.hom.app W (a.asIso.hom.app ((pullback f).obj W) y) := by
     have h := pullbackFiberIso_hom_fundamentalGroupHom_apply
       f eta a W y
     rw [hp] at h
@@ -136,12 +118,12 @@ private theorem fundamentalGroupHom_absoluteGalois_left'
     rw [hp] at h
     exact h
   change (fiberObjEquivHom (eta ≫ f) W
-    ((fundamentalGroupHom f eta a).hom.app W x)).left =
+    ((fundamentalGroupHom f eta a).asIso.hom.app W x)).left =
       s ≫ (fiberObjEquivHom (eta ≫ f) W x).left
   rw [hrecover]
   calc
     _ = (fiberObjEquivHom (eta ≫ f) W
-          (p.hom.app W (a.hom.app ((pullback f).obj W) y))).left := by
+          (p.hom.app W (a.asIso.hom.app ((pullback f).obj W) y))).left := by
       rw [hfund]
     _ = (s ≫ (fiberObjEquivHom eta ((pullback f).obj W) y).left) ≫
           Limits.pullback.fst W.hom f := by
@@ -187,22 +169,22 @@ theorem finiteEtaleGaloisCoverQuotient_lift_left
     (w : (fiber xi).obj W) (gamma : π₁ᵉᵗ(xi)) :
     (fiberObjEquivHom xi W w).left ≫
         (finiteEtaleGaloisCoverQuotientMonoidHom
-          xi W ‹IsGalois W› w gamma).unop.hom.hom.left =
-      (fiberObjEquivHom xi W (gamma.hom.app W w)).left := by
+          xi W ‹IsGalois W› w gamma).unop.asIso.hom.hom.left =
+      (fiberObjEquivHom xi W (gamma.asIso.hom.app W w)).left := by
   have heval :
       (fiber xi).map
           (finiteEtaleGaloisCoverQuotientMonoidHom
-            xi W ‹IsGalois W› w gamma).unop.hom w = gamma • w :=
+            xi W ‹IsGalois W› w gamma).unop.asIso.hom w = gamma • w :=
     finiteEtaleGaloisCoverQuotientMonoidHom_evaluation
       xi W ‹IsGalois W› w gamma
   have hnat := congrArg (fun q ↦ q.left)
     (fiberObjEquivHom_naturality xi
       (finiteEtaleGaloisCoverQuotientMonoidHom
-        xi W ‹IsGalois W› w gamma).unop.hom w)
+        xi W ‹IsGalois W› w gamma).unop.asIso.hom w)
   rw [heval] at hnat
   change (fiberObjEquivHom xi W w).left ≫
     (finiteEtaleGaloisCoverQuotientMonoidHom
-      xi W ‹IsGalois W› w gamma).unop.hom.hom.left = _
+      xi W ‹IsGalois W› w gamma).unop.asIso.hom.hom.left = _
   exact hnat
 
 /-- At a composite generic base point, the pointed quotient of the
@@ -233,7 +215,7 @@ theorem
     let deck := finiteEtaleGaloisCoverQuotientMonoidHom
       (ξ U.functionField Omega ≫
         U.genericExtensionMorphism U.functionField) W hW x gamma
-    g ≫ deck.unop.hom.hom = genericPointLiftPrecomp W g sigma := by
+    g ≫ deck.unop.asIso.hom.hom = genericPointLiftPrecomp W g sigma := by
   let : IsGalois W := hW
   let g := genericPointLiftRebase hf W
     (fiberObjEquivHom (ξ U.functionField Omega ≫
@@ -246,13 +228,13 @@ theorem
   let deck := finiteEtaleGaloisCoverQuotientMonoidHom
     (ξ U.functionField Omega ≫
       U.genericExtensionMorphism U.functionField) W hW x gamma
-  change g ≫ deck.unop.hom.hom = genericPointLiftPrecomp W g sigma
+  change g ≫ deck.unop.asIso.hom.hom = genericPointLiftPrecomp W g sigma
   apply Over.OverMorphism.ext
   rw [← genericPointLiftPrecomp_left' W g sigma]
   change
     (fiberObjEquivHom (ξ U.functionField Omega ≫
       U.genericExtensionMorphism U.functionField) W x).left ≫
-        deck.unop.hom.hom.left =
+        deck.unop.asIso.hom.hom.left =
       Spec.map (CommRingCat.ofHom sigma.toRingEquiv.toRingHom) ≫
         (fiberObjEquivHom (ξ U.functionField Omega ≫
           U.genericExtensionMorphism U.functionField) W x).left
@@ -284,7 +266,7 @@ theorem finiteEtaleGaloisCoverQuotient_absoluteGenericGalois_rebased_lift
     let deck := finiteEtaleGaloisCoverQuotientMonoidHom
       (U.genericExtensionMorphism Omega) W hW w
       (absoluteGenericGaloisToFundamentalGroup U Omega sigma)
-    g ≫ deck.unop.hom.hom = genericPointLiftPrecomp W g sigma := by
+    g ≫ deck.unop.asIso.hom.hom = genericPointLiftPrecomp W g sigma := by
   let : IsGalois W := hW
   let h := fieldGeometricPoint_comp_genericExtensionMorphism' U Omega
   let x := (absoluteGenericFiberIso U Omega).inv.app W w
@@ -306,7 +288,7 @@ theorem finiteEtaleGaloisCoverQuotient_absoluteGenericGalois_rebased_lift
   have hdeck : deck = deckComposite := by
     exact finiteEtaleGaloisCoverQuotient_absoluteGenericGalois_transport
       Omega W hW w sigma
-  change g ≫ deck.unop.hom.hom = genericPointLiftPrecomp W g sigma
+  change g ≫ deck.unop.asIso.hom.hom = genericPointLiftPrecomp W g sigma
   rw [hdeck]
   exact
     finiteEtaleGaloisCoverQuotient_fundamentalGroupHom_absoluteGalois_rebased_lift
@@ -322,23 +304,20 @@ theorem finiteEtaleGenericHomFunctionFieldAlgHom_of_lift_eq
     (g : Over.mk (U.genericExtensionMorphism Omega) ⟶ W.toComma)
     (deck : (Aut W)ᵐᵒᵖ)
     (sigma : Gal(Omega/U.functionField))
-    (hlift : g ≫ deck.unop.hom.hom =
+    (hlift : g ≫ deck.unop.asIso.hom.hom =
       genericPointLiftPrecomp W g sigma) :
-    letI : IsIntegral W.left :=
+    let : IsIntegral W.left :=
       isIntegral_left_of_isConnected_finiteEtale W
-    letI : Algebra U.functionField W.left.functionField :=
+    let : Algebra U.functionField W.left.functionField :=
       finiteEtaleFunctionFieldAlgebra W
     (finiteEtaleGenericHomFunctionFieldAlgHom W g).comp
         (finiteEtaleAutFunctionFieldAlgEquiv W deck.unop).toAlgHom =
       sigma.toAlgHom.comp
         (finiteEtaleGenericHomFunctionFieldAlgHom W g) := by
-  let : IsIntegral W.left :=
-    isIntegral_left_of_isConnected_finiteEtale W
-  let : Algebra U.functionField W.left.functionField :=
-    finiteEtaleFunctionFieldAlgebra W
+  intro sharedOwner1 sharedOwner2
   calc
     _ = finiteEtaleGenericHomFunctionFieldAlgHom W
-        (g ≫ deck.unop.hom.hom) :=
+        (g ≫ deck.unop.asIso.hom.hom) :=
       (finiteEtaleGenericHomFunctionFieldAlgHom_comp_aut
         W g deck.unop).symm
     _ = finiteEtaleGenericHomFunctionFieldAlgHom W
@@ -357,10 +336,10 @@ theorem finiteEtaleGenericHomFunctionFieldAlgHom_absoluteGenericGalois_rebased
     (W : FiniteEtale U) (hW : IsGalois W)
     (w : (fiber (U.genericExtensionMorphism Omega)).obj W)
     (sigma : Gal(Omega/U.functionField)) :
-    letI : IsGalois W := hW
-    letI : IsIntegral W.left :=
+    let : IsGalois W := hW
+    let : IsIntegral W.left :=
       isIntegral_left_of_isConnected_finiteEtale W
-    letI : Algebra U.functionField W.left.functionField :=
+    let : Algebra U.functionField W.left.functionField :=
       finiteEtaleFunctionFieldAlgebra W
     let h := fieldGeometricPoint_comp_genericExtensionMorphism' U Omega
     let x := (absoluteGenericFiberIso U Omega).inv.app W w
@@ -375,25 +354,7 @@ theorem finiteEtaleGenericHomFunctionFieldAlgHom_absoluteGenericGalois_rebased
         (finiteEtaleAutFunctionFieldAlgEquiv W deck.unop).toAlgHom =
       sigma.toAlgHom.comp
         (finiteEtaleGenericHomFunctionFieldAlgHom W g) := by
-  let : IsGalois W := hW
-  let : IsIntegral W.left :=
-    isIntegral_left_of_isConnected_finiteEtale W
-  let : Algebra U.functionField W.left.functionField :=
-    finiteEtaleFunctionFieldAlgebra W
-  let h := fieldGeometricPoint_comp_genericExtensionMorphism' U Omega
-  let x := (absoluteGenericFiberIso U Omega).inv.app W w
-  let g := genericPointLiftRebase h W
-    (fiberObjEquivHom
-      (ξ U.functionField Omega ≫
-        U.genericExtensionMorphism U.functionField) W x)
-  let deck := finiteEtaleGaloisCoverQuotientMonoidHom
-    (U.genericExtensionMorphism Omega) W hW w
-    (absoluteGenericGaloisToFundamentalGroup U Omega sigma)
-  change
-    (finiteEtaleGenericHomFunctionFieldAlgHom W g).comp
-        (finiteEtaleAutFunctionFieldAlgEquiv W deck.unop).toAlgHom =
-      sigma.toAlgHom.comp
-        (finiteEtaleGenericHomFunctionFieldAlgHom W g)
+  intro sharedOwner1 sharedOwner2 sharedOwner3 h x g deck
   exact finiteEtaleGenericHomFunctionFieldAlgHom_of_lift_eq
     W g deck sigma
       (finiteEtaleGaloisCoverQuotient_absoluteGenericGalois_rebased_lift
@@ -412,14 +373,14 @@ theorem restrictNormalHom_eq_finiteEtaleAutFunctionFieldAlgEquiv_absoluteGeneric
     (W : FiniteEtale U) (hW : IsGalois W)
     (w : (fiber (U.genericExtensionMorphism Omega)).obj W)
     (sigma : Gal(Omega/U.functionField)) :
-    letI : IsGalois W := hW
-    letI : IsIntegral W.left :=
+    let : IsGalois W := hW
+    let : IsIntegral W.left :=
       isIntegral_left_of_isConnected_finiteEtale W
-    letI : Algebra U.functionField W.left.functionField :=
+    let : Algebra U.functionField W.left.functionField :=
       finiteEtaleFunctionFieldAlgebra W
-    letI : FiniteDimensional U.functionField W.left.functionField :=
+    let : FiniteDimensional U.functionField W.left.functionField :=
       finiteDimensional_functionField_of_finiteEtale_isConnected W
-    letI : _root_.IsGalois U.functionField W.left.functionField :=
+    let : _root_.IsGalois U.functionField W.left.functionField :=
       isGalois_functionField_of_isGalois_finiteEtale W hW
     let h := fieldGeometricPoint_comp_genericExtensionMorphism' U Omega
     let x := (absoluteGenericFiberIso U Omega).inv.app W w
@@ -431,40 +392,17 @@ theorem restrictNormalHom_eq_finiteEtaleAutFunctionFieldAlgEquiv_absoluteGeneric
     let deck := finiteEtaleGaloisCoverQuotientMonoidHom
       (U.genericExtensionMorphism Omega) W hW w
       (absoluteGenericGaloisToFundamentalGroup U Omega sigma)
-    letI : Algebra W.left.functionField Omega :=
+    let : Algebra W.left.functionField Omega :=
       j.toRingHom.toAlgebra
-    letI : IsScalarTower U.functionField W.left.functionField Omega := by
+    let : IsScalarTower U.functionField W.left.functionField Omega := by
       apply IsScalarTower.of_algebraMap_eq'
       ext z
       exact (j.commutes z).symm
     AlgEquiv.restrictNormalHom
         (F := U.functionField) (K₁ := Omega) W.left.functionField sigma =
       finiteEtaleAutFunctionFieldAlgEquiv W deck.unop := by
-  let : IsGalois W := hW
-  let : IsIntegral W.left :=
-    isIntegral_left_of_isConnected_finiteEtale W
-  let : Algebra U.functionField W.left.functionField :=
-    finiteEtaleFunctionFieldAlgebra W
-  let : FiniteDimensional U.functionField W.left.functionField :=
-    finiteDimensional_functionField_of_finiteEtale_isConnected W
-  let : _root_.IsGalois U.functionField W.left.functionField :=
-    isGalois_functionField_of_isGalois_finiteEtale W hW
-  let h := fieldGeometricPoint_comp_genericExtensionMorphism' U Omega
-  let x := (absoluteGenericFiberIso U Omega).inv.app W w
-  let g := genericPointLiftRebase h W
-    (fiberObjEquivHom
-      (ξ U.functionField Omega ≫
-        U.genericExtensionMorphism U.functionField) W x)
-  let j := finiteEtaleGenericHomFunctionFieldAlgHom W g
-  let deck := finiteEtaleGaloisCoverQuotientMonoidHom
-    (U.genericExtensionMorphism Omega) W hW w
-    (absoluteGenericGaloisToFundamentalGroup U Omega sigma)
-  let : Algebra W.left.functionField Omega :=
-    j.toRingHom.toAlgebra
-  let : IsScalarTower U.functionField W.left.functionField Omega := by
-    apply IsScalarTower.of_algebraMap_eq'
-    ext z
-    exact (j.commutes z).symm
+  intro sharedOwner1 sharedOwner2 sharedOwner3 sharedOwner4 sharedOwner5 h x g j deck
+    sharedOwner11 sharedOwner12
   have hintertwine :=
     finiteEtaleGenericHomFunctionFieldAlgHom_absoluteGenericGalois_rebased
       Omega W hW w sigma
@@ -508,19 +446,19 @@ theorem finiteEtaleGaloisCoverQuotient_absoluteGenericGalois_mem_contractedIdeal
     (sigma : Gal(Omega/U.functionField))
     (hsigma : sigma ∈
       Q.toAddSubgroup.inertia Gal(Omega/U.functionField)) :
-    letI : IsGalois W := hW
-    letI : IsIntegral W.left :=
+    let : IsGalois W := hW
+    let : IsIntegral W.left :=
       isIntegral_left_of_isConnected_finiteEtale W
     let K := U.functionField
     let L := W.left.functionField
-    letI : Algebra K L := finiteEtaleFunctionFieldAlgebra W
-    letI : FiniteDimensional K L :=
+    let : Algebra K L := finiteEtaleFunctionFieldAlgebra W
+    let : FiniteDimensional K L :=
       finiteDimensional_functionField_of_finiteEtale_isConnected W
-    letI : _root_.IsGalois K L :=
+    let : _root_.IsGalois K L :=
       isGalois_functionField_of_isGalois_finiteEtale W hW
-    letI : Algebra A L :=
+    let : Algebra A L :=
       ((algebraMap K L).comp (algebraMap A K)).toAlgebra
-    letI : IsScalarTower A K L := IsScalarTower.of_algebraMap_eq' rfl
+    let : IsScalarTower A K L := IsScalarTower.of_algebraMap_eq' rfl
     let h := fieldGeometricPoint_comp_genericExtensionMorphism' U Omega
     let x := (absoluteGenericFiberIso U Omega).inv.app W w
     let g := genericPointLiftRebase h W
@@ -530,12 +468,12 @@ theorem finiteEtaleGaloisCoverQuotient_absoluteGenericGalois_mem_contractedIdeal
     let deck := finiteEtaleGaloisCoverQuotientMonoidHom
       (U.genericExtensionMorphism Omega) W hW w
       (absoluteGenericGaloisToFundamentalGroup U Omega sigma)
-    letI : Algebra L Omega := j.toRingHom.toAlgebra
-    letI : IsScalarTower K L Omega := by
+    let : Algebra L Omega := j.toRingHom.toAlgebra
+    let : IsScalarTower K L Omega := by
       apply IsScalarTower.of_algebraMap_eq'
       ext z
       exact (j.commutes z).symm
-    letI : IsScalarTower A L Omega := by
+    let : IsScalarTower A L Omega := by
       apply IsScalarTower.of_algebraMap_eq'
       ext a
       change algebraMap A Omega a = j (algebraMap A L a)
@@ -550,61 +488,16 @@ theorem finiteEtaleGaloisCoverQuotient_absoluteGenericGalois_mem_contractedIdeal
     let B := integralClosure A L
     let QL := absoluteNormalizationPrimeContraction
       (A := A) (L := L) (Omega := Omega) Q
-    letI : IsFractionRing B L :=
+    let : IsFractionRing B L :=
       IsIntegralClosure.isFractionRing_of_finite_extension A K L B
-    letI : MulSemiringAction Gal(L/K) B :=
+    let : MulSemiringAction Gal(L/K) B :=
       IsIntegralClosure.MulSemiringAction A K L B
-    letI : MulSemiringAction (Aut W)ᵐᵒᵖ B :=
+    let : MulSemiringAction (Aut W)ᵐᵒᵖ B :=
       Kummer.finiteEtaleGaloisCoverNormalizationAction W hW A B
     deck ∈ QL.toAddSubgroup.inertia (Aut W)ᵐᵒᵖ := by
-  let : IsGalois W := hW
-  let : IsIntegral W.left :=
-    isIntegral_left_of_isConnected_finiteEtale W
-  let K := U.functionField
-  let L := W.left.functionField
-  let : Algebra K L := finiteEtaleFunctionFieldAlgebra W
-  let : FiniteDimensional K L :=
-    finiteDimensional_functionField_of_finiteEtale_isConnected W
-  let : _root_.IsGalois K L :=
-    isGalois_functionField_of_isGalois_finiteEtale W hW
-  let : Algebra A L :=
-    ((algebraMap K L).comp (algebraMap A K)).toAlgebra
-  let : IsScalarTower A K L := IsScalarTower.of_algebraMap_eq' rfl
-  let h := fieldGeometricPoint_comp_genericExtensionMorphism' U Omega
-  let x := (absoluteGenericFiberIso U Omega).inv.app W w
-  let g := genericPointLiftRebase h W
-    (fiberObjEquivHom
-      (ξ K Omega ≫ U.genericExtensionMorphism K) W x)
-  let j := finiteEtaleGenericHomFunctionFieldAlgHom W g
-  let deck := finiteEtaleGaloisCoverQuotientMonoidHom
-    (U.genericExtensionMorphism Omega) W hW w
-    (absoluteGenericGaloisToFundamentalGroup U Omega sigma)
-  let : Algebra L Omega := j.toRingHom.toAlgebra
-  let : IsScalarTower K L Omega := by
-    apply IsScalarTower.of_algebraMap_eq'
-    ext z
-    exact (j.commutes z).symm
-  let : IsScalarTower A L Omega := by
-    apply IsScalarTower.of_algebraMap_eq'
-    ext a
-    change algebraMap A Omega a = j (algebraMap A L a)
-    calc
-      algebraMap A Omega a =
-          algebraMap K Omega (algebraMap A K a) :=
-        IsScalarTower.algebraMap_apply A K Omega a
-      _ = j (algebraMap K L (algebraMap A K a)) :=
-        (j.commutes (algebraMap A K a)).symm
-      _ = j (algebraMap A L a) := by
-        rw [IsScalarTower.algebraMap_apply A K L]
-  let B := integralClosure A L
-  let QL := absoluteNormalizationPrimeContraction
-    (A := A) (L := L) (Omega := Omega) Q
-  let : IsFractionRing B L :=
-    IsIntegralClosure.isFractionRing_of_finite_extension A K L B
-  let : MulSemiringAction Gal(L/K) B :=
-    IsIntegralClosure.MulSemiringAction A K L B
-  let : MulSemiringAction (Aut W)ᵐᵒᵖ B :=
-    Kummer.finiteEtaleGaloisCoverNormalizationAction W hW A B
+  intro sharedOwner1 sharedOwner2 K L sharedOwner5 sharedOwner6 sharedOwner7 sharedOwner8
+    sharedOwner9 h x g j deck sharedOwner15 sharedOwner16 sharedOwner17 B QL sharedOwner20
+    sharedOwner21 sharedOwner22
   have hrestrict :=
     restrictNormalHom_eq_finiteEtaleAutFunctionFieldAlgEquiv_absoluteGenericGalois_rebased
       Omega W hW w sigma

@@ -4,9 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.AlgebraicGeometry.Restrict
+module
+
+public import Mathlib.AlgebraicGeometry.Restrict
 
 /-! # Restricting an actual scheme isomorphism to corresponding open subschemes -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -24,7 +28,8 @@ def restrictSchemeIso {X Y : Scheme} (e : X ≅ Y)
 theorem restrictSchemeIso_hom_ι {X Y : Scheme} (e : X ≅ Y)
     (U : X.Opens) (V : Y.Opens) (h : e.hom ⁻¹ᵁ V = U) :
     (restrictSchemeIso e U V h).hom ≫ V.ι = U.ι ≫ e.hom := by
-  simp [restrictSchemeIso, Category.assoc]
+  simp only [restrictSchemeIso, Iso.trans_hom, Category.assoc,
+    Scheme.Hom.preimageIso_hom_ι, Scheme.isoOfEq_hom_ι_assoc]
 
 /-- Restriction preserves the original base scheme. -/
 theorem restrictSchemeIso_over {X Y S : Scheme} (e : X ≅ Y)

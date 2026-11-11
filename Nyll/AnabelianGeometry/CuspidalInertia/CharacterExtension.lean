@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.CuspidalInertia.CompactSeparation
-import Mathlib.Topology.Algebra.Group.Quotient
+module
+
+public import Nyll.AnabelianGeometry.CuspidalInertia.CompactSeparation
+public import Mathlib.Topology.Algebra.Group.Quotient
 
 /-!
 # Extending characters with compact vanishing conditions
@@ -16,6 +18,8 @@ the extension can be chosen to vanish on that family's entire intersection
 with the open overgroup. This is the character separation step in the
 open-subgroup criterion for inertia.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.CuspidalInertia
 

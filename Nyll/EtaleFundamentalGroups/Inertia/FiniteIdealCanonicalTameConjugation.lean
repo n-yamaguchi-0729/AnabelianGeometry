@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealCanonicalTameCharacter
-import Nyll.EtaleFundamentalGroups.Inertia.IdealLocalizationInertiaConjugation
-import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.LocalTameCharacterConjugateValue
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealCanonicalTameCharacter
+public import Nyll.EtaleFundamentalGroups.Inertia.IdealLocalizationInertiaConjugation
+public import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.LocalTameCharacterConjugateValue
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
 
 /-!
 # Conjugation equivariance of finite ideal characters
@@ -16,6 +18,8 @@ import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityField
 Proves stabilizer-conjugation equivariance for powers of the finite ideal tame character and for
 its canonical normalization.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -33,7 +37,7 @@ theorem finiteIdealTameCharacterGroupMap_pow_conjugate
     [Group G] [Finite G] [MulSemiringAction G B]
     (Q : Ideal B) [Q.IsPrime] (hQ : Q ≠ ⊥) (m : ℕ)
     (d : MulAction.stabilizer G Q) (σ : Q.inertia G) :
-    letI : IsDiscreteValuationRing (Localization.AtPrime Q) :=
+    let : IsDiscreteValuationRing (Localization.AtPrime Q) :=
       SchemeTheory.localizationAtPrime_isDiscreteValuationRing B Q hQ
     ((finiteIdealTameCharacterGroupMap B G Q hQ).toFun
         (nativeIdealInertiaConjugate B G Q d σ)) ^ m =
@@ -41,8 +45,7 @@ theorem finiteIdealTameCharacterGroupMap_pow_conjugate
         (MulSemiringAction.toRingHom (MulAction.stabilizer G Q) Q.ResidueField d)
         (finiteIdealTameOrder B G Q hQ)).hom'.toFun
         (((finiteIdealTameCharacterGroupMap B G Q hQ).toFun σ) ^ m) := by
-  let : IsDiscreteValuationRing (Localization.AtPrime Q) :=
-    SchemeTheory.localizationAtPrime_isDiscreteValuationRing B Q hQ
+  intro sharedOwner1
   have hconj := idealLocalizationInertiaGroupMap_conjugate_value B G Q d σ
   exact Eq.trans
     (congrArg

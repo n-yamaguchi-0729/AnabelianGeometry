@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ProperGroupScheme
-import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.EtaleFundamentalGroups.FiniteEtale.TrivialBaseChangeAlgebra
-import Mathlib.CategoryTheory.Galois.Full
-import Mathlib.CategoryTheory.Galois.Topology
-import Mathlib.GroupTheory.OrderOfElement
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ProperGroupScheme
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.TrivialBaseChangeAlgebra
+public import Mathlib.CategoryTheory.Galois.Full
+public import Mathlib.CategoryTheory.Galois.Topology
+public import Mathlib.GroupTheory.OrderOfElement
 
 /-!
 # Lifting multiplication by the degree through a connected cover
@@ -22,6 +24,10 @@ its finite monodromy image act freely and transitively; its order is therefore
 the degree, without replacing the degree by a factorial.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 
 open CategoryTheory CategoryTheory.Limits CategoryTheory.PreGaloisCategory
@@ -30,7 +36,7 @@ open AlgebraicGeometry AlgebraicGeometry.FiniteEtale
 namespace GoodReductionJacobian.RelativeGroupLaw
 
 private theorem pullback_fixed_of_pointed
-    {X Y : Scheme} {K : Type} [Field K] [IsSepClosed K]
+    {X Y : Scheme.{u}} {K : Type u} [Field K] [IsSepClosed K]
     (a : X ⟶ Y) (x : Spec (.of K) ⟶ X) (y : Spec (.of K) ⟶ Y)
     (h : x ≫ a = y) (W : FiniteEtale Y)
     (hf : ∀ (g : π₁ᵉᵗ(x)) (w : (fiber y).obj W),
@@ -39,8 +45,8 @@ private theorem pullback_fixed_of_pointed
   subst y
   exact pullback_fiber_fixed_of_image_fixed a x W hf
 
-variable {K : Type} [Field K] [IsSepClosed K]
-  {A : Scheme} {f : A ⟶ Spec (.of K)}
+variable {K : Type u} [Field K] [IsSepClosed K]
+  {A : Scheme.{u}} {f : A ⟶ Spec (.of K)}
   [IsProper f] [Smooth f] [GeometricallyConnected f]
   (G : RelativeGroupLaw K f)
 
@@ -56,7 +62,7 @@ theorem exists_schemeNsmul_lift_degree (W : FiniteEtale A) [IsConnected W] :
   let ev : Aut F →* Aut (F.obj W) :=
     (Pi.evalMonoidHom (fun Z : FiniteEtale A => Aut (F.obj Z)) W).comp (autEmbedding F)
   let x : F.obj W := Classical.choice inferInstance
-  let evaluation : ev.range → F.obj W := fun a => a.val.hom x
+  let evaluation : ev.range → F.obj W := fun a => a.val.asIso.hom x
   have hcomm (a b : ev.range) : a * b = b * a := by
     obtain ⟨g, hg⟩ := a.property
     obtain ⟨h, hh⟩ := b.property
@@ -74,13 +80,13 @@ theorem exists_schemeNsmul_lift_degree (W : FiniteEtale A) [IsConnected W] :
     ext y
     obtain ⟨g, hg⟩ := MulAction.exists_smul_eq (Aut F) x y
     let c : ev.range := ⟨ev g, ⟨g, rfl⟩⟩
-    have hy : c.val.hom x = y := hg
-    have hac : a.val.hom (c.val.hom x) = c.val.hom (a.val.hom x) :=
-      congrArg (fun d : ev.range => d.val.hom x) (hcomm a c)
-    have hbc : b.val.hom (c.val.hom x) = c.val.hom (b.val.hom x) :=
-      congrArg (fun d : ev.range => d.val.hom x) (hcomm b c)
+    have hy : c.val.asIso.hom x = y := hg
+    have hac : a.val.asIso.hom (c.val.asIso.hom x) = c.val.asIso.hom (a.val.asIso.hom x) :=
+      congrArg (fun d : ev.range => d.val.asIso.hom x) (hcomm a c)
+    have hbc : b.val.asIso.hom (c.val.asIso.hom x) = c.val.asIso.hom (b.val.asIso.hom x) :=
+      congrArg (fun d : ev.range => d.val.asIso.hom x) (hcomm b c)
     rw [← hy, hac, hbc]
-    exact congrArg c.val.hom hab
+    exact congrArg c.val.asIso.hom hab
   have hcard : Nat.card ev.range = Nat.card (F.obj W) :=
     Nat.card_congr (Equiv.ofBijective evaluation ⟨hinj, hsurj⟩)
   let n : ℕ := Nat.card (F.obj W)
@@ -97,7 +103,7 @@ theorem exists_schemeNsmul_lift_degree (W : FiniteEtale A) [IsConnected W] :
     have hv : ev (g ^ n) = 1 := by
       rw [map_pow]
       exact congrArg Subtype.val hp
-    change (ev (g ^ n)).hom w = w
+    change (ev (g ^ n)).asIso.hom w = w
     rw [hv]
     rfl
   let P : FiniteEtale A := (FiniteEtale.pullback (G.schemeNsmul n)).obj W

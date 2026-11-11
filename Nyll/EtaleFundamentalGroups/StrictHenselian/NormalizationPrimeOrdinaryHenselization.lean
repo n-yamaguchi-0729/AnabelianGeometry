@@ -4,15 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.StrictHenselian.OrdinaryHenselizationEmbedding
-import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeEmbedding
-import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeField
-import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaDiagram
-import Mathlib.Algebra.Algebra.Equiv
-import Mathlib.RingTheory.Algebraic.Integral
-import Mathlib.RingTheory.Localization.FractionRing
+module
+
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.OrdinaryHenselizationEmbedding
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeEmbedding
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeField
+public import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaDiagram
+public import Mathlib.Algebra.Algebra.Equiv
+public import Mathlib.RingTheory.Algebraic.Integral
+public import Mathlib.RingTheory.Localization.FractionRing
 
 /-!
 # The actual ordinary henselization inside the original normalization
@@ -24,6 +26,8 @@ the original ambient field. The existing decomposition-group action fixes
 this embedding by ordinary uniqueness, without acting trivially on the
 localization residue field.
 -/
+
+@[expose] public section
 
 noncomputable section
 

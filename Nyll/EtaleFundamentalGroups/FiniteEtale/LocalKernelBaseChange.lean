@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.LinearAlgebra.ModuleFreeQuotientRange
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProjectiveCokernelBaseChange
+module
+
+public import Nyll.SchemeTheory.RingTheory.LinearAlgebra.ModuleFreeQuotientRange
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProjectiveCokernelBaseChange
 
 /-!
 # Local H⁰ base change from surjectivity on the closed fibre
@@ -15,6 +17,8 @@ the kernel comparison on the residue field forces both its kernel and
 cokernel to split. In particular, its kernel is finite projective and
 commutes with arbitrary scalar extension.
 -/
+
+@[expose] public section
 
 noncomputable section
 

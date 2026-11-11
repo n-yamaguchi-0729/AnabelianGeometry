@@ -3,16 +3,20 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.Divisors.Correspondences.Correspondences
-import Nyll.AlgebraicCurves.Places.Evaluation.HasValueIffMemEqOrOrdSubPos
-import Nyll.AlgebraicCurves.Places.Ramification.OneLeRamificationIndex
-import Lean.Elab.Tactic.Omega
+module
+
+public import Nyll.AlgebraicCurves.Divisors.Correspondences.Correspondences
+public import Nyll.AlgebraicCurves.Places.Evaluation.HasValueIffMemEqOrOrdSubPos
+public import Nyll.AlgebraicCurves.Places.Ramification.OneLeRamificationIndex
+public import Lean.Elab.Tactic.Omega
 
 /-! # Literal values and poles under restriction along an integral field map
 
 The actual restricted place and the actual field homomorphism are retained.
 No source-place rationality, unramifiedness, or residue identification is needed.
 -/
+@[expose] public section
+
 noncomputable section
 
 namespace AlgebraicCurve.Place

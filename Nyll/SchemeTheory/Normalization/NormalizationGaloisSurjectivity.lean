@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.NormalizationAutomorphismSurjectivity
-import Nyll.SchemeTheory.Normalization.AmbientNormalizationGroupMap
+module
+
+public import Nyll.SchemeTheory.Normalization.NormalizationAutomorphismSurjectivity
+public import Nyll.SchemeTheory.Normalization.AmbientNormalizationGroupMap
 
 /-!
 # Surjectivity of native normalization automorphisms
@@ -13,6 +15,8 @@ import Nyll.SchemeTheory.Normalization.AmbientNormalizationGroupMap
 Every intrinsic coefficient automorphism is induced by an automorphism of
 the finite fraction-field extension.
 -/
+
+@[expose] public section
 
 noncomputable section
 

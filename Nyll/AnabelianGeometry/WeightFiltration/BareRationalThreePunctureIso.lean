@@ -3,11 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationMatchIso
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationPunctureEquiv
-import Mathlib.Data.Finset.Card
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationMatchIso
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationPunctureEquiv
+public import Mathlib.Data.Finset.Card
 
 /-! # Scheme isomorphisms for three rational punctures -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicGeometry.ProjSpace

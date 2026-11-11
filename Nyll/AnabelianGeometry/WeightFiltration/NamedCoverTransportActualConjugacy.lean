@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.CoverTransportNamedKummer
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryConjugacyAbelianRanges
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.CoverTransportNamedKummer
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryConjugacyAbelianRanges
 
 /-! # Applying named Kummer transport to the same actual inertia conjugacy
 
@@ -12,6 +14,8 @@ This assembly consumes the already reconstructed conjugacy and the computed
 named residues. It constructs all range, relation and source-character inputs
 of the cover transport theorem; it does not postulate those inputs.
 -/
+@[expose] public section
+
 noncomputable section
 open AlgebraicGeometry CategoryTheory AlgebraicCurve SchemeTheory
 open CategoryTheory.PreGaloisCategory

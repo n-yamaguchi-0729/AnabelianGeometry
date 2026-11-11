@@ -4,9 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticExactSequence
-import Nyll.ProCGroups.Topologies.ContinuousMulEquiv
-import Nyll.ProCGroups.Abelian.TopologicalAbelianizationConjugationContinuity
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticExactSequence
+public import Nyll.ProCGroups.Topologies.ContinuousMulEquiv
+public import Nyll.ProCGroups.ProC.MaximalQuotients.ResidualEquivalence
+public import Nyll.ProCGroups.FiniteGroups.StandardClasses
+public import Nyll.ProCGroups.Abelian.TopologicalAbelianizationConjugationContinuity
+public import Nyll.ProCGroups.ProC.MaximalQuotients.ResidualCore
+public import Nyll.ProCGroups.Topologies.TopologicallyCharacteristicSubgroups
 
 /-!
 # Galois action on the actual geometric abelianization
@@ -15,6 +21,8 @@ The arithmetic exact sequence identifies the original geometric fundamental
 group with the arithmetic kernel. The existing quotient-conjugation action
 then gives the Galois action on its topological abelianization.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -158,5 +166,75 @@ theorem continuous_geometricAbelianGaloisAction (σ : L ≃ₐ[k] L) :
     continuous_const.prodMk continuous_id
   have hc := (continuous_geometricAbelianGaloisAction_joint k L X f xi).comp h
   exact hc
+
+/-- Each arithmetic Galois element gives its original continuous automorphism
+of the geometric abelianization. -/
+def geometricAbelianGaloisContinuousAut (σ : L ≃ₐ[k] L) :
+    TopologicalAbelianization (Aut (fiber xi)) ≃ₜ*
+      TopologicalAbelianization (Aut (fiber xi)) :=
+  ProCGroups.ContinuousMulEquiv.ofBijectiveCompactToT2
+    (geometricAbelianGaloisAction k L X f xi σ).toMonoidHom
+    (continuous_geometricAbelianGaloisAction k L X f xi σ)
+    (geometricAbelianGaloisAction k L X f xi σ).bijective
+
+/-- Passing to the continuous automorphism retains the given Galois action. -/
+@[simp] theorem geometricAbelianGaloisContinuousAut_apply
+    (σ : L ≃ₐ[k] L) (x : TopologicalAbelianization (Aut (fiber xi))) :
+    geometricAbelianGaloisContinuousAut k L X f xi σ x =
+      geometricAbelianGaloisAction k L X f xi σ x := rfl
+
+/-- The actual arithmetic action descends to the geometric pro-Sigma
+abelianization, since continuous automorphisms preserve its residual core. -/
+def geometricSigmaAbelianGaloisAction (Sigma : Set ℕ) :
+    (L ≃ₐ[k] L) →* MulAut
+      (TopologicalAbelianization (Aut (fiber xi)) ⧸
+        ProCGroups.ProC.proCResidualCore (ProCGroups.FiniteGroupClass.sigmaGroup Sigma)
+          (TopologicalAbelianization (Aut (fiber xi)))) where
+  toFun σ := (ProCGroups.ProC.residualQuotientContinuousMulEquiv
+    (ProCGroups.FiniteGroupClass.sigmaGroup_fullFormation Sigma).hereditary
+    (geometricAbelianGaloisContinuousAut k L X f xi σ)).toMulEquiv
+  map_one' := by
+    apply MulEquiv.ext
+    intro x
+    obtain ⟨z, rfl⟩ := QuotientGroup.mk'_surjective
+      (ProCGroups.ProC.proCResidualCore (ProCGroups.FiniteGroupClass.sigmaGroup Sigma)
+        (TopologicalAbelianization (Aut (fiber xi)))) x
+    change QuotientGroup.mk' _ (geometricAbelianGaloisAction k L X f xi 1 z) =
+      QuotientGroup.mk' _ z
+    exact congrArg (fun e : MulAut (TopologicalAbelianization (Aut (fiber xi))) =>
+      QuotientGroup.mk' _ (e z)) (map_one (geometricAbelianGaloisAction k L X f xi))
+  map_mul' σ τ := by
+    apply MulEquiv.ext
+    intro x
+    obtain ⟨z, rfl⟩ := QuotientGroup.mk'_surjective
+      (ProCGroups.ProC.proCResidualCore (ProCGroups.FiniteGroupClass.sigmaGroup Sigma)
+        (TopologicalAbelianization (Aut (fiber xi)))) x
+    change QuotientGroup.mk' _ (geometricAbelianGaloisAction k L X f xi (σ * τ) z) =
+      QuotientGroup.mk' _ (geometricAbelianGaloisAction k L X f xi σ
+        (geometricAbelianGaloisAction k L X f xi τ z))
+    exact congrArg (fun e : MulAut (TopologicalAbelianization (Aut (fiber xi))) =>
+      QuotientGroup.mk' _ (e z)) (map_mul (geometricAbelianGaloisAction k L X f xi) σ τ)
+
+/-- On a quotient representative, the descended action is the original
+arithmetic conjugation action. -/
+@[simp] theorem geometricSigmaAbelianGaloisAction_mk
+    (Sigma : Set ℕ) (σ : L ≃ₐ[k] L)
+    (x : TopologicalAbelianization (Aut (fiber xi))) :
+    geometricSigmaAbelianGaloisAction k L X f xi Sigma σ
+        (QuotientGroup.mk'
+          (ProCGroups.ProC.proCResidualCore (ProCGroups.FiniteGroupClass.sigmaGroup Sigma)
+            (TopologicalAbelianization (Aut (fiber xi)))) x) =
+      QuotientGroup.mk'
+        (ProCGroups.ProC.proCResidualCore (ProCGroups.FiniteGroupClass.sigmaGroup Sigma)
+          (TopologicalAbelianization (Aut (fiber xi))))
+        (geometricAbelianGaloisAction k L X f xi σ x) := rfl
+
+/-- The action on each pro-Sigma quotient retains the quotient topology. -/
+theorem continuous_geometricSigmaAbelianGaloisAction
+    (Sigma : Set ℕ) (σ : L ≃ₐ[k] L) :
+    Continuous (geometricSigmaAbelianGaloisAction k L X f xi Sigma σ) :=
+  (ProCGroups.ProC.residualQuotientContinuousMulEquiv
+    (ProCGroups.FiniteGroupClass.sigmaGroup_fullFormation Sigma).hereditary
+    (geometricAbelianGaloisContinuousAut k L X f xi σ)).continuous_toFun
 
 end AlgebraicGeometry.FiniteEtale

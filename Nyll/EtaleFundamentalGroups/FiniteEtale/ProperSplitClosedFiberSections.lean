@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperIdempotentSectionLift
-import Nyll.SchemeTheory.FiniteEtale.Algebra.FiniteSplitIdempotentSurjectivity
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperIdempotentSectionLift
+public import Nyll.SchemeTheory.FiniteEtale.Algebra.FiniteSplitIdempotentSurjectivity
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
 
 /-!
 # Restriction to a split closed-fibre section algebra
@@ -16,6 +18,8 @@ idempotent is lifted by the proper cohomology theorem. If the closed-fibre
 section algebra is split, these lifts and lifts of residue coefficients
 give surjectivity of the actual restriction map on sections.
 -/
+
+@[expose] public section
 
 noncomputable section
 

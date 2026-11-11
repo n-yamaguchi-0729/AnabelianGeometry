@@ -4,10 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Ramification.FiniteCurveBoundaryMap
-import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
+module
+
+public import Nyll.AlgebraicCurves.Models.Ramification.FiniteCurveBoundaryMap
+public import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
 
 /-! # The literal function-field map of an actual compactified open square -/
+
+@[expose] public section
 
 noncomputable section
 

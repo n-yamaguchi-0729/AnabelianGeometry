@@ -4,9 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.AbelianH1Duality
-import Nyll.EtaleFundamentalGroups.Cohomology.PointedH1Pullback
-import Nyll.EtaleFundamentalGroups.GeometricFiber.DeckFundamentalGroup
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.AbelianH1Duality
+public import Nyll.EtaleFundamentalGroups.Cohomology.PointedH1Pullback
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.DeckFundamentalGroup
+public import Mathlib.CategoryTheory.Endomorphism
+public import Nyll.ProCGroups.Abelian.TopologicalAbelianization
 
 /-!
 # Equivariance of actual abelian H¹ duality for pointed deck actions
@@ -16,6 +20,8 @@ naturality give equivariance for any specified pointed geometric pullback.
 For a deck transformation, the actual comparison with conjugation is the
 one constructed by the geometric fiber functor.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -75,17 +81,17 @@ theorem abelianizationFiniteTorsionH1DualEquiv_deck
     {Ω : Type u} [Field Ω] [IsSepClosed Ω]
     (ξ : Spec (.of Ω) ⟶ A.left)
     (σ : Aut A) (g : Aut (FiniteEtale.fiber (ξ ≫ A.hom)))
-    (h : (FiniteEtale.fiber (ξ ≫ A.hom)).map σ.hom
+    (h : (FiniteEtale.fiber (ξ ≫ A.hom)).map σ.asIso.hom
       (FiniteEtale.liftedFiberPoint A ξ) =
         g • FiniteEtale.liftedFiberPoint A ξ)
     (a : TopologicalAbelianization (Aut (FiniteEtale.fiber ξ))) :
     abelianizationFiniteTorsionH1DualEquiv ξ
       (ProCGroups.Abelian.TopologicalAbelianization.map
-        (autHomOfCompIso (FiniteEtale.pullback σ.hom.left)
+        (autHomOfCompIso (FiniteEtale.pullback σ.asIso.hom.left)
           (FiniteEtale.deckPointedGeometricFiberIso A ξ σ g h)) a) =
       (abelianizationFiniteTorsionH1DualEquiv ξ a).comp
-        (finiteTorsionH1PullbackHom σ.hom.left) :=
-  abelianizationFiniteTorsionH1DualEquiv_pointedPullback σ.hom.left ξ ξ
+        (finiteTorsionH1PullbackHom σ.asIso.hom.left) :=
+  abelianizationFiniteTorsionH1DualEquiv_pointedPullback σ.asIso.hom.left ξ ξ
     (FiniteEtale.deckPointedGeometricFiberIso A ξ σ g h) a
 
 end EtaleFundamentalGroups.Cohomology

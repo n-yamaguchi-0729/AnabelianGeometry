@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Affine.AffinizationDescent
-import Mathlib.Algebra.Category.Ring.Constructions
-import Mathlib.RingTheory.Flat.FaithfullyFlat.Descent
+module
+
+public import Nyll.SchemeTheory.Affine.AffinizationDescent
+public import Mathlib.Algebra.Category.Ring.Constructions
+public import Mathlib.RingTheory.Flat.FaithfullyFlat.Descent
 
 /-!
 # Faithfully flat descent of surjectivity on actual global sections
@@ -15,6 +17,8 @@ The two flat global-section pushouts give the actual pushout square for
 the map of sections induced by a morphism over the base. Surjectivity
 then descends along the faithfully flat map of section rings.
 -/
+
+@[expose] public section
 
 noncomputable section
 

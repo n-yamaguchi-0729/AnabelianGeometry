@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Affine.HomeomorphismIdempotentSections
-import Nyll.SchemeTheory.Morphisms.AppTopPullbackMapEqAppTopPullbackFst
-import Mathlib.AlgebraicGeometry.Morphisms.ClosedImmersion
-import Mathlib.Topology.Homeomorph.Lemmas
+module
+
+public import Nyll.SchemeTheory.Affine.HomeomorphismIdempotentSections
+public import Nyll.SchemeTheory.Morphisms.AppTopPullbackMapEqAppTopPullbackFst
+public import Mathlib.AlgebraicGeometry.Morphisms.ClosedImmersion
+public import Mathlib.Topology.Homeomorph.Lemmas
 
 /-!
 # Proper idempotent-section lifting over a Noetherian affine base
@@ -21,6 +23,8 @@ This is the Noetherian supplier for Stacks Project Tag 0G7X. Extending it
 to an arbitrary finitely presented proper family still requires descending
 the family and the finite idempotent relation to a Noetherian model.
 -/
+
+@[expose] public section
 
 noncomputable section
 

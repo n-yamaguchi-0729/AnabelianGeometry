@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
-import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
-import Nyll.AlgebraicCurves.Models.ConstantExtension.SemilinearFunctionField
-import Nyll.AnabelianGeometry.WeightFiltration.GenericPointNaturality
+module
+
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
+public import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
+public import Nyll.AlgebraicCurves.Models.ConstantExtension.SemilinearFunctionField
+public import Nyll.SchemeTheory.FunctionFields.GenericPointNaturality
 
 /-!
 # Semilinear compatibility of an actual open curve
@@ -17,18 +19,74 @@ intertwines the actual function-field maps. The point action is the original
 one supplied by the semilinear curve-model comparison.
 -/
 
+@[expose] public section
+
+universe u v
+
 noncomputable section
 
 open AlgebraicGeometry CategoryTheory NeronModelInfra
 
 namespace AlgebraicCurve.CurveModel
 
+/-- The semilinear place action retains the underlying point of the original
+curve isomorphism, with the contravariant orientation of function pullback. -/
+theorem placeEquiv_symm_semilinear
+    {K : Type u} {F : Type v} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
+    (M : CurveModel K F) (θ : M.C ≅ M.C)
+    (σ : K ≃+* K) (g : SemilinearAut K F)
+    (hbase : θ.hom ≫ M.toBase = M.toBase ≫ Spec.map (CommRingCat.ofHom σ.toRingHom))
+    (hpoint : ∀ x y : SchemeHomOver (𝟙 (Spec (.of K))) M.toBase,
+      y.val ≫ θ.hom = Spec.map (CommRingCat.ofHom σ.toRingHom) ≫ x.val →
+        M.pointEquivPlace y = g • M.pointEquivPlace x)
+    (p : Place K F) :
+    (M.placeEquiv.symm (g • p)).val = θ.inv ((M.placeEquiv.symm p).val) := by
+  have hclosed (x : SchemeHomOver (𝟙 (Spec (.of K))) M.toBase) :
+      (M.placeEquiv.symm (M.pointEquivPlace x)).val = x.val (IsLocalRing.closedPoint K) := by
+    change (M.placeEquiv.symm (M.placeEquiv (pointEquivClosedPoint M.toBase x))).val = _
+    rw [M.placeEquiv.symm_apply_apply]
+    rfl
+  let e := Scheme.Spec.mapIso σ.toCommRingCatIso.op
+  have hbase' : θ.inv ≫ M.toBase = M.toBase ≫ e.inv := by
+    apply (cancel_mono e.hom).1
+    calc
+      (θ.inv ≫ M.toBase) ≫ e.hom = θ.inv ≫ (M.toBase ≫ e.hom) := Category.assoc _ _ _
+      _ = θ.inv ≫ (θ.hom ≫ M.toBase) := congrArg (θ.inv ≫ ·) hbase.symm
+      _ = M.toBase := θ.inv_hom_id_assoc _
+      _ = (M.toBase ≫ e.inv) ≫ e.hom :=
+        ((Category.assoc M.toBase e.inv e.hom).trans
+          ((congrArg (M.toBase ≫ ·) e.inv_hom_id).trans
+            (CategoryTheory.Category.comp_id M.toBase))).symm
+  let x := M.pointEquivPlace.symm p
+  let y : SchemeHomOver (𝟙 (Spec (.of K))) M.toBase :=
+    ⟨e.hom ≫ x.val ≫ θ.inv, by
+      calc
+        (e.hom ≫ x.val ≫ θ.inv) ≫ M.toBase = e.hom ≫ x.val ≫ M.toBase ≫ e.inv := by
+          simp only [Category.assoc, hbase']
+        _ = e.hom ≫ e.inv := by
+          rw [← Category.assoc x.val M.toBase e.inv, x.property, Category.id_comp]
+        _ = 𝟙 _ := e.hom_inv_id⟩
+  have hy : y.val ≫ θ.hom = e.hom ≫ x.val := by
+    change (e.hom ≫ x.val ≫ θ.inv) ≫ θ.hom = _
+    simp only [Category.assoc, θ.inv_hom_id, Category.comp_id]
+  have hgp := hpoint x y hy
+  have hx : M.pointEquivPlace x = p := M.pointEquivPlace.apply_symm_apply p
+  rw [hx] at hgp
+  rw [← hgp, hclosed]
+  change θ.inv (x.val (e.hom (IsLocalRing.closedPoint K))) = _
+  have he : e.hom (IsLocalRing.closedPoint K) = IsLocalRing.closedPoint K :=
+    AlgebraicGeometry.Spec_closedPoint
+  rw [he]
+  have hxp := hclosed x
+  rw [hx] at hxp
+  exact congrArg θ.inv hxp.symm
+
 /-- Restriction of an actual semilinear curve isomorphism preserves the
 boundary and the induced function-field action. -/
 theorem openBoundary_semilinear_compatibility
-    {K F : Type} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
+    {K : Type u} {F : Type v} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
     (M : CurveModel K F)
-    {X : Scheme} [IsIntegral X]
+    {X : Scheme.{u}} [IsIntegral X]
     (j : X ⟶ M.C) [IsOpenImmersion j] (hj : DenseRange j)
     (θX : X ≅ X) (θ : M.C ≅ M.C)
     (σ : K ≃+* K) (g : SemilinearAut K F)
@@ -58,47 +116,9 @@ theorem openBoundary_semilinear_compatibility
       refine ⟨θX.inv x, θ.hom.isOpenEmbedding.injective ?_⟩
       exact (hcomm (θX.inv x)).symm.trans
         ((congrArg j (hXin x)).trans (hx.trans (hinv z).symm))
-  have hclosed (x : SchemeHomOver (𝟙 (Spec (.of K))) M.toBase) :
-      (M.placeEquiv.symm (M.pointEquivPlace x)).val = x.val (IsLocalRing.closedPoint K) := by
-    change (M.placeEquiv.symm (M.placeEquiv (pointEquivClosedPoint M.toBase x))).val = _
-    rw [M.placeEquiv.symm_apply_apply]
-    rfl
-  let e := Scheme.Spec.mapIso σ.toCommRingCatIso.op
-  have hbase' : θ.inv ≫ M.toBase = M.toBase ≫ e.inv := by
-    apply (cancel_mono e.hom).1
-    calc
-      (θ.inv ≫ M.toBase) ≫ e.hom = θ.inv ≫ (M.toBase ≫ e.hom) := Category.assoc _ _ _
-      _ = θ.inv ≫ (θ.hom ≫ M.toBase) := congrArg (θ.inv ≫ ·) hbase.symm
-      _ = M.toBase := θ.inv_hom_id_assoc _
-      _ = (M.toBase ≫ e.inv) ≫ e.hom :=
-        ((Category.assoc M.toBase e.inv e.hom).trans
-          ((congrArg (M.toBase ≫ ·) e.inv_hom_id).trans
-            (CategoryTheory.Category.comp_id M.toBase))).symm
   have hplace (p : Place K F) :
       (M.placeEquiv.symm (g • p)).val = θ.inv ((M.placeEquiv.symm p).val) := by
-    let x := M.pointEquivPlace.symm p
-    let y : SchemeHomOver (𝟙 (Spec (.of K))) M.toBase :=
-      ⟨e.hom ≫ x.val ≫ θ.inv, by
-        calc
-          (e.hom ≫ x.val ≫ θ.inv) ≫ M.toBase = e.hom ≫ x.val ≫ M.toBase ≫ e.inv := by
-            simp only [Category.assoc, hbase']
-          _ = e.hom ≫ e.inv := by
-            rw [← Category.assoc x.val M.toBase e.inv, x.property, Category.id_comp]
-          _ = 𝟙 _ := e.hom_inv_id⟩
-    have hy : y.val ≫ θ.hom = e.hom ≫ x.val := by
-      change (e.hom ≫ x.val ≫ θ.inv) ≫ θ.hom = _
-      simp only [Category.assoc, θ.inv_hom_id, Category.comp_id]
-    have hgp := hpoint x y hy
-    have hx : M.pointEquivPlace x = p := M.pointEquivPlace.apply_symm_apply p
-    rw [hx] at hgp
-    rw [← hgp, hclosed]
-    change θ.inv (x.val (e.hom (IsLocalRing.closedPoint K))) = _
-    have he : e.hom (IsLocalRing.closedPoint K) = IsLocalRing.closedPoint K :=
-      AlgebraicGeometry.Spec_closedPoint
-    rw [he]
-    have hxp := hclosed x
-    rw [hx] at hxp
-    exact congrArg θ.inv hxp.symm
+    exact M.placeEquiv_symm_semilinear θ σ g hbase hpoint p
   refine ⟨?_, ?_⟩
   · intro p
     change (M.placeEquiv.symm p).val ∉ Set.range j ↔

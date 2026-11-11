@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalConnectedEtale
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.EtaleFundamentalGroups.Pi1.FiniteEtale.GaloisCategory
-import Mathlib.CategoryTheory.Galois.Prorepresentability
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalConnectedEtale
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Nyll.EtaleFundamentalGroups.Pi1.FiniteEtale.GaloisCategory
+public import Mathlib.CategoryTheory.Galois.Prorepresentability
 
 /-!
 # The fundamental group of a proper rational curve
@@ -19,6 +21,8 @@ Their geometric fibres are therefore singletons. The proved reconstruction of
 fibre-functor endomorphisms from pointed Galois objects then forces every
 automorphism of the actual fibre functor to agree with every other one.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -55,14 +59,15 @@ theorem subsingleton_fundamentalGroup_rational
     (ξ : Spec (CommRingCat.of Ω) ⟶ M.C) : Subsingleton π₁ᵉᵗ(ξ) := by
   constructor
   intro σ τ
-  apply Iso.ext
-  apply (endEquivAutGalois (fiber ξ)).injective
-  apply AutGalois.ext
-  intro A
-  have connected : ConnectedSpace A.obj.left := connectedSpace_left_of_isConnected A.obj
-  have singleton : Subsingleton ((fiber ξ).obj A.obj) :=
-    subsingleton_fiber_of_connected_rational M ξ A.obj
-  apply evaluation_aut_injective_of_isConnected (fiber ξ) A.obj A.pt
-  exact Subsingleton.elim _ _
+  have hEnd : Aut.toEnd σ = Aut.toEnd τ := by
+    apply (endEquivAutGalois (fiber ξ)).injective
+    apply AutGalois.ext
+    intro A
+    have connected : ConnectedSpace A.obj.left := connectedSpace_left_of_isConnected A.obj
+    have singleton : Subsingleton ((fiber ξ).obj A.obj) :=
+      subsingleton_fiber_of_connected_rational M ξ A.obj
+    apply evaluation_aut_injective_of_isConnected (fiber ξ) A.obj A.pt
+    exact Subsingleton.elim _ _
+  exact Aut.ext (Iso.ext (congrArg End.asHom hEnd))
 
 end AnabelianGeometry.GeometricFundamentalGroup

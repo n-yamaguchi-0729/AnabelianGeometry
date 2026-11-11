@@ -4,10 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.ProjectiveLine.FieldMap
-import Nyll.AnabelianGeometry.ProjectiveLine.ProjectiveRigidity
+module
+
+public import Nyll.AnabelianGeometry.ProjectiveLine.FieldMap
+public import Nyll.AnabelianGeometry.ProjectiveLine.ProjectiveRigidity
 
 /-! # Extension of a projective linear transformation to a larger field -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.ProjectiveLine
 

@@ -4,13 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteFixedResidueLift
-import Mathlib.Data.Set.Lattice.Indexed
-import Mathlib.Topology.Algebra.ClopenNhdofOne
-import Mathlib.Topology.Algebra.MulAction
-import Mathlib.Topology.Algebra.OpenSubgroup
-import Mathlib.Topology.Compactness.Compact
-import Mathlib.Topology.Order
+module
+
+public import Mathlib.Topology.Separation.Connected
+public import Mathlib.Topology.Separation.Regular
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteFixedResidueLift
+public import Mathlib.Data.Set.Lattice.Indexed
+public import Mathlib.Topology.Algebra.ClopenNhdofOne
+public import Mathlib.Topology.Algebra.MulAction
+public import Mathlib.Topology.Algebra.OpenSubgroup
+public import Mathlib.Topology.Compactness.Compact
+public import Mathlib.Topology.Order
 
 /-!
 # Profinite residue lifts by compact intersection
@@ -24,6 +28,8 @@ stabilizers then extend its equation to every original coefficient.
 All equations live in B/q. No fixed-ring quotient, auxiliary lift functor,
 additional target algebra, or presumed residue surjectivity is used.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

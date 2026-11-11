@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteRawTameValue
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.Algebra.Group.Hom.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteRawTameValue
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.Algebra.Group.Hom.Basic
 
 /-!
 # Power normalization of finite tame values
@@ -18,6 +20,8 @@ import Mathlib.Algebra.Group.Hom.Basic
 Defines the ambient residue power map with exponent given by the ramification index divided by
 the tame order, and factors the canonical coordinate through it.
 -/
+
+@[expose] public section
 
 noncomputable section
 

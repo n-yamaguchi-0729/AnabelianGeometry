@@ -4,18 +4,20 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Sites.BaseChange
-import Mathlib.Algebra.Category.ModuleCat.Adjunctions
-import Mathlib.Algebra.Category.ModuleCat.Colimits
-import Mathlib.Algebra.Category.ModuleCat.FilteredColimits
-import Mathlib.Algebra.Category.ModuleCat.Limits
-import Mathlib.AlgebraicGeometry.Sites.AffineEtale
-import Mathlib.CategoryTheory.Adjunction.Basic
-import Mathlib.CategoryTheory.Sites.Continuous
-import Mathlib.CategoryTheory.Sites.Pullback
-import Mathlib.CategoryTheory.Comma.StructuredArrow.Small
-import Mathlib.CategoryTheory.Limits.EssentiallySmall
-import Mathlib.CategoryTheory.Functor.KanExtension.Pointwise
+module
+
+public import Nyll.EtaleCohomology.Sites.BaseChange
+public import Mathlib.Algebra.Category.ModuleCat.Adjunctions
+public import Mathlib.Algebra.Category.ModuleCat.Colimits
+public import Mathlib.Algebra.Category.ModuleCat.FilteredColimits
+public import Mathlib.Algebra.Category.ModuleCat.Limits
+public import Mathlib.AlgebraicGeometry.Sites.AffineEtale
+public import Mathlib.CategoryTheory.Adjunction.Basic
+public import Mathlib.CategoryTheory.Sites.Continuous
+public import Mathlib.CategoryTheory.Sites.Pullback
+public import Mathlib.CategoryTheory.Comma.StructuredArrow.Small
+public import Mathlib.CategoryTheory.Limits.EssentiallySmall
+public import Mathlib.CategoryTheory.Functor.KanExtension.Pointwise
 
 /-!
 # Direct and inverse image of étale coefficient sheaves
@@ -30,6 +32,8 @@ ordinary small étale sites. Exactness of inverse image and the comparison of
 geometric stalks are subsequent steps.
 -/
 
+
+@[expose] public section
 
 noncomputable section
 
@@ -75,7 +79,8 @@ def etalePullback :
       (affineEtaleBaseChange f) (ModuleCat.{u} R)
       (Scheme.AffineEtale.topology Y) X.smallEtaleTopology
 
-private def affineEtalePushforwardIso :
+/-- Affine-site direct image is restriction of the small-site direct image. -/
+def affineEtalePushforwardIso :
     (affineEtaleBaseChange f).sheafPushforwardContinuous (ModuleCat.{u} R)
         (Scheme.AffineEtale.topology Y) X.smallEtaleTopology ≅
       etalePushforward f R ⋙ (Scheme.AffineEtale.sheafEquiv Y (ModuleCat.{u} R)).inverse :=
@@ -83,7 +88,8 @@ private def affineEtalePushforwardIso :
     (Scheme.AffineEtale.Spec Y) (etaleBaseChange f) (ModuleCat.{u} R)
     (Scheme.AffineEtale.topology Y) Y.smallEtaleTopology X.smallEtaleTopology).symm
 
-private def affineEtalePushforwardComposeIso :
+/-- Transporting affine direct image back gives the original small-site direct image. -/
+def affineEtalePushforwardComposeIso :
     (affineEtaleBaseChange f).sheafPushforwardContinuous (ModuleCat.{u} R)
         (Scheme.AffineEtale.topology Y) X.smallEtaleTopology ⋙
         (Scheme.AffineEtale.sheafEquiv Y (ModuleCat.{u} R)).functor ≅

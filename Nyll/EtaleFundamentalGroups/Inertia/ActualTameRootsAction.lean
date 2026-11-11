@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsCoefficientMap
-import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationResidueAction
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsCoefficientMap
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationResidueAction
 
 /-!
 # The original decomposition action on the SAME actual tame roots group
@@ -14,6 +16,8 @@ The action is the original quotient-residue action on every existing root
 coordinate. Its plain application and scalar law close the action's native
 permutation data before the original character is compared with it.
 -/
+
+@[expose] public section
 
 noncomputable section
 

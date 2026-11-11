@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingFiniteTameCharacter
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacterFixedElement
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.DVRRamificationOrder
-import Mathlib.Algebra.Algebra.Defs
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingFiniteTameCharacter
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacterFixedElement
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.DVRRamificationOrder
+public import Mathlib.Algebra.Algebra.Defs
 
 /-!
 # Tame orders and ramification indices
@@ -16,6 +18,8 @@ Proves that the finite tame order is invertible in the residue field and divides
 of every nonzero fixed element. It consequently divides the ramification index of an injective
 DVR algebra with a compatible action.
 -/
+
+@[expose] public section
 
 noncomputable section
 

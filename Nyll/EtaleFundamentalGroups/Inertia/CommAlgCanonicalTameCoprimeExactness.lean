@@ -4,16 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameMorphism
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealWildSubgroup
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTamePrimitiveRoots
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameProperties
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameExactness
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealCanonicalTameCharacter
-import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
-import Mathlib.RingTheory.Ideal.Pointwise
-import Mathlib.GroupTheory.OrderOfElement
-import Mathlib.Algebra.Group.Subgroup.Ker
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameMorphism
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealWildSubgroup
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTamePrimitiveRoots
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameProperties
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameExactness
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealCanonicalTameCharacter
+public import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
+public import Mathlib.RingTheory.Ideal.Pointwise
+public import Mathlib.GroupTheory.OrderOfElement
+public import Mathlib.Algebra.Group.Subgroup.Ker
 
 /-!
 # Exactness of the SAME canonical character from normalization coprimality
@@ -22,6 +24,8 @@ The existing primitive root determines the full root-group cardinality.
 Mathlib's coprime-power bijection then proves that the actual e/n power
 normalization preserves surjectivity and the independently defined wild kernel.
 -/
+
+@[expose] public section
 
 open scoped Pointwise
 

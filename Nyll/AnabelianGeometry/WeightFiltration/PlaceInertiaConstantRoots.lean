@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.PlaceLocalValuation
-import Nyll.AnabelianGeometry.WeightFiltration.AbsoluteTameCoefficient
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationBaseCoefficients
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationConstantRoots
-import Nyll.EtaleFundamentalGroups.Inertia.ActualAbsoluteTameCharZero
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.PlaceLocalValuation
+public import Nyll.AnabelianGeometry.WeightFiltration.AbsoluteTameCoefficient
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationBaseCoefficients
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationConstantRoots
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualAbsoluteTameCharZero
 
 /-!
 # Common constant-root parameters for actual place inertia
@@ -17,6 +19,8 @@ Every place uses the same full roots limit of the constant field. The
 coordinate formula compares this parameter with the original tame
 coefficient used to evaluate actual finite étale cohomology characters.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
-import Nyll.EtaleCohomology.Sites.EtaleRestriction
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
-import Mathlib.AlgebraicGeometry.Sites.Etale
-import Mathlib.CategoryTheory.Adjunction.Basic
-import Mathlib.CategoryTheory.MorphismProperty.OverAdjunction
-import Mathlib.CategoryTheory.Opposites
-import Mathlib.CategoryTheory.Yoneda
+module
+
+public import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
+public import Nyll.EtaleCohomology.Sites.EtaleRestriction
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+public import Mathlib.AlgebraicGeometry.Sites.Etale
+public import Mathlib.CategoryTheory.Adjunction.Basic
+public import Mathlib.CategoryTheory.MorphismProperty.OverAdjunction
+public import Mathlib.CategoryTheory.Opposites
+public import Mathlib.CategoryTheory.Yoneda
 
 /-!
 # Transporting finite étale representers across a scheme isomorphism
@@ -21,6 +23,8 @@ a representative of the original sheaf. We use its base change along the
 inverse isomorphism, the map/pullback adjunction, and the natural comparison
 between composing the two isomorphisms and the identity functor.
 -/
+
+@[expose] public section
 
 noncomputable section
 

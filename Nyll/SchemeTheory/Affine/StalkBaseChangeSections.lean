@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Affine.StalkLocalization
-import Mathlib.AlgebraicGeometry.Morphisms.Flat
-import Mathlib.AlgebraicGeometry.Stalk
-import Mathlib.RingTheory.RingHom.Flat
+module
+
+public import Nyll.SchemeTheory.Affine.StalkLocalization
+public import Mathlib.AlgebraicGeometry.Morphisms.Flat
+public import Mathlib.AlgebraicGeometry.Stalk
+public import Mathlib.RingTheory.RingHom.Flat
 
 /-!
 # Scalar sections after base change to a stalk
@@ -17,6 +19,8 @@ change to the spectrum of a target stalk preserves the global-section map
 as an isomorphism. The section pushout is computed on an affine neighborhood
 of the chosen point.
 -/
+
+@[expose] public section
 
 noncomputable section
 

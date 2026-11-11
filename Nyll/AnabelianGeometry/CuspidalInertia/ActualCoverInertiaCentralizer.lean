@@ -4,23 +4,26 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.PointedCoverInertiaIntersection
-import Nyll.EtaleFundamentalGroups.Inertia.PlaceNormalizationInertiaRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertiaImage
+module
 
-import Nyll.AnabelianGeometry.CuspidalInertia.InertiaCoordinateCentralizer
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaAnyPrime
-import Nyll.EtaleFundamentalGroups.Inertia.PointedCoverActualInertia
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteGenericGaloisSurjectivity
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationPrimeHeightOne
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationPlaceConjugatePrime
-import Nyll.EtaleFundamentalGroups.Inertia.InertiaConjugateImage
-import Nyll.EtaleFundamentalGroups.Inertia.BoundaryPlaceFiberEmbedding
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverInjectivity
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverSquareBoundary
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverConstantField
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenSquareFunctionField
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverBoundaryRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.PointedCoverInertiaIntersection
+public import Nyll.EtaleFundamentalGroups.Inertia.PlaceNormalizationInertiaRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertiaImage
+
+public import Nyll.AnabelianGeometry.CuspidalInertia.InertiaCoordinateCentralizer
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaAnyPrime
+public import Nyll.EtaleFundamentalGroups.Inertia.PointedCoverActualInertia
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteGenericGaloisSurjectivity
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationPrimeHeightOne
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationPlaceConjugatePrime
+public import Nyll.EtaleFundamentalGroups.Inertia.InertiaConjugateImage
+public import Nyll.EtaleFundamentalGroups.Inertia.BoundaryPlaceFiberEmbedding
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverInjectivity
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverSquareBoundary
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverConstantField
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenSquareFunctionField
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverBoundaryRestriction
+public import Nyll.AlgebraicCurves.Models.Construction.CurveIsIntegral
 
 /-!
 # Images of restricted inertia in the actual pointed cover
@@ -29,6 +32,8 @@ The prescribed lift determines the cover map and field restriction. The
 image of every restricted subgroup is its exact intersection with the
 actual cover image.
 -/
+
+@[expose] public section
 
 noncomputable section
 

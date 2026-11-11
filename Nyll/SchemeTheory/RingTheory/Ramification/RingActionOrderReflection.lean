@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Ring.Aut
+module
+
+public import Mathlib.Algebra.Ring.Aut
 
 /-!
 # Reflection of automorphism powers along injections
@@ -12,6 +14,8 @@ import Mathlib.Algebra.Ring.Aut
 Proves that a power of a ring automorphism is the identity whenever the same power of a
 compatible extension is the identity and the coefficient map is injective.
 -/
+
+@[expose] public section
 
 namespace SchemeTheory
 

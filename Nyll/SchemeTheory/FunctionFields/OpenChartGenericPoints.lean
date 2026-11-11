@@ -14,9 +14,11 @@ are local additions.
 Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
-import Nyll.SchemeTheory.FunctionFields.OpenImmersion
-import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
-import Nyll.SchemeTheory.Normalization.FiniteSeparable
+module
+
+public import Nyll.SchemeTheory.FunctionFields.OpenImmersion
+public import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
+public import Nyll.SchemeTheory.Normalization.FiniteSeparable
 
 /-! # Generic points from the actual function-field coordinate of an open chart
 
@@ -25,6 +27,8 @@ All point equalities are proved. Compatibility between arithmetic and geometric
 open charts is deduced from the already proved proper field-coordinate equation
 and the actual scheme square. It is not a new naturality hypothesis.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry TopologicalSpace

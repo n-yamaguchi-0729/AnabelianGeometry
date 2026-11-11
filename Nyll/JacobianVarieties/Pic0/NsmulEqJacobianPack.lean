@@ -10,22 +10,24 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.Morphisms.UniversallyOpen
-import Mathlib.AlgebraicGeometry.AlgClosed.Basic
-import Mathlib.AlgebraicGeometry.Morphisms.Etale
-import Mathlib.AlgebraicGeometry.Morphisms.Proper
-import Mathlib.AlgebraicGeometry.Morphisms.Separated
-import Mathlib.AlgebraicGeometry.Stalk
-import Mathlib.Algebra.TrivSqZeroExt.Basic
-import Mathlib.RingTheory.Unramified.LocalRing
-import Mathlib.LinearAlgebra.Dual.Lemmas
-import Mathlib.Tactic.Algebraize
-import Mathlib.Tactic.Ring.RingNF
-import Mathlib.Tactic.Push
-import Nyll.SchemeTheory.Morphisms.ReducedSmooth
-import Nyll.AlgebraicCurves.Geometry.Schemes.Smooth.EtaleFormallyUnramifiedStalkMap
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
+module
+
+public import Mathlib.AlgebraicGeometry.Morphisms.UniversallyOpen
+public import Mathlib.AlgebraicGeometry.AlgClosed.Basic
+public import Mathlib.AlgebraicGeometry.Morphisms.Etale
+public import Mathlib.AlgebraicGeometry.Morphisms.Proper
+public import Mathlib.AlgebraicGeometry.Morphisms.Separated
+public import Mathlib.AlgebraicGeometry.Stalk
+public import Mathlib.Algebra.TrivSqZeroExt.Basic
+public import Mathlib.RingTheory.Unramified.LocalRing
+public import Mathlib.LinearAlgebra.Dual.Lemmas
+public import Mathlib.Tactic.Algebraize
+public import Mathlib.Tactic.Ring.RingNF
+public import Mathlib.Tactic.Push
+public import Nyll.SchemeTheory.Morphisms.ReducedSmooth
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Smooth.EtaleFormallyUnramifiedStalkMap
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
 
 /-!
 # Divisibility of Picard classes from a Jacobian presentation
@@ -34,6 +36,8 @@ A smooth proper connected Jacobian presentation gives division by an integer tha
 nonzero in the base field. The proof constructs multiplication morphisms, computes their
 cotangent maps using square-zero extensions, and deduces surjectivity from etaleness.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

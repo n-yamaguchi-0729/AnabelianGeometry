@@ -4,17 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
-import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantEquivalence
-import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantSet
-import Nyll.EtaleCohomology.Constructible.Monodromy
-import Nyll.EtaleCohomology.Sites.RepresentablePullback
-import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
-import Mathlib.CategoryTheory.ObjectProperty.FullSubcategory
-import Mathlib.CategoryTheory.NatIso
-import Mathlib.CategoryTheory.Functor.FullyFaithful
-import Mathlib.CategoryTheory.Action.Continuous
-import Mathlib.Topology.Category.FinTopCat
+module
+
+public import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
+public import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantEquivalence
+public import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantSet
+public import Nyll.EtaleCohomology.Constructible.Monodromy
+public import Nyll.EtaleCohomology.Sites.RepresentablePullback
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
+public import Mathlib.CategoryTheory.ObjectProperty.FullSubcategory
+public import Mathlib.CategoryTheory.NatIso
+public import Mathlib.CategoryTheory.Functor.FullyFaithful
+public import Mathlib.CategoryTheory.Action.Continuous
+public import Mathlib.Topology.Category.FinTopCat
 
 /-!
 # Geometric pullback of finite locally constant representers
@@ -24,6 +26,8 @@ its scheme-theoretic base change. Consequently an arbitrary finite locally
 constant sheaf pulls back to the base change of its existing representer.
 These are comparisons of actual sheaves, not assumptions about monodromy.
 -/
+
+@[expose] public section
 
 noncomputable section
 

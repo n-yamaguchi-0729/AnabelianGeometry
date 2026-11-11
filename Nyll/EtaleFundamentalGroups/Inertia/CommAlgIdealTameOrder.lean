@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameOrder
-import Mathlib.Algebra.Category.CommAlgCat.Basic
-import Mathlib.Algebra.Algebra.Equiv
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameOrder
+public import Mathlib.Algebra.Category.CommAlgCat.Basic
+public import Mathlib.Algebra.Algebra.Equiv
 
 /-!
 # Intrinsic tame and wild orders
@@ -14,6 +16,8 @@ import Mathlib.Algebra.Algebra.Equiv
 Defines the tame order and principal-unit kernel order for the canonical coefficient-
 automorphism action on a native normalization algebra.
 -/
+
+@[expose] public section
 
 noncomputable section
 

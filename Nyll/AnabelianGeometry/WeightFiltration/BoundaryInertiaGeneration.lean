@@ -4,14 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteCohomologyPlaceInertia
-import Nyll.AnabelianGeometry.WeightFiltration.ResidueKernelCharacters
-import Nyll.AnabelianGeometry.WeightFiltration.CompactificationAbelianization
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
-import Nyll.GaloisCohomology.Kummer.Concrete.FiniteDualSeparation
-import Nyll.ProCGroups.ProC.OpenNormalSubgroups.Separation
-import Nyll.ProCGroups.ProC.Quotients.ClosedNormal
-import Nyll.ProCGroups.Topologies.ContinuousMonoidHom
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteCohomologyPlaceInertia
+public import Nyll.AnabelianGeometry.WeightFiltration.ResidueKernelCharacters
+public import Nyll.AnabelianGeometry.WeightFiltration.CompactificationAbelianization
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
+public import Nyll.GaloisCohomology.Kummer.Concrete.FiniteDualSeparation
+public import Nyll.ProCGroups.ProC.OpenNormalSubgroups.Separation
+public import Nyll.ProCGroups.ProC.Quotients.ClosedNormal
+public import Nyll.ProCGroups.Topologies.ContinuousMonoidHom
+public import Nyll.ProCGroups.ProC.OpenNormalSubgroups.Basic
+public import Nyll.ProCGroups.Topologies.TopologicallyCharacteristicSubgroups
 
 /-!
 # Boundary inertia generates the actual abelian compactification kernel
@@ -21,6 +25,8 @@ original place-inertia images with the actual compactification kernel.
 Finite Kummer character separation and open-normal quotient separation are
 reused directly. No circle-valued coefficient comparison is constructed.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -51,7 +57,7 @@ theorem mem_closedSubgroup_of_rootCharacters
     exact hnot (ProCGroups.ProC.OpenNormalSubgroup.quotientProj_eq_one_iff.mp he)
   let n : ℕ+ := ⟨Nat.card Q, Nat.card_pos⟩
   let : NeZero ((n : ℕ) : K) := ⟨Nat.cast_ne_zero.mpr n.ne_zero⟩
-  obtain ⟨z, hz⟩ := HasEnoughRootsOfUnity.exists_primitiveRoot K (n : ℕ)
+  obtain ⟨z, hz⟩ := HasEnoughRootsOfUnity.exists_isPrimitiveRoot K (n : ℕ)
   have hmu : (primitiveRoots (n : ℕ) K).Nonempty :=
     ⟨z, (mem_primitiveRoots n.pos).mpr hz⟩
   obtain ⟨ψ, hψ⟩ := KummerTheory.exists_nthRoots_character_apply_ne_one

@@ -10,15 +10,19 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.Cohomology.Cech.OrderedAffineCoverCech
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
-import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.EquivModulesOrderEmbedding
-import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.EquivOrderIso
-import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.EquivOrderIsoOrderDual
+module
+
+public import Nyll.SchemeTheory.Cohomology.Cech.OrderedAffineCoverCech
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
+public import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.EquivModulesOrderEmbedding
+public import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.EquivOrderIso
+public import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.EquivOrderIsoOrderDual
 
 /-!
 # OModule Presheaf nonempty cech Equiv of Modules of is Quasicoherent of is Separated
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

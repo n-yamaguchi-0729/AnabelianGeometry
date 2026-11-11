@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
-import Nyll.ProCGroups.InverseSystems.CofinalityAndDensity
-import Nyll.EtaleFundamentalGroups.Inertia.RestrictedPrimeToRootsGroupSystem
-import Mathlib.GroupTheory.Perm.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
+public import Nyll.ProCGroups.InverseSystems.CofinalityAndDensity
+public import Nyll.EtaleFundamentalGroups.Inertia.RestrictedPrimeToRootsGroupSystem
+public import Mathlib.GroupTheory.Perm.Basic
 
 /-!
 # Coefficient automorphisms on the literal restricted roots limit
@@ -15,6 +17,8 @@ import Mathlib.GroupTheory.Perm.Basic
 The original power transitions commute with coefficient maps. Therefore
 every coefficient automorphism acts coordinatewise on this SAME limit.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

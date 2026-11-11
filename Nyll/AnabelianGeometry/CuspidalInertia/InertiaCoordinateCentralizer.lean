@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.GroupTheory.OrderOfElement
-import Mathlib.GroupTheory.DoubleCoset
-import Mathlib.Algebra.Group.Subgroup.Map
-import Nyll.ProCGroups.ProC.OpenNormalSubgroups.Separation
+module
+
+public import Mathlib.GroupTheory.OrderOfElement
+public import Mathlib.GroupTheory.DoubleCoset
+public import Mathlib.Algebra.Group.Subgroup.Map
+public import Nyll.ProCGroups.ProC.OpenNormalSubgroups.Separation
 
 /-!
 # Centralizers detected by separated inertia coordinates on finite covers
@@ -15,6 +17,8 @@ import Nyll.ProCGroups.ProC.OpenNormalSubgroups.Separation
 The finite-cover criterion retains the actual inclusion and its subgroup
 images. The final closed-subgroup step ranges over all open normal subgroups.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.CuspidalInertia
 

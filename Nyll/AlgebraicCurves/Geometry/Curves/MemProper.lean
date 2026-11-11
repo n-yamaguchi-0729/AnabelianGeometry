@@ -10,12 +10,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.RingTheory.Dimension.IdealIsPrimeLeLeKrullDimensionQuotientEqOne
-import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveHomCompEq
+module
+
+public import Nyll.SchemeTheory.RingTheory.Dimension.IdealIsPrimeLeLeKrullDimensionQuotientEqOne
+public import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveHomCompEq
 
 /-!
 # Membership detected by smooth proper curves in a proper scheme
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

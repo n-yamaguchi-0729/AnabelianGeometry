@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.CharZero.Infinite
-import Nyll.AlgebraicCurves.Models.Construction.BasicPerfectField
-import Nyll.AlgebraicCurves.Models.FunctionFields.FiniteFlatHomAlgHom
-import Nyll.AlgebraicCurves.Models.Construction.CurveIsIntegral
-import Nyll.AlgebraicCurves.FunctionFields.Extensions.CurveIffTranscendentalFiniteDimensional
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenPlaceTransport
-import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
-import Nyll.EtaleFundamentalGroups.Purity.ConnectedCoverGenericNormalizationFinite
+module
+
+public import Mathlib.Algebra.CharZero.Infinite
+public import Nyll.AlgebraicCurves.Models.Construction.BasicPerfectField
+public import Nyll.AlgebraicCurves.Models.FunctionFields.FiniteFlatHomAlgHom
+public import Nyll.AlgebraicCurves.Models.Construction.CurveIsIntegral
+public import Nyll.AlgebraicCurves.FunctionFields.Extensions.CurveIffTranscendentalFiniteDimensional
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenPlaceTransport
+public import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
+public import Nyll.EtaleFundamentalGroups.Purity.ConnectedCoverGenericNormalizationFinite
 
 /-!
 # The finite proper model of an actual connected open cover
@@ -20,6 +22,10 @@ The function field, its scalar map and its finite extension map are taken
 from the original finite étale scheme cover. Existing smooth proper model
 construction and finite-map extension then produce the proper curve map.
 -/
+
+@[expose] public section
+
+universe uGeom uField₁ uField₂
 
 noncomputable section
 
@@ -34,9 +40,9 @@ attribute [local instance] CurveModel.isIntegral CurveModel.isProper CurveModel.
 /-- The function field of a connected finite étale open cover has a smooth
 proper model whose finite map extends the original generic morphism. -/
 theorem exists_finite_curveModel_map_of_open_cover
-    {K F : Type} [Field K] [CharZero K]
+    {K : Type uGeom} {F : Type uField₁} [Field K] [CharZero K]
     [Field F] [Algebra K F]
-    (M : CurveModel K F) {X : Scheme} [IsIntegral X] [IsNormalIntegral X]
+    (M : CurveModel K F) {X : Scheme.{uGeom}} [IsIntegral X] [IsNormalIntegral X]
     (j : X ⟶ M.C) [IsOpenImmersion j]
     (W : FiniteEtale X) [IsConnected W] :
     let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
@@ -48,7 +54,7 @@ theorem exists_finite_curveModel_map_of_open_cover
         N.C.fromSpecStalk (genericPoint N.C)) ≫ d =
           W.left.fromSpecStalk (genericPoint W.left) ≫ W.hom ≫ j := by
   intro hWIntegral cW algW
-  have : IsIntegral ((Functor.id Scheme).obj W.left) := hWIntegral
+  have : IsIntegral ((Functor.id Scheme.{uGeom}).obj W.left) := hWIntegral
   have : IsIntegral ((Functor.fromPUnit X).obj W.right) :=
     inferInstanceAs (IsIntegral X)
   have : IsFiniteEtale W.hom := W.prop

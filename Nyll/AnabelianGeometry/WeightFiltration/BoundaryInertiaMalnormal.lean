@@ -3,10 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaSelfNormalizer
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaConjugacySeparation
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaClosedAbelian
-import Nyll.AnabelianGeometry.CuspidalInertia.Normalizer
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaSelfNormalizer
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaConjugacySeparation
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaClosedAbelian
+public import Nyll.AnabelianGeometry.CuspidalInertia.Normalizer
 
 /-! # Normalizers and intersections of actual boundary inertia
 
@@ -14,6 +16,8 @@ Nontrivial subgroups of an inertia group retain its entire normalizer. A common
 nonidentity element of two conjugates determines both the boundary label and
 the conjugating coset.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve

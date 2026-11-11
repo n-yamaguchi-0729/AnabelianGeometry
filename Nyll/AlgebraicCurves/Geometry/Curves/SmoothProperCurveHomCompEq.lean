@@ -10,18 +10,26 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.RingTheory.Dimension.IdealHeightAddKrullDimensionQuotientEqKrullDimension
-import Mathlib.Algebra.MvPolynomial.Eval
-import Mathlib.AlgebraicGeometry.Birational.RationalMap
-import Mathlib.RingTheory.KrullDimension.Polynomial
-import Mathlib.RingTheory.NoetherNormalization
-import Nyll.AlgebraicCurves.Models.Construction.Basic
-import Nyll.AlgebraicCurves.Models.Construction.BasicPerfectField
-import Nyll.SchemeTheory.RingTheory.FieldExtensions.RingHomFiniteDimensionalAdjoinRange
+module
+
+public import Nyll.AlgebraicCurves.Geometry.Schemes.FunctionFields.PartialMapMemDomainToRationalMap
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Smooth.ValuationRingStalkSmoothOfRelativeDimensionOne
+public import Nyll.SchemeTheory.RingTheory.Dimension.IdealHeightAddKrullDimensionQuotientEqKrullDimension
+public import Mathlib.Algebra.MvPolynomial.Eval
+public import Mathlib.AlgebraicGeometry.Birational.RationalMap
+public import Mathlib.RingTheory.KrullDimension.Polynomial
+public import Mathlib.RingTheory.NoetherNormalization
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
+public import Nyll.AlgebraicCurves.Models.Construction.BasicPerfectField
+public import Nyll.SchemeTheory.RingTheory.FieldExtensions.RingHomFiniteDimensionalAdjoinRange
+public import Nyll.SchemeTheory.FunctionFields.StructureMorphism
+public import Nyll.SchemeTheory.RingTheory.FieldExtensions.DimensionOneFractionField
 
 /-!
 # exists smooth Proper Curve hom comp eq of ring Krull Dim eq one
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -70,71 +78,41 @@ variable {X Y S : Scheme.{u}}
 theorem fromSpecStalkOfMem_eq_of_specializes (U : X.Opens) {ξ x : X} (h : ξ ⤳ x)
     (hx : x ∈ U) (hξ : ξ ∈ U) :
     U.fromSpecStalkOfMem ξ hξ =
-      Spec.map (X.presheaf.stalkSpecializes h) ≫ U.fromSpecStalkOfMem x hx := by
-  rw [← cancel_mono U.ι, Category.assoc, Scheme.Opens.fromSpecStalkOfMem_ι,
-    Scheme.Opens.fromSpecStalkOfMem_ι, Scheme.SpecMap_stalkSpecializes_fromSpecStalk]
+      Spec.map (X.presheaf.stalkSpecializes h) ≫ U.fromSpecStalkOfMem x hx :=
+  open AlgebraicCurves.Geometry.Schemes.Proofs in
+  open Scheme_PartialMap_mem_domain_toRationalMap_of_valuationRing_stalk in
+  ValuativePartialMap.fromSpecStalkOfMem_eq_of_specializes U h hx hξ
 
 theorem partialMap_fromSpecStalkOfMem_eq_of_specializes (f : X.PartialMap Y) {ξ x : X}
     (h : ξ ⤳ x) (hx : x ∈ f.domain) (hξ : ξ ∈ f.domain) :
     f.fromSpecStalkOfMem hξ =
-      Spec.map (X.presheaf.stalkSpecializes h) ≫ f.fromSpecStalkOfMem hx := by
-  change f.domain.fromSpecStalkOfMem ξ hξ ≫ f.hom =
-    Spec.map (X.presheaf.stalkSpecializes h) ≫ f.domain.fromSpecStalkOfMem x hx ≫ f.hom
-  rw [fromSpecStalkOfMem_eq_of_specializes f.domain h hx hξ, Category.assoc]
+      Spec.map (X.presheaf.stalkSpecializes h) ≫ f.fromSpecStalkOfMem hx :=
+  open AlgebraicCurves.Geometry.Schemes.Proofs in
+  open Scheme_PartialMap_mem_domain_toRationalMap_of_valuationRing_stalk in
+  ValuativePartialMap.partialMap_fromSpecStalkOfMem_eq_of_specializes f h hx hξ
 
 theorem partialMap_fromFunctionField_eq_of_mem [IrreducibleSpace X] (f : X.PartialMap Y)
     {x : X} (hx : x ∈ f.domain) :
     f.fromFunctionField =
       Spec.map (X.presheaf.stalkSpecializes (genericPoint_specializes x)) ≫
         f.fromSpecStalkOfMem hx :=
-  partialMap_fromSpecStalkOfMem_eq_of_specializes f (genericPoint_specializes x) hx
-    ((genericPoint_specializes _).mem_open f.domain.2 f.dense_domain.nonempty.choose_spec)
+  open AlgebraicCurves.Geometry.Schemes.Proofs in
+  open Scheme_PartialMap_mem_domain_toRationalMap_of_valuationRing_stalk in
+  ValuativePartialMap.partialMap_fromFunctionField_eq_of_mem f hx
 
 theorem ofHom_algebraMap_stalk_functionField [IrreducibleSpace X] (x : X) :
     CommRingCat.ofHom (algebraMap (X.presheaf.stalk x) X.functionField) =
-      X.presheaf.stalkSpecializes ((genericPoint_spec X).specializes trivial) := by
-  simp_rw [RingHom.algebraMap_toAlgebra]
-  exact CommRingCat.ofHom_hom _
+      X.presheaf.stalkSpecializes ((genericPoint_spec X).specializes trivial) :=
+  open AlgebraicCurves.Geometry.Schemes.Proofs in
+  open Scheme_PartialMap_mem_domain_toRationalMap_of_valuationRing_stalk in
+  ValuativePartialMap.ofHom_algebraMap_stalk_functionField x
 
 theorem mem_domain_of_valuationRing (sX : X ⟶ S) (sY : Y ⟶ S) [IsIntegral X]
     [LocallyOfFiniteType sY] (hY : ValuativeCriterion.Existence sY) (f : X.PartialMap Y)
     (hf : f.hom ≫ sY = f.domain.ι ≫ sX) (x : X) (hx : ValuationRing (X.presheaf.stalk x)) :
-    x ∈ f.toRationalMap.domain := by
-  have := hx
-  have hcomm : f.fromFunctionField ≫ sY =
-      Spec.map (CommRingCat.ofHom (algebraMap (X.presheaf.stalk x) X.functionField)) ≫
-        (X.fromSpecStalk x ≫ sX) := by
-    rw [ofHom_algebraMap_stalk_functionField]
-    change (f.domain.fromSpecStalkOfMem (genericPoint X) _ ≫ f.hom) ≫ sY = _
-    rw [Category.assoc, hf, ← Category.assoc, Scheme.Opens.fromSpecStalkOfMem_ι,
-      Scheme.SpecMap_stalkSpecializes_fromSpecStalk_assoc]
-  obtain ⟨l, hl₁, hl₂⟩ := (hY
-    { R := X.presheaf.stalk x
-      commRing := inferInstance
-      domain := (inferInstance : IsDomain (X.presheaf.stalk x))
-      valuationRing := hx
-      K := X.functionField
-      field := inferInstance
-      algebra := (inferInstance : Algebra (X.presheaf.stalk x) X.functionField)
-      isFractionRing := (inferInstance : IsFractionRing (X.presheaf.stalk x) X.functionField)
-      i₁ := f.fromFunctionField
-      i₂ := X.fromSpecStalk x ≫ sX
-      commSq := ⟨hcomm⟩ }).exists_lift
-  have hl₂' : l ≫ sY = X.fromSpecStalk x ≫ sX := hl₂
-  have hl₁' : Spec.map (X.presheaf.stalkSpecializes
-      ((genericPoint_spec X).specializes trivial)) ≫ l = f.fromFunctionField := by
-    rw [← ofHom_algebraMap_stalk_functionField]
-    exact hl₁
-  refine Scheme.RationalMap.mem_domain.mpr
-    ⟨Scheme.PartialMap.ofFromSpecStalk sX sY l hl₂',
-     Scheme.PartialMap.mem_domain_ofFromSpecStalk sX sY l hl₂', ?_⟩
-  apply Scheme.RationalMap.eq_of_fromFunctionField_eq
-  rw [Scheme.RationalMap.fromFunctionField_toRationalMap,
-    Scheme.RationalMap.fromFunctionField_toRationalMap,
-    partialMap_fromFunctionField_eq_of_mem _
-      (Scheme.PartialMap.mem_domain_ofFromSpecStalk sX sY l hl₂'),
-    Scheme.PartialMap.fromSpecStalkOfMem_ofFromSpecStalk sX sY l hl₂']
-  exact hl₁'
+    x ∈ f.toRationalMap.domain :=
+  _root_.AlgebraicGeometry.Scheme.PartialMap.mem_domain_toRationalMap_of_valuationRing_stalk
+    sX sY hY f hf x hx
 
 end Spread
 
@@ -142,67 +120,29 @@ section LocalRings
 
 theorem valuationRing_of_surjective {A B : Type*} [CommRing A] [IsDomain A]
     [ValuationRing A]
-    [CommRing B] [IsDomain B] (f : A →+* B) (hf : Function.Surjective f) : ValuationRing B := by
-  have : PreValuationRing B := ⟨fun a b => by
-    obtain ⟨a, rfl⟩ := hf a
-    obtain ⟨b, rfl⟩ := hf b
-    obtain ⟨c, h | h⟩ := ValuationRing.cond a b
-    · exact ⟨f c, Or.inl (by rw [← map_mul, h])⟩
-    · exact ⟨f c, Or.inr (by rw [← map_mul, h])⟩⟩
-  exact ⟨⟩
+    [CommRing B] [IsDomain B] (f : A →+* B) (hf : Function.Surjective f) : ValuationRing B :=
+  open AlgebraicCurves.Geometry.Schemes.Proofs in
+  open valuationRing_stalk_of_smoothOfRelativeDimension_one in
+  SmoothCurveStalk.valuationRing_of_surjective f hf
 
 theorem valuationRing_localization_atPrime {R B : Type*} [CommRing R] [CommRing B]
     [Algebra R B] [IsDomain B] [IsNoetherianRing B] [Algebra.EssFiniteType R B]
     (q : Ideal B) [q.IsPrime] [Algebra.IsUnramifiedAt R q] (hp : (q.under R).IsPrincipal) :
-    ValuationRing (Localization.AtPrime q) := by
-  let := Localization.AtPrime.algebraOfLiesOver (q.under R) q
-  have hmap := ((Algebra.isUnramifiedAt_iff_map_eq R (q.under R) q).mp inferInstance).2
-  have hprinc : (IsLocalRing.maximalIdeal (Localization.AtPrime q)).IsPrincipal := by
-    rw [← hmap]
-    obtain ⟨π, hπ⟩ := hp
-    refine ⟨⟨algebraMap R _ π, ?_⟩⟩
-    rw [hπ, Ideal.submodule_span_eq, Ideal.map_span, Set.image_singleton,
-      Ideal.submodule_span_eq]
-  have : IsNoetherianRing (Localization.AtPrime q) :=
-    IsLocalization.isNoetherianRing q.primeCompl _ inferInstance
-  exact ((tfae_of_isNoetherianRing_of_isLocalRing_of_isDomain
-    (Localization.AtPrime q)).out 5 2).mp hprinc
+    ValuationRing (Localization.AtPrime q) :=
+  open AlgebraicCurves.Geometry.Schemes.Proofs in
+  open valuationRing_stalk_of_smoothOfRelativeDimension_one in
+  SmoothCurveStalk.valuationRing_localization_atPrime q hp
 
 theorem isPrincipalIdealRing_mvPolynomial_fin_one (K : Type*) [Field K] :
     IsPrincipalIdealRing (MvPolynomial (Fin 1) K) :=
-  let e : MvPolynomial (Fin 1) K ≃ₐ[K] Polynomial K := MvPolynomial.uniqueAlgEquiv K (Fin 1)
-  IsPrincipalIdealRing.of_surjective e.symm.toRingEquiv.toRingHom e.symm.surjective
+  open AlgebraicCurves.Geometry.Schemes.Proofs in
+  open valuationRing_stalk_of_smoothOfRelativeDimension_one in
+  SmoothCurveStalk.isPrincipalIdealRing_mvPolynomial_fin_one K
 
 theorem valuationRing_stalk {K : Type u} [Field K] {C : Scheme.{u}}
     (c : C ⟶ Spec (CommRingCat.of K)) [IsIntegral C] [SmoothOfRelativeDimension 1 c] (x : C) :
-    ValuationRing (C.presheaf.stalk x) := by
-  obtain ⟨U, hU, V, hV, hxV, e, hstd⟩ :=
-    SmoothOfRelativeDimension.exists_isStandardSmoothOfRelativeDimension (n := 1) (f := c) x
-  have hU' : U = ⊤ := top_unique fun y _ => by
-    have : Subsingleton ↥(Spec (.of K)) := inferInstanceAs (Subsingleton (PrimeSpectrum K))
-    rw [Subsingleton.elim y (c x)]
-    exact e hxV
-  subst hU'
-  let ι : K ≃+* Γ(Spec (.of K), ⊤) := (Scheme.ΓSpecIso (.of K)).commRingCatIsoToRingEquiv.symm
-  have hφ : ((c.appLE ⊤ V e).hom.comp ι.toRingHom).IsStandardSmoothOfRelativeDimension 1 := by
-    simpa using hstd.comp (RingHom.IsStandardSmoothOfRelativeDimension.equiv ι)
-  obtain ⟨g, -, hg⟩ := hφ.exists_etale_mvPolynomial
-  algebraize [g]
-  have : Nonempty V := ⟨⟨x, hxV⟩⟩
-  have : IsDomain Γ(C, V) := IsIntegral.component_integral V
-  have : IsNoetherianRing Γ(C, V) :=
-    Algebra.FiniteType.isNoetherianRing (MvPolynomial (Fin 1) K) Γ(C, V)
-  have := isPrincipalIdealRing_mvPolynomial_fin_one K
-  let q : Ideal Γ(C, V) := (hV.primeIdealOf ⟨x, hxV⟩).asIdeal
-  have hq : ValuationRing (Localization.AtPrime q) :=
-    valuationRing_localization_atPrime (R := MvPolynomial (Fin 1) K) q
-      (IsPrincipalIdealRing.principal _)
-  change ValuationRing (C.presheaf.stalk ((⟨x, hxV⟩ : V) : C))
-  let := C.presheaf.algebra_section_stalk (⟨x, hxV⟩ : V)
-  have := hV.isLocalization_stalk ⟨x, hxV⟩
-  let eqv := IsLocalization.algEquiv q.primeCompl (Localization.AtPrime q)
-    (C.presheaf.stalk ((⟨x, hxV⟩ : V) : C))
-  exact valuationRing_of_surjective eqv.toRingEquiv.toRingHom eqv.surjective
+    ValuationRing (C.presheaf.stalk x) :=
+  _root_.AlgebraicGeometry.valuationRing_stalk_of_smoothOfRelativeDimension_one c x
 
 end LocalRings
 
@@ -213,25 +153,8 @@ variable {K : Type u} [Field K]
 theorem fromSpecStalk_genericPoint_comp_eq {C : Scheme.{u}} [IsIntegral C]
     (c : C ⟶ Spec (CommRingCat.of K)) :
     C.fromSpecStalk (genericPoint C) ≫ c =
-      Spec.map (CommRingCat.ofHom (baseToFunctionField c)) := by
-  refine ext_of_isAffine ?_
-  have h1 : (Spec.map (CommRingCat.ofHom (baseToFunctionField c))).appTop =
-      (Scheme.ΓSpecIso (CommRingCat.of K)).hom ≫ CommRingCat.ofHom (baseToFunctionField c) ≫
-        (Scheme.ΓSpecIso (C.presheaf.stalk (genericPoint C))).inv := by
-    rw [← Iso.inv_comp_eq]
-    exact (Scheme.ΓSpecIso_inv_naturality _).symm
-  have h2 : CommRingCat.ofHom (baseToFunctionField c) =
-      (Scheme.ΓSpecIso (CommRingCat.of K)).inv ≫ c.appTop ≫
-        C.presheaf.germ ⊤ (genericPoint C) trivial := by
-    ext a
-    rfl
-  have h3 : (Spec (C.presheaf.stalk (genericPoint C))).presheaf.map
-      (homOfLE (le_top : (⊤ : (Spec (C.presheaf.stalk (genericPoint C))).Opens) ≤ ⊤)).op =
-        𝟙 _ := by
-    rw [show (homOfLE _).op = 𝟙 (Opposite.op ⊤) from Subsingleton.elim _ _]
-    exact CategoryTheory.Functor.map_id _ _
-  rw [Scheme.Hom.comp_appTop, Scheme.fromSpecStalk_appTop, h3, Category.comp_id, h1, h2]
-  simp only [Category.assoc, Iso.hom_inv_id_assoc]
+      Spec.map (CommRingCat.ofHom (baseToFunctionField c)) :=
+  _root_.AlgebraicCurve.fromSpecStalk_genericPoint_comp_base c
 
 theorem isSeparated_of_over {Y : Scheme.{u}} (g : Y ⟶ Spec (CommRingCat.of K))
     [IsSeparated g] : Y.IsSeparated :=
@@ -290,68 +213,15 @@ open Ideal_height_add_ringKrullDim_quotient_eq_ringKrullDim_of_finiteType.P2mDim
 
 theorem ringKrullDim_eq_of_ringHom_isIntegral_of_injective {R S : Type*} [CommRing R]
     [CommRing S] (f : R →+* S) (hint : f.IsIntegral) (hinj : Function.Injective f) :
-    ringKrullDim R = ringKrullDim S := by
-  algebraize [f]
-  exact ringKrullDim_eq_of_isIntegral_of_injective hinj
+    ringKrullDim R = ringKrullDim S :=
+  _root_.RingHom.ringKrullDim_eq_of_isIntegral_of_injective f hint hinj
 
 theorem exists_transcendental_finiteDimensional (k : Type u) (A : Type v) [Field k] [CommRing A]
     [IsDomain A] [Algebra k A] [Algebra.FiniteType k A] (hA : ringKrullDim A = 1) :
     ∃ x : FractionRing A, Transcendental k x ∧
       FiniteDimensional (IntermediateField.adjoin k ({x} : Set (FractionRing A)))
-        (FractionRing A) := by
-  obtain ⟨s, g, hinj, hfin⟩ := exists_finite_inj_algHom_of_fg k A
-  have hs : s = 1 := by
-    have h := ringKrullDim_eq_of_ringHom_isIntegral_of_injective g.toRingHom
-      (RingHom.Finite.to_isIntegral hfin) hinj
-    rw [ringKrullDim_mvPolynomial_fin, hA] at h
-    have h' : ((s : ℕ∞) : WithBot ℕ∞) = ((1 : ℕ) : ℕ∞) := h
-    have h'' : (s : ℕ∞) = ((1 : ℕ) : ℕ∞) := WithBot.coe_injective h'
-    exact_mod_cast h''
-  subst hs
-  set L := FractionRing A
-  let R := MvPolynomial (Fin 1) k
-  let x₀ : A := g (MvPolynomial.X 0)
-  let x : L := algebraMap A L x₀
-  have haeval : MvPolynomial.aeval (fun i : Fin 1 => g (MvPolynomial.X i)) = g :=
-    (MvPolynomial.aeval_unique g).symm
-  have hind : AlgebraicIndependent k (fun i : Fin 1 => g (MvPolynomial.X i)) := by
-    rw [algebraicIndependent_iff_injective_aeval, haeval]
-    exact hinj
-  have hx₀ : Transcendental k x₀ := hind.transcendental 0
-  have hx : Transcendental k x :=
-    (transcendental_algebraMap_iff (IsFractionRing.injective A L)).mpr hx₀
-  refine ⟨x, hx, ?_⟩
-  set E := IntermediateField.adjoin k ({x} : Set L)
-  let : Algebra R A := g.toRingHom.toAlgebra
-  have : Module.Finite R A := hfin
-  have hxE : x ∈ E := IntermediateField.mem_adjoin_simple_self k x
-  have hgen : (IsScalarTower.toAlgHom k A L).comp g = MvPolynomial.aeval (fun _ : Fin 1 => x) := by
-    apply MvPolynomial.algHom_ext
-    intro i
-    obtain rfl : i = 0 := Subsingleton.elim _ _
-    simp [x, x₀]
-  have hrange : ∀ r : R, algebraMap A L (algebraMap R A r) ∈ (algebraMap E L).range := by
-    intro r
-    have h1 : algebraMap A L (algebraMap R A r) = MvPolynomial.aeval (fun _ : Fin 1 => x) r := by
-      rw [← hgen]; rfl
-    have h2 : MvPolynomial.aeval (fun _ : Fin 1 => x) r ∈ E.toSubalgebra := by
-      have hr : MvPolynomial.aeval (fun _ : Fin 1 => x) r ∈
-          (MvPolynomial.aeval (R := k) (fun _ : Fin 1 => x)).range := ⟨r, rfl⟩
-      rw [← Algebra.adjoin_range_eq_range_aeval] at hr
-      exact (Algebra.adjoin_le (by rintro _ ⟨_, rfl⟩; exact hxE) : _ ≤ E.toSubalgebra) hr
-    rw [h1]
-    exact ⟨⟨_, h2⟩, rfl⟩
-  have hfd := RingHom.finiteDimensional_adjoin_range_of_finite_of_forall_mem_range
-    (R := R) (S := A) (E := E) (K := L) (algebraMap A L) hrange
-  have htop : IntermediateField.adjoin E (Set.range (algebraMap A L)) = ⊤ := by
-    rw [eq_top_iff]
-    intro l _
-    obtain ⟨a, b, -, rfl⟩ := IsFractionRing.div_surjective (A := A) l
-    exact div_mem (IntermediateField.subset_adjoin _ _ ⟨a, rfl⟩)
-      (IntermediateField.subset_adjoin _ _ ⟨b, rfl⟩)
-  rw [htop] at hfd
-  exact LinearEquiv.finiteDimensional
-    (IntermediateField.topEquiv (F := E) (E := L)).toLinearEquiv
+        (FractionRing A) :=
+  _root_.FractionRing.exists_transcendental_finiteDimensional k A hA
 
 end Ticket
 

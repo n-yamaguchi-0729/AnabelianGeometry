@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.GroupTheory.OrderOfElement
+module
+
+public import Mathlib.GroupTheory.OrderOfElement
 
 /-!
 # Comparing cyclic subgroups after a fixed power
@@ -12,6 +14,8 @@ import Mathlib.GroupTheory.OrderOfElement
 Equality of powered cyclic subgroups determines a non-torsion generator
 up to inversion and a root of unity of the prescribed exponent.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.KummerTheory
 

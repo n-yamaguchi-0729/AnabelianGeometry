@@ -10,26 +10,29 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Util.WithWeakNamespace
-import Nyll.JacobianVarieties.WeilPairing.Divisorial
-import Nyll.AlgebraicCurves.Divisors.Maps.Maps
-import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
-import Nyll.AlgebraicCurves.Places.Restriction.RestrictionComposition
-import Nyll.AlgebraicCurves.Divisors.Semilinear.AlgAutSmulPlace
-import Nyll.AlgebraicCurves.Places.Restriction.RestrictEq
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.PicardZero
-import Nyll.AlgebraicCurves.Divisors.Maps.EvaluationMaps
-import Nyll.AlgebraicCurves.Divisors.Norm.PushforwardDivSeparable
-import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegEqOneIsRational
-import Nyll.AlgebraicCurves.Places.Degree.IsRationalAlgClosed
-import Nyll.AlgebraicCurves.Geometry.WeilReciprocityAlgClosed
-import Nyll.JacobianVarieties.WeilPairing.HasPrincipalDivisorsFiniteDimensional
-import Nyll.JacobianVarieties.Pic0.OrdEqMulPowNeNeZero
-import Mathlib.FieldTheory.KummerExtension
-import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
-import Mathlib.FieldTheory.IsSepClosed
-import Mathlib.FieldTheory.IsAlgClosed.Basic
-import Mathlib.FieldTheory.RatFunc.Basic
+module
+
+public import Mathlib.Util.WithWeakNamespace
+public import Nyll.JacobianVarieties.WeilPairing.Divisorial
+public import Nyll.AlgebraicCurves.Divisors.KummerRootEvaluation
+public import Nyll.AlgebraicCurves.Divisors.Maps.Maps
+public import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
+public import Nyll.AlgebraicCurves.Places.Restriction.RestrictionComposition
+public import Nyll.AlgebraicCurves.Divisors.Semilinear.AlgAutSmulPlace
+public import Nyll.AlgebraicCurves.Places.Restriction.RestrictEq
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.PicardZero
+public import Nyll.AlgebraicCurves.Divisors.Maps.EvaluationMaps
+public import Nyll.AlgebraicCurves.Divisors.Norm.PushforwardDivSeparable
+public import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegEqOneIsRational
+public import Nyll.AlgebraicCurves.Places.Degree.IsRationalAlgClosed
+public import Nyll.AlgebraicCurves.Geometry.WeilReciprocityAlgClosed
+public import Nyll.JacobianVarieties.WeilPairing.HasPrincipalDivisorsFiniteDimensional
+public import Nyll.JacobianVarieties.Pic0.OrdEqMulPowNeNeZero
+public import Mathlib.FieldTheory.KummerExtension
+public import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
+public import Mathlib.FieldTheory.IsSepClosed
+public import Mathlib.FieldTheory.IsAlgClosed.Basic
+public import Mathlib.FieldTheory.RatFunc.Basic
 
 /-!
 # Nondegeneracy of the divisorial Weil pairing
@@ -37,6 +40,8 @@ import Mathlib.FieldTheory.RatFunc.Basic
 Use a nontrivial Kummer automorphism and moved divisors to detect every nonzero
 torsion class. Norm evaluation and Weil reciprocity give injectivity of the pairing map.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -80,35 +85,10 @@ open _root_.Polynomial
 namespace AlgebraicCurve
 open _root_.AlgebraicCurve
 open _root_.AlgebraicCurve
-section E7
-
-variable {K F L : Type*} [Field K] [Field F] [Field L]
-variable [Algebra K F] [Algebra K L] [Algebra F L] [IsScalarTower K F L]
-variable [Algebra.IsIntegral F L] [HasPrincipalDivisors K L]
 
 namespace Divisor
 open _root_.AlgebraicCurve.Divisor
 end Divisor
-open scoped _root_.JacobianVarieties.WeilPairing.Proofs.WeilInjection.AlgebraicCurve.Divisor in
-private theorem Divisor.ord_eq_pullback_of_pow_eq_algebraMap {n : ℕ} [NeZero n]
-    {f : F} {D : Divisor K F} (hfD : ∀ v : Place K F, v.ord f = n * D v)
-    {h : L} (hh : h ^ n = algebraMap F L f) :
-    ∀ w : Place K L, w.ord h = Divisor.pullback L D w := by
-  intro w
-  have hcancel : (n : ℤ) * w.ord h = (n : ℤ) * Divisor.pullback L D w := by
-    have hzpow : (h : L) ^ (n : ℤ) = h ^ n := zpow_natCast h n
-    calc (n : ℤ) * w.ord h
-        = w.ord (h ^ (n : ℤ)) := (w.ord_zpow h (n : ℤ)).symm
-      _ = w.ord (h ^ n) := by rw [hzpow]
-      _ = w.ord (algebraMap F L f) := by rw [hh]
-      _ = (w.ramificationIndex F : ℤ) * (w.restrict F).ord f := w.ord_restrict f
-      _ = (w.ramificationIndex F : ℤ) * ((n : ℤ) * D (w.restrict F)) := by
-          rw [hfD (w.restrict F)]
-      _ = (n : ℤ) * ((w.ramificationIndex F : ℤ) * D (w.restrict F)) := by ring
-      _ = (n : ℤ) * Divisor.pullback L D w := by rw [Divisor.pullback_apply]
-  exact mul_left_cancel₀ (Nat.cast_ne_zero.mpr (NeZero.ne n)) hcancel
-
-end E7
 
 section PushforwardSupport
 
@@ -206,7 +186,7 @@ namespace KummerCover
 private theorem mem_range_algebraMap_of_pow_eq_one {K L : Type*} [Field K] [Field L]
     [Algebra K L] (n : ℕ) [NeZero n] [HasEnoughRootsOfUnity K n]
     {μ : L} (hμ : μ ^ n = 1) : μ ∈ Set.range (algebraMap K L) := by
-  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_primitiveRoot K n
+  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_isPrimitiveRoot K n
   obtain ⟨i, -, rfl⟩ :=
     (hζ.map_of_injective (algebraMap K L).injective).eq_pow_of_pow_eq_one hμ
   exact ⟨ζ ^ i, map_pow _ _ _⟩
@@ -320,7 +300,7 @@ private theorem exists_pair_ne_one_of_pow_eq_of_smul_eq
   have hσ' : σ h' = algebraMap K L ζ * h' := by
     rw [hh', map_mul, hσ, AlgEquiv.commutes, mul_assoc]
   have hordh' : ∀ w : Place K L, w.ord h' = Divisor.pullback L (D' : Divisor K F) w :=
-    Divisor.ord_eq_pullback_of_pow_eq_algebraMap hf'D' hh'pow
+    _root_.AlgebraicCurve.Divisor.ord_eq_pullback_of_pow_eq_algebraMap hf'D' hh'pow
   have hordh'T : ∀ w ∈ T, w.ord h' = 0 := fun w hw => by
     rw [hordh', Divisor.pullback_apply, hT_D' w hw, mul_zero]
   have hAsupp : A.support ⊆ T := by

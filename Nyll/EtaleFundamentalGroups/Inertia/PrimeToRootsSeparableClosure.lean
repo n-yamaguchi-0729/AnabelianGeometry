@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
-import Nyll.EtaleFundamentalGroups.Inertia.SeparableClosureRootsOfUnity
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsCoefficientComparison
-import Nyll.ProCGroups.InverseSystems.StagewiseIso
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
+public import Nyll.EtaleFundamentalGroups.Inertia.SeparableClosureRootsOfUnity
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsCoefficientComparison
+public import Nyll.ProCGroups.InverseSystems.StagewiseIso
 
 /-!
 # The actual prime-to-characteristic limit is unchanged by separable closure
@@ -18,6 +20,8 @@ transition theorem proves the required compatibility. The native stagewise
 inverse-system theorem supplies the continuous multiplicative limit
 equivalence without any assumed inverse-limit comparison.
 -/
+
+@[expose] public section
 
 noncomputable section
 

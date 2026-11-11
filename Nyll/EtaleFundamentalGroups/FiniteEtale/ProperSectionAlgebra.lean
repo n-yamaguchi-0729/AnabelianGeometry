@@ -4,16 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperNoetherianModelSections
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperLocalFiniteEtaleSections
-import Nyll.SchemeTheory.Affine.SpecFlatBaseChangeSections
-import Nyll.SchemeTheory.FiniteEtale.Algebra.EtaleFromLocalizations
-import Nyll.AlgebraicCurves.Geometry.Schemes.Limits.FgSubalgebraProperFlatPullback
-import Nyll.AlgebraicCurves.Geometry.Schemes.Sections.FiniteAppTopProper
-import Mathlib.Algebra.Ring.ULift
-import Mathlib.RingTheory.LocalProperties.Projective
-import Mathlib.RingTheory.Localization.BaseChange
-import Mathlib.Algebra.Module.FinitePresentation
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperNoetherianModelSections
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperLocalFiniteEtaleSections
+public import Nyll.SchemeTheory.Affine.SpecFlatBaseChangeSections
+public import Nyll.SchemeTheory.FiniteEtale.Algebra.EtaleFromLocalizations
+public import Nyll.SchemeTheory.Descent.FgSubalgebraProperFlatPullback
+public import Nyll.SchemeTheory.Morphisms.ProperGlobalSectionsFinite
+public import Mathlib.Algebra.Ring.ULift
+public import Mathlib.RingTheory.LocalProperties.Projective
+public import Mathlib.RingTheory.Localization.BaseChange
+public import Mathlib.Algebra.Module.FinitePresentation
 
 /-!
 # Finite étale sections over an arbitrary affine base
@@ -22,6 +24,8 @@ An actual Noetherian model supplies finite presentation of global sections
 through canonical base change. Localizations then detect projectivity and
 étaleness. No finiteness is inferred merely from finiteness at stalks.
 -/
+
+@[expose] public section
 
 noncomputable section
 

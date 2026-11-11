@@ -4,10 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenCurveH1Deck
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverHyperbolicity
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenCurveH1Deck
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverHyperbolicity
 
 /-! # Actual intermediate covers of a hyperbolic open curve -/
+
+@[expose] public section
 
 noncomputable section
 

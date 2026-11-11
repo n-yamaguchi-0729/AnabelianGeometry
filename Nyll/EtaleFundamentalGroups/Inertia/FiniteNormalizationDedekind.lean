@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelFieldAlgebra
-import Mathlib.RingTheory.DedekindDomain.IntegralClosure
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelFieldAlgebra
+public import Mathlib.RingTheory.DedekindDomain.IntegralClosure
 
 /-!
 # Dedekind structure of finite normalizations
@@ -14,6 +16,8 @@ import Mathlib.RingTheory.DedekindDomain.IntegralClosure
 Proves that the native normalization at a finite Galois level is a Dedekind domain under the
 original base-ring hypotheses.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

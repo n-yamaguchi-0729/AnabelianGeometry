@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.IntegralAutomorphismFiniteFieldLift
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.FieldPrincipalWildOrder
-import Mathlib.Algebra.Algebra.Equiv
-import Mathlib.Algebra.Ring.Aut
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.IntegralAutomorphismFiniteFieldLift
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.FieldPrincipalWildOrder
+public import Mathlib.Algebra.Algebra.Equiv
+public import Mathlib.Algebra.Ring.Aut
 
 /-!
 # Wild order laws for fraction-field lifts
@@ -15,6 +17,8 @@ import Mathlib.Algebra.Ring.Aut
 Constructs a finite fraction-field lift of an integral automorphism together with the local
 principal-unit order laws.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -68,7 +72,7 @@ theorem integralAutomorphism_exists_wild_fraction_lift
     apply RingEquiv.ext
     intro x
     have hx := congrArg (fun f : L ≃ₐ[K] L => f x) hn
-    simpa only [AlgEquiv.coe_pow, RingAut.coe_pow, AlgEquiv.coe_ringEquiv,
+    simpa only [AlgEquiv.coe_pow, RingAut.coe_pow, AlgEquiv.coe_toRingEquiv,
       AlgEquiv.one_apply, RingAut.one_apply] using hx
   · change ∀ (V : _root_.ValuationSubring L)
         [CharZero (IsLocalRing.ResidueField V)] (τ : V →+* V),

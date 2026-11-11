@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.AmbientNormalizationGroupMap
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
-import Mathlib.Algebra.Field.IsField
+module
+
+public import Nyll.SchemeTheory.Normalization.AmbientNormalizationGroupMap
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
+public import Mathlib.Algebra.Field.IsField
 
 /-!
 # Original normalization actions on native coefficient fields
@@ -16,6 +18,8 @@ field structure is opened only here. Restriction of the original field
 action is compared with normalization functoriality through their literal
 injective coefficient inclusion.
 -/
+
+@[expose] public section
 
 noncomputable section
 

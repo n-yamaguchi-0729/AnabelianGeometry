@@ -10,15 +10,19 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.Stalk
-import Nyll.AlgebraicCurves.Geometry.Deformation.SquareZeroDeformation
-import Nyll.SchemeTheory.RingTheory.Smooth.CotangentLifts
+module
+
+public import Mathlib.AlgebraicGeometry.Stalk
+public import Nyll.AlgebraicCurves.Geometry.Deformation.SquareZeroDeformation
+public import Nyll.SchemeTheory.RingTheory.Smooth.CotangentLifts
 
 /-!
 # Tangent points and the cotangent space
 
 Square-zero lifts identify tangent points with linear maps from the cotangent space.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

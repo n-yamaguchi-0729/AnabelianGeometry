@@ -10,26 +10,30 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Algebra.Category.Ring.Constructions
-import Mathlib.AlgebraicGeometry.Properties
-import Mathlib.AlgebraicGeometry.Geometrically.Connected
-import Mathlib.AlgebraicGeometry.Geometrically.Reduced
-import Mathlib.AlgebraicGeometry.Morphisms.Flat
-import Mathlib.AlgebraicGeometry.Morphisms.Proper
-import Mathlib.AlgebraicGeometry.Morphisms.QuasiCompact
-import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
-import Mathlib.LinearAlgebra.Dimension.FreeAndStrongRankCondition
-import Mathlib.RingTheory.Artinian.Module
-import Mathlib.RingTheory.Artinian.Ring
-import Mathlib.RingTheory.RingHom.Integral
-import Mathlib.RingTheory.TensorProduct.Free
-import Mathlib.Tactic.ByContra
-import Mathlib.Tactic.Ext
+module
+
+public import Mathlib.Algebra.Category.Ring.Constructions
+public import Mathlib.AlgebraicGeometry.Properties
+public import Mathlib.AlgebraicGeometry.Geometrically.Connected
+public import Mathlib.AlgebraicGeometry.Geometrically.Reduced
+public import Mathlib.AlgebraicGeometry.Morphisms.Flat
+public import Mathlib.AlgebraicGeometry.Morphisms.Proper
+public import Mathlib.AlgebraicGeometry.Morphisms.QuasiCompact
+public import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
+public import Mathlib.LinearAlgebra.Dimension.FreeAndStrongRankCondition
+public import Mathlib.RingTheory.Artinian.Module
+public import Mathlib.RingTheory.Artinian.Ring
+public import Mathlib.RingTheory.RingHom.Integral
+public import Mathlib.RingTheory.TensorProduct.Free
+public import Mathlib.Tactic.ByContra
+public import Mathlib.Tactic.Ext
 
 /-!
 # bijective app Top of universally Closed of geometrically Reduced of geometrically
 Connected
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -62,7 +66,7 @@ theorem subsingleton_maximalSpectrum_of_idem {S : Type*} [CommRing S] [IsArtinia
     ext i
     by_cases hi : i = m₁
     · subst hi; simp only [Pi.mul_apply, Pi.single_eq_same, mul_one]
-    · simp [hi]
+    · simp only [Pi.mul_apply, ne_eq, hi, not_false_eq_true, Pi.single_eq_of_ne, mul_zero]
   rcases h e he with h0 | h1
   · have : (Pi.single m₁ (1 : S ⧸ m₁.asIdeal) : ∀ I : MaximalSpectrum S, S ⧸ I.asIdeal) = 0 := by
       apply φ.symm.injective; rw [map_zero]; exact h0
@@ -71,7 +75,8 @@ theorem subsingleton_maximalSpectrum_of_idem {S : Type*} [CommRing S] [IsArtinia
   · have : (Pi.single m₁ (1 : S ⧸ m₁.asIdeal) : ∀ I : MaximalSpectrum S, S ⧸ I.asIdeal) = 1 := by
       apply φ.symm.injective; simpa [e] using h1
     have := congr_fun this m₂
-    simp [hm.symm] at this
+    simp only [ne_eq, hm.symm, not_false_eq_true, Pi.single_eq_of_ne, Pi.one_apply,
+      zero_ne_one] at this
 
 theorem isField_of_isReduced_of_isIntegral_of_idem [Nontrivial A] [IsReduced A]
     [Algebra.IsIntegral K A] (h : ∀ e : A, IsIdempotentElem e → e = 0 ∨ e = 1) : IsField A := by
@@ -211,7 +216,7 @@ theorem main : Function.Bijective f.appTop := by
     refine hT.of_iso (Scheme.ΓSpecIso (.of K)).symm (Scheme.ΓSpecIso (.of Kb)).symm (Iso.refl _)
       (Iso.refl _) ?_ ?_ ?_ ?_
     · rw [hb'']
-      simp [j]
+      simp only [Iso.symm_hom, Scheme.ΓSpecIso_inv_naturality, j]
     · rw [ha'', halg]
       simp only [Iso.symm_hom, Iso.refl_hom, Category.comp_id, algK]
       change CommRingCat.ofHom ((Scheme.ΓSpecIso (.of K)).inv ≫ f.appTop).hom = _
@@ -263,7 +268,7 @@ theorem main : Function.Bijective f.appTop := by
     (Scheme.ΓSpecIso (.of K)).commRingCatIsoToRingEquiv.bijective
   have hcomp : (f.appTop : Γ(Spec (.of K), ⊤) → L) = algK ∘ (Scheme.ΓSpecIso (.of K)).hom := by
     ext x
-    simp [algK]
+    simp only [RingHom.coe_comp, Function.comp_apply, Iso.hom_inv_id_apply, algK]
   rw [hcomp]
   exact ⟨hinjK.comp he.1, hsurj.comp he.2⟩
 

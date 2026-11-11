@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricAbelianGaloisAction
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticExactSequence
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricAbelianGaloisAction
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticExactSequence
 
 /-! # Comparison of geometric fibers through a common arithmetic point -/
+
+@[expose] public section
 
 noncomputable section
 

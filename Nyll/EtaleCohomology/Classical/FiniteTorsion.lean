@@ -4,15 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.CategoryTheory.Sites.SheafCohomology.Basic
-import Mathlib.AlgebraicGeometry.Sites.AffineEtale
-import Mathlib.CategoryTheory.Abelian.GrothendieckCategory.HasExt
-import Mathlib.Algebra.Category.Grp.AB
-import Mathlib.Algebra.Module.ULift
-import Mathlib.Analysis.SpecialFunctions.Complex.Circle
-import Mathlib.Algebra.Polynomial.Roots
-import Mathlib.Data.Nat.Factorial.Basic
-import Mathlib.Algebra.Colimit.DirectLimit
+module
+
+public import Mathlib.CategoryTheory.Sites.SheafCohomology.Basic
+public import Mathlib.AlgebraicGeometry.Sites.AffineEtale
+public import Mathlib.CategoryTheory.Abelian.GrothendieckCategory.HasExt
+public import Mathlib.Algebra.Category.Grp.AB
+public import Mathlib.Algebra.Module.ULift
+public import Mathlib.Analysis.SpecialFunctions.Complex.Circle
+public import Mathlib.Algebra.Polynomial.Roots
+public import Mathlib.Data.Nat.Factorial.Basic
+public import Mathlib.Algebra.Colimit.DirectLimit
 
 /-!
 # The direct limit of ordinary finite-torsion étale cohomology
@@ -26,6 +28,8 @@ This definition does not assert that derived cohomology commutes with this
 direct limit for an arbitrary scheme. Such an identification with cohomology
 of the infinite constant torsion sheaf requires a separate comparison.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -111,7 +115,7 @@ abbrev finiteTorsionCohomology (X : Scheme.{u}) (i : ℕ) : Type u :=
   DirectLimit (fun n => finiteTorsionLevel X i n) (finiteTorsionTransition X i)
 
 /-- A finite-level cohomology class defines a class in the direct limit. -/
-private def directLimitInclusion (G : ℕ → Type u) [∀ n, AddCommGroup (G n)]
+def directLimitInclusion (G : ℕ → Type u) [∀ n, AddCommGroup (G n)]
     (f : ∀ m n, m ≤ n → G m →+ G n) [DirectedSystem G (f · · ·)] (n : ℕ) :
     G n →+ DirectLimit G f where
   toFun a := ⟦⟨n, a⟩⟧

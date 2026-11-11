@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.SourceIso
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceBasePointComparison
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.SourceIso
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceBasePointComparison
 
 /-!
 # Source-isomorphism naturality on actual fundamental groups
@@ -14,6 +16,8 @@ import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceBasePointComparison
 The original pullback-fiber comparison and existing conjugation naturality
 give the source-isomorphism formula without any finite-deck hypothesis.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -88,6 +92,26 @@ private theorem pointedFundamentalGroupHom_over_comp
   simp only [hθ]
   rfl
 
+private theorem sourceIso_symm_conjAut_eq_mul
+    {C : Type*} [Category C] {X : C} (s : X ≅ X) (a : Aut X) :
+    s.symm.conjAut a = (Aut.of s)⁻¹ * a * Aut.of s := by
+  apply Aut.ext
+  apply Iso.ext
+  rfl
+
+private theorem sourceIso_conjAut_symm_apply
+    {C : Type*} [Category C] {X Y : C} (s : X ≅ Y) (a : Aut Y) :
+    s.conjAut (s.symm.conjAut a) = a :=
+  s.conjAut.apply_symm_apply a
+
+private theorem sourceIso_conjugate_of_eq
+    {C : Type*} [Category C] {X : C} (s : X ≅ X) (a b : Aut X)
+    (h : s.conjAut a = b) : a = (Aut.of s)⁻¹ * b * Aut.of s := by
+  have hinv : s.symm.conjAut (s.conjAut a) = a :=
+    sourceIso_conjAut_symm_apply s.symm a
+  exact hinv.symm.trans ((congrArg s.symm.conjAut h).trans
+    (sourceIso_symm_conjAut_eq_mul s b))
+
 /-- The specified source comparison gives actual arithmetic conjugation for a morphism over Y. -/
 theorem fundamentalGroupHom_sourceDeck_conjugate
     {S Y : Scheme.{u}} {Ω : Type u} [Field Ω] [IsSepClosed Ω]
@@ -97,29 +121,26 @@ theorem fundamentalGroupHom_sourceDeck_conjugate
     let hz : e.hom ≫ (xi ≫ f) = xi ≫ f := by
       rw [← Category.assoc, hpoint, Category.assoc, hθ]
     let g : Aut (fiber (xi ≫ f)) :=
-      fiberSourceIso (xi ≫ f) e ≪≫ eqToIso (congrArg fiber hz)
+      Aut.of (fiberSourceIso (xi ≫ f) e ≪≫ eqToIso (congrArg fiber hz))
     fundamentalGroupHom f xi
         ((fiberSourceIso xi e).symm.conjAut
           (pointedFundamentalGroupHom θ xi (e.hom ≫ xi) hpoint.symm a)) =
       g⁻¹ * fundamentalGroupHom f xi a * g := by
   intro hz g
-  let s := fiberSourceIso xi e
-  let b := pointedFundamentalGroupHom θ xi (e.hom ≫ xi) hpoint.symm a
-  let u := s.symm.conjAut b
+  let s : fiber xi ≅ fiber (e.hom ≫ xi) := fiberSourceIso xi e
+  let b : Aut (fiber (e.hom ≫ xi)) :=
+    pointedFundamentalGroupHom θ xi (e.hom ≫ xi) hpoint.symm a
+  let u : Aut (fiber xi) := s.symm.conjAut b
   let hπ : (e.hom ≫ xi) ≫ f = xi ≫ f := (Category.assoc e.hom xi f).trans hz
-  have hs : s.conjAut u = b := by
-    apply Aut.ext
-    simp only [u, Iso.conjAut_hom, Iso.self_symm_conj]
+  have hs : s.conjAut u = b := sourceIso_conjAut_symm_apply s b
   have hp := pointedFundamentalGroupHom_over_comp xi (e.hom ≫ xi) f θ hθ
     hpoint.symm hπ a
   have hg := fundamentalGroupHom_sourceIso_pointed xi e f hz u
-  have hfinal : g.conjAut (fundamentalGroupHom f xi u) = fundamentalGroupHom f xi a :=
+  have hfinal : g.asIso.conjAut (fundamentalGroupHom f xi u) =
+      fundamentalGroupHom f xi a :=
     hg.trans (by rw [hs]; exact hp)
   change fundamentalGroupHom f xi u = _
-  apply Aut.ext
-  have hf : g.conj ((fundamentalGroupHom f xi u).hom) =
-      (fundamentalGroupHom f xi a).hom := congrArg Iso.hom hfinal
-  have hback := congrArg g.symm.conj hf
-  exact (Iso.symm_self_conj g ((fundamentalGroupHom f xi u).hom)).symm.trans hback
+  exact sourceIso_conjugate_of_eq g.asIso
+    (fundamentalGroupHom f xi u) (fundamentalGroupHom f xi a) hfinal
 
 end AlgebraicGeometry.FiniteEtale

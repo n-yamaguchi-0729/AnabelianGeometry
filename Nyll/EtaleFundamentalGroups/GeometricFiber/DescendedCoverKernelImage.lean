@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.GlobalModel
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.CoefficientPullback
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenSubgroupFundamentalGroup
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverImage
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticExactSequence
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.GlobalModel
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.CoefficientPullback
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenSubgroupFundamentalGroup
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverImage
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticExactSequence
 
 /-!
 # The actual arithmetic kernel of a recovered finite-stage cover
@@ -20,6 +22,8 @@ strict pointed square. Consequently the image of the descended arithmetic
 kernel is exactly the image of the prescribed geometric subgroup.
 
 -/
+
+@[expose] public section
 
 noncomputable section
 

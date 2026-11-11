@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
 
 /-!
 # Finite-exponent characters of the actual roots inverse limit
@@ -13,6 +15,8 @@ The kernel of the n-th coordinate consists of n-th powers. Consequently a
 character with exponent n depends only on that coordinate. This does not
 assert that a local Frobenius is scalar on the full roots inverse limit.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

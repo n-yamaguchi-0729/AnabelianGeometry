@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationCuspPlaces
+module
+
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationCuspPlaces
 
 /-! # Rational orders at each specified actual boundary place
 
@@ -13,6 +15,8 @@ The rational-section construction is identified with the place of the same
 original label by the proved singleton fiber. The second export quantifies
 over every geometric boundary place; it does not select unrelated points.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry AlgebraicCurve

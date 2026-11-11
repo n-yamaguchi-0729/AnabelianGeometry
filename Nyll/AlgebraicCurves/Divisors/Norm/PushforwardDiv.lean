@@ -10,13 +10,17 @@ Upstream per-file ATTRIBUTION: https://github.com/anthropics/fermats-last-theore
 Repository maintainer: Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 -/
 
-import Nyll.AlgebraicCurves.Divisors.Maps.Maps
-import Nyll.AlgebraicCurves.Divisors.Norm.PushforwardNormFormula
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+module
+
+public import Nyll.AlgebraicCurves.Divisors.Maps.Maps
+public import Nyll.AlgebraicCurves.Divisors.Norm.PushforwardNormFormula
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
 
 /-!
 # Divisor pushforward div
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

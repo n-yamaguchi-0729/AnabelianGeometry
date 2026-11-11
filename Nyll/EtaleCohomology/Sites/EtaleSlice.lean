@@ -6,16 +6,18 @@ Authors: Johan Commelin, Bhavik Mehta,
   Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Sites.EtaleRestriction
-import Mathlib.Algebra.Category.Grp.Basic
-import Mathlib.AlgebraicGeometry.Morphisms.Etale
-import Mathlib.CategoryTheory.Adjunction.Basic
-import Mathlib.CategoryTheory.Comma.Over.Basic
-import Mathlib.CategoryTheory.Equivalence
-import Mathlib.CategoryTheory.MorphismProperty.Comma
-import Mathlib.CategoryTheory.Opposites
-import Mathlib.CategoryTheory.Sites.Equivalence
-import Mathlib.CategoryTheory.Yoneda
+module
+
+public import Nyll.EtaleCohomology.Sites.EtaleRestriction
+public import Mathlib.Algebra.Category.Grp.Basic
+public import Mathlib.AlgebraicGeometry.Morphisms.Etale
+public import Mathlib.CategoryTheory.Adjunction.Basic
+public import Mathlib.CategoryTheory.Comma.Over.Basic
+public import Mathlib.CategoryTheory.Equivalence
+public import Mathlib.CategoryTheory.MorphismProperty.Comma
+public import Mathlib.CategoryTheory.Opposites
+public import Mathlib.CategoryTheory.Sites.Equivalence
+public import Mathlib.CategoryTheory.Yoneda
 
 /-!
 # Slices of the small étale category
@@ -30,6 +32,8 @@ https://github.com/leanprover-community/mathlib4/blob/065356127b1dc0016f66b7283c
 The small-site functors, explicit proofs and representing-equivalence transport
 are the new adaptation. The transported presheaf may take values in any universe.
 -/
+
+@[expose] public section
 
 noncomputable section
 

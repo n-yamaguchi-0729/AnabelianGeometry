@@ -5,11 +5,13 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointSurjective
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AlgebraicClosure
-import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
-import Nyll.EtaleFundamentalGroups.GaloisCategories.Functoriality
-import Mathlib.FieldTheory.IsSepClosed
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointSurjective
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AlgebraicClosure
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.Functoriality
+public import Mathlib.FieldTheory.IsSepClosed
 
 /-!
 # The actual generic Galois map at the separable geometric point
@@ -19,6 +21,8 @@ compares the two actual generic fiber functors. Under this comparison, the
 canonical generic absolute Galois map is exactly the scheme-induced map of
 the original field monodromy action.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -38,10 +42,11 @@ private theorem conjugate_induced_aut
       (Functor.isoWhiskerLeft H e).conjAut
           (((Functor.whiskeringLeft C D FintypeCat.{w}).obj H).mapAut F' a) =
         (((Functor.whiskeringLeft C D FintypeCat.{w}).obj H).mapAut G' (e.conjAut a)) := by
+    apply Aut.ext
     apply Iso.ext
     apply NatTrans.ext
     funext A
-    simp only [Iso.conjAut_hom, Iso.conj_apply, NatTrans.comp_app]
+    simp only [Iso.conjAut_hom, Iso.conj_apply_asHom, NatTrans.comp_app]
     rfl
   change (r.symm ≪≫ Functor.isoWhiskerLeft H e ≪≫ t).conjAut
       (r.conjAut (((Functor.whiskeringLeft C D FintypeCat.{w}).obj H).mapAut F' a)) =

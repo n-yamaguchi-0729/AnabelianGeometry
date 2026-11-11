@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealRadicalTameDivisibility
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
-import Nyll.EtaleFundamentalGroups.Inertia.NativeFiniteNormalizationTameProperties
-import Nyll.SchemeTheory.Normalization.IntegralClosureAutomorphisms
-import Nyll.SchemeTheory.Normalization.NativeNormalizationPrime
+module
+
+public import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealRadicalTameDivisibility
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeFiniteNormalizationTameProperties
+public import Nyll.SchemeTheory.Normalization.IntegralClosureAutomorphisms
+public import Nyll.SchemeTheory.Normalization.NativeNormalizationPrime
 
 /-!
 # Radical exponents and finite normalization tame orders
@@ -17,6 +19,8 @@ import Nyll.SchemeTheory.Normalization.NativeNormalizationPrime
 The actual finite Galois normalization supplies the finite-action hypotheses
 used to compare a uniformizer radical exponent with its tame inertia order.
 -/
+
+@[expose] public section
 
 noncomputable section
 

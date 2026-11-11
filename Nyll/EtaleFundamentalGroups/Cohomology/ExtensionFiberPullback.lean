@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionFiberSquare
-import Nyll.EtaleFundamentalGroups.Cohomology.AbelianPullbackMate
-import Nyll.EtaleCohomology.Sites.SetPullbackExact
-import Mathlib.CategoryTheory.Limits.Preserves.Shapes.Terminal
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionFiberSquare
+public import Nyll.EtaleFundamentalGroups.Cohomology.AbelianPullbackMate
+public import Nyll.EtaleCohomology.Sites.SetPullbackExact
+public import Mathlib.CategoryTheory.Limits.Preserves.Shapes.Terminal
 
 /-!
 # Inverse image of the actual sheaf of lifts
@@ -17,6 +19,8 @@ fiber square. The comparison uses the actual abelian inverse image and the
 actual underlying-set comparison; no compatibility is imposed as a hypothesis.
 The quotient section is transported explicitly.
 -/
+
+@[expose] public section
 
 noncomputable section
 

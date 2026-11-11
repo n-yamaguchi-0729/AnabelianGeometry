@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Affine.FlatBaseChangeAffinization
-import Mathlib.Algebra.Category.Ring.Constructions
+module
+
+public import Nyll.SchemeTheory.Affine.FlatBaseChangeAffinization
+public import Mathlib.Algebra.Category.Ring.Constructions
 
 /-!
 # Flat base change on sections with the original affine coefficient rings
@@ -14,6 +16,8 @@ The scalar maps here are the actual maps from the rings defining the two
 affine bases. This comparison is used for residue-field coefficients in
 proper-family cohomology, where the original field actions must agree.
 -/
+
+@[expose] public section
 
 noncomputable section
 

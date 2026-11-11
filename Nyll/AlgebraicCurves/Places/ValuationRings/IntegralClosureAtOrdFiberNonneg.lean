@@ -10,12 +10,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
-import Nyll.AlgebraicCurves.Places.CountNormalizedFactorsSpanSingleton
+module
+
+public import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
+public import Nyll.AlgebraicCurves.Places.CountNormalizedFactorsSpanSingleton
 
 /-!
 # Place exists integral Closure At of ord fiber nonneg
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

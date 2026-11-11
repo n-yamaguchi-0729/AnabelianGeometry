@@ -8,4 +8,5 @@ repository, not this extract. The included local source files are listed below.
 
 | Included source | Upstream attribution |
 | --- | --- |
+| [Nyll/AnabelianGeometry/FunctionField/SimultaneousRiemannRoch.lean](FunctionField/SimultaneousRiemannRoch.lean) | [S_AlgebraicCurve_RROpens_exists_finset_subset_ell_sub_sum_single_eq_zero.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicCurve_RROpens_exists_finset_subset_ell_sub_sum_single_eq_zero.lean) |
 | [Nyll/AnabelianGeometry/WeightFiltration/FieldChartBoundaryCentralizer.lean](WeightFiltration/FieldChartBoundaryCentralizer.lean) | [S_AlgebraicCurve_CurveModel_exists_curveModel_iso_ffEquiv_symm_germToFunctionField_eq_of_algEquiv.lean](https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/P2M/Sol/S_AlgebraicCurve_CurveModel_exists_curveModel_iso_ffEquiv_symm_germToFunctionField_eq_of_algEquiv.lean) |

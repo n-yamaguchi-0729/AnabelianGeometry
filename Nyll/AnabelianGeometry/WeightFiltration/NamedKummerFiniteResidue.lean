@@ -3,7 +3,9 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveResidues
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveResidues
 
 /-! # The residue of the original named Kummer class
 
@@ -11,6 +13,8 @@ This computes the actual class, rather than
 assuming a comparison with a residue vector. It is the numeric bridge for
 the pair-function construction and the named Kummer fiber theorem.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory AlgebraicCurve

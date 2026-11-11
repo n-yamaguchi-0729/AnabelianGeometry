@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacter
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameProperties
-import Mathlib.Topology.LocallyConstant.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacter
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameProperties
+public import Mathlib.Topology.LocallyConstant.Basic
 
 /-!
 # Continuity of the actual tame character
@@ -15,6 +17,8 @@ The original finite coordinates are locally constant in the original Krull
 subgroup topology. Their quotient-valued, degree-indexed coordinates retain
 local constancy, so the constructed map into the literal root limit is continuous.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

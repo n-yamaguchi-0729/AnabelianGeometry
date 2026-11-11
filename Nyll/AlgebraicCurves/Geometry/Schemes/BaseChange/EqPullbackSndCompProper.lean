@@ -10,13 +10,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.AlgClosed.Basic
-import Mathlib.AlgebraicGeometry.Properties
-import Mathlib.AlgebraicGeometry.PullbackCarrier
-import Mathlib.AlgebraicGeometry.Morphisms.Proper
-import Mathlib.AlgebraicGeometry.Morphisms.UniversallyOpen
-import Mathlib.AlgebraicGeometry.ZariskisMainTheorem
-import Mathlib.Topology.JacobsonSpace
+module
+
+public import Mathlib.AlgebraicGeometry.AlgClosed.Basic
+public import Mathlib.AlgebraicGeometry.Properties
+public import Mathlib.AlgebraicGeometry.PullbackCarrier
+public import Mathlib.AlgebraicGeometry.Morphisms.Proper
+public import Mathlib.AlgebraicGeometry.Morphisms.UniversallyOpen
+public import Mathlib.AlgebraicGeometry.ZariskisMainTheorem
+public import Mathlib.Topology.JacobsonSpace
 
 /-!
 # Factorization of a morphism constant on one proper fibre
@@ -24,6 +26,8 @@ import Mathlib.Topology.JacobsonSpace
 A morphism from a reduced product over an algebraically closed field that is constant on
 one slice of a proper integral factor descends to the second factor.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

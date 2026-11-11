@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.CohomologyPullbackCharacters
-import Nyll.JacobianVarieties.Kummer.CohomologyPullback
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
-import Nyll.EtaleFundamentalGroups.Cohomology.H1Character
-import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
-import Nyll.ProCGroups.Abelian.TopologicalAbelianization
-import Mathlib.Algebra.Group.IsCommutative
-import Mathlib.Topology.Algebra.Group.CompactOpen
+module
+
+public import Nyll.JacobianVarieties.Kummer.CohomologyPullbackCharacters
+public import Nyll.JacobianVarieties.Kummer.CohomologyPullback
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1Character
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
+public import Nyll.ProCGroups.Abelian.TopologicalAbelianization
+public import Mathlib.Algebra.Group.IsCommutative
+public import Mathlib.Topology.Algebra.Group.CompactOpen
 
 /-!
 # Actual H¹ pullback on the topological abelianization
@@ -22,6 +24,8 @@ The existing finite H¹ comparisons identify pullback with precomposition by
 this actual factorization. Commutativity refers to the original group
 operation; neither fundamental group is replaced by another group structure.
 -/
+
+@[expose] public section
 
 noncomputable section
 

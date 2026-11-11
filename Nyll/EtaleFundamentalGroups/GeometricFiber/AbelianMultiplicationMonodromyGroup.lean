@@ -4,18 +4,20 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.AlgebraicPoints
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.Kernel
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.Translation
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawSchemeNsmulCompEqCompSchemeNsmul
-import Nyll.AlgebraicCurves.Geometry.Picard.GroupLaw.RelativeGroupLaw
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationCover
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationMonodromy
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationTransitions
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationTranslations
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
-import Nyll.ProCGroups.Abelian.FullTateModule
+module
+
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.AlgebraicPoints
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.Kernel
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.Translation
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawSchemeNsmulCompEqCompSchemeNsmul
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.Basic
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationCover
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationMonodromy
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationTransitions
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationTranslations
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+public import Nyll.ProCGroups.Abelian.FullTateModule
 
 /-!
 # Additivity of actual multiplication monodromy
@@ -27,7 +29,11 @@ translations makes its action translation by its value at the unit. Thus
 unit evaluation sends the fundamental-group product to actual torsion addition.
 -/
 
+@[expose] public section
+
 noncomputable section
+
+universe u
 
 open CategoryTheory CategoryTheory.PreGaloisCategory AlgebraicGeometry NeronModelInfra
 open AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs
@@ -35,10 +41,10 @@ open RelativeGroupLaw_schemeNsmul_comp_eq_comp_schemeNsmul_of_hom.S17Glue
 
 namespace GoodReductionJacobian.RelativeGroupLaw
 
-variable {K : Type} [Field K] {A : Scheme.{0}} {f : A ⟶ Spec (CommRingCat.of K)}
+variable {K : Type u} [Field K] {A : Scheme.{u}} {f : A ⟶ Spec (CommRingCat.of K)}
 variable (G : RelativeGroupLaw K f) (hc : G.IsCommutative)
 
-private theorem scalarIdentity_specMap :
+theorem scalarIdentity_specMap :
     Spec.map (CommRingCat.ofHom (algebraMap K K)) = 𝟙 (Spec (CommRingCat.of K)) := by
   change Spec.map (CommRingCat.ofHom (RingHom.id K)) = _
   rw [CommRingCat.ofHom_id]
@@ -88,7 +94,7 @@ theorem fiberEquiv_map_torsionDeckTranslation (n : ℕ+)
       (G.multiplicationCover hc n)) :
     G.multiplicationCoverFiberEquivTorsion hc n
         ((FiniteEtale.fiber (G.one (𝟙 (Spec (CommRingCat.of K)))).1).map
-          (torsionDeckTranslation G hc n t).hom z) =
+          (torsionDeckTranslation G hc n t).asIso.hom z) =
       G.multiplicationCoverFiberEquivTorsion hc n z + t := by
   let e : Spec (CommRingCat.of K) ⟶ A := (G.one (𝟙 _)).1
   let s : Spec (CommRingCat.of K) ⟶ Spec (CommRingCat.of K) :=
@@ -107,16 +113,16 @@ theorem fiberEquiv_map_torsionDeckTranslation (n : ℕ+)
   apply AlgPoints.toPoint_injective
   apply Subtype.ext
   change (AlgPoints.toPoint (G.multiplicationCoverFiberEquivTorsion hc n
-      ((FiniteEtale.fiber e).map (torsionDeckTranslation G hc n t).hom z)).1).1 =
+      ((FiniteEtale.fiber e).map (torsionDeckTranslation G hc n t).asIso.hom z)).1).1 =
     (AlgPoints.toPoint ((G.multiplicationCoverFiberEquivTorsion hc n z).1 + t.1)).1
   rw [AlgPoints.toPoint_add, G.multiplicationCoverFiberEquivTorsion_toPoint]
   have h := FiniteEtale.fiberObjEquivHom_naturality e
-    (torsionDeckTranslation G hc n t).hom z
+    (torsionDeckTranslation G hc n t).asIso.hom z
   let q : Spec (CommRingCat.of K) ⟶ A :=
     (FiniteEtale.fiberObjEquivHom e (G.multiplicationCover hc n) z).left
   let q' : Spec (CommRingCat.of K) ⟶ A :=
     (FiniteEtale.fiberObjEquivHom e (G.multiplicationCover hc n)
-      ((FiniteEtale.fiber e).map (torsionDeckTranslation G hc n t).hom z)).left
+      ((FiniteEtale.fiber e).map (torsionDeckTranslation G hc n t).asIso.hom z)).left
   have hleft : q' = q ≫ G.translate u := congrArg
     (fun r : Over.mk e ⟶ (G.multiplicationCover hc n).toComma => r.left) h.symm
   have hp : p.1 = q :=
@@ -145,17 +151,17 @@ theorem multiplicationCoverFiberEquivTorsion_smul (n : ℕ+)
   let d : Aut (G.multiplicationCover hc n) := torsionDeckTranslation G hc n t
   have hunit : G.multiplicationCoverFiberEquivTorsion hc n (G.multiplicationCoverUnit hc n) = 0 :=
     (G.multiplicationCoverFiberEquivTorsion hc n).apply_symm_apply 0
-  have hz : (FiniteEtale.fiber e).map d.hom (G.multiplicationCoverUnit hc n) = z := by
+  have hz : (FiniteEtale.fiber e).map d.asIso.hom (G.multiplicationCoverUnit hc n) = z := by
     apply (G.multiplicationCoverFiberEquivTorsion hc n).injective
     exact (fiberEquiv_map_torsionDeckTranslation G hc n t (G.multiplicationCoverUnit hc n)).trans
       ((congrArg (fun x => x + t) hunit).trans (zero_add t))
   calc
     G.multiplicationCoverFiberEquivTorsion hc n (g • z) =
         G.multiplicationCoverFiberEquivTorsion hc n
-          (g • (FiniteEtale.fiber e).map d.hom (G.multiplicationCoverUnit hc n)) :=
+          (g • (FiniteEtale.fiber e).map d.asIso.hom (G.multiplicationCoverUnit hc n)) :=
       congrArg (fun x => G.multiplicationCoverFiberEquivTorsion hc n (g • x)) hz.symm
     _ = G.multiplicationCoverFiberEquivTorsion hc n
-        ((FiniteEtale.fiber e).map d.hom (g • G.multiplicationCoverUnit hc n)) := by
+        ((FiniteEtale.fiber e).map d.asIso.hom (g • G.multiplicationCoverUnit hc n)) := by
       rw [mulAction_naturality]
     _ = G.multiplicationMonodromy hc n g + t :=
       fiberEquiv_map_torsionDeckTranslation G hc n t (g • G.multiplicationCoverUnit hc n)

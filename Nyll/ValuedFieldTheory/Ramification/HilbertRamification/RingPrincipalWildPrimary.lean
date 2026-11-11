@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacterKernel
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingPrincipalInertiaCriterion
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingHilbertRamificationComparison
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.FiniteRamificationPrimary
-import Nyll.SchemeTheory.AbhyankarLemma.Geometry.CyclicInertia.Core
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacterKernel
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingPrincipalInertiaCriterion
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingHilbertRamificationComparison
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.FiniteRamificationPrimary
+public import Nyll.SchemeTheory.AbhyankarLemma.Geometry.CyclicInertia.Core
 
 /-!
 # The actual ring-character wild kernel is primary
@@ -18,6 +20,8 @@ predicate comparison then supplies the ramification element and its p-power
 order. The final ring-kernel scope consumes this proved order statement and
 does not simultaneously open the two Hilbert subgroup types.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -3,14 +3,17 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.KummerTheory.NamedRationalSquareCoverConfiguration
-import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverGenericPoint
-import Nyll.AnabelianGeometry.WeightFiltration.NamedModelCoverGroupSquare
-import Nyll.EtaleFundamentalGroups.GeometricFiber.EquivariantFiberCoverIso
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
-import Nyll.AnabelianGeometry.KummerTheory.ProjectivePairSquareBaseChangeModel
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenSquareFunctionField
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.NamedRationalSquareCoverConfiguration
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverGenericPoint
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedModelCoverGroupSquare
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.EquivariantFiberCoverIso
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
+public import Nyll.AnabelianGeometry.KummerTheory.ProjectivePairSquareBaseChangeModel
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenSquareFunctionField
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairSquareMap
 
 /-! # Actual base change of the retained named square-cover configuration
 
@@ -20,6 +23,8 @@ rational configuration, rather than assuming that isomorphism. The same chosen
 cover point supplies the target function-field algebra via the existing
 recoveredCover_genericExtensionMorphism_eq owner.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve
 open AlgebraicGeometry.FiniteEtale AlgebraicGeometry.ProjSpace
@@ -200,14 +205,13 @@ theorem namedSquareModel_actualBaseChange_same_point
       let qκ : rationalConfigurationGeometricScheme E κ t ⟶ Uκ := Jκ.inv ≫ Wκ.hom
       qκ ≫ b = pullback.snd φ g ≫ q ∧
       qκ ≫ pullback.fst φ f = pullback.fst φ g ∧
-      letI : IsIntegral Wκ.left := isIntegral_left_of_isConnected_finiteEtale Wκ
-      letI : Algebra Uκ.functionField Wκ.left.functionField := finiteEtaleFunctionFieldAlgebra Wκ
+      let : IsIntegral Wκ.left := isIntegral_left_of_isConnected_finiteEtale Wκ
+      let : Algebra Uκ.functionField Wκ.left.functionField := finiteEtaleFunctionFieldAlgebra Wκ
       let lift := fiberObjEquivHom ξκ Wκ wκ
       let emb := finiteEtaleGenericHomFunctionFieldAlgHom Wκ lift
       let hJdense : DenseRange Jκ.hom := Jκ.hom.homeomorph.surjective.denseRange
-      let A : Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ω :=
+      let _ : Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ω :=
         (emb.toRingHom.comp (Jκ.hom.functionFieldMap hJdense)).toAlgebra
-      letI := A
       (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω =
         actualFiberPointLift ξκ Wκ wκ ≫ Jκ.hom ∧
       (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω ≫
@@ -217,7 +221,7 @@ theorem namedSquareModel_actualBaseChange_same_point
   obtain ⟨Jκ, hcoeff, hbase⟩ :=
     namedSquareModel_exists_actualBaseChangeIso E κ j W p hp t J q hJq hq
   refine ⟨Jκ, hcoeff, hbase, ?_⟩
-  dsimp only
+  intro qκ
   have hqcoeff : (Jκ.inv ≫ Wκ.hom) ≫ b = pullback.snd φ g ≫ q := by
     apply (cancel_epi Jκ.hom).mp
     exact (Category.assoc Jκ.hom (Jκ.inv ≫ Wκ.hom) b).symm.trans
@@ -234,14 +238,7 @@ theorem namedSquareModel_actualBaseChange_same_point
       ((congrArg (fun z : Wκ.left ⟶ Uκ => z ≫ pullback.fst φ f)
         (Jκ.hom_inv_id_assoc Wκ.hom)).trans hbase.symm)
   refine ⟨hqcoeff, hqbase, ?_⟩
-  let : IsIntegral Wκ.left := isIntegral_left_of_isConnected_finiteEtale Wκ
-  let : Algebra Uκ.functionField Wκ.left.functionField := finiteEtaleFunctionFieldAlgebra Wκ
-  let lift := fiberObjEquivHom ξκ Wκ wκ
-  let emb := finiteEtaleGenericHomFunctionFieldAlgHom Wκ lift
-  let hJdense : DenseRange Jκ.hom := Jκ.hom.homeomorph.surjective.denseRange
-  let A : Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ω :=
-    (emb.toRingHom.comp (Jκ.hom.functionFieldMap hJdense)).toAlgebra
-  let := A
+  intro integralWκ algebraUWκ lift emb hJdense A
   have hpoint : (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω =
       actualFiberPointLift ξκ Wκ wκ ≫ Jκ.hom := by
     exact recoveredCover_genericExtensionMorphism_eq Wκ wκ Jκ.symm
@@ -311,9 +308,9 @@ theorem namedSquareModel_actualBaseChange_field_square
       Jκ.hom ≫ pullback.snd φ g = pullback.fst W.hom b ≫ J.hom ∧
       Jκ.hom ≫ pullback.fst φ g = Wκ.hom ≫ pullback.fst φ f ∧
       ∃ hjκ : IsOpenImmersion jκ,
-      letI := hjκ
-      letI : IsIntegral Wκ.left := isIntegral_left_of_isConnected_finiteEtale Wκ
-      letI : Algebra Uκ.functionField Wκ.left.functionField := finiteEtaleFunctionFieldAlgebra Wκ
+      let := hjκ
+      let : IsIntegral Wκ.left := isIntegral_left_of_isConnected_finiteEtale Wκ
+      let : Algebra Uκ.functionField Wκ.left.functionField := finiteEtaleFunctionFieldAlgebra Wκ
       let cU := (projectiveLineRatFuncModel κ).ffEquiv.trans
         jκ.functionFieldRingEquivOfIsOpenImmersion
       let cR := rationalConfigurationGeometricFunctionFieldEquiv E κ t
@@ -353,9 +350,8 @@ theorem namedSquareModel_actualBaseChange_field_square
         (hjκPB.isoPullback.hom ≫ pullback.fst c j) := inferInstance
     rw [hjκPB.isoPullback_hom_fst] at hi
     exact hi
-  let := hjκopen
-  let : IsIntegral Wκ.left := isIntegral_left_of_isConnected_finiteEtale Wκ
-  let : Algebra Uκ.functionField Wκ.left.functionField := finiteEtaleFunctionFieldAlgebra Wκ
+  refine ⟨Jκ, hcoeff, hbase, hjκopen, ?_⟩
+  intro openJκ integralWκ algebraUWκ cU cR hJdense
   let M : CurveModel κ (RatFunc κ) := projectiveLineRatFuncModel κ
   let lκ : rationalConfigurationGeometricScheme E κ t ⟶ M.C :=
     rationalConfigurationBaseChangeChart E κ t
@@ -443,14 +439,12 @@ theorem namedSquareModel_actualBaseChange_field_square
     have hright := functionFieldMap_comp_of_dense jκ hjκdense qκ hqκdense
     exact hleft.trans
       ((actualNamed_functionFieldMap_eq _ _ _ _ hsquare).trans hright.symm)
-  have hJdense : DenseRange Jκ.hom := Jκ.hom.homeomorph.surjective.denseRange
   let wκmap : Wκ.left ⟶ Uκ := Wκ.hom
   have hJκq' : Jκ.hom ≫ qκ = wκmap := hJκq
   have hJcomp : (Jκ.hom.functionFieldMap hJdense).comp (qκ.functionFieldMap hqκdense) =
       wκmap.functionFieldMap (finiteEtale_hom_denseRange_of_isConnected Wκ) := by
     have h := functionFieldMap_comp_of_dense qκ hqκdense Jκ.hom hJdense
     exact h.trans (actualNamed_functionFieldMap_eq _ _ _ _ hJκq')
-  refine ⟨Jκ, hcoeff, hbase, hjκopen, ?_⟩
   change ∀ z : RatFunc κ,
     Jκ.hom.functionFieldMap hJdense
         (rationalConfigurationGeometricFunctionFieldEquiv E κ t

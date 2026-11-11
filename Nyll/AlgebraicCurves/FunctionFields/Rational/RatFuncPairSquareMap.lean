@@ -3,12 +3,14 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Mathlib.FieldTheory.RatFunc.AsPolynomial
-import Mathlib.RingTheory.Finiteness.Basic
-import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
-import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
-import Nyll.AlgebraicCurves.FunctionFields.Extensions.CurveFiniteDimensionalAdjoinSimple
-import Nyll.AlgebraicCurves.Divisors.Correspondences.Correspondences
+module
+
+public import Mathlib.FieldTheory.RatFunc.AsPolynomial
+public import Mathlib.RingTheory.Finiteness.Basic
+public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
+public import Nyll.AlgebraicCurves.FunctionFields.Extensions.CurveFiniteDimensionalAdjoinSimple
+public import Nyll.AlgebraicCurves.Divisors.Correspondences.Correspondences
 
 /-! # The finite square extension in the already selected pair coordinate
 
@@ -16,6 +18,8 @@ The target field is literally a rational function field. Its root coordinate
 is X, and the given pair function maps to X squared. Finiteness follows from
 transcendence of X squared and the existing one-variable function-field theorem.
 -/
+@[expose] public section
+
 noncomputable section
 open AlgebraicCurve
 open scoped RatFunc

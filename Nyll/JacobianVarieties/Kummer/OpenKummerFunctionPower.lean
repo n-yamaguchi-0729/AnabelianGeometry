@@ -4,13 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenDivisorCohomologyInjection
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenDivisorCohomologyInjection
 
 /-! # Powers of the named actual open Kummer cover
 
 The existing additive divisor-to-derived-cohomology map owns this law. No
 identification of an arbitrary character with a named cover is assumed here.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Data.ZMod.Basic
-import Mathlib.Data.PNat.Defs
-import Mathlib.GroupTheory.QuotientGroup.Basic
-import Mathlib.GroupTheory.Coset.Card
-import Mathlib.Data.Fintype.Pi
+module
+
+public import Mathlib.Data.ZMod.Basic
+public import Mathlib.Data.PNat.Defs
+public import Mathlib.GroupTheory.QuotientGroup.Basic
+public import Mathlib.GroupTheory.Coset.Card
+public import Mathlib.Data.Fintype.Pi
 
 /-!
 # Cardinality of the degree-zero boundary residue group
@@ -17,6 +19,8 @@ A nonempty finite boundary has one independent sum relation. This counts
 the actual kernel of the sum homomorphism, not a group postulated to model
 étale cohomology.
 -/
+
+@[expose] public section
 
 noncomputable section
 

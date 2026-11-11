@@ -4,11 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.CuspidalInertia.ActualCoverInertiaCentralizer
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaClosedAbelian
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenNormalUniverse
+module
+
+public import Nyll.AnabelianGeometry.CuspidalInertia.ActualCoverInertiaCentralizer
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaClosedAbelian
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenNormalUniverse
+public import Nyll.AnabelianGeometry.CuspidalInertia.InertiaCoordinateCentralizer
 
 /-! # Centralizers of nontrivial actual boundary inertia elements -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationResidueAction
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationResidueDVR
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationResidueAction
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationResidueDVR
 
 /-!
 # The same original residue action in quotient coordinates
@@ -13,6 +15,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.NormalizationResidueDVR
 This identifies its localization and quotient presentations using the
 already fixed canonical maximal-quotient equivalence.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

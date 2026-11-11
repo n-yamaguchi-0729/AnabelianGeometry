@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationTower
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationInclusionSquare
-import Nyll.SchemeTheory.Normalization.AmbientNormalizationGroupMap
-import Mathlib.Algebra.Ring.Hom.Defs
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationTower
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationInclusionSquare
+public import Nyll.SchemeTheory.Normalization.AmbientNormalizationGroupMap
+public import Mathlib.Algebra.Ring.Hom.Defs
 
 /-!
 # Galois action on finite normalization towers
@@ -15,6 +17,8 @@ import Mathlib.Algebra.Ring.Hom.Defs
 Proves that the two restricted Galois automorphisms commute with the inclusion between nested
 finite normalizations.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

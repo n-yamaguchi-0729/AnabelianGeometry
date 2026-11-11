@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Algebra.Hom
-import Mathlib.Algebra.Algebra.Subalgebra.Basic
-import Mathlib.Algebra.Category.CommAlgCat.Basic
-import Mathlib.Algebra.Ring.Hom.Defs
-import Mathlib.Algebra.Ring.Subsemiring.Basic
-import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
+module
+
+public import Mathlib.Algebra.Algebra.Hom
+public import Mathlib.Algebra.Algebra.Subalgebra.Basic
+public import Mathlib.Algebra.Category.CommAlgCat.Basic
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Algebra.Ring.Subsemiring.Basic
+public import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
 
 /-!
 # Native normalization preimages of subalgebras
@@ -18,6 +20,8 @@ The normalization objects and their preimage are constructed from the native
 carriers and inherited actions. Their ring maps and coefficient equations
 are established before any fraction-field, Galois, or inertia data appear.
 -/
+
+@[expose] public section
 
 noncomputable section
 

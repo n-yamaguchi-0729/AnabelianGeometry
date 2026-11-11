@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameEquivariance
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgStabilizerResidueCoefficients
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameEquivariance
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgStabilizerResidueCoefficients
 
 /-!
 # The actual finite canonical scalar action data
@@ -15,6 +17,8 @@ stores actual functions and no propositions. Its sole factory uses the
 existing canonical normalized character, conjugation and residue action;
 equivariance is proved separately from the existing finite theorem.
 -/
+
+@[expose] public section
 
 noncomputable section
 

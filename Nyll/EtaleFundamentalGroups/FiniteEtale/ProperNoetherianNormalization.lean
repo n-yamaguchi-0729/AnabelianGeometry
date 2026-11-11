@@ -4,15 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperNoetherianSectionAlgebra
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
-import Nyll.SchemeTheory.Morphisms.ProperNormalization
-import Mathlib.AlgebraicGeometry.Morphisms.Etale
-import Mathlib.AlgebraicGeometry.Morphisms.Finite
-import Mathlib.AlgebraicGeometry.Noetherian
-import Mathlib.AlgebraicGeometry.Normalization
-import Mathlib.AlgebraicGeometry.Geometrically.Reduced
-import Mathlib.RingTheory.RingHom.Finite
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperNoetherianSectionAlgebra
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+public import Nyll.SchemeTheory.Morphisms.ProperNormalization
+public import Mathlib.AlgebraicGeometry.Morphisms.Etale
+public import Mathlib.AlgebraicGeometry.Morphisms.Finite
+public import Mathlib.AlgebraicGeometry.Noetherian
+public import Mathlib.AlgebraicGeometry.Normalization
+public import Mathlib.AlgebraicGeometry.Geometrically.Reduced
+public import Mathlib.RingTheory.RingHom.Finite
 
 /-!
 # The finite étale factor of a proper reduced family
@@ -26,6 +28,8 @@ comparison under smooth base change then supplies the affine-open descent.
 This proves the locally Noetherian case of the finite étale conclusion in
 Stacks Project Tag 0BUN, using the native relative normalization.
 -/
+
+@[expose] public section
 
 noncomputable section
 

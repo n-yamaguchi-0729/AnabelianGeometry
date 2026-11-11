@@ -10,21 +10,25 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Models.Construction.Basic
-import Nyll.AlgebraicCurves.Models.Points.AlgEquivPointPlaceCompHomEqAlgAutSmulPointPlace
-import Nyll.AlgebraicCurves.Divisors.Correspondences.Correspondences
-import Mathlib.AlgebraicGeometry.Morphisms.Finite
+module
+
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
+public import Nyll.AlgebraicCurves.Models.Points.AlgEquivPointPlaceCompHomEqAlgAutSmulPointPlace
+public import Nyll.AlgebraicCurves.Divisors.Correspondences.Correspondences
+public import Mathlib.AlgebraicGeometry.Morphisms.Finite
 
 /-!
 # Curve Model exists alg Hom finite Along point Equiv Place restrict Along of is Finite
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
 namespace AlgebraicCurves.Models.Proofs
 namespace CurveModel_exists_algHom_finiteAlong_pointEquivPlace_restrictAlong_of_isFinite
 
-universe u
+universe u v w
 
 open _root_.CategoryTheory
 open _root_.CategoryTheory.Limits
@@ -102,8 +106,8 @@ open CurveModel.ModelIndepSol.FunctionFieldPull
 
 section Leg
 
-variable (k : Type) [Field k] [IsAlgClosed k]
-  {L L' : Type} [Field L] [Field L'] [Algebra k L] [Algebra k L']
+variable (k : Type u) [Field k] [IsAlgClosed k]
+  {L : Type v} {L' : Type w} [Field L] [Field L'] [Algebra k L] [Algebra k L']
   (M : CurveModel k L) (M' : CurveModel k L')
   (d : M'.C ⟶ M.C) (hd : d ≫ M.toBase = M'.toBase)
 
@@ -254,7 +258,7 @@ namespace AlgebraicCurve
 
 noncomputable section
 
-universe u
+universe u v w
 
 open _root_.CategoryTheory _root_.CategoryTheory.Limits _root_.AlgebraicGeometry
 open _root_.AlgebraicCurve _root_.TopologicalSpace
@@ -264,8 +268,8 @@ open _root_.AlgebraicCurves.Models.Proofs in
 open CurveModel_exists_algHom_finiteAlong_pointEquivPlace_restrictAlong_of_isFinite in
 open AlgebraicCurve.FFLeg in
 theorem CurveModel.exists_algHom_finiteAlong_pointEquivPlace_restrictAlong_of_isFinite
-    (k : Type) [Field k] [IsAlgClosed k]
-    {L L' : Type} [Field L] [Field L'] [Algebra k L] [Algebra k L']
+    (k : Type u) [Field k] [IsAlgClosed k]
+    {L : Type v} {L' : Type w} [Field L] [Field L'] [Algebra k L] [Algebra k L']
     (M : CurveModel k L) (M' : CurveModel k L')
     (d : M'.C ⟶ M.C) (hd : d ≫ M.toBase = M'.toBase) [IsFinite d] (hsurj : Function.Surjective
       d.base) :

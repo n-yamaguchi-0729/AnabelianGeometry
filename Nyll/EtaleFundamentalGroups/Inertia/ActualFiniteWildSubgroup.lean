@@ -4,16 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealWildSubgroup
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealWildProperties
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameGroups
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationAutomorphisms
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.Algebra.Category.Grp.Basic
-import Mathlib.GroupTheory.Index
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealWildSubgroup
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealWildProperties
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameGroups
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationAutomorphisms
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.Algebra.Category.Grp.Basic
+public import Mathlib.GroupTheory.Index
 
 /-!
 # The actual intrinsic finite wild subgroup and group
@@ -22,6 +24,8 @@ The original DVR, Galois extension and chosen prime supply the same native
 principal-unit subgroup at every finite stage. Its cardinality and index
 remain the previously constructed wild and tame orders.
 -/
+
+@[expose] public section
 
 noncomputable section
 

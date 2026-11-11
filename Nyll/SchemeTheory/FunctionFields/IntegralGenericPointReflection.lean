@@ -3,15 +3,19 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Mathlib.AlgebraicGeometry.FunctionField
-import Mathlib.AlgebraicGeometry.Morphisms.Integral
-import Mathlib.RingTheory.Ideal.GoingUp
+module
+
+public import Mathlib.AlgebraicGeometry.FunctionField
+public import Mathlib.AlgebraicGeometry.Morphisms.Integral
+public import Mathlib.RingTheory.Ideal.GoingUp
 
 /-! # Generic points under integral scheme morphisms
 
 Integral maps between integral schemes reflect the generic point.
 A field-valued point at the generic point factors through the function field.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry TopologicalSpace

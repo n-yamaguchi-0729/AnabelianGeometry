@@ -4,18 +4,21 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticNumericalInvariants
-import Nyll.AlgebraicCurves.Geometry.Schemes.Points.FiniteIntermediateFieldSection
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricGenusBaseChange
-import Nyll.AlgebraicCurves.Models.Construction.Transport
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConstantFieldStrictTransport
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldTower
-import Nyll.SchemeTheory.Morphisms.ConstantTwistTower
-import Nyll.SchemeTheory.Morphisms.GeometricallyIrreducibleConnected
-import Mathlib.AlgebraicGeometry.Noetherian
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
-import Mathlib.FieldTheory.Normal.Closure
-import Mathlib.FieldTheory.Galois.Basic
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticNumericalInvariants
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Points.FiniteIntermediateFieldSection
+public import Nyll.AlgebraicCurves.Geometry.Curves.GeometricGenusBaseChange
+public import Nyll.AlgebraicCurves.Models.Construction.Transport
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConstantFieldStrictTransport
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldTower
+public import Nyll.SchemeTheory.Morphisms.ConstantTwistTower
+public import Nyll.SchemeTheory.Morphisms.GeometricallyIrreducibleConnected
+public import Mathlib.AlgebraicGeometry.Noetherian
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+public import Mathlib.FieldTheory.Normal.Closure
+public import Mathlib.FieldTheory.Galois.Basic
+public import Nyll.ProCGroups.Topologies.ArithmeticInnerCorrectionFiberTransport
 
 /-! # Numerical reconstruction without rational-point inputs
 
@@ -26,6 +29,8 @@ constant-base-change squares identify the geometric boundaries, and geometric
 genus is unchanged. No section, model or boundary-preservation comparison is
 required at the public reconstruction endpoint.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory CategoryTheory.Limits AlgebraicCurve

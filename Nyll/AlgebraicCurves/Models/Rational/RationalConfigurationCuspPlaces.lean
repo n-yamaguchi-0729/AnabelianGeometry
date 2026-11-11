@@ -3,10 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLineRatFuncBaseChange
-import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineRatFuncBaseChange
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineBaseChange
-import Nyll.AlgebraicCurves.Models.Sections.RationalSectionBoundaryPlace
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLineRatFuncBaseChange
+public import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineRatFuncBaseChange
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineBaseChange
+public import Nyll.AlgebraicCurves.Models.Sections.RationalSectionBoundaryPlace
 
 /-! # Rational arithmetic places at actual projective-line punctures
 
@@ -15,6 +17,8 @@ rational configuration and one of its labels; arithmetic rationality, actual
 geometric-boundary membership, and exact order comparison are conclusions.
 There is no finite-chart restriction, so the puncture at infinity is included.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve

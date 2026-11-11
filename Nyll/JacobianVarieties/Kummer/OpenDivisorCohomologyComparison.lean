@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenDivisorCohomologyInjection
-import Nyll.JacobianVarieties.Kummer.OpenGenericRootMembership
-import Nyll.EtaleFundamentalGroups.Kummer.GenericCharacterRootCover
-import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointSeparableComparison
-import Nyll.GaloisCohomology.Kummer.Concrete.SeparableKummerH1
-import Nyll.GaloisCohomology.Kummer.Concrete.FiniteDualSeparation
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
-import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenDivisorCohomologyInjection
+public import Nyll.JacobianVarieties.Kummer.OpenGenericRootMembership
+public import Nyll.EtaleFundamentalGroups.Kummer.GenericCharacterRootCover
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointSeparableComparison
+public import Nyll.GaloisCohomology.Kummer.Concrete.SeparableKummerH1
+public import Nyll.GaloisCohomology.Kummer.Concrete.FiniteDualSeparation
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
+public import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
 
 /-!
 # Actual derived Kummer H¹ of an open smooth curve
@@ -22,7 +24,11 @@ The original normalized Kummer cover recovers that character, so the already
 constructed injection of actual functions modulo powers is surjective.
 -/
 
+@[expose] public section
+
 noncomputable section
+
+universe u v
 
 open AlgebraicGeometry CategoryTheory KummerTheory TopologicalSpace
 open CategoryTheory.PreGaloisCategory EtaleFundamentalGroups.Cohomology
@@ -32,7 +38,7 @@ open ClassFieldTower.Martinet.Shafarevich
 namespace AlgebraicCurve.CurveModel.OpenKummer
 
 section Coefficients
-variable {K : Type} [Field K] {X : Scheme} [IsIntegral X]
+variable {K : Type u} [Field K] {X : Scheme.{u}} [IsIntegral X]
   (c : X ⟶ Spec (.of K)) (n : ℕ+) (hn : IsUnit ((n : ℕ) : K))
 
 private def genericRootCoefficient :
@@ -71,13 +77,13 @@ private theorem genericRootCoefficient_bijective :
   exact (nthRootsSubgroupEquivRootsOfUnity (SeparableClosure X.functionField)
     (n : ℕ)).symm.bijective.comp
       (RamificationTheory.HilbertRamification.restrictRootsOfUnity_bijective_of_primitiveRoot
-        ι (n : ℕ) (HasEnoughRootsOfUnity.exists_primitiveRoot K (n : ℕ)))
+        ι (n : ℕ) (HasEnoughRootsOfUnity.exists_isPrimitiveRoot K (n : ℕ)))
 
 private theorem functionField_primitiveRoots_nonempty :
     (primitiveRoots (n : ℕ) X.functionField).Nonempty := by
   have : NeZero (n : ℕ) := ⟨n.ne_zero⟩
   have : NeZero ((n : ℕ) : K) := ⟨hn.ne_zero⟩
-  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_primitiveRoot K (n : ℕ)
+  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_isPrimitiveRoot K (n : ℕ)
   refine ⟨baseToFunctionField c ζ, ?_⟩
   exact (mem_primitiveRoots n.pos).mpr
     (hζ.map_of_injective (baseToFunctionField c).injective)
@@ -86,9 +92,9 @@ private theorem functionField_primitiveRoots_nonempty :
 end Coefficients
 
 section GenericComparison
-variable {K F : Type} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
+variable {K : Type u} {F : Type v} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
   (M : CurveModel K F) (S : Set (Place K F)) (n : ℕ+)
-  {X : Scheme} [IsIntegral X] [CompactSpace X]
+  {X : Scheme.{u}} [IsIntegral X] [CompactSpace X]
   (j : X ⟶ M.C) [IsOpenImmersion j] (hj : DenseRange j)
   (hinterior : ∀ (y : X) (x : closedPoints M.C),
     x.val = j y → M.placeOfPoint x ∉ S)
@@ -134,12 +140,12 @@ private theorem character_generic_absolute
 end GenericComparison
 
 section Surjectivity
-variable {K F : Type} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
+variable {K : Type u} {F : Type v} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
   (M : CurveModel K F) (n : ℕ+)
-  {X : Scheme} [IsIntegral X] [CompactSpace X]
+  {X : Scheme.{u}} [IsIntegral X] [CompactSpace X]
   (j : X ⟶ M.C) [IsOpenImmersion j] (hj : DenseRange j)
   (hn : IsUnit ((n : ℕ) : K))
-  {Ω : Type} [Field Ω] [IsSepClosed Ω] (xi : Spec (.of Ω) ⟶ X)
+  {Ω : Type u} [Field Ω] [IsSepClosed Ω] (xi : Spec (.of Ω) ⟶ X)
 
 /-- Surjectivity for the actual open curve and its actual omitted places. -/
 theorem kummerMonodromyCharacter_surjective :
@@ -237,7 +243,7 @@ theorem quotientCohomology_surjective :
 def quotientCohomologyEquiv :
     Additive (Pic0.openKummerUnits K F (M.openBoundaryPlaces j) n ⧸
       Pic0.openKummerPowers K F (M.openBoundaryPlaces j) n) ≃+
-      Sheaf.H.{0} ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{0}).obj
+      Sheaf.H.{u} ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).obj
         (AddCommGrpCat.of (Additive (rootsOfUnity (n : ℕ) K)))) 1 :=
   AddEquiv.ofBijective
     (quotientCohomology M (M.openBoundaryPlaces j) n j hj

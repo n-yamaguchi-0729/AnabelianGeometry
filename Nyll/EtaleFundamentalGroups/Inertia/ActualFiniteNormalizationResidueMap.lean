@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
+module
+
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
 
 /-!
 # Residue embeddings of finite normalizations
@@ -14,6 +16,8 @@ import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
 Constructs the residue-field embedding from a finite contracted normalization prime into the
 residue field of the original prime.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -30,9 +34,9 @@ def actualFiniteNormalizationResidueMap
     [Algebra K L] [Algebra A L] [IsScalarTower A K L] [IsGalois K L]
     (Q : Ideal (SchemeTheory.normalizationCommAlgCat A L)) [Q.IsPrime]
     (E : FiniteGaloisIntermediateField K L) :
-    letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+    let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
     (finiteAbsoluteNormalizationPrime A K L Q E).ResidueField →+* Q.ResidueField := by
-  letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+  intro sharedDefinitionOwner1
   exact Ideal.ResidueField.map (finiteAbsoluteNormalizationPrime A K L Q E) Q
     (finiteAbsoluteNormalizationRingMap A K L E) rfl
 

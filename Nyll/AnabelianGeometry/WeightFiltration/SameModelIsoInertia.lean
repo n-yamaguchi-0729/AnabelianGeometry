@@ -4,11 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.SameModelPointedInertia
-import Nyll.AnabelianGeometry.WeightFiltration.SchemeIsoBoundaryInertia
-import Nyll.AnabelianGeometry.WeightFiltration.NamedModelCoverGroupSquare
-import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
-import Mathlib.Logic.Equiv.Set
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.SameModelPointedInertia
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedBaseIsomorphism
+public import Nyll.AnabelianGeometry.WeightFiltration.SchemeIsoBoundaryInertia
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedModelCoverGroupSquare
+public import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
+public import Mathlib.Logic.Equiv.Set
 
 /-! # Actual model isomorphisms with one coordinate field and one ambient field
 
@@ -17,6 +20,8 @@ algebra is transported backwards along the specified isomorphism. Their scalar
 tower is proved from the chart square, so the same normalization prime has the
 same inertia image and the same abelian range on both sides.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicGeometry.FiniteEtale

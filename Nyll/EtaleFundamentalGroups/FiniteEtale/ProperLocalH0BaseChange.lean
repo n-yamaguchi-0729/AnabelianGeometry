@@ -4,13 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.LocalKernelBaseChange
-import Nyll.EtaleFundamentalGroups.FiniteEtale.CechKernelBaseChangeSurjectivity
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperEtaleClosedFiberSections
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperGeometricallyReducedSections
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.BaseChange.TwoTermComplexKerMapBaseChangeBijectiveModules
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.BaseChange.ProjectiveH0BijectiveKerBaseChangeHom
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Pullback.PullbackUnitIsoHomAppPullbackLocalSectionToUnitSection
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.LocalKernelBaseChange
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.CechKernelBaseChangeSurjectivity
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperEtaleClosedFiberSections
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperGeometricallyReducedSections
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.BaseChange.TwoTermComplexKerMapBaseChangeBijectiveModules
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.BaseChange.ProjectiveH0BijectiveKerBaseChangeHom
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Pullback.PullbackUnitIsoHomAppPullbackLocalSectionToUnitSection
+public import Nyll.SchemeTheory.Cohomology.Cech.TwoChartCech
 
 /-!
 # Proper local H⁰ and arbitrary base change
@@ -21,6 +24,8 @@ this surjectivity to the finite free cohomology model. The local kernel theorem
 then proves finite projectivity and arbitrary base change for the original H⁰.
 The base ring need not be reduced.
 -/
+
+@[expose] public section
 
 noncomputable section
 

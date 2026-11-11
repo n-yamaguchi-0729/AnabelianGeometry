@@ -10,19 +10,23 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
-import Nyll.JacobianVarieties.Pic0.JacobianPackAlgClosed
-import Nyll.JacobianVarieties.Pic0.NsmulEqJacobianPack
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveTranscendentalSeparable
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.SeparatingTranscendental
-import Mathlib.FieldTheory.RatFunc.Basic
-import Mathlib.FieldTheory.IsAlgClosed.Basic
+module
+
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
+public import Nyll.JacobianVarieties.Pic0.JacobianPackAlgClosed
+public import Nyll.JacobianVarieties.Pic0.NsmulEqJacobianPack
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveTranscendentalSeparable
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.SeparatingTranscendental
+public import Mathlib.FieldTheory.RatFunc.Basic
+public import Mathlib.FieldTheory.IsAlgClosed.Basic
 
 
 /-!
 Divisibility of the Picard group over a finite extension of a rational function field.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -225,8 +229,6 @@ attribute [-instance]
   instLiesOverSubtypeAdicCompletionMemValuationSubringAdicCompletionIntegersCompletionIdealAsIdeal
 attribute [-instance]
   AlgebraicCurve.instHasCanonicalLocalResidueK
-  AlgebraicCurve.Place.instAlgebra_restrictResidueField
-  AlgebraicCurve.Place.instIsScalarTower_restrictResidueField
   AlgebraicCurve.instHasLocalResidue
   AlgebraicCurve.HasSeparableResidue.of_perfectField_of_isCurveOver
   AlgebraicCurve.HasSeparableResidue.of_perfectField
@@ -759,10 +761,10 @@ open _root_.AlgebraicCurve
 universe u v
 
 
-/-- Multiplication by a nonzero scalar integer is surjective on the Picard group. -/
-theorem exists_zsmul_eq_of_finiteDimensional_ratFunc_of_forall_pow_eq_self
+/-- Multiplication by an integer invertible in the constants is surjective
+on Picard classes over every finite rational-function-field extension. -/
+theorem exists_zsmul_eq_of_finiteDimensional_ratFunc
     (K : Type u) [Field K] [IsAlgClosed K]
-    (p : ℕ) [ExpChar K p] (_halg : ∀ a : K, ∃ n : ℕ, 0 < n ∧ a ^ p ^ n = a)
     (L' : Type v) [Field L'] [Algebra K L'] [Algebra (RatFunc K) L']
     [IsScalarTower K (RatFunc K) L'] [FiniteDimensional (RatFunc K) L'] :
     ∀ m : ℤ, (m : K) ≠ 0 → ∀ x : Pic0 K L', ∃ y : Pic0 K L', m • y = x := by
@@ -796,6 +798,16 @@ theorem exists_zsmul_eq_of_finiteDimensional_ratFunc_of_forall_pow_eq_self
   · obtain ⟨y, hy⟩ := AlgebraicCurve.Pic0.exists_nsmul_eq_of_jacobianPack_of_natCast_ne_zero K L'
       ⟨j, htr, hfd⟩ J c hsm hpr hconn mul pts hadd m.natAbs hm0 hmK (-x)
     exact ⟨y, by rw [h, neg_zsmul, natCast_zsmul, hy, neg_neg]⟩
+/-- The earlier Frobenius-periodic formulation follows from divisibility over
+arbitrary algebraically closed constants; the periodicity is unnecessary. -/
+theorem exists_zsmul_eq_of_finiteDimensional_ratFunc_of_forall_pow_eq_self
+    (K : Type u) [Field K] [IsAlgClosed K]
+    (p : ℕ) [ExpChar K p] (_halg : ∀ a : K, ∃ n : ℕ, 0 < n ∧ a ^ p ^ n = a)
+    (L' : Type v) [Field L'] [Algebra K L'] [Algebra (RatFunc K) L']
+    [IsScalarTower K (RatFunc K) L'] [FiniteDimensional (RatFunc K) L'] :
+    ∀ m : ℤ, (m : K) ≠ 0 → ∀ x : Pic0 K L', ∃ y : Pic0 K L', m • y = x :=
+  exists_zsmul_eq_of_finiteDimensional_ratFunc K L'
+
 end
 end AlgebraicCurve.Pic0
 end ProofImplementation
@@ -1002,8 +1014,6 @@ attribute [-instance]
   instLiesOverSubtypeAdicCompletionMemValuationSubringAdicCompletionIntegersCompletionIdealAsIdeal
 attribute [-instance]
   AlgebraicCurve.instHasCanonicalLocalResidueK
-  AlgebraicCurve.Place.instAlgebra_restrictResidueField
-  AlgebraicCurve.Place.instIsScalarTower_restrictResidueField
   AlgebraicCurve.instHasLocalResidue
   AlgebraicCurve.HasSeparableResidue.of_perfectField_of_isCurveOver
   AlgebraicCurve.HasSeparableResidue.of_perfectField

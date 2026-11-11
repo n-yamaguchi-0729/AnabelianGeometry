@@ -3,9 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.TransportedCuspArithmeticData
-import Nyll.AnabelianGeometry.WeightFiltration.FieldChartBoundaryCentralizer
-import Nyll.AnabelianGeometry.WeightFiltration.TransportedRootsRecognition
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.TransportedCuspArithmeticData
+public import Nyll.AnabelianGeometry.WeightFiltration.FieldChartBoundaryCentralizer
+public import Nyll.AnabelianGeometry.WeightFiltration.TransportedRootsRecognition
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
 
 /-! # Actual rational-source cusp recognition under an arithmetic isomorphism
 
@@ -18,6 +21,8 @@ This is an assembly theorem for specified geometric charts, not yet the
 end-to-end statement for a bare pair of punctured projective lines. Its concrete
 chart/model/tower hypotheses must still be constructed by that endpoint.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicGeometry.FiniteEtale AlgebraicCurve
@@ -39,7 +44,7 @@ local instance (priority := 2000) actualRationalCuspRecognitionSMulRatFunc
   (inferInstance : Algebra A (RatFunc E)).toSMul
 
 variable
-    (k κ : Type) [Field k] [NumberField k] [Field κ] [CharZero κ] [IsAlgClosed κ]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k] [Field κ] [CharZero κ] [IsAlgClosed κ]
     [Algebra k κ] [IsSepClosure k κ] [IsAlgClosure k κ]
     {C X₁ : Scheme} [IsIntegral C] [IsIntegral X₁]
     [CompactSpace X₁] [QuasiSeparatedSpace X₁]

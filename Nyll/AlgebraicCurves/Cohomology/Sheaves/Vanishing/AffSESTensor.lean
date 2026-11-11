@@ -10,12 +10,17 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafTensor
-import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafHom
+module
+
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafTensor
+public import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafHom
+public import Mathlib.RingTheory.Flat.Basic
 
 /-!
 # OModule Presheaf exists aff SES tensor of flat
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

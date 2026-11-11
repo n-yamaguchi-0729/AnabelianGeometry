@@ -10,28 +10,32 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.OModulePresheafEulerChar
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafTensor
-import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafConstructions
-import Nyll.SchemeTheory.Modules.Tensor.Monoidal
-import Nyll.SchemeTheory.Modules.Tensor.TensorPowers
-import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
-import Nyll.SchemeTheory.RingTheory.Polynomial.FwdDiffIterSuccEqZeroIffPolynomialNatDegreeLe
-import Nyll.AlgebraicCurves.Geometry.Schemes.LocalGeometry.IsIrreducibleTopologicalKrullDimAddOneLe
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.SheafEulerCharEqAdd
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Vanishing.AffSESTensor
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.Coherent
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.SheafEulerCharTwistPushforwardUnitSuccSubEq
-import Nyll.SchemeTheory.Cohomology.Cech.ModulePresheafCechFiniteProper
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.QuasicoherentCoherentSupportedInTensor
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.CoherentModules
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.QuasicoherentModules
-import Nyll.AlgebraicCurves.Geometry.Projective.ModulesProjectiveSections
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleTensor
+module
+
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.OModulePresheafEulerChar
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafTensor
+public import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafConstructions
+public import Nyll.SchemeTheory.Modules.Tensor.Monoidal
+public import Nyll.SchemeTheory.Modules.Tensor.TensorPowers
+public import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
+public import Nyll.SchemeTheory.RingTheory.Polynomial.FwdDiffIterSuccEqZeroIffPolynomialNatDegreeLe
+public import Nyll.AlgebraicCurves.Geometry.Schemes.LocalGeometry.IsIrreducibleTopologicalKrullDimAddOneLe
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.SheafEulerCharEqAdd
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Vanishing.AffSESTensor
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.Coherent
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.SheafEulerCharTwistPushforwardUnitSuccSubEq
+public import Nyll.SchemeTheory.Cohomology.Cech.ModulePresheafCechFiniteProper
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.QuasicoherentCoherentSupportedInTensor
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.CoherentModules
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.QuasicoherentModules
+public import Nyll.AlgebraicCurves.Geometry.Projective.ModulesProjectiveSections
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleTensor
 
 /-!
 # OModule Presheaf exists polynomial forall euler Char twist tensor Pow eq
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -123,10 +127,10 @@ open scoped TensorProduct
 
 namespace P2mChiDatum
 
-private def _root_.P2mChiDatum.ext (f : ℕ → ℚ) (Q : ℤ → ℚ) : ℤ → ℚ := fun m =>
+/-- Extend the sequence to negative integers using its prescribed forward difference. -/
+def ext (f : ℕ → ℚ) (Q : ℤ → ℚ) : ℤ → ℚ := fun m =>
   if 0 ≤ m then f m.toNat else f 0 - ∑ i ∈ Finset.range (-m).toNat, Q (-(i + 1 : ℕ))
 
-export _root_.P2mChiDatum (ext)
 theorem ext_natCast (f : ℕ → ℚ) (Q : ℤ → ℚ) (n : ℕ) : ext f Q n = f n := by
   simp [ext]
 
@@ -172,17 +176,19 @@ theorem poly_of_delta (f : ℕ → ℚ) (q : ℚ[X]) (e : ℕ) (hq : q.degree < 
         by_contra h
         rw [Nat.cast_zero] at hq
         exact Nat.not_lt_zero _ ((natDegree_lt_iff_degree_lt (n := 0) h).mpr hq)
-      simp [hq0]
+      simp only [Function.iterate_zero_apply, hq0, Polynomial.eval_zero]
     | succ e =>
       refine (fwdDiff_iter_succ_eq_zero_iff_exists_polynomial_natDegree_le
         (fun m : ℤ => q.eval (m : ℚ)) e).mpr ⟨q, ?_, fun _ => rfl⟩ m
       by_cases h : q = 0
-      · simp [h]
+      · rw [h, Polynomial.natDegree_zero]
+        exact Nat.zero_le _
       · exact Nat.lt_succ_iff.mp ((natDegree_lt_iff_degree_lt h).mpr hq)
   obtain ⟨p, hp, hpF⟩ := (fwdDiff_iter_succ_eq_zero_iff_exists_polynomial_natDegree_le F e).mp hvan
   refine ⟨p, ?_, fun n => ?_⟩
   · by_cases h : p = 0
-    · simp [h]
+    · rw [h, Polynomial.degree_zero]
+      exact WithBot.bot_lt_coe _
     · exact (natDegree_lt_iff_degree_lt h).mp (Nat.lt_succ_iff.mpr hp)
   · have := hpF n
     rw [hF, ext_natCast] at this
@@ -276,7 +282,8 @@ theorem skeleton
   have hq : (p₁.comp (X + 1) - p₂).degree < (e : ℕ) := by
     refine (degree_sub_le _ _).trans_lt (max_lt ?_ hp₂)
     by_cases h1 : p₁ = 0
-    · simp [h1]
+    · rw [h1, Polynomial.zero_comp, Polynomial.degree_zero]
+      exact WithBot.bot_lt_coe _
     · have hn : p₁.natDegree < e := (natDegree_lt_iff_degree_lt h1).mpr hp₁
       refine (degree_le_natDegree).trans_lt ?_
       have hc : (p₁.comp (X + 1)).natDegree ≤ p₁.natDegree := by
@@ -305,11 +312,9 @@ variable (K : V.OrderedAffineCover) (L : V.Modules)
 include hL in
 theorem locTriv_tensorPow (n : ℕ) : ∀ x : V, ∃ (U : V.Opens), x ∈ U ∧
     Nonempty ((Scheme.Modules.pullback U.ι).obj (L.tensorPow n) ≅ SheafOfModules.unit
-      U.toScheme.ringCatSheaf) := by
-  suffices h : Scheme.Modules.IsInvertible (L.tensorPow n) from h.1
-  induction n with
-  | zero => exact Scheme.Modules.isInvertible_unit V
-  | succ n ih => exact ih.tensor ⟨hL⟩
+      U.toScheme.ringCatSheaf) :=
+  (_root_.AlgebraicGeometry.Scheme.Modules.IsInvertible.tensorPow
+    (L := L) ⟨hL⟩ n).1
 
 include hL in
 theorem good_twist (G : OModulePresheaf π) (hc : G.IsCoherent) (hq : G.IsQuasicoherent) (n : ℕ) :
@@ -437,7 +442,8 @@ theorem card [IsProper π] (G : OModulePresheaf π)
     hd'
   refine ⟨p, ?_, hχ⟩
   by_cases h : p = 0
-  · simp [h]
+  · rw [h, Polynomial.natDegree_zero]
+    exact Nat.zero_le _
   · exact Nat.lt_succ_iff.mp ((natDegree_lt_iff_degree_lt h).mpr hp)
 
 end Inputs

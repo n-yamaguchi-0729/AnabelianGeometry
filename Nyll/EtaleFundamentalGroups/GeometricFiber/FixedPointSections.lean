@@ -5,9 +5,11 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
-import Mathlib.CategoryTheory.Galois.Full
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+public import Mathlib.CategoryTheory.Galois.Full
 
 /-!
 # Sections of a finite etale cover and fixed points of its actual fiber
@@ -15,6 +17,8 @@ import Mathlib.CategoryTheory.Galois.Full
 Fullness of the actual geometric fiber action functor descends a fixed point
 to a section. No connectedness of the covering scheme is assumed.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -57,7 +61,7 @@ theorem exists_section_iff_exists_fiber_fixed (W : FiniteEtale X) :
     have : Subsingleton ((fiber xi).obj E) := identityFiber_subsingleton xi
     refine ⟨(fiber xi).map m e, ?_⟩
     intro g
-    have hcomm := ConcreteCategory.congr_hom (g.hom.naturality m) e
+    have hcomm := ConcreteCategory.congr_hom (g.asIso.hom.naturality m) e
     change g • (fiber xi).map m e = (fiber xi).map m (g • e) at hcomm
     exact hcomm.trans (congrArg ((fiber xi).map m) (Subsingleton.elim _ _))
   · rintro ⟨q, hq⟩

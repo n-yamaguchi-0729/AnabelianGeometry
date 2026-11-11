@@ -4,15 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Picard.Representability.Pic0EquivPointsPicardRepresentability
-import Nyll.AlgebraicCurves.Geometry.Picard.Representability.RepresentsRelSubPicGroup
-import Nyll.AlgebraicCurves.Geometry.Picard.Representability.Representation
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.AlgebraicPoints
-import Nyll.AbelianVarieties.Tate.FullTateModule
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyIntegralAlgClosed
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
-import Nyll.AlgebraicCurves.Models.Construction.Basic
-import Nyll.ProCGroups.Abelian.FullTateModule
+module
+
+public import Nyll.AlgebraicCurves.Geometry.Picard.Representability.Pic0EquivPointsPicardRepresentability
+public import Nyll.AlgebraicCurves.Geometry.Picard.Representability.RepresentsRelSubPicGroup
+public import Nyll.AlgebraicCurves.Geometry.Picard.Representability.Representation
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.AlgebraicPoints
+public import Nyll.AbelianVarieties.Tate.FullTateModule
+public import Nyll.SchemeTheory.Morphisms.GeometricallyIntegralAlgClosed
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
+public import Nyll.ProCGroups.Abelian.FullTateModule
 
 /-! # Divisor torsion as actual algebraic points of the same Picard scheme
 
@@ -21,6 +23,10 @@ used by `AlgPoints`. Its additive refinement retains the actual Abel--Jacobi
 point formula. Restricting it to torsion then preserves the underlying scheme
 point in the actual multiplication kernel.
 -/
+
+@[expose] public section
+
+universe u v w
 
 noncomputable section
 
@@ -32,8 +38,8 @@ namespace JacobianVarieties.Picard
 
 /-- Restrict the same divisor-class/point equivalence to its actual torsion subgroups. -/
 def torsionEquivOfAddEquiv
-    {K F : Type} [Field K] [Field F] [Algebra K F]
-    {A : Type} [AddCommGroup A] (e : Pic0 K F ≃+ A) (n : ℕ+) :
+    {K : Type u} {F : Type v} [Field K] [Field F] [Algebra K F]
+    {A : Type w} [AddCommGroup A] (e : Pic0 K F ≃+ A) (n : ℕ+) :
     Pic0.torsion K F (n : ℕ) ≃+ ProCGroups.torsionLevel A n where
   toFun x := ⟨e x.1, by
     change (n : ℕ) • e x.1 = 0
@@ -56,14 +62,14 @@ def torsionEquivOfAddEquiv
 representative are additively equivalent. The equivalence preserves the actual
 Abel--Jacobi point formula and the scheme points of every multiplication kernel. -/
 theorem exists_pic0_addEquiv_algPoints_of_abelJacobi
-    {K F : Type} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
+    {K : Type u} {F : Type v} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
     [IsCurveOver K F] (M : CurveModel K F)
     (ε : SchemeHomOver (𝟙 (Spec (.of K))) M.toBase)
     (D : RelativePic0Designation K M.toBase)
     (hD : RepresentsRelSubPic M.toBase ε (algEquivZeroCut M.toBase ε) D)
     [Smooth D.toBase] [IsProper D.toBase] [GeometricallyConnected D.toBase]
     (aj : SchemeHomOver M.toBase D.toBase)
-    (hclass : ∀ (L : Type) [Field L] (t : Spec (.of L) ⟶ Spec (.of K))
+    (hclass : ∀ (L : Type u) [Field L] (t : Spec (.of L) ⟶ Spec (.of K))
       (x : SchemeHomOver t M.toBase),
       Nonempty ((hD.poincare.pullbackAlong
         ⟨x.1 ≫ aj.1, (Category.assoc _ _ _).trans

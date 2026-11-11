@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.GeometricFiber.MatchedFiberCoverGroupTransport
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticNaturality
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.MatchedFiberCoverGroupTransport
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticNaturality
 
 /-! # Intrinsic arithmetic compatibility on the same actual pointed covers
 
@@ -12,6 +14,8 @@ The actual arithmetic map is functorial for a morphism over the same constant
 field. Consequently the exact matched-fibre covering-group transport preserves
 the covers' own arithmetic maps, not merely unnamed quotient homomorphisms.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory
 open scoped FintypeCatDiscrete

@@ -10,16 +10,20 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.SeparatingTranscendental
-import Mathlib.Algebra.Polynomial.Eval.Irreducible
-import Mathlib.FieldTheory.RatFunc.AsPolynomial
-import Mathlib.RingTheory.Nullstellensatz
-import Mathlib.RingTheory.Polynomial.GaussLemma
-import Mathlib.Data.Fintype.EquivFin
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.SeparatingTranscendental
+public import Mathlib.Algebra.Polynomial.Eval.Irreducible
+public import Mathlib.FieldTheory.RatFunc.AsPolynomial
+public import Mathlib.RingTheory.Nullstellensatz
+public import Mathlib.RingTheory.Polynomial.GaussLemma
+public import Mathlib.Data.Fintype.EquivFin
 
 /-!
 # Linear Independent of constant Field Extension of is Alg Closed
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.AlgebraicGeometry.FunctionField
-import Mathlib.AlgebraicGeometry.Morphisms.Preimmersion
-import Mathlib.AlgebraicGeometry.Stalk
+module
+
+public import Mathlib.AlgebraicGeometry.FunctionField
+public import Mathlib.AlgebraicGeometry.Morphisms.Preimmersion
+public import Mathlib.AlgebraicGeometry.Stalk
 
 /-!
 # Field sources of dominant preimmersions
@@ -15,6 +17,8 @@ A dominant preimmersion from the spectrum of a field into an integral scheme
 is its generic-point morphism, up to the actual isomorphism of source schemes
 induced by the map on the generic stalk.
 -/
+
+@[expose] public section
 
 noncomputable section
 

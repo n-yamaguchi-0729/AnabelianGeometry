@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 import Nyll.AnabelianGeometry.WeightFiltration.TransportedCuspArithmeticData
 import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaSelfNormalizer
+import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
 
 /-! # Intrinsic Nakamura conditions of an actual rational cusp
 
@@ -50,7 +51,7 @@ local instance (priority := 2000) actualRationalCuspIntrinsicSMulRatFunc
   (inferInstance : Algebra A (RatFunc E)).toSMul
 
 variable
-    (k κ : Type) [Field k] [NumberField k] [Field κ] [CharZero κ] [IsAlgClosed κ]
+    (k κ : Type) [Field k] [Field κ] [CharZero κ] [IsAlgClosed κ]
     [Algebra k κ] [IsSepClosure k κ] [IsAlgClosure k κ]
     {C X₁ : Scheme} [IsIntegral C] [IsIntegral X₁]
     [CompactSpace X₁] [QuasiSeparatedSpace X₁]
@@ -105,7 +106,6 @@ variable
     [IsScalarTower κ (RatFunc κ) (Limits.pullback (specMap k κ) (i ≫ c)).functionField]
     [IsScalarTower κ (Limits.pullback (specMap k κ) (i ≫ c)).functionField Ω]
 
-omit [NumberField k] in
 include eC heC hproj hbase hV in
 /-- The actual roots map at a specified rational cusp satisfies all intrinsic
 Nakamura conditions, without an arithmetic equivalence or another curve. -/

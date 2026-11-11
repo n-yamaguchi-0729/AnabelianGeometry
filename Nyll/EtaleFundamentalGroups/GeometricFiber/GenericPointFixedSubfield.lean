@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointEssentialImage
-import Nyll.EtaleFundamentalGroups.Inertia.NormalSubgroupEmbeddings
-import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
-import Mathlib.RingTheory.Etale.Field
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointEssentialImage
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalSubgroupEmbeddings
+public import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
+public import Mathlib.RingTheory.Etale.Field
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
 
 /-!
 # Finite subfields fixed by the generic Galois kernel
@@ -17,6 +19,8 @@ A finite subfield of the separable closure is fixed by the generic kernel
 exactly when its spectrum occurs as the generic fiber of a finite étale cover.
 The comparison uses the literal spectrum and postcomposition of field embeddings.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -59,7 +63,7 @@ private theorem subfieldPointEquiv_smul (K : Type u) [Field K]
       (finiteSubfieldCover K L).toComma) :
     subfieldPointEquiv K L (g • x) = g.toAlgHom.comp (subfieldPointEquiv K L x) := by
   let y : Spec (.of (SeparableClosure K)) ⟶ Spec (.of L) := x.left
-  apply AlgHom.coe_ringHom_injective
+  apply AlgHom.toRingHom_injective
   change (Spec.preimage
     (Spec.map (CommRingCat.ofHom g.toRingHom) ≫ y)).hom =
       g.toRingHom.comp (Spec.preimage y).hom
@@ -84,7 +88,7 @@ private theorem subfieldAction_ker_iff (K : Type u) [Field K]
     exact subfieldPointEquiv_smul K L g _
   constructor
   · intro h φ
-    have hg := congrArg (fun a ↦ a.hom) (MonoidHom.mem_ker.mp h)
+    have hg := congrArg (fun a ↦ a.asIso.hom) (MonoidHom.mem_ker.mp h)
     have hx : g • e.symm φ = e.symm φ := by
       exact ConcreteCategory.congr_hom hg (e.symm φ)
     have hx' := congrArg e hx
@@ -92,6 +96,7 @@ private theorem subfieldAction_ker_iff (K : Type u) [Field K]
     exact hx'
   · intro h
     apply MonoidHom.mem_ker.mpr
+    apply Aut.ext
     apply Iso.ext
     apply FintypeCat.hom_ext
     intro x

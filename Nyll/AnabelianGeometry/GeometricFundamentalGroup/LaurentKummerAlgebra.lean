@@ -4,15 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Kummer.AdjoinRoot.FormallyEtale
-import Nyll.EtaleFundamentalGroups.Kummer.Obstructions.LocalDerivative
-import Mathlib.Algebra.Polynomial.Laurent
-import Mathlib.Algebra.Polynomial.RingDivision
-import Mathlib.FieldTheory.RatFunc.AsPolynomial
-import Mathlib.GroupTheory.MonoidLocalization.UniqueFactorization
-import Mathlib.RingTheory.AdjoinRoot
-import Mathlib.RingTheory.Polynomial.UniqueFactorization
-import Mathlib.RingTheory.PowerBasis
+module
+
+public import Nyll.EtaleFundamentalGroups.Kummer.AdjoinRoot.FormallyEtale
+public import Nyll.EtaleFundamentalGroups.Kummer.Obstructions.LocalDerivative
+public import Mathlib.Algebra.Polynomial.Laurent
+public import Mathlib.Algebra.Polynomial.RingDivision
+public import Mathlib.FieldTheory.RatFunc.AsPolynomial
+public import Mathlib.GroupTheory.MonoidLocalization.UniqueFactorization
+public import Mathlib.RingTheory.AdjoinRoot
+public import Mathlib.RingTheory.Polynomial.UniqueFactorization
+public import Mathlib.RingTheory.PowerBasis
 
 /-!
 # Connected Kummer algebras over the Laurent chart
@@ -21,6 +23,8 @@ The algebra is the actual quotient adjoining an `n`th root of the Laurent coordi
 Eisenstein irreducibility before localization proves that it is a domain. The monic
 power basis gives its rank, and the invertible derivative proves etaleness.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,21 +4,23 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationLocalTower
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationTower
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelNormalizationAlgebra
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
-import Nyll.EtaleFundamentalGroups.Inertia.UniformizerRadicalRamification
-import Nyll.SchemeTheory.Normalization.SubalgebraNormalizationTowerRamification
-import Nyll.SchemeTheory.Normalization.NativeNormalizationPrime
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.DVRUniformizerFactorization
-import Mathlib.RingTheory.OrderOfVanishing.Noetherian
-import Mathlib.Algebra.Category.CommAlgCat.Basic
-import Mathlib.RingTheory.Localization.AtPrime.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationLocalTower
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationTower
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelNormalizationAlgebra
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
+public import Nyll.EtaleFundamentalGroups.Inertia.UniformizerRadicalRamification
+public import Nyll.SchemeTheory.Normalization.SubalgebraNormalizationTowerRamification
+public import Nyll.SchemeTheory.Normalization.NativeNormalizationPrime
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.DVRUniformizerFactorization
+public import Mathlib.RingTheory.OrderOfVanishing.Noetherian
+public import Mathlib.Algebra.Category.CommAlgCat.Basic
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
 
 /-!
 # Uniformizer orders in finite normalization towers
@@ -26,6 +28,8 @@ import Mathlib.RingTheory.Localization.AtPrime.Basic
 Relates the upper ramification index to the lower index and the additive valuation of a lower
 uniformizer under the local inclusion.
 -/
+
+@[expose] public section
 
 noncomputable section
 

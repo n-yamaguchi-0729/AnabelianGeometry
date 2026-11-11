@@ -10,14 +10,18 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.FieldTheory.RatFunc.AsPolynomial
-import Nyll.AlgebraicCurves.Places.Rational.FiniteOrder
-import Nyll.AlgebraicCurves.Places.Evaluation.EvalAtCongr
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+module
+
+public import Mathlib.FieldTheory.RatFunc.AsPolynomial
+public import Nyll.AlgebraicCurves.Places.Rational.FiniteOrder
+public import Nyll.AlgebraicCurves.Places.Evaluation.EvalAtCongr
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
 
 /-!
 # Polynomial evaluation at a rational point
 -/
+
+@[expose] public section
 
 open Polynomial AlgebraicCurve AlgebraicCurve.RationalFunctionField
 

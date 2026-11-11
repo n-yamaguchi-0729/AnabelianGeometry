@@ -10,15 +10,19 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.JacobianVarieties.WeilPairing.Datum
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Nyll.AlgebraicCurves.Divisors.Evaluation
-import Nyll.AlgebraicCurves.Places.Basic
+module
+
+public import Nyll.JacobianVarieties.WeilPairing.Datum
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.AlgebraicCurves.Divisors.Evaluation
+public import Nyll.AlgebraicCurves.Places.Basic
 
 /-!
 # Multiplicativity of the Weil pairing in the left argument
 -/
 
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -73,12 +77,6 @@ private theorem _root_.AlgebraicCurve.WeilDatum.evalAt_f₂_ne_zero'
     (d.ord_f₂_eq_zero_of_mem_support' hv)
 
 open _root_.AlgebraicCurve.WeilDatum
-private theorem evalFun_f₁_ne_zero' : Divisor.evalFun d.f₁ d.D₂ ≠ 0 :=
-  AlgebraicCurve.Divisor.evalFun_ne_zero fun _ hv => d.evalAt_f₁_ne_zero' hv
-
-private theorem evalFun_f₂_ne_zero' : Divisor.evalFun d.f₂ d.D₁ ≠ 0 :=
-  AlgebraicCurve.Divisor.evalFun_ne_zero fun _ hv => d.evalAt_f₂_ne_zero' hv
-
 end AlgebraicCurve.WeilDatum
 
 open _root_.AlgebraicCurve

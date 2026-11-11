@@ -4,10 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCovers.CurveModelDegree
-import Nyll.AlgebraicCurves.Models.Ramification.FiniteEtaleHyperbolicGenus
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.CurveModelDegree
+public import Nyll.AlgebraicCurves.Models.Ramification.FiniteEtaleHyperbolicGenus
 
 /-! # Nonidentity actual deck transformations force degree greater than one -/
+
+@[expose] public section
 
 noncomputable section
 

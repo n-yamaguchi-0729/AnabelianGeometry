@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.SemilinearProjectiveDescent
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CoefficientBaseChangeIso
-import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveBase
+module
+
+public import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.SemilinearProjectiveDescent
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CoefficientBaseChangeIso
+public import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveBase
 
 /-! # Equivariance on the original geometric open from the same projective model
 
@@ -14,6 +16,8 @@ The semilinear actions are tied to the original compactifications by both
 pullback projections. The matching projective map is therefore equivariant
 on the original open as a scheme morphism, not only as a permutation of cusps.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve

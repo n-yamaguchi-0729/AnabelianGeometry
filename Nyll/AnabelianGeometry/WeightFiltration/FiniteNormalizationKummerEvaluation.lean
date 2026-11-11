@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationRadicals
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationLocalAmbient
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationRadicalRatios
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationRadicalValuation
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationRadicals
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationLocalAmbient
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationRadicalRatios
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationRadicalValuation
 
 /-!
 # Actual Kummer ratios in finite local normalizations
@@ -16,6 +18,8 @@ A prescribed ambient radical is placed into an actual finite normalization.
 Its local inertia coefficient maps to the original field Kummer ratio, and
 its residue is evaluated by the original finite tame coordinate.
 -/
+
+@[expose] public section
 
 noncomputable section
 

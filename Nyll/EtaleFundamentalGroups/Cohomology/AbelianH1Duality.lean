@@ -4,13 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.TorsionH1Comparison
-import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberIso
-import Nyll.ProCGroups.Abelian.TopologicalAbelianization
-import Nyll.ProCGroups.Abelian.ProfiniteBidual
-import Nyll.ProCGroups.ProC.Quotients.ClosedNormal
-import Nyll.ProCGroups.Topologies.ContinuousMulEquiv
-import Mathlib.Algebra.Group.Equiv.TypeTags
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.TorsionH1Comparison
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberIso
+public import Nyll.ProCGroups.Abelian.TopologicalAbelianization
+public import Nyll.ProCGroups.Abelian.ProfiniteBidual
+public import Nyll.ProCGroups.ProC.Quotients.ClosedNormal
+public import Nyll.ProCGroups.Topologies.ContinuousMulEquiv
+public import Mathlib.Algebra.Group.Equiv.TypeTags
+public import Nyll.ProCGroups.Topologies.TopologicallyCharacteristicSubgroups
 
 /-!
 # The abelian étale fundamental group as a cohomological dual
@@ -24,6 +27,8 @@ This retains finite torsion. No smoothness, properness, noetherianity or
 characteristic hypothesis is needed. Identifying the displayed direct limit
 with derived cohomology of an infinite constant sheaf is a separate issue.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -41,9 +46,8 @@ local instance torsionH1Discrete (X : Scheme.{u}) :
 variable {X : Scheme.{u}} [ConnectedSpace X]
   {Ω : Type u} [Field Ω] [IsSepClosed Ω] (ξ : Spec (.of Ω) ⟶ X)
 
-private abbrev P := TopologicalAbelianization (Aut (FiniteEtale.fiber ξ))
-
-private instance : TotallyDisconnectedSpace (P ξ) :=
+local instance : TotallyDisconnectedSpace
+    (TopologicalAbelianization (Aut (FiniteEtale.fiber ξ))) :=
   ProCGroups.totallyDisconnectedSpace_quotient_closedNormal
     (Subgroup.closedCommutator (Aut (FiniteEtale.fiber ξ)))
     (Subgroup.isClosed_closedCommutator _)
@@ -51,7 +55,8 @@ private instance : TotallyDisconnectedSpace (P ξ) :=
 /-- The finite-coefficient H¹ character comparison respects the actual discrete
 topology on cohomology and the compact-open topology on the character group. -/
 def finiteTorsionH1ContinuousCharacterEquiv :
-    Multiplicative (finiteTorsionCohomology X 1) ≃ₜ* PontryaginDual (P ξ) where
+    Multiplicative (finiteTorsionCohomology X 1) ≃ₜ*
+      PontryaginDual (TopologicalAbelianization (Aut (FiniteEtale.fiber ξ))) where
   toMulEquiv := AddEquiv.toMultiplicativeLeft (finiteTorsionH1CharacterEquiv ξ)
   continuous_toFun := continuous_of_discreteTopology
   continuous_invFun := continuous_of_discreteTopology

@@ -4,17 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteWildSubgroup
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteWildOrder
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameIndex
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.Algebra.CharP.Defs
-import Mathlib.Algebra.Group.Subgroup.Finite
-import Mathlib.Algebra.GroupWithZero.Units.Basic
-import Mathlib.GroupTheory.PGroup
-import Mathlib.GroupTheory.Index
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteWildSubgroup
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteWildOrder
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameIndex
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.Algebra.CharP.Defs
+public import Mathlib.Algebra.Group.Subgroup.Finite
+public import Mathlib.Algebra.GroupWithZero.Units.Basic
+public import Mathlib.GroupTheory.PGroup
+public import Mathlib.GroupTheory.Index
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
 
 /-!
 # Primary, characteristic-zero and index laws for actual finite wild inertia
@@ -23,6 +25,8 @@ The normalization group and field constructors are already closed. These
 proofs use only the actual subgroup's cardinality, actual tame/wild orders,
 and the original residue field.
 -/
+
+@[expose] public section
 
 noncomputable section
 

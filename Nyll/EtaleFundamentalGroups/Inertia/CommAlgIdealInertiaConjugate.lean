@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.NativeIdealInertiaConjugate
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgDecompositionGroup
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeResidueAction
-import Mathlib.Algebra.Algebra.Equiv
-import Mathlib.Algebra.Category.CommAlgCat.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeIdealInertiaConjugate
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgDecompositionGroup
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeResidueAction
+public import Mathlib.Algebra.Algebra.Equiv
+public import Mathlib.Algebra.Category.CommAlgCat.Basic
 
 /-!
 # Conjugation in intrinsic ideal inertia
@@ -17,6 +19,8 @@ import Mathlib.Algebra.Category.CommAlgCat.Basic
 Defines conjugation of intrinsic ideal inertia by a stabilizer element and identifies its
 underlying coefficient algebra automorphism.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

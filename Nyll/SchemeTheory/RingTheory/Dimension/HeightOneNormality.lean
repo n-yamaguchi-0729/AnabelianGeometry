@@ -47,12 +47,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.ValuedFieldTheory.Valuation.DiscreteValuationField.IntegrallyClosedDVRLocalization
-import Nyll.ValuedFieldTheory.Valuation.DiscreteValuationField.IdealHeightEqOneDVRLocalizationAtPrime
+module
+
+public import Nyll.ValuedFieldTheory.Valuation.DiscreteValuationField.IntegrallyClosedDVRLocalization
+public import Nyll.ValuedFieldTheory.Valuation.DiscreteValuationField.IdealHeightEqOneDVRLocalizationAtPrime
 
 /-!
 # Is Integrally Closed height eq one of mem associated Primes
 -/
+
+@[expose] public section
 
 section IsIntegrallyClosed_height_eq_one_of_mem_associatedPrimes
 

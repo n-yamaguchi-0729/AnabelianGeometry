@@ -10,18 +10,23 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.Morphisms.FlatRank
-import Mathlib.AlgebraicGeometry.Birational.RationalMap
-import Mathlib.AlgebraicGeometry.ZariskisMainTheorem
-import Mathlib.AlgebraicGeometry.ValuativeCriterion
-import Mathlib.AlgebraicGeometry.Noetherian
-import Mathlib.RingTheory.Flat.TorsionFree
-import Nyll.AlgebraicCurves.Models.Construction.Basic
-import Nyll.AlgebraicCurves.Divisors.Correspondences.Correspondences
+module
+
+public import Mathlib.AlgebraicGeometry.Morphisms.FlatRank
+public import Mathlib.AlgebraicGeometry.Birational.RationalMap
+public import Mathlib.AlgebraicGeometry.ZariskisMainTheorem
+public import Mathlib.AlgebraicGeometry.ValuativeCriterion
+public import Mathlib.AlgebraicGeometry.Noetherian
+public import Mathlib.RingTheory.Flat.TorsionFree
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
+public import Nyll.AlgebraicCurves.Divisors.Correspondences.Correspondences
+public import Nyll.SchemeTheory.FunctionFields.StructureMorphism
 
 /-!
 # Curve Model exists finite flat hom of alg Hom
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -196,25 +201,8 @@ private abbrev genericHom (M : CurveModel K F) (M' : CurveModel K F') (φ : F �
 private theorem fromSpecStalk_genericPoint_comp_eq {C : Scheme.{u}} [IsIntegral C]
     (c : C ⟶ Spec (CommRingCat.of K)) :
     C.fromSpecStalk (genericPoint C) ≫ c =
-      Spec.map (CommRingCat.ofHom (baseToFunctionField c)) := by
-  refine ext_of_isAffine ?_
-  have h1 : (Spec.map (CommRingCat.ofHom (baseToFunctionField c))).appTop =
-      (Scheme.ΓSpecIso (CommRingCat.of K)).hom ≫ CommRingCat.ofHom (baseToFunctionField c) ≫
-        (Scheme.ΓSpecIso (C.presheaf.stalk (genericPoint C))).inv := by
-    rw [← Iso.inv_comp_eq]
-    exact (Scheme.ΓSpecIso_inv_naturality _).symm
-  have h2 : CommRingCat.ofHom (baseToFunctionField c) =
-      (Scheme.ΓSpecIso (CommRingCat.of K)).inv ≫ c.appTop ≫
-        C.presheaf.germ ⊤ (genericPoint C) trivial := by
-    ext a
-    rfl
-  have h3 : (Spec (C.presheaf.stalk (genericPoint C))).presheaf.map
-      (homOfLE (le_top : (⊤ : (Spec (C.presheaf.stalk (genericPoint C))).Opens) ≤ ⊤)).op =
-        𝟙 _ := by
-    rw [show (homOfLE _).op = 𝟙 (Opposite.op ⊤) from Subsingleton.elim _ _]
-    exact CategoryTheory.Functor.map_id _ _
-  rw [Scheme.Hom.comp_appTop, Scheme.fromSpecStalk_appTop, h3, Category.comp_id, h1, h2]
-  simp only [Category.assoc, Iso.hom_inv_id_assoc]
+      Spec.map (CommRingCat.ofHom (baseToFunctionField c)) :=
+  _root_.AlgebraicCurve.fromSpecStalk_genericPoint_comp_base c
 
 private theorem ffHom_comp_baseToFunctionField (M : CurveModel K F) (M' : CurveModel K F')
     (φ : F →ₐ[K] F') :
@@ -383,7 +371,8 @@ private theorem stalkRange_genericPoint (M : CurveModel K F) :
   simp only [stalkRange, RingHom.mem_range, RingHom.comp_apply, RingEquiv.toRingHom_eq_coe,
     RingEquiv.coe_toRingHom]
   refine ⟨M.ffEquiv g, ?_⟩
-  simp [RingHom.algebraMap_toAlgebra]
+  rw [RingHom.algebraMap_toAlgebra, TopCat.Presheaf.stalkSpecializes_refl]
+  exact M.ffEquiv.symm_apply_apply g
 
 private theorem map_stalkRange_le (M : CurveModel K F) (M' : CurveModel K F') (φ : F →ₐ[K] F')
     (π : M'.C ⟶ M.C)
@@ -708,7 +697,7 @@ private theorem algebraMap_germ (M : CurveModel K F) (U : M.C.Opens) (hη : gene
     @algebraMap (M.C.presheaf.stalk x) M.C.functionField _ _ (stalkFunctionFieldAlgebra M.C x)
         ((M.C.presheaf.germ U x hx).hom b) =
       algebraMap Γ(M.C, U) M.C.functionField b := by
-  let _ : Nonempty U := ⟨⟨_, hη⟩⟩
+  intro sharedOwner1
   change (M.C.presheaf.stalkSpecializes _).hom ((M.C.presheaf.germ U x hx).hom b) =
     (M.C.presheaf.germ U (genericPoint M.C) _).hom b
   rw [← RingHom.comp_apply, ← CommRingCat.hom_comp, TopCat.Presheaf.germ_stalkSpecializes]
@@ -721,7 +710,7 @@ private theorem algebraMap_app_apply (M : CurveModel K F) (M' : CurveModel K F')
     let _ : Nonempty (π ⁻¹ᵁ U) := ⟨⟨_, genericPoint_mem_preimage M M' φ π hd hη⟩⟩
     algebraMap Γ(M'.C, π ⁻¹ᵁ U) M'.C.functionField ((π.app U).hom a) =
       ffHom M M' φ (algebraMap Γ(M.C, U) M.C.functionField a) := by
-  let _ : Nonempty U := ⟨⟨_, hη⟩⟩
+  intro sharedOwner1
   have hη' : genericPoint M'.C ∈ π ⁻¹ᵁ U := genericPoint_mem_preimage M M' φ π hd hη
   have hx : π.base (genericPoint M'.C) ∈ U := hη'
   let _ : Nonempty (π ⁻¹ᵁ U) := ⟨⟨_, hη'⟩⟩
@@ -797,7 +786,7 @@ private theorem fromSpec_bot (M : CurveModel K F) (U : M.C.Opens) (hU : IsAffine
     (hη : genericPoint M.C ∈ U) :
     let _ : Nonempty U := ⟨⟨_, hη⟩⟩
     hU.fromSpec (⊥ : PrimeSpectrum Γ(M.C, U)) = genericPoint M.C := by
-  let _ : Nonempty U := ⟨⟨_, hη⟩⟩
+  intro sharedOwner1
   have h := hU.fromSpec_primeIdealOf ⟨genericPoint M.C, hη⟩
   rw [hU.primeIdealOf_genericPoint, genericPoint_eq_bot_of_affine] at h
   exact h
@@ -810,7 +799,7 @@ private theorem finrank_genericPoint_eq_ringHom_finrank (M : CurveModel K F)
     (U : M.C.Opens) (hU : IsAffineOpen U) (hη : genericPoint M.C ∈ U) :
     let _ : Nonempty U := ⟨⟨_, hη⟩⟩
     π.finrank (genericPoint M.C) = (π.app U).hom.finrank (⊥ : PrimeSpectrum Γ(M.C, U)) := by
-  let _ : Nonempty U := ⟨⟨_, hη⟩⟩
+  intro sharedOwner1
   let _ := isFinite M M' φ hφ hfin π ha hd
   let _ := flat M M' φ hφ hfin π ha hd
   have hb : hU.fromSpec (⊥ : PrimeSpectrum Γ(M.C, U)) = genericPoint M.C := fromSpec_bot M U hU hη
@@ -823,7 +812,7 @@ private theorem finrank_genericPoint_eq_ringHom_finrank (M : CurveModel K F)
 private theorem finrank_functionField (M : CurveModel K F) (M' : CurveModel K F') (φ : F →ₐ[K] F') :
     let _ := (ffHom M M' φ).hom.toAlgebra
     Module.finrank M.C.functionField M'.C.functionField = finrankAlong K φ := by
-  let _ := (ffHom M M' φ).hom.toAlgebra
+  intro sharedOwner1
   let _ := algebraAlong φ
   change Module.finrank M.C.functionField M'.C.functionField = Module.finrank F F'
   refine Algebra.finrank_eq_of_equiv_equiv M.ffEquiv.symm M'.ffEquiv.symm ?_

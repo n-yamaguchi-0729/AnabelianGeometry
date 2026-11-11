@@ -7,6 +7,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.Basic
 import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.FiniteGaloisDescent
 import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.FiniteQuotientConjugacy
+import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.FiniteGaloisPointConjugacy
 import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.FpqcIsomorphismDescent
 import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.FunctorConjugacy
 import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.GaloisCechDescent
@@ -25,3 +26,4 @@ import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.GeometricGaloisDescent
 import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.ProjectiveModelEquivariance
 import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.GeometricAbelianizationEquivariance
 import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.CenterFree
+import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.FullOuterSchemeIsomorphism

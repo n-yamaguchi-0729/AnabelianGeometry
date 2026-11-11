@@ -4,18 +4,20 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeEmbedding
-import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeInertia
-import Nyll.SchemeTheory.RingTheory.Localization.Fraction.FieldLocalization
-import Nyll.SchemeTheory.RingTheory.Ramification.InertiaLocalization
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
-import Mathlib.Algebra.Algebra.Defs
-import Mathlib.Algebra.Ring.Action.Basic
-import Mathlib.Algebra.Ring.Action.Group
-import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
-import Mathlib.RingTheory.Localization.AtPrime.Basic
-import Mathlib.RingTheory.Localization.Defs
-import Mathlib.RingTheory.Localization.FractionRing
+module
+
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeEmbedding
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeInertia
+public import Nyll.SchemeTheory.RingTheory.Localization.Fraction.FieldLocalization
+public import Nyll.SchemeTheory.RingTheory.Ramification.InertiaLocalization
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Ring.Action.Basic
+public import Mathlib.Algebra.Ring.Action.Group
+public import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
+public import Mathlib.RingTheory.Localization.Defs
+public import Mathlib.RingTheory.Localization.FractionRing
 
 /-!
 # The actual normalization-prime localization in the ambient Galois field
@@ -27,6 +29,8 @@ compatibility with each original inertia element. All scalar actions are
 those of the existing owners; no action on the localization is introduced.
 -/
 
+@[expose] public section
+
 noncomputable section
 
 namespace EtaleFundamentalGroups.StrictHenselian
@@ -35,7 +39,8 @@ open EtaleFundamentalGroups.Inertia
 
 universe u v w
 
-private def primeLocalizationFieldMap
+/-- The canonical map from a prime localization into the fraction field. -/
+def primeLocalizationFieldMap
     (B : Type u) (F : Type v) [CommRing B] [IsDomain B]
     [Field F] [Algebra B F] [IsFractionRing B F]
     (Q : Ideal B) [Q.IsPrime] : Localization.AtPrime Q →+* F := by

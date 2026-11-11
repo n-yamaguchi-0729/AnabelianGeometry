@@ -10,9 +10,11 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.JacobianVarieties.WeilPairing.Datum
-import Nyll.JacobianVarieties.Autoduality.Cohomology
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+module
+
+public import Nyll.JacobianVarieties.WeilPairing.Datum
+public import Nyll.JacobianVarieties.Autoduality.Cohomology
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
 
 /-!
 # Divisorial Weil pairings
@@ -21,6 +23,8 @@ Construct torsion classes from disjoint divisor data and prove the pairing laws
 from divisor evaluation and Weil reciprocity. A moving property provides simultaneous
 representatives; perfection is separately supplied when producing the duality equivalence.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -641,24 +645,6 @@ theorem pair_add_right (x y y' : Pic0.torsion K F n) :
     _ = e.pair x y * e.pair x y' := by
         rw [e.pair_swap_eq_inv x y, e.pair_swap_eq_inv x y', inv_inv, inv_inv]
 
-theorem pair_pow_eq_one (hrec : WeilReciprocity K F) (x y : Pic0.torsion K F n) :
-    e.pair x y ^ n = 1 := by
-  obtain ⟨d, hx, hy⟩ := e.exists_datum x y
-  rw [← hx, ← hy, e.compatible d]
-  exact d.pairing_pow_eq_one hrec
-
-theorem pair_self_eq_one (hrec : WeilReciprocity K F) (hodd : Odd n)
-    (x : Pic0.torsion K F n) : e.pair x x = 1 := by
-  have hsq : e.pair x x * e.pair x x = 1 := e.pair_mul_pair_swap x x
-  have hpow : e.pair x x ^ n = 1 := e.pair_pow_eq_one hrec x x
-  obtain ⟨k, hk⟩ := hodd
-  set c : K := e.pair x x with hc
-  have hsq' : c ^ 2 = 1 := by rw [pow_two]; exact hsq
-  have h2k : c ^ (2 * k) = 1 := by rw [pow_mul, hsq', one_pow]
-  have hcn : c ^ n = c := by rw [hk, pow_succ, h2k, one_mul]
-  rw [← hcn]
-  exact hpow
-
 theorem pair_smul (σ : F ≃ₐ[K] F) (x y : Pic0.torsion K F n) :
     e.pair ⟨σ • (x : Pic0 K F), Pic0.smul_mem_torsion σ x.2⟩
       ⟨σ • (y : Pic0 K F), Pic0.smul_mem_torsion σ y.2⟩ = e.pair x y := by
@@ -694,6 +680,22 @@ def toChar (x : Pic0.torsion K F n) : HomPic0Gm K F n where
   map_add_eq_mul' y y' := e.pair_add_right x y y'
 
 @[simp] theorem toChar_apply (x y : Pic0.torsion K F n) : e.toChar x y = e.pair x y := rfl
+
+theorem pair_pow_eq_one (x y : Pic0.torsion K F n) :
+    e.pair x y ^ n = 1 :=
+  HomPic0Gm.apply_pow_eq_one (e.toChar x) y
+
+theorem pair_self_eq_one (hodd : Odd n)
+    (x : Pic0.torsion K F n) : e.pair x x = 1 := by
+  have hsq : e.pair x x * e.pair x x = 1 := e.pair_mul_pair_swap x x
+  have hpow : e.pair x x ^ n = 1 := e.pair_pow_eq_one x x
+  obtain ⟨k, hk⟩ := hodd
+  set c : K := e.pair x x with hc
+  have hsq' : c ^ 2 = 1 := by rw [pow_two]; exact hsq
+  have h2k : c ^ (2 * k) = 1 := by rw [pow_mul, hsq', one_pow]
+  have hcn : c ^ n = c := by rw [hk, pow_succ, h2k, one_mul]
+  rw [← hcn]
+  exact hpow
 
 /-- The additive homomorphism to characters defined by the divisorial pairing. -/
 def toHom : Pic0.torsion K F n →+ Additive (HomPic0Gm K F n) :=

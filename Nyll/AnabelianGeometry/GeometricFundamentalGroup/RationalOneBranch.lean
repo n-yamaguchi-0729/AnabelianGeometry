@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Places.Ramification.FinsumRamificationIndexRatFuncSubOneEq
-import Nyll.AlgebraicCurves.Places.Ramification.SumRamificationIndexMulInertiaDegFiberOver
-import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegEqOneIsRational
-import Nyll.AlgebraicCurves.Places.Degree.IsRationalAlgClosed
-import Nyll.AlgebraicCurves.Places.Restriction.RestrictEq
-import Mathlib.Algebra.BigOperators.Finprod
-import Mathlib.LinearAlgebra.Dimension.FreeAndStrongRankCondition
+module
+
+public import Nyll.AlgebraicCurves.Places.Ramification.FinsumRamificationIndexRatFuncSubOneEq
+public import Nyll.AlgebraicCurves.Places.Ramification.SumRamificationIndexMulInertiaDegFiberOver
+public import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegEqOneIsRational
+public import Nyll.AlgebraicCurves.Places.Degree.IsRationalAlgClosed
+public import Nyll.AlgebraicCurves.Places.Restriction.RestrictEq
+public import Mathlib.Algebra.BigOperators.Finprod
+public import Mathlib.LinearAlgebra.Dimension.FreeAndStrongRankCondition
 
 /-!
 # Rational covers with at most one tame branch point
@@ -24,6 +26,8 @@ and affine lines. The scheme-theoretic comparison with finite etale covers is a 
 The proof uses the proved Riemann--Hurwitz theorem and does not import the unproved surface
 presentation theorem.
 -/
+
+@[expose] public section
 
 noncomputable section
 

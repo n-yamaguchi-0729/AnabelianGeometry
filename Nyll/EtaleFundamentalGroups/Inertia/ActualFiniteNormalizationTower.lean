@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelNormalizationAlgebra
-import Nyll.SchemeTheory.Normalization.SubalgebraNormalizationTower
-import Mathlib.RingTheory.Ideal.Maps
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelNormalizationAlgebra
+public import Nyll.SchemeTheory.Normalization.SubalgebraNormalizationTower
+public import Mathlib.RingTheory.Ideal.Maps
 
 /-!
 # Inclusions of finite normalizations
@@ -15,6 +17,8 @@ import Mathlib.RingTheory.Ideal.Maps
 Constructs injective ring maps between nested finite normalizations. Proves their ambient
 inclusion triangle and the contraction identity for chosen primes.
 -/
+
+@[expose] public section
 
 noncomputable section
 

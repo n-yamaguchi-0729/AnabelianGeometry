@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerAlgebra
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerAlgebra
 
 /-!
 # Roots as points of the Laurent Kummer fibre
@@ -14,6 +16,8 @@ are exactly the roots of its Kummer equation. Both directions are explicit
 ring homomorphisms and the inverse laws follow from the quotient universal
 property. No identification of a cover fibre with a root set is assumed.
 -/
+
+@[expose] public section
 
 noncomputable section
 

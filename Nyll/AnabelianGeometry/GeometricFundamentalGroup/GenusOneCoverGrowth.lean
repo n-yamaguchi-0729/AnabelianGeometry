@@ -4,17 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProperCoverGrowth
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.KummerOpenCoverModel
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.UnramifiedGenusCriterion
-import Nyll.JacobianVarieties.Kummer.OpenBoundaryRealization
-import Nyll.AlgebraicCurves.Places.Restriction.RestrictEq
-import Nyll.AlgebraicCurves.Models.Ramification.FiniteEtaleRiemannHurwitz
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
-import Mathlib.AlgebraicGeometry.Restrict
-import Mathlib.Data.Fintype.EquivFin
-import Mathlib.FieldTheory.KummerPolynomial
-import Mathlib.Algebra.BigOperators.Group.Finset.Piecewise
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProperCoverGrowth
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.KummerOpenCoverModel
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.UnramifiedGenusCriterion
+public import Nyll.JacobianVarieties.Kummer.OpenBoundaryRealization
+public import Nyll.AlgebraicCurves.Places.Restriction.RestrictEq
+public import Nyll.AlgebraicCurves.Models.Ramification.FiniteEtaleRiemannHurwitz
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
+public import Mathlib.AlgebraicGeometry.Restrict
+public import Mathlib.Data.Fintype.EquivFin
+public import Mathlib.FieldTheory.KummerPolynomial
+public import Mathlib.Algebra.BigOperators.Group.Finset.Piecewise
 
 /-! # Increasing the genus of a punctured genus-one curve
 
@@ -24,6 +26,8 @@ order makes its quadratic root extension ramified. Riemann--Hurwitz then
 forces genus at least two. An initial proper étale cover provides the two
 boundary points even when the original curve has only one puncture.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -169,16 +173,7 @@ theorem exists_finiteEtale_openCover_genus_ge_two_of_genus_one
       (d ⁻¹ᵁ U : Set N.C).Nonempty ∧ 2 ≤ genusFF K E := by
   obtain ⟨E₁, hE₁, aE₁, N₁, d₁, hd₁, het₁, hV₁, htwo⟩ :=
     exists_finiteEtale_cover_boundary_ge M (by omega) U hU hboundary 2
-  have : IsCurveOver K F :=
-    isCurveOver_of_isIntegral_of_smoothOfRelativeDimension_one M.toBase
-      M.ffEquiv M.ffEquiv_algebraMap
-  have : Algebra.EssFiniteType K F := by
-    let : Algebra K M.C.functionField := M.functionFieldAlgebra
-    exact (Algebra.EssFiniteType.iff_of_algEquiv M.ffAlgEquiv).mpr
-      (essFiniteType_functionField M.toBase)
-  obtain ⟨t, ht, hf, _⟩ :=
-    IsCurveOver.exists_separating_transcendental (K := K) (F := F)
-  have hRH := M.two_mul_genus_sub_two_eq_finiteEtale N₁ d₁ hd₁ ⟨t, ht, hf⟩
+  have hRH := M.two_mul_genus_sub_two_eq_finiteEtale N₁ d₁ hd₁
   rw [hg] at hRH
   norm_num only [Nat.cast_one, mul_one, sub_self, mul_zero] at hRH
   have hg₁ : genusFF K E₁ = 1 := by omega

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Schemes.Points.FiniteExtensionPoint
-import Mathlib.FieldTheory.IsAlgClosed.Basic
-import Mathlib.FieldTheory.IntermediateField.Basic
+module
+
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Points.FiniteExtensionPoint
+public import Mathlib.FieldTheory.IsAlgClosed.Basic
+public import Mathlib.FieldTheory.IntermediateField.Basic
 
 /-!
 # An actual rational section in a finite subfield of the fixed closure
@@ -15,6 +17,8 @@ A closed-point residue field is embedded into the fixed algebraically closed
 field over the current coefficient field. Its literal field range is used
 as the finite extension, and its residue point gives the section.
 -/
+
+@[expose] public section
 
 noncomputable section
 

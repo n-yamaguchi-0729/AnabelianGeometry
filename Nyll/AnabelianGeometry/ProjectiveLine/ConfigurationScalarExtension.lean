@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.ProjectiveLine.FieldMap
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineBoundary
-import Mathlib.AlgebraicGeometry.OpenImmersion
+module
+
+public import Nyll.AnabelianGeometry.ProjectiveLine.FieldMap
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineBoundary
+public import Mathlib.AlgebraicGeometry.OpenImmersion
 
 /-! # The actual rational configuration after extension of constants
 
@@ -15,6 +17,10 @@ The scalar extension of the original open is isomorphic to this new open,
 with the actual ambient chart and coefficient projection retained.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
@@ -22,7 +28,7 @@ open AlgebraicGeometry.ProjSpace
 
 namespace AnabelianGeometry.ProjectiveLine
 
-variable (k E : Type) [Field k] [Field E] [Algebra k E]
+variable (k E : Type u) [Field k] [Field E] [Algebra k E]
 
 /-- Extend the coordinates of every puncture without identifying any labels. -/
 def configurationScalarExtension (s : Finset (Projectivization k (k × k))) :

@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.MonoidAlgebra.Basic
-import Mathlib.RingTheory.AdjoinRoot
+module
+
+public import Mathlib.Algebra.MonoidAlgebra.Basic
+public import Mathlib.RingTheory.AdjoinRoot
 
 /-!
 # A cyclic Laurent monomial cover as an explicit radical
@@ -15,6 +17,8 @@ The endomorphism of the Laurent monomial algebra induced by multiplication by
 monomial, the original Laurent monomial algebra.  The equivalence below keeps
 track of both the adjoined root and the original base map.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Kummer
 
@@ -53,7 +57,8 @@ theorem exists_cyclicLaurentRingEquiv
       AddMonoidAlgebra.single (n • (1 : ℤ)) ((1 : R) ^ n)
     rw [one_pow]
   have hf : f.eval₂ φ u = 0 := by
-    simp [f, hφu]
+    simp only [f, eval₂_sub, eval₂_X_pow, eval₂_C]
+    exact sub_eq_zero.mpr hφu.symm
   let forward : AdjoinRoot f →ₐ[R] A :=
     AdjoinRoot.liftAlgHom f φ u hf
   have hu : IsUnit u := by
@@ -68,7 +73,7 @@ theorem exists_cyclicLaurentRingEquiv
   have hroot_pow :
       AdjoinRoot.root f ^ n = AdjoinRoot.of f u := by
     rw [← sub_eq_zero, ← AdjoinRoot.eval₂_root]
-    simp [f]
+    simp only [f, eval₂_sub, eval₂_X_pow, eval₂_C]
   have hroot : IsUnit (AdjoinRoot.root f) := by
     refine (isUnit_pow_iff hn.ne').mp ?_
     rw [hroot_pow]
@@ -84,7 +89,9 @@ theorem exists_cyclicLaurentRingEquiv
           (AddMonoidAlgebra.of R ℤ (Multiplicative.ofAdd (1 : ℤ))) =
         AdjoinRoot.root f
     rw [AddMonoidAlgebra.lift_of]
-    simp [rootPowers, z]
+    change (↑(z ^ (1 : ℤ)) : AdjoinRoot f) = AdjoinRoot.root f
+    rw [zpow_one]
+    exact hroot.unit_spec
   have hforward_base :
       forward.comp (AdjoinRoot.ofAlgHom R f) = φ := by
     apply AlgHom.ext

@@ -11,12 +11,14 @@ AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
-import Nyll.AlgebraicCurves.Places.Basic
-import Mathlib.Algebra.BigOperators.Finsupp.Basic
-import Mathlib.Data.Finsupp.SMul
-import Mathlib.LinearAlgebra.Basis.Defs
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Defs
+module
+
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+public import Nyll.AlgebraicCurves.Places.Basic
+public import Mathlib.Algebra.BigOperators.Finsupp.Basic
+public import Mathlib.Data.Finsupp.SMul
+public import Mathlib.LinearAlgebra.Basis.Defs
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Defs
 
 /-!
 # Integral coefficient evaluations for constant-field extensions
@@ -24,6 +26,8 @@ import Mathlib.FieldTheory.IntermediateField.Adjoin.Defs
 The coefficient evaluation, its integral subring, and denominator clearing are shared by
 the algebraically closed and degree-one place-extension proofs.
 -/
+
+@[expose] public section
 
 namespace AlgebraicCurve.Place.ConstantFieldExtension
 

@@ -4,6 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Gluing.RecoveredLocalModel
+module
+
+public import Nyll.SchemeTheory.Gluing.RecoveredLocalModel
 
 /-! Compatibility import for the general recovered-local-model owner. -/
+@[expose] public section

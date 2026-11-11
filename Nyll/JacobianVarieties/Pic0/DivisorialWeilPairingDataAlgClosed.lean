@@ -10,19 +10,23 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
-import Nyll.JacobianVarieties.WeilPairing.Divisorial
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Nyll.AlgebraicCurves.Divisors.Maps.Maps
-import Nyll.JacobianVarieties.Pic0.TorsionAddMonoidHomEvalEqPairing
-import Nyll.JacobianVarieties.Pic0.TorsionMoveIsRational
-import Nyll.AlgebraicCurves.Places.Orders.MemRangeAlgebraMapOrdEqZeroAlgClosed
-import Nyll.AlgebraicCurves.FunctionFields.Rational.FunctionFieldRatFuncAlgHomApplyXEq
-import Nyll.AlgebraicCurves.Geometry.WeilReciprocityAlgClosed
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
+public import Nyll.JacobianVarieties.WeilPairing.Divisorial
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.AlgebraicCurves.Divisors.Maps.Maps
+public import Nyll.JacobianVarieties.Pic0.TorsionAddMonoidHomEvalEqPairing
+public import Nyll.JacobianVarieties.Pic0.TorsionMoveIsRational
+public import Nyll.AlgebraicCurves.Places.Orders.MemRangeAlgebraMapOrdEqZeroAlgClosed
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.FunctionFieldRatFuncAlgHomApplyXEq
+public import Nyll.AlgebraicCurves.Geometry.WeilReciprocityAlgClosed
 
 /-!
 # Divisorial Weil pairing data over an algebraically closed field.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

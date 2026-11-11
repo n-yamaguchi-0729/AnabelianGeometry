@@ -4,22 +4,26 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.GroupSchemes.GeometricPointHom
-import Nyll.SchemeTheory.Morphisms.ReducedSmooth
-import Mathlib.AlgebraicGeometry.Morphisms.Etale
-import Mathlib.RingTheory.Etale.Field
-import Mathlib.RingTheory.RingHom.Etale
-import Mathlib.RingTheory.Finiteness.ModuleFinitePresentation
-import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
-import Mathlib.Algebra.Algebra.Tower
-import Mathlib.AlgebraicGeometry.Morphisms.Flat
-import Mathlib.AlgebraicGeometry.Morphisms.QuasiCompact
-import Mathlib.AlgebraicGeometry.Sites.Fpqc
-import Mathlib.CategoryTheory.Comma.Over.Pullback
-import Mathlib.CategoryTheory.Adjunction.Mates
-import Mathlib.CategoryTheory.MorphismProperty.Descent
+module
+
+public import Nyll.SchemeTheory.GroupSchemes.GeometricPointHom
+public import Nyll.SchemeTheory.Morphisms.ReducedSmooth
+public import Mathlib.AlgebraicGeometry.Morphisms.Etale
+public import Mathlib.RingTheory.Etale.Field
+public import Mathlib.RingTheory.RingHom.Etale
+public import Mathlib.RingTheory.Finiteness.ModuleFinitePresentation
+public import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
+public import Mathlib.Algebra.Algebra.Tower
+public import Mathlib.AlgebraicGeometry.Morphisms.Flat
+public import Mathlib.AlgebraicGeometry.Morphisms.QuasiCompact
+public import Mathlib.AlgebraicGeometry.Sites.Fpqc
+public import Mathlib.CategoryTheory.Comma.Over.Pullback
+public import Mathlib.CategoryTheory.Adjunction.Mates
+public import Mathlib.CategoryTheory.MorphismProperty.Descent
 
 /-! # Descent for actual morphisms in a scalar-extended over category -/
+
+@[expose] public section
 
 universe u
 open CategoryTheory CategoryTheory.Limits

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.PlaceLocalValuation
-import Nyll.AnabelianGeometry.WeightFiltration.LocalKummerInertiaDetection
-import Nyll.AlgebraicCurves.Places.Basic
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.PlaceLocalValuation
+public import Nyll.AnabelianGeometry.WeightFiltration.LocalKummerInertiaDetection
+public import Nyll.AlgebraicCurves.Places.Basic
 
 /-!
 # Place-theoretic detection of Kummer inertia
@@ -15,6 +17,8 @@ Actual normalization inertia fixes a prescribed radical exactly when the
 place order is divisible by its exponent. Inversion treats poles, so the
 criterion applies to arbitrary nonzero rational functions.
 -/
+
+@[expose] public section
 
 noncomputable section
 

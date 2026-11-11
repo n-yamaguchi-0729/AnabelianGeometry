@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.AlgebraicGeometry.Morphisms.Separated
-import Mathlib.CategoryTheory.Monoidal.Cartesian.CommGrp_
-import Mathlib.CategoryTheory.Monoidal.Cartesian.Over
-import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
+module
+
+public import Mathlib.AlgebraicGeometry.Morphisms.Separated
+public import Mathlib.CategoryTheory.Monoidal.Cartesian.CommGrp_
+public import Mathlib.CategoryTheory.Monoidal.Cartesian.Over
+public import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
 
 /-!
 # Geometric points detect actual morphisms and group homomorphisms
@@ -18,6 +20,8 @@ to the identity and multiplication diagrams recovers an actual group
 morphism from multiplication of its geometric points. The geometric
 points retain their structure map to the original base.
 -/
+
+@[expose] public section
 
 noncomputable section
 

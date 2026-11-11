@@ -4,19 +4,23 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ConnectedCoverActualInertia
-import Nyll.EtaleFundamentalGroups.Inertia.AbsolutePrimeContractionOrbit
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationPrimeHeightOne
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteGenericGaloisSurjectivity
-import Nyll.EtaleFundamentalGroups.Inertia.InertiaConjugateImage
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverInjectivity
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverSquareBoundary
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverConstantField
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenSquareFunctionField
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaAnyPrime
-import Nyll.AnabelianGeometry.CuspidalInertia.FiniteQuotientSeparation
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ConnectedCoverActualInertia
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsolutePrimeContractionOrbit
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationPrimeHeightOne
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteGenericGaloisSurjectivity
+public import Nyll.EtaleFundamentalGroups.Inertia.InertiaConjugateImage
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverInjectivity
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverSquareBoundary
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverConstantField
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenSquareFunctionField
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaAnyPrime
+public import Nyll.AnabelianGeometry.CuspidalInertia.FiniteQuotientSeparation
 
 /-! # Actual boundary ranges on every connected finite cover -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -74,22 +78,22 @@ theorem connectedCover_abelianized_cuspSaturation_eq_boundaryRanges_with_base
     [hQfamily : ∀ p, (Qfamily p).IsMaximal]
     (W : FiniteEtale U) [IsConnected W]
     (w : (fiber (U.genericExtensionMorphism Ω)).obj W) :
-    letI : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
+    let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
     let K := U.functionField
     let L := W.left.functionField
-    letI : Algebra K L := finiteEtaleFunctionFieldAlgebra W
-    letI : FiniteDimensional K L :=
+    let : Algebra K L := finiteEtaleFunctionFieldAlgebra W
+    let : FiniteDimensional K L :=
       finiteDimensional_functionField_of_finiteEtale_isConnected W
-    letI : Algebra.IsSeparable K L :=
+    let : Algebra.IsSeparable K L :=
       isSeparable_functionField_of_finiteEtale_isConnected W
     let g := fiberObjEquivHom (U.genericExtensionMorphism Ω) W w
     let j := finiteEtaleGenericHomFunctionFieldAlgHom W g
-    letI : Algebra L Ω := j.toRingHom.toAlgebra
-    letI : IsScalarTower K L Ω := by
+    let : Algebra L Ω := j.toRingHom.toAlgebra
+    let : IsScalarTower K L Ω := by
       apply IsScalarTower.of_algebraMap_eq'
       ext a
       exact (j.commutes a).symm
-    letI : IsSepClosure L Ω :=
+    let : IsSepClosure L Ω :=
       ⟨IsSepClosure.sep_closed K,
         Algebra.isSeparable_tower_top_of_isSeparable K L Ω⟩
     let jL := W.left.fromSpecStalk (genericPoint W.left)
@@ -98,16 +102,16 @@ theorem connectedCover_abelianized_cuspSaturation_eq_boundaryRanges_with_base
     let H := π₁ᵉᵗ(ξ L Ω ≫ jL)
     let i := (pointedFundamentalGroupHom W.hom (ξ L Ω ≫ jL)
       (U.genericExtensionMorphism Ω) hpoint).toMonoidHom
-    letI : Algebra κ L := ((algebraMap K L).comp (algebraMap κ K)).toAlgebra
-    letI : IsScalarTower κ K L := IsScalarTower.of_algebraMap_eq' rfl
-    letI : IsScalarTower κ L Ω := by
+    let : Algebra κ L := ((algebraMap K L).comp (algebraMap κ K)).toAlgebra
+    let : IsScalarTower κ K L := IsScalarTower.of_algebraMap_eq' rfl
+    let : IsScalarTower κ L Ω := by
       apply IsScalarTower.of_algebraMap_eq'
       ext a
       change algebraMap κ Ω a = j (algebraMap K L (algebraMap κ K a))
       exact (IsScalarTower.algebraMap_apply κ K Ω a).trans
         (j.commutes (algebraMap κ K a)).symm
-    letI : IsFiniteEtale (show W.left ⟶ U from W.hom) := W.prop
-    letI : CompactSpace W.left :=
+    let : IsFiniteEtale (show W.left ⟶ U from W.hom) := W.prop
+    let : CompactSpace W.left :=
       QuasiCompact.compactSpace_of_compactSpace (show W.left ⟶ U from W.hom)
     ∃ (Mc : CurveModel κ L) (jW : W.left ⟶ Mc.C) (hopen : IsOpenImmersion jW),
       letI : IsOpenImmersion jW := hopen
@@ -117,7 +121,7 @@ theorem connectedCover_abelianized_cuspSaturation_eq_boundaryRanges_with_base
       ∀ (Qc : ∀ r : Mc.openBoundaryPlaces jW,
           Ideal (normalizationCommAlgCat r.val.toValuationSubring Ω))
         (hQc : ∀ r, (Qc r).IsMaximal),
-        letI : ∀ r, (Qc r).IsMaximal := hQc
+        let : ∀ r, (Qc r).IsMaximal := hQc
         (TopologicalAbelianization.mk H) ''
           {h : H | i h ∈ conjugacySaturation
             (⋃ p : M.openBoundaryPlaces jU,
@@ -127,44 +131,12 @@ theorem connectedCover_abelianized_cuspSaturation_eq_boundaryRanges_with_base
           ⋃ r : Mc.openBoundaryPlaces jW,
             ((boundaryPlaceInertiaHom Mc jW hjW hcover Qc r).toMonoidHom.range :
               Set (TopologicalAbelianization H)) := by
+  intro integral K L baseAlgebra finiteExtension separableExtension g j
+    ambientAlgebra ambientTower sepClosure jL hpoint H i coefficientAlgebra
+    coefficientTower constantAmbientTower finiteEtale compact
   classical
-  let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
-  let K := U.functionField
-  let L := W.left.functionField
   let G := Aut (fiber (Spec.map (CommRingCat.ofHom (algebraMap U.functionField Ω)) ≫
                   U.fromSpecStalk (genericPoint U)))
-  let : Algebra K L := finiteEtaleFunctionFieldAlgebra W
-  let : FiniteDimensional K L :=
-    finiteDimensional_functionField_of_finiteEtale_isConnected W
-  let : Algebra.IsSeparable K L :=
-    isSeparable_functionField_of_finiteEtale_isConnected W
-  let g := fiberObjEquivHom (U.genericExtensionMorphism Ω) W w
-  let j := finiteEtaleGenericHomFunctionFieldAlgHom W g
-  let : Algebra L Ω := j.toRingHom.toAlgebra
-  let : IsScalarTower K L Ω := by
-    apply IsScalarTower.of_algebraMap_eq'
-    ext a
-    exact (j.commutes a).symm
-  let : IsSepClosure L Ω :=
-    ⟨IsSepClosure.sep_closed K,
-      Algebra.isSeparable_tower_top_of_isSeparable K L Ω⟩
-  let jL := W.left.fromSpecStalk (genericPoint W.left)
-  let hpoint : (ξ L Ω ≫ jL) ≫ W.hom = U.genericExtensionMorphism Ω :=
-    finiteEtaleGenericHomFunctionFieldAlgHom_spec_comp W g
-  let H := π₁ᵉᵗ(ξ L Ω ≫ jL)
-  let i : H →* G := (pointedFundamentalGroupHom W.hom (ξ L Ω ≫ jL)
-    (U.genericExtensionMorphism Ω) hpoint).toMonoidHom
-  let : Algebra κ L := ((algebraMap K L).comp (algebraMap κ K)).toAlgebra
-  let : IsScalarTower κ K L := IsScalarTower.of_algebraMap_eq' rfl
-  let : IsScalarTower κ L Ω := by
-    apply IsScalarTower.of_algebraMap_eq'
-    ext a
-    change algebraMap κ Ω a = j (algebraMap K L (algebraMap κ K a))
-    exact (IsScalarTower.algebraMap_apply κ K Ω a).trans
-      (j.commutes (algebraMap κ K a)).symm
-  let : IsFiniteEtale (show W.left ⟶ U from W.hom) := W.prop
-  let : CompactSpace W.left :=
-    QuasiCompact.compactSpace_of_compactSpace (show W.left ⟶ U from W.hom)
   have hcompact := exists_open_cover_curveModel_square_boundary_with_functionField M jU W
   have hcAlg := finiteEtaleFunctionField_constantAlgebra_eq M jU hjU hbase W
   dsimp only at hcompact hcAlg
@@ -194,8 +166,7 @@ theorem connectedCover_abelianized_cuspSaturation_eq_boundaryRanges_with_base
       _ = (W.hom ≫ jU) ≫ M.toBase := congrArg (fun q => q ≫ M.toBase) hsquare
       _ = W.hom ≫ jU ≫ M.toBase := Category.assoc _ _ _
   refine ⟨Mc, jW, hopen, hjW, hcoverLiteral, hstruct, ?_⟩
-  intro Qc hQc
-  let (r : Mc.openBoundaryPlaces jW) : (Qc r).IsMaximal := hQc r
+  intro Qc hQc boundaryMaximal
   let : ∀ p : M.openBoundaryPlaces jU,
       (show Ideal (integralClosure p.val.toValuationSubring Ω) from Qfamily p).IsMaximal :=
     hQfamily
@@ -346,22 +317,22 @@ theorem connectedCover_abelianized_cuspSaturation_eq_boundaryRanges
     [hQfamily : ∀ p, (Qfamily p).IsMaximal]
     (W : FiniteEtale U) [IsConnected W]
     (w : (fiber (U.genericExtensionMorphism Ω)).obj W) :
-    letI : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
+    let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
     let K := U.functionField
     let L := W.left.functionField
-    letI : Algebra K L := finiteEtaleFunctionFieldAlgebra W
-    letI : FiniteDimensional K L :=
+    let : Algebra K L := finiteEtaleFunctionFieldAlgebra W
+    let : FiniteDimensional K L :=
       finiteDimensional_functionField_of_finiteEtale_isConnected W
-    letI : Algebra.IsSeparable K L :=
+    let : Algebra.IsSeparable K L :=
       isSeparable_functionField_of_finiteEtale_isConnected W
     let g := fiberObjEquivHom (U.genericExtensionMorphism Ω) W w
     let j := finiteEtaleGenericHomFunctionFieldAlgHom W g
-    letI : Algebra L Ω := j.toRingHom.toAlgebra
-    letI : IsScalarTower K L Ω := by
+    let : Algebra L Ω := j.toRingHom.toAlgebra
+    let : IsScalarTower K L Ω := by
       apply IsScalarTower.of_algebraMap_eq'
       ext a
       exact (j.commutes a).symm
-    letI : IsSepClosure L Ω :=
+    let : IsSepClosure L Ω :=
       ⟨IsSepClosure.sep_closed K,
         Algebra.isSeparable_tower_top_of_isSeparable K L Ω⟩
     let jL := W.left.fromSpecStalk (genericPoint W.left)
@@ -370,16 +341,16 @@ theorem connectedCover_abelianized_cuspSaturation_eq_boundaryRanges
     let H := π₁ᵉᵗ(ξ L Ω ≫ jL)
     let i := (pointedFundamentalGroupHom W.hom (ξ L Ω ≫ jL)
       (U.genericExtensionMorphism Ω) hpoint).toMonoidHom
-    letI : Algebra κ L := ((algebraMap K L).comp (algebraMap κ K)).toAlgebra
-    letI : IsScalarTower κ K L := IsScalarTower.of_algebraMap_eq' rfl
-    letI : IsScalarTower κ L Ω := by
+    let : Algebra κ L := ((algebraMap K L).comp (algebraMap κ K)).toAlgebra
+    let : IsScalarTower κ K L := IsScalarTower.of_algebraMap_eq' rfl
+    let : IsScalarTower κ L Ω := by
       apply IsScalarTower.of_algebraMap_eq'
       ext a
       change algebraMap κ Ω a = j (algebraMap K L (algebraMap κ K a))
       exact (IsScalarTower.algebraMap_apply κ K Ω a).trans
         (j.commutes (algebraMap κ K a)).symm
-    letI : IsFiniteEtale (show W.left ⟶ U from W.hom) := W.prop
-    letI : CompactSpace W.left :=
+    let : IsFiniteEtale (show W.left ⟶ U from W.hom) := W.prop
+    let : CompactSpace W.left :=
       QuasiCompact.compactSpace_of_compactSpace (show W.left ⟶ U from W.hom)
     ∃ (Mc : CurveModel κ L) (jW : W.left ⟶ Mc.C) (hopen : IsOpenImmersion jW),
       letI : IsOpenImmersion jW := hopen
@@ -388,7 +359,7 @@ theorem connectedCover_abelianized_cuspSaturation_eq_boundaryRanges
       ∀ (Qc : ∀ r : Mc.openBoundaryPlaces jW,
           Ideal (normalizationCommAlgCat r.val.toValuationSubring Ω))
         (hQc : ∀ r, (Qc r).IsMaximal),
-        letI : ∀ r, (Qc r).IsMaximal := hQc
+        let : ∀ r, (Qc r).IsMaximal := hQc
         (TopologicalAbelianization.mk H) ''
           {h : H | i h ∈ conjugacySaturation
             (⋃ p : M.openBoundaryPlaces jU,
@@ -398,44 +369,10 @@ theorem connectedCover_abelianized_cuspSaturation_eq_boundaryRanges
           ⋃ r : Mc.openBoundaryPlaces jW,
             ((boundaryPlaceInertiaHom Mc jW hjW hcover Qc r).toMonoidHom.range :
               Set (TopologicalAbelianization H)) := by
+  intro integral K L baseAlgebra finiteExtension separableExtension g j
+    ambientAlgebra ambientTower sepClosure jL hpoint H i coefficientAlgebra
+    coefficientTower constantAmbientTower finiteEtale compact
   classical
-  let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
-  let K := U.functionField
-  let L := W.left.functionField
-  let G := Aut (fiber (Spec.map (CommRingCat.ofHom (algebraMap U.functionField Ω)) ≫
-                  U.fromSpecStalk (genericPoint U)))
-  let : Algebra K L := finiteEtaleFunctionFieldAlgebra W
-  let : FiniteDimensional K L :=
-    finiteDimensional_functionField_of_finiteEtale_isConnected W
-  let : Algebra.IsSeparable K L :=
-    isSeparable_functionField_of_finiteEtale_isConnected W
-  let g := fiberObjEquivHom (U.genericExtensionMorphism Ω) W w
-  let j := finiteEtaleGenericHomFunctionFieldAlgHom W g
-  let : Algebra L Ω := j.toRingHom.toAlgebra
-  let : IsScalarTower K L Ω := by
-    apply IsScalarTower.of_algebraMap_eq'
-    ext a
-    exact (j.commutes a).symm
-  let : IsSepClosure L Ω :=
-    ⟨IsSepClosure.sep_closed K,
-      Algebra.isSeparable_tower_top_of_isSeparable K L Ω⟩
-  let jL := W.left.fromSpecStalk (genericPoint W.left)
-  let hpoint : (ξ L Ω ≫ jL) ≫ W.hom = U.genericExtensionMorphism Ω :=
-    finiteEtaleGenericHomFunctionFieldAlgHom_spec_comp W g
-  let H := π₁ᵉᵗ(ξ L Ω ≫ jL)
-  let i : H →* G := (pointedFundamentalGroupHom W.hom (ξ L Ω ≫ jL)
-    (U.genericExtensionMorphism Ω) hpoint).toMonoidHom
-  let : Algebra κ L := ((algebraMap K L).comp (algebraMap κ K)).toAlgebra
-  let : IsScalarTower κ K L := IsScalarTower.of_algebraMap_eq' rfl
-  let : IsScalarTower κ L Ω := by
-    apply IsScalarTower.of_algebraMap_eq'
-    ext a
-    change algebraMap κ Ω a = j (algebraMap K L (algebraMap κ K a))
-    exact (IsScalarTower.algebraMap_apply κ K Ω a).trans
-      (j.commutes (algebraMap κ K a)).symm
-  let : IsFiniteEtale (show W.left ⟶ U from W.hom) := W.prop
-  let : CompactSpace W.left :=
-    QuasiCompact.compactSpace_of_compactSpace (show W.left ⟶ U from W.hom)
   obtain ⟨Mc, jW, hopen, hjW, hcover, _hstruct, hRanges⟩ :=
     connectedCover_abelianized_cuspSaturation_eq_boundaryRanges_with_base
       M jU hjU hbase Qfamily W w

@@ -10,16 +10,20 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
-import Nyll.AlgebraicCurves.Divisors.Maps.Maps
-import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegPosFiniteDimensional
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncDegNeZero
-import Mathlib.RingTheory.Algebraic.Basic
-import Mathlib.FieldTheory.RatFunc.Basic
+module
+
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+public import Nyll.AlgebraicCurves.Divisors.Maps.Maps
+public import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegPosFiniteDimensional
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncDegNeZero
+public import Mathlib.RingTheory.Algebraic.Basic
+public import Mathlib.FieldTheory.RatFunc.Basic
 
 /-!
 # Place deg ne zero of finite Dimensional adjoin
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

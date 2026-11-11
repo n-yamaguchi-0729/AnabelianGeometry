@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentNormalizationRamification
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalCyclicGalois
-import Nyll.EtaleFundamentalGroups.FiniteEtale.GenericFiber.FractionField
-import Nyll.AlgebraicCurves.Places.Rational.Basic
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentNormalizationRamification
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalCyclicGalois
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.GenericFiber.FractionField
+public import Nyll.AlgebraicCurves.Places.Rational.Basic
 
 /-!
 # The actual generic extension of a finite etale Laurent domain
@@ -17,6 +19,8 @@ by the fraction-field lift of its original algebra map. The generic fibre surjec
 field, proving finiteness and producing its etale normalization. Ramification on the Laurent
 chart and the proved two-branch theorem then make this actual extension cyclic Galois.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,8 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
-import Nyll.JacobianVarieties.Kummer.OpenBoundaryRealization
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
+public import Nyll.JacobianVarieties.Kummer.OpenBoundaryRealization
+public import Nyll.SchemeTheory.FunctionFields.StructureMorphism
 
 /-!
 # The boundary residue relation
@@ -16,6 +19,10 @@ is zero. Together with boundary realization this identifies the residue
 image; it does not assert the still separate open-curve H¹ comparison.
 -/
 
+@[expose] public section
+
+universe u v
+
 noncomputable section
 
 open scoped BigOperators
@@ -25,7 +32,7 @@ namespace AlgebraicCurve.CurveModel
 /-- Boundary residues of an actual function unramified off a finite set
 satisfy the degree-zero relation. -/
 theorem sum_openKummerResidue_eq_zero
-    {K F : Type} [Field K] [IsAlgClosed K]
+    {K : Type u} {F : Type v} [Field K] [IsAlgClosed K]
     [Field F] [Algebra K F] [IsCurveOver K F]
     (M : CurveModel K F) (S : Finset (Place K F)) (n : ℕ+)
     (u : Pic0.openKummerUnits K F (S : Set (Place K F)) n) :
@@ -75,7 +82,7 @@ theorem sum_openKummerResidue_eq_zero
 
 /-- The same boundary relation, indexed by a finite set as a subtype. -/
 theorem sum_openKummerResidue_eq_zero_set
-    {K F : Type} [Field K] [IsAlgClosed K]
+    {K : Type u} {F : Type v} [Field K] [IsAlgClosed K]
     [Field F] [Algebra K F] [IsCurveOver K F]
     (M : CurveModel K F) (S : Set (Place K F)) [Fintype S] (n : ℕ+)
     (u : Pic0.openKummerUnits K F S n) :

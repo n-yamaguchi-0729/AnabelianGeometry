@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.KummerTheory.RatFuncPairSquareCoefficientMap
-import Nyll.SchemeTheory.FunctionFields.OpenChartGenericPoints
-import Nyll.AlgebraicCurves.Models.Charts.OpenChartGenericPoints
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.RatFuncPairSquareCoefficientMap
+public import Nyll.SchemeTheory.FunctionFields.OpenChartGenericPoints
+public import Nyll.AlgebraicCurves.Models.Charts.OpenChartGenericPoints
 
 /-! # The unchanged square-map generic triangle after actual base change
 
@@ -13,6 +15,8 @@ The two projections of the actual projective base-change square determine the
 map. Its generic triangle follows from the same coefficient-compatible pair
 square homomorphisms, without a dominance premise or a new coordinate choice.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve TopologicalSpace
 open AnabelianGeometry.KummerTheory

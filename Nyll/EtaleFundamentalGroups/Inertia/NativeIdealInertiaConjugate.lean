@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Group.Subgroup.Map
-import Mathlib.RingTheory.Ideal.Pointwise
+module
+
+public import Mathlib.Algebra.Group.Subgroup.Map
+public import Mathlib.RingTheory.Ideal.Pointwise
 
 /-!
 # Conjugation of original ideal inertia
@@ -13,6 +15,8 @@ import Mathlib.RingTheory.Ideal.Pointwise
 Constructs conjugation by an ideal stabilizer element on the original ideal inertia group and
 records its underlying group expression.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

@@ -4,7 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.CuspidalInertia.FiniteQuotientSeparation
+module
+
+public import Nyll.AnabelianGeometry.CuspidalInertia.FiniteQuotientSeparation
+public import Nyll.ProCGroups.ProC.OpenNormalSubgroups.Separation
 
 /-!
 # Simultaneous separation of compact families
@@ -13,6 +16,8 @@ Two disjoint compact subsets of a profinite group remain disjoint in one
 finite quotient. This permits extending characters while controlling an
 entire compact family of inertia elements.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.CuspidalInertia
 

@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.FiberTranslation
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiberTranslation
 
 /-!
 # Functoriality of the actual sheaf of lifts
@@ -13,6 +15,8 @@ A morphism of extensions which is the identity on kernel and quotient induces
 a morphism of their lift sheaves. This morphism commutes with every constant
 coefficient translation, directly from the original additive sheaf morphism.
 -/
+
+@[expose] public section
 
 noncomputable section
 

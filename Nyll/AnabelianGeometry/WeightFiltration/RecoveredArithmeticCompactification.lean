@@ -4,13 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Construction.LiteralArithmeticCurveModel
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverSquareBoundary
-import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverGeometricIntegrality
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.CoefficientPullback
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Geometry
-import Mathlib.RingTheory.Etale.Field
+module
+
+public import Nyll.AlgebraicCurves.Models.Construction.LiteralArithmeticCurveModel
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverSquareBoundary
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverGeometricIntegrality
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.CoefficientPullback
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Geometry
+public import Mathlib.RingTheory.Etale.Field
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
 
 /-! # Compactifying the actual recovered arithmetic cover
 
@@ -20,6 +23,8 @@ recovery of the original geometric cover. The literal arithmetic base model
 then supplies a compactification of this very source. No relative relation,
 compactification kernel, weight comparison, or freeness is a hypothesis.
 -/
+
+@[expose] public section
 
 noncomputable section
 

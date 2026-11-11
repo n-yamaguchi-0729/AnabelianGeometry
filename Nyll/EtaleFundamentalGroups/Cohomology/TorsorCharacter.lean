@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Torsor.Basic
-import Mathlib.Topology.Algebra.MulAction
-import Mathlib.Topology.Algebra.ContinuousMonoidHom
-import Nyll.ProCGroups.Abelian.TopologicalAbelianization
+module
+
+public import Mathlib.Algebra.Torsor.Basic
+public import Mathlib.Topology.Algebra.MulAction
+public import Mathlib.Topology.Algebra.ContinuousMonoidHom
+public import Nyll.ProCGroups.Abelian.TopologicalAbelianization
 
 /-!
 # Characters obtained from monodromy on abelian torsors
@@ -17,6 +19,8 @@ determines a continuous character. Its value is displacement of any chosen
 point; commutativity makes the answer independent of that point. This is the
 group-theoretic part of the degree-one étale cohomology comparison.
 -/
+
+@[expose] public section
 
 noncomputable section
 

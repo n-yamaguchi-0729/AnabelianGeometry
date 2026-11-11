@@ -4,10 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.LiteralArithmeticBoundaryWeight
-import Nyll.AlgebraicCurves.Geometry.Schemes.Points.FiniteIntermediateFieldSection
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldTower
-import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
+module
+
+public import Nyll.GaloisCohomology.FieldTheory.FinitelyGeneratedExtensions
+public import Nyll.AnabelianGeometry.WeightFiltration.LiteralArithmeticBoundaryWeight
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Points.FiniteIntermediateFieldSection
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldTower
+public import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
 
 /-!
 # Actual weight identification after a finite coefficient refinement
@@ -17,6 +20,8 @@ in Omega are kept fixed. Only the coefficient field is refined inside the
 fixed kappa. The recovery is the literal tower comparison followed by the
 original R, and the base point is pulled back by its actual inverse.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -30,11 +35,10 @@ namespace AnabelianGeometry.WeightFiltration
 private theorem isSepClosure_of_ringEquiv
     {K L Omega : Type} [Field K] [Field L] [Field Omega]
     [Algebra L Omega] [IsSepClosure L Omega] (e : K ≃+* L) :
-    letI : Algebra K Omega :=
+    let : Algebra K Omega :=
       ((algebraMap L Omega).comp e.toRingHom).toAlgebra
     IsSepClosure K Omega := by
-  let : Algebra K Omega :=
-    ((algebraMap L Omega).comp e.toRingHom).toAlgebra
+  intro transportedAlgebra
   have he : (algebraMap K Omega).comp e.symm.toRingHom =
       (RingEquiv.refl Omega).toRingHom.comp (algebraMap L Omega) := by
     ext a
@@ -48,12 +52,10 @@ private theorem genericPoint_of_recovery_inverse
     {Y W : Scheme} [IsIntegral Y] [IsIntegral W] (R : Y ≅ W)
     {Omega : Type} [Field Omega] [Algebra W.functionField Omega] :
     let e := R.inv.functionFieldRingEquivOfIsOpenImmersion
-    letI : Algebra Y.functionField Omega :=
+    let : Algebra Y.functionField Omega :=
       ((algebraMap W.functionField Omega).comp e.toRingHom).toAlgebra
     Y.genericExtensionMorphism Omega = W.genericExtensionMorphism Omega ≫ R.inv := by
-  let e := R.inv.functionFieldRingEquivOfIsOpenImmersion
-  let : Algebra Y.functionField Omega :=
-    ((algebraMap W.functionField Omega).comp e.toRingHom).toAlgebra
+  intro e transportedAlgebra
   let hR : DenseRange R.inv := R.inv.homeomorph.surjective.denseRange
   change Spec.map (CommRingCat.ofHom
     ((algebraMap W.functionField Omega).comp e.toRingHom)) ≫
@@ -73,7 +75,7 @@ private theorem genericPoint_of_recovery_inverse
 /-- Apply the existing weight theorem at the original recovered point.
 The embedding into Omega is transported through the actual inverse R.inv. -/
 theorem recoveredArithmetic_compactification_kernel_eq_openCyclotomicSpan
-    (E kappa : Type) [Field E] [NumberField E]
+    (E kappa : Type) [Field E] [CharZero E] [Field.FG E]
     [Field kappa] [CharZero kappa] [IsAlgClosed kappa]
     [Algebra E kappa] [IsSepClosure E kappa]
     {C U W : Scheme} [CompactSpace U] [QuasiSeparatedSpace U] [IsIntegral W]
@@ -110,7 +112,7 @@ theorem recoveredArithmetic_compactification_kernel_eq_openCyclotomicSpan
 weight identification, without changing the recovered geometric cover.
 The displayed recovery and point are literal composites, not new choices. -/
 theorem exists_finiteIntermediateField_recovered_compactification_weight
-    (E kappa : Type) [Field E] [NumberField E]
+    (E kappa : Type) [Field E] [CharZero E] [Field.FG E]
     [Field kappa] [CharZero kappa] [IsAlgClosed kappa]
     [Algebra E kappa] [IsSepClosure E kappa]
     {C U W : Scheme} [CompactSpace U] [QuasiSeparatedSpace U] [IsIntegral W]
@@ -156,7 +158,10 @@ theorem exists_finiteIntermediateField_recovered_compactification_weight
   obtain ⟨F, hF, _p, _hp, ⟨epsilon⟩⟩ :=
     Scheme.exists_finiteIntermediateField_section E kappa c
   let : FiniteDimensional E F := hF
-  let : NumberField F := NumberField.of_module_finite E F
+  let _hcharF : CharZero F :=
+    charZero_of_injective_algebraMap (algebraMap E F).injective
+  let : Field.FG F :=
+    FieldTheory.fg_of_finiteDimensional E F (inferInstance : Field.FG E)
   let : IsSepClosure F kappa :=
     ⟨IsSepClosure.sep_closed E,
       Algebra.isSeparable_tower_top_of_isSeparable E F kappa⟩

@@ -11,18 +11,22 @@ Upstream NOTICE: https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b3
 Upstream per-file ATTRIBUTION (earlier FLT and Mathlib notices): https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/ATTRIBUTION.md
 -/
 
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Nyll.AlgebraicCurves.Divisors.Maps.Maps
-import Nyll.AlgebraicCurves.Places.Evaluation.EvalAtAlgebraMapEqEvalAtRestrict
-import Nyll.AlgebraicCurves.Places.Basic
-import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegEqOneIsRational
-import Nyll.AlgebraicCurves.Divisors.Maps.MapSupport
-import Nyll.AlgebraicCurves.Places.NormTrace.EvalAtNormEqProdFiber
-import Nyll.AlgebraicCurves.Places.Restriction.PairwiseDisjointFiber
+module
+
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.AlgebraicCurves.Divisors.Maps.Maps
+public import Nyll.AlgebraicCurves.Places.Evaluation.EvalAtAlgebraMapEqEvalAtRestrict
+public import Nyll.AlgebraicCurves.Places.Basic
+public import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegEqOneIsRational
+public import Nyll.AlgebraicCurves.Divisors.Maps.MapSupport
+public import Nyll.AlgebraicCurves.Places.NormTrace.EvalAtNormEqProdFiber
+public import Nyll.AlgebraicCurves.Places.Restriction.PairwiseDisjointFiber
 
 /-!
 # Evaluation Maps
 -/
+
+@[expose] public section
 
 section
 

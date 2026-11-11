@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationLocalAmbient
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteLocalResidue
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationLocalAmbient
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteLocalResidue
 
 /-!
 # Base coefficients in actual finite local normalizations
@@ -13,6 +15,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteLocalResidue
 An ambient coefficient which comes from the original base ring has the same
 residue through the actual finite local map and the original normalization.
 -/
+
+@[expose] public section
 
 noncomputable section
 

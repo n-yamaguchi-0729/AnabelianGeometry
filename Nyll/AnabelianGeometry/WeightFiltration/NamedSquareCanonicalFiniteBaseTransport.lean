@@ -6,6 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareFiniteBaseFiberTransport
 import Nyll.AnabelianGeometry.WeightFiltration.QuadraticScalarCanonicalBaseEquivariance
 import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConstantFieldStrictTransport
+import Nyll.ProCGroups.Topologies.ArithmeticInnerCorrectionFiberTransport
 
 /-! # Canonical finite-base transport of named square fibers -/
 

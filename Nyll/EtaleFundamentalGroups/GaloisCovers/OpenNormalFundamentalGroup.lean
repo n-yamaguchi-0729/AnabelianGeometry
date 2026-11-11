@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenNormalUniverse
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCover
-import Mathlib.GroupTheory.Index
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenNormalUniverse
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCover
+public import Mathlib.GroupTheory.Index
 
 /-!
 # Fundamental groups of covers attached to open normal subgroups
@@ -16,6 +18,8 @@ finite étale Galois cover.  Choosing the point above the original geometric
 point identifies the fundamental group of the cover with that subgroup as a
 topological group.
 -/
+
+@[expose] public section
 
 noncomputable section
 

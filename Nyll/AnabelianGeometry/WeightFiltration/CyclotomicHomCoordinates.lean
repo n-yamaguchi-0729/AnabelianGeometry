@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsCharacters
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsResidueAction
-import Nyll.ProCGroups.Abelian.FullTateRestriction
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsCharacters
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsResidueAction
+public import Nyll.ProCGroups.Abelian.FullTateRestriction
 
 /-!
 # Scalar coordinates of actual cyclotomic homomorphisms
@@ -15,6 +17,8 @@ Equivariance and the roots action at a single exponent give the scalar
 identity at that torsion coordinate. No scalar action on the full roots
 source, projection surjectivity, or continuity hypothesis is used.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.WeightFiltration
 

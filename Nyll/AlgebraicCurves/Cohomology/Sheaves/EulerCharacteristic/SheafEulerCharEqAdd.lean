@@ -10,20 +10,24 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Algebra.Homology.HomologicalComplex
-import Mathlib.Algebra.Homology.HomologicalComplexAbelian
-import Mathlib.Algebra.Homology.ShortComplex.HomologicalComplex
-import Mathlib.Algebra.Homology.ShortComplex.ModuleCat
-import Mathlib.Algebra.Homology.HomologySequence
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.OModulePresheafEulerChar
-import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafHom
-import Nyll.SchemeTheory.Cohomology.Sheaves.ModulePresheafDCompD
-import Nyll.SchemeTheory.HomologicalAlgebra.FiniteDimensionalExactSequences
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.SubsingletonHSuccEulerCharEqSumRange
+module
+
+public import Mathlib.Algebra.Homology.HomologicalComplex
+public import Mathlib.Algebra.Homology.HomologicalComplexAbelian
+public import Mathlib.Algebra.Homology.ShortComplex.HomologicalComplex
+public import Mathlib.Algebra.Homology.ShortComplex.ModuleCat
+public import Mathlib.Algebra.Homology.HomologySequence
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.OModulePresheafEulerChar
+public import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafHom
+public import Nyll.SchemeTheory.Cohomology.Sheaves.ModulePresheafDCompD
+public import Nyll.SchemeTheory.HomologicalAlgebra.FiniteDimensionalExactSequences
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.SubsingletonHSuccEulerCharEqSumRange
 
 /-!
 # OModule Presheaf euler Char eq add of aff SES
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

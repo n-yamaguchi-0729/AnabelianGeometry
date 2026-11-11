@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+module
+
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
 
 /-!
 # Place orders and normalized local valuations
@@ -13,6 +15,8 @@ The divisor-theoretic order of a nonzero integral element agrees with the
 normalized additive valuation of the place's DVR. Constants of characteristic
 zero give a residue field of characteristic zero.
 -/
+
+@[expose] public section
 
 noncomputable section
 

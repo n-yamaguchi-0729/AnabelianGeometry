@@ -3,13 +3,17 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareChosenInertiaEndpoint
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareGeometricBoundaryLabels
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareModelInertiaCaller
-import Nyll.AlgebraicCurves.Models.Ramification.BoundaryNormalizationPrimes
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareChosenInertiaEndpoint
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareGeometricBoundaryLabels
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareModelInertiaCaller
+public import Nyll.AlgebraicCurves.Models.Ramification.BoundaryNormalizationPrimes
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
 
 /-! # Chosen label inertia in named square models -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve

@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Mathlib.Algebra.Field.Basic
-import Mathlib.Algebra.Ring.Commute
+module
+
+public import Mathlib.Algebra.Field.Basic
+public import Mathlib.Algebra.Ring.Commute
 
 /-! # A global sign is the only ambiguity in a quadratic fibre coordinate
 
@@ -12,6 +14,8 @@ This compares two coordinates on the SAME fibre with the SAME square equation.
 It does not compare roots chosen on different covers. Changing such a coordinate
 therefore preserves every ratio normalized at a retained point of that fibre.
 -/
+@[expose] public section
+
 noncomputable section
 
 namespace AnabelianGeometry.KummerTheory

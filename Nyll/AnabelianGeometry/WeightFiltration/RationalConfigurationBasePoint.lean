@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.GeometricBasePoint
-import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.SchemeIsomorphism
-import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationNakamura
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
-import Mathlib.AlgebraicGeometry.Geometrically.Connected
+module
+
+public import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.GeometricBasePoint
+public import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.SchemeIsomorphism
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationNakamura
+public import Nyll.GaloisCohomology.FieldTheory.NumberFieldFiniteGeneration
+public import Mathlib.Algebra.Field.Subfield.Basic
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
+public import Mathlib.AlgebraicGeometry.Geometrically.Connected
 
 /-! # Weak rational-configuration reconstruction at arbitrary geometric points
 
@@ -17,6 +21,10 @@ restriction on the original pointed arithmetic isomorphism. The changes of
 base point are constructed on the actual fibre functors and corrected to
 preserve the arithmetic maps before the reconstruction theorem is applied.
 -/
+
+@[expose] public section
+
+universe u
 
 noncomputable section
 
@@ -31,7 +39,7 @@ namespace AnabelianGeometry.WeightFiltration
 /-- The complement of a finite rational configuration remains connected after
 every field extension. This uses its actual projective-line base-change chart. -/
 theorem rationalConfigurationOpen_geometricallyConnected
-    (k : Type) [Field k] [Infinite k]
+    (k : Type u) [Field k]
     (s : Finset (Projectivization k (k × k))) :
     GeometricallyConnected ((rationalConfigurationOpen s).ι ≫ π k 1) := by
   rw [GeometricallyConnected.eq_geometrically, geometrically_iff_of_commRing]
@@ -43,7 +51,7 @@ theorem rationalConfigurationOpen_geometricallyConnected
 rational-configuration opens. No generic-point or function-field algebra is
 supplied as input. -/
 theorem exists_projectiveTransformation_of_pointed_arithmeticFundamentalGroupEquiv
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     {Ωs Ωt : Type} [Field Ωs] [Field Ωt] [IsSepClosed Ωs] [IsSepClosed Ωt]
@@ -85,11 +93,12 @@ theorem exists_projectiveTransformation_of_pointed_arithmeticFundamentalGroupEqu
     k κ s t hs ht Ω₁ Ω₂ β hβ
 
 /-- The weak Isom equivalence for punctured projective lines with rational
-punctures over a number field, at arbitrary geometric base points. This is an
+punctures over a finitely generated field of characteristic zero, at arbitrary
+geometric base points. This is an
 existence equivalence; it does not assert that every input group isomorphism
 is induced by the reconstructed scheme isomorphism. -/
 theorem arithmeticFundamentalGroupEquiv_iff_schemeIso_of_rationalConfiguration
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     {Ωs Ωt : Type} [Field Ωs] [Field Ωt] [IsSepClosed Ωs] [IsSepClosed Ωt]

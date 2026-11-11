@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ProCGroups.ProC.OpenNormalSubgroups.Separation
-import Mathlib.Tactic.Push
+module
+
+public import Nyll.ProCGroups.ProC.OpenNormalSubgroups.Separation
+public import Mathlib.Tactic.Push
 
 /-!
 # Uniform finite-quotient separation of boundary generators
@@ -16,6 +18,8 @@ is chosen uniformly for the whole compact set, rather than separately
 for each generator. This is the compactness step used in the recognition
 of cuspidal inertia by open-subgroup abelianizations.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.CuspidalInertia
 

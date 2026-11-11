@@ -3,12 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalPairNamedResidues
-import Nyll.AnabelianGeometry.WeightFiltration.NamedCoverTransportActualConjugacy
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Genus.GenusFFRatFuncEqZeroAlgClosed
-import Nyll.JacobianVarieties.Kummer.RationalConfigurationPairKummerUnits
-import Nyll.AnabelianGeometry.WeightFiltration.NamedKummerFiniteResidue
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalPairNamedResidues
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedCoverTransportActualConjugacy
+public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Genus.GenusFFRatFuncEqZeroAlgClosed
+public import Nyll.JacobianVarieties.Kummer.RationalConfigurationPairKummerUnits
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedKummerFiniteResidue
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
 
 /-! # Actual pair Kummer cover transport for bare rational configurations
 
@@ -21,6 +24,8 @@ common unit power constructed by the boundary relations.
 This is the geometric cover-transport conclusion. Arithmetic specialization of
 cusp fibers and normalized cross-ratio reconstruction are separate later steps.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve AlgebraicGeometry.FiniteEtale
@@ -107,7 +112,7 @@ def RationalConfigurationNamedTransport
 /-- One fixed arithmetic isomorphism supplies simultaneous pair-cover comparisons
 for all exponents, without a residue or inertia-preservation hypothesis. -/
 theorem bare_rationalConfiguration_pair_namedCoverTransport
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]

@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteResidueAction
-import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationResidueAction
-import Nyll.EtaleFundamentalGroups.Inertia.ResidueMapCoefficientNaturality
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationResidueMap
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationInclusionSquare
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteResidueAction
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationResidueAction
+public import Nyll.EtaleFundamentalGroups.Inertia.ResidueMapCoefficientNaturality
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationResidueMap
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationInclusionSquare
 
 /-!
 # The actual finite residue-action square
@@ -17,6 +19,8 @@ The canonical residue embedding intertwines the actual finite stabilizer
 action and the original decomposition residue action. Every coefficient
 formula and the underlying inclusion square are independently proved.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

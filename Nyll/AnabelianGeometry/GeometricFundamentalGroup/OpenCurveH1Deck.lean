@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.SchemePullback
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverSquareBoundary
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverInvariants
-import Nyll.AlgebraicCurves.Models.Ramification.OpenCoverRiemannHurwitz
-import Nyll.AlgebraicCurves.Models.Points.RationalPointExistence
-import Nyll.JacobianVarieties.Kummer.OpenFiniteH1Cardinality
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.SchemePullback
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverSquareBoundary
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverInvariants
+public import Nyll.AlgebraicCurves.Models.Ramification.OpenCoverRiemannHurwitz
+public import Nyll.AlgebraicCurves.Models.Points.RationalPointExistence
+public import Nyll.JacobianVarieties.Kummer.OpenFiniteH1Cardinality
 
 /-!
 # Non-surjective actual H¹ pullback on hyperbolic open covers
@@ -18,6 +20,10 @@ Actual compactification, interior unramifiedness and boundary
 Riemann--Hurwitz force a strict increase in actual finite H¹ cardinality.
 No Euler characteristic or cohomological comparison is an input assumption.
 -/
+
+@[expose] public section
+
+universe uGeom uField₁ uField₂
 
 noncomputable section
 
@@ -30,9 +36,9 @@ namespace AnabelianGeometry
 attribute [local instance] CurveModel.isIntegral CurveModel.isProper CurveModel.smooth
 
 theorem not_surjective_open_finiteH1Pullback
-    {K F : Type} [Field K] [IsAlgClosed K] [CharZero K]
+    {K : Type uGeom} {F : Type uField₁} [Field K] [IsAlgClosed K] [CharZero K]
     [Field F] [Algebra K F]
-    (M : CurveModel K F) {X : Scheme}
+    (M : CurveModel K F) {X : Scheme.{uGeom}}
     [IsIntegral X] [IsNormalIntegral X] [IsLocallyNoetherian X] [CompactSpace X]
     (j : X ⟶ M.C) [IsOpenImmersion j] [QuasiCompact j] [QuasiSeparated j]
     (hboundary : (M.openBoundaryPlaces j).Nonempty)
@@ -40,12 +46,12 @@ theorem not_surjective_open_finiteH1Pullback
       2 * (genusFF K F : ℤ) + (M.openBoundaryPlaces_finite j).toFinset.card - 2)
     (W : FiniteEtale X) [IsGalois W] (σ : Aut W) (hσ : σ ≠ 1)
     (n : ℕ+) (hn : 1 < (n : ℕ))
-    {Ω : Type} [Field Ω] [IsSepClosed Ω] (geom : Spec (.of Ω) ⟶ W.left) :
+    {Ω : Type uGeom} [Field Ω] [IsSepClosed Ω] (geom : Spec (.of Ω) ⟶ W.left) :
     ¬ Function.Surjective (constantCohomologyPullback (X := W.left) (Y := X) W.hom
       (AddCommGrpCat.of (Additive (rootsOfUnity (n : ℕ) K))) 1) := by
   classical
   have : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
-  have : IsIntegral ((Functor.id Scheme).obj W.left) :=
+  have : IsIntegral ((Functor.id Scheme.{uGeom}).obj W.left) :=
     inferInstanceAs (IsIntegral W.left)
   have : IsIntegral ((Functor.fromPUnit X).obj W.right) :=
     inferInstanceAs (IsIntegral X)
@@ -105,7 +111,8 @@ theorem not_surjective_open_finiteH1Pullback
     (geom ≫ W.hom)
   have hN := N.natCard_open_finiteH1_eq_pow_genus_boundary εN k hkdense ⟨w, hw⟩ n geom
   let C := AddCommGrpCat.of (Additive (rootsOfUnity (n : ℕ) K))
-  have : Finite (Sheaf.H.{0} ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{0}).obj C) 1) :=
+  have : Finite
+      (Sheaf.H.{uGeom} ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{uGeom}).obj C) 1) :=
     Nat.finite_of_card_ne_zero (by rw [hM]; exact pow_ne_zero _ n.ne_zero)
   intro h
   have hle := Nat.card_le_card_of_surjective

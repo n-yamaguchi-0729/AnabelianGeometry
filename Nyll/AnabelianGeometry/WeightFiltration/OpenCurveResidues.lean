@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenDivisorCohomologyComparison
-import Nyll.JacobianVarieties.Kummer.OpenBoundaryRelation
-import Nyll.JacobianVarieties.Kummer.BoundaryResidueCardinality
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenDivisorCohomologyComparison
+public import Nyll.JacobianVarieties.Kummer.OpenBoundaryRelation
+public import Nyll.JacobianVarieties.Kummer.BoundaryResidueCardinality
 
 /-!
 # The residue sequence on actual open-curve cohomology
@@ -18,6 +20,10 @@ comparison of the first map with geometric pullback, inverse-limit
 exactness, and arithmetic equivariance are separate steps.
 -/
 
+@[expose] public section
+
+universe u v
+
 noncomputable section
 
 open AlgebraicGeometry CategoryTheory AlgebraicCurve
@@ -26,16 +32,16 @@ open scoped BigOperators
 namespace AnabelianGeometry.WeightFiltration
 
 /-- Actual finite-coefficient derived cohomology with constant roots of unity. -/
-abbrev FiniteKummerH1 (K : Type) [Field K] (X : Scheme) (n : ℕ+) :=
-  Sheaf.H.{0} ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{0}).obj
+abbrev FiniteKummerH1 (K : Type u) [Field K] (X : Scheme.{u}) (n : ℕ+) :=
+  Sheaf.H.{u} ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).obj
     (AddCommGrpCat.of (Additive (rootsOfUnity (n : ℕ) K)))) 1
 
-variable {K F : Type} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
+variable {K : Type u} {F : Type v} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
   (M : CurveModel K F) (n : ℕ+)
-  {X : Scheme} [IsIntegral X] [CompactSpace X]
+  {X : Scheme.{u}} [IsIntegral X] [CompactSpace X]
   (j : X ⟶ M.C) [IsOpenImmersion j] (hj : DenseRange j)
   (hn : IsUnit ((n : ℕ) : K))
-  {Ω : Type} [Field Ω] [IsSepClosed Ω] (xi : Spec (.of Ω) ⟶ X)
+  {Ω : Type u} [Field Ω] [IsSepClosed Ω] (xi : Spec (.of Ω) ⟶ X)
 
 /-- Boundary residues of an actual étale cohomology class. -/
 def finiteResidue :

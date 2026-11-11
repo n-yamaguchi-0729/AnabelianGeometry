@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Construction.Basic
-import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
-import Nyll.SchemeTheory.FunctionFields.StalkFunctoriality
-import Nyll.SchemeTheory.FunctionFields.OpenImmersion
+module
+
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
+public import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
+public import Nyll.SchemeTheory.FunctionFields.StalkFunctoriality
+public import Nyll.SchemeTheory.FunctionFields.OpenImmersion
 
 /-!
 # The actual function-field map of a semilinear curve automorphism
@@ -15,6 +17,8 @@ import Nyll.SchemeTheory.FunctionFields.OpenImmersion
 Compatibility on local sections identifies the existing semilinear field
 map with the actual function-field pullback of the scheme automorphism.
 -/
+
+@[expose] public section
 
 noncomputable section
 

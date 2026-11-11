@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertia
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationIntegralBaseInertia
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertia
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationIntegralBaseInertia
 
 /-!
 # Same generic monodromy image under a valuation-ring isomorphism
@@ -21,6 +23,8 @@ There are three action expressions to distinguish:
 The first two are compared explicitly below. The third is never substituted for
 one of them. In particular Q' has the wrapped normalization type explicitly.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory CategoryTheory.PreGaloisCategory AlgebraicCurve
@@ -133,6 +137,7 @@ variable {K F L Ω : Type} [Field K] [Field F] [Field L] [Field Ω]
   [Algebra p.toValuationSubring p'.toValuationSubring]
   [IsScalarTower p.toValuationSubring p'.toValuationSubring Ω]
 
+omit [IsSepClosure X.functionField Ω] in
 /-- A scalar-compatible valuation-ring isomorphism preserves the original
 inertia image at the SAME generic point of X. The transported prime is the
 canonical normalization comap, not an inertia-comparison hypothesis. -/
@@ -140,8 +145,8 @@ theorem genericPlaceInertia_eq_of_valuationRingEquiv
     (e : p.toValuationSubring ≃+* p'.toValuationSubring)
     (he : e.toRingHom = algebraMap p.toValuationSubring p'.toValuationSubring)
     (Q : Ideal (normalizationCommAlgCat p.toValuationSubring Ω)) :
-    letI : Algebra.IsIntegral p.toValuationSubring p'.toValuationSubring :=
-      algebraIsIntegral_of_ringEquiv e he
+    letI : Algebra.IsIntegral p.toValuationSubring p'.toValuationSubring := by
+      exact algebraIsIntegral_of_ringEquiv e he
     let Q' : Ideal (normalizationCommAlgCat p'.toValuationSubring Ω) :=
       Q.comap (normalizationIntegralBaseRingEquiv
         p.toValuationSubring p'.toValuationSubring Ω).toRingHom

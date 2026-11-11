@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameOrder
-import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationInertiaEquivalence
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.LocalTameCharacterGroupMap
-import Mathlib.Algebra.Category.Grp.Basic
+module
+
+public import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameOrder
+public import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationInertiaEquivalence
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.LocalTameCharacterGroupMap
+public import Mathlib.Algebra.Category.Grp.Basic
 
 /-!
 # Tame characters on original ideal inertia
@@ -16,6 +18,8 @@ import Mathlib.Algebra.Category.Grp.Basic
 Constructs the original ideal-inertia group object, its localization comparison, and the finite
 tame character on that original group.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -46,12 +50,11 @@ def finiteIdealTameCharacterGroupMap
     (B : Type u) [CommRing B] [IsDedekindDomain B]
     (G : Type u) [Group G] [Finite G] [MulSemiringAction G B]
     (Q : Ideal B) [Q.IsPrime] (hQ : Q ≠ ⊥) :
-    letI : IsDiscreteValuationRing (Localization.AtPrime Q) :=
+    let : IsDiscreteValuationRing (Localization.AtPrime Q) :=
       SchemeTheory.localizationAtPrime_isDiscreteValuationRing B Q hQ
     idealInertiaGroupObject B G Q →*
       localTameRootsGroupObject (Localization.AtPrime Q) (MulAction.stabilizer G Q) := by
-  letI : IsDiscreteValuationRing (Localization.AtPrime Q) :=
-    SchemeTheory.localizationAtPrime_isDiscreteValuationRing B Q hQ
+  intro sharedDefinitionOwner1
   exact (localTameCharacterGroupMap (Localization.AtPrime Q) (MulAction.stabilizer G Q)).comp
     (idealLocalizationInertiaGroupMap B G Q)
 

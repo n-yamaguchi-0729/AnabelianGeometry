@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperLocalFiniteEtaleSections
-import Nyll.SchemeTheory.Cohomology.Cech.TwoAffineOpenCover
-import Mathlib.RingTheory.TensorProduct.Maps
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperLocalFiniteEtaleSections
+public import Nyll.SchemeTheory.Cohomology.Cech.TwoAffineOpenCover
+public import Mathlib.RingTheory.TensorProduct.Maps
 
 /-!
 # Scalar sections after arbitrary base change
@@ -16,6 +18,8 @@ an isomorphism on the actual global-section map persists after arbitrary
 base change. This uses the proved section-algebra comparison and the actual
 tensor-product scalar inclusion, including nonflat residue-field changes.
 -/
+
+@[expose] public section
 
 noncomputable section
 

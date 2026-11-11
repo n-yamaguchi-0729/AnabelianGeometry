@@ -4,12 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.RationalCuspDecompositionConstants
-import Nyll.EtaleFundamentalGroups.Inertia.InertiaConjugateImage
-import Nyll.EtaleFundamentalGroups.GeometricFiber.SourceIsoGalois
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisPoint
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.RationalCuspDecompositionConstants
+public import Nyll.EtaleFundamentalGroups.Inertia.InertiaConjugateImage
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.SourceIsoGalois
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisPoint
 
 /-! # RationalCuspArithmeticNormalizer -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory
@@ -52,8 +56,9 @@ theorem exists_fieldSource_arithmetic_restriction_label
     ext x
     exact ((γ.restrictScalars k).restrictNormal_commutes κ x).symm
   have hq : fieldSourceAbsoluteGaloisHom F Ω j γ =
-      fiberSourceIso (ξ F Ω ≫ j) e ≪≫ eqToIso (congrArg fiber hsource) := by
+      Aut.of (fiberSourceIso (ξ F Ω ≫ j) e ≪≫ eqToIso (congrArg fiber hsource)) := by
     apply Aut.ext
+    apply Iso.ext
     ext W w
     apply (fiberObjEquivHom (ξ F Ω ≫ j) W).injective
     apply Over.OverMorphism.ext
@@ -116,6 +121,6 @@ theorem rationalCusp_arithmetic_normalizer_full_image
       obtain ⟨y, hy, heq⟩ := hx
       exact (MulAut.conj (q d.val)).injective heq ▸ hy
   · rw [hα d.val, hd]
-    simp [mul_assoc]
+    simp only [mul_assoc, mul_inv_cancel_left, mul_inv_cancel, mul_one]
 
 end EtaleFundamentalGroups.Inertia

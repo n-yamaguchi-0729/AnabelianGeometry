@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Nyll.SchemeTheory.Normalization.IntegralClosureAutomorphismRestriction
-import Mathlib.Algebra.Category.Grp.Basic
-import Mathlib.Algebra.Category.CommAlgCat.Basic
-import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
+module
+
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Nyll.SchemeTheory.Normalization.IntegralClosureAutomorphismRestriction
+public import Mathlib.Algebra.Category.Grp.Basic
+public import Mathlib.Algebra.Category.CommAlgCat.Basic
+public import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
 
 /-!
 # Normalization on automorphism group objects
@@ -16,6 +18,8 @@ import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
 Defines the coefficient automorphism group as a group object and the induced group morphism
 obtained by restriction to the normalization.
 -/
+
+@[expose] public section
 
 noncomputable section
 

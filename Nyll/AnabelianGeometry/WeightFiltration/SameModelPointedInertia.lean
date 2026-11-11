@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.NamedModelPointedInertia
-import Nyll.AnabelianGeometry.WeightFiltration.GenericPlaceInertiaChartImage
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaMap
-import Nyll.SchemeTheory.FunctionFields.OpenChartGenericPoints
-import Nyll.AlgebraicCurves.Models.Construction.Basic
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedModelPointedInertia
+public import Nyll.AnabelianGeometry.WeightFiltration.GenericPlaceInertiaChartImage
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaMap
+public import Nyll.SchemeTheory.FunctionFields.OpenChartGenericPoints
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
 
 /-! # The same place inertia in two actual charts of one geometric model
 
@@ -17,6 +19,8 @@ resulting pointed map carries the inertia of the same normalization prime
 exactly, before abelianization. This applies to the actual constant-field
 tower comparison and does not choose a new boundary correspondence.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicGeometry.FiniteEtale

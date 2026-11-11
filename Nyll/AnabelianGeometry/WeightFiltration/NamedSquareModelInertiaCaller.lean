@@ -3,15 +3,19 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.Places.Rational.Basic
-import Nyll.AnabelianGeometry.WeightFiltration.GenericPlaceInertiaRingEquiv
-import Nyll.AnabelianGeometry.WeightFiltration.NamedModelPointedInertia
-import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertiaImage
-import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverGenericPoint
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
-import Nyll.EtaleFundamentalGroups.Inertia.ChosenExtendingInertiaProjection
+module
+
+public import Nyll.AlgebraicCurves.Places.Rational.Basic
+public import Nyll.AnabelianGeometry.WeightFiltration.GenericPlaceInertiaRingEquiv
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedModelPointedInertia
+public import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertiaImage
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverGenericPoint
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+public import Nyll.EtaleFundamentalGroups.Inertia.ChosenExtendingInertiaProjection
 
 /-! # Named Square Model Inertia Caller -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory CategoryTheory.PreGaloisCategory

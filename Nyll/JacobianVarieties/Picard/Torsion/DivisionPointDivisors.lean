@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Pic0.MkEqNotMemSupport
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.AlgebraicPoints
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+module
+
+public import Nyll.JacobianVarieties.Pic0.MkEqNotMemSupport
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.AlgebraicPoints
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
 
 /-!
 # Divisor representatives of actual division points
@@ -18,6 +20,10 @@ with a function realizing its division relation. This lemma does not assert
 the later monodromy or cohomology comparison.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 
 open CategoryTheory AlgebraicGeometry AlgebraicCurve NeronModelInfra GoodReductionJacobian
@@ -27,9 +33,9 @@ namespace JacobianVarieties.Picard
 /-- Moving the inverse image of an algebraic division point supplies the
 division function and the support avoidance needed for Weil evaluation. -/
 theorem exists_divisor_of_algPoint_division
-    {K Ω F : Type} [Field K] [Field Ω] [Algebra K Ω]
+    {K Ω F : Type u} [Field K] [Field Ω] [Algebra K Ω]
     [Field F] [Algebra Ω F] [HasPrincipalDivisors Ω F]
-    {J : Scheme} {b : J ⟶ Spec (.of K)}
+    {J : Scheme.{u}} {b : J ⟶ Spec (.of K)}
     (G : RelativeGroupLaw K b) (hc : G.IsCommutative)
     (e : Pic0 Ω F ≃+ G.AlgPoints hc Ω)
     (n : ℕ) (Q : G.AlgPoints hc Ω)

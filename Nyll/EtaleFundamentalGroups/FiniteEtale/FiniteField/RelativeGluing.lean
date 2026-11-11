@@ -4,7 +4,9 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Christian Merten, Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.SchemeTheory.FiniteEtale.RelativeGluing
+module
+
+public import Nyll.SchemeTheory.FiniteEtale.RelativeGluing
 
 /-!
 # Compatibility name for general scheme gluing
@@ -12,6 +14,8 @@ import Nyll.SchemeTheory.FiniteEtale.RelativeGluing
 The general construction is owned by SchemeTheory; this file retains its
 existing finite-field consumer name.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups
 

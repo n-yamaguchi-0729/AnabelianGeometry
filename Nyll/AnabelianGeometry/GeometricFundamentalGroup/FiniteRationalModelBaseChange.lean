@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteGenusZeroOpenModel
-import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.OpenBaseChange
-import Nyll.AnabelianGeometry.ProjectiveLine.ConfigurationScalarExtension
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationIteratedBaseChange
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.HasPullback
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteGenusZeroOpenModel
+public import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.OpenBaseChange
+public import Nyll.AnabelianGeometry.ProjectiveLine.ConfigurationScalarExtension
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationIteratedBaseChange
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.HasPullback
 
 /-! # Finite rational models in the native constant-cover convention
 
@@ -16,6 +18,8 @@ The geometric inverse-image open is compared with the native constant cover.
 A model over an intermediate field can subsequently be extended to a larger
 constant field, with the coefficient projection retained exactly.
 -/
+
+@[expose] public section
 
 noncomputable section
 

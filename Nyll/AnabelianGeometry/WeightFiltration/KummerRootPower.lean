@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.KummerExponentReduction
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverGenericCharacter
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.KummerExponentReduction
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverGenericCharacter
 
 /-!
 # Power transitions on roots and generic Kummer monodromy
@@ -14,6 +16,10 @@ import Nyll.JacobianVarieties.Kummer.OpenCurveCoverGenericCharacter
 A root for a product exponent gives a root for the smaller exponent by taking
 a power. The original geometric monodromy characters respect this operation.
 -/
+
+@[expose] public section
+
+universe u v
 
 noncomputable section
 
@@ -23,14 +29,14 @@ namespace AnabelianGeometry.WeightFiltration
 
 /-- Generic monodromy commutes with the power transition on coefficients. -/
 theorem openKummerCharacter_generic_power
-    {K F : Type} [Field K] [IsSepClosed K] [Field F] [Algebra K F]
+    {K : Type u} {F : Type v} [Field K] [IsSepClosed K] [Field F] [Algebra K F]
     (M : CurveModel K F) (S : Set (Place K F)) (m k : ℕ+)
     (u : Pic0.openKummerUnits K F S (m * k))
-    {X : Scheme} [IsIntegral X] [CompactSpace X]
+    {X : Scheme.{u}} [IsIntegral X] [CompactSpace X]
     (j : X ⟶ M.C) [IsOpenImmersion j] (hj : DenseRange j)
     (hi : ∀ (y : X) (x : closedPoints M.C), x.val = j y → M.placeOfPoint x ∉ S)
     (hm : IsUnit ((m : ℕ) : K)) (hmk : IsUnit (((m * k : ℕ+) : ℕ) : K))
-    {Ω : Type} [Field Ω] [Algebra X.functionField Ω]
+    {Ω : Type u} [Field Ω] [Algebra X.functionField Ω]
     [IsSepClosed Ω] [IsSepClosure X.functionField Ω]
     (β : Ωˣ) (hβ : (β : Ω) ^ ((m * k : ℕ+) : ℕ) =
       algebraMap X.functionField Ω (j.functionFieldMap hj (M.ffEquiv (u.val : F))))

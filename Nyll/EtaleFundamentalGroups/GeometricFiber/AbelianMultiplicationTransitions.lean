@@ -4,15 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.AlgebraicPoints
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.Kernel
-import Nyll.AbelianVarieties.Tate.FullTateModule
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawSchemeNsmulCompEqCompSchemeNsmul
-import Nyll.AlgebraicCurves.Geometry.Picard.GroupLaw.RelativeGroupLaw
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationCover
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
-import Nyll.ProCGroups.Abelian.FullTateModule
+module
+
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.AlgebraicPoints
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.Kernel
+public import Nyll.AbelianVarieties.Tate.FullTateModule
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawSchemeNsmulCompEqCompSchemeNsmul
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.Basic
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationCover
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+public import Nyll.ProCGroups.Abelian.FullTateModule
 
 /-!
 # Multiplication covers and Tate transitions
@@ -23,6 +25,10 @@ geometric fibres with torsion points, this morphism induces the multiplication
 transition used in the full Tate module.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry NeronModelInfra
@@ -31,10 +37,10 @@ open RelativeGroupLaw_schemeNsmul_comp_eq_comp_schemeNsmul_of_hom.S17Glue
 
 namespace GoodReductionJacobian.RelativeGroupLaw
 
-variable {K : Type} [Field K] {A : Scheme.{0}} {f : A ⟶ Spec (CommRingCat.of K)}
+variable {K : Type u} [Field K] {A : Scheme.{u}} {f : A ⟶ Spec (CommRingCat.of K)}
 variable (G : RelativeGroupLaw K f) (hc : G.IsCommutative)
 
-private theorem nsmul_nsmul_point {T : Scheme.{0}}
+private theorem nsmul_nsmul_point {T : Scheme.{u}}
     (t : T ⟶ Spec (CommRingCat.of K)) (n m : ℕ) (x : SchemeHomOver t f) :
     G.nsmul t n (G.nsmul t m x) = G.nsmul t (m * n) x := by
   let : Group (SchemeHomOver t f) := G.pointGroup t

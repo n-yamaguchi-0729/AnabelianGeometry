@@ -4,7 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.HenselianSpecialization
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.HenselianSpecialization
+public import Nyll.SchemeTheory.FiniteEtale.Algebra.PointSpecialization
 
 /-!
 # Equivariance of the actual specialization fiber isomorphism
@@ -12,6 +15,8 @@ import Nyll.EtaleFundamentalGroups.GeometricFiber.HenselianSpecialization
 This is the pointwise square for the constructed natural isomorphism, using
 actual spectrum precomposition on both geometric points.
 -/
+
+@[expose] public section
 
 noncomputable section
 

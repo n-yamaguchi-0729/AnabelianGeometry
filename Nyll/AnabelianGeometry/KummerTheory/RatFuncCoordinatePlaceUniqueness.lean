@@ -3,10 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.Places.Evaluation.PlaceValueRestrictAlong
-import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineStandardPlace
-import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairSquareMap
-import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
+module
+
+public import Nyll.AlgebraicCurves.Places.Evaluation.PlaceValueRestrictAlong
+public import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineStandardPlace
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairSquareMap
+public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
 
 /-! # Uniqueness of the place at a value of the unchanged rational coordinate
 
@@ -14,6 +16,8 @@ Restriction along the given coordinate equivalence is injective. Therefore a
 finite value of its original image of X determines the place, and the selected
 square-root labels restrict to the original target place with that value.
 -/
+@[expose] public section
+
 noncomputable section
 open AlgebraicCurve AlgebraicGeometry.ProjSpace
 open scoped RatFunc

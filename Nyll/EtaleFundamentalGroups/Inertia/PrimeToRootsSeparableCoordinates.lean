@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsSeparableClosure
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsSeparableClosure
 
 /-!
 # Coordinates of the concrete separable-root comparison
@@ -13,6 +15,8 @@ The inverse-system isomorphism uses the literal inclusion at every stage.
 Taking its proved projection equation and the underlying scalar gives the
 coefficient law without reopening a residue-field construction.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

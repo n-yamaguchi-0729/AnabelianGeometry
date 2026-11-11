@@ -4,8 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCovers.DeckIntermediateScheme
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1DeckKernel
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.DeckIntermediateScheme
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1DeckKernel
+public import Mathlib.CategoryTheory.Endomorphism
 
 /-! # Actual cyclic intermediate cover for a kernel element of deck H¹ action
 
@@ -14,6 +17,8 @@ produce an actual nontrivial relative Galois cover whose whole deck group
 acts trivially. The intermediate scheme and all action comparisons are
 constructed, rather than required as hypotheses.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -30,28 +35,30 @@ theorem exists_cyclicIntermediate_of_allFiniteH1Trivial
     (geom : Spec (.of Ω) ⟶ A.left)
     (σ : Aut A) (hσne : σ ≠ 1)
     (hσ : ∀ (C : AddCommGrpCat.{0}) [Finite C] c,
-      constantCohomologyPullback σ.hom.left C 1 c = c) :
+      constantCohomologyPullback σ.asIso.hom.left C 1 c = c) :
     ∃ (B : FiniteEtale S) (_ : ConnectedSpace B.left) (f : A ⟶ B),
       CategoryTheory.PreGaloisCategory.IsGalois (C := FiniteEtale B.left) (FiniteEtale.mk f.left) ∧
       (∃ ρ : Aut (FiniteEtale.mk f.left), ρ ≠ 1) ∧
       (∀ (C : AddCommGrpCat.{0}) [Finite C] (τ : Aut (FiniteEtale.mk f.left)) c,
-        constantCohomologyPullback τ.hom.left C 1 c = c) := by
+        constantCohomologyPullback τ.asIso.hom.left C 1 c = c) := by
   obtain ⟨B, hB, f, hG, hdeck, hrel⟩ :=
     FiniteEtale.exists_intermediate_finiteEtale_of_deckSubgroup A geom
       (Subgroup.zpowers (MulOpposite.op σ))
-  have hf : σ.hom ≫ f = f :=
+  have hf : σ.asIso.hom ≫ f = f :=
     (hdeck σ).mpr (Subgroup.mem_zpowers (MulOpposite.op σ))
   let e : A.left ≅ A.left :=
-    (FiniteEtale.forget S ⋙ Over.forget S).mapIso σ
+    (FiniteEtale.forget S ⋙ Over.forget S).mapIso σ.asIso
   have hef : e.hom ≫ f.left = f.left :=
     congrArg (fun k : A ⟶ B => k.left) hf
-  let ρ : Aut (FiniteEtale.mk f.left) := MorphismProperty.Over.isoMk e hef
+  let ρ : Aut (FiniteEtale.mk f.left) :=
+    Aut.of (MorphismProperty.Over.isoMk e hef)
   have hρ : ρ ≠ 1 := by
     intro h
     apply hσne
     apply Aut.ext
+    apply Iso.ext
     apply MorphismProperty.Over.Hom.ext
-    exact congrArg (fun t : Aut (FiniteEtale.mk f.left) => t.hom.left) h
+    exact congrArg (fun t : Aut (FiniteEtale.mk f.left) => t.asIso.hom.left) h
   refine ⟨B, hB, f, hG, ⟨ρ, hρ⟩, ?_⟩
   intro C hC τ c
   obtain ⟨τ', heq, hτ'⟩ := hrel τ

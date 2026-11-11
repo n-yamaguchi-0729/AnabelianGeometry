@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteGaloisRestrictionContinuity
-import Mathlib.Topology.LocallyConstant.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteGaloisRestrictionContinuity
+public import Mathlib.Topology.LocallyConstant.Basic
 
 /-!
 # Local constancy of actual finite normalization restriction
@@ -14,6 +16,8 @@ import Mathlib.Topology.LocallyConstant.Basic
 This ambient coefficient restriction is proved locally constant before the
 original inertia and the intrinsic finite inertia subgroups enter the scope.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

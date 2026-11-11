@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.ProjectiveLine.LinearFieldMap
-import Nyll.SchemeTheory.ProjectiveSpace.RationalPuncturePointInjective
-import Mathlib.FieldTheory.Galois.Basic
+module
+
+public import Nyll.AnabelianGeometry.ProjectiveLine.LinearFieldMap
+public import Nyll.SchemeTheory.ProjectiveSpace.RationalPuncturePointInjective
+public import Mathlib.FieldTheory.Galois.Basic
 
 /-! # Galois descent of projective transformations
 
@@ -14,6 +16,8 @@ Fixed projective points descend by their affine coordinate. The images of
 zero, infinity and one then descend a Galois-equivariant projective action.
 No fixed linear representative is assumed.
 -/
+
+@[expose] public section
 
 noncomputable section
 

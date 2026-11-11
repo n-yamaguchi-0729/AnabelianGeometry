@@ -4,13 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteNormalizationPrime
-import Nyll.SchemeTheory.RingTheory.Ramification.NormalizationGaloisInvariant
-import Mathlib.RingTheory.Ideal.GoingUp
-import Mathlib.RingTheory.Invariant.Profinite
+module
+
+public import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteNormalizationPrime
+public import Nyll.SchemeTheory.RingTheory.Ramification.NormalizationGaloisInvariant
+public import Mathlib.RingTheory.Ideal.GoingUp
+public import Mathlib.RingTheory.Invariant.Profinite
 
 /-! # Absolute prime orbits cover every finite normalization prime -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicCurve IsDedekindDomain

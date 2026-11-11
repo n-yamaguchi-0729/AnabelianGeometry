@@ -3,19 +3,23 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareMatchedPointModel
-import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationMatchedGenericAmbient
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralBaseTransport
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralGeometricMap
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineGenericPoints
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
-import Nyll.EtaleFundamentalGroups.GaloisCovers.FunctionField
-import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverGenericPoint
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareMatchedPointModel
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationMatchedGenericAmbient
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralBaseTransport
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralGeometricMap
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineGenericPoints
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.FunctionField
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverGenericPoint
 
 /-!
 # Literal generic points for named square models
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve TopologicalSpace
@@ -112,6 +116,7 @@ theorem namedSquareConstantProjectionChart_boundary_card :
     rw [namedSquareConstantProjectionChart_range k E κ s]
   rw [hplaces, rationalConfigurationBoundaryPlaces_card k κ s]
 
+omit [Infinite E] in
 theorem namedSquareLiteralModel_field
     (W : FiniteEtale G) [IsConnected W]
     (t : Finset (Projectivization E (E × E)))
@@ -155,6 +160,7 @@ theorem namedSquareLiteralModel_field
     ((projectiveLineRatFuncModel κ).ffEquiv z)
   exact (hfield z).trans h.symm
 
+omit [Infinite E] in
 theorem namedSquare_matchedModel_exists_literal_model
     (Ω : Type) [Field Ω] [IsSepClosed Ω]
     [Algebra (G).functionField Ω] [IsAlgClosure (G).functionField Ω]

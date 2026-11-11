@@ -4,14 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.CurveH1Cardinality
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.SmallBoundaryCharts
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroFundamentalGroup
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
-import Mathlib.Data.Nat.Log
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.CurveH1Cardinality
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.SmallBoundaryCharts
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroFundamentalGroup
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
+public import Mathlib.Data.Nat.Log
 
 /-! # Trivial geometric fundamental groups are exactly the (0,0) and (0,1) cases -/
+
+@[expose] public section
 
 noncomputable section
 

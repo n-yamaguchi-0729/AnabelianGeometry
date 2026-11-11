@@ -10,7 +10,10 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.RingTheory.RegularLocal.RegularLocalRingQuotientNonZeroDivisorAscent
+module
+
+public import Mathlib.RingTheory.Flat.TorsionFree
+public import Nyll.SchemeTheory.RingTheory.RegularLocal.RegularLocalRingQuotientNonZeroDivisorAscent
 
 /-!
 # Ascent of regular local rings through regular sequences
@@ -18,6 +21,8 @@ import Nyll.SchemeTheory.RingTheory.RegularLocal.RegularLocalRingQuotientNonZero
 Regularity ascends from a quotient by a regular sequence. The final examples show how
 this applies to p-adic integers and why regularity of the sequence is necessary.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteTameRootsSystem
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameCoordinate
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameValueTower
-import Nyll.EtaleFundamentalGroups.Inertia.RootsOfUnityDegreeEquiv
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteTameRootsSystem
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameCoordinate
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameValueTower
+public import Nyll.EtaleFundamentalGroups.Inertia.RootsOfUnityDegreeEquiv
 
 /-!
 # Canonical tame coordinates indexed by the actual degrees
@@ -17,6 +19,8 @@ the existing canonical e/n character. Its value is transported through the
 existing maximal-quotient residue equivalence. The evaluation theorem proves
 independence from the realizing stage.
 -/
+
+@[expose] public section
 
 noncomputable section
 

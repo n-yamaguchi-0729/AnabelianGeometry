@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Points.CompToBaseEqIdBaseClosedPointEq
-import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveFiniteMapDataLeIsUnit
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyIntegralAlgClosed
-import Nyll.AlgebraicCurves.Models.Charts.RangeSectionsEqMapEval2PolyPartInvPolyPart
-import Nyll.AlgebraicCurves.Places.Rational.Classification
-import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
+module
+
+public import Nyll.AlgebraicCurves.Models.Points.CompToBaseEqIdBaseClosedPointEq
+public import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveFiniteMapDataLeIsUnit
+public import Nyll.SchemeTheory.Morphisms.GeometricallyIntegralAlgClosed
+public import Nyll.AlgebraicCurves.Models.Charts.RangeSectionsEqMapEval2PolyPartInvPolyPart
+public import Nyll.AlgebraicCurves.Places.Rational.Classification
+public import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
 
 /-!
 # The affine chart obtained by removing infinity
@@ -20,6 +22,8 @@ The actual image of the section ring in the function field is then identified wi
 intersection of the finite valuation rings, hence with the polynomial ring. Both steps are
 proved for the given open subset, rather than supplied as comparison assumptions.
 -/
+
+@[expose] public section
 
 noncomputable section
 

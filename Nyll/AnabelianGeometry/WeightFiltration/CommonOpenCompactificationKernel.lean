@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Schemes.Morphisms.IsoCompEqOpenImmersion
-import Nyll.AnabelianGeometry.WeightFiltration.CompactificationAbelianization
+module
+
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Morphisms.IsoCompEqOpenImmersion
+public import Nyll.AnabelianGeometry.WeightFiltration.CompactificationAbelianization
 
 /-!
 # Comparing the actual kernels of two compactifications of the same open curve
@@ -14,6 +16,8 @@ Both open immersions and their common structural morphism are retained. The
 isomorphism of proper curves is constructed by the existing extension theorem;
 neither a kernel comparison nor an inertia-preservation equality is an input.
 -/
+
+@[expose] public section
 
 noncomputable section
 

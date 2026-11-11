@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperGeometricallyReducedSections
-import Nyll.SchemeTheory.Affine.SpecFlatBaseChangeSections
-import Mathlib.RingTheory.Etale.Descent
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperGeometricallyReducedSections
+public import Nyll.SchemeTheory.Affine.SpecFlatBaseChangeSections
+public import Mathlib.RingTheory.Etale.Descent
 
 /-!
 # Étale descent for proper global sections along a field extension
@@ -16,6 +18,8 @@ algebra with the global sections of the field-base-changed scheme.
 Geometric reducedness there supplies étaleness, which faithfully flat
 descent reflects to the original section algebra.
 -/
+
+@[expose] public section
 
 noncomputable section
 

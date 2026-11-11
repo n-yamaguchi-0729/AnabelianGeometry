@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.H1Character
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1Character
 
 /-!
 # Naturality of the degree-one étale comparison
@@ -13,6 +15,8 @@ Changing finite constant coefficients commutes with the canonical continuous
 character. The comparison of extensions is constructed from equality of their
 actual derived extension classes after applying the coefficient map.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -33,8 +37,7 @@ theorem h1Character_naturality {X : Scheme.{u}} [ConnectedSpace X]
     (discreteCoefficientHom α.hom).comp (h1Character A ξ a) =
       h1Character B ξ
         (Sheaf.H.map ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).map α) 1 a) := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
-  let : TopologicalSpace (Multiplicative B) := ⊥
+  intro sharedOwner1 sharedOwner2
   let c := (constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).map α
   obtain ⟨E, i, p, h, hs, ha⟩ := exists_h1_extension X _ a
   obtain ⟨E', i', p', h', hs', hb⟩ := exists_h1_extension X _ (Sheaf.H.map c 1 a)

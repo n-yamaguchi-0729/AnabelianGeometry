@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.NormalizationRamification
-import Nyll.EtaleFundamentalGroups.FiniteEtale.StalkFunctionFieldNormalization
-import Nyll.EtaleFundamentalGroups.Normalization.IntegralClosure.BaseRingEquiv
-import Nyll.EtaleFundamentalGroups.Normalization.Localization.Basic
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.NormalizationRamification
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.StalkFunctionFieldNormalization
+public import Nyll.EtaleFundamentalGroups.Normalization.IntegralClosure.BaseRingEquiv
+public import Nyll.EtaleFundamentalGroups.Normalization.Localization.Basic
 
 /-!
 # Ramification above an etale affine normalization
@@ -16,6 +18,8 @@ A place whose valuation ring contains a Dedekind affine coordinate ring has an a
 centre in that affine chart. Localizing the normalization at this centre identifies its
 base with the valuation ring, so etaleness on the chart implies ramification index one.
 -/
+
+@[expose] public section
 
 noncomputable section
 

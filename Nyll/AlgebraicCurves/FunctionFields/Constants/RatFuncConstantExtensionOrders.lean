@@ -4,12 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.FieldTheory.RatFunc.IntermediateField
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Algebra
-import Nyll.AlgebraicCurves.Places.ConstantExtension.ForgetConstantsRestrictEq
-import Nyll.AlgebraicCurves.Places.ConstantExtension.RamificationIndexForgetConstantsEqOneAdjoinRangeEqTop
+module
+
+public import Mathlib.FieldTheory.RatFunc.IntermediateField
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Algebra
+public import Nyll.AlgebraicCurves.Places.ConstantExtension.ForgetConstantsRestrictEq
+public import Nyll.AlgebraicCurves.Places.ConstantExtension.RamificationIndexForgetConstantsEqOneAdjoinRangeEqTop
 
 /-! # Exact normalized orders under algebraic constant extensions -/
+
+@[expose] public section
 
 noncomputable section
 

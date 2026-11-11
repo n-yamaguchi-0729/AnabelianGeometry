@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.IntrinsicBoundaryWeight
-import Mathlib.Topology.Constructions
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.IntrinsicBoundaryWeight
+public import Mathlib.Topology.Constructions
 
 /-!
 # Open restriction of the cyclotomic span
@@ -14,6 +16,8 @@ Restricting the acting group to an open subgroup does not alter the span.
 This is the group-theoretic step for passing to a finite field extension;
 comparison with actual geometric base change is a separate requirement.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.WeightFiltration
 

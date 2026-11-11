@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationCharZero
-import Nyll.AnabelianGeometry.WeightFiltration.LocalRadicalRatios
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationCharZero
+public import Nyll.AnabelianGeometry.WeightFiltration.LocalRadicalRatios
 
 /-!
 # Actual finite tame evaluation on local radicals
@@ -13,6 +15,8 @@ import Nyll.AnabelianGeometry.WeightFiltration.LocalRadicalRatios
 The coefficient unit is constructed from the actual action; it is not supplied
 as comparison data. Fixed powers make it a root of unity.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.GeometricGaloisDescent
-import Nyll.AnabelianGeometry.WeightFiltration.AlignedRationalModelAmbient
-import Nyll.AnabelianGeometry.ProjectiveLine.LinearSchemeScalarExtension
+module
+
+public import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.GeometricGaloisDescent
+public import Nyll.AnabelianGeometry.WeightFiltration.AlignedRationalModelAmbient
+public import Nyll.AnabelianGeometry.ProjectiveLine.LinearSchemeScalarExtension
 
 /-! # The same reconstructed finite isomorphism in its geometric charts
 
@@ -14,6 +16,8 @@ The isomorphism returned by split reconstruction is transported through the
 given finite models. Its scalar extension is compared with the literal
 pullback of that same isomorphism, retaining the actual model square.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry.SmoothProperCurve

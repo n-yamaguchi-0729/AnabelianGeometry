@@ -3,11 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertiaHom
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisNaturality
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertiaHom
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisNaturality
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
 
 /-! # Original place inertia in the prescribed field chart -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory CategoryTheory.PreGaloisCategory AlgebraicCurve

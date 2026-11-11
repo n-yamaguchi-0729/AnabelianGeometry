@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameIndex
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
-import Nyll.ProCGroups.InverseSystems.CofinalityAndDensity
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameIndex
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
+public import Nyll.ProCGroups.InverseSystems.CofinalityAndDensity
 
 /-!
 # The actual finite-order roots system at the original absolute prime
@@ -19,6 +21,8 @@ computed from the original DVR, separable closure and chosen maximal prime.
 No cofinality or character comparison is part of the definition; those must
 be proved from the actual uniformizer-radical stages.
 -/
+
+@[expose] public section
 
 noncomputable section
 

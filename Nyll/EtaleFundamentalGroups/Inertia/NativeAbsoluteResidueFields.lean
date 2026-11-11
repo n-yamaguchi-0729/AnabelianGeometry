@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationResidueDVR
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueCoefficient
-import Mathlib.CategoryTheory.ConcreteCategory.Bundled
-import Mathlib.Algebra.Category.CommAlgCat.Basic
-import Mathlib.RingTheory.Ideal.GoingUp
-import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationResidueDVR
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueCoefficient
+public import Mathlib.CategoryTheory.ConcreteCategory.Bundled
+public import Mathlib.Algebra.Category.CommAlgCat.Basic
+public import Mathlib.RingTheory.Ideal.GoingUp
+public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
 
 /-!
 # Native quotient residue fields and coefficient actions
@@ -18,6 +20,8 @@ Constructs bundled maximal quotient fields and their residue coefficient actions
 algebras. Proves algebraicity of these actions and specializes them to normalization residue
 fields.
 -/
+
+@[expose] public section
 
 noncomputable section
 

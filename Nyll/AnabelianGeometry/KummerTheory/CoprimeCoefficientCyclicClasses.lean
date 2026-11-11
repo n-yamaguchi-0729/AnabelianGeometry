@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.KummerTheory.NumberFieldPrimePowerSeparation
-import Mathlib.Data.Int.GCD
-import Mathlib.Data.ZMod.Basic
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.NumberFieldPrimePowerSeparation
+public import Mathlib.Data.Int.GCD
+public import Mathlib.Data.ZMod.Basic
 
 /-!
 # Exact cyclic recovery from invertible power-class exponents
@@ -15,6 +17,8 @@ identical cyclic enlargements by all modulus powers. Over a number field,
 prime-power separation then recovers the exact cyclic subgroups, including
 their torsion. No radical field equality or cyclotomic descent is assumed.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.KummerTheory
 

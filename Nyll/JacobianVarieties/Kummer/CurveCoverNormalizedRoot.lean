@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.CurveCoverGenericCharacter
-import Mathlib.FieldTheory.IsAlgClosed.Basic
+module
+
+public import Nyll.AlgebraicCurves.Models.Kummer.CurveCoverGenericCharacter
+public import Mathlib.FieldTheory.IsAlgClosed.Basic
 
 /-!
 # Basepoint-normalized roots and actual Kummer monodromy
@@ -14,6 +16,8 @@ A constant normalization factor has an nth root over the algebraically
 closed ground field. Multiplying by that fixed root identifies the
 normalized evaluation root with the actual generic Kummer character.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -24,8 +28,6 @@ open scoped FintypeCatDiscrete
 
 namespace AlgebraicCurve.CurveModel
 
-attribute [local instance] IsSepClosure.sep_closed
-
 /-- Dividing a Kummer equation by a nonzero ground-field constant does not
 change its actual geometric generic monodromy character. -/
 theorem kummerMonodromyCharacter_generic_mul_normalized_root
@@ -33,7 +35,7 @@ theorem kummerMonodromyCharacter_generic_mul_normalized_root
     {F : Type v} [Field F] [Algebra K F]
     (M : CurveModel K F) (n : ℕ+) (u : Pic0.kummerUnits K F n)
     {Ω : Type u} [Field Ω] [Algebra M.C.functionField Ω]
-    [IsSepClosure M.C.functionField Ω]
+    [IsSepClosed Ω]
     (a : K) (ha : a ≠ 0) (β : Ω)
     (hβ : β ^ (n : ℕ) =
       algebraMap M.C.functionField Ω (M.ffEquiv (u.val : F)) /

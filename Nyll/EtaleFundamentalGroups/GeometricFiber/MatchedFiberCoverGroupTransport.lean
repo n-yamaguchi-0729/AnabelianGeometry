@@ -3,7 +3,9 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverGroupTransport
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverGroupTransport
 
 /-! # The same finite-fibre map selects the actual two covering base points
 
@@ -12,6 +14,8 @@ already given fibre equivalence. The point-matching premise of the stabilizer
 transport theorem is consequently proved from the original fibre/point
 comparison, rather than postulated as a label-preservation hypothesis.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory
 open scoped FintypeCatDiscrete

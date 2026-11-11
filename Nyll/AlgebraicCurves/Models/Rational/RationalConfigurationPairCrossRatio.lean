@@ -3,12 +3,14 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.FunctionFields.Rational.ProjectiveRatFuncPairEvaluation
-import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncConstantExtensionOrders
-import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncRationalPairConstantExtension
-import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineStandardPlace
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationBoundaryPlaceOrders
-import Nyll.AlgebraicCurves.Places.Evaluation.EvalAtMapEqComapEq
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.ProjectiveRatFuncPairEvaluation
+public import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncConstantExtensionOrders
+public import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncRationalPairConstantExtension
+public import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineStandardPlace
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationBoundaryPlaceOrders
+public import Nyll.AlgebraicCurves.Places.Evaluation.EvalAtMapEqComapEq
 
 /-! # Original arithmetic cusp-value ratios are projective cross ratios
 
@@ -18,6 +20,8 @@ geometric places using the proved order-comap equality. The literal projective
 model identifies those geometric places with the standard coordinate places.
 The result reads the unchanged arithmetic function in the original base field.
 -/
+
+@[expose] public section
 
 noncomputable section
 attribute [local instance] Classical.propDecidable

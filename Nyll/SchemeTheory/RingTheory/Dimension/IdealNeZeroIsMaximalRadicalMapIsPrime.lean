@@ -10,14 +10,18 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.RingTheory.Polynomial.MvPolynomialNeZeroIrreducibleMap
-import Nyll.SchemeTheory.RingTheory.Dimension.IdealHeightAddKrullDimensionQuotientEqKrullDimension
-import Nyll.SchemeTheory.RingTheory.Dimension.IdealNatCastLeKrullDimensionQuotient
-import Nyll.SchemeTheory.RingTheory.Polynomial.AlgebraMonicIrreducibleMapAlgebraicClosureHypersurfaceModel
+module
+
+public import Nyll.SchemeTheory.RingTheory.Polynomial.MvPolynomialNeZeroIrreducibleMap
+public import Nyll.SchemeTheory.RingTheory.Dimension.IdealHeightAddKrullDimensionQuotientEqKrullDimension
+public import Nyll.SchemeTheory.RingTheory.Dimension.IdealNatCastLeKrullDimensionQuotient
+public import Nyll.SchemeTheory.RingTheory.Polynomial.AlgebraMonicIrreducibleMapAlgebraicClosureHypersurfaceModel
 
 /-!
 # Ideal exists ne zero and forall is Maximal radical map is Prime
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

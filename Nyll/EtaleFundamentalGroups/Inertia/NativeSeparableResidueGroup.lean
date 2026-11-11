@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.NativeAbsoluteResidueFields
-import Nyll.EtaleFundamentalGroups.Inertia.SeparableClosureAutomorphisms
-import Mathlib.Algebra.Category.Grp.Basic
-import Mathlib.CategoryTheory.ConcreteCategory.EpiMono
-import Mathlib.Algebra.Group.Subgroup.Ker
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeAbsoluteResidueFields
+public import Nyll.EtaleFundamentalGroups.Inertia.SeparableClosureAutomorphisms
+public import Mathlib.Algebra.Category.Grp.Basic
+public import Mathlib.CategoryTheory.ConcreteCategory.EpiMono
+public import Mathlib.Algebra.Group.Subgroup.Ker
 
 /-!
 # Separable residue Galois group objects
@@ -17,6 +19,8 @@ Constructs the automorphism-group comparison between a stored algebraic closure 
 separable closure. Records preservation of surjectivity and kernels under target group
 isomorphisms.
 -/
+
+@[expose] public section
 
 noncomputable section
 

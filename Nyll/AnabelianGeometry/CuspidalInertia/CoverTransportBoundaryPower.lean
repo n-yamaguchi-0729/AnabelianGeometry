@@ -3,10 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.GaloisCategories.CoverTransportFiber
-import Nyll.EtaleFundamentalGroups.Cohomology.TransportedFiberTorsor
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsCommonUnit
-import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryCommonUnit
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.CoverTransportFiber
+public import Nyll.EtaleFundamentalGroups.Cohomology.TransportedFiberTorsor
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsCommonUnit
+public import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryCommonUnit
 
 /-!
 # Common boundary powers of the actual transported cover torsor
@@ -21,6 +23,8 @@ The range correspondence and diagonal relations are geometric input slots:
 they are provided by cusp recognition and the actual boundary-inertia theorems.
 This is an intermediate transport theorem, not the final configuration theorem.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory EtaleFundamentalGroups.Inertia EtaleFundamentalGroups.Cohomology

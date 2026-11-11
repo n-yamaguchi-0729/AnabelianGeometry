@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
-import Mathlib.Algebra.CharP.Algebra
+module
+
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+public import Mathlib.Algebra.CharP.Algebra
 
 /-!
 # Residue characteristic under local-ring equivalences
@@ -13,6 +15,8 @@ import Mathlib.Algebra.CharP.Algebra
 Transports CharP and characteristic-zero instances between residue fields of isomorphic local
 rings.
 -/
+
+@[expose] public section
 
 namespace SchemeTheory
 

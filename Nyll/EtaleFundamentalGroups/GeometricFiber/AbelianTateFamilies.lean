@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationMonodromy
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationCover
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationTransitions
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
-import Mathlib.Algebra.BigOperators.Group.Finset.Piecewise
-import Mathlib.AlgebraicGeometry.Geometrically.Connected
-import Mathlib.CategoryTheory.Galois.Topology
-import Nyll.ProCGroups.Abelian.FullTateModule
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationMonodromy
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationCover
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationTransitions
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+public import Mathlib.Algebra.BigOperators.Group.Finset.Piecewise
+public import Mathlib.AlgebraicGeometry.Geometrically.Connected
+public import Mathlib.CategoryTheory.Galois.Topology
+public import Nyll.ProCGroups.Abelian.FullTateModule
 
 /-!
 # Actual compatible torsion families from the fundamental group
@@ -22,7 +24,11 @@ finitely many prescribed coordinates are realized at the product of their
 indices. Separation by multiplication covers gives injectivity.
 -/
 
+@[expose] public section
+
 noncomputable section
+
+universe u
 
 open CategoryTheory CategoryTheory.PreGaloisCategory
 open AlgebraicGeometry AlgebraicGeometry.FiniteEtale
@@ -30,8 +36,8 @@ open scoped FintypeCatDiscrete BigOperators
 
 namespace GoodReductionJacobian.RelativeGroupLaw
 
-variable {K : Type} [Field K] [IsAlgClosed K] [CharZero K]
-  {A : Scheme} {f : A ⟶ Spec (.of K)}
+variable {K : Type u} [Field K] [IsAlgClosed K] [CharZero K]
+  {A : Scheme.{u}} {f : A ⟶ Spec (.of K)}
   [IsProper f] [Smooth f]
   (G : RelativeGroupLaw K f) (hc : G.IsCommutative)
 

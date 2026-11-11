@@ -3,10 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareCoherentBaseChangeCaller
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareModelBaseChangeConnected
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareCoherentBaseChangeCaller
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareModelBaseChangeConnected
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairSquareMap
 
 /-! # Pointed coherent scalar extension of the named model -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve
@@ -105,7 +110,6 @@ theorem namedSquareModel_pointed_coherent_actualBaseChange
         let emb := finiteEtaleGenericHomFunctionFieldAlgHom Wκ lift
         let A : Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ω :=
           (emb.toRingHom.comp (Jκ.hom.functionFieldMap hJdense)).toAlgebra
-        let _ := A
         (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω =
           actualFiberPointLift ξκ Wκ wκ ≫ Jκ.hom ∧
         (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω ≫

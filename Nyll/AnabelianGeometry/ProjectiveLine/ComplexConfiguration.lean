@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Analysis.Complex.Basic
-import Mathlib.GroupTheory.OrderOfElement
-import Mathlib.Tactic.Linarith
-import Mathlib.Tactic.LinearCombination
-import Mathlib.Tactic.FieldSimp
-import Mathlib.Tactic.Ring
+module
+
+public import Mathlib.Analysis.Complex.Basic
+public import Mathlib.GroupTheory.OrderOfElement
+public import Mathlib.Tactic.Linarith
+public import Mathlib.Tactic.LinearCombination
+public import Mathlib.Tactic.FieldSimp
+public import Mathlib.Tactic.Ring
 
 /-!
 # The unit-circle exceptional locus
@@ -18,6 +20,8 @@ A complex parameter whose value and complement both have norm one lies
 on the quadratic exceptional locus. This supplies the archimedean step
 for the simultaneous torsion case in multiplicative reconstruction.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.ProjectiveLine
 

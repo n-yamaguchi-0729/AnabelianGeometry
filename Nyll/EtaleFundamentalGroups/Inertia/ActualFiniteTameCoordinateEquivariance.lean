@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameScalarRestrictionData
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameScalarRestrictionData
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
 
 /-!
 # Actual finite tame coordinate equivariance
@@ -13,6 +15,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
 Combines the proved canonical character conjugation and the independently
 proved literal residue-embedding action square at this SAME finite stage.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

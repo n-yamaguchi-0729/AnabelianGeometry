@@ -3,13 +3,17 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairCrossRatio
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationFiniteExtensionCoordinate
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationFiniteExtensionValues
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationSquareBoundaryLabels
-import Nyll.AlgebraicCurves.Places.Evaluation.RationalPlaceValues
+module
+
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairCrossRatio
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationFiniteExtensionCoordinate
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationFiniteExtensionValues
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationSquareBoundaryLabels
+public import Nyll.AlgebraicCurves.Places.Evaluation.RationalPlaceValues
 
 /-! # Named Square Original Pair Values -/
+
+@[expose] public section
 
 noncomputable section
 open scoped Polynomial RatFunc

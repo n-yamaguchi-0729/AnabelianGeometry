@@ -4,9 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.KummerTheory.PrimePowerNormSum
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.PrimePowerNormSum
 
 /-! # Exact norm kernels for good prime-power principal units -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.KummerTheory
 

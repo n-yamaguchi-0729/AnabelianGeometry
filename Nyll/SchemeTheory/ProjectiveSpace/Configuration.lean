@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.ProjectiveSpace.Normalization
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.Normalization
 
 /-!
 # Reconstruction of labelled projective configurations
@@ -13,6 +15,8 @@ Normalize a reference triple and compare the remaining affine coordinates.
 Equal cross ratios then give an explicit projective coordinate equivalence
 carrying every label of one configuration to the corresponding label of the other.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.ProjectiveLine
 

@@ -4,15 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.TrivialityClassification
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentProfiniteIntegers
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProperCurveSlim
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenCurveSlim
-import Nyll.JacobianVarieties.Albanese.GenusOneAbelJacobiIsomorphism
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianTateComparison
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.TrivialityClassification
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentProfiniteIntegers
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProperCurveSlim
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenCurveSlim
+public import Nyll.JacobianVarieties.Albanese.GenusOneAbelJacobiIsomorphism
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianTateComparison
 
 /-! # The actual curves with abelian geometric fundamental group -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,13 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ProCGroups.Topologies.ArithmeticInnerCorrectionFiberTransport
+module
+
+public import Nyll.ProCGroups.Topologies.ArithmeticInnerCorrectionFiberTransport
 
 /-! # Continuous isomorphisms over a fixed quotient
 
 The quotient maps are retained as actual homomorphisms. Their kernels, rather
 than the entire target group, supply the inner equivalence relation.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.ArithmeticIsomorphisms
 

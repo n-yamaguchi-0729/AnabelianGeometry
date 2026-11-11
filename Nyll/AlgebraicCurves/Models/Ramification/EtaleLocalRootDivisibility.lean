@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Places.Ramification.LocalUnramifiedRamification
-import Nyll.AlgebraicCurves.Places.ValuationRings.RangeStalkEq
-import Nyll.SchemeTheory.FunctionFields.ScalarFunctoriality
-import Mathlib.AlgebraicGeometry.Morphisms.Etale
+module
+
+public import Nyll.AlgebraicCurves.Places.Ramification.LocalUnramifiedRamification
+public import Nyll.AlgebraicCurves.Places.ValuationRings.RangeStalkEq
+public import Nyll.SchemeTheory.FunctionFields.ScalarFunctoriality
+public import Mathlib.AlgebraicGeometry.Morphisms.Etale
 
 /-!
 # Interior valuation divisibility from an actual étale curve morphism
@@ -16,6 +18,8 @@ The source need not be proper. Its closed-point local ring supplies its
 actual place, and the actual stalk map is formally unramified. The local
 ramification theorem therefore applies to a root in its actual function field.
 -/
+
+@[expose] public section
 
 noncomputable section
 

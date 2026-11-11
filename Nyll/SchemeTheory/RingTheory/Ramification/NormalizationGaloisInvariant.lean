@@ -5,15 +5,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Thomas Browning, Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
-import Mathlib.Algebra.Ring.Hom.Defs
-import Mathlib.FieldTheory.Galois.Infinite
-import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
-import Mathlib.RingTheory.IntegralClosure.IsIntegral.Basic
-import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
-import Mathlib.RingTheory.Invariant.Defs
+module
+
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.FieldTheory.Galois.Infinite
+public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
+public import Mathlib.RingTheory.IntegralClosure.IsIntegral.Basic
+public import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
+public import Mathlib.RingTheory.Invariant.Defs
 
 /-!
 # Native Galois invariance of the actual integral closure
@@ -28,6 +30,8 @@ The descent specializes the proof of `Algebra.isInvariant_of_isGalois`:
 https://github.com/leanprover-community/mathlib4/blob/065356127b1dc0016f66b7283ce0ce2c4055aa55/Mathlib/RingTheory/Invariant/Galois.lean
 Its field-fixedness, integrality, and normality facts are reused below.
 -/
+
+@[expose] public section
 
 noncomputable section
 

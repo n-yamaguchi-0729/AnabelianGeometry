@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Group.Subgroup.Basic
-import Mathlib.Topology.Algebra.ContinuousMonoidHom
-import Mathlib.Topology.Separation.Hausdorff
+module
+
+public import Mathlib.Algebra.Group.Subgroup.Basic
+public import Mathlib.Topology.Algebra.ContinuousMonoidHom
+public import Mathlib.Topology.Separation.Hausdorff
 
 /-!
 # Continuous character descent through compact quotients
@@ -14,6 +16,8 @@ import Mathlib.Topology.Separation.Hausdorff
 A continuous homomorphism descends through a continuous surjection from a
 compact group to a Hausdorff group exactly when it kills the kernel.
 -/
+
+@[expose] public section
 
 noncomputable section
 

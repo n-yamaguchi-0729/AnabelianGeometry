@@ -10,15 +10,19 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.IdealSheaf.Functorial
-import Nyll.AlgebraicCurves.Models.Construction.Basic
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
-import Nyll.AlgebraicCurves.Divisors.Maps.Maps
-import Nyll.AlgebraicCurves.Models.FunctionFields.FieldEquivSymmStalkMapEqAlgebraMap
+module
+
+public import Mathlib.AlgebraicGeometry.IdealSheaf.Functorial
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
+public import Nyll.AlgebraicCurves.Divisors.Maps.Maps
+public import Nyll.AlgebraicCurves.Models.FunctionFields.FieldEquivSymmStalkMapEqAlgebraMap
 
 /-!
 # Ramification and ideal factorization on curve models
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -427,7 +431,7 @@ theorem ideal_eq_of_forall_isClosed_map_germ_eq {X : Scheme.{u}} [JacobsonSpace 
   have hq : IsClosed ({q} : Set (PrimeSpectrum Γ(X, U))) :=
     (PrimeSpectrum.isClosed_singleton_iff_isMaximal q).mpr hP
   have hzclosed : IsClosed ({z.1} : Set X) := by
-    have hsub := hU.fromSpec.closePoints_subset_preimage_closedPoints
+    have hsub := hU.fromSpec.closedPoints_subset_preimage_closedPoints
     have hmem : hU.fromSpec.base q ∈ closedPoints X := hsub hq
     exact hmem
   have hst := h z hzclosed

@@ -4,15 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.SchemeTheory.Normalization.AmbientNormalizationGroupMap
-import Nyll.SchemeTheory.RingTheory.Ramification.NormalizationResidueSequence
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeResidueAction
-import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
-import Mathlib.Algebra.Algebra.Equiv
-import Mathlib.Algebra.Category.Grp.Basic
-import Mathlib.RingTheory.Ideal.Pointwise
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.SchemeTheory.Normalization.AmbientNormalizationGroupMap
+public import Nyll.SchemeTheory.RingTheory.Ramification.NormalizationResidueSequence
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeResidueAction
+public import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
+public import Mathlib.Algebra.Algebra.Equiv
+public import Mathlib.Algebra.Category.Grp.Basic
+public import Mathlib.RingTheory.Ideal.Pointwise
 
 /-!
 # Decomposition restriction to normalization stabilizers
@@ -20,6 +22,8 @@ import Mathlib.RingTheory.Ideal.Pointwise
 Constructs the morphism from the original decomposition group to the intrinsic normalization
 stabilizer and records its automorphism and coefficient ring maps.
 -/
+
+@[expose] public section
 
 noncomputable section
 

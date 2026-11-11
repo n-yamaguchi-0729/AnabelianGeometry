@@ -4,15 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.InvariantPrimeLocalizationMap
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Nyll.SchemeTheory.RingTheory.Localization.AwayAlgebra
-import Nyll.SchemeTheory.RingTheory.Localization.CommAlgPrincipal
-import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
-import Mathlib.Algebra.Algebra.Subalgebra.Tower
-import Mathlib.Algebra.Category.CommAlgCat.Basic
-import Mathlib.FieldTheory.Galois.GaloisClosure
-import Mathlib.RingTheory.Ideal.Maps
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.InvariantPrimeLocalizationMap
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Nyll.SchemeTheory.RingTheory.Localization.AwayAlgebra
+public import Nyll.SchemeTheory.RingTheory.Localization.CommAlgPrincipal
+public import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
+public import Mathlib.Algebra.Algebra.Subalgebra.Tower
+public import Mathlib.Algebra.Category.CommAlgCat.Basic
+public import Mathlib.FieldTheory.Galois.GaloisClosure
+public import Mathlib.RingTheory.Ideal.Maps
 
 /-!
 # Native finite-normalization preimages before principal localization
@@ -22,6 +24,8 @@ of L. The generic normalization owner then constructs the normalization and
 the preimage of the actual upper invariant algebra, without K/Galois data in
 that construction. No raw finite-level subalgebra producer is called here.
 -/
+
+@[expose] public section
 
 noncomputable section
 

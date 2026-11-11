@@ -10,20 +10,24 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.Cohomology.Cech.OrderedAffineCoverCech
-import Nyll.AlgebraicCurves.Geometry.Schemes.Covers.OrderedAffineCoverComap
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafTensor
-import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafConstructions
-import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafHom
-import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
-import Nyll.SchemeTheory.Modules.Functoriality.AffineSectionsBaseChange
-import Nyll.SchemeTheory.Cohomology.Sheaves.ModulePresheafDCompD
-import Nyll.SchemeTheory.RingTheory.LinearAlgebra.LinearMapKerLinearEquivQuotientLinearEquiv
+module
+
+public import Nyll.SchemeTheory.Cohomology.Cech.OrderedAffineCoverCech
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Covers.OrderedAffineCoverComap
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafTensor
+public import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafConstructions
+public import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafHom
+public import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
+public import Nyll.SchemeTheory.Modules.Functoriality.AffineSectionsBaseChange
+public import Nyll.SchemeTheory.Cohomology.Sheaves.ModulePresheafDCompD
+public import Nyll.SchemeTheory.RingTheory.LinearAlgebra.LinearMapKerLinearEquivQuotientLinearEquiv
 
 /-!
 # OModule Presheaf nonempty cech Equiv of Modules pullback comap twist pushforward Unit
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

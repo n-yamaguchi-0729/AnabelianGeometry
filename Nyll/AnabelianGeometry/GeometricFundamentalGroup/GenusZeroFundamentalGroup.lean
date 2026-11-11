@@ -4,15 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroParameter
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalFundamentalGroup
-import Nyll.AlgebraicCurves.Places.Orders.NotMemOrdNegOrdEqOne
-import Nyll.AlgebraicCurves.Models.FunctionFields.CurveModelIsoAlgEquiv
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
-import Nyll.SchemeTheory.Pi1.Affine.Over
-import Mathlib.FieldTheory.RatFunc.AsPolynomial
-import Mathlib.FieldTheory.IntermediateField.Basic
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Defs
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroParameter
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalFundamentalGroup
+public import Nyll.AlgebraicCurves.Places.Orders.NotMemOrdNegOrdEqOne
+public import Nyll.AlgebraicCurves.Models.FunctionFields.CurveModelIsoAlgEquiv
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
+public import Nyll.SchemeTheory.Pi1.Affine.Over
+public import Mathlib.FieldTheory.RatFunc.AsPolynomial
+public import Mathlib.FieldTheory.IntermediateField.Basic
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Defs
 
 /-!+# The étale fundamental group of a proper genus-zero curve
 
@@ -21,6 +23,8 @@ hypothesis. The resulting function-field isomorphism gives an actual rational cu
 Pullback along the model isomorphism transports the proved rational-curve fundamental-group
 theorem to the original curve and its original geometric point.
 -/
+
+@[expose] public section
 
 noncomputable section
 

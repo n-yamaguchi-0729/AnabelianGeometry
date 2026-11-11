@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.Algebra.Ring.Subsemiring.Basic
-import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
+module
+
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.Algebra.Ring.Subsemiring.Basic
+public import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
 
 /-!
 # Ring maps induced on normalizations
@@ -14,6 +16,8 @@ import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
 Restricts an algebra homomorphism to a ring homomorphism between integral closures, using
 preservation of integral elements.
 -/
+
+@[expose] public section
 
 noncomputable section
 

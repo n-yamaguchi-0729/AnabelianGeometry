@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationInclusionSquare
-import Nyll.SchemeTheory.RingTheory.Ramification.InertiaCoefficientContraction
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationInclusionSquare
+public import Nyll.SchemeTheory.RingTheory.Ramification.InertiaCoefficientContraction
 
 /-!
 # Inertia under finite coefficient restriction
@@ -13,6 +15,8 @@ import Nyll.SchemeTheory.RingTheory.Ramification.InertiaCoefficientContraction
 Transfers the ambient normalization inertia difference condition to the contracted finite
 normalization prime through the coefficient inclusion square.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

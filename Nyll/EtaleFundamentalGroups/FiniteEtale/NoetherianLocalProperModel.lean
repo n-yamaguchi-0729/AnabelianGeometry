@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Schemes.Limits.FgSubalgebraProperFlatPullback
-import Nyll.SchemeTheory.RingTheory.Localization.LocalRingSubalgebraCoeEqNoetherianLocalRingIsUnitIff
-import Mathlib.Algebra.Ring.ULift
-import Mathlib.RingTheory.LocalRing.RingHom.Basic
+module
+
+public import Nyll.SchemeTheory.Descent.FgSubalgebraProperFlatPullback
+public import Nyll.SchemeTheory.RingTheory.Localization.LocalRingSubalgebraCoeEqNoetherianLocalRingIsUnitIff
+public import Mathlib.Algebra.Ring.ULift
+public import Mathlib.RingTheory.LocalRing.RingHom.Basic
 
 /-!
 # An actual Noetherian local model of a proper flat finitely presented family
@@ -17,6 +19,8 @@ over a finitely generated integer algebra. The existing local-subalgebra
 construction makes its base Noetherian local inside the original local
 ring. Pullback cancellation gives the actual original family back.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,16 +4,20 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelFieldAlgebra
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
-import Nyll.EtaleFundamentalGroups.Inertia.NativeFiniteNormalizationTameProperties
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelFieldAlgebra
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeFiniteNormalizationTameProperties
 
 /-!
 # Finiteness of finite normalization automorphisms
 
 Proves finiteness of the intrinsic coefficient-automorphism group of a finite normalization.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

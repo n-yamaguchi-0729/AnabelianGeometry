@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticKernelEquivalence
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticKernelEquivalence
 
 /-! # Uniqueness of the actual geometric equivalence above an arithmetic equivalence
 
@@ -12,6 +14,8 @@ The original geometric inclusions are injective by the arithmetic exact sequence
 Thus recognition of different source cusps cannot change the geometric equivalence
 lying above the fixed arithmetic map.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry

@@ -10,14 +10,18 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.RingTheory.Regular.Flat
-import Nyll.SchemeTheory.RingTheory.RegularLocal.QuotientRegular
-import Nyll.SchemeTheory.RingTheory.RegularLocal.RegularLocalDomain
-import Nyll.SchemeTheory.RingTheory.RegularLocal.RegularLocalRingRegularSequenceAscent
+module
+
+public import Mathlib.RingTheory.Regular.Flat
+public import Nyll.SchemeTheory.RingTheory.RegularLocal.QuotientRegular
+public import Nyll.SchemeTheory.RingTheory.RegularLocal.RegularLocalDomain
+public import Nyll.SchemeTheory.RingTheory.RegularLocal.RegularLocalRingRegularSequenceAscent
 
 /-!
 # Mathlib Ring Theory Regular Local Ring Flat Local Ascent
 -/
+
+@[expose] public section
 
 noncomputable section
 

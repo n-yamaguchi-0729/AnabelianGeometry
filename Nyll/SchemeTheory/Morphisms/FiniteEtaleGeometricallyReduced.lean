@@ -4,12 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.AlgebraicGeometry.Geometrically.Reduced
-import Mathlib.AlgebraicGeometry.Morphisms.Etale
-import Mathlib.AlgebraicGeometry.Morphisms.Finite
-import Mathlib.AlgebraicGeometry.Noetherian
-import Mathlib.RingTheory.RingHom.Etale
-import Mathlib.RingTheory.Unramified.Field
+module
+
+public import Mathlib.AlgebraicGeometry.Geometrically.Reduced
+public import Mathlib.AlgebraicGeometry.Morphisms.Etale
+public import Mathlib.AlgebraicGeometry.Morphisms.Finite
+public import Mathlib.AlgebraicGeometry.Noetherian
+public import Mathlib.RingTheory.RingHom.Etale
+public import Mathlib.RingTheory.Unramified.Field
+public import Nyll.SchemeTheory.FiniteEtale.Algebra.FiniteGeometricallyReducedEtale
 
 /-!
 # Geometric reducedness under finite etale covers
@@ -21,6 +24,8 @@ condition is imposed on that base: the intermediate geometric fibre is
 locally Noetherian because it is of finite type over its field.
 -/
 
+@[expose] public section
+
 noncomputable section
 
 open CategoryTheory CategoryTheory.Limits
@@ -28,6 +33,24 @@ open CategoryTheory CategoryTheory.Limits
 namespace AlgebraicGeometry
 
 universe u
+
+/-- A reduced finite scheme over a perfect field is étale over that field.
+The algebra structure is the one induced by its original structure morphism. -/
+lemma etale_of_isFinite_of_isReduced_over_perfectField
+    {K : Type u} [Field K] [PerfectField K] {X : Scheme.{u}}
+    (f : X ⟶ Spec (CommRingCat.of K)) [IsFinite f] [IsReduced X] :
+    Etale f := by
+  have : IsAffine X := isAffine_of_isAffineHom f
+  let : Algebra K Γ(X, ⊤) :=
+    ((Scheme.ΓSpecIso (CommRingCat.of K)).inv ≫ f.appTop).hom.toAlgebra
+  have : Module.Finite K Γ(X, ⊤) :=
+    f.finite_appTop.comp (RingHom.Finite.of_surjective _
+      (Scheme.ΓSpecIso (CommRingCat.of K)).commRingCatIsoToRingEquiv.symm.surjective)
+  have hEtale : Algebra.Etale K Γ(X, ⊤) :=
+    Algebra.etale_of_finite_of_isReduced_of_perfectField K Γ(X, ⊤)
+  exact (HasRingHomProperty.iff_of_isAffine (P := @Etale) (f := f)).mpr
+    ((RingHom.Etale.respectsIso.cancel_left_isIso
+      (Scheme.ΓSpecIso (CommRingCat.of K)).inv f.appTop).mp hEtale)
 
 /-- Finite etale morphisms are geometrically reduced. -/
 lemma geometricallyReduced_of_isFinite_of_etale

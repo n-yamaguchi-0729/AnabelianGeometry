@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Group.Action.End
-import Mathlib.RingTheory.DiscreteValuationRing.Basic
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
-import Mathlib.RingTheory.Ideal.Defs
-import Mathlib.Algebra.Ring.Action.Basic
-import Mathlib.Algebra.Group.Units.Hom
+module
+
+public import Mathlib.Algebra.Group.Action.End
+public import Mathlib.RingTheory.DiscreteValuationRing.Basic
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+public import Mathlib.RingTheory.Ideal.Defs
+public import Mathlib.Algebra.Ring.Action.Basic
+public import Mathlib.Algebra.Group.Units.Hom
 
 /-!
 # The inertia character directly on a DVR
@@ -19,6 +21,8 @@ It constructs the uniformizer-ratio unit inside the ring and then reduces it.
 No ambient fraction field, scalar tower, chosen value group, or supplied
 character is used.
 -/
+
+@[expose] public section
 
 noncomputable section
 

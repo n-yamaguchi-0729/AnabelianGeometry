@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteCanonicalTameMorphism
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteRootsGroupMap
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationRootsGroup
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.Algebra.Category.Grp.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteCanonicalTameMorphism
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteRootsGroupMap
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationRootsGroup
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.Algebra.Category.Grp.Basic
 
 /-!
 # Finite coordinates of the canonical tame character
@@ -19,6 +21,8 @@ import Mathlib.Algebra.Category.Grp.Basic
 Constructs the ambient residue-root coordinate on original inertia by composing finite
 restriction, the canonical tame character, and residue embedding.
 -/
+
+@[expose] public section
 
 noncomputable section
 

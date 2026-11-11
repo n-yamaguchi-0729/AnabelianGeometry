@@ -4,11 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.RecoveredCandidateCyclotomicKernel
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Geometry
-import Mathlib.RingTheory.Etale.Field
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.RecoveredCandidateCyclotomicKernel
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Geometry
+public import Mathlib.RingTheory.Etale.Field
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
 
 /-! # Candidate kernels after actual finite coefficient refinement -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -32,7 +37,7 @@ condition for the same recovered geometric cover and the original roots map.
 The section, Picard representation, and weight equality are constructed by
 the existing geometric weight owner; none is a comparison hypothesis. -/
 theorem exists_finiteIntermediateField_recoveredCandidate_compactificationKernel
-    (k E κ : Type) [Field k] [Field E] [NumberField E]
+    (k E κ : Type) [Field k] [Field E] [CharZero E] [Field.FG E]
     [Field κ] [CharZero κ] [IsAlgClosed κ]
     [Algebra k E] [Algebra E κ] [Algebra k κ] [IsScalarTower k E κ]
     [IsSepClosure k κ] [IsSepClosure E κ]

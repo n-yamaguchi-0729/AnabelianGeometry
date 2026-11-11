@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryRetraction
-import Mathlib.LinearAlgebra.Pi
-import Mathlib.Tactic.LinearCombination
+module
+
+public import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryRetraction
+public import Mathlib.LinearAlgebra.Pi
+public import Mathlib.Tactic.LinearCombination
 
 /-!
 # Free coordinates for the reduced boundary module
@@ -15,6 +17,8 @@ Choosing one boundary label identifies the module modulo its diagonal with
 functions on all remaining labels. This gives an integral coordinate system;
 in particular, no inversion of the number of boundary points is needed.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.CuspidalInertia
 

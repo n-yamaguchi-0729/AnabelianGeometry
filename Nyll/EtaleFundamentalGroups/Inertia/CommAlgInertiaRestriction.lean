@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
-import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
-import Mathlib.Algebra.Category.Grp.Basic
-import Mathlib.Algebra.Category.CommAlgCat.Basic
-import Mathlib.RingTheory.Ideal.Defs
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
+public import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
+public import Mathlib.Algebra.Category.Grp.Basic
+public import Mathlib.Algebra.Category.CommAlgCat.Basic
+public import Mathlib.RingTheory.Ideal.Defs
 
 /-!
 # Inertia morphisms from coefficient differences
@@ -16,6 +18,8 @@ import Mathlib.RingTheory.Ideal.Defs
 Constructs a group morphism into intrinsic ideal inertia from a coefficient-automorphism map
 satisfying the inertia difference condition.
 -/
+
+@[expose] public section
 
 noncomputable section
 

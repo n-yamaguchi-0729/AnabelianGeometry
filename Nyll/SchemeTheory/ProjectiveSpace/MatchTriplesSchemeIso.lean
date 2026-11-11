@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.ProjectiveSpace.RationalPunctureCoordinateChange
-import Nyll.SchemeTheory.ProjectiveSpace.Normalization
-import Nyll.SchemeTheory.ProjectiveSpace.Configuration
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.RationalPunctureCoordinateChange
+public import Nyll.SchemeTheory.ProjectiveSpace.Normalization
+public import Nyll.SchemeTheory.ProjectiveSpace.Configuration
 
 /-! # The actual projective scheme isomorphism matching a configuration -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry

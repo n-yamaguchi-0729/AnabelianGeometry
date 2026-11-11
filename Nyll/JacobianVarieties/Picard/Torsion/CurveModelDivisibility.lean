@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Picard.Representability.CurveModelPicardRepresentabilityAbelJacobi
-import Nyll.JacobianVarieties.Pic0.NsmulEqJacobianPack
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.MultiplicationMorphisms
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveSeparatingTranscendental
-import Nyll.AlgebraicCurves.Models.Construction.CurveIsIntegral
+module
+
+public import Nyll.JacobianVarieties.Picard.Representability.CurveModelPicardRepresentabilityAbelJacobi
+public import Nyll.JacobianVarieties.Pic0.NsmulEqJacobianPack
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.MultiplicationMorphisms
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveSeparatingTranscendental
+public import Nyll.AlgebraicCurves.Models.Construction.CurveIsIntegral
 
 /-!
 # Divisibility of the actual degree-zero divisor class group
@@ -17,6 +19,10 @@ The curve supplies its Picard scheme and its actual group law. The proved
 geometric surjectivity of multiplication then supplies divisibility of
 Pic⁰; neither a Jacobian presentation nor divisibility is an input.
 -/
+
+@[expose] public section
+
+universe u v
 
 noncomputable section
 
@@ -30,7 +36,7 @@ namespace AlgebraicCurve.CurveModel
 /-- Multiplication by an integer invertible in the algebraically closed
 constant field is surjective on the actual degree-zero divisor class group. -/
 theorem pic0_exists_nsmul_eq
-    {K F : Type} [Field K] [IsAlgClosed K]
+    {K : Type u} {F : Type v} [Field K] [IsAlgClosed K]
     [Field F] [Algebra K F] [IsCurveOver K F]
     (M : CurveModel K F)
     (ε : SchemeHomOver (𝟙 (Spec (.of K))) M.toBase)

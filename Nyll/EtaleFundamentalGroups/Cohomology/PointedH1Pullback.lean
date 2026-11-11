@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.H1CharacterPullback
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1CharacterPullback
 
 /-!
 # Derived H¹ pullback with an explicit pointed fiber comparison
@@ -14,6 +16,8 @@ isomorphism comparing geometric pullback with a chosen target fiber.
 This lets geometric deck comparisons be used without postulating a
 cohomological action or its compatibility with fundamental groups.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -36,7 +40,7 @@ theorem h1Character_pointedSchemePullback
     let : TopologicalSpace (Multiplicative A) := ⊥
     (h1Character A η a).comp (autHomOfCompIso (FiniteEtale.pullback f) t) =
       h1Character A ξ (constantCohomologyPullback f A 1 a) := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
+  intro sharedOwner1
   let c := FiniteEtale.pullbackFiberIso f ξ
   let τ := c.symm ≪≫ t
   have ht : c ≪≫ τ = t := by

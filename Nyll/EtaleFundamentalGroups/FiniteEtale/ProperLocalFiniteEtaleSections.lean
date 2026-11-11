@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ClosedFiberEtaleDescent
-import Nyll.EtaleFundamentalGroups.FiniteEtale.NoetherianLocalProperModel
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperLocalSectionAlgebra
-import Nyll.SchemeTheory.Cohomology.Cech.TwoAffineOpenCover
-import Mathlib.RingTheory.TensorProduct.Maps
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ClosedFiberEtaleDescent
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.NoetherianLocalProperModel
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperLocalSectionAlgebra
+public import Nyll.SchemeTheory.Cohomology.Cech.TwoAffineOpenCover
+public import Mathlib.RingTheory.TensorProduct.Maps
 
 /-!
 # Finite étale sections over an arbitrary local base
@@ -19,6 +21,8 @@ extension, without assuming that the model has geometrically reduced fibres.
 The resulting arbitrary base-change comparison transports its finite étale
 section algebra to the original family.
 -/
+
+@[expose] public section
 
 noncomputable section
 

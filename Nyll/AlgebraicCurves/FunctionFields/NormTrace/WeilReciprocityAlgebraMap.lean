@@ -10,15 +10,19 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Nyll.AlgebraicCurves.Divisors.Maps.Maps
-import Nyll.AlgebraicCurves.Places.NormTrace.OrdNormEqZeroFiber
-import Nyll.AlgebraicCurves.Divisors.Norm.PushforwardDiv
-import Nyll.AlgebraicCurves.Divisors.Maps.EvaluationMaps
+module
+
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.AlgebraicCurves.Divisors.Maps.Maps
+public import Nyll.AlgebraicCurves.Places.NormTrace.OrdNormEqZeroFiber
+public import Nyll.AlgebraicCurves.Divisors.Norm.PushforwardDiv
+public import Nyll.AlgebraicCurves.Divisors.Maps.EvaluationMaps
 
 /-!
 # Weil Reciprocity algebra Map
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

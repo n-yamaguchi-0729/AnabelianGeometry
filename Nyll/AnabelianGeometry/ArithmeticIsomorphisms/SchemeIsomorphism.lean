@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.GeometricBasePoint
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticNaturality
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
-import Nyll.SchemeTheory.Pi1.Affine.Over
+module
+
+public import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.GeometricBasePoint
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticNaturality
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
+public import Nyll.SchemeTheory.Pi1.Affine.Over
 
 /-! # Scheme isomorphisms with arbitrary arithmetic base points
 
@@ -15,6 +17,8 @@ Pullback along the given scheme isomorphism induces the group isomorphism.
 The target fibre comparison is constructed and corrected arithmetically;
 no identification of independently chosen geometric points is assumed.
 -/
+
+@[expose] public section
 
 noncomputable section
 

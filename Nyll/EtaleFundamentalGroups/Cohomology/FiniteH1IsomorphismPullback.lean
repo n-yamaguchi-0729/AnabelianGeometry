@@ -4,9 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1PullbackIdentity
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1PullbackIdentity
 
 /-! # Transporting actual finite H¹ along geometric isomorphisms -/
+
+@[expose] public section
+
+universe uGeom uField₁ uField₂
 
 noncomputable section
 
@@ -17,11 +23,11 @@ namespace EtaleFundamentalGroups.Cohomology
 /-- The existing derived pullback along a scheme isomorphism is an
 additive equivalence, with inverse the actual inverse-morphism pullback. -/
 def constantFiniteH1PullbackEquiv
-    {X Y : Scheme} [ConnectedSpace X] [ConnectedSpace Y]
-    (e : X ≅ Y) {Ω : Type} [Field Ω] [IsSepClosed Ω]
-    (geom : Spec (.of Ω) ⟶ X) (A : AddCommGrpCat.{0}) [Finite A] :
-    Sheaf.H.{0} ((constantSheaf Y.smallEtaleTopology AddCommGrpCat.{0}).obj A) 1 ≃+
-      Sheaf.H.{0} ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{0}).obj A) 1 where
+    {X Y : Scheme.{uGeom}} [ConnectedSpace X] [ConnectedSpace Y]
+    (e : X ≅ Y) {Ω : Type uGeom} [Field Ω] [IsSepClosed Ω]
+    (geom : Spec (.of Ω) ⟶ X) (A : AddCommGrpCat.{uGeom}) [Finite A] :
+    Sheaf.H.{uGeom} ((constantSheaf Y.smallEtaleTopology AddCommGrpCat.{uGeom}).obj A) 1 ≃+
+      Sheaf.H.{uGeom} ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{uGeom}).obj A) 1 where
   toFun := constantCohomologyPullback e.hom A 1
   invFun := constantCohomologyPullback e.inv A 1
   left_inv c := by
@@ -35,9 +41,9 @@ def constantFiniteH1PullbackEquiv
 /-- Triviality of an actual endomorphism's H¹ action is preserved under an
 actual geometric isomorphism and a proved commuting square. -/
 theorem constantFiniteH1Pullback_eq_self_of_iso_square
-    {X Y : Scheme} [ConnectedSpace X] [ConnectedSpace Y]
-    (e : X ≅ Y) {Ω : Type} [Field Ω] [IsSepClosed Ω]
-    (geom : Spec (.of Ω) ⟶ X) (A : AddCommGrpCat.{0}) [Finite A]
+    {X Y : Scheme.{uGeom}} [ConnectedSpace X] [ConnectedSpace Y]
+    (e : X ≅ Y) {Ω : Type uGeom} [Field Ω] [IsSepClosed Ω]
+    (geom : Spec (.of Ω) ⟶ X) (A : AddCommGrpCat.{uGeom}) [Finite A]
     (f : X ⟶ X) (g : Y ⟶ Y) (hfg : f ≫ e.hom = e.hom ≫ g)
     (hg : ∀ c, constantCohomologyPullback g A 1 c = c) :
     ∀ c, constantCohomologyPullback f A 1 c = c := by
@@ -51,11 +57,11 @@ theorem constantFiniteH1Pullback_eq_self_of_iso_square
 /-- Surjectivity of actual derived finite H¹ pullback is invariant under
 a proved square of scheme isomorphisms. -/
 theorem constantFiniteH1Pullback_surjective_of_iso_square
-    {X Y X' Y' : Scheme} [ConnectedSpace X] [ConnectedSpace Y]
+    {X Y X' Y' : Scheme.{uGeom}} [ConnectedSpace X] [ConnectedSpace Y]
     [ConnectedSpace X'] [ConnectedSpace Y']
     (eX : X ≅ X') (eY : Y ≅ Y')
-    {Ω : Type} [Field Ω] [IsSepClosed Ω]
-    (geom : Spec (.of Ω) ⟶ X) (A : AddCommGrpCat.{0}) [Finite A]
+    {Ω : Type uGeom} [Field Ω] [IsSepClosed Ω]
+    (geom : Spec (.of Ω) ⟶ X) (A : AddCommGrpCat.{uGeom}) [Finite A]
     (f : X ⟶ Y) (g : X' ⟶ Y')
     (hfg : f ≫ eY.hom = eX.hom ≫ g)
     (hg : Function.Surjective (constantCohomologyPullback g A 1)) :

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticAlignedCoefficientEmbedding
-import Nyll.AnabelianGeometry.WeightFiltration.MatchedConstantGenericAmbient
-import Nyll.AnabelianGeometry.WeightFiltration.MatchedGenericArithmeticCoefficient
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticAlignedCoefficientEmbedding
+public import Nyll.AnabelianGeometry.WeightFiltration.MatchedConstantGenericAmbient
+public import Nyll.AnabelianGeometry.WeightFiltration.MatchedGenericArithmeticCoefficient
 
 /-! # The native finite cover with the unchanged aligned constants
 
@@ -15,6 +17,8 @@ Its restriction gives the actual selected finite-cover point. Factoring the
 resulting geometric generic point supplies the function-field embedding,
 without choosing another embedding of the coefficient closure.
 -/
+
+@[expose] public section
 
 noncomputable section
 

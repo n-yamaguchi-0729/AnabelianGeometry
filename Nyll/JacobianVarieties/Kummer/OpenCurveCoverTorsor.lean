@@ -5,15 +5,18 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenCurveCover
-import Nyll.JacobianVarieties.Kummer.CurveCoverTorsor
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverAction
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverLocalCoordinates
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverLocalAction
-import Nyll.EtaleFundamentalGroups.Kummer.AdjoinRoot.RootFiberTransitivity
-import Mathlib.Algebra.Torsor.Defs
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCover
+public import Nyll.AlgebraicCurves.Models.Kummer.CurveCoverTorsor
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverAction
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverLocalCoordinates
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverLocalAction
+public import Nyll.EtaleFundamentalGroups.Kummer.AdjoinRoot.RootFiberTransitivity
+public import Mathlib.Algebra.Torsor.Defs
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationSourceIso
 
 /-!
 # The actual Kummer covering fiber is a root-of-unity torsor
@@ -24,6 +27,8 @@ uniqueness of roots up to a root of unity prove that the existing action is
 free and transitive. Local roots over a separably closed geometric point also
 prove nonemptiness. The covering scheme may be disconnected.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -99,7 +104,8 @@ private theorem exists_kummerFiberCoordinate :
         ⟨(l x).1 ≫ e.hom,
           (Category.assoc _ _ _).trans ((congrArg ((l x).1 ≫ ·) he).trans (l x).2)⟩ := by
       apply Subtype.ext
-      exact fiberLiftEquiv_naturality ξ (kummerCoverRootScale M S n w j hj hinterior hn ζ).hom x
+      exact fiberLiftEquiv_naturality ξ
+        (kummerCoverRootScale M S n w j hj hinterior hn ζ).asIso.hom x
     change (Scheme.ΓSpecIso (.of Ω)).hom (c (l (ζ • x))) = _
     rw [hl]
     change (Scheme.ΓSpecIso (.of Ω)).hom

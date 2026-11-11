@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.HomotopySequenceMaps
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.HomotopySequenceMaps
 
 /-!
 # Descending an actual finite etale section along connected fibres
@@ -15,6 +17,8 @@ cover of the base. The construction preserves its equality with the
 original map after composition, so it can be used on a chosen fibre
 section in the homotopy sequence.
 -/
+
+@[expose] public section
 
 noncomputable section
 

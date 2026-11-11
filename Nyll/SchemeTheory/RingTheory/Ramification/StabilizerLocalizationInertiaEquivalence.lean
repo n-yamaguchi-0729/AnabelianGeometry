@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
-import Mathlib.Algebra.Group.Subgroup.Map
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
+public import Mathlib.Algebra.Group.Subgroup.Map
 
 /-!
 # Equivalence of local and ideal inertia
@@ -13,6 +15,8 @@ import Mathlib.Algebra.Group.Subgroup.Map
 Constructs a multiplicative equivalence between inertia for the stabilizer action on a prime
 localization and the original ideal inertia group.
 -/
+
+@[expose] public section
 
 open scoped Pointwise
 

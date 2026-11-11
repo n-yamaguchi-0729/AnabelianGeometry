@@ -14,11 +14,15 @@ their point-compatibility proofs are local additions.
 Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
-import Nyll.AlgebraicCurves.Models.Construction.Basic
-import Nyll.SchemeTheory.FunctionFields.OpenChartGenericPoints
-import Nyll.SchemeTheory.FunctionFields.StructureMorphism
+module
+
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
+public import Nyll.SchemeTheory.FunctionFields.OpenChartGenericPoints
+public import Nyll.SchemeTheory.FunctionFields.StructureMorphism
 
 /-! # Generic chart points of curve models over the ground field -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry TopologicalSpace

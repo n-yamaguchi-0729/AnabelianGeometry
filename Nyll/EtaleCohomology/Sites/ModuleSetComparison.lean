@@ -4,27 +4,29 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Sites.BaseChange
-import Nyll.EtaleCohomology.Sites.SheafFunctors
-import Nyll.EtaleCohomology.Sites.SetSheafFunctors
-import Nyll.EtaleCohomology.Sites.PullbackStalks
-import Nyll.EtaleCohomology.Sites.MateComparison
-import Mathlib.Algebra.Category.ModuleCat.Adjunctions
-import Mathlib.Algebra.Category.ModuleCat.FilteredColimits
-import Mathlib.AlgebraicGeometry.Sites.AffineEtale
-import Mathlib.AlgebraicGeometry.Sites.EtalePoint
-import Mathlib.CategoryTheory.Adjunction.Mates
-import Mathlib.CategoryTheory.Functor.Flat
-import Mathlib.CategoryTheory.Functor.TwoSquare
-import Mathlib.CategoryTheory.Limits.Shapes.Products
-import Mathlib.CategoryTheory.Sites.ConstantSheaf
-import Mathlib.CategoryTheory.Sites.Equivalence
-import Mathlib.CategoryTheory.Sites.PreservesSheafification
-import Mathlib.CategoryTheory.Sites.Whiskering
-import Mathlib.CategoryTheory.Sites.Point.Basic
-import Mathlib.CategoryTheory.Sites.Point.Comap
-import Mathlib.CategoryTheory.Sites.Point.Conservative
-import Mathlib.CategoryTheory.Sites.Point.Skyscraper
+module
+
+public import Nyll.EtaleCohomology.Sites.BaseChange
+public import Nyll.EtaleCohomology.Sites.SheafFunctors
+public import Nyll.EtaleCohomology.Sites.SetSheafFunctors
+public import Nyll.EtaleCohomology.Sites.PullbackStalks
+public import Nyll.EtaleCohomology.Sites.MateComparison
+public import Mathlib.Algebra.Category.ModuleCat.Adjunctions
+public import Mathlib.Algebra.Category.ModuleCat.FilteredColimits
+public import Mathlib.AlgebraicGeometry.Sites.AffineEtale
+public import Mathlib.AlgebraicGeometry.Sites.EtalePoint
+public import Mathlib.CategoryTheory.Adjunction.Mates
+public import Mathlib.CategoryTheory.Functor.Flat
+public import Mathlib.CategoryTheory.Functor.TwoSquare
+public import Mathlib.CategoryTheory.Limits.Shapes.Products
+public import Mathlib.CategoryTheory.Sites.ConstantSheaf
+public import Mathlib.CategoryTheory.Sites.Equivalence
+public import Mathlib.CategoryTheory.Sites.PreservesSheafification
+public import Mathlib.CategoryTheory.Sites.Whiskering
+public import Mathlib.CategoryTheory.Sites.Point.Basic
+public import Mathlib.CategoryTheory.Sites.Point.Comap
+public import Mathlib.CategoryTheory.Sites.Point.Conservative
+public import Mathlib.CategoryTheory.Sites.Point.Skyscraper
 
 /-!
 # Underlying set sheaves of étale module sheaves
@@ -36,6 +38,8 @@ geometric stalks using the filtered-colimit comparison for the forgetful
 functor and the stalk/skyscraper adjunctions. No field or finiteness assumption
 is imposed on the base schemes or the coefficient ring.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory Limits Opposite
@@ -70,7 +74,7 @@ def etalePullbackModuleUnderlyingComparison :
       etalePullback f R ⋙ etaleModuleUnderlying X R :=
   ((mateEquiv (etalePullbackPushforwardAdjunction f R)
     (etaleSetPullbackPushforwardAdjunction f)).symm
-      ((etalePushforwardModuleUnderlyingIso R f).hom)).natTrans
+      ((etalePushforwardModuleUnderlyingIso R f).hom))
 
 end EtaleCohomology
 
@@ -92,9 +96,9 @@ private def skyscraperModuleUnderlyingSquare :
     (stalkModuleUnderlyingSquare Φ R)
 
 private lemma skyscraperModuleUnderlyingSquare_app (M : ModuleCat.{u} R) :
-    (skyscraperModuleUnderlyingSquare Φ R).natTrans.app M =
+    (skyscraperModuleUnderlyingSquare Φ R).app M =
       Φ.skyscraperSheafAdjunction.homEquiv _ _
-        ((stalkModuleUnderlyingSquare Φ R).natTrans.app (Φ.skyscraperSheaf M) ≫
+        ((stalkModuleUnderlyingSquare Φ R).app (Φ.skyscraperSheaf M) ≫
           (forget (ModuleCat.{u} R)).map (Φ.skyscraperSheafAdjunction.counit.app M)) := by
   apply (Φ.skyscraperSheafAdjunction.homEquiv _ _).symm.injective
   dsimp only [Functor.comp_obj, Functor.id_obj]
@@ -104,7 +108,7 @@ private lemma skyscraperModuleUnderlyingSquare_app (M : ModuleCat.{u} R) :
 
 private lemma skyscraperModuleUnderlyingSquare_app_π
     (M : ModuleCat.{u} R) (V : C) (v : Φ.fiber.obj V) :
-    ((skyscraperModuleUnderlyingSquare Φ R).natTrans.app M).hom.app (op V) ≫
+    ((skyscraperModuleUnderlyingSquare Φ R).app M).hom.app (op V) ≫
         Pi.π (fun _ : Φ.fiber.obj V => (forget (ModuleCat.{u} R)).obj M) v =
       (forget (ModuleCat.{u} R)).map (Pi.π (fun _ : Φ.fiber.obj V => M) v) := by
   rw [skyscraperModuleUnderlyingSquare_app]
@@ -141,14 +145,14 @@ private lemma skyscraperModuleUnderlyingSquare_comap :
           (etaleBaseChange_coverPreserving f)) R =
       (Sites.skyscraperModuleUnderlyingSquare (Scheme.pointSmallEtale s) R) ≫ₕ
         (etalePushforwardModuleUnderlyingIso R f).hom := by
-  apply TwoSquare.ext
-  intro M
+  apply NatTrans.ext
+  funext M
   apply Sheaf.hom_ext
   apply NatTrans.ext
   funext V
   apply Pi.hom_ext
   intro v
-  dsimp only [TwoSquare.hComp, TwoSquare.mk, TwoSquare.natTrans,
+  dsimp only [TwoSquare.hComp, TwoSquare.mk,
     NatTrans.comp_app, Functor.associator_hom_app, Functor.associator_inv_app,
     Functor.whiskerLeft_app, Functor.whiskerRight_app,
     etalePushforwardModuleUnderlyingIso, Iso.refl_hom]
@@ -177,13 +181,13 @@ lemma etalePullbackModuleUnderlyingComparison_stalk_isIso
       (Φ.sheafFiber (A := Type u)) (forget (ModuleCat.{u} R)) :=
     Sites.stalkModuleUnderlyingSquare Φ R
   have hc : IsIso (((mateEquiv adjM adjT).symm
-      (Sites.skyscraperModuleUnderlyingSquare Ψ R)).natTrans) := by
+      (Sites.skyscraperModuleUnderlyingSquare Ψ R))) := by
     apply (Sites.isIso_inverseMate_iff adjM adjT
       Ψ.skyscraperSheafAdjunction Ψ.skyscraperSheafAdjunction
         (Sites.skyscraperModuleUnderlyingSquare Ψ R)).mpr
     change IsIso (((mateEquiv Ψ.skyscraperSheafAdjunction Ψ.skyscraperSheafAdjunction).symm
       (mateEquiv Ψ.skyscraperSheafAdjunction Ψ.skyscraperSheafAdjunction
-        (Sites.stalkModuleUnderlyingSquare Ψ R))).natTrans)
+        (Sites.stalkModuleUnderlyingSquare Ψ R))))
     rw [Equiv.symm_apply_apply]
     exact inferInstanceAs (IsIso (Ψ.sheafFiberCompIso (forget (ModuleCat.{u} R))).hom)
   have hcomp : (mateEquiv adjM adjT) (α ≫ᵥ β) =
@@ -198,16 +202,16 @@ lemma etalePullbackModuleUnderlyingComparison_stalk_isIso
               (etalePushforwardModuleUnderlyingIso R f).hom) = _
     erw [Equiv.apply_symm_apply]
     exact (skyscraperModuleUnderlyingSquare_comap f R s).symm
-  have hi : IsIso (α ≫ᵥ β).natTrans := by
+  have hi : IsIso (α ≫ᵥ β) := by
     rw [← (mateEquiv adjM adjT).symm_apply_apply (α ≫ᵥ β), hcomp]
     exact hc
   have hcomponent : IsIso (Φ.sheafFiber.map
       ((etalePullbackModuleUnderlyingComparison R f).app F) ≫
         (Φ.sheafFiberCompIso (forget (ModuleCat.{u} R))).hom.app
           ((etalePullback f R).obj F)) := by
-    have h := NatIso.isIso_app_of_isIso (α ≫ᵥ β).natTrans F
-    change IsIso (Φ.sheafFiber.map (α.natTrans.app F) ≫
-      β.natTrans.app ((etalePullback f R).obj F)) at h
+    have h := NatIso.isIso_app_of_isIso (α ≫ᵥ β) F
+    change IsIso (Φ.sheafFiber.map (α.app F) ≫
+      β.app ((etalePullback f R).obj F)) at h
     exact h
   exact (isIso_comp_right_iff _
     ((Φ.sheafFiberCompIso (forget (ModuleCat.{u} R))).hom.app

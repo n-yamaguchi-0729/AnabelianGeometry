@@ -10,19 +10,23 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
-import Nyll.AlgebraicCurves.Cohomology.Cech.TwoChart.SectionsOf
-import Nyll.AlgebraicCurves.Geometry.Schemes.Covers.OrderedAffineCoverComap
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Pullback.IsClosedSetOfLeFinrankSectionsPullbackResidueField
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Pullback.EqSumSmulPullbackSectionReduced
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Frames.BasicOpenFrameFramePullback
-import Nyll.SchemeTheory.Modules.Frames.FrameLocality
-import Nyll.SchemeTheory.Cohomology.Cech.TwoAffineOpenCover
+module
+
+public import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
+public import Nyll.AlgebraicCurves.Cohomology.Cech.TwoChart.SectionsOf
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Covers.OrderedAffineCoverComap
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Pullback.IsClosedSetOfLeFinrankSectionsPullbackResidueField
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Pullback.EqSumSmulPullbackSectionReduced
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Frames.BasicOpenFrameFramePullback
+public import Nyll.SchemeTheory.Modules.Frames.FrameLocality
+public import Nyll.SchemeTheory.Cohomology.Cech.TwoAffineOpenCover
 
 /-!
 # Bijective scalar multiplication on invertible modules over basic opens
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroRationalRootSpecialization
-import Mathlib.RingTheory.RootsOfUnity.Basic
+module
+
+public import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroRationalRootSpecialization
+public import Mathlib.RingTheory.RootsOfUnity.Basic
 
 /-!
 # Full constant-root scaling for the same rational specialization
@@ -17,13 +19,17 @@ by this image; injectivity of the canonical constant residue map then gives
 the same full roots-of-unity action in the fixed constant field.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 
 open EtaleFundamentalGroups.Inertia EtaleFundamentalGroups.StrictHenselian
 
 namespace AlgebraicCurve.Place
 
-variable {k F : Type} [Field k] [Field F] [Algebra k F]
+variable {k F : Type u} [Field k] [Field F] [Algebra k F]
 
 /-- The existing rational specialization retains its actual lift evaluation
 and intertwines multiplication by every root of unity in the fixed constants.
@@ -31,7 +37,7 @@ The same equivalence witnesses both conclusions. -/
 theorem exists_ordZero_rationalRootSpecialization_rootScaling
     (v : Place k F) (hv : v.IsRational) (u : Fˣ) (hu : v.ord (u : F) = 0)
     (n : ℕ) (hn : IsUnit (n : k))
-    (κ Ω : Type) [Field κ] [Field Ω]
+    (κ Ω : Type u) [Field κ] [Field Ω]
     [Algebra k κ] [Algebra k Ω] [Algebra F Ω]
     [Algebra v.toValuationSubring Ω] [Algebra κ Ω]
     [IsScalarTower v.toValuationSubring F Ω]

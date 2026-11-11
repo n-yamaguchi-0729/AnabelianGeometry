@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncRationalPlaceIntegralBase
-import Nyll.EtaleFundamentalGroups.Inertia.RationalCuspInertiaConstants
-import Nyll.EtaleFundamentalGroups.Inertia.NormalRestrictionKernel
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationIntegralBaseInertia
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisNaturality
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+module
+
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncRationalPlaceIntegralBase
+public import Nyll.EtaleFundamentalGroups.Inertia.RationalCuspInertiaConstants
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalRestrictionKernel
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationIntegralBaseInertia
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisNaturality
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
 
 /-!
 # The same rational cusp under extension to algebraically closed constants
@@ -19,6 +21,8 @@ prime along the integral-base normalization equivalence. Its inertia maps ONTO
 the original arithmetic inertia. The reverse inclusion follows from the actual
 constant-restriction kernel, rather than a supplied image-comparison hypothesis.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -230,8 +234,8 @@ def ratFuncRationalPlaceNormalizationEquiv :
     (ratFuncPlaceExtensionRingHom V W hord).toAlgebra
   let : Algebra.IsIntegral V.toValuationSubring W.toValuationSubring :=
     ratFunc_rationalPlace_extension_isIntegral V hV W hord
-  let : IsScalarTower V.toValuationSubring W.toValuationSubring Ω :=
-    ratFuncPlace_extension_ambientTower V W hord
+  let : IsScalarTower V.toValuationSubring W.toValuationSubring Ω := by
+    exact ratFuncPlace_extension_ambientTower V W hord
   exact normalizationIntegralBaseRingEquiv V.toValuationSubring W.toValuationSubring Ω
 
 include hV in

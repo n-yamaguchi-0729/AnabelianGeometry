@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverCharacterProduct
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverSplitting
-import Mathlib.GroupTheory.QuotientGroup.Defs
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverCharacterProduct
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverSplitting
+public import Mathlib.GroupTheory.QuotientGroup.Defs
 
 /-!
 # Actual open divisorial Kummer classes inject into derived H¹
@@ -15,6 +17,8 @@ The constructed cover supplies the map; multiplication is checked on actual
 generic roots, and its kernel is exactly the actual subgroup of powers.
 Surjectivity requires the converse interior valuation calculation.
 -/
+
+@[expose] public section
 
 noncomputable section
 

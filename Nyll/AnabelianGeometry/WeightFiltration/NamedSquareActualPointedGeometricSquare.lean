@@ -3,18 +3,22 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareMatchedPointModel
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareMatchedGeometricSquare
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareFiniteBaseFiberTransport
-import Nyll.AnabelianGeometry.WeightFiltration.NamedModelCoverGroupSquare
-import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationMatchedGenericAmbient
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
-import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverGenericPoint
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
-import Nyll.EtaleFundamentalGroups.GeometricFiber.MatchedFiberCoverGroupTransport
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Integral
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareMatchedPointModel
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareMatchedGeometricSquare
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareFiniteBaseFiberTransport
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedModelCoverGroupSquare
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationMatchedGenericAmbient
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverGenericPoint
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.MatchedFiberCoverGroupTransport
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Integral
 
 /-! # Geometric squares from the actual points of matched covers -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve

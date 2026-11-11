@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.RationalBoundaryRangeFixed
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationBoundaryPlaceOrders
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalBoundaryRangeFixed
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationBoundaryPlaceOrders
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
 
 /-! # Arithmetic stability of the chosen rational-configuration inertia ranges
 
@@ -16,6 +18,8 @@ base. The existing rational-place restriction theorem supplies that fact for
 each geometric boundary place. Thus no extra fixed-label assumption is needed
 when removing a finite constant-cover arithmetic correction.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicGeometry.ProjSpace

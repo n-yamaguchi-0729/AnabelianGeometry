@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaMap
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteCohomologyTameValue
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaMap
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteCohomologyTameValue
 
 /-!
 # Actual boundary inertia and finite cohomology values
@@ -13,6 +15,8 @@ import Nyll.AnabelianGeometry.WeightFiltration.FiniteCohomologyTameValue
 With the common constant-root parameter, each actual cohomology character
 has value equal to the corresponding root raised to its boundary residue.
 -/
+
+@[expose] public section
 
 noncomputable section
 

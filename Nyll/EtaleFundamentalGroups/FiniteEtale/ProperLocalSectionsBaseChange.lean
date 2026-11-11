@@ -11,11 +11,14 @@ AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperLocalH0BaseChange
-import Nyll.AlgebraicCurves.Cohomology.ProjectiveSectionsBaseChange
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.BaseChange.CochainBaseChangeEquiv
-import Nyll.AlgebraicCurves.Cohomology.Cech.TwoChart.SectionsOf
-import Nyll.SchemeTheory.Modules.Invertible.Invertible
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperLocalH0BaseChange
+public import Nyll.AlgebraicCurves.Cohomology.ProjectiveSectionsBaseChange
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.BaseChange.CochainBaseChangeEquiv
+public import Nyll.AlgebraicCurves.Cohomology.Cech.TwoChart.SectionsOf
+public import Nyll.SchemeTheory.Modules.Invertible.Invertible
+public import Nyll.SchemeTheory.Cohomology.Cech.TwoChartCech
 
 /-!
 # Actual section base change for proper geometrically reduced local families
@@ -25,6 +28,8 @@ without a reduced-base or higher-cohomology-vanishing assumption. The final
 section/cochain construction is adapted from the attributed FLT source above.
 It retains the exact formula on pure tensors of actual global sections.
 -/
+
+@[expose] public section
 
 noncomputable section
 

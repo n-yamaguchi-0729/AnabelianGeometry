@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealCanonicalTameCharacter
-import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingTameCharacterProperties
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealCanonicalTameCharacter
+public import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingTameCharacterProperties
 
 /-!
 # Uniformizer evaluation of finite ideal characters
@@ -14,6 +16,8 @@ import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingTameCharacter
 Evaluates powers of the finite ideal tame character through uniformizer ratios, including the
 canonical normalized character.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -31,15 +35,14 @@ theorem finiteIdealTameCharacterGroupMap_pow_eq_uniformizer
     [Group G] [Finite G] [MulSemiringAction G B]
     (Q : Ideal B) [Q.IsPrime] (hQ : Q ≠ ⊥) (m : ℕ)
     (π : Localization.AtPrime Q) (hπ : Irreducible π) (σ : Q.inertia G) :
-    letI : IsDiscreteValuationRing (Localization.AtPrime Q) :=
+    let : IsDiscreteValuationRing (Localization.AtPrime Q) :=
       SchemeTheory.localizationAtPrime_isDiscreteValuationRing B Q hQ
     (show rootsOfUnity (finiteIdealTameOrder B G Q hQ) Q.ResidueField from
       ((finiteIdealTameCharacterGroupMap B G Q hQ).toFun σ) ^ m).val.val =
       ((IsLocalRing.residue (Localization.AtPrime Q)).toFun
         (uniformizerRatioUnit (Localization.AtPrime Q) (MulAction.stabilizer G Q) π hπ
           ⟨σ.val, Q.inertia_le_stabilizer σ.property⟩).val) ^ m := by
-  let : IsDiscreteValuationRing (Localization.AtPrime Q) :=
-    SchemeTheory.localizationAtPrime_isDiscreteValuationRing B Q hQ
+  intro sharedOwner1
   exact tameCharacter_pow_eq_uniformizer (Localization.AtPrime Q)
     (MulAction.stabilizer G Q) m π hπ
     ((idealLocalizationInertiaGroupMap B G Q).toFun σ)

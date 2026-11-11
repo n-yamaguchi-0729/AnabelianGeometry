@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.InertiaUnitRatio
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.InertiaUnitRatio
 
 /-!
 # Coefficient ratios through an actual residue map
@@ -13,6 +15,8 @@ This form uses the original local ring homomorphism and residue-field map,
 so it applies directly to finite normalization maps without changing their
 chosen group actions or residue fields.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -227,9 +227,9 @@ theorem nativeCoactionAxioms_of_pointwise :
 /-- Tensor-form overlap normalization and cocycle give precisely the two
 laws of the native scalar-extension comonad, for the constructed coaction. -/
 theorem nativeCoactionAxioms :
-    letI : Algebra R B := f.toAlgebra
-    letI : Algebra R C := Algebra.compHom C f
-    letI : IsScalarTower R B C := IsScalarTower.of_compHom R B C
+    let : Algebra R B := f.toAlgebra
+    let : Algebra R C := Algebra.compHom C f
+    let : IsScalarTower R B C := IsScalarTower.of_compHom R B C
     ∀ (θ : C ⊗[R] B ≃ₐ[B] B ⊗[R] C),
       (tensorTargetDiagonal R B C).comp θ.toAlgHom = tensorSourceDiagonal R B C →
       tensorCocycleLeft R B C θ = tensorCocycleRight R B C θ →
@@ -242,10 +242,7 @@ theorem nativeCoactionAxioms :
         FaithfullyFlatDescent.coactionLinear f C ρ ≫
           (ModuleCat.extendRestrictScalarsAdj f).toComonad.map
             (FaithfullyFlatDescent.coactionLinear f C ρ)) := by
-  let : Algebra R B := f.toAlgebra
-  let : Algebra R C := Algebra.compHom C f
-  let : IsScalarTower R B C := IsScalarTower.of_compHom R B C
-  intro θ hdiag hcocycle
+  intro baseAlgebra compositeAlgebra scalarTower θ hdiag hcocycle
   exact nativeCoactionAxioms_of_pointwise f C (tensorCoaction R B C θ)
     (tensorCoaction_counit R B C θ hdiag)
     (tensorCoaction_coassoc R B C θ hcocycle)
@@ -253,17 +250,14 @@ theorem nativeCoactionAxioms :
 /-- A genuine tensor-form descent isomorphism with its ordinary overlap laws
 is effective: the invariant subalgebra recovers the given algebra after base change. -/
 def tensorDescentEquiv (hf : f.FaithfullyFlat) :
-    letI : Algebra R B := f.toAlgebra
-    letI : Algebra R C := Algebra.compHom C f
-    letI : IsScalarTower R B C := IsScalarTower.of_compHom R B C
+    let : Algebra R B := f.toAlgebra
+    let : Algebra R C := Algebra.compHom C f
+    let : IsScalarTower R B C := IsScalarTower.of_compHom R B C
     (θ : C ⊗[R] B ≃ₐ[B] B ⊗[R] C) →
       (tensorTargetDiagonal R B C).comp θ.toAlgHom = tensorSourceDiagonal R B C →
       tensorCocycleLeft R B C θ = tensorCocycleRight R B C θ →
       B ⊗[R] FaithfullyFlatDescent.invariants f C (tensorCoaction R B C θ) ≃ₐ[B] C := by
-  letI : Algebra R B := f.toAlgebra
-  letI : Algebra R C := Algebra.compHom C f
-  letI : IsScalarTower R B C := IsScalarTower.of_compHom R B C
-  intro θ hdiag hcocycle
+  intro baseAlgebra compositeAlgebra scalarTower θ hdiag hcocycle
   exact FaithfullyFlatDescent.invariantsBaseChangeEquiv f C hf (tensorCoaction R B C θ)
     (nativeCoactionAxioms f C θ hdiag hcocycle).1
     (nativeCoactionAxioms f C θ hdiag hcocycle).2

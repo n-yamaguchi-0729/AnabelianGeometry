@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteCharacterExtension
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteAbelianExact
-import Mathlib.Algebra.Homology.ShortComplex.Ab
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteCharacterExtension
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteAbelianExact
+public import Mathlib.Algebra.Homology.ShortComplex.Ab
 
 /-!
 # An actual finite étale sheaf extension constructed from a character
@@ -16,6 +18,8 @@ sequence of actual étale abelian sheaves. The two end terms have trivial
 monodromy; the middle term retains the given character. All exactness
 statements follow from the explicit inclusion and projection.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationCoefficientSquare
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationCoefficientSquare
 
 /-!
 # Conjugation under the actual full-Galois normalization restriction
@@ -12,6 +14,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationCoefficientS
 The actual coefficient homomorphism preserves group multiplication. This
 calculation is proved before an upper prime or D/I group is introduced.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

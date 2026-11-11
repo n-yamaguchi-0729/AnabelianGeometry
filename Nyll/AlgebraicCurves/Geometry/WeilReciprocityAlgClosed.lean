@@ -10,25 +10,29 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Nyll.AlgebraicCurves.Divisors.Maps.Maps
-import Nyll.SchemeTheory.FunctionFields.MathlibFieldTheoryRatFuncImperfectionDegree
-import Nyll.AlgebraicCurves.Geometry.WeilReciprocity
-import Nyll.AlgebraicCurves.FunctionFields.NormTrace.WeilReciprocityAlgebraMapSeparable
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncWeilReciprocity
-import Nyll.AlgebraicCurves.FunctionFields.Rational.FunctionFieldFiniteRatFuncAlgHom
-import Nyll.AlgebraicCurves.FunctionFields.Rational.FunctionFieldRatFuncAlgHomApplyXEq
-import Nyll.AlgebraicCurves.Places.Degree.IsRationalAlgClosed
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncDegEqOneAlgClosed
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncHasPrincipalDivisors
-import Nyll.AlgebraicCurves.Places.Basic
-import Nyll.SchemeTheory.FunctionFields.AlgebraIsSeparableFinrankFieldRangeFrobeniusEq
-import Nyll.AlgebraicCurves.Places.Orders.MemRangeAlgebraMapOrdEqZeroAlgClosed
-import Nyll.AlgebraicCurves.Divisors.Evaluation
+module
+
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.AlgebraicCurves.Divisors.Maps.Maps
+public import Nyll.SchemeTheory.FunctionFields.MathlibFieldTheoryRatFuncImperfectionDegree
+public import Nyll.AlgebraicCurves.Geometry.WeilReciprocity
+public import Nyll.AlgebraicCurves.FunctionFields.NormTrace.WeilReciprocityAlgebraMapSeparable
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncWeilReciprocity
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.FunctionFieldFiniteRatFuncAlgHom
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.FunctionFieldRatFuncAlgHomApplyXEq
+public import Nyll.AlgebraicCurves.Places.Degree.IsRationalAlgClosed
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncDegEqOneAlgClosed
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncHasPrincipalDivisors
+public import Nyll.AlgebraicCurves.Places.Basic
+public import Nyll.SchemeTheory.FunctionFields.AlgebraIsSeparableFinrankFieldRangeFrobeniusEq
+public import Nyll.AlgebraicCurves.Places.Orders.MemRangeAlgebraMapOrdEqZeroAlgClosed
+public import Nyll.AlgebraicCurves.Divisors.Evaluation
 
 /-!
 # Weil Reciprocity of is Alg Closed
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

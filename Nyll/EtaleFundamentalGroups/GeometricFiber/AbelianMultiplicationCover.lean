@@ -4,20 +4,22 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.AlgebraicPoints
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.Kernel
-import Nyll.AbelianVarieties.Tate.FullTateModule
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawEtaleSchemeNsmul
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawSmoothOfRelativeDimension
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawFiniteEndKerStrNatCardEqEndDegree
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
-import Mathlib.AlgebraicGeometry.Geometrically.Connected
-import Mathlib.AlgebraicGeometry.Morphisms.Proper
-import Mathlib.AlgebraicGeometry.Morphisms.Smooth
-import Mathlib.AlgebraicGeometry.ZariskisMainTheorem
-import Nyll.ProCGroups.Abelian.FullTateModule
+module
+
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.AlgebraicPoints
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.Kernel
+public import Nyll.AbelianVarieties.Tate.FullTateModule
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawEtaleSchemeNsmul
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawSmoothOfRelativeDimension
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawFiniteEndKerStrNatCardEqEndDegree
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+public import Mathlib.AlgebraicGeometry.Geometrically.Connected
+public import Mathlib.AlgebraicGeometry.Morphisms.Proper
+public import Mathlib.AlgebraicGeometry.Morphisms.Smooth
+public import Mathlib.AlgebraicGeometry.ZariskisMainTheorem
+public import Nyll.ProCGroups.Abelian.FullTateModule
 
 /-!
 # Multiplication covers and their actual torsion fibres
@@ -29,6 +31,10 @@ is identified with the actual torsion subgroup of algebraic points, using
 the pullback universal property and the existing scheme-kernel comparison.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 
 open CategoryTheory CategoryTheory.Limits CategoryTheory.PreGaloisCategory
@@ -38,7 +44,7 @@ open RelativeGroupLaw_isFinite_endKerStr_and_natCard_eq_endDegree_of_etale.P2mSe
 
 namespace GoodReductionJacobian.RelativeGroupLaw
 
-variable {K : Type} [Field K] {A : Scheme.{0}} {f : A ⟶ Spec (CommRingCat.of K)}
+variable {K : Type u} [Field K] {A : Scheme.{u}} {f : A ⟶ Spec (CommRingCat.of K)}
 variable (G : RelativeGroupLaw K f) (hc : G.IsCommutative)
 
 include hc in
@@ -77,7 +83,8 @@ theorem isConnected_multiplicationCover [CharZero K] [IsProper f] [Smooth f]
     inferInstanceAs (ConnectedSpace A)
   exact FiniteEtale.isConnected_of_connectedSpace_left (G.multiplicationCover hc n)
 
-private def pointOverEquivKernelSection (a : A ⟶ A) (e : Spec (CommRingCat.of K) ⟶ A) :
+/-- A point over a morphism is a section of its pullback along the base point. -/
+def pointOverEquivKernelSection (a : A ⟶ A) (e : Spec (CommRingCat.of K) ⟶ A) :
     SchemeHomOver e a ≃ SchemeHomOver (𝟙 (Spec (CommRingCat.of K))) (pullback.snd a e) where
   toFun x := ⟨pullback.lift x.1 (𝟙 _) (x.2.trans (Category.id_comp e).symm),
     pullback.lift_snd _ _ _⟩

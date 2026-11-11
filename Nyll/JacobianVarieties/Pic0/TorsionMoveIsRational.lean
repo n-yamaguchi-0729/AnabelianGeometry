@@ -11,12 +11,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Nyll.JacobianVarieties.Pic0.MkEqNotMemSupport
+module
+
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.JacobianVarieties.Pic0.MkEqNotMemSupport
 
 /-!
 Represent a torsion Picard class by a divisor avoiding a prescribed finite set of places.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

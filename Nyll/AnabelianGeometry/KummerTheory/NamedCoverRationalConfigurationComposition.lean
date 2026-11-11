@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.Models.Rational.RationalBoundaryConfigurationIso
-import Nyll.SchemeTheory.FunctionFields.OpenChartGenericPoints
+module
+
+public import Nyll.AlgebraicCurves.Models.Rational.RationalBoundaryConfigurationIso
+public import Nyll.SchemeTheory.FunctionFields.OpenChartGenericPoints
 
 /-! # Compose the same named cover with its literal rational configuration
 
@@ -12,6 +14,8 @@ The original source morphism, cover projection, and generic root-field map are
 all retained. Nonemptiness is obtained from the actual generic morphism using
 the given root-field equivalence, without any new nonempty-source premise.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve
 open AlgebraicGeometry.ProjSpace

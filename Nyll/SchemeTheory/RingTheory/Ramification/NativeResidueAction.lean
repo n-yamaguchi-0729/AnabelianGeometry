@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.ProfiniteInvariantResidueLift
-import Mathlib.Algebra.Category.Grp.Basic
-import Mathlib.Algebra.Ring.Equiv
-import Mathlib.RingTheory.Ideal.Over
-import Mathlib.RingTheory.Ideal.Pointwise
-import Mathlib.RingTheory.Ideal.Quotient.Basic
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.ProfiniteInvariantResidueLift
+public import Mathlib.Algebra.Category.Grp.Basic
+public import Mathlib.Algebra.Ring.Equiv
+public import Mathlib.RingTheory.Ideal.Over
+public import Mathlib.RingTheory.Ideal.Pointwise
+public import Mathlib.RingTheory.Ideal.Quotient.Basic
 
 /-!
 # The actual native residue-action homomorphism
@@ -20,6 +22,8 @@ Its surjectivity is obtained from the constructed global residue equations,
 and its kernel mapped to the original group is the native inertia subgroup.
 The quotient-algebra-to-ring conversion is proved before profinite data occur.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -120,7 +124,7 @@ theorem nativeResidueAutomorphismRingEquiv_injective
   intro x
   exact congrArg (fun e : (B ⧸ q) ≃+* (B ⧸ q) => e.toRingHom.toFun x) h
 
-private theorem residueEquation_mem_stabilizer
+theorem residueEquation_mem_stabilizer
     {B G : Type v} [CommRing B] [Group G] [MulSemiringAction G B]
     (q : Ideal B) (φ : (B ⧸ q) ≃+* (B ⧸ q)) (g : G)
     (hg : ∀ b : B, (Ideal.Quotient.mk q).toFun (g • b) =

@@ -4,20 +4,22 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameProperties
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameCharacter
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameExactness
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameQuotientCardinality
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealWildPrimary
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationResidueCharacteristic
-import Mathlib.Algebra.Category.CommAlgCat.Basic
-import Mathlib.Algebra.CharP.Defs
-import Mathlib.Algebra.Group.Subgroup.Ker
-import Mathlib.Algebra.GroupWithZero.Units.Basic
-import Mathlib.GroupTheory.Index
-import Mathlib.GroupTheory.PGroup
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameProperties
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameCharacter
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameExactness
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameQuotientCardinality
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealWildPrimary
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationResidueCharacteristic
+public import Mathlib.Algebra.Category.CommAlgCat.Basic
+public import Mathlib.Algebra.CharP.Defs
+public import Mathlib.Algebra.Group.Subgroup.Ker
+public import Mathlib.Algebra.GroupWithZero.Units.Basic
+public import Mathlib.GroupTheory.Index
+public import Mathlib.GroupTheory.PGroup
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
 
 /-!
 # Intrinsic wild subgroup laws on one coefficient algebra
@@ -27,6 +29,8 @@ coefficient-automorphism inertia. Its primary order, character kernel and
 tame quotient cardinality supply the three Sylow image inputs. No field
 presentation or comparison premise is introduced.
 -/
+
+@[expose] public section
 
 noncomputable section
 

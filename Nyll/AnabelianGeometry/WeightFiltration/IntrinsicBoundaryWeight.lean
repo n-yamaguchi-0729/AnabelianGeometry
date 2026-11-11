@@ -4,8 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.CyclotomicBoundaryKernel
-import Nyll.AnabelianGeometry.CuspidalInertia.PrimeToRootsOpenBoundary
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.CyclotomicBoundaryKernel
+public import Nyll.AnabelianGeometry.CuspidalInertia.PrimeToRootsOpenBoundary
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
 
 /-!
 # Intrinsic recognition of the actual boundary weight subgroup
@@ -15,6 +18,8 @@ homomorphisms equivariant on open Galois subgroups. The forward containment
 uses number-field Jacobian Hom vanishing; the converse uses the actual
 boundary sequence and finite-character detection of its permutation witnesses.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -75,7 +80,7 @@ theorem openCyclotomicSpan_map_equiv
   exact ⟨e.symm y, hle ⟨y, hy, rfl⟩, e.apply_symm_apply y⟩
 
 variable
-    (k K : Type) [Field k] [NumberField k] [Field K] [CharZero K] [IsAlgClosed K]
+    (k K : Type) [Field k] [CharZero k] [Field.FG k] [Field K] [CharZero K] [IsAlgClosed K]
     [Algebra k K] [IsSepClosure k K]
     {C U : Scheme} [CompactSpace U] [QuasiSeparatedSpace U]
     (c : C ⟶ Spec (.of k)) (i : U ⟶ C)
@@ -161,7 +166,7 @@ theorem compactification_kernel_eq_openCyclotomicSpan
           boundaryPlaceInertiaHom M j hj hfield Q p t := by
       have hs : (fun s : S => if s = p then t else 1) = Pi.mulSingle p t := by
         funext s
-        by_cases h : s = p <;> simp [h]
+        exact (Pi.mulSingle_apply p t s).symm
       rw [hs]
       change MonoidHom.noncommPiCoprod
         (fun p => (boundaryPlaceInertiaHom M j hj hfield Q p).toMonoidHom)

@@ -4,13 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.DedekindDomain.Dvr
+module
+
+public import Mathlib.RingTheory.DedekindDomain.Dvr
 
 /-!
 # Discrete valuation rings from Dedekind prime localizations
 
 Proves that localization of a Dedekind domain at a nonzero prime is a discrete valuation ring.
 -/
+
+@[expose] public section
 
 namespace SchemeTheory
 

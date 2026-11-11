@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Schemes.FunctionFields.FunctionFieldConstantExtension
-import Nyll.AlgebraicCurves.Models.Construction.Basic
-import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveBase
+module
+
+public import Nyll.AlgebraicCurves.Geometry.Schemes.FunctionFields.FunctionFieldConstantExtension
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
+public import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveBase
 
 /-!
 # Scalar compatibility of the actual constant-extension function-field map
@@ -15,6 +17,10 @@ The germ comparison of the geometric projection forces its action on the
 original constants. This supplies the scalar tower used by divisor conorm
 and Weil evaluation without assuming a comparison of coefficient maps.
 -/
+
+@[expose] public section
+
+universe u
 
 noncomputable section
 
@@ -26,8 +32,8 @@ namespace AlgebraicGeometry
 /-- The actual function-field map characterized by germs sends original
 constants through the specified extension of the ground field. -/
 theorem functionField_constantExtension_map_constants
-    {K : Type} [Field K] (K' : Type) [Field K'] [Algebra K K']
-    {X : Scheme} [IsIntegral X] (c : X ⟶ Spec (.of K))
+    {K : Type u} [Field K] (K' : Type u) [Field K'] [Algebra K K']
+    {X : Scheme.{u}} [IsIntegral X] (c : X ⟶ Spec (.of K))
     [IsIntegral (pullback c (specMap K K'))]
     (φ : X.functionField →+* (pullback c (specMap K K')).functionField)
     (hsq : ∀ (U : X.Opens) [Nonempty U]

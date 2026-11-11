@@ -3,13 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncCoordinateFromAdjoin
-import Nyll.AlgebraicCurves.Divisors.Degree.DegreeEqFinrankAdjoinEqMaxNegOrd
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.FiniteDimensionalLSpaceZero
-import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
-import Nyll.AlgebraicCurves.FunctionFields.Extensions.CurveFiniteDimensionalAdjoinSimple
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Nyll.AlgebraicCurves.Places.Orders.TranscendentalOrdNeZero
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncCoordinateFromAdjoin
+public import Nyll.AlgebraicCurves.Divisors.Degree.DegreeEqFinrankAdjoinEqMaxNegOrd
+public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.FiniteDimensionalLSpaceZero
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
+public import Nyll.AlgebraicCurves.FunctionFields.Extensions.CurveFiniteDimensionalAdjoinSimple
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.AlgebraicCurves.Places.Orders.TranscendentalOrdNeZero
 
 /-! # The same simple-pole pair function is a rational-function coordinate
 
@@ -18,6 +20,8 @@ A rational simple pole has degree one. The resulting degree-one extension is
 trivial, so the prescribed function itself, rather than a replacement, is the
 image of X under a k-algebra automorphism.
 -/
+
+@[expose] public section
 
 noncomputable section
 attribute [local instance] Classical.propDecidable

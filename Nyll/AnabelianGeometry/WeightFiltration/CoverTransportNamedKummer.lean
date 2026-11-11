@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.NamedKummerFiberRigidity
-import Nyll.AnabelianGeometry.CuspidalInertia.CoverTransportBoundaryPower
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaCoordinateSeparation
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedKummerFiberRigidity
+public import Nyll.AnabelianGeometry.CuspidalInertia.CoverTransportBoundaryPower
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaCoordinateSeparation
 
 /-! # Actual cover transport identified with named power Kummer fibers -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory AlgebraicCurve

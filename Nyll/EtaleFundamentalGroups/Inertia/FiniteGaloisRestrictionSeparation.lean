@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteGaloisRestrictionGroupMap
-import Mathlib.FieldTheory.Galois.GaloisClosure
-import Mathlib.FieldTheory.Normal.Defs
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteGaloisRestrictionGroupMap
+public import Mathlib.FieldTheory.Galois.GaloisClosure
+public import Mathlib.FieldTheory.Normal.Defs
 
 /-!
 # Actual finite Galois restrictions separate original automorphisms
@@ -14,6 +16,8 @@ import Mathlib.FieldTheory.Normal.Defs
 Every coefficient belongs to its finite Galois closure. Agreement on all
 actual finite restrictions therefore gives agreement on every coefficient.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

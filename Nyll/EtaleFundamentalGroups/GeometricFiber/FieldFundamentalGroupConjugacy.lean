@@ -7,6 +7,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 module
 
 public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldFunctoriality
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.Functoriality
 
 /-!
 # The canonical field fundamental-group map
@@ -49,9 +50,9 @@ private noncomputable def fieldUntransportedPullbackFiberIso :
 transported comparison and the field-specific comparison. -/
 noncomputable def fieldFundamentalGroupComparisonAut : Aut (fib k Omega) :=
   (fieldBasePointFiberIso k K Omega).conjAut
-    ((pullbackFiberIso (ξ k K) (ξ K Omega)).symm ≪≫
+    (Aut.of ((pullbackFiberIso (ξ k K) (ξ K Omega)).symm ≪≫
       (fieldPullbackFiberIso k K Omega ≪≫
-        (fieldBasePointFiberIso k K Omega).symm))
+        (fieldBasePointFiberIso k K Omega).symm)))
 
 private theorem conjAut_symm_cancel
     {C : Type u} [Category C] {F G : C}
@@ -60,7 +61,8 @@ private theorem conjAut_symm_cancel
   rw [← p.symm.trans_conjAut p]
   rw [p.symm_self_id]
   apply Aut.ext
-  exact Iso.refl_conj a.hom
+  apply Iso.ext
+  exact congrArg End.asHom (Iso.refl_conj a.toEnd)
 
 private theorem conjAut_inner
     {C : Type u} [Category C] {F G : C}
@@ -76,8 +78,8 @@ private theorem fieldFundamentalGroupHom_eq_conj_core
         (fieldUntransportedPullbackFiberIso k K Omega) sigma =
       MulAut.conj
         (G := Aut (fiber (ξ K Omega ≫ ξ k K)))
-        ((pullbackFiberIso (ξ k K) (ξ K Omega)).symm ≪≫
-          fieldUntransportedPullbackFiberIso k K Omega)
+        (Aut.of ((pullbackFiberIso (ξ k K) (ξ K Omega)).symm ≪≫
+          fieldUntransportedPullbackFiberIso k K Omega))
         (fundamentalGroupHom (ξ k K) (ξ K Omega) sigma) := by
   exact fundamentalGroupHom_eq_conj_of_comparison
     (ξ k K) (ξ K Omega)
@@ -107,7 +109,7 @@ theorem fieldFundamentalGroupHom_eq_conj_fundamentalGroupHom
     rw [Iso.trans_conjAut]
     exact conjAut_symm_cancel p _
   let a : Aut (fiber (ξ K Omega ≫ ξ k K)) :=
-    (pullbackFiberIso (ξ k K) (ξ K Omega)).symm ≪≫ t
+    Aut.of ((pullbackFiberIso (ξ k K) (ξ K Omega)).symm ≪≫ t)
   let b : Aut (fiber (ξ K Omega ≫ ξ k K)) :=
     fundamentalGroupHom (ξ k K) (ξ K Omega) sigma
   have h := congrArg (fun x : Aut (fiber (ξ K Omega ≫ ξ k K)) ↦ p.conjAut x)

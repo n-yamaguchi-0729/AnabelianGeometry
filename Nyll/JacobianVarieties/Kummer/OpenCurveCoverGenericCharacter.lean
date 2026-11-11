@@ -5,15 +5,21 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverCharacter
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverTorsor
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverAction
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldMonodromyLift
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
-import Nyll.EtaleFundamentalGroups.Kummer.AdjoinRoot.RootScaling
-import Nyll.EtaleFundamentalGroups.Kummer.AdjoinRoot.RootFiberTransitivity
-import Nyll.EtaleFundamentalGroups.Cohomology.TorsorCharacter
-import Mathlib.RingTheory.AdjoinRoot
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverCharacter
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverTorsor
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverAction
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldMonodromyLift
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+public import Nyll.EtaleFundamentalGroups.Kummer.AdjoinRoot.RootScaling
+public import Nyll.EtaleFundamentalGroups.Kummer.AdjoinRoot.RootFiberTransitivity
+public import Nyll.EtaleFundamentalGroups.Cohomology.TorsorCharacter
+public import Mathlib.AlgebraicGeometry.Noetherian
+public import Mathlib.RingTheory.AdjoinRoot
+public import Mathlib.RingTheory.Ideal.Quotient.Noetherian
+public import Mathlib.RingTheory.Polynomial.Basic
+public import Mathlib.RingTheory.PrincipalIdealDomain
 
 /-!
 # The actual Kummer character at the geometric generic point
@@ -24,6 +30,8 @@ that point to the same point precisely at the usual root quotient. The proved
 free action then computes the character as the factor carrying β to σ β.
 -/
 
+@[expose] public section
+
 noncomputable section
 
 universe u v
@@ -33,8 +41,6 @@ open JacobianVarieties.Kummer EtaleFundamentalGroups.Cohomology
 open scoped FintypeCatDiscrete
 
 namespace AlgebraicCurve.CurveModel.OpenKummer
-
-attribute [local instance] IsSepClosure.sep_closed
 
 variable {K : Type u} [Field K]
   {F : Type v} [Field F] [Algebra K F]
@@ -62,6 +68,25 @@ omit [CompactSpace X] [IsOpenImmersion j] in
 private theorem genericKummerRootLift_root :
     genericKummerRootLift M S n w j hj β hβ (AdjoinRoot.root _) = β :=
   AdjoinRoot.liftAlgHom_root _ _ _ _
+
+omit [CompactSpace X] [IsOpenImmersion j] in
+private theorem openKummerGenericMap_quasiCompact :
+    QuasiCompact (M.openKummerGenericMap S n w j hj) := by
+  let p : Polynomial X.functionField := Polynomial.X ^ (n : ℕ) -
+    Polynomial.C (j.functionFieldMap hj (M.ffEquiv (w.val : F)))
+  have : IsPrincipalIdealRing X.functionField :=
+    DivisionSemiring.isPrincipalIdealRing X.functionField
+  have : IsNoetherianRing X.functionField :=
+    PrincipalIdealRing.isNoetherianRing (R := X.functionField)
+  have : IsNoetherianRing (Polynomial X.functionField) :=
+    Polynomial.isNoetherianRing
+  have : IsNoetherianRing (AdjoinRoot p) :=
+    Ideal.Quotient.isNoetherianRing (Ideal.span {p})
+  have : NoetherianSpace (Spec (.of (AdjoinRoot p))) := inferInstance
+  exact quasiCompact_of_noetherianSpace_source
+    (X := Spec (.of (AdjoinRoot p))) (M.openKummerGenericMap S n w j hj)
+
+attribute [local instance] openKummerGenericMap_quasiCompact
 
 private def genericKummerRootPoint :
     Spec (.of Ω) ⟶ (M.openKummerGenericMap S n w j hj).normalization :=
@@ -124,6 +149,7 @@ multiplies a chosen root β by exactly the factor that sends β to σ β. -/
 theorem kummerMonodromyCharacter_generic_mul_root
     [IsSepClosure X.functionField Ω] (hn : IsUnit ((n : ℕ) : K))
     (σ : Ω ≃ₐ[X.functionField] Ω) :
+    let : IsSepClosed Ω := IsSepClosure.sep_closed X.functionField
     let : TopologicalSpace (rootsOfUnity (n : ℕ) K) := ⊥
     let xi := Spec.map (CommRingCat.ofHom (algebraMap X.functionField Ω))
     let genericMap := X.fromSpecStalk (genericPoint X)
@@ -132,7 +158,7 @@ theorem kummerMonodromyCharacter_generic_mul_root
     algebraMap X.functionField Ω (baseToFunctionField (j ≫ M.toBase)
       ((kummerMonodromyCharacter M S n w j hj hinterior hn (xi ≫ genericMap) g : Kˣ) : K)) * β
         = σ β := by
-  intro tμ xi genericMap g
+  intro sepClosed tμ xi genericMap g
   let T := kummerGeometricRootTorsor M S n w j hj hinterior hn (xi ≫ genericMap)
   have := kummerGeometricRootAction_commutes M S n w j hj hinterior hn (xi ≫ genericMap)
   let ι : K →+* Ω := (algebraMap X.functionField Ω).comp (baseToFunctionField (j ≫ M.toBase))
@@ -164,7 +190,7 @@ theorem kummerMonodromyCharacter_generic_mul_root
     apply Over.OverMorphism.ext
     have hleft := congrArg (fun q => q.left)
       (FiniteEtale.fiberObjEquivHom_naturality (xi ≫ genericMap)
-        (kummerCoverRootScale M S n w j hj hinterior hn ζ).hom x)
+        (kummerCoverRootScale M S n w j hj hinterior hn ζ).asIso.hom x)
     have hright := FiniteEtale.fundamentalGroupHom_field_fiberLift genericMap W σ x
     change (e x).left ≫ (kummerNormalizationRootScale M S n w j hj ζ).hom =
       (e (ζ • x)).left at hleft

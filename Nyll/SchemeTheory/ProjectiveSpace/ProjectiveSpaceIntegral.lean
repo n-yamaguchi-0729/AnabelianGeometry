@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.SchemeTheory.ProjectiveSpace.BaseChange
-import Mathlib.AlgebraicGeometry.Properties
-import Mathlib.AlgebraicGeometry.Geometrically.Integral
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.BaseChange
+public import Mathlib.AlgebraicGeometry.Properties
+public import Mathlib.AlgebraicGeometry.Geometrically.Integral
 
 /-! # Integrality of the actual projective-space scheme
 
@@ -16,6 +18,8 @@ The zero homogeneous prime is a generic point, and the existing standard
 chart equivalences give reducedness. Existing base-change then proves
 geometric integrality. No smoothness or algebraic-closure hypothesis is used.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.TorsionTateSpecialization
-import Nyll.ProCGroups.Abelian.FullTateModuleMap
-import Mathlib.RingTheory.Adjoin.Field
-import Mathlib.FieldTheory.IsAlgClosed.Basic
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.TorsionTateSpecialization
+public import Nyll.ProCGroups.Abelian.FullTateModuleMap
+public import Mathlib.RingTheory.Adjoin.Field
+public import Mathlib.FieldTheory.IsAlgClosed.Basic
 
 /-!
 # Actual torsion coefficient extension from an algebraically closed field
@@ -17,6 +19,8 @@ coefficient field. Applying this to actual finite kernel sections makes the
 original coefficient maps equivalences, with their original transitions and
 actions. Both coefficient fields must be algebras over the same model base.
 -/
+
+@[expose] public section
 
 noncomputable section
 

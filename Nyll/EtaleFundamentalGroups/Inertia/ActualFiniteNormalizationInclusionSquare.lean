@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationCoefficientSquare
-import Nyll.SchemeTheory.Normalization.AmbientNormalizationGroupMap
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationCoefficientSquare
+public import Nyll.SchemeTheory.Normalization.AmbientNormalizationGroupMap
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
 
 /-!
 # Finite normalization inclusion squares
@@ -14,6 +16,8 @@ import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
 Factors the finite ambient inclusion through the original normalization and proves compatibility
 of this inclusion with restricted Galois automorphisms.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

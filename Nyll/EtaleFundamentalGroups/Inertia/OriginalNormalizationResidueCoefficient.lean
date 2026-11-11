@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.SchemeTheory.Normalization.AmbientNormalizationGroupMap
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueCoefficient
-import Nyll.SchemeTheory.RingTheory.Ramification.NormalizationResidueSequence
-import Nyll.SchemeTheory.RingTheory.Ramification.NormalizationGaloisInvariant
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
-import Mathlib.RingTheory.Ideal.Quotient.Defs
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.SchemeTheory.Normalization.AmbientNormalizationGroupMap
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueCoefficient
+public import Nyll.SchemeTheory.RingTheory.Ramification.NormalizationResidueSequence
+public import Nyll.SchemeTheory.RingTheory.Ramification.NormalizationGaloisInvariant
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
+public import Mathlib.RingTheory.Ideal.Quotient.Defs
 
 /-!
 # Coefficients of the original residue morphism
@@ -18,6 +20,8 @@ import Mathlib.RingTheory.Ideal.Quotient.Defs
 Identifies the original normalization residue morphism with the quotient map induced by its
 prescribed normalization coefficient action.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -3,11 +3,14 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticCorrectionRationalCuspInertia
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaMalnormal
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsTorsionFree
-import Mathlib.GroupTheory.Index
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticCorrectionRationalCuspInertia
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaMalnormal
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsTorsionFree
+public import Mathlib.GroupTheory.Index
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
 
 /-! # Separation of the actual rational cusp decomposition groups
 
@@ -23,6 +26,8 @@ intersection of two arithmetic decomposition groups is asserted. These results
 do not assert separatedness for arbitrary closed-point decomposition groups or
 for solvable quotients over finite fields.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve

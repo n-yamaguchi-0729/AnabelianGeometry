@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalFiniteInertiaRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgInertiaRestriction
-import Mathlib.Algebra.Category.Grp.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalFiniteInertiaRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgInertiaRestriction
+public import Mathlib.Algebra.Category.Grp.Basic
 
 /-!
 # Restriction to finite normalization inertia
@@ -15,6 +17,8 @@ import Mathlib.Algebra.Category.Grp.Basic
 Constructs the inclusion of original inertia into the ambient Galois group and its restriction
 to the intrinsic inertia group of a finite normalization.
 -/
+
+@[expose] public section
 
 noncomputable section
 

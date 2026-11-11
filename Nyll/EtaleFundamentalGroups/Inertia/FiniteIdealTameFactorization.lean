@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameOrder
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.FiniteInertiaCardinality
-import Mathlib.FieldTheory.PurelyInseparable.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameOrder
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.FiniteInertiaCardinality
+public import Mathlib.FieldTheory.PurelyInseparable.Basic
 
 /-!
 # Tame and wild orders with inseparable residue degree
@@ -16,6 +18,8 @@ ramification index times the inseparable degree of the native residue
 extension. The existential factorization interface follows from this explicit
 identity.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

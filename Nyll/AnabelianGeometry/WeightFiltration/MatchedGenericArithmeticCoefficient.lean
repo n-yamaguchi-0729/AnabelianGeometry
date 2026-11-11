@@ -3,11 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.SchemeTheory.Normalization.FiniteSeparable
-import Nyll.SchemeTheory.FunctionFields.Functoriality
-import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
+module
+
+public import Nyll.SchemeTheory.Normalization.FiniteSeparable
+public import Nyll.SchemeTheory.FunctionFields.Functoriality
+public import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
 
 /-! # Matched Generic Arithmetic Coefficient -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry TopologicalSpace

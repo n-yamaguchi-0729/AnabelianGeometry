@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationInertiaTopology
-import Nyll.SchemeTheory.RingTheory.Ramification.IdealInertiaClosed
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
-import Nyll.SchemeTheory.Normalization.ScalarRestrictionGroupMap
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.FieldTheory.Galois.Profinite
-import Mathlib.Topology.Compactness.Compact
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationInertiaTopology
+public import Nyll.SchemeTheory.RingTheory.Ramification.IdealInertiaClosed
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
+public import Nyll.SchemeTheory.Normalization.ScalarRestrictionGroupMap
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.FieldTheory.Galois.Profinite
+public import Mathlib.Topology.Compactness.Compact
 
 /-!
 # Compactness of original normalization inertia
@@ -20,6 +22,8 @@ The topology is the original Krull topology restricted to the literal
 normalization inertia subgroup. Closedness comes from the already proved
 openness of the original coefficient stabilizers.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

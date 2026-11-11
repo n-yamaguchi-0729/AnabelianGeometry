@@ -47,18 +47,19 @@ theorem essImage_res_iff_ker_le_ker_ρAut
   · rintro ⟨X, ⟨e⟩⟩ a ha
     have ha1 : h a = 1 := MonoidHom.mem_ker.mp ha
     apply MonoidHom.mem_ker.mpr
+    apply Aut.ext
     apply Iso.ext
     apply FintypeCat.hom_ext
     intro y
-    change (Y.obj.ρ a).hom y = y
+    change (Y.obj.ρ a).asHom y = y
     let ef :=
       (forget₂ (ContAction FintypeCat G') FintypeCat).mapIso e
     let x : X.obj.V := ef.inv y
     have hc := ConcreteCategory.congr_hom (e.hom.hom.comm a) x
-    change ef.hom ((X.obj.ρ (h a)).hom x) =
-      (Y.obj.ρ a).hom (ef.hom x) at hc
+    change ef.hom ((X.obj.ρ (h a)).asHom x) =
+      (Y.obj.ρ a).asHom (ef.hom x) at hc
     rw [ha1, Action.ρ_one] at hc
-    change ef.hom x = (Y.obj.ρ a).hom (ef.hom x) at hc
+    change ef.hom x = (Y.obj.ρ a).asHom (ef.hom x) at hc
     have hxy : ef.hom x = y := FintypeCat.inv_hom_id_apply ef y
     rw [hxy] at hc
     exact hc.symm
@@ -73,7 +74,7 @@ theorem essImage_res_iff_ker_le_ker_ρAut
           ⟨Action.ρAut Y.obj, hker⟩ a
     let A : Action FintypeCat.{w} G :=
       { V := Y.obj.V
-        ρ := (Aut.toEnd Y.obj.V).comp ρAut }
+        ρ := (Aut.toEnd (X := Y.obj.V)).comp ρAut }
     have hA : A.IsContinuous := by
       change ContinuousSMul G
         ((forget₂ (Action FintypeCat G) TopCat).obj A)
@@ -90,10 +91,10 @@ theorem essImage_res_iff_ker_le_ker_ρAut
       -- Express both stabilizers through their actions before comparing them.
       have hpre :
           h ⁻¹' MulAction.stabilizer G y =
-            {a : G' | (Y.obj.ρ a).hom y = y} := by
+            {a : G' | (Y.obj.ρ a).asHom y = y} := by
         ext a
         simp only [Set.mem_preimage, Set.mem_ofPred_eq]
-        change (ρAut (h a)).hom y = y ↔ (Y.obj.ρ a).hom y = y
+        change (ρAut (h a)).asIso.hom y = y ↔ (Y.obj.ρ a).asHom y = y
         rw [ρAut_comp]
         rfl
       rw [hpre]
@@ -107,12 +108,12 @@ theorem essImage_res_iff_ker_le_ker_ρAut
         change DiscreteTopology Y.obj.V
         infer_instance
       have hopen := stabilizer_isOpen G' yY
-      change IsOpen {a : G' | (Y.obj.ρ a).hom yY = yY} at hopen
+      change IsOpen {a : G' | (Y.obj.ρ a).asHom yY = yY} at hopen
       exact hopen
     have hrho (a : G') :
         ((Action.res FintypeCat h.toMonoidHom).obj A).ρ a =
           Y.obj.ρ a := by
-      change (Aut.toEnd Y.obj.V) (ρAut (h a)) = Y.obj.ρ a
+      change (Aut.toEnd (X := Y.obj.V)) (ρAut (h a)) = Y.obj.ρ a
       rw [ρAut_comp]
       rfl
     let eA :
@@ -120,7 +121,7 @@ theorem essImage_res_iff_ker_le_ker_ρAut
       Action.mkIso (Iso.refl _) (by
         intro a
         rw [hrho a]
-        change Y.obj.ρ a ≫ 𝟙 Y.obj.V = 𝟙 Y.obj.V ≫ Y.obj.ρ a
+        change (Y.obj.ρ a).asHom ≫ 𝟙 Y.obj.V = 𝟙 Y.obj.V ≫ (Y.obj.ρ a).asHom
         rw [Category.comp_id, Category.id_comp])
     let X : ContAction FintypeCat.{w} G := ⟨A, hA⟩
     let e : (ContAction.res FintypeCat h).obj X ≅ Y :=

@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperLocalSectionsBaseChange
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperGeometricallyReducedSections
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Pullback.PullbackUnitIsoHomAppPullbackLocalSectionToUnitSection
-import Nyll.SchemeTheory.FiniteEtale.Algebra.LocalEtaleFromClosedFiber
-import Mathlib.RingTheory.TensorProduct.Basic
-import Mathlib.RingTheory.Etale.Basic
-import Mathlib.RingTheory.RingHom.Etale
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperLocalSectionsBaseChange
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperGeometricallyReducedSections
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Pullback.PullbackUnitIsoHomAppPullbackLocalSectionToUnitSection
+public import Nyll.SchemeTheory.FiniteEtale.Algebra.LocalEtaleFromClosedFiber
+public import Mathlib.RingTheory.TensorProduct.Basic
+public import Mathlib.RingTheory.Etale.Basic
+public import Mathlib.RingTheory.RingHom.Etale
 
 /-!
 # The section algebra of a proper geometrically reduced local family
@@ -20,6 +22,8 @@ It therefore gives an algebra equivalence with the actual section ring of
 every base change. The original section algebra is finite projective and
 étale, by the actual closed-fibre algebra and the local criterion.
 -/
+
+@[expose] public section
 
 noncomputable section
 

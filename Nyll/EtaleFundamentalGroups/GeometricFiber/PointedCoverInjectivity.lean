@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverImage
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverImage
 
 /-!
 # Injectivity for the same pointed finite covering map
 -/
+
+@[expose] public section
 
 noncomputable section
 

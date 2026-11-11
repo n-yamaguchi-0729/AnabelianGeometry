@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.NamedKummerGeometricRestriction
+module
+
+public import Nyll.JacobianVarieties.Kummer.NamedKummerGeometricRestriction
 
 /-! # Keeping named arithmetic roots in their original coefficient field
 
@@ -12,6 +14,8 @@ Perform the root-value change before instantiating the scheme and its field
 instances at a concrete rational configuration. All chosen torsors and the
 geometric fiber comparison are kept unchanged.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry AlgebraicGeometry.FiniteEtale AlgebraicCurve
@@ -63,7 +67,7 @@ theorem exists_namedKummer_geometricRestriction_equiv_with_coefficientRootCoordi
     let WG := N.openKummerCover T n hnκ wg jG hjG hiG
     let q := arithmeticFundamentalGroupHom k κ (jA ≫ M.toBase) xiA
     let inc := pointedFundamentalGroupHom a xiG xiA hpoint
-    letI := kummerGeometricRootAction N T n wg jG hjG hiG hnκ xiG
+    let := kummerGeometricRootAction N T n wg jG hjG hiG hnκ xiG
     ∃ tA : Torsor (rootsOfUnity (n : ℕ) κ) ((fiber xiA).obj WA),
       ∃ E : (fiber xiG).obj WG ≃ (fiber xiA).obj WA,
       ∃ eA : (fiber xiA).obj WA ≃
@@ -84,8 +88,7 @@ theorem exists_namedKummer_geometricRestriction_equiv_with_coefficientRootCoordi
           p • (tA.toMulAction.toSMul.smul ζ x) =
             tA.toMulAction.toSMul.smul
               (restrictRootsOfUnity (q p).toRingHom (n : ℕ) ζ) (p • x) := by
-  intro xiA xiG WA WG q inc
-  let := kummerGeometricRootAction N T n wg jG hjG hiG hnκ xiG
+  intro xiA xiG WA WG q inc rootAction
   obtain ⟨tA, E, eA, htA, hgA, hμ, hI, hsemi⟩ :=
     exists_namedKummer_geometricRestriction_equiv_with_rootCoordinate
       M N S T n wa wg hunit jA hjA jG hjG hiA hiG hn hnκ

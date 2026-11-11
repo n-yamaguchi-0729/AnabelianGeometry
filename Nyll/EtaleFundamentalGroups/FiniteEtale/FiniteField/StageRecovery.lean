@@ -3,14 +3,18 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.SchemePairDescent
-import Mathlib.CategoryTheory.Comma.Over.Pullback
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.SchemePairDescent
+public import Mathlib.CategoryTheory.Comma.Over.Pullback
 
 /-!
 # Stage Recovery
 
 A constant-field stage with its coefficient structure.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory Limits Opposite AlgebraicGeometry

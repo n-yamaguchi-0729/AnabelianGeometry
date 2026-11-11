@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncRationalPairFunction
-import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncConstantExtensionOrders
-import Nyll.AlgebraicCurves.Places.ValuationRings.EqComapToValuationSubringEq
-import Nyll.AlgebraicCurves.Places.Basic
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncRationalPairFunction
+public import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncConstantExtensionOrders
+public import Nyll.AlgebraicCurves.Places.ValuationRings.EqComapToValuationSubringEq
+public import Nyll.AlgebraicCurves.Places.Basic
 
 /-! # The same arithmetic function has the prescribed geometric divisor
 
@@ -15,6 +17,8 @@ The function is chosen in k(t), then extended to L(t). Orders at every
 geometric place are controlled by unramified constant extension. Uniqueness
 of the place above a rational arithmetic place rules out additional support.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -61,14 +65,12 @@ variable [Algebra.IsAlgebraic k L] [Algebra.IsSeparable k L]
 restriction. The needed integrality and constants-generation are proved. -/
 theorem ratFunc_constantExtension_all_place_orders
     (W : Place L (RatFunc L)) :
-    letI : Algebra.IsIntegral (RatFunc k) (RatFunc L) :=
+    let : Algebra.IsIntegral (RatFunc k) (RatFunc L) :=
       ratFunc_constantExtension_isIntegral (k := k) (L := L)
     ∀ f : RatFunc k,
       W.ord (algebraMap (RatFunc k) (RatFunc L) f) =
         ((W.forgetConstants (K := k)).restrict (RatFunc k)).ord f := by
-  let : Algebra.IsIntegral (RatFunc k) (RatFunc L) :=
-    ratFunc_constantExtension_isIntegral (k := k) (L := L)
-  intro f
+  intro sharedOwner1 f
   have he := Place.ramificationIndex_forgetConstants_eq_one_of_adjoin_range_eq_top
     (K := k) (ratFunc_constantExtension_adjoin_eq_top (k := k) (L := L)) W
   have h := (W.forgetConstants (K := k)).ord_restrict (F := RatFunc k) f

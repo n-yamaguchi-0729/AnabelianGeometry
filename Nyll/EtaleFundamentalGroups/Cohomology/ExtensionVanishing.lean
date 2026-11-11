@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionMonodromy
-import Nyll.EtaleFundamentalGroups.Cohomology.IntegerFiberSections
-import Nyll.EtaleFundamentalGroups.Cohomology.MonodromySections
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionMonodromy
+public import Nyll.EtaleFundamentalGroups.Cohomology.IntegerFiberSections
+public import Nyll.EtaleFundamentalGroups.Cohomology.MonodromySections
 
 /-!
 # Vanishing detected by the actual fundamental-group character
@@ -16,6 +18,8 @@ of an actual extension is trivial precisely when its derived extension class
 vanishes. This uses descent of a fixed monodromy point to a genuine global
 section, followed by the splitting obtained from its integral multiples.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -41,7 +45,7 @@ theorem extensionMonodromyCharacter_eq_one_iff :
     let : TopologicalSpace (Multiplicative A) := ⊥
     extensionMonodromyCharacter A i p h hs (integerUnitSection X) ξ = 1 ↔
       hs.extClass = 0 := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
+  intro sharedOwner1
   let T := extensionMonodromyTorsor A i p h hs (integerUnitSection X) ξ
   have := extensionMonodromy_commutes A i p h hs (integerUnitSection X) ξ
   let M := extensionMonodromy A i p h hs (integerUnitSection X) ξ

@@ -10,14 +10,18 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.Morphisms.Smooth
-import Mathlib.RingTheory.RingHom.StandardSmooth
-import Mathlib.Tactic.Algebraize
-import Nyll.SchemeTheory.RingTheory.Dimension.IdealHeightAddKrullDimensionQuotientEqKrullDimension
+module
+
+public import Mathlib.AlgebraicGeometry.Morphisms.Smooth
+public import Mathlib.RingTheory.RingHom.StandardSmooth
+public import Mathlib.Tactic.Algebraize
+public import Nyll.SchemeTheory.RingTheory.Dimension.IdealHeightAddKrullDimensionQuotientEqKrullDimension
 
 /-!
 # Smooth Of Relative Dimension le topological Krull Dim
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

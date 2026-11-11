@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgStabilizerResidueCoefficients
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteDecompositionRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgStabilizerResidueCoefficients
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteDecompositionRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
 
 /-!
 # The actual finite restricted decomposition residue action
@@ -14,6 +16,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
 This is the existing intrinsic stabilizer residue morphism evaluated on
 the actual finite restriction, with its literal coefficient formula.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -11,11 +11,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.RingTheory.Adjoin.FG
+module
+
+public import Mathlib.RingTheory.Adjoin.FG
 
 /-!
 # Subalgebra fg restrict Scalars and le of fg
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

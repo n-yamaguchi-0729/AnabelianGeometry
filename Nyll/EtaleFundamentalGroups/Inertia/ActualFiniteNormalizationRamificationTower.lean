@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationTower
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
-import Nyll.SchemeTheory.Normalization.SubalgebraNormalizationTowerRamification
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationTower
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
+public import Nyll.SchemeTheory.Normalization.SubalgebraNormalizationTowerRamification
 
 /-!
 # Ramification indices in finite normalization towers
@@ -14,6 +16,8 @@ import Nyll.SchemeTheory.Normalization.SubalgebraNormalizationTowerRamification
 Proves the multiplicative tower identity for ramification indices using the algebra structure
 induced by the finite normalization inclusion.
 -/
+
+@[expose] public section
 
 noncomputable section
 

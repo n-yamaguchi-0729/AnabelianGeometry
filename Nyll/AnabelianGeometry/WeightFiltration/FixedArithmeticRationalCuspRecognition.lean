@@ -3,8 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.ActualRationalCuspRecognition
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticGeometricEquivUniqueness
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.ActualRationalCuspRecognition
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticGeometricEquivUniqueness
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
 
 /-! # Recognition at the same fixed geometric equivalence for every source cusp
 
@@ -12,6 +15,8 @@ This forwards the single-cusp construction to any geometric equivalence
 already fixed above the arithmetic map. Uniqueness follows from the actual
 arithmetic exact sequence, not from a preservation assumption.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicGeometry.FiniteEtale AlgebraicCurve
@@ -33,7 +38,7 @@ local instance (priority := 2000) fixedRationalCuspRecognitionSMulRatFunc
   (inferInstance : Algebra A (RatFunc E)).toSMul
 
 variable
-    (k κ : Type) [Field k] [NumberField k] [Field κ] [CharZero κ] [IsAlgClosed κ]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k] [Field κ] [CharZero κ] [IsAlgClosed κ]
     [Algebra k κ] [IsSepClosure k κ] [IsAlgClosure k κ]
     {C X₁ : Scheme} [IsIntegral C] [IsIntegral X₁]
     [CompactSpace X₁] [QuasiSeparatedSpace X₁]

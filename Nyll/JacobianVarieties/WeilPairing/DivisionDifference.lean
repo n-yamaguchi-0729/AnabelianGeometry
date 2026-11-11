@@ -5,19 +5,23 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
-import Nyll.JacobianVarieties.WeilPairing.Datum
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Nyll.AlgebraicCurves.Places.Degree.IsRationalAlgClosed
-import Nyll.AlgebraicCurves.Places.Evaluation.SemilinearEvaluation
-import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
-import Mathlib.Tactic.Ring
+module
+
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+public import Nyll.JacobianVarieties.WeilPairing.Datum
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.AlgebraicCurves.Places.Degree.IsRationalAlgClosed
+public import Nyll.AlgebraicCurves.Places.Evaluation.SemilinearEvaluation
+public import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
+public import Mathlib.Tactic.Ring
 
 /-! # Weil pairing of division differences
 
 The ratio of evaluation roots is the actual divisorial Weil pairing. For a
 semilinear automorphism this proves the orientation `σ(β) / β` directly.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -69,7 +73,9 @@ def divisionDifference
     (hg'div : ∀ v : Place K F, v.ord g' = (n : ℤ) * E' v - B v)
     (hDE : ∀ v : Place K F, D v = 0 ∨ E v = 0)
     (hDE' : ∀ v : Place K F, D v = 0 ∨ E' v = 0)
-    (hrat : ∀ v : Place K F, v.IsRational) : WeilDatum K F n where
+    (hratD : ∀ v ∈ D.support, v.IsRational)
+    (hratE : ∀ v ∈ E.support, v.IsRational)
+    (hratE' : ∀ v ∈ E'.support, v.IsRational) : WeilDatum K F n where
   D₁ := D
   D₂ := E' - E
   f₁ := f
@@ -86,10 +92,16 @@ def divisionDifference
     · exact Or.inl hD
     · exact Or.inr (by rw [Finsupp.sub_apply, (hDE' v).resolve_left hD,
         (hDE v).resolve_left hD, sub_self])
-  rational := fun v _ => hrat v
-
-variable [IsAlgClosed K] [Algebra (RatFunc K) F] [IsScalarTower K (RatFunc K) F]
-  [FiniteDimensional (RatFunc K) F]
+  rational := by
+    intro v hv
+    rcases hv with hD | hdiff
+    · exact hratD v (Finsupp.mem_support_iff.mpr hD)
+    · by_cases hE : E v = 0
+      · apply hratE' v
+        apply Finsupp.mem_support_iff.mpr
+        intro hE'
+        exact hdiff (by rw [Finsupp.sub_apply, hE', hE, sub_self])
+      · exact hratE v (Finsupp.mem_support_iff.mpr hE)
 
 /-- The quotient of the two explicit roots is the Weil pairing, with the
 same orientation as `f(E) / g(D)`. -/
@@ -101,18 +113,21 @@ theorem pairing_divisionDifference
     (hg'div : ∀ v : Place K F, v.ord g' = (n : ℤ) * E' v - B v)
     (hDE : ∀ v : Place K F, D v = 0 ∨ E v = 0)
     (hDE' : ∀ v : Place K F, D v = 0 ∨ E' v = 0)
-    (hDB : ∀ v : Place K F, D v = 0 ∨ B v = 0) :
+    (hDB : ∀ v : Place K F, D v = 0 ∨ B v = 0)
+    (hratD : ∀ v ∈ D.support, v.IsRational)
+    (hratE : ∀ v ∈ E.support, v.IsRational)
+    (hratE' : ∀ v ∈ E'.support, v.IsRational) :
     (divisionDifference n D E E' B f g g' hf hg hg' hfdiv hgdiv hg'div
-      hDE hDE' (fun v => v.isRational_of_isAlgClosed)).pairing =
+      hDE hDE' hratD hratE hratE').pairing =
       (Divisor.evalFun f E' / Divisor.evalFun g' D) /
         (Divisor.evalFun f E / Divisor.evalFun g D) := by
   have hfE : ∀ v ∈ E.support, v.evalAt f ≠ 0 := by
     intro v hv
-    apply v.evalAt_ne_zero (v.isRational_of_isAlgClosed) hf
+    apply v.evalAt_ne_zero (hratE v hv) hf
     rw [hfdiv v, (hDE v).resolve_right (Finsupp.mem_support_iff.mp hv), mul_zero]
   have hfE' : ∀ v ∈ E'.support, v.evalAt f ≠ 0 := by
     intro v hv
-    apply v.evalAt_ne_zero (v.isRational_of_isAlgClosed) hf
+    apply v.evalAt_ne_zero (hratE' v hv) hf
     rw [hfdiv v, (hDE' v).resolve_right (Finsupp.mem_support_iff.mp hv), mul_zero]
   have hgD : ∀ v ∈ D.support, v.ord g = 0 := by
     intro v hv
@@ -124,7 +139,7 @@ theorem pairing_divisionDifference
       (hDB v).resolve_left (Finsupp.mem_support_iff.mp hv), mul_zero, sub_self]
   change Divisor.evalFun f (E' - E) / Divisor.evalFun (g' / g) D = _
   rw [Divisor.evalFun_sub f E E' hfE hfE', Divisor.evalFun_div g' g D hg' hg
-    (fun v _ => v.isRational_of_isAlgClosed) hg'D hgD]
+    hratD hg'D hgD]
   exact div_div_div_comm _ _ _ _
 
 end AlgebraicCurve.WeilDatum
@@ -134,9 +149,7 @@ namespace AlgebraicCurve.WeilDatum
 open SemilinearAut
 open scoped Pointwise
 
-variable {K F : Type*} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
-  [Algebra (RatFunc K) F] [IsScalarTower K (RatFunc K) F]
-  [FiniteDimensional (RatFunc K) F]
+variable {K F : Type*} [Field K] [Field F] [Algebra K F]
 
 /-- Semilinear displacement of a division divisor evaluates to the quotient
 of the corresponding actual Kummer root. In particular the orientation is
@@ -148,7 +161,9 @@ theorem exists_semilinearDivisionDifference
     (hDE : ∀ v : Place K F, D v = 0 ∨ E v = 0)
     (hDB : ∀ v : Place K F, D v = 0 ∨ B v = 0)
     (σ : SemilinearAut K F) (hσf : σ • f = f)
-    (hσD : σ • D = D) (hσB : σ • B = B) :
+    (hσD : σ • D = D) (hσB : σ • B = B)
+    (hratD : ∀ v ∈ D.support, v.IsRational)
+    (hratE : ∀ v ∈ E.support, v.IsRational) :
     ∃ d : WeilDatum K F n,
       d.D₁ = D ∧ d.D₂ = σ • E - E ∧ d.f₁ = f ∧ d.f₂ = (σ • g) / g ∧
       d.pairing = baseAut σ (Divisor.evalFun f E / Divisor.evalFun g D) /
@@ -170,11 +185,13 @@ theorem exists_semilinearDivisionDifference
     have ho := hDE (σ⁻¹ • v)
     rw [← divisor_smul_apply σ D v, ← divisor_smul_apply σ E v, hσD] at ho
     exact ho
+  have hratσE : ∀ v ∈ (σ • E).support, v.IsRational :=
+    SemilinearAut.isRational_support_smul σ E hratE
   let d := divisionDifference n D E (σ • E) B f g (σ • g)
-    hf hg hσg hfdiv hgdiv hσgdiv hDE hDE' (fun v => v.isRational_of_isAlgClosed)
+    hf hg hσg hfdiv hgdiv hσgdiv hDE hDE' hratD hratE hratσE
   refine ⟨d, rfl, rfl, rfl, rfl, ?_⟩
   have hp := pairing_divisionDifference n D E (σ • E) B f g (σ • g)
-    hf hg hσg hfdiv hgdiv hσgdiv hDE hDE' hDB
+    hf hg hσg hfdiv hgdiv hσgdiv hDE hDE' hDB hratD hratE hratσE
   have hfmem : ∀ v ∈ E.support, f ∈ v.toValuationSubring := by
     intro v hv
     apply v.mem_of_ord_nonneg hf
@@ -184,10 +201,8 @@ theorem exists_semilinearDivisionDifference
     apply v.mem_of_ord_nonneg hg
     rw [hgdiv v, (hDE v).resolve_left (Finsupp.mem_support_iff.mp hv),
       (hDB v).resolve_left (Finsupp.mem_support_iff.mp hv), mul_zero, sub_self]
-  have hevalf := SemilinearAut.evalFun_smul σ E
-    (fun v _ => v.isRational_of_isAlgClosed) hfmem
-  have hevalg := SemilinearAut.evalFun_smul σ D
-    (fun v _ => v.isRational_of_isAlgClosed) hgmem
+  have hevalf := SemilinearAut.evalFun_smul σ E hratE hfmem
+  have hevalg := SemilinearAut.evalFun_smul σ D hratD hgmem
   rw [hσf] at hevalf
   rw [hσD] at hevalg
   change d.pairing = _

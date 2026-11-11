@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.NamedModelCoverGroupSquare
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticKernelEquivalence
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedModelCoverGroupSquare
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticKernelEquivalence
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
 
 /-! # The actual named square covers retain one geometric covering-group square
 
@@ -16,6 +18,8 @@ The original α, e, he, w, J and q are retained. No inertia preservation, field
 isomorphism between configurations, or geometric covering-group square is an
 input. The latter is proved by the arithmetic exact sequence's injectivity.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve
 open AlgebraicGeometry.FiniteEtale AlgebraicGeometry.ProjSpace
@@ -24,7 +28,8 @@ open scoped FintypeCatDiscrete
 attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
 namespace AnabelianGeometry.WeightFiltration
 
-private def pointEqualityGroupEquiv
+/-- Transport a fundamental-group equivalence along equalities of its base points. -/
+def pointEqualityGroupEquiv
     {S T : Scheme} {Ωs Ωt : Type} [Field Ωs] [Field Ωt]
     {xs ys : Spec (.of Ωs) ⟶ S} {xt yt : Spec (.of Ωt) ⟶ T}
     (hs : xs = ys) (ht : xt = yt) (β : π₁ᵉᵗ(ys) ≃ₜ* π₁ᵉᵗ(yt)) :

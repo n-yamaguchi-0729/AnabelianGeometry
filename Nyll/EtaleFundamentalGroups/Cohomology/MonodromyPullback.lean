@@ -5,10 +5,12 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.EtaleCohomology.Constructible.Monodromy
-import Nyll.EtaleCohomology.Sites.SetSheafFunctors
-import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
-import Mathlib.CategoryTheory.Sites.Subcanonical
+module
+
+public import Nyll.EtaleCohomology.Constructible.Monodromy
+public import Nyll.EtaleCohomology.Sites.SetSheafFunctors
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
+public import Mathlib.CategoryTheory.Sites.Subcanonical
 
 /-!
 # Geometric monodromy under an actual scheme morphism
@@ -18,6 +20,8 @@ one gives a morphism between their representing finite étale covers after base
 change. On geometric fibers this is equivariant for the actual homomorphism of
 fundamental groups induced by the scheme morphism.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -137,13 +141,13 @@ theorem finiteLocallyConstantMonodromyPullbackMap_smul
     finiteLocallyConstantRepresenterPullbackMap f F G α
   let t := FiniteEtale.pullbackFiberIso f ξ
   change (FiniteEtale.fiber ξ).map m
-      (t.inv.app V (t.hom.app V (g.hom.app ((FiniteEtale.pullback f).obj V)
+      (t.inv.app V (t.hom.app V (g.asIso.hom.app ((FiniteEtale.pullback f).obj V)
         (t.inv.app V x)))) =
-    g.hom.app W ((FiniteEtale.fiber ξ).map m (t.inv.app V x))
+    g.asIso.hom.app W ((FiniteEtale.fiber ξ).map m (t.inv.app V x))
   exact (congrArg ((FiniteEtale.fiber ξ).map m)
     (FintypeCat.hom_inv_id_apply (t.app V)
-      (g.hom.app ((FiniteEtale.pullback f).obj V) (t.inv.app V x)))).trans
-        (ConcreteCategory.congr_hom (g.hom.naturality m) (t.inv.app V x)).symm
+      (g.asIso.hom.app ((FiniteEtale.pullback f).obj V) (t.inv.app V x)))).trans
+        (ConcreteCategory.congr_hom (g.asIso.hom.naturality m) (t.inv.app V x)).symm
 
 /-- A commuting diagram of actual sheaves remains a commuting diagram on
 geometric monodromy after the scheme pullback. -/

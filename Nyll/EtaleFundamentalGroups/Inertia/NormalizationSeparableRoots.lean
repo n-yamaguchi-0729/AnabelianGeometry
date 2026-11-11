@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.NativeSeparableRootsRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationAbsoluteResidueGroup
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeSeparableRootsRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationAbsoluteResidueGroup
 
 /-!
 # The full separable roots target of the original normalization
@@ -14,6 +16,8 @@ The residue field, its algebra, and the relative separable closure are
 constructed once in the existing field owner. This layer contains no
 fraction-field or original decomposition-group data.
 -/
+
+@[expose] public section
 
 noncomputable section
 

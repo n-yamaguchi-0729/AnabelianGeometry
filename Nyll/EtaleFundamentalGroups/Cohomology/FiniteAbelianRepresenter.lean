@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Pi1.FiniteEtale.GaloisCategory
-import Mathlib.CategoryTheory.Galois.Equivalence
-import Mathlib.CategoryTheory.Monoidal.Cartesian.CommGrp_
-import Mathlib.GroupTheory.GroupAction.Hom
-import Mathlib.Algebra.Category.Grp.Limits
+module
+
+public import Nyll.EtaleFundamentalGroups.Pi1.FiniteEtale.GaloisCategory
+public import Mathlib.CategoryTheory.Galois.Equivalence
+public import Mathlib.CategoryTheory.Monoidal.Cartesian.CommGrp_
+public import Mathlib.GroupTheory.GroupAction.Hom
+public import Mathlib.Algebra.Category.Grp.Limits
 
 /-!+# Representing finite abelian monodromy
 
@@ -17,6 +19,8 @@ group determines a finite étale cover. Its group structure is constructed from
 the represented presheaf of equivariant functions, using the full Galois
 equivalence. No descent of the group operations is assumed as an input.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -78,7 +82,8 @@ def finiteAbelianEquivariantPresheaf : (FiniteEtale X)ᵒᵖ ⥤ CommGrpCat.{u} 
     exact congrArg a
       (congrArg (fun k => k x) ((FiniteEtale.fiber ξ).map_comp g.unop f.unop))
 
-private def equivariantHomEquiv (Y : FiniteEtale X) :
+/-- Morphisms of finite actions are equivariant maps of their underlying sets. -/
+def equivariantHomEquiv (Y : FiniteEtale X) :
     ((functorToContAction (FiniteEtale.fiber ξ)).obj Y ⟶ finiteAbelianSetAction ξ M) ≃
       MulActionHom (id : Aut (FiniteEtale.fiber ξ) → _)
         ((FiniteEtale.fiber ξ).obj Y) M where
@@ -136,8 +141,7 @@ abbrev finiteAbelianCoverGroup :
     let : CartesianMonoidalCategory (FiniteEtale X) := .ofHasFiniteProducts
     let : BraidedCategory (FiniteEtale X) := .ofCartesianMonoidalCategory
     CommGrpObj (finiteAbelianCover ξ M) := by
-  let : CartesianMonoidalCategory (FiniteEtale X) := .ofHasFiniteProducts
-  let : BraidedCategory (FiniteEtale X) := .ofCartesianMonoidalCategory
+  intro sharedDefinitionOwner1 sharedDefinitionOwner2
   exact CommGrpObj.ofRepresentableBy _ (finiteAbelianEquivariantPresheaf ξ M)
     (finiteAbelianRepresentableBy ξ M)
 
@@ -146,8 +150,7 @@ abbrev finiteAbelianGroupObject :
     let : CartesianMonoidalCategory (FiniteEtale X) := .ofHasFiniteProducts
     let : BraidedCategory (FiniteEtale X) := .ofCartesianMonoidalCategory
     CommGrp (FiniteEtale X) := by
-  let : CartesianMonoidalCategory (FiniteEtale X) := .ofHasFiniteProducts
-  let : BraidedCategory (FiniteEtale X) := .ofCartesianMonoidalCategory
+  intro sharedDefinitionOwner1 sharedDefinitionOwner2
   let h := finiteAbelianCoverGroup ξ M
   exact { X := finiteAbelianCover ξ M, grp := h.toGrpObj, comm := h.toIsCommMonObj }
 
@@ -180,8 +183,7 @@ def finiteAbelianGroupMap (α : M →+ N)
     let : CartesianMonoidalCategory (FiniteEtale X) := .ofHasFiniteProducts
     let : BraidedCategory (FiniteEtale X) := .ofCartesianMonoidalCategory
     finiteAbelianGroupObject ξ M ⟶ finiteAbelianGroupObject ξ N := by
-  let : CartesianMonoidalCategory (FiniteEtale X) := .ofHasFiniteProducts
-  let : BraidedCategory (FiniteEtale X) := .ofCartesianMonoidalCategory
+  intro sharedDefinitionOwner1 sharedDefinitionOwner2
   let F₁ := finiteAbelianEquivariantPresheaf ξ M ⋙ forget₂ CommGrpCat GrpCat
   let F₂ := finiteAbelianEquivariantPresheaf ξ N ⋙ forget₂ CommGrpCat GrpCat
   let e₁ : yonedaGrp.obj (finiteAbelianGroupObject ξ M).toGrp ≅ F₁ :=
@@ -203,8 +205,7 @@ theorem finiteAbelianGroupMap_representable (α : M →+ N)
         (f ≫ (finiteAbelianGroupMap ξ M N α hα).hom.hom.hom) =
       (finiteAbelianEquivariantMap ξ M N α hα).app (op Y)
         ((finiteAbelianRepresentableBy ξ M).homEquiv f) := by
-  let : CartesianMonoidalCategory (FiniteEtale X) := .ofHasFiniteProducts
-  let : BraidedCategory (FiniteEtale X) := .ofCartesianMonoidalCategory
+  intro sharedOwner1 sharedOwner2
   let G₁ := finiteAbelianGroupObject ξ M
   let G₂ := finiteAbelianGroupObject ξ N
   let F₁ := finiteAbelianEquivariantPresheaf ξ M ⋙ forget₂ CommGrpCat GrpCat
@@ -234,8 +235,7 @@ theorem finiteAbelianGroupMap_fiber (α : M →+ N)
     finiteAbelianCoverFiberEquiv ξ N
         ((FiniteEtale.fiber ξ).map (finiteAbelianGroupMap ξ M N α hα).hom.hom.hom x) =
       α (finiteAbelianCoverFiberEquiv ξ M x) := by
-  let : CartesianMonoidalCategory (FiniteEtale X) := .ofHasFiniteProducts
-  let : BraidedCategory (FiniteEtale X) := .ofCartesianMonoidalCategory
+  intro sharedOwner1 sharedOwner2
   have h := congrArg (fun f : MulActionHom (id : Aut (FiniteEtale.fiber ξ) → _)
     ((FiniteEtale.fiber ξ).obj (finiteAbelianCover ξ M)) N => f x)
       (finiteAbelianGroupMap_representable ξ M N α hα _ (𝟙 _))
@@ -262,9 +262,7 @@ theorem finiteAbelianGroupMap_add (α β : M →+ N)
       (congrArg₂ (· + ·) (hα g x) (hβ g x)).trans (smul_add g (α x) (β x)).symm)).hom.hom.hom =
         (finiteAbelianGroupMap ξ M N α hα).hom.hom.hom *
           (finiteAbelianGroupMap ξ M N β hβ).hom.hom.hom := by
-  let : CartesianMonoidalCategory (FiniteEtale X) := .ofHasFiniteProducts
-  let : BraidedCategory (FiniteEtale X) := .ofCartesianMonoidalCategory
-  let : CommGrpObj (finiteAbelianCover ξ N) := finiteAbelianCoverGroup ξ N
+  intro sharedOwner1 sharedOwner2 sharedOwner3
   let hsum := fun g x =>
     (congrArg₂ (· + ·) (hα g x) (hβ g x)).trans (smul_add g (α x) (β x)).symm
   let r := finiteAbelianRepresentableBy ξ N

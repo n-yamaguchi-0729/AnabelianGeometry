@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameEquivariance
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinate
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameEquivariance
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinate
 
 /-!
 # Equivariance at every actual tame degree
@@ -13,6 +15,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinate
 The already proved stage-independent evaluation theorem transfers finite
 quotient scalar equivariance to the SAME coordinate of the original theta.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

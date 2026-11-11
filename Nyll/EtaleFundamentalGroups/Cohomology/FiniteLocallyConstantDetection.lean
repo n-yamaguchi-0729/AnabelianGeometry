@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Constructible.Monodromy
-import Mathlib.CategoryTheory.Action.Basic
-import Mathlib.CategoryTheory.NatIso
-import Mathlib.CategoryTheory.Types.Basic
-import Mathlib.Algebra.Category.Grp.FilteredColimits
+module
+
+public import Nyll.EtaleCohomology.Constructible.Monodromy
+public import Mathlib.CategoryTheory.Action.Basic
+public import Mathlib.CategoryTheory.NatIso
+public import Mathlib.CategoryTheory.Types.Basic
+public import Mathlib.Algebra.Category.Grp.FilteredColimits
 
 /-!
 # Detecting finite local-system isomorphisms at a geometric point
@@ -18,6 +20,8 @@ isomorphism of finite locally constant sheaves. This is deduced from the
 actual monodromy equivalence and its comparison with the geometric stalk.
 The abelian version forgets the group structure only to detect the inverse.
 -/
+
+@[expose] public section
 
 noncomputable section
 

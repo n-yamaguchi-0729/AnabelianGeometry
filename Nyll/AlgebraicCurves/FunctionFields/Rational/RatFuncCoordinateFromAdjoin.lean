@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.FieldTheory.RatFunc.AsPolynomial
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+module
+
+public import Mathlib.FieldTheory.RatFunc.AsPolynomial
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
 
 /-! # A prescribed generator gives a rational-function coordinate
 
@@ -14,6 +16,8 @@ These are purely algebraic constructors. Their inputs concern the same function
 assumption is introduced. In the geometric application, the hypotheses are
 supplied by the full place-order formula for that function.
 -/
+
+@[expose] public section
 
 noncomputable section
 

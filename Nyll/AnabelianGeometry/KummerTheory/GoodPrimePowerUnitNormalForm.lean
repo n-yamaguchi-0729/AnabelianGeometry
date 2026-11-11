@@ -4,13 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.ZMod.UnitsCyclic
-import Mathlib.Data.Nat.Factorization.Basic
-import Mathlib.RingTheory.Coprime.Lemmas
-import Mathlib.RingTheory.PrincipalIdealDomain
-import Mathlib.Tactic
+module
+
+public import Mathlib.RingTheory.ZMod.UnitsCyclic
+public import Mathlib.Data.Nat.Factorization.Basic
+public import Mathlib.RingTheory.Coprime.Lemmas
+public import Mathlib.RingTheory.PrincipalIdealDomain
+public import Mathlib.Tactic
 
 /-! # Good prime-power units and their exact principal-unit normal form -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.KummerTheory
 

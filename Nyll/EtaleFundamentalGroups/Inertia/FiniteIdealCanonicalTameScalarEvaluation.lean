@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealCanonicalTameEvaluation
-import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
-import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacter
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingUniformizerRatioCoefficient
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealCanonicalTameEvaluation
+public import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
+public import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacter
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingUniformizerRatioCoefficient
 
 /-!
 # Scalar evaluation at a finite ideal
@@ -16,6 +18,8 @@ import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingUniformizerRa
 Defines the canonical character scalar and localized inertia ring map. Produces a ratio unit
 giving both the local coefficient equation and scalar value.
 -/
+
+@[expose] public section
 
 noncomputable section
 

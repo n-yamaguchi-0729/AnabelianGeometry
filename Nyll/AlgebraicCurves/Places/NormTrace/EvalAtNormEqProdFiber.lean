@@ -10,25 +10,29 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.LinearAlgebra.Eigenspace.Zero
-import Mathlib.LinearAlgebra.Basis.VectorSpace
-import Mathlib.LinearAlgebra.Charpoly.BaseChange
-import Mathlib.RingTheory.TensorProduct.Quotient
-import Nyll.AlgebraicCurves.Places.Degree.FinrankPrimePow
-import Mathlib.RingTheory.Ideal.Norm.RelNorm
-import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Nyll.AlgebraicCurves.Places.Ramification.RamificationIndexEqRamificationIdxFiberCenter
-import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegEqInertiaDegFiberCenter
-import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegEqOneIsRational
-import Nyll.AlgebraicCurves.Places.Basic
-import Nyll.SchemeTheory.RingTheory.NormIdentities
-import Nyll.AlgebraicCurves.Places.ValuationRings.IntegralClosureAtOrdFiberNonneg
-import Nyll.AlgebraicCurves.Divisors.Maps.Maps
+module
+
+public import Mathlib.LinearAlgebra.Eigenspace.Zero
+public import Mathlib.LinearAlgebra.Basis.VectorSpace
+public import Mathlib.LinearAlgebra.Charpoly.BaseChange
+public import Mathlib.RingTheory.TensorProduct.Quotient
+public import Nyll.AlgebraicCurves.Places.Degree.FinrankPrimePow
+public import Mathlib.RingTheory.Ideal.Norm.RelNorm
+public import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.AlgebraicCurves.Places.Ramification.RamificationIndexEqRamificationIdxFiberCenter
+public import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegEqInertiaDegFiberCenter
+public import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegEqOneIsRational
+public import Nyll.AlgebraicCurves.Places.Basic
+public import Nyll.SchemeTheory.RingTheory.NormIdentities
+public import Nyll.AlgebraicCurves.Places.ValuationRings.IntegralClosureAtOrdFiberNonneg
+public import Nyll.AlgebraicCurves.Divisors.Maps.Maps
 
 /-!
 # Place eval At norm eq prod fiber
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

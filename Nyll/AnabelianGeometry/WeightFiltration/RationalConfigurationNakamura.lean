@@ -3,33 +3,41 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalPointedSquareData
-import Nyll.AnabelianGeometry.WeightFiltration.QuadraticBoundaryFiniteLabels
-import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationMatchedGenericAmbient
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareFiniteBaseFiberTransport
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareCorrectedGeometricComparison
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralBaseTransport
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralGeometricMap
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralPointModel
-import Nyll.EtaleFundamentalGroups.GaloisCategories.CoverTransportFiber
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConstantFieldCoverGroupTransport
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ConstantFieldInclusionFiberPoint
-import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverGenericPoint
-import Nyll.ProCGroups.Topologies.ArithmeticInnerCorrectionFiberTransport
-import Nyll.SchemeTheory.BaseChange.BaseChangedIdentifiedModelIso
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareMatchedPointModel
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareActualPointedGeometricSquare
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquarePointedLiteralGeometricMap
-import Nyll.AnabelianGeometry.WeightFiltration.CorrectedMatchedAmbientPunctures
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareActualReconstructionAtMatchedModels
-import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationMatchIso
-import Mathlib.Data.Fintype.EquivFin
+module
+
+public import Nyll.GaloisCohomology.FieldTheory.FinitelyGeneratedExtensions
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedBaseIsomorphism
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalPointedSquareData
+public import Nyll.AnabelianGeometry.WeightFiltration.QuadraticBoundaryFiniteLabels
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationMatchedGenericAmbient
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareFiniteBaseFiberTransport
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareCorrectedGeometricComparison
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralBaseTransport
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralGeometricMap
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralPointModel
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.CoverTransportFiber
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConstantFieldCoverGroupTransport
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ConstantFieldInclusionFiberPoint
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverGenericPoint
+public import Nyll.ProCGroups.Topologies.ArithmeticInnerCorrectionFiberTransport
+public import Nyll.SchemeTheory.BaseChange.BaseChangedIdentifiedModelIso
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareMatchedPointModel
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareActualPointedGeometricSquare
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquarePointedLiteralGeometricMap
+public import Nyll.AnabelianGeometry.WeightFiltration.CorrectedMatchedAmbientPunctures
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareActualReconstructionAtMatchedModels
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationMatchIso
+public import Mathlib.Data.Fintype.EquivFin
 
 /-!
 # Reconstruction of rational configurations from arithmetic fundamental groups
+
+The base field has characteristic zero and is finitely generated over its prime field.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve
@@ -55,7 +63,7 @@ local instance nakamuraStableUnderBaseChangeAlong {S T : Scheme} (f : S ⟶ T) :
 attribute [local instance] pointedSquareChart_isOpenImmersion literalPoint_projectiveIntegral
 
 private theorem nakamura_reconstruct_literal_models
-    (k E κ : Type) [Field k] [NumberField k] [Field E] [NumberField E]
+    (k E κ : Type) [Field k] [CharZero k] [Field.FG k] [Field E] [CharZero E] [Field.FG E]
     [Field κ] [CharZero κ] [IsAlgClosed κ]
     [Algebra k κ] [Algebra E κ] [Algebra k E] [IsScalarTower k E κ]
     [IsAlgClosure k κ] [IsAlgClosure E κ]
@@ -248,7 +256,7 @@ private theorem nakamura_reconstruct_literal_models
   exact ⟨_, hlinear, I, hambient, hover⟩
 
 private theorem nakamura_finish_named_models
-    (k E κ : Type) [Field k] [NumberField k] [Field E] [NumberField E]
+    (k E κ : Type) [Field k] [CharZero k] [Field.FG k] [Field E] [CharZero E] [Field.FG E]
     [Field κ] [CharZero κ] [IsAlgClosed κ]
     [Algebra k κ] [Algebra k E] [Algebra E κ] [IsScalarTower k E κ]
     [IsAlgClosure k κ] [IsAlgClosure E κ]
@@ -552,7 +560,7 @@ private theorem nakamura_finish_named_models
 fundamental-group comparison and the inertia characterization of its puncture
 bijection. These are the comparisons needed for descent of the same map. -/
 theorem exists_projectiveTransformation_with_inertia_of_arithmeticFundamentalGroupEquiv
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
@@ -621,7 +629,10 @@ theorem exists_projectiveTransformation_with_inertia_of_arithmeticFundamentalGro
   let E := quadraticBoundaryCoordinateField k κ βroot (Sum.elim ρS ρT)
   let : FiniteDimensional k E :=
     quadraticBoundaryCoordinateField_finiteDimensional k κ βroot (Sum.elim ρS ρT)
-  let : NumberField E := NumberField.of_module_finite k E
+  let _hcharE : CharZero E :=
+    charZero_of_injective_algebraMap (algebraMap k E).injective
+  let : Field.FG E :=
+    FieldTheory.fg_of_finiteDimensional k E (inferInstance : Field.FG k)
   let : Algebra.IsAlgebraic E κ :=
     Algebra.IsAlgebraic.tower_top (K := k) (L := E) (A := κ)
   let : IsAlgClosure E κ := ⟨inferInstance, inferInstance⟩
@@ -730,7 +741,7 @@ theorem exists_projectiveTransformation_with_inertia_of_arithmeticFundamentalGro
 
 /-- The weak reconstruction theorem, with its original conclusion. -/
 theorem exists_projectiveTransformation_of_arithmeticFundamentalGroupEquiv
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]

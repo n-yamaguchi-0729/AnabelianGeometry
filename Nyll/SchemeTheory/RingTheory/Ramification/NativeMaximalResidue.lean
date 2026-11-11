@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeResidueAction
-import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
-import Mathlib.Algebra.Ring.Equiv
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeResidueAction
+public import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
+public import Mathlib.Algebra.Ring.Equiv
 
 /-!
 # Literal maximal-ideal residue identifications
@@ -16,6 +18,8 @@ maximal ideal, the canonical quotient-to-prime-residue map is bijective;
 its actual map defines the equivalence below and preserves the original
 quotient coefficient map.
 -/
+
+@[expose] public section
 
 noncomputable section
 

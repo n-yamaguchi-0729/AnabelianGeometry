@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.FiniteEtale.Algebra.HenselianEtaleSection
-import Nyll.SchemeTheory.FiniteEtale.Algebra.JacobsonRigidity
-import Mathlib.RingTheory.Etale.Basic
-import Mathlib.RingTheory.Henselian
-import Mathlib.RingTheory.Ideal.Quotient.Operations
-import Mathlib.RingTheory.TensorProduct.Basic
+module
+
+public import Nyll.SchemeTheory.FiniteEtale.Algebra.HenselianEtaleSection
+public import Nyll.SchemeTheory.FiniteEtale.Algebra.JacobsonRigidity
+public import Mathlib.RingTheory.Etale.Basic
+public import Mathlib.RingTheory.Henselian
+public import Mathlib.RingTheory.Ideal.Quotient.Operations
+public import Mathlib.RingTheory.TensorProduct.Basic
 
 
 /-!
@@ -23,6 +25,8 @@ uniqueness over A directly. No module-finiteness or comparison map is assumed.
 This is the affine pointed-lifting supplier for maps from the constructed
 geometric stalk into an actual strictly henselian local target.
 -/
+
+@[expose] public section
 
 noncomputable section
 

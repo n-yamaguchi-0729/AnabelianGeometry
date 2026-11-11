@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.NormalizationAutomorphismGroupMap
-import Nyll.SchemeTheory.Normalization.ScalarRestrictionGroupMap
-import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
+module
+
+public import Nyll.SchemeTheory.Normalization.NormalizationAutomorphismGroupMap
+public import Nyll.SchemeTheory.Normalization.ScalarRestrictionGroupMap
+public import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
 
 /-!
 # Ambient field automorphisms on normalizations
@@ -15,6 +17,8 @@ Constructs the action of ambient field automorphisms on the normalization by res
 scalars and integral-closure functoriality. The induced ring maps commute with the inclusion
 into the ambient field.
 -/
+
+@[expose] public section
 
 noncomputable section
 

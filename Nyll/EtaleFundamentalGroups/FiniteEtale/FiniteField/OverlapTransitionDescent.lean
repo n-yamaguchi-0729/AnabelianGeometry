@@ -3,10 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.RecoveredCoefficientTransitions
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.SchemePairDescent
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
-import Mathlib.AlgebraicGeometry.Morphisms.QuasiSeparated
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.RecoveredCoefficientTransitions
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.SchemePairDescent
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+public import Mathlib.AlgebraicGeometry.Morphisms.QuasiSeparated
 
 /-!
 # Overlap Transition Descent
@@ -14,6 +16,8 @@ import Mathlib.AlgebraicGeometry.Morphisms.QuasiSeparated
 Actual recovered overlap transitions descend together to one finite
 coefficient stage, retaining both structure maps and the recovery equation.
 -/
+
+@[expose] public section
 
 noncomputable section
 universe u
@@ -30,7 +34,6 @@ variable (e : ∀ i : 𝒰.I₀,
     (𝒰.f i ≫ f))).obj (M i) ≅
       (Over.pullback ((constantFieldOpenCover k L S f 𝒰).f i)).obj Z)
 
-local notation "φ" => Spec.map (CommRingCat.ofHom (algebraMap k L))
 local notation "A" => (fun ij : 𝒰.I₀ × 𝒰.I₀ ↦
   pullback (Comma.hom (M (Prod.fst ij)) ≫ 𝒰.f (Prod.fst ij)) (𝒰.f (Prod.snd ij)))
 local notation "p" => (fun ij : 𝒰.I₀ × 𝒰.I₀ ↦

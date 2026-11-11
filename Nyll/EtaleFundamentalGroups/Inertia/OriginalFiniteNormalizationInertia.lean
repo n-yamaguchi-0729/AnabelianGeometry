@@ -4,17 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationInertiaNativeLift
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgInertiaRingMaps
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
-import Nyll.SchemeTheory.Normalization.AmbientNormalizationGroupMap
-import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
-import Mathlib.Algebra.Algebra.Equiv
-import Mathlib.Algebra.Category.Grp.Basic
-import Mathlib.Algebra.Group.Equiv.Defs
-import Mathlib.RingTheory.Localization.FractionRing
-import Mathlib.RingTheory.Localization.Integral
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationInertiaNativeLift
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgInertiaRingMaps
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
+public import Nyll.SchemeTheory.Normalization.AmbientNormalizationGroupMap
+public import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
+public import Mathlib.Algebra.Algebra.Equiv
+public import Mathlib.Algebra.Category.Grp.Basic
+public import Mathlib.Algebra.Group.Equiv.Defs
+public import Mathlib.RingTheory.Localization.FractionRing
+public import Mathlib.RingTheory.Localization.Integral
 
 /-!
 # Finite-field and normalization inertia equivalence
@@ -22,6 +24,8 @@ import Mathlib.RingTheory.Localization.Integral
 Constructs the normalization restriction on original finite-field inertia. Proves injectivity
 and surjectivity and packages the resulting equivalence with intrinsic normalization inertia.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -3,11 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.ChosenCuspAmbientComparison
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.ChosenCuspAmbientComparison
 
 /-!
 # Puncture correspondence under a change of matched ambient points
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve
@@ -75,7 +79,8 @@ private theorem ambient_correspondence_comp
     _ = J₁.map (MulAut.conj (eT a * aT)).toMonoidHom :=
       ambient_map_conjugate_comp J₁ aT (eT a)
 
-private abbrev retainedAmbientPoint
+/-- The ambient geometric point with the supplied function-field algebra structure. -/
+abbrev retainedAmbientPoint
     (k κ : Type) [Field k] [Field κ] [Algebra k κ] [Infinite k]
     (s : Finset (Projectivization k (k × k))) (Ω : Type) [Field Ω]
     (A : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω) :
@@ -83,8 +88,9 @@ private abbrev retainedAmbientPoint
   let : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω := A
   exact (rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω
 
-private abbrev retainedAmbientInertia
-    (k κ : Type) [Field k] [NumberField k] [Field κ] [CharZero κ]
+/-- The chosen inertia subgroup for the supplied ambient algebra and closure structures. -/
+abbrev retainedAmbientInertia
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k] [Field κ] [CharZero κ]
     [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k))) (Ω : Type) [Field Ω] [IsAlgClosed Ω]
     (A : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω)
@@ -96,7 +102,7 @@ private abbrev retainedAmbientInertia
   exact rationalConfigurationChosenInertia k κ s Ω (rationalConfigurationBoundaryPlace k κ s p)
 
 theorem rationalConfiguration_matchedAmbient_same_puncture_equiv
-    (k κ : Type) [Field k] [NumberField k] [Field κ] [CharZero κ]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k] [Field κ] [CharZero κ]
     [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k)))
     (Ωs Ωt : Type) [Field Ωs] [Field Ωt] [IsAlgClosed Ωs] [IsAlgClosed Ωt]

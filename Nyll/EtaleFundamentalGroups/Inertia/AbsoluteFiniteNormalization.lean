@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelNormalizationAlgebra
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Nyll.SchemeTheory.RingTheory.Localization.CommAlgPrincipal
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelNormalizationAlgebra
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Nyll.SchemeTheory.RingTheory.Localization.CommAlgPrincipal
 
 /-!
 # Native finite normalizations at the chosen absolute prime
@@ -17,6 +19,8 @@ localization are performed on those native objects, without introducing a
 second scalar action or carrying the finite field's scalar tower into the
 localized ring owner.
 -/
+
+@[expose] public section
 
 noncomputable section
 

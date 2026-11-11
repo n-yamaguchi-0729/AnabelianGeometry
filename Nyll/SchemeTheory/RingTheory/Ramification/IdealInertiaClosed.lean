@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Category.Grp.Basic
-import Mathlib.Algebra.Category.Ring.Basic
-import Mathlib.RingTheory.Ideal.Defs
-import Mathlib.Topology.Algebra.MulAction
-import Mathlib.Topology.Order
+module
+
+public import Mathlib.Algebra.Category.Grp.Basic
+public import Mathlib.Algebra.Category.Ring.Basic
+public import Mathlib.RingTheory.Ideal.Defs
+public import Mathlib.Topology.Algebra.MulAction
+public import Mathlib.Topology.Order
 
 /-!
 # Closed ideal inertia from open coefficient stabilizers
@@ -17,6 +19,8 @@ The original ring action supplies the subgroup. Its coefficient stabilizers
 give a continuous action on the discrete ring, and inertia is the intersection
 of the closed coefficient-difference conditions.
 -/
+
+@[expose] public section
 
 namespace SchemeTheory
 

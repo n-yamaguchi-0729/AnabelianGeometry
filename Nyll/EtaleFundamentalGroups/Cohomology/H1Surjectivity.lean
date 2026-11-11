@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.H1Character
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteCharacterSheaf
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteAbelianConstants
-import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionPullback
-import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionMonodromyEvaluation
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1Character
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteCharacterSheaf
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteAbelianConstants
+public import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionPullback
+public import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionMonodromyEvaluation
 
 /-!
 # Every finite continuous character is an actual étale H¹ class
@@ -19,6 +21,8 @@ Its descended short exact sequence is pulled back along the constant map
 stalk recovers the original character. Only connectedness and a geometric
 point of the scheme are required.
 -/
+
+@[expose] public section
 
 noncomputable section
 

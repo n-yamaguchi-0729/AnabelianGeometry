@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteAbelianSheaf
-import Mathlib.CategoryTheory.Sites.Point.Basic
-import Mathlib.Algebra.Category.Grp.FilteredColimits
-import Mathlib.Algebra.Group.Hom.Instances
-import Mathlib.Topology.Algebra.MulAction
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteAbelianSheaf
+public import Mathlib.CategoryTheory.Sites.Point.Basic
+public import Mathlib.Algebra.Category.Grp.FilteredColimits
+public import Mathlib.Algebra.Group.Hom.Instances
+public import Mathlib.Topology.Algebra.MulAction
 
 /-!
 # Additive stalk comparison for finite abelian monodromy
@@ -17,6 +19,8 @@ The actual geometric stalk of the descended abelian sheaf is additively
 isomorphic to the original finite representation. Naturality for both
 projections and their sum proves compatibility with addition.
 -/
+
+@[expose] public section
 
 noncomputable section
 

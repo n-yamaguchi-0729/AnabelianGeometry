@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverSquareBoundary
-import Nyll.AlgebraicCurves.Models.Ramification.OpenCoverRiemannHurwitz
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverSquareBoundary
+public import Nyll.AlgebraicCurves.Models.Ramification.OpenCoverRiemannHurwitz
 
 /-!
 # Actual connected finite étale covers preserve open hyperbolicity
@@ -13,6 +15,8 @@ import Nyll.AlgebraicCurves.Models.Ramification.OpenCoverRiemannHurwitz
 The proper source model, the original source open, its boundary and the
 Euler-characteristic formula are constructed from the actual cover.
 -/
+
+@[expose] public section
 
 noncomputable section
 

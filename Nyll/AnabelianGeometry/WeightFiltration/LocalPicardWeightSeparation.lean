@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.HenselianFrobeniusLift
-import Nyll.AnabelianGeometry.WeightFiltration.PicardSpecializationWeights
-import Nyll.ValuedFieldTheory.Valuation.Henselian.AlgebraicExtensionHenselian
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.HenselianFrobeniusLift
+public import Nyll.AnabelianGeometry.WeightFiltration.PicardSpecializationWeights
+public import Nyll.ValuedFieldTheory.Valuation.Henselian.AlgebraicExtensionHenselian
 
 /-!
 # Local Picard weight separation from an actual Frobenius lift
@@ -15,6 +17,8 @@ All residue finiteness, root-power action, torsion finiteness, finite pairings,
 and uniform annihilators are supplied by proved constructions. The inputs are
 an actual smooth proper local group model and its equivariant Picard comparison.
 -/
+
+@[expose] public section
 
 noncomputable section
 

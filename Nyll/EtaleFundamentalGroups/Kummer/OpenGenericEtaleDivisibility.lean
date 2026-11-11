@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Ramification.EtaleLocalRootDivisibility
-import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
-import Nyll.EtaleFundamentalGroups.GeometricFiber.RationalPointLift
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Integral
-import Nyll.SchemeTheory.Morphisms.DominantBaseChange
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
-import Nyll.SchemeTheory.Normalization.Normal
+module
+
+public import Nyll.AlgebraicCurves.Models.Ramification.EtaleLocalRootDivisibility
+public import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.RationalPointLift
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Integral
+public import Nyll.SchemeTheory.Morphisms.DominantBaseChange
+public import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
+public import Nyll.SchemeTheory.Normalization.Normal
 
 /-!
 # Orders of actual generic Kummer roots on open smooth curves
@@ -21,7 +23,11 @@ fiber identifies its function field, and the actual étale stalk map supplies
 the unramified local calculation. Properness is nowhere required.
 -/
 
+@[expose] public section
+
 noncomputable section
+
+universe u
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve TopologicalSpace
 open CategoryTheory.PreGaloisCategory
@@ -31,11 +37,11 @@ namespace EtaleFundamentalGroups
 /-- A root in the actual generic fiber of a finite étale cover of a smooth
 curve has divisible order at every actual closed point of that curve. -/
 theorem ord_dvd_of_finiteEtale_generic_root_on_smoothCurve
-    (K : Type) [Field K] [IsAlgClosed K]
-    {X : Scheme} [IsIntegral X]
+    (K : Type u) [Field K] [IsAlgClosed K]
+    {X : Scheme.{u}} [IsIntegral X]
     (c : X ⟶ Spec (.of K)) [SmoothOfRelativeDimension 1 c]
-    (L : Type) [Field L] [Algebra X.functionField L]
-    {Y : Scheme} (f : Y ⟶ X) [IsFinite f] [Etale f]
+    (L : Type u) [Field L] [Algebra X.functionField L]
+    {Y : Scheme.{u}} (f : Y ⟶ X) [IsFinite f] [Etale f]
     (e : pullback f (X.fromSpecStalk (genericPoint X)) ≅ Spec (.of L))
     (he : e.hom ≫ Spec.map (CommRingCat.ofHom (algebraMap X.functionField L)) =
       pullback.snd f (X.fromSpecStalk (genericPoint X)))

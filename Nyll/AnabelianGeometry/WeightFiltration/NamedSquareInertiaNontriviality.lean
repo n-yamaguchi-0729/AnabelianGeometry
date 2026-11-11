@@ -3,18 +3,23 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaProcyclic
-import Nyll.AnabelianGeometry.WeightFiltration.NamedModelCoverGroupSquare
-import Nyll.AnabelianGeometry.WeightFiltration.NamedModelPointedInertia
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineFunctionFields
-import Nyll.AlgebraicCurves.Models.Ramification.BoundaryNormalizationPrimes
-import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverGenericPoint
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaProcyclic
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedModelCoverGroupSquare
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedModelPointedInertia
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineFunctionFields
+public import Nyll.AlgebraicCurves.Models.Ramification.BoundaryNormalizationPrimes
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverGenericPoint
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
 
 /-! # Nontrivial named inertia and injective model projections -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.ProjectiveSpace.CrossRatio
-import Mathlib.LinearAlgebra.FiniteDimensional.Basic
-import Mathlib.Tactic.LinearCombination
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.CrossRatio
+public import Mathlib.LinearAlgebra.FiniteDimensional.Basic
+public import Mathlib.Tactic.LinearCombination
 
 /-!
 # Linear coordinate changes on the projective line
@@ -14,6 +16,8 @@ import Mathlib.Tactic.LinearCombination
 An invertible two-by-two coordinate matrix gives an actual equivalence of
 projective points. Its action preserves the projective cross ratio.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.ProjectiveLine
 

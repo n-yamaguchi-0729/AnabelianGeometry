@@ -3,7 +3,9 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.CoefficientPullback
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.CoefficientPullback
 
 /-!
 # Pullback comparisons for coefficient-extended models
@@ -11,6 +13,8 @@ import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.CoefficientPullback
 The total-space and overlap comparisons identify coefficient extension with
 iterated pullbacks and preserve the original projections and maps to the base.
 -/
+
+@[expose] public section
 
 noncomputable section
 universe u

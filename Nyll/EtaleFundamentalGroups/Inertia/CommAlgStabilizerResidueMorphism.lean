@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueEpi
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeResidueAction
-import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
-import Mathlib.Algebra.Algebra.Equiv
-import Mathlib.Algebra.Category.CommAlgCat.Basic
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueEpi
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeResidueAction
+public import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
+public import Mathlib.Algebra.Algebra.Equiv
+public import Mathlib.Algebra.Category.CommAlgCat.Basic
 
 /-!
 # Residue morphisms for intrinsic stabilizers
@@ -16,6 +18,8 @@ import Mathlib.Algebra.Category.CommAlgCat.Basic
 Proves coefficient preservation by intrinsic algebra automorphisms and constructs the resulting
 native quotient-residue morphism.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroParameter
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalTwoBranches
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveAlgClosed
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeTranscendental
-import Nyll.AlgebraicCurves.FunctionFields.Rational.CurveRatFunc
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Genus.GenusFFRatFuncEqZeroAlgClosed
-import Nyll.AlgebraicCurves.Places.Orders.MemRangeAlgebraMapOrdEqZeroAlgClosed
-import Nyll.AlgebraicCurves.Places.Basic
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroParameter
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalTwoBranches
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveAlgClosed
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeTranscendental
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.CurveRatFunc
+public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Genus.GenusFFRatFuncEqZeroAlgClosed
+public import Nyll.AlgebraicCurves.Places.Orders.MemRangeAlgebraMapOrdEqZeroAlgClosed
+public import Nyll.AlgebraicCurves.Places.Basic
 
 /-!
 # Power coordinates for rational covers with two branch places
@@ -22,6 +24,8 @@ divisors makes the pulled-back base parameter a scalar times a power; an algebra
 scalar absorbs it into the source coordinate. This is a function-field classification, without
 using a presentation of an etale fundamental group.
 -/
+
+@[expose] public section
 
 noncomputable section
 

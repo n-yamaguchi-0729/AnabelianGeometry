@@ -23,18 +23,22 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.RingTheory.Polynomial.RationalRoot
-import Mathlib.RingTheory.Polynomial.UniqueFactorization
-import Mathlib.RingTheory.NoetherNormalization
-import Mathlib.RingTheory.Ideal.KrullsHeightTheorem
-import Mathlib.RingTheory.IntegralClosure.GoingDown
-import Mathlib.RingTheory.Spectrum.Prime.RingHom
-import Mathlib.RingTheory.Ideal.GoingUp
-import Mathlib.RingTheory.KrullDimension.Basic
+module
+
+public import Mathlib.RingTheory.Polynomial.RationalRoot
+public import Mathlib.RingTheory.Polynomial.UniqueFactorization
+public import Mathlib.RingTheory.NoetherNormalization
+public import Mathlib.RingTheory.Ideal.KrullsHeightTheorem
+public import Mathlib.RingTheory.IntegralClosure.GoingDown
+public import Mathlib.RingTheory.Spectrum.Prime.RingHom
+public import Mathlib.RingTheory.Ideal.GoingUp
+public import Mathlib.RingTheory.KrullDimension.Basic
 
 /-!
 # Ideal height eq height under of is Integrally Closed of is Integral
 -/
+
+@[expose] public section
 
 section Ideal_height_eq_height_under_of_isIntegrallyClosed_of_isIntegral
 

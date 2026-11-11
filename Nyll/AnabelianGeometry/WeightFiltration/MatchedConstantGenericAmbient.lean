@@ -3,13 +3,17 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.MatchedConstantPointCoefficientLift
-import Nyll.SchemeTheory.FunctionFields.IntegralGenericPointReflection
-import Nyll.SchemeTheory.Normalization.FiniteSeparable
-import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
-import Mathlib.AlgebraicGeometry.Morphisms.Finite
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.MatchedConstantPointCoefficientLift
+public import Nyll.SchemeTheory.FunctionFields.IntegralGenericPointReflection
+public import Nyll.SchemeTheory.Normalization.FiniteSeparable
+public import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
+public import Mathlib.AlgebraicGeometry.Morphisms.Finite
 
 /-! # Matched constant and generic ambient maps -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry TopologicalSpace

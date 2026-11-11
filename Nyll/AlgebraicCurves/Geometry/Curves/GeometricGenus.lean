@@ -5,14 +5,17 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
-import Mathlib.LinearAlgebra.Dimension.Constructions
-import Mathlib.LinearAlgebra.TensorProduct.RightExactness
-import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveBase
-import Nyll.AlgebraicCurves.Models.Construction.Basic
-import Nyll.AlgebraicCurves.Cohomology.Adelic.Repartitions
-import Nyll.AlgebraicCurves.Cohomology.Cech.TwoChart.TwoAffineCoverFinrankCechDiffBaseChange
-import Nyll.SchemeTheory.Cohomology.Cech.TwoAffineOpenCover
+module
+
+public import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
+public import Mathlib.LinearAlgebra.Dimension.Constructions
+public import Mathlib.LinearAlgebra.TensorProduct.RightExactness
+public import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveBase
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
+public import Nyll.AlgebraicCurves.Cohomology.Adelic.Repartitions
+public import Nyll.AlgebraicCurves.Cohomology.Cech.TwoChart.TwoAffineCoverFinrankCechDiffBaseChange
+public import Nyll.SchemeTheory.Cohomology.Cech.TwoAffineOpenCover
+public import Nyll.SchemeTheory.FunctionFields.StructureMorphism
 
 /-!
 # Geometric genus and structure-sheaf cohomology over an arbitrary field
@@ -22,6 +25,8 @@ algebraic closure. It needs neither a rational point nor a chosen affine cover.
 For a smooth proper geometrically integral curve it equals the dimension of
 structure-sheaf first cohomology on every two-affine cover of the original curve.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -55,7 +60,7 @@ theorem finrank_H1_eq_geometricGenus (K : Type u) [Field K] {C : Scheme.{u}}
   have hexΩ : Function.Exact (d.baseChange Ω)
       ((LinearMap.range d).mkQ.baseChange Ω) := by
     have ht := lTensor_exact Ω hex hsurj
-    rwa [← LinearMap.baseChange_eq_ltensor, ← LinearMap.baseChange_eq_ltensor] at ht
+    rwa [← LinearMap.baseChange_eq_lTensor, ← LinearMap.baseChange_eq_lTensor] at ht
   let e := hexΩ.linearEquivOfSurjective (LinearMap.baseChange_surjective Ω hsurj)
   have hgenus := (𝒱.finrank_cechDiff_baseChange_of_isAlgClosed c Ω).2.2
   calc

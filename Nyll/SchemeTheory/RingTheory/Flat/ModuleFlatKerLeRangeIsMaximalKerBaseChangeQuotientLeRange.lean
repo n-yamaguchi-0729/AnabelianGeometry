@@ -10,25 +10,29 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Algebra.Exact.Basic
-import Mathlib.Algebra.Module.Submodule.Ker
-import Mathlib.Algebra.Module.Submodule.Range
-import Mathlib.LinearAlgebra.FreeModule.Basic
-import Mathlib.LinearAlgebra.Quotient.Basic
-import Mathlib.LinearAlgebra.TensorProduct.Quotient
-import Mathlib.LinearAlgebra.TensorProduct.RightExactness
-import Mathlib.LinearAlgebra.TensorProduct.Tower
-import Mathlib.RingTheory.Finiteness.Nakayama
-import Mathlib.RingTheory.Flat.Basic
-import Mathlib.RingTheory.Ideal.Maps
-import Mathlib.RingTheory.Ideal.Maximal
-import Mathlib.RingTheory.Noetherian.Defs
-import Nyll.SchemeTheory.RingTheory.Flat.Kernel
-import Nyll.SchemeTheory.RingTheory.Flat.ModuleFlatKerBaseChangeEqBotKerLeRange
+module
+
+public import Mathlib.Algebra.Exact.Basic
+public import Mathlib.Algebra.Module.Submodule.Ker
+public import Mathlib.Algebra.Module.Submodule.Range
+public import Mathlib.LinearAlgebra.FreeModule.Basic
+public import Mathlib.LinearAlgebra.Quotient.Basic
+public import Mathlib.LinearAlgebra.TensorProduct.Quotient
+public import Mathlib.LinearAlgebra.TensorProduct.RightExactness
+public import Mathlib.LinearAlgebra.TensorProduct.Tower
+public import Mathlib.RingTheory.Finiteness.Nakayama
+public import Mathlib.RingTheory.Flat.Basic
+public import Mathlib.RingTheory.Ideal.Maps
+public import Mathlib.RingTheory.Ideal.Maximal
+public import Mathlib.RingTheory.Noetherian.Defs
+public import Nyll.SchemeTheory.RingTheory.Flat.Kernel
+public import Nyll.SchemeTheory.RingTheory.Flat.ModuleFlatKerBaseChangeEqBotKerLeRange
 
 /-!
 # Module Flat ker le range of forall is Maximal ker base Change quotient le range
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -79,7 +83,7 @@ theorem surjective_of_forall_isMaximal {R : Type u} [CommRing R] {M Z : Type u} 
     have hex := lTensor_exact (R ⧸ 𝔪) (LinearMap.exact_map_mkQ_range δ) (Submodule.mkQ_surjective _)
     have hs : Function.Surjective (LinearMap.lTensor (R ⧸ 𝔪) δ) := by
       have := h 𝔪
-      rwa [LinearMap.baseChange_eq_ltensor] at this
+      rwa [LinearMap.baseChange_eq_lTensor] at this
     refine ⟨fun a b => ?_⟩
     obtain ⟨a', rfl⟩ := LinearMap.lTensor_surjective (R ⧸ 𝔪) (Submodule.mkQ_surjective
       (LinearMap.range δ)) a

@@ -10,21 +10,26 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Algebra.Module.StablyFree.FreeOfInvertible
-import Mathlib.RingTheory.Finiteness.Prod
-import Mathlib.Algebra.Module.StablyFree.Basic
-import Mathlib.RingTheory.LocalProperties.Projective
-import Mathlib.RingTheory.Flat.Equalizer
-import Nyll.SchemeTheory.RingTheory.Localization.LocalAlgebra
-import Nyll.SchemeTheory.RingTheory.RegularLocal.RegularLocalDomain
-import Nyll.SchemeTheory.RingTheory.RegularLocal.RegularLocalFiniteFreeResolution
-import Nyll.SchemeTheory.RingTheory.RegularLocal.RegularLocalQuotientSpanSingleton
-import Nyll.SchemeTheory.RingTheory.UniqueFactorizationMonoid
-import Nyll.SchemeTheory.RingTheory.LinearAlgebra.InvertibleModules
+module
+
+public import Mathlib.Algebra.Module.StablyFree.FreeOfInvertible
+public import Mathlib.RingTheory.Finiteness.Prod
+public import Mathlib.Algebra.Module.StablyFree.Basic
+public import Mathlib.RingTheory.LocalProperties.Projective
+public import Mathlib.RingTheory.Flat.Equalizer
+public import Mathlib.RingTheory.Flat.Localization
+public import Nyll.SchemeTheory.RingTheory.Localization.LocalAlgebra
+public import Nyll.SchemeTheory.RingTheory.RegularLocal.RegularLocalDomain
+public import Nyll.SchemeTheory.RingTheory.RegularLocal.RegularLocalFiniteFreeResolution
+public import Nyll.SchemeTheory.RingTheory.RegularLocal.RegularLocalQuotientSpanSingleton
+public import Nyll.SchemeTheory.RingTheory.UniqueFactorizationMonoid
+public import Nyll.SchemeTheory.RingTheory.LinearAlgebra.InvertibleModules
 
 /-!
 # Is Regular Ring unique Factorization Monoid of is Local Ring
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -59,7 +64,7 @@ lemma step [Module.Flat R S] {K : Type w} [AddCommGroup K] [Module R K] {k : ℕ
   let π : S ⊗[R] (Fin k → R) →ₗ[S] S ⊗[R] K := f.baseChange S
   have hι : Function.Injective ι := (Submodule.injective_subtype _).comp e.injective
   have hπ : Function.Surjective π := by
-    simpa only [π, LinearMap.baseChange_eq_ltensor] using LinearMap.lTensor_surjective S hf
+    simpa only [π, LinearMap.baseChange_eq_lTensor] using LinearMap.lTensor_surjective S hf
   have hιπ : Function.Exact ι π := by
     have h0 : Function.Exact (LinearMap.ker π).subtype π := LinearMap.exact_subtype_ker_map π
     intro y

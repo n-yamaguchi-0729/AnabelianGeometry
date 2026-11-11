@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.RootsOfUnity.PrimitiveRoots
-import Mathlib.SetTheory.Cardinal.Finite
-import Mathlib.Algebra.Category.Grp.Basic
+module
+
+public import Mathlib.RingTheory.RootsOfUnity.PrimitiveRoots
+public import Mathlib.SetTheory.Cardinal.Finite
+public import Mathlib.Algebra.Category.Grp.Basic
 
 /-!
 # Roots of unity under field embeddings
@@ -15,6 +17,8 @@ Proves that a field embedding induces a bijection on n-th roots of unity for non
 source contains a primitive n-th root. It also bundles root groups and their maps induced by
 coefficient homomorphisms.
 -/
+
+@[expose] public section
 
 namespace RamificationTheory.HilbertRamification
 

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.IdealLocalizationFieldAction
-import Nyll.SchemeTheory.RingTheory.Ramification.ConjugateRingAction
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.PrincipalUnitRingTransport
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.IdealLocalizationFieldAction
+public import Nyll.SchemeTheory.RingTheory.Ramification.ConjugateRingAction
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.PrincipalUnitRingTransport
 
 /-!
 # Principal-unit actions on localized valuation rings
@@ -15,6 +17,8 @@ Transports a prime-localization automorphism acting by principal-unit multiplier
 corresponding valuation ring. The transported automorphism retains its compatible ambient field
 action.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCover
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCover
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
 
 /-!
 # The actual image of the fundamental group of a pointed finite étale cover
@@ -13,6 +15,8 @@ import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
 The existing stabilizer equivalence identifies the induced homomorphism with
 the inclusion of that stabilizer, including the chosen basepoint equality.
 -/
+
+@[expose] public section
 
 noncomputable section
 

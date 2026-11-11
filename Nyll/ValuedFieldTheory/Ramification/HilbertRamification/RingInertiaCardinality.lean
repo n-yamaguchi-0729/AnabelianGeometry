@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingFiniteTameCharacter
-import Mathlib.GroupTheory.Coset.Card
-import Mathlib.GroupTheory.QuotientGroup.Basic
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingFiniteTameCharacter
+public import Mathlib.GroupTheory.Coset.Card
+public import Mathlib.GroupTheory.QuotientGroup.Basic
 
 /-!
 # Cardinality factorization for DVR inertia
@@ -14,6 +16,8 @@ import Mathlib.GroupTheory.QuotientGroup.Basic
 Proves that the cardinality of inertia is the tame image order multiplied by the cardinality of
 principal-unit inertia.
 -/
+
+@[expose] public section
 
 namespace RamificationTheory.HilbertRamification.DiscreteValuationRing
 

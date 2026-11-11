@@ -5,9 +5,11 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
 
-import Nyll.EtaleFundamentalGroups.ContinuousActions.NormalRange
-import Nyll.EtaleFundamentalGroups.GaloisCategories.ConnectedActions
-import Nyll.EtaleFundamentalGroups.GaloisCategories.TrivialComposite
+module
+
+public import Nyll.EtaleFundamentalGroups.ContinuousActions.NormalRange
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.ConnectedActions
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.TrivialComposite
 
 /-!
 # Normal images for functors of Galois categories
@@ -17,6 +19,8 @@ normal exactly when the connected objects having a point after applying the
 functor become finite coproducts of terminal objects, as in
 [Stacks Project, Tag 0BTS](https://stacks.math.columbia.edu/tag/0BTS).
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -200,13 +204,13 @@ theorem autHomOfCompIso_range_normal_iff_terminal_decomposition
       have hc := ConcreteCategory.congr_hom
         (eZ.hom.hom.comm (autHomOfCompIso H t a)) x
       change ef.hom (autHomOfCompIso H t a • x) =
-        (Z.obj.ρ (autHomOfCompIso H t a)).hom (ef.hom x) at hc
+        (Z.obj.ρ (autHomOfCompIso H t a)).asHom (ef.hom x) at hc
       have hz := hfixed.choose_spec a
-      change (Z.obj.ρ (autHomOfCompIso H t a)).hom z = z at hz
+      change (Z.obj.ρ (autHomOfCompIso H t a)).asHom z = z at hz
       exact hc.trans <|
         (congrArg
           (fun y : Z.obj.V =>
-            (Z.obj.ρ (autHomOfCompIso H t a)).hom y) hxz).trans <|
+            (Z.obj.ρ (autHomOfCompIso H t a)).asHom y) hxz).trans <|
         hz.trans hxz.symm
     have hpoint : Nonempty (⊤_ C' ⟶ H.obj X) :=
       (nonempty_terminal_hom_iff_exists_range_fixed H t X).2 hfixedX
@@ -222,13 +226,13 @@ theorem autHomOfCompIso_range_normal_iff_terminal_decomposition
     have hc := ConcreteCategory.congr_hom
       (eZ.hom.hom.comm (autHomOfCompIso H t a)) x'
     change ef.hom (autHomOfCompIso H t a • x') =
-      (Z.obj.ρ (autHomOfCompIso H t a)).hom (ef.hom x') at hc
+      (Z.obj.ρ (autHomOfCompIso H t a)).asHom (ef.hom x') at hc
     change
-      (Z.obj.ρ (autHomOfCompIso H t a)).hom z' = z'
+      (Z.obj.ρ (autHomOfCompIso H t a)).asHom z' = z'
     exact
       (congrArg
         (fun y : Z.obj.V =>
-          (Z.obj.ρ (autHomOfCompIso H t a)).hom y) hxz'.symm).trans <|
+          (Z.obj.ρ (autHomOfCompIso H t a)).asHom y) hxz'.symm).trans <|
       hc.symm.trans <|
       (congrArg (fun y : F.obj X => ef.hom y) (htrivX a x')).trans hxz'
 

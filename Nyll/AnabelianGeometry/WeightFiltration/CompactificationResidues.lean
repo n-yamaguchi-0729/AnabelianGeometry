@@ -4,9 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.OpenKummerPullback
-import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveResidues
-import Nyll.JacobianVarieties.Kummer.DivisorClassCohomologyComparison
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.OpenKummerPullback
+public import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveResidues
+public import Nyll.AlgebraicCurves.Models.Kummer.DivisorClassCohomologyComparison
+public import Nyll.EtaleFundamentalGroups.Cohomology.SchemePullback
 
 /-!
 # Compactification pullback and boundary residues
@@ -16,19 +19,23 @@ actual cohomological pullback from the compactification. No Kummer root is
 part of the input: its existence follows from separable closedness.
 -/
 
+@[expose] public section
+
+universe uGeom uField₁ uField₂
+
 noncomputable section
 
 open AlgebraicGeometry CategoryTheory AlgebraicCurve
 
 namespace AnabelianGeometry.WeightFiltration
 
-variable {K F : Type} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
+variable {K : Type uGeom} {F : Type uField₁} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
   [Algebra.EssFiniteType K F] [IsCurveOver K F]
   (M : CurveModel K F) (n : ℕ+) (hn : IsUnit ((n : ℕ) : K))
 
 /-- Every proper finite Kummer cohomology class has a divisorial representative. -/
 theorem finiteKummerH1_exists_representative
-    {Ω : Type} [Field Ω] [IsSepClosed Ω] (xi : Spec (.of Ω) ⟶ M.C)
+    {Ω : Type uGeom} [Field Ω] [IsSepClosed Ω] (xi : Spec (.of Ω) ⟶ M.C)
     (c : FiniteKummerH1 K M.C n) :
     ∃ u : Pic0.kummerUnits K F n, M.kummerEtaleClass n u hn xi = c := by
   obtain ⟨a, ha⟩ := M.kummerTorsionCohomology_surjective n hn xi c
@@ -38,11 +45,11 @@ theorem finiteKummerH1_exists_representative
   rw [← M.kummerTorsionCohomology_kummerClass n hn xi u, hu]
   exact ha
 
-variable {X : Scheme} [IsIntegral X] [IsNormalIntegral X] [CompactSpace X]
+variable {X : Scheme.{uGeom}} [IsIntegral X] [IsNormalIntegral X] [CompactSpace X]
   (j : X ⟶ M.C) [IsOpenImmersion j] (hj : DenseRange j)
   [Algebra M.C.functionField X.functionField]
   (hfield : algebraMap M.C.functionField X.functionField = j.functionFieldMap hj)
-  {Ω : Type} [Field Ω] [Algebra X.functionField Ω]
+  {Ω : Type uGeom} [Field Ω] [Algebra X.functionField Ω]
   [hMp : Algebra M.C.functionField Ω]
   [htower : IsScalarTower M.C.functionField X.functionField Ω]
   [IsSepClosed Ω] [hsepP : IsSepClosure M.C.functionField Ω]

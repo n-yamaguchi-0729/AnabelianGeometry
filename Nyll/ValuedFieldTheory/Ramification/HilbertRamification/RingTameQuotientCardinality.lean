@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingFiniteTameCharacter
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacter
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacterKernel
-import Mathlib.GroupTheory.QuotientGroup.Basic
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingFiniteTameCharacter
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacter
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacterKernel
+public import Mathlib.GroupTheory.QuotientGroup.Basic
 
 /-!
 # Tame image order as an inertia quotient cardinality
@@ -15,6 +17,8 @@ import Mathlib.GroupTheory.QuotientGroup.Basic
 The first isomorphism theorem identifies the actual residue-character image
 with inertia modulo the same principal-unit wild subgroup.
 -/
+
+@[expose] public section
 
 namespace RamificationTheory.HilbertRamification.DiscreteValuationRing
 

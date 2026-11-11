@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationActionDiagram
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationGaloisSurjectivity
-import Nyll.EtaleFundamentalGroups.Inertia.NativeCoefficientInertiaLift
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationActionDiagram
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationGaloisSurjectivity
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeCoefficientInertiaLift
 
 /-!
 # Surjectivity onto actual finite-normalization inertia
@@ -17,6 +19,8 @@ finite Galois group. The proved profinite inertia image then lifts it to the
 original, possibly infinite normalization inertia. Both lifts use the
 existing restriction maps.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

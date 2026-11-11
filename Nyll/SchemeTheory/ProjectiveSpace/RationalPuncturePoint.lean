@@ -4,10 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.ProjectiveSpace.PunctureChartCoordinates
-import Nyll.SchemeTheory.ProjectiveSpace.ChartPrimeCoordinateUniqueness
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.PunctureChartCoordinates
+public import Nyll.SchemeTheory.ProjectiveSpace.ChartPrimeCoordinateUniqueness
 
 /-! # The actual rational point cut out by a homogeneous puncture equation -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry MvPolynomial HomogeneousLocalization

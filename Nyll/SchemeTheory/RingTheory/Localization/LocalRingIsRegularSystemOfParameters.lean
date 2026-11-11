@@ -15,17 +15,20 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.RingTheory.RegularLocal.ModuleDepthRegularQuotient
-import Mathlib.Algebra.Algebra.Basic
-import Mathlib.Data.Set.Card
-import Mathlib.LinearAlgebra.Quotient.Basic
-import Mathlib.RingTheory.Ideal.AssociatedPrime.Finiteness
-import Mathlib.RingTheory.Ideal.KrullsHeightTheorem
-import Mathlib.RingTheory.Ideal.Quotient.Operations
-import Mathlib.RingTheory.Jacobson.Radical
-import Mathlib.RingTheory.KrullDimension.Zero
-import Mathlib.RingTheory.LocalRing.RingHom.Basic
-import Mathlib.RingTheory.Regular.RegularSequence
+module
+
+public import Nyll.SchemeTheory.RingTheory.RegularLocal.ModuleDepthRegularQuotient
+public import Mathlib.Algebra.Algebra.Basic
+public import Mathlib.Data.Set.Card
+public import Mathlib.LinearAlgebra.Quotient.Basic
+public import Mathlib.RingTheory.Ideal.AssociatedPrime.Finiteness
+public import Mathlib.RingTheory.Ideal.KrullsHeightTheorem
+public import Mathlib.RingTheory.Ideal.Quotient.Operations
+public import Mathlib.RingTheory.Jacobson.Radical
+public import Mathlib.RingTheory.KrullDimension.Zero
+public import Mathlib.RingTheory.LocalRing.RingHom.Basic
+public import Mathlib.RingTheory.Regular.RegularSequence
+public import Nyll.SchemeTheory.RingTheory.Localization.LocalAlgebra
 
 /-!
 # Regular systems of parameters in Cohen–Macaulay local rings
@@ -33,6 +36,8 @@ import Mathlib.RingTheory.Regular.RegularSequence
 The depth and associated-prime bounds come from the common module-depth proofs.
 The arguments below establish regularity of a system of parameters by induction.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

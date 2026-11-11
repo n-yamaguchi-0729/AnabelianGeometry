@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.SchemeTheory.BaseChange.BaseChangedIdentifiedModelIso
-import Nyll.AnabelianGeometry.KummerTheory.ProjectivePairSquareBaseChangeGeneric
-import Nyll.AlgebraicCurves.Models.FunctionFields.FiniteFlatHomAlgHom
+module
+
+public import Nyll.SchemeTheory.BaseChange.BaseChangedIdentifiedModelIso
+public import Nyll.AnabelianGeometry.KummerTheory.ProjectivePairSquareBaseChangeGeneric
+public import Nyll.AlgebraicCurves.Models.FunctionFields.FiniteFlatHomAlgHom
 
 /-! # The original square model, actually base-changed to E
 
@@ -15,6 +17,8 @@ map, giving the actual place restriction formula. The original cover-model
 isomorphism is then base-changed by pullback pasting, rather than replacing the
 cover with a separately selected normalization.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve TopologicalSpace
 open AnabelianGeometry.KummerTheory

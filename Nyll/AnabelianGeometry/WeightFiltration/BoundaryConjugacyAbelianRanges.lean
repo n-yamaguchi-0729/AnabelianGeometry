@@ -3,10 +3,14 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaEmbedding
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaRelations
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaEmbedding
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaRelations
 
 /-! # Abelianized ranges from the same actual inertia conjugacy -/
+@[expose] public section
+
 noncomputable section
 open ProCGroups.Abelian
 
@@ -25,7 +29,8 @@ theorem abelianized_ranges_of_conjugate_inertia
   have hconj (x : H) :
       TopologicalAbelianization.mk G (α.symm ((MulAut.conj a) x)) =
         TopologicalAbelianization.mk G (α.symm x) := by
-    simp [MulAut.conj_apply, map_mul, map_inv, mul_assoc]
+    simp only [MulAut.conj_apply, map_mul, map_inv]
+    exact mul_inv_cancel_comm _ _
   ext z
   constructor
   · rintro ⟨y, ⟨t, rfl⟩, rfl⟩

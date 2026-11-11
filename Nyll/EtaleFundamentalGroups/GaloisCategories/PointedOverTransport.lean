@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCategories.PointedOver
-import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberIso
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.PointedOver
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberIso
 
 /-!
 # Monodromy transport on pointed covers
@@ -14,6 +16,8 @@ An actual automorphism of a finite fiber functor transports fibers over a
 point to fibers over its translate. Under the existing stabilizer comparison,
 this transport is conjugation by that same automorphism.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -27,7 +31,8 @@ variable {C : Type u} [Category.{v} C]
 variable (F : C ⥤ FintypeCat.{w}) [PreGaloisCategory C] [FiberFunctor F]
 variable {X : C} (x : F.obj X) (g : Aut F)
 
-private def fiberOverOrbitEquiv (U : Over X) :
+/-- Transport fibers along a fiber-functor automorphism. -/
+def fiberOverOrbitEquiv (U : Over X) :
     (fiberOver F x).obj U ≃ (fiberOver F (g • x)).obj U where
   toFun z := ⟨g • z.1, by
     exact ((mulAction_naturality F g U.hom z.1).symm).trans
@@ -67,6 +72,7 @@ theorem fiberOverOrbitIso_conj_restrict
         (restrictAutToFiberOver F x a) =
       restrictAutToFiberOver F (g • x) (orbitStabilizerConjugate F x g a) := by
   apply Aut.ext
+  apply Iso.ext
   ext U z
   apply Subtype.ext
   change g • (a.1 • (g⁻¹ • z.1)) = (g * a.1 * g⁻¹) • z.1

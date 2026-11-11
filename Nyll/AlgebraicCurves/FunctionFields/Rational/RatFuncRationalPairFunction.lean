@@ -4,15 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncPrincipalDegreeEqZero
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Nyll.AlgebraicCurves.Places.Orders.TranscendentalOrdNeZero
+module
+
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncPrincipalDegreeEqZero
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.AlgebraicCurves.Places.Orders.TranscendentalOrdNeZero
 
 /-! # A rational function for two rational arithmetic places
 
 The degree-zero divisor on k(t) is principal over k itself. This does not
 assume k is algebraically closed and does not postulate a function witness.
 -/
+
+@[expose] public section
 
 noncomputable section
 

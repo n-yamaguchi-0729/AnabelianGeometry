@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Construction.Basic
-import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
+module
+
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
+public import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
 
 /-!
 # The original function field is fixed by coefficient actions
@@ -15,6 +17,10 @@ curve, its actual semilinear function-field action fixes every function
 coming from that curve. The proof uses the action on germs and the actual
 commutative square, not a fixed-field assumption.
 -/
+
+@[expose] public section
+
+universe u
 
 noncomputable section
 
@@ -30,8 +36,8 @@ attribute [local instance]
 /-- The geometric projection square and germ formulas force the semilinear
 action to fix the original function-field image. -/
 theorem semilinear_fixes_functionField_image
-    {K F : Type} [Field K] [Field F] [Algebra K F]
-    (M : CurveModel K F) {X : Scheme} [IsIntegral X]
+    {K F : Type u} [Field K] [Field F] [Algebra K F]
+    (M : CurveModel K F) {X : Scheme.{u}} [IsIntegral X]
     (p : M.C ⟶ X) (hp : p.base (genericPoint M.C) = genericPoint X)
     (φ : X.functionField →+* F) (θ : M.C ≅ M.C)
     (hθ : θ.hom ≫ p = p) (g : SemilinearAut K F)
@@ -75,9 +81,9 @@ theorem semilinear_fixes_functionField_image
 /-- A point whose projection is fixed by the coefficient automorphism
 has a fixed place under the actual semilinear action. -/
 theorem point_fixed_of_projection_fixed
-    {K₀ K F : Type} [Field K₀] [Field K] [IsAlgClosed K]
+    {K₀ K F : Type u} [Field K₀] [Field K] [IsAlgClosed K]
     [Field F] [Algebra K F]
-    (M : CurveModel K F) {C : Scheme} (c : C ⟶ Spec (.of K₀))
+    (M : CurveModel K F) {C : Scheme.{u}} (c : C ⟶ Spec (.of K₀))
     (s : Spec (.of K) ⟶ Spec (.of K₀))
     (e : M.C ≅ pullback c s)
     (he : e.hom ≫ pullback.snd c s = M.toBase)

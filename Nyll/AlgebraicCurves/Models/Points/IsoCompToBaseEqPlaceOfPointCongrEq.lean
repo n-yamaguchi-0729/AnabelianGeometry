@@ -10,14 +10,18 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Models.Construction.Basic
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.Pic0Congr
-import Nyll.AlgebraicCurves.Geometry.Schemes.FunctionFields.OpenImmersionFunctionFieldIso
-import Nyll.AlgebraicCurves.Geometry.Schemes.Morphisms.IsoCompEqOpenImmersion
+module
+
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.Pic0Congr
+public import Nyll.AlgebraicCurves.Geometry.Schemes.FunctionFields.OpenImmersionFunctionFieldIso
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Morphisms.IsoCompEqOpenImmersion
 
 /-!
 # Curve Model exists iso comp to Base eq place Of Point congr eq
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

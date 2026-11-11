@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.H1FiniteCover
-import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionSplitting
-import Mathlib.Algebra.Category.Grp.ForgetCorepresentable
-import Mathlib.CategoryTheory.Sites.Sheafification
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1FiniteCover
+public import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionSplitting
+public import Mathlib.Algebra.Category.Grp.ForgetCorepresentable
+public import Mathlib.CategoryTheory.Sites.Sheafification
 
 /-!
 # Global lifts of one and vanishing of the actual extension class
@@ -18,6 +20,8 @@ using the sheafification adjunction. Conversely a splitting gives such a
 section. Thus this torsor has a global point precisely when the actual Ext
 class vanishes.
 -/
+
+@[expose] public section
 
 noncomputable section
 

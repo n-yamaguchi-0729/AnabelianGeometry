@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.Ideal.Maps
-import Mathlib.Algebra.Ring.Hom.Defs
+module
+
+public import Mathlib.RingTheory.Ideal.Maps
+public import Mathlib.Algebra.Ring.Hom.Defs
 
 /-!
 # Contraction of inertia difference conditions
@@ -13,6 +15,8 @@ import Mathlib.Algebra.Ring.Hom.Defs
 Proves that the inertia difference condition descends to a contracted ideal along a commuting
 square of coefficient maps.
 -/
+
+@[expose] public section
 
 namespace SchemeTheory
 

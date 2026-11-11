@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.EllEqDegreeAddOneSubGenusFF
-import Nyll.AlgebraicCurves.Cohomology.Adelic.Index
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
-import Nyll.AlgebraicCurves.FunctionFields.Extensions.CurveIffTranscendentalFiniteDimensional
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
-import Mathlib.LinearAlgebra.FiniteDimensional.Basic
-import Mathlib.Algebra.Order.BigOperators.Group.Finset
+module
+
+public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.EllEqDegreeAddOneSubGenusFF
+public import Nyll.AlgebraicCurves.Cohomology.Adelic.Index
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+public import Nyll.AlgebraicCurves.FunctionFields.Extensions.CurveIffTranscendentalFiniteDimensional
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
+public import Mathlib.LinearAlgebra.FiniteDimensional.Basic
+public import Mathlib.Algebra.Order.BigOperators.Group.Finset
 
 /-!
 # Degree-one divisor classes in genus one
@@ -19,6 +21,8 @@ Riemann--Roch supplies a nonzero section of every degree-one divisor. Its effect
 divisor is a single place. The same dimension calculation proves uniqueness: a
 function with at most one simple pole must be constant.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.Model
-import Mathlib.AlgebraicGeometry.Pullbacks
-import Mathlib.CategoryTheory.MorphismProperty.OverAdjunction
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.Model
+public import Mathlib.AlgebraicGeometry.Pullbacks
+public import Mathlib.CategoryTheory.MorphismProperty.OverAdjunction
 
 /-!
 # Affine Scheme Model
@@ -13,6 +15,8 @@ import Mathlib.CategoryTheory.MorphismProperty.OverAdjunction
 A finite étale cover of the literal constant extension of an affine scheme
 descends to an actual finite intermediate field, with its literal inclusion map.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory Limits

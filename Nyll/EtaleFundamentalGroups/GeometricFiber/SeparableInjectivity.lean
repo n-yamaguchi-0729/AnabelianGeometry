@@ -3,16 +3,21 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.GlobalModel
-import Nyll.EtaleFundamentalGroups.GeometricFiber.Injectivity
-import Mathlib.RingTheory.Etale.Field
-import Mathlib.AlgebraicGeometry.Morphisms.RingHomProperties
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.GlobalModel
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.Injectivity
+public import Mathlib.RingTheory.Etale.Field
+public import Mathlib.AlgebraicGeometry.Morphisms.RingHomProperties
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.Injectivity
 
 /-!
 # Separable Injectivity
 
 The chosen coefficient component embeds in the pullback of the composite cover.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory Limits

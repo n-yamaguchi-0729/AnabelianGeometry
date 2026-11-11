@@ -5,8 +5,10 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
-import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
+public import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
 
 /-!
 # Unique root scaling over a separably closed field
@@ -14,6 +16,8 @@ import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
 Two nonzero roots of the same invertible power over an extension field differ
 by exactly one root of unity in the separably closed base field.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -35,7 +39,7 @@ theorem existsUnique_rootScale {K : Type u} [Field K] [IsSepClosed K]
   let η : rootsOfUnity (n : ℕ) Ω := rootsOfUnity.mkOfPowEq (y / x) hratio
   obtain ⟨ζ, hζ⟩ :=
     (RamificationTheory.HilbertRamification.restrictRootsOfUnity_bijective_of_primitiveRoot
-      ι (n : ℕ) (HasEnoughRootsOfUnity.exists_primitiveRoot K (n : ℕ))).2 η
+      ι (n : ℕ) (HasEnoughRootsOfUnity.exists_isPrimitiveRoot K (n : ℕ))).2 η
   have hζvalue : ι ((ζ : Kˣ) : K) = y / x :=
     congrArg (fun r : rootsOfUnity (n : ℕ) Ω => ((r : Ωˣ) : Ω)) hζ
   have hscale : ι ((ζ : Kˣ) : K) * x = y := by

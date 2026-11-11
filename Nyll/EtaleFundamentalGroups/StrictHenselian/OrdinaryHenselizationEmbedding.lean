@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.StrictHenselian.OrdinaryHenselizationUniversal
-import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkNormalDomain
-import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkHenselianEmbedding
-import Mathlib.RingTheory.Algebraic.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.OrdinaryHenselizationUniversal
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkNormalDomain
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkHenselianEmbedding
+public import Mathlib.RingTheory.Algebraic.Basic
 
 /-!
 # Embedding the actual ordinary henselization
@@ -18,6 +20,8 @@ base map into a Henselian target therefore induces an injective universal
 map. Every local target endomorphism fixing the base fixes this image, by
 the already proved ordinary universal property.
 -/
+
+@[expose] public section
 
 noncomputable section
 

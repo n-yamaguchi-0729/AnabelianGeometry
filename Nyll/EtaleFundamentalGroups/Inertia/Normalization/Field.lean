@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.Localized.Cardinality
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.Dedekind.FixedFields
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.Localized.Cardinality
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.Dedekind.FixedFields
 
 /-!
 # The inertia field of a normalization prime
@@ -16,6 +18,8 @@ characteristic zero, the degree from this fixed field to the total field is
 the ramification index.  The usual tower formula then separates the total
 generic degree into its unramified and ramified factors.
 -/
+
+@[expose] public section
 
 noncomputable section
 

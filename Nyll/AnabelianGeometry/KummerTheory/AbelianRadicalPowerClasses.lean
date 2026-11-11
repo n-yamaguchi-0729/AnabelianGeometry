@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.KummerTheory.CyclotomicPowerDescent
-import Mathlib.RingTheory.RootsOfUnity.PrimitiveRoots
-import Mathlib.GroupTheory.QuotientGroup.Basic
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.CyclotomicPowerDescent
+public import Mathlib.RingTheory.RootsOfUnity.PrimitiveRoots
+public import Mathlib.GroupTheory.QuotientGroup.Basic
 
 /-!
 # Power classes of radicals in abelian extensions
@@ -17,6 +19,8 @@ the original base field. This follows from the explicit cyclotomic descent
 calculation for every Galois automorphism; no uniform cyclotomic-image
 hypothesis is supplied as an assumption.
 -/
+
+@[expose] public section
 
 noncomputable section
 

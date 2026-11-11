@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.TameCoefficientReduction
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationCharZero
-import Nyll.EtaleFundamentalGroups.Inertia.ActualAbsoluteTameCharacter
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinateIdentity
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.TameCoefficientReduction
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationCharZero
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualAbsoluteTameCharacter
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinateIdentity
 
 /-!
 # Full absolute tame coordinates and the actual residue coefficient
@@ -16,6 +18,8 @@ The existing full inverse-limit character has the same coefficient as the
 local Kummer formula at every exponent. A single dominating finite tame
 stage and the existing transition identities prove the comparison.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -10,14 +10,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Util.WithWeakNamespace
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
-import Nyll.JacobianVarieties.WeilPairing.Divisorial
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Nyll.AlgebraicCurves.Divisors.Maps.Maps
-import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
-import Nyll.AlgebraicCurves.Places.NormTrace.OrdNormEqSumFiberOverSeparable
-import Nyll.AlgebraicCurves.Places.Basic
+module
+
+public import Mathlib.Util.WithWeakNamespace
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
+public import Nyll.JacobianVarieties.WeilPairing.Divisorial
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.AlgebraicCurves.Divisors.Maps.Maps
+public import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
+public import Nyll.AlgebraicCurves.Places.NormTrace.OrdNormEqSumFiberOverSeparable
+public import Nyll.AlgebraicCurves.Places.Basic
 
 /-!
 # Principal divisors in finite separable extensions
@@ -25,6 +27,8 @@ import Nyll.AlgebraicCurves.Places.Basic
 Bound the support of valuations by the coefficients of minimal polynomials.
 The resulting divisor pushes forward to the norm divisor, so its degree is zero.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

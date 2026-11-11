@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareCoherentBaseChangeCaller
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverBoundaryRestriction
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareCoherentBaseChangeCaller
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverBoundaryRestriction
 
 /-! # The same named base-change model has the actual pullback boundary
 
@@ -14,6 +16,8 @@ Jκ retained by the coherent caller. Boundary pullback and its cardinal bound
 are conclusions, not assumptions. The coefficient field here is algebraically
 closed κ, as required by the finite-boundary restriction owner.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve
 open AlgebraicGeometry.FiniteEtale AlgebraicGeometry.ProjSpace

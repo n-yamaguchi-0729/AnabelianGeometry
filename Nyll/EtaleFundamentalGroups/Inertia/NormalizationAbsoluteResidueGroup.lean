@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.NativeSeparableResidueGroup
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationAbsoluteResidueClosure
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueCoefficient
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeSeparableResidueGroup
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationAbsoluteResidueClosure
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueCoefficient
 
 /-!
 # Absolute normalization residue Galois groups
@@ -14,6 +16,8 @@ import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueCoefficient
 Identifies the literal normalization residue as an algebraic closure of the base residue field
 and constructs the restriction isomorphism to its separable residue Galois group.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -76,7 +80,7 @@ def normalizationResidueSeparableGroup
 /-- Once algebraic closedness of the literal quotient is supplied, the
 actual integral residue extension and actual restriction equivalence give
 the comparison of residue automorphism groups. -/
-private def normalizationResidueSeparableIso_of_isAlgClosed
+def normalizationResidueSeparableIso_of_isAlgClosed
     (A : Type u) (Ω : Type w) [CommRing A] [IsLocalRing A]
     [Field Ω] [Algebra A Ω]
     (Q : Ideal (normalizationCommAlgCat A Ω)) [Q.IsMaximal]
@@ -125,9 +129,9 @@ theorem normalizationAbsoluteResidue_isAlgClosure
     [Field K] [Field Ω] [Algebra A K] [IsFractionRing A K]
     [Algebra K Ω] [Algebra A Ω] [IsScalarTower A K Ω] [IsSepClosure K Ω]
     (Q : Ideal (normalizationCommAlgCat A Ω)) [Q.IsMaximal] :
-    letI := normalizationResidueFieldAlgebra A Ω Q
+    let := normalizationResidueFieldAlgebra A Ω Q
     IsAlgClosure (IsLocalRing.ResidueField A) (normalizationResidueFieldObject A Ω Q) := by
-  let := normalizationResidueFieldAlgebra A Ω Q
+  intro sharedOwner1
   exact ⟨normalizationAbsoluteResidue_isAlgClosed A K Ω Q,
     normalizationResidueFieldAlgebra_isAlgebraic A Ω Q⟩
 

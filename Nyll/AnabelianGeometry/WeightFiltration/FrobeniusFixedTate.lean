@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.FrobeniusFixedSchemePoints
-import Nyll.AnabelianGeometry.WeightFiltration.TateFiniteSubgroups
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.AlgebraicPoints
-import Nyll.ProCGroups.Abelian.FullTateModuleMap
-import Mathlib.Algebra.Group.Subgroup.Ker
+module
+
+public import Nyll.SchemeTheory.Morphisms.FrobeniusFixedSchemePoints
+public import Nyll.SchemeTheory.RingTheory.FiniteType.FrobeniusFixedAlgebraHom
+public import Nyll.AnabelianGeometry.WeightFiltration.TateFiniteSubgroups
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.AlgebraicPoints
+public import Nyll.ProCGroups.Abelian.FullTateModuleMap
+public import Mathlib.Algebra.Group.Subgroup.Ker
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
 
 /-!
 # Actual Frobenius-fixed point groups and Tate vectors
@@ -17,6 +21,10 @@ The fixed coordinates lie in one finite subgroup of actual geometric points.
 The existing finite-subgroup Tate theorem then kills the compatible family.
 -/
 
+@[expose] public section
+
+universe uGeom uField₁ uField₂
+
 open AlgebraicGeometry CategoryTheory GoodReductionJacobian
 open GoodReductionJacobian.RelativeGroupLaw ProCGroups
 
@@ -24,8 +32,8 @@ namespace AnabelianGeometry.WeightFiltration
 
 section General
 
-variable (k Ω : Type) [CommRing k] [CommRing Ω] [IsLocalRing Ω] [Algebra k Ω]
-  (X : Scheme) [CompactSpace X] (c : X ⟶ Spec (.of k)) [LocallyOfFiniteType c]
+variable (k Ω : Type uGeom) [CommRing k] [CommRing Ω] [IsLocalRing Ω] [Algebra k Ω]
+  (X : Scheme.{uGeom}) [CompactSpace X] (c : X ⟶ Spec (.of k)) [LocallyOfFiniteType c]
   (G : RelativeGroupLaw k c) (hc : G.IsCommutative)
 
 /-- A coefficient automorphism with finitely many fixed values has a finite
@@ -66,8 +74,8 @@ theorem restrictedTate_eq_zero_of_fixed
 
 end General
 
-variable (k Ω : Type) [Field k] [Fintype k] [Field Ω] [Algebra k Ω]
-  [Algebra.IsAlgebraic k Ω] (X : Scheme) [CompactSpace X]
+variable (k Ω : Type uGeom) [Field k] [Fintype k] [Field Ω] [Algebra k Ω]
+  [Algebra.IsAlgebraic k Ω] (X : Scheme.{uGeom}) [CompactSpace X]
   (c : X ⟶ Spec (.of k)) [LocallyOfFiniteType c]
   (G : RelativeGroupLaw k c) (hc : G.IsCommutative)
 

@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.RecoveredCandidateFiniteRefinement
-import Nyll.AnabelianGeometry.WeightFiltration.RecoveredCoverRelativeKernel
-import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverConstantSquare
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.RecoveredCandidateFiniteRefinement
+public import Nyll.AnabelianGeometry.WeightFiltration.RecoveredCoverRelativeKernel
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverConstantSquare
 
 /-! # Relative inertia tests in the actual recovered cover -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -52,7 +56,7 @@ attribute [local instance]
   connectedCoverPlaceConstantAmbientTower
 
 variable
-    (k E κ : Type) [Field k] [Field E] [NumberField E]
+    (k E κ : Type) [Field k] [Field E] [CharZero E] [Field.FG E]
     [Field κ] [CharZero κ] [IsAlgClosed κ]
     [Algebra k E] [Algebra E κ] [Algebra k κ] [IsScalarTower k E κ]
     [IsSepClosure k κ] [IsSepClosure E κ]

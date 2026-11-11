@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationKummerResidues
-import Nyll.AnabelianGeometry.WeightFiltration.TameCoefficientReduction
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationKummerResidues
+public import Nyll.AnabelianGeometry.WeightFiltration.TameCoefficientReduction
 
 /-!
 # Kummer residues as powers of the original tame coefficient
@@ -14,6 +16,8 @@ In residue characteristic zero the field-theoretic Kummer ratio is the tame
 coefficient raised to the base valuation. The formula uses the prescribed
 ambient root and the original inertia action, independently of finite stages.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.PointedH1Pullback
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
-import Nyll.EtaleFundamentalGroups.GeometricFiber.DeckFundamentalGroup
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Mathlib.CategoryTheory.Galois.Decomposition
-import Mathlib.CategoryTheory.Galois.GaloisObjects
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.PointedH1Pullback
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.DeckFundamentalGroup
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Mathlib.CategoryTheory.Galois.Decomposition
+public import Mathlib.CategoryTheory.Galois.GaloisObjects
 
 /-!
 # Centralizers act trivially on actual finite-coefficient H¹
@@ -19,6 +21,8 @@ centralizing the covering subgroup acts trivially on the actual derived H¹.
 This comparison does not assume H¹ faithfulness. The geometric proof that a
 nonidentity deck transformation must act nontrivially remains a separate step.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -33,7 +37,7 @@ variable [ConnectedSpace A.left]
 variable {Ω : Type u} [Field Ω] [IsSepClosed Ω]
 variable (xi : Spec (.of Ω) ⟶ A.left)
 variable (σ : Aut A) (g : Aut (FiniteEtale.fiber (xi ≫ A.hom)))
-variable (h : (FiniteEtale.fiber (xi ≫ A.hom)).map σ.hom
+variable (h : (FiniteEtale.fiber (xi ≫ A.hom)).map σ.asIso.hom
     (FiniteEtale.liftedFiberPoint A xi) = g • FiniteEtale.liftedFiberPoint A xi)
 
 include h in
@@ -44,14 +48,14 @@ theorem constantH1Pullback_deck_eq_self_of_centralizes
       Commute g (FiniteEtale.fundamentalGroupHom A.hom xi a))
     (B : AddCommGrpCat.{u}) [Finite B]
     (c : Sheaf.H.{u} ((constantSheaf A.left.smallEtaleTopology AddCommGrpCat.{u}).obj B) 1) :
-    constantCohomologyPullback σ.hom.left B 1 c = c := by
+    constantCohomologyPullback σ.asIso.hom.left B 1 c = c := by
   let : TopologicalSpace (Multiplicative B) := ⊥
   apply h1Character_injective B xi
   apply ContinuousMonoidHom.ext
   intro a
   have hp := congrArg
     (fun χ : Aut (FiniteEtale.fiber xi) →ₜ* Multiplicative B => χ a)
-    (h1Character_pointedSchemePullback σ.hom.left B xi xi
+    (h1Character_pointedSchemePullback σ.asIso.hom.left B xi xi
       (FiniteEtale.deckPointedGeometricFiberIso A xi σ g h) c)
   exact hp.symm.trans
     (congrArg (h1Character B xi c)
@@ -75,9 +79,10 @@ theorem fundamentalGroup_eq_one_of_finiteH1_deck_faithful
       (∀ (C : AddCommGrpCat.{u}) [Finite C]
         (c : Sheaf.H.{u}
           ((constantSheaf A.left.smallEtaleTopology AddCommGrpCat.{u}).obj C) 1),
-        constantCohomologyPullback σ.hom.left C 1 c = c) → σ = 1)
+        constantCohomologyPullback σ.asIso.hom.left C 1 c = c) → σ = 1)
     (g : Aut (FiniteEtale.fiber geom)) (hc : ∀ a, Commute g a) :
     g = 1 := by
+  apply Aut.ext
   apply Iso.ext
   apply natTrans_ext_of_isGalois (FiniteEtale.fiber geom)
   intro A hA
@@ -106,7 +111,7 @@ theorem fundamentalGroup_eq_one_of_finiteH1_deck_faithful
       FiniteEtale.liftedFiberPoint A lift
     let σ : Aut A := (evaluationEquivOfIsGalois (C := FiniteEtale X)
       (FiniteEtale.fiber (X := X) (lift ≫ A.hom)) A p).symm (a • p)
-    have hs : (FiniteEtale.fiber (X := X) (lift ≫ A.hom)).map σ.hom p = a • p :=
+    have hs : (FiniteEtale.fiber (X := X) (lift ≫ A.hom)).map σ.asIso.hom p = a • p :=
       evaluationEquivOfIsGalois_symm_fiber (C := FiniteEtale X)
         (FiniteEtale.fiber (X := X) (lift ≫ A.hom)) A p (a • p)
     have hσ : σ = 1 := hfaithful A lift σ

@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealWildPrimary
-import Nyll.EtaleFundamentalGroups.Inertia.NativeFiniteNormalizationTameProperties
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.RingTheory.DedekindDomain.IntegralClosure
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealWildPrimary
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeFiniteNormalizationTameProperties
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.RingTheory.DedekindDomain.IntegralClosure
 
 /-!
 # Wild order from a native finite field normalization
@@ -17,6 +19,8 @@ Only the original finite separable field supplies normalization finiteness
 and torsion freeness. The field environment is closed before the prime and
 its residue field enter the principal-unit order proof.
 -/
+
+@[expose] public section
 
 noncomputable section
 

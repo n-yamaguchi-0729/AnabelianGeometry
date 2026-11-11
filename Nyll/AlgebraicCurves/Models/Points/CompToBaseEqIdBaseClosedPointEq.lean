@@ -10,11 +10,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Models.Construction.Basic
+module
+
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
 
 /-!
 # Curve Model exists comp to Base eq id and base closed Point eq of deg eq one
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

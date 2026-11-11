@@ -10,11 +10,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.FunctionField
+module
+
+public import Mathlib.AlgebraicGeometry.FunctionField
 
 /-!
 # exists ring Hom function Field germ eq of base generic Point eq
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

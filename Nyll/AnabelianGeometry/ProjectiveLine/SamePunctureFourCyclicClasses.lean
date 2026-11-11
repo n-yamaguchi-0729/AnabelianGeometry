@@ -3,11 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.ProjectiveLine.ActualSquareRootValueRatio
-import Nyll.AnabelianGeometry.ProjectiveLine.NumberFieldConfiguration
+module
+
+public import Nyll.AnabelianGeometry.ProjectiveLine.ActualSquareRootValueRatio
+public import Nyll.AnabelianGeometry.ProjectiveLine.CharacteristicZeroConfiguration
 
 /-! Cyclic parameter and complement data from the same puncture equivalence
 and two permutations of the same four labels. -/
+
+@[expose] public section
 
 noncomputable section
 namespace AnabelianGeometry.ProjectiveLine

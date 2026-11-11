@@ -5,15 +5,17 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Curves.IsIsoOfBijectivePointsCharZero
-import Nyll.AlgebraicCurves.Geometry.Curves.IsIntegralSmooth
-import Nyll.AlgebraicCurves.Geometry.Picard.AlgebraicEquivalence.AlgEquivZeroCut
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
-import Nyll.AlgebraicCurves.Models.Construction.Basic
-import Nyll.JacobianVarieties.Albanese.GenusOnePointClasses
-import Nyll.JacobianVarieties.Picard.Representability.CurveModelPicardRepresentabilityAbelJacobi
-import Nyll.AlgebraicCurves.Geometry.Picard.Representability.Designation
-import Nyll.AlgebraicCurves.Geometry.Picard.Representability.Representation
+module
+
+public import Nyll.AlgebraicCurves.Geometry.Curves.IsIsoOfBijectivePointsCharZero
+public import Nyll.AlgebraicCurves.Geometry.Curves.IsIntegralSmooth
+public import Nyll.AlgebraicCurves.Geometry.Picard.AlgebraicEquivalence.AlgEquivZeroCut
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
+public import Nyll.JacobianVarieties.Albanese.GenusOnePointClasses
+public import Nyll.JacobianVarieties.Picard.Representability.CurveModelPicardRepresentabilityAbelJacobi
+public import Nyll.AlgebraicCurves.Geometry.Picard.Representability.Designation
+public import Nyll.AlgebraicCurves.Geometry.Picard.Representability.Representation
 
 /-!
 # The actual Abel--Jacobi isomorphism of a pointed genus-one curve
@@ -25,6 +27,8 @@ characteristic zero, the proper smooth curve criterion makes it an isomorphism.
 
 The imported Picard construction retains its Anthropic FLT provenance in its source.
 -/
+
+@[expose] public section
 
 noncomputable section
 

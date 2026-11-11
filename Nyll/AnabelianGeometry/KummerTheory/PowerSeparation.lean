@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.GroupTheory.FiniteAbelian.Basic
-import Mathlib.Data.Int.Basic
+module
+
+public import Mathlib.GroupTheory.FiniteAbelian.Basic
+public import Mathlib.Data.Int.Basic
 
 /-!
 # Separation by power quotients
@@ -14,6 +16,8 @@ In a finitely generated abelian group, an element divisible by every
 positive integer is trivial. Applying this to a quotient shows that every
 subgroup is the intersection of its enlargements by ambient power subgroups.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.KummerTheory
 

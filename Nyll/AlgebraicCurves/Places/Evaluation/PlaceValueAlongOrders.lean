@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.Places.Evaluation.HasValueIffMemEqOrOrdSubPos
-import Nyll.AlgebraicCurves.Places.Basic
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+module
+
+public import Nyll.AlgebraicCurves.Places.Evaluation.HasValueIffMemEqOrOrdSubPos
+public import Nyll.AlgebraicCurves.Places.Basic
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
 
 /-! # Literal residue values along an unchanged normalized-order comparison
 
@@ -13,6 +15,8 @@ The coefficient embedding and field map are explicit. Exact orders transfer
 values to the extended constant field, and rationality then identifies the
 actual evalAt values, including the zero convention at a pole.
 -/
+@[expose] public section
+
 noncomputable section
 
 namespace AlgebraicCurve.Place

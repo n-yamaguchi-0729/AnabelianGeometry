@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.GaloisCechDescent
-import Mathlib.AlgebraicGeometry.Sites.Fpqc
-import Nyll.EtaleFundamentalGroups.GaloisCovers.FieldCoverQuotient
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticSurjective
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CoefficientBaseChangeIso
+module
+
+public import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.GaloisCechDescent
+public import Mathlib.AlgebraicGeometry.Sites.Fpqc
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.FieldCoverQuotient
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticSurjective
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CoefficientBaseChangeIso
 
 /-! # Actual descent over a finite Galois field extension
 
@@ -18,6 +20,8 @@ so every deck transformation comes from an actual field automorphism.
 Equivariance of a specified scalar-extended isomorphism then supplies its
 Cech equality and constructs an isomorphism over the original field.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -41,14 +45,14 @@ def finiteGaloisBaseChangeAut {X : Scheme.{u}} (f : X ⟶ Spec (.of k))
 /-- The field-coordinate projection records the actual spectrum map. -/
 theorem finiteGaloisBaseChangeAut_hom_fst
     {X : Scheme.{u}} (f : X ⟶ Spec (.of k)) (σ : Gal(L/k)) :
-    (finiteGaloisBaseChangeAut k L f σ).hom.left ≫ pullback.fst (ξ k L) f =
+    (finiteGaloisBaseChangeAut k L f σ).asIso.hom.left ≫ pullback.fst (ξ k L) f =
       pullback.fst (ξ k L) f ≫ Spec.map (CommRingCat.ofHom σ.toRingHom) :=
   pullback.lift_fst _ _ _
 
 /-- The scheme-coordinate projection is unchanged. -/
 theorem finiteGaloisBaseChangeAut_hom_snd
     {X : Scheme.{u}} (f : X ⟶ Spec (.of k)) (σ : Gal(L/k)) :
-    (finiteGaloisBaseChangeAut k L f σ).hom.left ≫ pullback.snd (ξ k L) f =
+    (finiteGaloisBaseChangeAut k L f σ).asIso.hom.left ≫ pullback.snd (ξ k L) f =
       pullback.snd (ξ k L) f :=
   pullback.lift_snd _ _ _
 
@@ -56,7 +60,7 @@ theorem finiteGaloisBaseChangeAut_hom_snd
 literal coefficient-base-change automorphism used by the geometric API. -/
 theorem finiteGaloisBaseChangeAut_hom_eq_coefficientBaseChangeIso_hom
     {X : Scheme.{u}} (f : X ⟶ Spec (.of k)) (σ : Gal(L/k)) :
-    (finiteGaloisBaseChangeAut k L f σ).hom.left =
+    (finiteGaloisBaseChangeAut k L f σ).asIso.hom.left =
       (coefficientBaseChangeIso k L f σ).hom := by
   apply pullback.hom_ext
   · exact (finiteGaloisBaseChangeAut_hom_fst k L f σ).trans
@@ -98,7 +102,7 @@ theorem finiteGaloisBaseChange_isGalois
     ((t.app W).hom x) ((t.app W).hom y)
   refine ⟨H.mapAut W σ, ?_⟩
   apply (ConcreteCategory.bijective_of_isIso (t.app W).hom).injective
-  have hn := ConcreteCategory.congr_hom (t.hom.naturality σ.hom) x
+  have hn := ConcreteCategory.congr_hom (t.hom.naturality σ.asIso.hom) x
   change (t.app W).hom ((H.mapAut W σ) • x) = σ • ((t.app W).hom x) at hn
   exact hn.trans hσ
 
@@ -111,13 +115,15 @@ theorem finiteGaloisBaseChangeAut_surjective
     Function.Surjective (finiteGaloisBaseChangeAut k L f) := by
   let ff := (constantCover_fullyFaithful k f xi).some
   intro τ
-  obtain ⟨ρ, hρ⟩ := ff.isoEquiv.surjective τ
+  obtain ⟨ρ, hρ⟩ := ff.isoEquiv.surjective τ.asIso
   obtain ⟨σ, hσ⟩ :=
     (EtaleFundamentalGroups.fieldGaloisToFiniteEtaleAutOpMulEquiv k L).surjective
-      (MulOpposite.op ρ)
+      (MulOpposite.op (Aut.of ρ))
   refine ⟨σ, ?_⟩
+  apply Aut.ext
   change (FiniteEtale.pullback f).mapIso
-    (MulOpposite.unop (EtaleFundamentalGroups.fieldGaloisToFiniteEtaleAutOpMulEquiv k L σ)) = τ
+    (MulOpposite.unop
+      (EtaleFundamentalGroups.fieldGaloisToFiniteEtaleAutOpMulEquiv k L σ)).asIso = τ.asIso
   rw [hσ]
   exact hρ
 
@@ -132,8 +138,8 @@ theorem exists_schemeIso_of_finiteGalois_equivariant
     (i : pullback (ξ k L) fX ≅ pullback (ξ k L) fY)
     (hi : i.hom ≫ pullback.fst (ξ k L) fY = pullback.fst (ξ k L) fX)
     (hequiv : ∀ σ : Gal(L/k),
-      (finiteGaloisBaseChangeAut k L fX σ).hom.left ≫ i.hom =
-        i.hom ≫ (finiteGaloisBaseChangeAut k L fY σ).hom.left) :
+      (finiteGaloisBaseChangeAut k L fX σ).asIso.hom.left ≫ i.hom =
+        i.hom ≫ (finiteGaloisBaseChangeAut k L fY σ).asIso.hom.left) :
     ∃ I : X ≅ Y, I.hom ≫ fY = fX ∧
       pullback.snd (ξ k L) fX ≫ I.hom = i.hom ≫ pullback.snd (ξ k L) fY := by
   have : ConnectedSpace X := GeometricallyConnected.connectedSpace_of_subsingleton fX
@@ -142,9 +148,9 @@ theorem exists_schemeIso_of_finiteGalois_equivariant
   let W := (FiniteEtale.pullback fX).obj (FiniteEtale.mk (ξ k L))
   have : IsGalois W := finiteGaloisBaseChange_isGalois k L fX xi
   let e : W.left ⟶ Y := i.hom ≫ pullback.snd (ξ k L) fY
-  have hdeck (τ : Aut W) : τ.hom.left ≫ e = e := by
+  have hdeck (τ : Aut W) : τ.asIso.hom.left ≫ e = e := by
     obtain ⟨σ, rfl⟩ := finiteGaloisBaseChangeAut_surjective k L fX xi τ
-    change (finiteGaloisBaseChangeAut k L fX σ).hom.left ≫
+    change (finiteGaloisBaseChangeAut k L fX σ).asIso.hom.left ≫
       i.hom ≫ pullback.snd (ξ k L) fY = i.hom ≫ pullback.snd (ξ k L) fY
     exact (Category.assoc _ _ _).symm.trans
       ((congrArg (· ≫ pullback.snd (ξ k L) fY) (hequiv σ)).trans

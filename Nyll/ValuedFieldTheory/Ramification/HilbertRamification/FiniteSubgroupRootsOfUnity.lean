@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.RootsOfUnity.PrimitiveRoots
-import Mathlib.GroupTheory.QuotientGroup.Basic
-import Mathlib.Algebra.Group.Subgroup.Finite
+module
+
+public import Mathlib.RingTheory.RootsOfUnity.PrimitiveRoots
+public import Mathlib.GroupTheory.QuotientGroup.Basic
+public import Mathlib.Algebra.Group.Subgroup.Finite
 
 /-!
 # Finite multiplicative subgroups and roots of unity
@@ -15,6 +17,8 @@ Identifies a finite subgroup of field units with all roots of unity of its order
 primitive root. Finite characters are then expressed as surjections onto these root groups with
 the corresponding kernel quotient.
 -/
+
+@[expose] public section
 
 noncomputable section
 

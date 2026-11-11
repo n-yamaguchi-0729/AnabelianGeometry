@@ -4,21 +4,23 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Sites.BaseChange
-import Nyll.EtaleCohomology.Sites.SheafFunctors
-import Nyll.EtaleCohomology.Sites.ConstantPullback
-import Nyll.EtaleCohomology.Sites.Subcanonical
-import Mathlib.AlgebraicGeometry.Sites.AffineEtale
-import Mathlib.CategoryTheory.Adjunction.Basic
-import Mathlib.CategoryTheory.Comma.StructuredArrow.Small
-import Mathlib.CategoryTheory.Functor.KanExtension.Pointwise
-import Mathlib.CategoryTheory.Limits.EssentiallySmall
-import Mathlib.CategoryTheory.Limits.Preserves.Shapes.Terminal
-import Mathlib.CategoryTheory.Sites.ConstantSheaf
-import Mathlib.CategoryTheory.Sites.Continuous
-import Mathlib.CategoryTheory.Sites.Pullback
-import Mathlib.CategoryTheory.Sites.Subcanonical
-import Mathlib.CategoryTheory.Yoneda
+module
+
+public import Nyll.EtaleCohomology.Sites.BaseChange
+public import Nyll.EtaleCohomology.Sites.SheafFunctors
+public import Nyll.EtaleCohomology.Sites.ConstantPullback
+public import Nyll.EtaleCohomology.Sites.Subcanonical
+public import Mathlib.AlgebraicGeometry.Sites.AffineEtale
+public import Mathlib.CategoryTheory.Adjunction.Basic
+public import Mathlib.CategoryTheory.Comma.StructuredArrow.Small
+public import Mathlib.CategoryTheory.Functor.KanExtension.Pointwise
+public import Mathlib.CategoryTheory.Limits.EssentiallySmall
+public import Mathlib.CategoryTheory.Limits.Preserves.Shapes.Terminal
+public import Mathlib.CategoryTheory.Sites.ConstantSheaf
+public import Mathlib.CategoryTheory.Sites.Continuous
+public import Mathlib.CategoryTheory.Sites.Pullback
+public import Mathlib.CategoryTheory.Sites.Subcanonical
+public import Mathlib.CategoryTheory.Yoneda
 
 /-!
 # Inverse image of set-valued étale sheaves
@@ -32,6 +34,8 @@ scheme-theoretic base change.
 These constructions apply to arbitrary scheme morphisms and are used to
 transfer local splittings of finite étale covers to sheaves of finite sets.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -64,7 +68,8 @@ def etaleSetPullback :
       (affineEtaleBaseChange f) (Type u)
       (Scheme.AffineEtale.topology Y) X.smallEtaleTopology
 
-private def affineEtaleSetPushforwardComposeIso :
+/-- Direct image computed on the affine site agrees with direct image on the small site. -/
+def affineEtaleSetPushforwardComposeIso :
     (affineEtaleBaseChange f).sheafPushforwardContinuous (Type u)
         (Scheme.AffineEtale.topology Y) X.smallEtaleTopology ⋙
         (Scheme.AffineEtale.sheafEquiv Y (Type u)).functor ≅
@@ -101,7 +106,8 @@ def etaleSetPullbackConstantIso :
     terminalIsTerminal (terminalIsTerminal.isTerminalObj (etaleBaseChange f) (⊤_ Y.Etale))
     (etaleSetPullback f) (etaleSetPullbackPushforwardAdjunction f)
 
-private def etaleSetPullbackYonedaHomEquiv (U : Y.Etale)
+/-- Maps from a pulled-back representable are maps from the represented base change. -/
+def etaleSetPullbackYonedaHomEquiv (U : Y.Etale)
     (G : Sheaf X.smallEtaleTopology (Type u)) :
     ((etaleSetPullback f).obj (Y.smallEtaleTopology.yoneda.obj U) ⟶ G) ≃
       (X.smallEtaleTopology.yoneda.obj ((etaleBaseChange f).obj U) ⟶ G) :=

@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProperCurveH1Deck
-import Nyll.EtaleFundamentalGroups.GaloisCovers.ConnectedCurveModel
-import Nyll.EtaleFundamentalGroups.GaloisCovers.CurveModelDeckDegree
-import Nyll.EtaleFundamentalGroups.GaloisCovers.DeckIsomorphismTransport
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1IsomorphismPullback
-import Nyll.AlgebraicCurves.Models.Points.RationalPointExistence
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyIntegralAlgClosed
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProperCurveH1Deck
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.ConnectedCurveModel
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.CurveModelDeckDegree
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.DeckIsomorphismTransport
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1IsomorphismPullback
+public import Nyll.AlgebraicCurves.Models.Points.RationalPointExistence
+public import Nyll.SchemeTheory.Morphisms.GeometricallyIntegralAlgClosed
 
 /-! # Actual intermediate covers of a proper hyperbolic curve
 
@@ -19,6 +21,8 @@ maps and deck transformations transported through proved isomorphism
 squares. Riemann--Hurwitz and actual finite H¹ cardinality then obstruct
 surjective pullback. No Galoisness of a chosen model is assumed.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -31,13 +35,13 @@ namespace AnabelianGeometry
 /-- A map between actual connected finite étale covers of a proper
 hyperbolic curve, admitting a nonidentity deck transformation, cannot
 induce surjective pullback on actual nontrivial roots-of-unity H¹. -/
-theorem not_surjective_finiteH1Pullback_intermediate
-    {K F : Type} [Field K] [IsAlgClosed K] [CharZero K]
+theorem not_surjective_finiteH1Pullback_intermediate_of_isUnit
+    {K F : Type} [Field K] [IsAlgClosed K]
     [Field F] [Algebra K F] [IsCurveOver K F]
     (M : CurveModel K F) (hg : 2 ≤ genusFF K F)
     (A B : FiniteEtale M.C) [IsConnected A] [IsConnected B]
     (f : A ⟶ B) (σ : Aut (FiniteEtale.mk f.left)) (hσ : σ ≠ 1)
-    (n : ℕ+) (hn : 1 < (n : ℕ))
+    (n : ℕ+) (hn : 1 < (n : ℕ)) (hunit : IsUnit ((n : ℕ) : K))
     {Ω : Type} [Field Ω] [IsSepClosed Ω]
     (geom : Spec (.of Ω) ⟶ A.left) :
     ¬ Function.Surjective (constantCohomologyPullback f.left
@@ -87,12 +91,28 @@ theorem not_surjective_finiteH1Pullback_intermediate
   obtain ⟨ρ, hρ⟩ := FiniteEtale.exists_nontrivial_deck_of_iso_square
     eN eP d f.left hsq σ hσ
   have hdeg := P.one_lt_finrankAlong_of_nontrivial_deck N d hd ρ hρ
-  have hnot := not_surjective_finiteH1Pullback_of_hyperbolic
-    P N εP εN d hd (hgP hg) hdeg n hn (geom ≫ eN.inv)
+  have hnot := not_surjective_finiteH1Pullback_of_hyperbolic_of_isUnit
+    P N εP εN d hd (hgP hg) hdeg n hn (geom ≫ eN.inv) hunit
   intro hsurj
   apply hnot
   exact constantFiniteH1Pullback_surjective_of_iso_square eN eP
     (geom ≫ eN.inv) (AddCommGrpCat.of (Additive (rootsOfUnity (n : ℕ) K)))
     d f.left hsq hsurj
+
+/-- In characteristic zero every nontrivial roots-of-unity coefficient
+system detects the degree increase of an actual intermediate cover. -/
+theorem not_surjective_finiteH1Pullback_intermediate
+    {K F : Type} [Field K] [IsAlgClosed K] [CharZero K]
+    [Field F] [Algebra K F] [IsCurveOver K F]
+    (M : CurveModel K F) (hg : 2 ≤ genusFF K F)
+    (A B : FiniteEtale M.C) [IsConnected A] [IsConnected B]
+    (f : A ⟶ B) (σ : Aut (FiniteEtale.mk f.left)) (hσ : σ ≠ 1)
+    (n : ℕ+) (hn : 1 < (n : ℕ))
+    {Ω : Type} [Field Ω] [IsSepClosed Ω]
+    (geom : Spec (.of Ω) ⟶ A.left) :
+    ¬ Function.Surjective (constantCohomologyPullback f.left
+      (AddCommGrpCat.of (Additive (rootsOfUnity (n : ℕ) K))) 1) :=
+  not_surjective_finiteH1Pullback_intermediate_of_isUnit M hg A B f σ hσ n hn
+    (isUnit_iff_ne_zero.mpr (Nat.cast_ne_zero.mpr n.ne_zero)) geom
 
 end AnabelianGeometry

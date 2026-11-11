@@ -10,17 +10,21 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
-import Nyll.AlgebraicCurves.Cohomology.Cech.TwoChart.SectionsOf
-import Nyll.AlgebraicCurves.Geometry.Schemes.Cohomology.TwoAffineCoverBaseChangeIsosStructureSheaf
-import Nyll.AlgebraicCurves.Geometry.Schemes.Cohomology.TwoAffineCoverSectionsOfBaseChangeEquiv
-import Nyll.AlgebraicCurves.Geometry.Projective.TwoAffineCoverSectionsOfInvertibleProjectiveFiniteFinrank
-import Nyll.SchemeTheory.RingTheory.LinearAlgebra.InvertibleModules
+module
+
+public import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
+public import Nyll.AlgebraicCurves.Cohomology.Cech.TwoChart.SectionsOf
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Cohomology.TwoAffineCoverBaseChangeIsosStructureSheaf
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Cohomology.TwoAffineCoverSectionsOfBaseChangeEquiv
+public import Nyll.AlgebraicCurves.Geometry.Projective.TwoAffineCoverSectionsOfInvertibleProjectiveFiniteFinrank
+public import Nyll.SchemeTheory.RingTheory.LinearAlgebra.InvertibleModules
 
 /-!
 # Scheme Modules Is Invertible exists sections Of equiv line Bundle one add of pullback
 quotient is Nilpotent
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -40,7 +44,6 @@ open scoped TensorProduct
 open CategoryTheory CategoryTheory.Limits Opposite AlgebraicGeometry
 
 noncomputable section
-
 
 namespace P2mDker
 
@@ -144,7 +147,6 @@ variable {A : Type u} [CommRing A] (J : Ideal A) (hJ : IsNilpotent J)
 local notation "A'" => A ⧸ J
 local notation "XJ" => Limits.pullback c (Scheme.TwoAffineOpenCover.specMap A (A ⧸ J))
 local notation "pJ" => Limits.pullback.fst c (Scheme.TwoAffineOpenCover.specMap A (A ⧸ J))
-local notation "qJ" => Limits.pullback.snd c (Scheme.TwoAffineOpenCover.specMap A (A ⧸ J))
 local notation "𝒱J" => Scheme.TwoAffineOpenCover.pullback 𝒱 c (A ⧸ J)
 local notation "𝒰" => Scheme.TwoAffineOpenCover.cover 𝒱 c
 local notation "𝒰J" =>
@@ -161,12 +163,6 @@ local notation "SJ" =>
   (Functor.obj (Scheme.Modules.pullback (Limits.pullback.fst c (Scheme.TwoAffineOpenCover.specMap A
     (A ⧸ J)))) L)
 
-local notation "σ0" => CommRingCat.Hom.hom (Scheme.Hom.app
-  (Limits.pullback.fst c (Scheme.TwoAffineOpenCover.specMap A (A ⧸ J))) 𝒱.U0)
-local notation "σ1" => CommRingCat.Hom.hom (Scheme.Hom.app
-  (Limits.pullback.fst c (Scheme.TwoAffineOpenCover.specMap A (A ⧸ J))) 𝒱.U1)
-local notation "σ01" => CommRingCat.Hom.hom (Scheme.Hom.app
-  (Limits.pullback.fst c (Scheme.TwoAffineOpenCover.specMap A (A ⧸ J))) (𝒱.U0 ⊓ 𝒱.U1))
 local notation "I[" B "]" => Ideal.map (algebraMap A B) J
 
 theorem chart_facts {B B' : Type u} [CommRing B] [CommRing B'] [Algebra A B] [Algebra (A ⧸ J) B']
@@ -375,7 +371,6 @@ open _root_.AlgebraicCurves.Geometry.Sheaves.Proofs.NilpotentQuotientSections
 universe u
 open scoped _root_.TensorProduct
 open _root_.CategoryTheory _root_.CategoryTheory.Limits _root_.Opposite _root_.AlgebraicGeometry
-
 
 theorem exists_sectionsOf_equiv_lineBundle_one_add_of_pullback_quotient_isNilpotent
     {A : Type u} [CommRing A] (J : Ideal A) (hJ : IsNilpotent J)

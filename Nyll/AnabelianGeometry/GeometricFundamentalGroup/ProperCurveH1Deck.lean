@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.FiniteH1Cardinality
-import Nyll.AlgebraicCurves.Models.Ramification.FiniteEtaleRiemannHurwitz
-import Nyll.EtaleFundamentalGroups.Cohomology.GaloisH1Descent
-import Mathlib.Tactic.Linarith
+module
+
+public import Nyll.JacobianVarieties.Kummer.FiniteH1Cardinality
+public import Nyll.AlgebraicCurves.Models.Ramification.FiniteEtaleRiemannHurwitz
+public import Nyll.EtaleFundamentalGroups.Cohomology.GaloisH1Descent
+public import Mathlib.Tactic.Linarith
 
 /-!
 # Nontrivial deck action from proper hyperbolic geometry
@@ -22,6 +24,8 @@ each nonidentity deck transformation additionally requires applying this
 argument to the quotient by its cyclic subgroup.
 -/
 
+@[expose] public section
+
 noncomputable section
 
 open CategoryTheory AlgebraicGeometry AlgebraicCurve NeronModelInfra
@@ -31,7 +35,7 @@ open JacobianVarieties.Picard.Proofs.Pic0PointsAbelJacobi.AlgebraicGeometry.RelP
 
 namespace AnabelianGeometry
 
-variable {K F E : Type} [Field K] [IsAlgClosed K] [CharZero K]
+variable {K F E : Type} [Field K] [IsAlgClosed K]
   [Field F] [Field E] [Algebra K F] [Algebra K E]
   [IsCurveOver K F] [IsCurveOver K E]
   (M : CurveModel K F) (N : CurveModel K E)
@@ -49,21 +53,19 @@ include εM εN hd hg hdeg hn ξ
 
 /-- Pullback is not surjective on actual finite-coefficient H¹ for a
 nontrivial finite étale cover of a proper curve of genus at least two. -/
-theorem not_surjective_finiteH1Pullback_of_hyperbolic :
+theorem not_surjective_finiteH1Pullback_of_hyperbolic_of_isUnit
+    (hunit : IsUnit ((n : ℕ) : K)) :
     ¬ Function.Surjective (constantCohomologyPullback d
       (AddCommGrpCat.of (Additive (rootsOfUnity (n : ℕ) K))) 1) := by
-  have : Algebra.EssFiniteType K F := DictGlue.essFiniteType_of_curveModel M
-  obtain ⟨t, ht, hf, _⟩ :=
-    IsCurveOver.exists_separating_transcendental (K := K) (F := F)
-  have hRH := M.two_mul_genus_sub_two_eq_finiteEtale N d hd ⟨t, ht, hf⟩
+  have hRH := M.two_mul_genus_sub_two_eq_finiteEtale N d hd
   have hgZ : (2 : ℤ) ≤ genusFF K F := by exact_mod_cast hg
   have hdZ : (1 : ℤ) < finrankAlong K (M.finiteEtaleFieldMap N d hd) := by
     exact_mod_cast hdeg
   have hgenusZ : (genusFF K F : ℤ) < genusFF K E := by nlinarith
   have hgenus : genusFF K F < genusFF K E := by exact_mod_cast hgenusZ
   let B := AddCommGrpCat.of (Additive (rootsOfUnity (n : ℕ) K))
-  have hM := M.natCard_finiteH1_eq_pow_genus εM n (ξ ≫ d)
-  have hN := N.natCard_finiteH1_eq_pow_genus εN n ξ
+  have hM := M.natCard_finiteH1_eq_pow_genus_of_isUnit εM n hunit (ξ ≫ d)
+  have hN := N.natCard_finiteH1_eq_pow_genus_of_isUnit εN n hunit ξ
   have : Finite (Sheaf.H.{0}
       ((constantSheaf M.C.smallEtaleTopology AddCommGrpCat.{0}).obj B) 1) :=
     Nat.finite_of_card_ne_zero (by rw [hM]; exact pow_ne_zero _ n.ne_zero)
@@ -75,9 +77,16 @@ theorem not_surjective_finiteH1Pullback_of_hyperbolic :
     Nat.pow_lt_pow_right hn (by omega)
   exact (not_lt_of_ge hle) hlt
 
+/-- The characteristic-zero form of the finite-coefficient H¹ obstruction. -/
+theorem not_surjective_finiteH1Pullback_of_hyperbolic [CharZero K] :
+    ¬ Function.Surjective (constantCohomologyPullback d
+      (AddCommGrpCat.of (Additive (rootsOfUnity (n : ℕ) K))) 1) :=
+  not_surjective_finiteH1Pullback_of_hyperbolic_of_isUnit M N εM εN d hd hg hdeg n hn ξ
+    (isUnit_iff_ne_zero.mpr (Nat.cast_ne_zero.mpr n.ne_zero))
+
 /-- Some actual deck transformation moves some actual H¹ class. Neither
 descent nor the genus comparison is assumed: both come from geometry. -/
-theorem exists_deck_moves_finiteH1
+theorem exists_deck_moves_finiteH1 [CharZero K]
     [IsGalois (C := FiniteEtale M.C) (FiniteEtale.mk d)]
     (hcop : (Nat.card (Multiplicative
       (AddCommGrpCat.of (Additive (rootsOfUnity (n : ℕ) K))))).Coprime
@@ -86,7 +95,7 @@ theorem exists_deck_moves_finiteH1
       (c : Sheaf.H.{0}
         ((constantSheaf N.C.smallEtaleTopology AddCommGrpCat.{0}).obj
           (AddCommGrpCat.of (Additive (rootsOfUnity (n : ℕ) K)))) 1),
-      constantCohomologyPullback σ.hom.left
+      constantCohomologyPullback σ.asIso.hom.left
         (AddCommGrpCat.of (Additive (rootsOfUnity (n : ℕ) K))) 1 c ≠ c := by
   classical
   by_contra h
@@ -94,7 +103,7 @@ theorem exists_deck_moves_finiteH1
       (c : Sheaf.H.{0}
         ((constantSheaf N.C.smallEtaleTopology AddCommGrpCat.{0}).obj
           (AddCommGrpCat.of (Additive (rootsOfUnity (n : ℕ) K)))) 1),
-      constantCohomologyPullback σ.hom.left
+      constantCohomologyPullback σ.asIso.hom.left
         (AddCommGrpCat.of (Additive (rootsOfUnity (n : ℕ) K))) 1 c = c := by
     intro σ c
     by_contra hne

@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Morphisms.SmoothReducedReduced
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedComposition
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ProperHomotopyExact
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
-import Mathlib.CategoryTheory.Limits.MorphismProperty
-import Mathlib.Topology.Algebra.ContinuousMonoidHom
-import Nyll.ProCGroups.Topologies.ContinuousMulEquiv
+module
+
+public import Nyll.SchemeTheory.Morphisms.SmoothReducedReduced
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedComposition
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ProperHomotopyExact
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
+public import Mathlib.CategoryTheory.Limits.MorphismProperty
+public import Mathlib.Topology.Algebra.ContinuousMonoidHom
+public import Nyll.ProCGroups.Topologies.ContinuousMulEquiv
 
 /-!
 # The pointed proper Künneth comparison
@@ -21,6 +23,8 @@ projection homomorphisms is an isomorphism on fundamental groups at any
 rational basepoint. The proof identifies the rational fibre with the first
 factor and applies the proper homotopy sequence to the second projection.
 -/
+
+@[expose] public section
 
 noncomputable section
 

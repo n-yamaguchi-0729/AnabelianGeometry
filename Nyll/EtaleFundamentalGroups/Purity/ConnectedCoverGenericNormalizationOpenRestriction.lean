@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Purity.ConnectedCoverGenericNormalizationFinite
+module
+
+public import Nyll.EtaleFundamentalGroups.Purity.ConnectedCoverGenericNormalizationFinite
 
 /-!
 # The canonical normalization on the original open subscheme
@@ -13,6 +15,8 @@ The relative normalization attached to a connected finite-etale cover of an
 open subscheme restricts to that cover.  In particular, its restriction to
 the range of the open immersion is finite etale.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -64,14 +68,14 @@ theorem
     (j : U ⟶ X) [IsOpenImmersion j] [QuasiCompact j] [QuasiSeparated j]
     [Nonempty U]
     (W : FiniteEtale U) [IsConnected W] :
-    letI : IsIntegral U := isIntegral_of_isOpenImmersion j
+    let : IsIntegral U := isIntegral_of_isOpenImmersion j
     letI : IsNormalIntegral U := IsNormalIntegral.of_isOpenImmersion j
     letI : IsLocallyNoetherian U :=
       isLocallyNoetherian_of_isOpenImmersion j
     IsFiniteEtale
       ((connectedCoverGenericComposite W ≫ j).fromNormalization ∣_
         j.opensRange) := by
-  let hUintegral : IsIntegral U := isIntegral_of_isOpenImmersion j
+  intro hUintegral
   let hUnormal : @IsNormalIntegral U hUintegral :=
     @IsNormalIntegral.of_isOpenImmersion X U _ _ hUintegral j _
   let hUnoetherian : IsLocallyNoetherian U :=

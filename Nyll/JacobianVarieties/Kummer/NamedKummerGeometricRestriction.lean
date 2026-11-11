@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenKummerGenericSemilinear
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisNaturality
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenKummerGenericSemilinear
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisNaturality
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
 
 /-!
 # Restriction of a named arithmetic Kummer fiber
@@ -16,6 +18,8 @@ identify the two generic root equations. Actual field-source naturality and
 surjectivity then identify the original geometric actions. No equality of
 characters, restriction of covers, or equivariant fiber isomorphism is an input.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry AlgebraicGeometry.FiniteEtale AlgebraicCurve
@@ -98,7 +102,7 @@ theorem exists_namedKummer_geometricRestriction_equiv_with_rootCoordinate
     let WG := N.openKummerCover T n hnκ wg jG hjG hiG
     let q := arithmeticFundamentalGroupHom k κ (jA ≫ M.toBase) xiA
     let inc := pointedFundamentalGroupHom a xiG xiA hpoint
-    letI := kummerGeometricRootAction N T n wg jG hjG hiG hnκ xiG
+    let := kummerGeometricRootAction N T n wg jG hjG hiG hnκ xiG
     ∃ tA : Torsor (rootsOfUnity (n : ℕ) κ) ((fiber xiA).obj WA),
       ∃ E : (fiber xiG).obj WG ≃ (fiber xiA).obj WA,
       ∃ eA : (fiber xiA).obj WA ≃
@@ -120,8 +124,7 @@ theorem exists_namedKummer_geometricRestriction_equiv_with_rootCoordinate
           p • (tA.toMulAction.toSMul.smul ζ x) =
             tA.toMulAction.toSMul.smul
               (restrictRootsOfUnity (q p).toRingHom (n : ℕ) ζ) (p • x) := by
-  intro xiA xiG WA WG q inc
-  let := kummerGeometricRootAction N T n wg jG hjG hiG hnκ xiG
+  intro xiA xiG WA WG q inc rootAction
   obtain ⟨eA, tA, _hscaleA, htA, hgA, hsemiA⟩ :=
     exists_arithmeticKummerFiber_genericSemilinearTorsor_with_genericEvaluation
       M S n wa jA hjA hiA hn (κ := κ) (Ω := Ω) hbaseA
@@ -255,7 +258,7 @@ theorem exists_namedKummer_geometricRestriction_equiv
     let WG := N.openKummerCover T n hnκ wg jG hjG hiG
     let q := arithmeticFundamentalGroupHom k κ (jA ≫ M.toBase) xiA
     let inc := pointedFundamentalGroupHom a xiG xiA hpoint
-    letI := kummerGeometricRootAction N T n wg jG hjG hiG hnκ xiG
+    let := kummerGeometricRootAction N T n wg jG hjG hiG hnκ xiG
     ∃ tA : Torsor (rootsOfUnity (n : ℕ) κ) ((fiber xiA).obj WA),
       ∃ E : (fiber xiG).obj WG ≃ (fiber xiA).obj WA,
         (∀ (ζ : rootsOfUnity (n : ℕ) κ) x,
@@ -265,8 +268,7 @@ theorem exists_namedKummer_geometricRestriction_equiv
           p • (tA.toMulAction.toSMul.smul ζ x) =
             tA.toMulAction.toSMul.smul
               (restrictRootsOfUnity (q p).toRingHom (n : ℕ) ζ) (p • x) := by
-  intro xiA xiG WA WG q inc
-  let := kummerGeometricRootAction N T n wg jG hjG hiG hnκ xiG
+  intro xiA xiG WA WG q inc rootAction
   obtain ⟨tA, E, _eA, _htA, _hgA, hμ, hI, hsemi⟩ :=
     exists_namedKummer_geometricRestriction_equiv_with_rootCoordinate
       M N S T n wa wg hunit jA hjA jG hjG hiA hiG hn hnκ

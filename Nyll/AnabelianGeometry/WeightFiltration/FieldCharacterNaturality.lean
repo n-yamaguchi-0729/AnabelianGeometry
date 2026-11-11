@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.CohomologyPullbackCharacters
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldFundamentalGroupConjugacy
+module
+
+public import Nyll.JacobianVarieties.Kummer.CohomologyPullbackCharacters
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldFundamentalGroupConjugacy
 
 /-!
 # Actual finite H¹ characters under a field extension
@@ -15,6 +17,10 @@ on cohomology characters. The inner conjugator in the geometric-fiber
 comparison disappears because the coefficient group is commutative.
 -/
 
+@[expose] public section
+
+universe uGeom uField₁ uField₂
+
 noncomputable section
 
 open AlgebraicGeometry CategoryTheory
@@ -22,16 +28,16 @@ open EtaleFundamentalGroups.Cohomology JacobianVarieties.Kummer
 
 namespace AnabelianGeometry.WeightFiltration
 
-variable (k E Ω : Type) [Field k] [Field E] [Field Ω]
+variable (k E Ω : Type uGeom) [Field k] [Field E] [Field Ω]
   [Algebra k E] [Algebra E Ω] [Algebra k Ω] [IsScalarTower k E Ω]
   [IsSepClosure k Ω] [IsSepClosure E Ω] [IsSepClosed Ω]
 
 /-- Pullback on actual field H¹ is scalar restriction on absolute Galois
 characters, including the canonical geometric-fiber comparisons. -/
 theorem h1Character_fieldPullback
-    (A : AddCommGrpCat.{0}) [Finite A]
-    (a : Sheaf.H.{0} ((constantSheaf (Spec (.of k)).smallEtaleTopology
-      AddCommGrpCat.{0}).obj A) 1) (σ : Ω ≃ₐ[E] Ω) :
+    (A : AddCommGrpCat.{uGeom}) [Finite A]
+    (a : Sheaf.H.{uGeom} ((constantSheaf (Spec (.of k)).smallEtaleTopology
+      AddCommGrpCat.{uGeom}).obj A) 1) (σ : Ω ≃ₐ[E] Ω) :
     let : TopologicalSpace (Multiplicative A) := ⊥
     h1Character A ((Spec.map (CommRingCat.ofHom (algebraMap E Ω))))
         (constantCohomologyPullback ((Spec.map (CommRingCat.ofHom (algebraMap k E)))) A 1 a)

@@ -4,10 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalPairArithmeticNamedTransport
-import Nyll.JacobianVarieties.Kummer.BareRationalNamedKummerRestriction
-import Nyll.EtaleFundamentalGroups.Cohomology.ArithmeticCoverTransportIsom
-import Nyll.EtaleFundamentalGroups.Cohomology.ArithmeticKernelTorsorScalar
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalPairArithmeticNamedTransport
+public import Nyll.JacobianVarieties.Kummer.BareRationalNamedKummerRestriction
+public import Nyll.EtaleFundamentalGroups.Cohomology.ArithmeticCoverTransportIsom
+public import Nyll.EtaleFundamentalGroups.Cohomology.ArithmeticKernelTorsorScalar
+public import Nyll.GaloisCohomology.Kummer.Concrete.RootCharacters
 
 /-!
 # Scalar twist of the actual arithmetic transported named power cover
@@ -17,6 +20,8 @@ target is then constructed for the same power of the arithmetic target unit.
 The original arithmetic actions and original geometric inclusion are retained
 in the Isom displacement which is descended to a scalar radical over k.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve AlgebraicGeometry.FiniteEtale
@@ -136,7 +141,7 @@ theorem arithmeticScalarTransport_of_namedGeometricTransport
       eP (rationalConfigurationGeometricInclusion k κ s Ω₁ δ))
     (hgeom : RationalConfigurationNamedTransport k κ s t Ω₁ Ω₂ n hnκ ws wt eΔ) :
     RationalConfigurationArithmeticScalarTransport k κ s t Ω₁ Ω₂ n us ut eP := by
-  unfold RationalConfigurationArithmeticScalarTransport
+  delta RationalConfigurationArithmeticScalarTransport
   intro hn MA iS hiS iT hiT ξs ξt Fs Ft AS ATs ea
   let MG := projectiveLineRatFuncModel κ
   let js := rationalConfigurationBaseChangeChart k κ s
@@ -205,7 +210,7 @@ theorem arithmeticScalarTransport_of_namedGeometricTransport
 /-- The same functions over k provide both actual arithmetic covers and the
 geometric named cover comparison, for all exponents and the same eΔ and σ. -/
 theorem bare_rationalConfiguration_pair_arithmetic_scalarTransport
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]

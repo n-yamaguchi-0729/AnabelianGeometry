@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.GroupTheory.FiniteAbelian.Basic
+module
+
+public import Mathlib.GroupTheory.FiniteAbelian.Basic
 
 /-!
 # Integer characters detecting non-torsion elements
@@ -14,6 +16,8 @@ integer-valued character nonzero on any prescribed non-torsion element.
 Applying that character to a power relation yields an integral divisibility
 constraint on its exponent.
 -/
+
+@[expose] public section
 
 noncomputable section
 

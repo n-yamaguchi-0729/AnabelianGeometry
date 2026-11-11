@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationActionDiagram
-import Nyll.SchemeTheory.Normalization.NormalizationGaloisSurjectivity
-import Mathlib.Algebra.Field.IsField
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationActionDiagram
+public import Nyll.SchemeTheory.Normalization.NormalizationGaloisSurjectivity
+public import Mathlib.Algebra.Field.IsField
 
 /-!
 # Finite normalization automorphisms have actual field lifts
@@ -15,6 +17,8 @@ import Mathlib.Algebra.Field.IsField
 The fraction-field extension theorem is applied in the native coefficient
 field owner. The original ambient field does not enter that proof.
 -/
+
+@[expose] public section
 
 noncomputable section
 

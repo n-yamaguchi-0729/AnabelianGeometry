@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Places.Ramification.PlaceNormalizationInertia
-import Nyll.AlgebraicCurves.Places.Restriction.RestrictionComposition
-import Nyll.AlgebraicCurves.Places.Restriction.AlgEquivSmulEqRestrictEq
-import Mathlib.GroupTheory.GroupAction.SubMulAction
+module
+
+public import Nyll.AlgebraicCurves.Places.Ramification.PlaceNormalizationInertia
+public import Nyll.AlgebraicCurves.Places.Restriction.RestrictionComposition
+public import Nyll.AlgebraicCurves.Places.Restriction.AlgEquivSmulEqRestrictEq
+public import Mathlib.GroupTheory.GroupAction.SubMulAction
 
 /-!
 # The actual Galois fibre of extending places
@@ -15,6 +17,8 @@ import Mathlib.GroupTheory.GroupAction.SubMulAction
 The native field action preserves restriction, acts transitively on the
 extending places, and has the literal finite normalization inertia stabilizer.
 -/
+
+@[expose] public section
 
 noncomputable section
 

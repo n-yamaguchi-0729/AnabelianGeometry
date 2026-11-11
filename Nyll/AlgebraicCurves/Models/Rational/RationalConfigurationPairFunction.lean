@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncRationalPairConstantExtension
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationBoundaryPlaceOrders
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncRationalPairConstantExtension
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationBoundaryPlaceOrders
 
 /-! # An arithmetic function for two original rational punctures
 
@@ -13,6 +15,8 @@ Only the original labels are inputs. The actual arithmetic rational places,
 the function over k, and its full geometric divisor are all constructed.
 The point at infinity is included without any chart restriction.
 -/
+
+@[expose] public section
 
 noncomputable section
 

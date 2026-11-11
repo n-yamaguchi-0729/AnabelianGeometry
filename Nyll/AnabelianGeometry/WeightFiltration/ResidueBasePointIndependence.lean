@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.KummerCohomologyCharacters
-import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveResidues
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.KummerCohomologyCharacters
+public import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveResidues
 
 /-!
 # Boundary residues do not depend on a geometric base point
@@ -15,6 +17,10 @@ its character. Consequently the residue map on actual derived H¹ is canonical
 with respect to changing that point.
 -/
 
+@[expose] public section
+
+universe u v
+
 noncomputable section
 
 open AlgebraicGeometry CategoryTheory AlgebraicCurve
@@ -22,12 +28,12 @@ open EtaleFundamentalGroups.Cohomology
 
 namespace AnabelianGeometry.WeightFiltration
 
-variable {K F : Type} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
+variable {K : Type u} {F : Type v} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
   (M : CurveModel K F) (n : ℕ+)
-  {X : Scheme} [IsIntegral X] [CompactSpace X]
+  {X : Scheme.{u}} [IsIntegral X] [CompactSpace X]
   (j : X ⟶ M.C) [IsOpenImmersion j] (hj : DenseRange j)
   (hn : IsUnit ((n : ℕ) : K))
-  {Ω Ω' : Type} [Field Ω] [Field Ω'] [IsSepClosed Ω] [IsSepClosed Ω']
+  {Ω Ω' : Type u} [Field Ω] [Field Ω'] [IsSepClosed Ω] [IsSepClosed Ω']
   (xi : Spec (.of Ω) ⟶ X) (xi' : Spec (.of Ω') ⟶ X)
 
 /-- The actual open Kummer class is independent of its geometric base point. -/

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.LocalTameCharacterGroupMap
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacterKernel
-import Mathlib.Algebra.Group.Subgroup.Ker
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.LocalTameCharacterGroupMap
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacterKernel
+public import Mathlib.Algebra.Group.Subgroup.Ker
 
 /-!
 # Surjectivity and kernel of the local tame character
@@ -14,6 +16,8 @@ import Mathlib.Algebra.Group.Subgroup.Ker
 Proves that the local tame character group map is surjective and that its kernel is the
 principal-unit inertia subgroup.
 -/
+
+@[expose] public section
 
 namespace RamificationTheory.HilbertRamification.DiscreteValuationRing
 

@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.AffineNormalizationRamification
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalOneBranch
-import Nyll.AlgebraicCurves.Places.Rational.Classification
-import Nyll.EtaleFundamentalGroups.FiniteEtale.GenericFiber.FractionField
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.AffineNormalizationRamification
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalOneBranch
+public import Nyll.AlgebraicCurves.Places.Rational.Classification
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.GenericFiber.FractionField
 
 /-!
 # Finite etale domains over the affine line
@@ -17,6 +19,8 @@ Riemann--Hurwitz therefore makes its fraction field trivial in characteristic ze
 For a finite etale domain over the polynomial ring, this normalization is constructed
 from the actual generic fibre. Integral closedness then recovers the original ring.
 -/
+
+@[expose] public section
 
 noncomputable section
 

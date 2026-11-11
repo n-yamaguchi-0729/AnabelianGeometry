@@ -114,7 +114,7 @@ theorem innerCorrectedNamedCoverIso_hom_apply
   rw [G.map_comp]
   change G.map J.hom (G.map (innerCorrectedCoverTransportIso F G α c U).hom x) = _
   rw [innerCorrectedCoverTransportIso_hom_apply]
-  exact (ConcreteCategory.congr_hom (c.hom.naturality J.hom)
+  exact (ConcreteCategory.congr_hom (c.asIso.hom.naturality J.hom)
     ((coverTransportFiberEquiv F G α U).symm
       (coverTransportFiberEquiv F G (ProCGroups.innerCorrectedGroupEquiv α c) U x))).symm
 

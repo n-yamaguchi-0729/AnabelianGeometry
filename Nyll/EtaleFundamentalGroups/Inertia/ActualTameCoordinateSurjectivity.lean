@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinate
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameSurjectivity
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameProperties
-import Mathlib.RingTheory.RootsOfUnity.PrimitiveRoots
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinate
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameSurjectivity
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameProperties
+public import Mathlib.RingTheory.RootsOfUnity.PrimitiveRoots
 
 /-!
 # Surjective actual-degree coordinates and primitive roots
@@ -16,6 +18,8 @@ The proved original finite-coordinate surjection is transported by the SAME
 canonical quotient comparison. Actual finite primitive roots are transported
 by that comparison as well. No root-existence or surjectivity is assumed.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

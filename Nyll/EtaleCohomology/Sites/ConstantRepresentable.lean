@@ -4,21 +4,23 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Sites.Subcanonical
-import Mathlib.AlgebraicGeometry.Sites.AffineEtale
-import Mathlib.AlgebraicGeometry.Sites.Etale
-import Mathlib.AlgebraicGeometry.Limits
-import Mathlib.AlgebraicGeometry.Morphisms.Basic
-import Mathlib.AlgebraicGeometry.Morphisms.Etale
-import Mathlib.AlgebraicGeometry.Morphisms.RingHomProperties
-import Mathlib.CategoryTheory.Adjunction.Basic
-import Mathlib.CategoryTheory.Limits.MorphismProperty
-import Mathlib.CategoryTheory.Limits.Shapes.Products
-import Mathlib.CategoryTheory.MorphismProperty.Comma
-import Mathlib.CategoryTheory.Types.Basic
-import Mathlib.CategoryTheory.Sites.Subcanonical
-import Mathlib.CategoryTheory.Sites.ConstantSheaf
-import Mathlib.CategoryTheory.Yoneda
+module
+
+public import Nyll.EtaleCohomology.Sites.Subcanonical
+public import Mathlib.AlgebraicGeometry.Sites.AffineEtale
+public import Mathlib.AlgebraicGeometry.Sites.Etale
+public import Mathlib.AlgebraicGeometry.Limits
+public import Mathlib.AlgebraicGeometry.Morphisms.Basic
+public import Mathlib.AlgebraicGeometry.Morphisms.Etale
+public import Mathlib.AlgebraicGeometry.Morphisms.RingHomProperties
+public import Mathlib.CategoryTheory.Adjunction.Basic
+public import Mathlib.CategoryTheory.Limits.MorphismProperty
+public import Mathlib.CategoryTheory.Limits.Shapes.Products
+public import Mathlib.CategoryTheory.MorphismProperty.Comma
+public import Mathlib.CategoryTheory.Types.Basic
+public import Mathlib.CategoryTheory.Sites.Subcanonical
+public import Mathlib.CategoryTheory.Sites.ConstantSheaf
+public import Mathlib.CategoryTheory.Yoneda
 
 /-!
 # Constant étale sheaves represented by disjoint unions
@@ -31,6 +33,8 @@ that coproduct with the sheafification of the constant presheaf.
 The index set need not be finite, and no hypothesis on the base scheme is used.
 -/
 
+@[expose] public section
+
 noncomputable section
 
 open AlgebraicGeometry CategoryTheory Limits Opposite
@@ -39,7 +43,8 @@ universe u v
 
 namespace EtaleCohomology
 
-private def cofanHomEquiv {C : Type*} [Category* C] {ι : Type*}
+/-- The coproduct universal property as an equivalence on morphisms. -/
+def cofanHomEquiv {C : Type*} [Category* C] {ι : Type*}
     {F : ι → C} {c : Cofan F} (hc : IsColimit c) (G : C) :
     (c.pt ⟶ G) ≃ (∀ i, F i ⟶ G) where
   toFun f i := c.inj i ≫ f
@@ -52,7 +57,8 @@ private def cofanHomEquiv {C : Type*} [Category* C] {ι : Type*}
     funext i
     exact hc.fac (Cofan.mk G g) ⟨i⟩
 
-private def coprodConstantHomEquiv {C : Type v} [Category.{u} C]
+/-- Morphisms from the represented coproduct are morphisms from the constant sheaf. -/
+def coprodConstantHomEquiv {C : Type v} [Category.{u} C]
     (J : GrothendieckTopology C) [J.Subcanonical] [HasWeakSheafify J (Type u)]
     {T : C} (hT : IsTerminal T) (ι : Type u)
     {D : C} (j : ι → (T ⟶ D))
@@ -63,7 +69,8 @@ private def coprodConstantHomEquiv {C : Type v} [Category.{u} C]
     ((Equiv.piCongrRight (fun _ => J.yonedaEquiv)).trans
       (TypeCat.homEquiv.symm.trans ((constantSheafAdj J (Type u) hT).homEquiv ι G).symm))
 
-private def coprodConstantIso {C : Type v} [Category.{u} C]
+/-- The represented coproduct identifies with the constant sheaf. -/
+def coprodConstantIso {C : Type v} [Category.{u} C]
     (J : GrothendieckTopology C) [J.Subcanonical] [HasWeakSheafify J (Type u)]
     {T : C} (hT : IsTerminal T) (ι : Type u)
     {D : C} (j : ι → (T ⟶ D))
@@ -93,14 +100,15 @@ private lemma etale_copies_projection (X : Scheme.{u}) (ι : Type u) :
 /-- The disjoint union of copies of the base, as an object of its small étale site. -/
 def etaleCopies (X : Scheme.{u}) (ι : Type u) : X.Etale :=
   MorphismProperty.Over.mk ⊤ (Sigma.desc (fun _ : ι => 𝟙 X))
-    (etale_copies_projection X ι)
+    (by exact etale_copies_projection X ι)
 
 /-- The inclusion of one copy, as a morphism in the small étale category. -/
 def etaleCopiesInj (X : Scheme.{u}) (ι : Type u) (i : ι) :
     etaleBaseObject X ⟶ etaleCopies X ι :=
   MorphismProperty.Over.homMk (Sigma.ι (fun _ : ι => X) i) (Sigma.ι_comp_desc _ i)
 
-private def etaleIsInitialOfIsEmpty {X : Scheme.{u}} (Y : X.Etale) [IsEmpty Y.left] :
+/-- An empty object of the small étale site is initial. -/
+def etaleIsInitialOfIsEmpty {X : Scheme.{u}} (Y : X.Etale) [IsEmpty Y.left] :
     IsInitial Y := by
   let hY : IsInitial Y.left := isInitialOfIsEmpty
   let : ∀ Z : X.Etale, Unique (Y ⟶ Z) := fun Z =>
@@ -108,7 +116,8 @@ private def etaleIsInitialOfIsEmpty {X : Scheme.{u}} (Y : X.Etale) [IsEmpty Y.le
       uniq f := MorphismProperty.Over.Hom.ext (hY.hom_ext _ _) }
   exact IsInitial.ofUnique Y
 
-private lemma empty_cover_of_initial {X : Scheme.{u}} (Y : X.Etale) (hY : IsInitial Y) :
+/-- The empty sieve covers an initial object of the small étale site. -/
+lemma empty_cover_of_initial {X : Scheme.{u}} (Y : X.Etale) (hY : IsInitial Y) :
     ⊥ ∈ X.smallEtaleTopology Y := by
   let E : X.Etale := MorphismProperty.Over.mk ⊤ (Scheme.emptyTo X) inferInstance
   have : IsEmpty Y.left :=
@@ -118,7 +127,8 @@ private lemma empty_cover_of_initial {X : Scheme.{u}} (Y : X.Etale) (hY : IsInit
       (by ext y; exact isEmptyElim y)
   simpa only [Sieve.ofArrows, Presieve.ofArrows_of_isEmpty, Sieve.generate_bot] using h
 
-private def etaleCopiesSheafIsColimit (X : Scheme.{u}) (ι : Type u) :
+/-- The represented copies form the coproduct of the represented base. -/
+def etaleCopiesSheafIsColimit (X : Scheme.{u}) (ι : Type u) :
     IsColimit (Cofan.mk (X.smallEtaleTopology.yoneda.obj (etaleCopies X ι))
       (fun i => X.smallEtaleTopology.yoneda.map (etaleCopiesInj X ι i))) := by
   have (i : ι) : Mono ((Cofan.mk (etaleCopies X ι) (etaleCopiesInj X ι)).inj i) := by

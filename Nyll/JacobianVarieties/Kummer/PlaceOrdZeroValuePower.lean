@@ -3,9 +3,13 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroKummerCover
+module
+
+public import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroKummerCover
 
 /-! # The actual value of the same powered arithmetic unit -/
+
+@[expose] public section
 
 noncomputable section
 namespace AlgebraicCurve.Place

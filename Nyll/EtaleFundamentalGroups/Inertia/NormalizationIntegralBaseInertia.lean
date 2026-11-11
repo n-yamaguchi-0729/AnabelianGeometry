@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.IntegralClosure.IntegralBase.Equiv
-import Mathlib.RingTheory.Invariant.Galois
-import Mathlib.NumberTheory.RamificationInertia.Inertia
-import Mathlib.Algebra.Algebra.Tower
+module
+
+public import Nyll.SchemeTheory.Normalization.IntegralClosure.IntegralBase.Equiv
+public import Mathlib.RingTheory.Invariant.Galois
+public import Mathlib.NumberTheory.RamificationInertia.Inertia
+public import Mathlib.Algebra.Algebra.Tower
 
 /-!
 # Inertia under an integral enlargement of the base
@@ -16,6 +18,8 @@ The canonical equivalence of the two normalizations is the identity in the
 same ambient field and intertwines the original Galois actions. Contracting
 the same prime along it identifies inertia with the scalar-restriction comap.
 -/
+
+@[expose] public section
 
 noncomputable section
 

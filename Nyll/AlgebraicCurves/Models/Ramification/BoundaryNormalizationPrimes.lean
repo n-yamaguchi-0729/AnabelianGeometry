@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
-import Nyll.EtaleFundamentalGroups.Inertia.PlaceNormalizationInertiaRestriction
+module
+
+public import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
+public import Nyll.EtaleFundamentalGroups.Inertia.PlaceNormalizationInertiaRestriction
 
 /-! # An actual normalization-prime family at all boundary places
 
@@ -12,6 +14,8 @@ The ambient field and each boundary place are fixed. Ordinary maximal-ideal
 existence chooses a prime in that place's actual normalization, supplying the
 prime-family parameter without an additional geometric hypothesis.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve SchemeTheory

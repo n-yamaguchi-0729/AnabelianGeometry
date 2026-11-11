@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.GenericGaloisMapComparison
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisPoint
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ExtendedFiberGaloisAction
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.GenericGaloisMapComparison
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisPoint
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ExtendedFiberGaloisAction
 
 /-! # Absolute generic preimages of arbitrary connected-cover stabilizers -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory
@@ -35,14 +39,16 @@ private theorem genericPointLiftPrecomp_left_connectedCover
     (genericPointLiftPrecomp W g σ).left = _
   rfl
 
-private theorem absoluteGenericGalois_fiberLift
+/-- On the original generic fiber of any finite étale cover, the absolute
+Galois action is literal precomposition of its generic geometric lift. -/
+theorem finiteEtaleGenericFiberLift_absoluteGalois
     {U : Scheme.{u}} [IsIntegral U]
     (Ω : Type u) [Field Ω] [Algebra U.functionField Ω]
     [IsSepClosure U.functionField Ω] [IsSepClosed Ω]
     (W : FiniteEtale U) (w : (fiber (U.genericExtensionMorphism Ω)).obj W)
     (σ : Gal(Ω/U.functionField)) :
     fiberObjEquivHom (U.genericExtensionMorphism Ω) W
-      ((absoluteGenericGaloisToFundamentalGroup U Ω σ).hom.app W w) =
+      ((absoluteGenericGaloisToFundamentalGroup U Ω σ).asIso.hom.app W w) =
       genericPointLiftPrecomp W
         (fiberObjEquivHom (U.genericExtensionMorphism Ω) W w) σ := by
   apply Over.OverMorphism.ext
@@ -61,31 +67,21 @@ theorem pointedCoverStabilizer_comap_absoluteGenericGalois
     [IsSepClosure U.functionField Ω] [IsSepClosed Ω]
     (W : FiniteEtale U) [IsConnected W]
     (w : (fiber (U.genericExtensionMorphism Ω)).obj W) :
-    letI : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
+    let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
     let K := U.functionField
     let L := W.left.functionField
-    letI : Algebra K L := finiteEtaleFunctionFieldAlgebra W
+    let : Algebra K L := finiteEtaleFunctionFieldAlgebra W
     let g := fiberObjEquivHom (U.genericExtensionMorphism Ω) W w
     let j := finiteEtaleGenericHomFunctionFieldAlgHom W g
-    letI : Algebra L Ω := j.toRingHom.toAlgebra
-    letI : IsScalarTower K L Ω := by
+    let : Algebra L Ω := j.toRingHom.toAlgebra
+    let : IsScalarTower K L Ω := by
       apply IsScalarTower.of_algebraMap_eq'
       ext z
       exact (j.commutes z).symm
     (MulAction.stabilizer π₁ᵉᵗ(U.genericExtensionMorphism Ω) w).comap
       (absoluteGenericGaloisToFundamentalGroup U Ω) =
       (AlgEquiv.restrictScalarsHom K : Gal(Ω/L) →* Gal(Ω/K)).range := by
-  let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
-  let K := U.functionField
-  let L := W.left.functionField
-  let : Algebra K L := finiteEtaleFunctionFieldAlgebra W
-  let g := fiberObjEquivHom (U.genericExtensionMorphism Ω) W w
-  let j := finiteEtaleGenericHomFunctionFieldAlgHom W g
-  let : Algebra L Ω := j.toRingHom.toAlgebra
-  let : IsScalarTower K L Ω := by
-    apply IsScalarTower.of_algebraMap_eq'
-    ext z
-    exact (j.commutes z).symm
+  intro sharedOwner1 K L sharedOwner4 g j sharedOwner7 sharedOwner8
   let e : (fiber (U.genericExtensionMorphism Ω)).obj W ≃ (L →ₐ[K] Ω) :=
     (fiberObjEquivHom (U.genericExtensionMorphism Ω) W).trans
       (finiteEtaleGenericHomEquivFunctionFieldAlgHom (Ω := Ω) W)
@@ -93,21 +89,21 @@ theorem pointedCoverStabilizer_comap_absoluteGenericGalois
       (absoluteGenericGaloisToFundamentalGroup U Ω) =
     (AlgEquiv.restrictScalarsHom K : Gal(Ω/L) →* Gal(Ω/K)).range
   ext σ
-  change (absoluteGenericGaloisToFundamentalGroup U Ω σ).hom.app W w = w ↔
+  change (absoluteGenericGaloisToFundamentalGroup U Ω σ).asIso.hom.app W w = w ↔
     σ ∈ (AlgEquiv.restrictScalarsHom K : Gal(Ω/L) →* Gal(Ω/K)).range
-  have he : e ((absoluteGenericGaloisToFundamentalGroup U Ω σ).hom.app W w) =
+  have he : e ((absoluteGenericGaloisToFundamentalGroup U Ω σ).asIso.hom.app W w) =
       σ.toAlgHom.comp j := by
     change finiteEtaleGenericHomFunctionFieldAlgHom W
       (fiberObjEquivHom (U.genericExtensionMorphism Ω) W
-        ((absoluteGenericGaloisToFundamentalGroup U Ω σ).hom.app W w)) = σ.toAlgHom.comp j
-    rw [absoluteGenericGalois_fiberLift]
+        ((absoluteGenericGaloisToFundamentalGroup U Ω σ).asIso.hom.app W w)) = σ.toAlgHom.comp j
+    rw [finiteEtaleGenericFiberLift_absoluteGalois]
     exact finiteEtaleGenericHomFunctionFieldAlgHom_precomp W g σ
   constructor
   · intro hσ
     have hj : σ.toAlgHom.comp j = j := by
       calc
         σ.toAlgHom.comp j =
-            e ((absoluteGenericGaloisToFundamentalGroup U Ω σ).hom.app W w) := he.symm
+            e ((absoluteGenericGaloisToFundamentalGroup U Ω σ).asIso.hom.app W w) := he.symm
         _ = e w := congrArg e hσ
         _ = j := rfl
     let τ : Gal(Ω/L) := { σ with commutes' := fun z => DFunLike.congr_fun hj z }

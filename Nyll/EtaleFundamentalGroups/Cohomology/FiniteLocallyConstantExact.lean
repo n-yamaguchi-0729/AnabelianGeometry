@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteLocallyConstantPullbacks
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteLocallyConstantEpis
-import Nyll.EtaleFundamentalGroups.Cohomology.LocalTrivialization
-import Nyll.EtaleFundamentalGroups.Cohomology.StalkFiber
-import Mathlib.CategoryTheory.Limits.Preserves.Shapes.Zero
-import Mathlib.Algebra.Category.Grp.Zero
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteLocallyConstantPullbacks
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteLocallyConstantEpis
+public import Nyll.EtaleFundamentalGroups.Cohomology.LocalTrivialization
+public import Nyll.EtaleFundamentalGroups.Cohomology.StalkFiber
+public import Mathlib.CategoryTheory.Limits.Preserves.Shapes.Zero
+public import Mathlib.Algebra.Category.Grp.Zero
 
 /-!
 # Exactness of finite local systems detected on one geometric stalk
@@ -19,6 +21,8 @@ these pullbacks and detects epimorphisms for finite local systems on a
 connected scheme. This proves short exactness of the descended sheaves,
 without assuming exactness as descent data.
 -/
+
+@[expose] public section
 
 noncomputable section
 

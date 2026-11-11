@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.GaloisCategories.TrivialComposite
-import Mathlib.CategoryTheory.Galois.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.TrivialComposite
+public import Mathlib.CategoryTheory.Galois.Basic
 
 /-!
 # Trivial Quotient
@@ -12,6 +14,8 @@ import Mathlib.CategoryTheory.Galois.Basic
 An epimorphic image of a finite coproduct of terminal objects in a
 Galois category is again a finite coproduct of terminal objects.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory Limits

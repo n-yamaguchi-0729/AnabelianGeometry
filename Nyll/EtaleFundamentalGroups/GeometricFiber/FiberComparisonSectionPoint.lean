@@ -3,7 +3,9 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
 
 /-! # Actual section points are fixed by every fibre-functor comparison
 
@@ -11,6 +13,8 @@ The diagonal section of a pulled-back constant cover is a special case. Its
 point is preserved by the independently chosen comparison of geometric fibre
 functors; no preservation hypothesis is needed.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory
 

@@ -4,9 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenKummerGenericRootFiber
-import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticKummerRootsRestriction
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGalois
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenKummerGenericRootFiber
+public import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticKummerRootsRestriction
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGalois
+public import Nyll.EtaleFundamentalGroups.Kummer.AdjoinRoot.RootFiberTransitivity
 
 /-!
 # One generic-root coordinate, its full torsor, and arithmetic semilinearity
@@ -16,6 +19,8 @@ root coordinate. Its compatibility with the existing root-scaling and with
 original arithmetic monodromy is retained in the same existential witness.
 No unrelated choice of a local-coordinate torsor is identified with it.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory CategoryTheory.PreGaloisCategory

@@ -4,16 +4,20 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
-import Nyll.EtaleFundamentalGroups.Cohomology.H1Character
-import Nyll.EtaleFundamentalGroups.Cohomology.H1CharacterPullback
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteTorsionPullback
-import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberIso
-import Nyll.ProCGroups.Abelian.TopologicalAbelianization
-import Mathlib.Algebra.Colimit.DirectLimit
-import Nyll.EtaleCohomology.Classical.FiniteTorsion
-import Nyll.ProCGroups.Abelian.ProfiniteBidual
-import Nyll.ProCGroups.ProC.Quotients.ClosedNormal
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1Character
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1CharacterPullback
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteTorsionPullback
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberIso
+public import Nyll.ProCGroups.Abelian.TopologicalAbelianization
+public import Mathlib.Algebra.Colimit.DirectLimit
+public import Nyll.EtaleCohomology.Classical.FiniteTorsion
+public import Nyll.ProCGroups.Abelian.ProfiniteBidual
+public import Nyll.ProCGroups.ProC.Quotients.ClosedNormal
+public import Nyll.ProCGroups.Topologies.QuotientMaps
+public import Nyll.ProCGroups.Topologies.TopologicallyCharacteristicSubgroups
 
 /-!
 # Finite-torsion étale H¹ and the full abelian fundamental group
@@ -23,6 +27,8 @@ Pontryagin character group of the actual topological abelianization.
 Factorization through finite quotients proves surjectivity. Thus finite
 torsion is retained, unlike a comparison using only rational ℓ-adic values.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -38,7 +44,8 @@ local instance coefficientTopology (n : ℕ) :
 local instance coefficientDiscrete (n : ℕ) :
     DiscreteTopology (Multiplicative (finiteTorsionCoefficients.{u} n)) := ⟨rfl⟩
 
-private def coefficientCircle (n : ℕ) :
+/-- The finite torsion coefficient group embeds in the circle. -/
+def coefficientCircle (n : ℕ) :
     Multiplicative (finiteTorsionCoefficients.{u} n) →ₜ* Circle where
   toFun a := a.toAdd.down.toMul.val
   map_one' := rfl
@@ -55,16 +62,18 @@ private theorem coefficientCircle_injective (n : ℕ) :
 variable {X : Scheme.{u}} [ConnectedSpace X]
   {Ω : Type u} [Field Ω] [IsSepClosed Ω] (ξ : Spec (.of Ω) ⟶ X)
 
-private abbrev P := TopologicalAbelianization (Aut (FiniteEtale.fiber ξ))
+/-- The topological abelianization of the geometric fundamental group. -/
+abbrev torsionH1Abelianization :=
+  TopologicalAbelianization (Aut (FiniteEtale.fiber ξ))
 
-private instance : TotallyDisconnectedSpace (P ξ) :=
+private instance : TotallyDisconnectedSpace (torsionH1Abelianization ξ) :=
   ProCGroups.totallyDisconnectedSpace_quotient_closedNormal
     (Subgroup.closedCommutator (Aut (FiniteEtale.fiber ξ)))
     (Subgroup.isClosed_closedCommutator _)
 
 /-- The finite H¹ comparison followed by the actual inclusion into the circle. -/
 def finiteTorsionStageCharacter (n : ℕ) :
-    finiteTorsionLevel X 1 n →+ Additive (PontryaginDual (P ξ)) where
+    finiteTorsionLevel X 1 n →+ Additive (PontryaginDual (torsionH1Abelianization ξ)) where
   toFun a := Additive.ofMul ((coefficientCircle n).comp
     (finiteH1AbelianCharacterEquiv (finiteTorsionCoefficients n) ξ a).toMul)
   map_zero' := by
@@ -79,7 +88,7 @@ def finiteTorsionStageCharacter (n : ℕ) :
     intro g
     change coefficientCircle n
       ((finiteH1AbelianCharacterEquiv (finiteTorsionCoefficients n) ξ (a + b)).toMul g) = _
-    exact (congrArg (fun χ : Additive (P ξ →ₜ*
+    exact (congrArg (fun χ : Additive (torsionH1Abelianization ξ →ₜ*
       Multiplicative (finiteTorsionCoefficients n)) => coefficientCircle n (χ.toMul g))
         ((finiteH1AbelianCharacterEquiv (finiteTorsionCoefficients n) ξ).map_add a b)).trans
       ((coefficientCircle n).map_mul _ _)
@@ -91,9 +100,10 @@ private theorem stageCharacter_injective (n : ℕ) :
   apply ContinuousMonoidHom.ext
   intro g
   apply coefficientCircle_injective n
-  exact congrArg (fun χ : Additive (PontryaginDual (P ξ)) => χ.toMul g) h
+  exact congrArg (fun χ : Additive (PontryaginDual (torsionH1Abelianization ξ)) => χ.toMul g) h
 
-private theorem stageCharacter_compatible (m n : ℕ) (h : m ≤ n)
+/-- Stage characters commute with the inclusions of finite torsion coefficients. -/
+theorem stageCharacter_compatible (m n : ℕ) (h : m ≤ n)
     (a : finiteTorsionLevel X 1 m) :
     finiteTorsionStageCharacter ξ m a =
       finiteTorsionStageCharacter ξ n (finiteTorsionTransition X 1 m n h a) := by
@@ -116,7 +126,8 @@ private theorem stageCharacter_compatible (m n : ℕ) (h : m ≤ n)
         (h1AbelianCharacter_apply_mk (finiteTorsionCoefficients n) ξ
           (finiteTorsionTransition X 1 m n h a) g)).symm)
 
-private def directLimitAddHom (G : ℕ → Type u) [∀ n, AddCommGroup (G n)]
+/-- Compatible additive maps induce an additive map from their direct limit. -/
+def directLimitAddHom (G : ℕ → Type u) [∀ n, AddCommGroup (G n)]
     (f : ∀ m n, m ≤ n → G m →+ G n) [DirectedSystem G (f · · ·)]
     {A : Type v} [AddCommGroup A] (g : ∀ n, G n →+ A)
     (h : ∀ m n h a, g m a = g n (f m n h a)) : DirectLimit G f →+ A where
@@ -126,7 +137,7 @@ private def directLimitAddHom (G : ℕ → Type u) [∀ n, AddCommGroup (G n)]
 
 /-- The character of a finite-coefficient direct-limit étale H¹ class. -/
 def finiteTorsionH1Character :
-    finiteTorsionCohomology X 1 →+ Additive (PontryaginDual (P ξ)) :=
+    finiteTorsionCohomology X 1 →+ Additive (PontryaginDual (torsionH1Abelianization ξ)) :=
   directLimitAddHom (fun n => finiteTorsionLevel X 1 n) (finiteTorsionTransition X 1)
     (finiteTorsionStageCharacter ξ) (stageCharacter_compatible ξ)
 
@@ -137,12 +148,16 @@ theorem finiteTorsionH1Character_injective :
     (fun n => finiteTorsionStageCharacter ξ n) (stageCharacter_compatible ξ)
     (stageCharacter_injective ξ)
 
-private def quotientCoefficientCharacter (χ : PontryaginDual (P ξ))
-    (U : OpenNormalSubgroup (P ξ)) (hU : (U : Subgroup (P ξ)) ≤ χ.toMonoidHom.ker) :
-    (P ξ ⧸ (U : Subgroup (P ξ))) →ₜ*
-      Multiplicative (finiteTorsionCoefficients.{u} (Nat.card (P ξ ⧸ (U : Subgroup (P ξ))))) := by
-  let Q := P ξ ⧸ (U : Subgroup (P ξ))
-  let χQ : PontryaginDual Q := ProCGroups.QuotientGroup.liftₜ (U : Subgroup (P ξ)) χ hU
+private def quotientCoefficientCharacter (χ : PontryaginDual (torsionH1Abelianization ξ))
+    (U : OpenNormalSubgroup (torsionH1Abelianization ξ))
+    (hU : (U : Subgroup (torsionH1Abelianization ξ)) ≤ χ.toMonoidHom.ker) :
+    (torsionH1Abelianization ξ ⧸ (U : Subgroup (torsionH1Abelianization ξ))) →ₜ*
+      Multiplicative (finiteTorsionCoefficients.{u}
+        (Nat.card (torsionH1Abelianization ξ ⧸
+          (U : Subgroup (torsionH1Abelianization ξ))))) := by
+  let Q := torsionH1Abelianization ξ ⧸ (U : Subgroup (torsionH1Abelianization ξ))
+  let χQ : PontryaginDual Q :=
+    ProCGroups.QuotientGroup.liftₜ (U : Subgroup (torsionH1Abelianization ξ)) χ hU
   have hp (q : Q) : χQ q ∈ factorialRoots (Nat.card Q) := by
     change (χQ q) ^ Nat.factorial (Nat.card Q + 1) = 1
     obtain ⟨k, hk⟩ := Nat.dvd_factorial (Nat.card_pos (α := Q)) (Nat.le_succ (Nat.card Q))
@@ -160,7 +175,7 @@ theorem finiteTorsionH1Character_surjective :
     Function.Surjective (finiteTorsionH1Character ξ) := by
   intro χ
   obtain ⟨U, hU⟩ := ProCGroups.Duality.exists_openNormal_le_character_ker χ.toMul
-  let n := Nat.card (P ξ ⧸ (U : Subgroup (P ξ)))
+  let n := Nat.card (torsionH1Abelianization ξ ⧸ (U : Subgroup (torsionH1Abelianization ξ)))
   let ψ := (quotientCoefficientCharacter ξ χ.toMul U hU).comp
     (OpenNormalSubgroup.quotientProj U)
   let a := (finiteH1AbelianCharacterEquiv (finiteTorsionCoefficients n) ξ).symm
@@ -175,7 +190,7 @@ theorem finiteTorsionH1Character_surjective :
 /-- Actual finite-torsion étale H¹ is the full character group of the actual
 topological abelianization, including torsion characters. -/
 def finiteTorsionH1CharacterEquiv :
-    finiteTorsionCohomology X 1 ≃+ Additive (PontryaginDual (P ξ)) :=
+    finiteTorsionCohomology X 1 ≃+ Additive (PontryaginDual (torsionH1Abelianization ξ)) :=
   AddEquiv.ofBijective (finiteTorsionH1Character ξ)
     ⟨finiteTorsionH1Character_injective ξ, finiteTorsionH1Character_surjective ξ⟩
 

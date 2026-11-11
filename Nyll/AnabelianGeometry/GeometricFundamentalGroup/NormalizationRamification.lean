@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
-import Mathlib.RingTheory.Unramified.LocalRing
-import Mathlib.RingTheory.Etale.Basic
+module
+
+public import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
+public import Mathlib.RingTheory.Unramified.LocalRing
+public import Mathlib.RingTheory.Etale.Basic
 
 /-!
 # Unramified normalization and the ramification of places
@@ -16,6 +18,8 @@ closure at its centre. If that integral closure is etale over the base valuation
 the inclusion of valuation rings is unramified. Its image of a uniformizer generates
 the maximal ideal, so the ramification index is one.
 -/
+
+@[expose] public section
 
 noncomputable section
 

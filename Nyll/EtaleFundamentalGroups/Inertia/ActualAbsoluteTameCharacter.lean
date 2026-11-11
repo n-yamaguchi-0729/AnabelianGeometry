@@ -4,16 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsSeparableMap
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsSeparableEquiv
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacterSurjectivity
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacterKernel
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacterEquivariance
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsGroup
-import Nyll.EtaleFundamentalGroups.Inertia.ActualSeparableRootsAction
-import Mathlib.Algebra.Category.Grp.Basic
-import Mathlib.Algebra.Group.Subgroup.Ker
-import Mathlib.Topology.Algebra.ContinuousMonoidHom
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsSeparableMap
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsSeparableEquiv
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacterSurjectivity
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacterKernel
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacterEquivariance
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsGroup
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualSeparableRootsAction
+public import Mathlib.Algebra.Category.Grp.Basic
+public import Mathlib.Algebra.Group.Subgroup.Ker
+public import Mathlib.Topology.Algebra.ContinuousMonoidHom
 
 /-!
 # The original tame character into the full separable roots limit
@@ -23,6 +25,8 @@ comparison. Continuity, surjectivity, the SAME independent wild kernel and
 the original decomposition equivariance follow from their actual suppliers.
 No new character coordinates, subgroup or transported action are introduced.
 -/
+
+@[expose] public section
 
 noncomputable section
 

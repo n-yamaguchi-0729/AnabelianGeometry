@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Data.Nat.GCD.Basic
-import Mathlib.Algebra.Group.Hom.Defs
-import Mathlib.Tactic.Ring
+module
+
+public import Mathlib.Data.Nat.GCD.Basic
+public import Mathlib.Algebra.Group.Hom.Defs
+public import Mathlib.Tactic.Ring
 
 /-!
 # Normalization of a raw character transition
@@ -17,6 +19,8 @@ following arithmetic converts that exponent into the ratio of the actual
 finite tame orders. Coprimality with the upper normalization factor also
 supplies divisibility of the tame orders without inertia surjectivity.
 -/
+
+@[expose] public section
 
 namespace RamificationTheory.HilbertRamification
 

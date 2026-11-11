@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.Models.Rational.RationalSquareModelBoundaryLabels
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
-import Nyll.AlgebraicCurves.Places.Evaluation.RationalPlaceValues
+module
+
+public import Nyll.AlgebraicCurves.Models.Rational.RationalSquareModelBoundaryLabels
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
+public import Nyll.AlgebraicCurves.Places.Evaluation.RationalPlaceValues
 
 /-! # Literal values supply the actual square-cover boundary labels
 
@@ -15,6 +17,8 @@ original homogeneous coordinates. Thus their literal evaluations of the same
 function supply every finite fibre label, without an additional value or
 rationality premise.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve
 attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
@@ -23,16 +27,6 @@ attribute [local instance] Classical.propDecidable
 
 
 namespace AlgebraicGeometry.ProjSpace
-
-local instance rationalSquareBoundaryChart_isOpenImmersion
-    (k E : Type) [Field k] [Field E] [Algebra k E]
-    (s : Finset (Projectivization k (k × k))) :
-    IsOpenImmersion (show
-      pullback (Spec.map (CommRingCat.ofHom (algebraMap k E)))
-        ((rationalConfigurationOpen s).ι ≫ π k 1) ⟶
-          (projectiveLineRatFuncModel E).C from
-            rationalConfigurationBaseChangeChart k E s) :=
-  rationalConfigurationBaseChangeChart_isOpenImmersion k E s
 
 variable (k E : Type) [Field k] [Field E] [Algebra k E]
 
@@ -85,8 +79,13 @@ theorem rationalConfiguration_squareModel_actual_boundary_labels
         (W.val = RationalFunctionField.placeInfty E ∨
           ∃ a : s, W.val = RationalFunctionField.placeOfPoint E (r a) ∨
             W.val = RationalFunctionField.placeOfPoint E (-(r a))) := by
+  let j : _ ⟶ (projectiveLineRatFuncModel E).C :=
+    rationalConfigurationBaseChangeChart k E s
+  have : IsOpenImmersion j := by
+    change IsOpenImmersion (rationalConfigurationBaseChangeChart k E s)
+    exact rationalConfigurationBaseChangeChart_isOpenImmersion k E s
   exact rationalSquareModel_actual_boundary_labels
-    (rationalConfigurationBaseChangeChart k E s) p eF f hf
+    j p eF f hf
     (fun a => (rationalConfigurationBoundaryPlace k E s a).val.evalAt f)
     r hr hplaces (rationalConfigurationBoundaryPlaces_actual_values k E s f hf0)
 

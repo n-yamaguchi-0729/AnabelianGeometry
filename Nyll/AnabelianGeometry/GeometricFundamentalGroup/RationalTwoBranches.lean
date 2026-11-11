@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Places.Ramification.FinsumRamificationIndexRatFuncSubOneEq
-import Nyll.AlgebraicCurves.Places.Ramification.SumRamificationIndexMulInertiaDegFiberOver
-import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegEqOneIsRational
-import Nyll.AlgebraicCurves.Places.Degree.IsRationalAlgClosed
-import Nyll.AlgebraicCurves.Places.Restriction.RestrictEq
-import Mathlib.Algebra.BigOperators.Finprod
+module
+
+public import Nyll.AlgebraicCurves.Places.Ramification.FinsumRamificationIndexRatFuncSubOneEq
+public import Nyll.AlgebraicCurves.Places.Ramification.SumRamificationIndexMulInertiaDegFiberOver
+public import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegEqOneIsRational
+public import Nyll.AlgebraicCurves.Places.Degree.IsRationalAlgClosed
+public import Nyll.AlgebraicCurves.Places.Restriction.RestrictEq
+public import Mathlib.Algebra.BigOperators.Finprod
 
 /-!
 # Tame rational covers with at most two branch places
@@ -20,6 +22,8 @@ the two possible branch places. This is proved directly from Riemann--Hurwitz an
 fundamental identities. It is the ramification step towards classifying covers of the punctured
 affine line; a Kummer description and the geometric fundamental-group comparison are separate.
 -/
+
+@[expose] public section
 
 noncomputable section
 

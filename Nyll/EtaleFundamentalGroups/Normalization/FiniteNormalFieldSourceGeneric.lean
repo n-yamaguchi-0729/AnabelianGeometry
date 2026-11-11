@@ -4,9 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Normalization.FiniteNormalFieldSource
+module
+
+public import Nyll.EtaleFundamentalGroups.Normalization.FiniteNormalFieldSource
 
 /-! # Actual finite normal models from a specified generic field source -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.PointedCoverInertiaIntersection
-import Nyll.EtaleFundamentalGroups.Inertia.PlaceNormalizationInertiaRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertiaImage
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.PointedCoverInertiaIntersection
+public import Nyll.EtaleFundamentalGroups.Inertia.PlaceNormalizationInertiaRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertiaImage
 
 /-!
 # Images of restricted inertia in the actual pointed cover
@@ -15,6 +17,8 @@ The prescribed lift determines the cover map and field restriction. The
 image of every restricted subgroup is its exact intersection with the
 actual cover image.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -61,25 +65,26 @@ theorem pointedCover_actualPlaceInertia_image
     (Q : Ideal (integralClosure v.toValuationSubring Ω)) [Q.IsPrime]
     (W : FiniteEtale U) (hW : IsGalois W)
     (w : (fiber (U.genericExtensionMorphism Ω)).obj W) :
-    letI : IsGalois W := hW
-    letI : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
+    let : IsGalois W := hW
+    let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
     let K := U.functionField
     let L := W.left.functionField
-    letI : Algebra K L := finiteEtaleFunctionFieldAlgebra W
-    letI : FiniteDimensional K L :=
+    let : Algebra K L := finiteEtaleFunctionFieldAlgebra W
+    let : FiniteDimensional K L :=
       finiteDimensional_functionField_of_finiteEtale_isConnected W
-    letI : _root_.IsGalois K L := isGalois_functionField_of_isGalois_finiteEtale W hW
-    let h := genericExtension_point_comp U Ω
+    let : _root_.IsGalois K L := isGalois_functionField_of_isGalois_finiteEtale W hW
+    let h : ξ K Ω ≫ U.genericExtensionMorphism K = U.genericExtensionMorphism Ω := by
+      exact genericExtension_point_comp U Ω
     let x := (absoluteGenericFiberIso U Ω).inv.app W w
     let g := genericPointLiftRebase h W
       (fiberObjEquivHom (ξ K Ω ≫ U.genericExtensionMorphism K) W x)
     let j := finiteEtaleGenericHomFunctionFieldAlgHom W g
-    letI : Algebra L Ω := j.toRingHom.toAlgebra
-    letI : IsScalarTower K L Ω := by
+    let : Algebra L Ω := j.toRingHom.toAlgebra
+    let : IsScalarTower K L Ω := by
       apply IsScalarTower.of_algebraMap_eq'
       ext z
       exact (j.commutes z).symm
-    letI : IsSepClosure L Ω :=
+    let : IsSepClosure L Ω :=
       ⟨IsSepClosure.sep_closed K,
         Algebra.isSeparable_tower_top_of_isSeparable K L Ω⟩
     let jL := W.left.fromSpecStalk (genericPoint W.left)
@@ -87,8 +92,8 @@ theorem pointedCover_actualPlaceInertia_image
       finiteEtaleGenericHomFunctionFieldAlgHom_spec_comp W g
     let i := (pointedFundamentalGroupHom W.hom (ξ L Ω ≫ jL)
       (U.genericExtensionMorphism Ω) hpoint).toMonoidHom
-    letI : Algebra k L := ((algebraMap K L).comp (algebraMap k K)).toAlgebra
-    letI : IsScalarTower k K L := IsScalarTower.of_algebraMap_eq' rfl
+    let : Algebra k L := ((algebraMap K L).comp (algebraMap k K)).toAlgebra
+    let : IsScalarTower k K L := IsScalarTower.of_algebraMap_eq' rfl
     ∀ (P : HeightOneSpectrum (Place.integralClosureAt L v)),
       P.asIdeal = absoluteNormalizationPrimeContraction
         (A := v.toValuationSubring) (L := L) (Omega := Ω) Q →
@@ -100,38 +105,8 @@ theorem pointedCover_actualPlaceInertia_image
       q.IsMaximal ∧
         (genericPlaceInertia W.left (Place.placeOfPrime P) q).map i =
           genericPlaceInertia U v Q ⊓ i.range := by
-  let : IsGalois W := hW
-  let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
-  let K := U.functionField
-  let L := W.left.functionField
-  let : Algebra K L := finiteEtaleFunctionFieldAlgebra W
-  let : FiniteDimensional K L :=
-    finiteDimensional_functionField_of_finiteEtale_isConnected W
-  let : _root_.IsGalois K L := isGalois_functionField_of_isGalois_finiteEtale W hW
-  let h := genericExtension_point_comp U Ω
-  let x := (absoluteGenericFiberIso U Ω).inv.app W w
-  let g := genericPointLiftRebase h W
-    (fiberObjEquivHom (ξ K Ω ≫ U.genericExtensionMorphism K) W x)
-  let j := finiteEtaleGenericHomFunctionFieldAlgHom W g
-  let : Algebra L Ω := j.toRingHom.toAlgebra
-  let : IsScalarTower K L Ω := by
-    apply IsScalarTower.of_algebraMap_eq'
-    ext z
-    exact (j.commutes z).symm
-  let : IsSepClosure L Ω :=
-    ⟨IsSepClosure.sep_closed K,
-      Algebra.isSeparable_tower_top_of_isSeparable K L Ω⟩
-  let jL := W.left.fromSpecStalk (genericPoint W.left)
-  let hpoint : (ξ L Ω ≫ jL) ≫ W.hom = U.genericExtensionMorphism Ω :=
-    finiteEtaleGenericHomFunctionFieldAlgHom_spec_comp W g
-  let i := (pointedFundamentalGroupHom W.hom (ξ L Ω ≫ jL)
-    (U.genericExtensionMorphism Ω) hpoint).toMonoidHom
-  let : Algebra k L := ((algebraMap K L).comp (algebraMap k K)).toAlgebra
-  let : IsScalarTower k K L := IsScalarTower.of_algebraMap_eq' rfl
-  change ∀ (P : HeightOneSpectrum (Place.integralClosureAt L v)),
-    P.asIdeal = absoluteNormalizationPrimeContraction
-      (A := v.toValuationSubring) (L := L) (Omega := Ω) Q → _
-  intro P hP
+  intro sharedOwner1 sharedOwner2 K L sharedOwner5 sharedOwner6 sharedOwner7 h x g j sharedOwner12
+    sharedOwner13 sharedOwner14 jL hpoint i sharedOwner18 sharedOwner19 P hP
   let R := (Place.placeOfPrime P).toValuationSubring
   let QB := Q.comap (normalizationIntegralBaseRingEquiv
     v.toValuationSubring (Place.integralClosureAt L v) Ω).toRingHom

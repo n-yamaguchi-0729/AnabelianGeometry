@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.KummerTheory.PowerSeparation
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.PowerSeparation
 
 /-!
 # Separation by prime-power quotients
@@ -12,6 +14,8 @@ import Nyll.AnabelianGeometry.KummerTheory.PowerSeparation
 Prime powers suffice to recover subgroups of finitely generated abelian
 groups. The saturated-subgroup version also applies to S-unit groups.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.KummerTheory
 

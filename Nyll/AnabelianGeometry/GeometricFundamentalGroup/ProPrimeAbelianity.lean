@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProPrimePowerCover
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.AbelianityClassification
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProperCoverH1Degree
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenCoverH1Numerics
-import Nyll.ProCGroups.ProC.MaximalQuotients.ResidualEquivalence
-import Mathlib.Tactic.Linarith
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProPrimePowerCover
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.AbelianityClassification
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProperCoverH1Degree
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenCoverH1Numerics
+public import Nyll.ProCGroups.ProC.MaximalQuotients.ResidualEquivalence
+public import Mathlib.Tactic.Linarith
 
 /-! # Abelian maximal pro-prime fundamental groups
 
@@ -18,6 +20,8 @@ the hyperbolic cases, the actual power-image cover constructed from an
 abelian maximal quotient would have nonincreasing prime-order H¹, whereas
 its actual Riemann--Hurwitz formula forces a strict increase.
 -/
+
+@[expose] public section
 
 noncomputable section
 

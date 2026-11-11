@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricAbelianGaloisAction
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticKernelNaturality
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricAbelianGaloisAction
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticKernelNaturality
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
 
 /-!
 # Naturality of the actual geometric-kernel comparison
@@ -16,6 +18,8 @@ The literal coefficient base-change map gives the same map as restriction
 to the arithmetic kernels. Canonical pointed maps handle the single equality
 of target geometric points, without introducing a new comparison choice.
 -/
+
+@[expose] public section
 
 noncomputable section
 

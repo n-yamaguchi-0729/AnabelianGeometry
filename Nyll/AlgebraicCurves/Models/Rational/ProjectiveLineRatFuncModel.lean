@@ -9,24 +9,24 @@ Upstream per-file ATTRIBUTION (earlier FLT and Mathlib notices): https://github.
 Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
-import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLineRatFuncCoordinate
-import Nyll.AlgebraicCurves.Models.Construction.LiteralArithmeticCurveModel
-import Nyll.AlgebraicCurves.Models.FunctionFields.FieldReparametrization
-import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLineSmooth
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLineRatFuncCoordinate
+public import Nyll.AlgebraicCurves.Models.Construction.LiteralArithmeticCurveModel
+public import Nyll.AlgebraicCurves.Models.FunctionFields.FieldReparametrization
+public import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLineSmooth
 
 /-! # The literal projective-line CurveModel of the rational-function field -/
+@[expose] public section
+
 noncomputable section
 universe u
 open CategoryTheory AlgebraicGeometry AlgebraicCurve TopologicalSpace
 open AlgebraicCurves.Geometry.Projective.Proofs.ProjSpace_isPullback_map.AlgebraicGeometry.ProjSpace
 namespace AlgebraicGeometry.ProjSpace
-attribute [local instance] MvPolynomial.gradedAlgebra
+attribute [local instance] MvPolynomial.gradedAlgebra projectiveSpace_isIntegral
+  projectiveLine_smoothOfRelativeDimension
 variable (k : Type u) [Field k]
-local instance literalModel_projectiveLine_integral :
-    IsIntegral (Proj (MvPolynomial.homogeneousSubmodule (Fin (1 + 1)) k) : Scheme) :=
-  projectiveSpace_isIntegral k 1
-local instance literalModel_projectiveLine_smooth : SmoothOfRelativeDimension 1 (π k 1) :=
-  projectiveLine_smoothOfRelativeDimension k
 
 /-- A rational CurveModel whose curve and structural morphism are literally
 the given projective-space construction. -/

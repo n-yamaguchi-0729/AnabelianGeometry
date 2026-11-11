@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationAbsoluteResidueGroup
-import Nyll.SchemeTheory.RingTheory.Ramification.NormalizationResidueSequence
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationAbsoluteResidueGroup
+public import Nyll.SchemeTheory.RingTheory.Ramification.NormalizationResidueSequence
 
 /-!
 # The absolute separable-residue exact sequence
@@ -14,6 +16,8 @@ Constructs the decomposition-group morphism to the separable residue Galois grou
 surjectivity. Identifies its kernel image with original ideal inertia to obtain the absolute
 residue exact sequence.
 -/
+
+@[expose] public section
 
 noncomputable section
 

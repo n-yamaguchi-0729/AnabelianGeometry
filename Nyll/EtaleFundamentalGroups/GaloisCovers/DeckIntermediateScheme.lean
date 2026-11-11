@@ -4,8 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCovers.DeckSubgroupIntermediate
-import Nyll.EtaleFundamentalGroups.GaloisCovers.RelativeGalois
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.DeckSubgroupIntermediate
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.RelativeGalois
+public import Mathlib.CategoryTheory.Endomorphism
 
 /-! # Actual intermediate finite étale Galois covers
 
@@ -13,6 +16,8 @@ Every subgroup of the original deck group is realized by an intermediate
 scheme. Relative deck transformations are identified on their actual scheme
 maps, not through an assumed comparison field.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -28,9 +33,9 @@ theorem exists_intermediate_finiteEtale_of_deckSubgroup
     (geom : Spec (.of Ω) ⟶ A.left) (H : Subgroup (Aut A)ᵐᵒᵖ) :
     ∃ (B : FiniteEtale S) (_ : ConnectedSpace B.left) (f : A ⟶ B),
       IsGalois (C := FiniteEtale B.left) (FiniteEtale.mk f.left) ∧
-      (∀ σ : Aut A, σ.hom ≫ f = f ↔ MulOpposite.op σ ∈ H) ∧
+      (∀ σ : Aut A, σ.asIso.hom ≫ f = f ↔ MulOpposite.op σ ∈ H) ∧
       (∀ τ : Aut (FiniteEtale.mk f.left), ∃ σ : Aut A,
-        σ.hom.left = τ.hom.left ∧ MulOpposite.op σ ∈ H) := by
+        σ.asIso.hom.left = τ.asIso.hom.left ∧ MulOpposite.op σ ∈ H) := by
   let geomBase : Spec (.of Ω) ⟶ S := geom ≫ A.hom
   let q : Over.mk geomBase ⟶ A.toComma := Over.homMk geom rfl
   let x : (fiber geomBase).obj A := (fiberObjEquivHom geomBase A).symm q
@@ -40,12 +45,12 @@ theorem exists_intermediate_finiteEtale_of_deckSubgroup
   refine ⟨B, inferInstance, f, isGalois_over_intermediate A B f geom, hdeck, ?_⟩
   intro τ
   let e : A.left ≅ A.left :=
-    (FiniteEtale.forget B.left ⋙ Over.forget B.left).mapIso τ
-  have herel : e.hom ≫ f.left = f.left := τ.hom.w
+    (FiniteEtale.forget B.left ⋙ Over.forget B.left).mapIso τ.asIso
+  have herel : e.hom ≫ f.left = f.left := τ.asIso.hom.w
   have hebase : e.hom ≫ A.hom = A.hom := by
     rw [← MorphismProperty.Over.w f, ← Category.assoc, herel]
-  let σ : Aut A := MorphismProperty.Over.isoMk e hebase
-  have hσ : σ.hom ≫ f = f := by
+  let σ : Aut A := Aut.of (MorphismProperty.Over.isoMk e hebase)
+  have hσ : σ.asIso.hom ≫ f = f := by
     apply MorphismProperty.Over.Hom.ext
     exact herel
   exact ⟨σ, rfl, (hdeck σ).mp hσ⟩

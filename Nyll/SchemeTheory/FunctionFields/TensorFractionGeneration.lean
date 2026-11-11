@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.TensorProduct.Basic
-import Mathlib.RingTheory.Localization.FractionRing
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+module
+
+public import Mathlib.RingTheory.TensorProduct.Basic
+public import Mathlib.RingTheory.Localization.FractionRing
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
 
 /-!
 # Generators of the fraction field of a scalar extension
@@ -16,6 +18,8 @@ by the new constants and the image of the old function field. This lemma
 uses the tensor-product description of the coordinate ring, rather than
 assuming generation of the function field.
 -/
+
+@[expose] public section
 
 open scoped TensorProduct
 

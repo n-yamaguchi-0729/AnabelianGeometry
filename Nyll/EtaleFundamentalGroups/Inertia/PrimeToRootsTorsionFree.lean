@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
 
 /-!
 # Integer torsion in the actual roots inverse limit
@@ -13,6 +15,8 @@ A power invertible in the index field is injective, as is seen at the
 coordinate multiplied by that power. In characteristic zero this applies
 to every nonzero integer exponent, without a choice of roots generator.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

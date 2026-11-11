@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.FunctionFields.Functoriality
+module
+
+public import Nyll.SchemeTheory.FunctionFields.Functoriality
 
 /-!
 # Function-field naturality on affine schemes
@@ -12,6 +14,8 @@ import Nyll.SchemeTheory.FunctionFields.Functoriality
 Injective maps of commutative rings induce dense maps of spectra. For domains,
 the resulting function-field map agrees with the original map on coefficients.
 -/
+
+@[expose] public section
 
 noncomputable section
 

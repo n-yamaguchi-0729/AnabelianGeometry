@@ -11,16 +11,20 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.Geometrically.Reduced
-import Mathlib.AlgebraicGeometry.Morphisms.Smooth
-import Mathlib.AlgebraicGeometry.Noetherian
-import Mathlib.AlgebraicGeometry.Properties
-import Mathlib.CategoryTheory.MorphismProperty.Limits
-import Nyll.SchemeTheory.Morphisms.ReducedSmooth
+module
+
+public import Mathlib.AlgebraicGeometry.Geometrically.Reduced
+public import Mathlib.AlgebraicGeometry.Morphisms.Smooth
+public import Mathlib.AlgebraicGeometry.Noetherian
+public import Mathlib.AlgebraicGeometry.Properties
+public import Mathlib.CategoryTheory.MorphismProperty.Limits
+public import Nyll.SchemeTheory.Morphisms.ReducedSmooth
 
 /-!
 # Smooth is Reduced of is Reduced of is Locally Noetherian
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

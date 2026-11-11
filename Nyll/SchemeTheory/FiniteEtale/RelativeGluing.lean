@@ -4,10 +4,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Christian Merten, Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Mathlib.AlgebraicGeometry.Gluing
-import Mathlib.AlgebraicGeometry.PullbackCarrier
-import Mathlib.AlgebraicGeometry.Morphisms.Basic
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+module
+
+public import Mathlib.AlgebraicGeometry.Gluing
+public import Mathlib.AlgebraicGeometry.PullbackCarrier
+public import Mathlib.AlgebraicGeometry.Morphisms.Basic
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
 
 /-!
 The range and open-immersion lifting arguments below adapt Christian Merten's
@@ -17,6 +19,8 @@ https://github.com/leanprover-community/mathlib4/blob/065356127b1dc0016f66b7283c
 The present construction works with actual pairwise overlaps of arbitrary open
 covers, without a locally directed structure on the cover index.
 -/
+
+@[expose] public section
 
 noncomputable section
 universe u

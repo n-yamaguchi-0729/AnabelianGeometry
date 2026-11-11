@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.PointedCoverStabilizerPreimage
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverImage
-import Nyll.EtaleFundamentalGroups.Inertia.GenericGaloisNaturality
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.PointedCoverStabilizerPreimage
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverImage
+public import Nyll.EtaleFundamentalGroups.Inertia.GenericGaloisNaturality
 
 /-! # The actual image at a prescribed point of any connected finite cover -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory
@@ -26,14 +30,14 @@ theorem connectedCover_sameGenericLift_range
     [IsSepClosure U.functionField Ω] [IsSepClosed Ω]
     (W : FiniteEtale U) [IsConnected W]
     (w : (fiber (U.genericExtensionMorphism Ω)).obj W) :
-    letI : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
+    let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
     let K := U.functionField
     let L := W.left.functionField
-    letI : Algebra K L := finiteEtaleFunctionFieldAlgebra W
+    let : Algebra K L := finiteEtaleFunctionFieldAlgebra W
     let g := fiberObjEquivHom (U.genericExtensionMorphism Ω) W w
     let j := finiteEtaleGenericHomFunctionFieldAlgHom W g
-    letI : Algebra L Ω := j.toRingHom.toAlgebra
-    letI : IsScalarTower K L Ω := by
+    let : Algebra L Ω := j.toRingHom.toAlgebra
+    let : IsScalarTower K L Ω := by
       apply IsScalarTower.of_algebraMap_eq'
       ext z
       exact (j.commutes z).symm
@@ -43,20 +47,7 @@ theorem connectedCover_sameGenericLift_range
     let i := (pointedFundamentalGroupHom W.hom (ξ L Ω ≫ jL)
       (U.genericExtensionMorphism Ω) hpoint).toMonoidHom
     i.range = MulAction.stabilizer π₁ᵉᵗ(U.genericExtensionMorphism Ω) w := by
-  let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
-  let K := U.functionField
-  let L := W.left.functionField
-  let : Algebra K L := finiteEtaleFunctionFieldAlgebra W
-  let g := fiberObjEquivHom (U.genericExtensionMorphism Ω) W w
-  let j := finiteEtaleGenericHomFunctionFieldAlgHom W g
-  let : Algebra L Ω := j.toRingHom.toAlgebra
-  let : IsScalarTower K L Ω := by
-    apply IsScalarTower.of_algebraMap_eq'
-    ext z
-    exact (j.commutes z).symm
-  let jL := W.left.fromSpecStalk (genericPoint W.left)
-  let hpoint : (ξ L Ω ≫ jL) ≫ W.hom = U.genericExtensionMorphism Ω :=
-    finiteEtaleGenericHomFunctionFieldAlgHom_spec_comp W g
+  intro sharedOwner1 K L sharedOwner4 g j sharedOwner7 sharedOwner8 jL hpoint
   have hrec : ξ L Ω ≫ jL =
       (eqToIso (Over.mk_left (U.genericExtensionMorphism Ω))).inv ≫ g.left :=
     finiteEtaleGenericHomFunctionFieldAlgHom_spec W g

@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralBaseTransport
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareModelInertiaCaller
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralBaseTransport
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareModelInertiaCaller
 
 /-!
 # Actual inertia under a change of geometric scheme model
@@ -16,6 +18,8 @@ the target supplies the source prime by the actual valuation-ring isomorphism.
 This applies in particular to a constant-field tower isomorphism; it does not
 assert that an arbitrary semilinear permutation of cusps has a linear realization.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicGeometry.FiniteEtale

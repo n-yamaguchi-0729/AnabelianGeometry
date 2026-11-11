@@ -3,20 +3,25 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.SchemeTheory.Normalization.FiniteSeparable
-import Nyll.EtaleFundamentalGroups.GeometricFiber.MatchedFiberCoverGroupTransport
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationIteratedBaseChange
-import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Integral
-import Nyll.SchemeTheory.FunctionFields.Functoriality
-import Nyll.SchemeTheory.FunctionFields.OpenImmersion
-import Mathlib.FieldTheory.IsSepClosed
-import Mathlib.CategoryTheory.Adjunction.Limits
-import Mathlib.CategoryTheory.Galois.Basic
-import Mathlib.CategoryTheory.Limits.Preserves.Shapes.Terminal
-import Mathlib.CategoryTheory.MorphismProperty.Comma
+module
+
+public import Nyll.SchemeTheory.Normalization.FiniteSeparable
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.MatchedFiberCoverGroupTransport
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationIteratedBaseChange
+public import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Integral
+public import Nyll.SchemeTheory.FunctionFields.Functoriality
+public import Nyll.SchemeTheory.FunctionFields.OpenImmersion
+public import Mathlib.FieldTheory.IsSepClosed
+public import Mathlib.CategoryTheory.Adjunction.Limits
+public import Mathlib.CategoryTheory.Galois.Basic
+public import Mathlib.CategoryTheory.Limits.Preserves.Shapes.Terminal
+public import Mathlib.CategoryTheory.MorphismProperty.Comma
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
 
 /-! # Named Square Literal Base Transport -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry

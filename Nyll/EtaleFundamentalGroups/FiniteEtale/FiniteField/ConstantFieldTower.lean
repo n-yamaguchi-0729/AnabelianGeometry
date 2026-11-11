@@ -3,17 +3,22 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Mathlib.AlgebraicGeometry.Pullbacks
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.Pasting
-import Mathlib.FieldTheory.IntermediateField.Basic
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldCover
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.FiniteFamilyModel
+module
+
+public import Mathlib.AlgebraicGeometry.Pullbacks
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.Pasting
+public import Mathlib.FieldTheory.IntermediateField.Basic
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldCover
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.FiniteFamilyModel
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
 
 /-!
 # Constant Field Tower
 
 Rebase a constant extension through an actual intermediate field.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory Limits AlgebraicGeometry
@@ -26,7 +31,8 @@ local notation "φF" => Spec.map (CommRingCat.ofHom (algebraMap k F))
 local notation "φL" => Spec.map (CommRingCat.ofHom (algebraMap k L))
 local notation "ψ" => Spec.map (CommRingCat.ofHom F.val.toRingHom)
 
-private theorem coefficientSpec_comp : ψ ≫ φF = φL := by
+/-- The coefficient inclusions give the original composite spectrum morphism. -/
+theorem coefficientSpec_comp : ψ ≫ φF = φL := by
   rw [← Spec.map_comp]
   rfl
 

@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.ProjectiveLine.ProjectiveRigidity
-import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineStandardPlace
-import Nyll.AlgebraicCurves.Places.Degree.IsRationalAlgClosed
-import Mathlib.AlgebraicGeometry.AlgClosed.Basic
+module
+
+public import Nyll.AnabelianGeometry.ProjectiveLine.ProjectiveRigidity
+public import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineStandardPlace
+public import Nyll.AlgebraicCurves.Places.Degree.IsRationalAlgClosed
+public import Mathlib.AlgebraicGeometry.AlgClosed.Basic
 
 /-! # Three-point rigidity for the actual projective-line scheme
 
@@ -15,6 +17,8 @@ Over an algebraically closed field every closed point has homogeneous
 coordinates. Equality of projective actions therefore gives equality of the
 actual scheme maps, including their maps on the structure sheaves.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationLocalizedBaseInertia
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationIntegralBaseContraction
+module
+
+public import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationLocalizedBaseInertia
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationIntegralBaseContraction
 
 /-!
 # Restricting normalization inertia to an actual extending place
@@ -14,6 +16,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.NormalizationIntegralBaseContraction
 The extending valuation ring is the localization at the prescribed finite
 normalization prime. No replacement prime or abstract inertia is chosen.
 -/
+
+@[expose] public section
 
 noncomputable section
 

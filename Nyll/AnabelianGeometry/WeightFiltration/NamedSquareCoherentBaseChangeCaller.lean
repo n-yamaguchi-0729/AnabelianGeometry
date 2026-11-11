@@ -3,7 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareActualBaseChangeCaller
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareActualBaseChangeCaller
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairSquareMap
 
 /-! # One actual named base-change isomorphism retains every geometric output
 
@@ -12,6 +15,8 @@ actual field square, and obtain the exact generic/arithmetic point comparison
 for EVERY original w under that SAME Jκ. Thus the source w and target e(w)
 can be passed to this caller without selecting a second model identification.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve
 open AlgebraicGeometry.FiniteEtale AlgebraicGeometry.ProjSpace
@@ -104,7 +109,6 @@ theorem namedSquareModel_coherent_actualBaseChange
         let emb := finiteEtaleGenericHomFunctionFieldAlgHom Wκ lift
         let A : Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ω :=
           (emb.toRingHom.comp (Jκ.hom.functionFieldMap hJdense)).toAlgebra
-        letI := A
         (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω =
           actualFiberPointLift ξκ Wκ wκ ≫ Jκ.hom ∧
         (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω ≫

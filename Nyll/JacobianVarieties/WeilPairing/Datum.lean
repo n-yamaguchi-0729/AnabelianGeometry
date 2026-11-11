@@ -10,11 +10,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+module
+
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
 
 /-!
 Divisorial data for the Weil pairing, with disjoint rational support, symmetry and addition.
 -/
+
+@[expose] public section
 
 noncomputable section
 

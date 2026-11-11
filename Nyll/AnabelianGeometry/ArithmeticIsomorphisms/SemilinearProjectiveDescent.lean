@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.ProjectiveLine.SchemeRigidity
-import Nyll.AnabelianGeometry.ProjectiveLine.SemilinearConfigurationRigidity
-import Nyll.AnabelianGeometry.WeightFiltration.SemilinearBoundaryCrossRatio
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
+module
+
+public import Nyll.AnabelianGeometry.ProjectiveLine.SchemeRigidity
+public import Nyll.AnabelianGeometry.ProjectiveLine.SemilinearConfigurationRigidity
+public import Nyll.AnabelianGeometry.WeightFiltration.SemilinearBoundaryCrossRatio
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
 
 /-! # From semilinear place actions to actual scheme equivariance
 
@@ -16,6 +18,8 @@ point action of the inverse scheme map. The comparison is established using
 the actual rational sections. Matching three boundary labels then makes the
 coordinate isomorphism equivariant as a scheme map, including its sheaf map.
 -/
+
+@[expose] public section
 
 noncomputable section
 

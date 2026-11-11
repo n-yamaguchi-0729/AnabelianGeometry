@@ -70,7 +70,7 @@ private theorem eqToIso_conjAut_eq_transport
     (eqToIso (congrArg fiber h)).conjAut g = h ▸ g := by
   subst y
   apply Aut.ext
-  simp only [eqToIso_refl, Iso.conjAut_hom, Iso.refl_conj]
+  simp only [eqToIso_refl, Iso.conjAut_apply, Iso.refl_symm, Iso.refl_trans, Iso.trans_refl]
 
 private theorem autHom_trans_target
     {C : Type u₁} [Category.{u₂} C] {D : Type v₁} [Category.{v₂} D]
@@ -86,7 +86,9 @@ private theorem autHom_whisker_trans
     autHomOfCompIso H (Functor.isoWhiskerLeft H t ≪≫ r) g =
       autHomOfCompIso H r (t.conjAut g) := by
   simp only [autHomOfCompIso_apply, Iso.trans_conjAut]
-  exact congrArg r.conjAut
+  apply congrArg r.conjAut
+  apply Aut.ext
+  exact
     (Functor.map_conjAut ((Functor.whiskeringLeft C D FintypeCat.{w}).obj H) t g).symm
 
 private theorem pointedFundamentalGroupHom_eq_comparison
@@ -136,8 +138,9 @@ private theorem pointedFundamentalGroupHom_square_apply
 private theorem iso_conjAut_symm_apply
     {C : Type u₁} [Category.{u₂} C] {P Q : C}
     (t : P ≅ Q) (a : Aut P) : t.symm.conjAut (t.conjAut a) = a := by
+  rw [← Iso.trans_conjAut, t.self_symm_id]
   apply Aut.ext
-  simp only [Iso.conjAut_hom, Iso.symm_self_conj]
+  simp only [Iso.conjAut_apply, Iso.refl_symm, Iso.refl_trans, Iso.trans_refl]
 
 /-- A coherent comparison square transports automorphisms through the inverse fibers. -/
 private theorem autHom_inverse_coherence

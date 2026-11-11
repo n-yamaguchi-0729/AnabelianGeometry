@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Classical.AbelianSheafFunctors
-import Mathlib.Algebra.Homology.DerivedCategory.Ext.Map
-import Mathlib.Algebra.Homology.ShortComplex.ShortExact
-import Mathlib.CategoryTheory.Sites.SheafCohomology.Basic
-import Mathlib.Algebra.Category.Grp.AB
-import Mathlib.AlgebraicGeometry.Sites.AffineEtale
-import Mathlib.CategoryTheory.Abelian.GrothendieckCategory.HasExt
+module
+
+public import Nyll.EtaleCohomology.Classical.AbelianSheafFunctors
+public import Mathlib.Algebra.Homology.DerivedCategory.Ext.Map
+public import Mathlib.Algebra.Homology.ShortComplex.ShortExact
+public import Mathlib.CategoryTheory.Sites.SheafCohomology.Basic
+public import Mathlib.Algebra.Category.Grp.AB
+public import Mathlib.AlgebraicGeometry.Sites.AffineEtale
+public import Mathlib.CategoryTheory.Abelian.GrothendieckCategory.HasExt
 
 /-!
 # Scheme pullback of actual constant-coefficient cohomology
@@ -23,6 +25,8 @@ inverse image of the original extension with these identifications.
 This constructs geometric pullback independently of the fundamental-group
 character comparison. Compatibility with monodromy is not assumed here.
 -/
+
+@[expose] public section
 
 noncomputable section
 

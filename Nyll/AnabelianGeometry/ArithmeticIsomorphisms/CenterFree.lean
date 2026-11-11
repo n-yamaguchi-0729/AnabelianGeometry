@@ -4,21 +4,23 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProperCurveSlim
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenCurveSlim
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenCoverH1Numerics
-import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricAbelianGaloisAction
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
-import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberIso
-import Nyll.AlgebraicCurves.Models.Construction.LiteralArithmeticCurveModel
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricGenus
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.CoefficientPullback
-import Nyll.SchemeTheory.FunctionFields.GeometricIntegrality
-import Nyll.SchemeTheory.Morphisms.GeometricallyIrreducibleConnected
-import Nyll.Yamaguchi26AbfaithfulGalois.FieldExamples.FinitelyGeneratedCharZero
-import Nyll.ProCGroups.FiniteStepSolvableQuotients.Faithful
-import Mathlib.AlgebraicGeometry.Noetherian
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProperCurveSlim
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenCurveSlim
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenCoverH1Numerics
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricAbelianGaloisAction
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberIso
+public import Nyll.AlgebraicCurves.Models.Construction.LiteralArithmeticCurveModel
+public import Nyll.AlgebraicCurves.Geometry.Curves.GeometricGenus
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.CoefficientPullback
+public import Nyll.SchemeTheory.FunctionFields.GeometricIntegrality
+public import Nyll.SchemeTheory.Morphisms.GeometricallyIrreducibleConnected
+public import Nyll.Yamaguchi26AbfaithfulGalois.FieldExamples.FinitelyGeneratedCharZero
+public import Nyll.ProCGroups.FiniteStepSolvableQuotients.Faithful
+public import Mathlib.AlgebraicGeometry.Noetherian
 
 /-! # Trivial centers of arithmetic hyperbolic curve groups
 
@@ -31,6 +33,8 @@ geometric model and base point are constructed internally.
 This concerns the full arithmetic fundamental group in characteristic zero.
 It does not assert center-freeness of arbitrary finite-step quotients.
 -/
+
+@[expose] public section
 
 noncomputable section
 

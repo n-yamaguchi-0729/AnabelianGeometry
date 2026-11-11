@@ -3,14 +3,18 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.RecoveredCoefficientTransitions
-import Mathlib.AlgebraicGeometry.Cover.MorphismProperty
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.RecoveredCoefficientTransitions
+public import Mathlib.AlgebraicGeometry.Cover.MorphismProperty
 
 /-!
 # Recovered Coefficient Recovery
 
 The recovered literal coefficient charts form an actual cover of the input scheme.
 -/
+
+@[expose] public section
 
 noncomputable section
 universe u

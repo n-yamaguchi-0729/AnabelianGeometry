@@ -12,11 +12,15 @@ Upstream NOTICE (Copyright 2026 Anthropic, PBC): https://github.com/anthropics/f
 Upstream per-file ATTRIBUTION: https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536de0d8e75b9a3e9ef/ATTRIBUTION.md
 -/
 
-import Nyll.AlgebraicCurves.Divisors.Maps.Maps
+module
+
+public import Nyll.AlgebraicCurves.Divisors.Maps.Maps
 
 /-!
 # Map Support
 -/
+
+@[expose] public section
 
 section
 

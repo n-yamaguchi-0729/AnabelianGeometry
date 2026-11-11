@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameExactness
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameQuotientCardinality
-import Mathlib.GroupTheory.Index
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameExactness
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameQuotientCardinality
+public import Mathlib.GroupTheory.Index
 
 /-!
 # Native coefficient-algebra owner of the intrinsic wild subgroup
@@ -17,6 +19,8 @@ This is the same existing principal-unit subgroup. Its raw automorphism
 Group and action are retained inside the native owner, so original field
 consumers do not reopen them beside their scalar towers.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -10,11 +10,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+module
+
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
 
 /-!
 # Place eval At map eq of comap eq
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

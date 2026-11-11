@@ -10,15 +10,19 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.JacobianVarieties.Autoduality.Cohomology
-import Mathlib.GroupTheory.FiniteAbelian.Duality
-import Mathlib.RingTheory.RootsOfUnity.EnoughRootsOfUnity
-import Mathlib.SetTheory.Cardinal.Finite
+module
+
+public import Nyll.JacobianVarieties.Autoduality.Cohomology
+public import Mathlib.GroupTheory.FiniteAbelian.Duality
+public import Mathlib.RingTheory.RootsOfUnity.EnoughRootsOfUnity
+public import Mathlib.SetTheory.Cardinal.Finite
 
 /-!
 An injective map from Picard torsion to its character group is bijective under the
 finite-cardinality and roots-of-unity hypotheses.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

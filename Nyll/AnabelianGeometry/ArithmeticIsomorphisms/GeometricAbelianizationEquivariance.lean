@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticKernelEquivalence
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticKernelEquivalence
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
 
 /-! # Equivariance of a specified geometric comparison
 
@@ -13,6 +15,8 @@ The arithmetic square determines the geometric comparison uniquely. Thus the
 same comparison, with its existing boundary labels, has Galois-equivariant
 abelianization, even when the arithmetic basepoints are specified separately.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry

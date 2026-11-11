@@ -7,6 +7,7 @@ import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareCanonicalFiniteBaseTra
 import Nyll.AnabelianGeometry.WeightFiltration.MatchedConstantGenericAmbient
 import Nyll.AnabelianGeometry.WeightFiltration.QuadraticScalarCanonicalBaseEquivariance
 import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConstantFieldStrictTransport
+import Nyll.ProCGroups.Topologies.ArithmeticInnerCorrectionFiberTransport
 
 /-! # Matched generic transport over the canonical finite base -/
 

@@ -4,15 +4,23 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointSurjective
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointSurjective
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AlgebraicClosureAction
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
 
 /-!
-# Detecting actual finite H¹ classes at a separably closed generic point
+# Detecting actual finite H¹ classes at a normal separably closed generic point
 
-The closure is arbitrary. This allows a geometric comparison made in the
-chosen constant-field extension to determine the actual global H¹ class.
+The normal overfield can be an actual algebraic closure in every
+characteristic. The actual field action determines the global H¹ class
+through its proved surjectivity on the original geometric fibre.
 -/
+
+@[expose] public section
+
+universe u
 
 noncomputable section
 
@@ -22,11 +30,12 @@ open TopologicalSpace
 namespace AlgebraicGeometry.FiniteEtale
 
 /-- Every automorphism of the geometric generic fibre of a normal integral
-scheme comes from a field automorphism of its chosen separable closure. -/
+scheme comes from a field automorphism of its chosen normal separably
+closed overfield. In particular, a genuine algebraic closure is allowed. -/
 theorem genericFieldAction_surjective
-    (X : Scheme) [IsIntegral X] [IsNormalIntegral X]
-    (Ω : Type) [Field Ω] [Algebra X.functionField Ω]
-    [IsSepClosed Ω] [IsSepClosure X.functionField Ω] :
+    (X : Scheme.{u}) [IsIntegral X] [IsNormalIntegral X]
+    (Ω : Type u) [Field Ω] [Algebra X.functionField Ω]
+    [IsSepClosed Ω] [Normal X.functionField Ω] :
     Function.Surjective (fun σ : Ω ≃ₐ[X.functionField] Ω =>
       fundamentalGroupHom (X.fromSpecStalk (genericPoint X))
         (Spec.map (CommRingCat.ofHom (algebraMap X.functionField Ω)))
@@ -43,26 +52,20 @@ theorem genericFieldAction_surjective
     exact subset_closure ⟨IsLocalRing.closedPoint (CommRingCat.of X.functionField),
       Scheme.fromSpecStalk_closedPoint (X := X) (x := genericPoint X)⟩
   have hj := fundamentalGroupHom_surjective_of_isPreimmersion_of_isDominant j η
-  have ha : Function.Surjective
-      (toAut (fib X.functionField Ω) (Ω ≃ₐ[X.functionField] Ω)) := by
-    intro g
-    obtain ⟨σ, hσ⟩ :=
-      (toAutHomeo (fib X.functionField Ω) (Ω ≃ₐ[X.functionField] Ω)).surjective g
-    exact ⟨σ, (toAutHomeo_apply _ σ).symm.trans hσ⟩
-  exact hj.comp ha
+  exact hj.comp (normalFieldAction_toAut_surjective X.functionField Ω)
 
 end AlgebraicGeometry.FiniteEtale
 
 namespace EtaleFundamentalGroups.Cohomology
 
 /-- Equality of actual finite H¹ classes is detected by their characters
-on field automorphisms at any chosen separably closed generic point. -/
+on field automorphisms at any chosen normal separably closed generic point. -/
 theorem finiteH1_ext_genericFieldAction
-    (X : Scheme) [IsIntegral X] [IsNormalIntegral X]
-    (Ω : Type) [Field Ω] [Algebra X.functionField Ω]
-    [IsSepClosed Ω] [IsSepClosure X.functionField Ω]
-    (A : AddCommGrpCat.{0}) [Finite A]
-    (a b : Sheaf.H.{0} ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{0}).obj A) 1) :
+    (X : Scheme.{u}) [IsIntegral X] [IsNormalIntegral X]
+    (Ω : Type u) [Field Ω] [Algebra X.functionField Ω]
+    [IsSepClosed Ω] [Normal X.functionField Ω]
+    (A : AddCommGrpCat.{u}) [Finite A]
+    (a b : Sheaf.H.{u} ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).obj A) 1) :
     let η := Spec.map (CommRingCat.ofHom (algebraMap X.functionField Ω))
     let ξ := η ≫ X.fromSpecStalk (genericPoint X)
     let : TopologicalSpace (Multiplicative A) := ⊥

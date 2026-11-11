@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameOrder
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
-import Mathlib.RingTheory.LocalRing.RingHom.Basic
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameOrder
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
+public import Mathlib.RingTheory.LocalRing.RingHom.Basic
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
 
 /-!
 # The actual finite ideal tame order is an invertible base-residue exponent
@@ -18,6 +20,8 @@ of the actual tame order in the upper local residue reflects to the original
 ring and then descends to its residue field. This constructs its literal
 index in the full prime-to-characteristic roots system.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,19 +4,21 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrime
-import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkHenselianEmbedding
-import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkHenselianMap
-import Mathlib.Algebra.Algebra.Basic
-import Mathlib.RingTheory.Ideal.GoingUp
-import Mathlib.RingTheory.Ideal.Maps
-import Mathlib.RingTheory.Ideal.Over
-import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
-import Mathlib.RingTheory.Localization.AtPrime.Basic
-import Mathlib.RingTheory.Localization.FractionRing
-import Mathlib.RingTheory.Localization.Integral
-import Mathlib.RingTheory.LocalRing.MaximalIdeal.Basic
-import Mathlib.RingTheory.LocalRing.RingHom.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrime
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkHenselianEmbedding
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkHenselianMap
+public import Mathlib.Algebra.Algebra.Basic
+public import Mathlib.RingTheory.Ideal.GoingUp
+public import Mathlib.RingTheory.Ideal.Maps
+public import Mathlib.RingTheory.Ideal.Over
+public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
+public import Mathlib.RingTheory.Localization.FractionRing
+public import Mathlib.RingTheory.Localization.Integral
+public import Mathlib.RingTheory.LocalRing.MaximalIdeal.Basic
+public import Mathlib.RingTheory.LocalRing.RingHom.Basic
 
 /-!
 # Embedding the actual geometric stalk in a normalization prime localization
@@ -31,6 +33,8 @@ original fraction-field data, not hypotheses about the stalk comparison.
 The fraction-field scalar construction is confined to the strict-target
 supplier; the geometric proof uses only the original A-algebra structure on L.
 -/
+
+@[expose] public section
 
 noncomputable section
 

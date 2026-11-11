@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.ProjectiveSpace.RationalPuncturePoint
-import Nyll.SchemeTheory.ProjectiveSpace.LinearCoordinateChange
-import Nyll.SchemeTheory.ProjectiveSpace.CoordinateChange
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.RationalPuncturePoint
+public import Nyll.SchemeTheory.ProjectiveSpace.LinearCoordinateChange
+public import Nyll.SchemeTheory.ProjectiveSpace.CoordinateChange
 
 /-! # Actual rational points under projective coordinate change -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry MvPolynomial

@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.Places.Rational.Basic
-import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
-import Nyll.AlgebraicCurves.Divisors.Correspondences.Correspondences
+module
+
+public import Nyll.AlgebraicCurves.Places.Rational.Basic
+public import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
+public import Nyll.AlgebraicCurves.Divisors.Correspondences.Correspondences
 
 /-! # Place restriction through the original field-chart square
 
@@ -14,6 +16,8 @@ coordinate field and the actual finite-cover function field on ONE side.
 It is supplied by the named cover's retained generic/coefficient equalities;
 there is no identification of the two different configurations' coordinates.
 -/
+@[expose] public section
+
 noncomputable section
 namespace AlgebraicCurve.Place
 

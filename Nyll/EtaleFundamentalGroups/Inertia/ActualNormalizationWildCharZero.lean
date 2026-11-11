@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationWildSubgroup
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaSeparation
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteWildProperties
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.Algebra.Group.Subgroup.Lattice
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationWildSubgroup
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaSeparation
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteWildProperties
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.Algebra.Group.Subgroup.Lattice
 
 /-!
 # Original wild inertia is trivial in residue characteristic zero
@@ -19,6 +21,8 @@ The finite principal-unit groups vanish by their actual arithmetic theorem.
 The proved faithfulness of all actual restrictions then detects the identity
 in the original inertia group.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

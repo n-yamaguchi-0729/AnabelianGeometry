@@ -3,11 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.KummerTheory.RatFuncCoordinatePlaceUniqueness
-import Nyll.SchemeTheory.ProjectiveSpace.Normalization
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.RatFuncCoordinatePlaceUniqueness
+public import Nyll.SchemeTheory.ProjectiveSpace.Normalization
 
 /-! Actual place restriction determines the square of the retained root coordinate.
 Literal cross-ratio formulas identify its normalized value and complement. -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicCurve
@@ -59,7 +63,8 @@ theorem crossRatio_standard_root_coordinate
     {K : Type} [Field K] (r₀ r : K) :
     crossRatio (affinePoint (0 : K)) infinityPoint (affinePoint r₀) (affinePoint r) =
       r / r₀ := by
-  simp [affinePoint, infinityPoint, crossRatio_mk, homogeneousCrossRatio, bracket]
+  simp only [affinePoint, infinityPoint, crossRatio_mk, homogeneousCrossRatio, bracket,
+    mul_one, mul_zero, sub_zero, zero_sub, mul_neg_one, neg_one_mul, neg_div_neg_eq]
 
 /-- Exchanging the zero and reference labels produces the complement under
 this project's actual cross-ratio convention. -/

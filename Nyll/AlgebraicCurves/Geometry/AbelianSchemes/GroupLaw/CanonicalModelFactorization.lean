@@ -11,7 +11,9 @@ AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
 
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawPullbackCompEqMulEq
+module
+
+public import Nyll.AbelianVarieties.Geometry.RelativeGroupLawPullbackCompEqMulEq
 
 /-!
 # Factoring through the canonical base-changed group model
@@ -19,6 +21,10 @@ import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawPul
 Retaining the explicit base-changed group law also retains its commutativity.
 The generic comparison preserves the original group operation.
 -/
+
+@[expose] public section
+
+universe u
 
 noncomputable section
 
@@ -31,13 +37,13 @@ namespace GoodReductionJacobian.RelativeGroupLaw
 /-- Factor an actual generic group-model comparison through a coefficient
 ring map, keeping the canonical base-changed group law in the conclusion. -/
 theorem exists_baseChange_model_map
-    {R R₁ R₂ : Type} [CommRing R] [CommRing R₁] [CommRing R₂]
-    {A : Scheme} {f : A ⟶ Spec (.of R)} (G : RelativeGroupLaw R f)
+    {R R₁ R₂ : Type u} [CommRing R] [CommRing R₁] [CommRing R₂]
+    {A : Scheme.{u}} {f : A ⟶ Spec (.of R)} (G : RelativeGroupLaw R f)
     (φ₁ : R₁ →+* R) (φ₂ : R₂ →+* R) (ψ : R₁ →+* R₂)
     (hψ : φ₂.comp ψ = φ₁)
-    {A₁ : Scheme} {f₁ : A₁ ⟶ Spec (.of R₁)} (G₁ : RelativeGroupLaw R₁ f₁)
+    {A₁ : Scheme.{u}} {f₁ : A₁ ⟶ Spec (.of R₁)} (G₁ : RelativeGroupLaw R₁ f₁)
     (a₁ : A ⟶ A₁) (ha₁ : IsPullback a₁ f f₁ (Spec.map (CommRingCat.ofHom φ₁)))
-    (hmul : ∀ (T : Scheme) (t : T ⟶ Spec (.of R)) (P Q : SchemeHomOver t f),
+    (hmul : ∀ (T : Scheme.{u}) (t : T ⟶ Spec (.of R)) (P Q : SchemeHomOver t f),
       (G.mul t P Q).1 ≫ a₁ =
         (G₁.mul (t ≫ Spec.map (CommRingCat.ofHom φ₁))
           ⟨P.1 ≫ a₁, by rw [Category.assoc, ha₁.w, ← Category.assoc, P.2]⟩
@@ -46,7 +52,7 @@ theorem exists_baseChange_model_map
     ∃ a₂ : A ⟶ pullback f₁ ι,
       ∃ ha₂ : IsPullback a₂ f (pullback.snd f₁ ι) (Spec.map (CommRingCat.ofHom φ₂)),
         a₂ ≫ pullback.fst f₁ ι = a₁ ∧
-        ∀ (T : Scheme) (t : T ⟶ Spec (.of R)) (P Q : SchemeHomOver t f),
+        ∀ (T : Scheme.{u}) (t : T ⟶ Spec (.of R)) (P Q : SchemeHomOver t f),
           (G.mul t P Q).1 ≫ a₂ =
             ((G₁.baseChange ι).mul (t ≫ Spec.map (CommRingCat.ofHom φ₂))
               ⟨P.1 ≫ a₂, by rw [Category.assoc, ha₂.w, ← Category.assoc, P.2]⟩

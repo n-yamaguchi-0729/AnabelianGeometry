@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.SchemePullback
-import Nyll.EtaleFundamentalGroups.Cohomology.ConstantPullbackSections
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.SchemePullback
+public import Nyll.EtaleFundamentalGroups.Cohomology.ConstantPullbackSections
 
 /-!
 # The actual H¹ lift cover commutes with geometric inverse image
@@ -15,6 +17,8 @@ lift sheaf is the lift sheaf over the original integer section on the new base.
 This is the lift sheaf of the extension representing the actual derived
 cohomology pullback, not an independently chosen replacement.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -10,29 +10,33 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.Fiber
-import Mathlib.AlgebraicGeometry.Pullbacks
-import Mathlib.RingTheory.Ideal.MinimalPrime.Localization
-import Mathlib.RingTheory.Localization.AtPrime.Basic
-import Mathlib.RingTheory.Localization.FractionRing
-import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
-import Mathlib.RingTheory.FiniteType
-import Mathlib.RingTheory.Valuation.ValuationSubring
-import Mathlib.AlgebraicGeometry.Geometrically.Connected
-import Mathlib.AlgebraicGeometry.Geometrically.Reduced
-import Mathlib.AlgebraicGeometry.Morphisms.Flat
-import Mathlib.AlgebraicGeometry.Morphisms.Proper
-import Mathlib.AlgebraicGeometry.Morphisms.Smooth
-import Mathlib.CategoryTheory.MorphismProperty.Limits
-import Mathlib.RingTheory.Spectrum.Prime.Defs
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyConnectedDescendsAlongSurjective
-import Nyll.ValuedFieldTheory.Valuation.DiscreteValuationField.LocalRingValuationSubringDVRDominates
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyIntegralSmooth
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyConnectedProperFlatGeometricallyReduced
+module
+
+public import Mathlib.AlgebraicGeometry.Fiber
+public import Mathlib.AlgebraicGeometry.Pullbacks
+public import Mathlib.RingTheory.Ideal.MinimalPrime.Localization
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
+public import Mathlib.RingTheory.Localization.FractionRing
+public import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
+public import Mathlib.RingTheory.FiniteType
+public import Mathlib.RingTheory.Valuation.ValuationSubring
+public import Mathlib.AlgebraicGeometry.Geometrically.Connected
+public import Mathlib.AlgebraicGeometry.Geometrically.Reduced
+public import Mathlib.AlgebraicGeometry.Morphisms.Flat
+public import Mathlib.AlgebraicGeometry.Morphisms.Proper
+public import Mathlib.AlgebraicGeometry.Morphisms.Smooth
+public import Mathlib.CategoryTheory.MorphismProperty.Limits
+public import Mathlib.RingTheory.Spectrum.Prime.Defs
+public import Nyll.SchemeTheory.Morphisms.GeometricallyConnectedDescent
+public import Nyll.ValuedFieldTheory.Valuation.DiscreteValuationField.LocalRingValuationSubringDVRDominates
+public import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyIntegralSmooth
+public import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyConnectedProperFlatGeometricallyReduced
 
 /-!
 # Descending geometric connectedness to a finitely generated base algebra
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -384,6 +388,41 @@ theorem exists_fg_subalgebra_of_geometricallyConnected_pullback_snd
     (algebraMap A₀ ↥T))))) :=
     MorphismProperty.of_isPullback (P := @GeometricallyConnected) sqA inferInstance
   exact of_ring (algebraMap A₀ ↥T) f R L φ ψ hψ hL c t hct
+
+
+open _root_.AlgebraicCurves.Geometry.Curves.Proofs in
+open GeometricallyConnected_exists_fg_subalgebra_of_geometricallyConnected_pullback_snd in
+open GeomConnDesc in
+/-- A proper smooth family over a Noetherian affine base is geometrically
+connected when its pullback along an injective coefficient map is so.
+In particular this applies to the original fraction-field map of an
+arithmetic model; no geometric connectedness of special fibres is assumed. -/
+theorem of_injective_coefficient_baseChange
+    {R A : Type u} [CommRing R] [IsNoetherianRing R] [CommRing A] [Algebra R A]
+    (hinj : Function.Injective (algebraMap R A))
+    {X : Scheme.{u}} (f : X ⟶ Spec (.of R)) [IsProper f] [Smooth f]
+    [GeometricallyConnected (pullback.snd f (Spec.map (CommRingCat.ofHom (algebraMap R A))))] :
+    GeometricallyConnected f := by
+  let g := pullback.snd f (Spec.map (CommRingCat.ofHom (RingHom.id R)))
+  have hg : GeometricallyConnected g := by
+    rw [GeometricallyConnected.iff_geometricallyConnected_fiber]
+    intro t
+    obtain ⟨B, L, _, _, _, _, _, φ, ψ, α, hψ, hcomp, c, hct⟩ :=
+      exists_ring (algebraMap R A) hinj t
+    have hfac : α.comp (algebraMap R A) = (ψ.comp φ).comp (RingHom.id R) := by
+      simpa only [RingHom.comp_id] using hcomp.symm
+    obtain ⟨πA, sqA⟩ := exists_isPullback_comp (algebraMap R A) α hfac f
+    have hL : GeometricallyConnected
+        (pullback.snd f (Spec.map (CommRingCat.ofHom ((ψ.comp φ).comp (RingHom.id R))))) :=
+      MorphismProperty.of_isPullback (P := @GeometricallyConnected) sqA inferInstance
+    exact of_ring (RingHom.id R) f B L φ ψ hψ hL c t hct
+  have hbase : Surjective (Spec.map (CommRingCat.ofHom (RingHom.id R))) := by
+    change Surjective (Spec.map (𝟙 (CommRingCat.of R)))
+    rw [Spec.map_id]
+    infer_instance
+  exact MorphismProperty.of_isPullback_of_descendsAlong
+    (P := @GeometricallyConnected) (Q := @Surjective)
+    (IsPullback.of_hasPullback f (Spec.map (CommRingCat.ofHom (RingHom.id R)))).flip hbase hg
 
 end AlgebraicGeometry.GeometricallyConnected
 end ProofImplementation

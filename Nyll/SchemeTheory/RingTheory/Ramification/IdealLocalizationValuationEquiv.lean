@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.AbhyankarLemma.Geometry.Inertia.IdealLocalization
-import Mathlib.RingTheory.Localization.Basic
+module
+
+public import Nyll.SchemeTheory.AbhyankarLemma.Geometry.Inertia.IdealLocalization
+public import Mathlib.RingTheory.Localization.Basic
 
 /-!
 # Prime localization and its valuation-ring model
@@ -14,6 +16,8 @@ Constructs the canonical ring equivalence between a Dedekind prime localization 
 valuation-ring model in the fraction field. Computation lemmas identify its values on the
 original coefficients.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -30,7 +34,7 @@ local instance idealLocalizationValuationAlgebra :
   change Algebra B (idealLocalizationSubalgebra B L Q)
   infer_instance
 
-private theorem idealLocalizationValuation_isLocalization :
+theorem idealLocalizationValuation_isLocalization :
     IsLocalization.AtPrime (idealLocalizationValuationSubring B L Q hQ) Q := by
   change IsLocalization.AtPrime (idealLocalizationSubalgebra B L Q) Q
   infer_instance

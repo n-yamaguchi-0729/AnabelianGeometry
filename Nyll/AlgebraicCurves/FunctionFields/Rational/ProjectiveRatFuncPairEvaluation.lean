@@ -3,14 +3,16 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairEvaluation
-import Nyll.SchemeTheory.ProjectiveSpace.Normalization
-import Nyll.AlgebraicCurves.Places.Rational.Classification
-import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncOrdXSubC
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncEvalAtPlaceInftyEq
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncEvalAtPlaceOfPointAlgebraMap
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairEvaluation
+public import Nyll.SchemeTheory.ProjectiveSpace.Normalization
+public import Nyll.AlgebraicCurves.Places.Rational.Classification
+public import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncOrdXSubC
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncEvalAtPlaceInftyEq
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncEvalAtPlaceOfPointAlgebraMap
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
 
 /-! # Explicit projective pair functions and their actual place evaluations
 
@@ -20,6 +22,8 @@ its evaluation is the homogeneous bracket quotient. Comparison of all orders
 then reads the normalized values of any given pair function as cross ratios.
 No replacement of that given function occurs in the conclusion.
 -/
+
+@[expose] public section
 
 noncomputable section
 attribute [local instance] Classical.propDecidable

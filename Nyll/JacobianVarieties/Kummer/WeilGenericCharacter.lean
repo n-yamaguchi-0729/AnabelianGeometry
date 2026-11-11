@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.CurveCoverNormalizedRoot
-import Nyll.JacobianVarieties.WeilPairing.DivisionDifference
-import Nyll.AlgebraicCurves.Divisors.KummerRootEvaluation
+module
+
+public import Nyll.JacobianVarieties.Kummer.CurveCoverNormalizedRoot
+public import Nyll.JacobianVarieties.WeilPairing.DivisionDifference
+public import Nyll.AlgebraicCurves.Divisors.KummerRootEvaluation
 
 /-!
 # Evaluation divisors compute the actual generic Kummer character
@@ -21,6 +23,8 @@ evaluation and evaluation at the lifted basepoint. The fixed-divisor and
 fixed-function identities are supplied by constant extension.
 -/
 
+@[expose] public section
+
 noncomputable section
 
 universe u v w
@@ -30,8 +34,6 @@ open scoped FintypeCatDiscrete Pointwise
 
 namespace AlgebraicCurve.CurveModel
 
-attribute [local instance] IsSepClosure.sep_closed
-
 /-- The Weil datum of a semilinear division difference computes the actual
 generic Kummer character. The root is constructed by evaluation and its
 equation is proved by Weil reciprocity. -/
@@ -40,7 +42,7 @@ theorem exists_weilDatum_pairing_eq_generic_kummer
     {F : Type v} [Field F] [Algebra K F]
     (M : CurveModel K F) (n : ℕ+) (u : Pic0.kummerUnits K F n)
     {Ω : Type u} [Field Ω] [IsAlgClosed Ω]
-    [Algebra M.C.functionField Ω] [IsSepClosure M.C.functionField Ω]
+    [Algebra M.C.functionField Ω]
     {F' : Type w} [Field F'] [Algebra Ω F']
     [Algebra (RatFunc Ω) F'] [IsScalarTower Ω (RatFunc Ω) F']
     [FiniteDimensional (RatFunc Ω) F'] [HasPrincipalDivisors Ω F']
@@ -102,6 +104,7 @@ theorem exists_weilDatum_pairing_eq_generic_kummer
     WeilDatum.exists_semilinearDivisionDifference (n : ℕ) D E
       (Finsupp.single x 1 + Finsupp.single ε (-1)) f g hf hg
       hfdiv hgdiv hDE hDB θ hθf hθD hθB
+      (fun w _ => w.isRational_of_isAlgClosed) (fun w _ => w.isRational_of_isAlgClosed)
   refine ⟨d, hD₁, hD₂, hf₁, hf₂, ?_⟩
   have hchar := M.kummerMonodromyCharacter_generic_mul_normalized_root
     n u a ha β hroot hn σ

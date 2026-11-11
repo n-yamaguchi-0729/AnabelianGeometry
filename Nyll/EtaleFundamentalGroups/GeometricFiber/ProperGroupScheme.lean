@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.Kernel
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.MultiplicationMorphisms
-import Nyll.AlgebraicCurves.Geometry.Picard.GroupLaw.RelativeGroupLaw
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ProperKunneth
-import Mathlib.AlgebraicGeometry.Noetherian
+module
+
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.Kernel
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.MultiplicationMorphisms
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.Basic
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ProperKunneth
+public import Mathlib.AlgebraicGeometry.Noetherian
 
 /-!
 # The fundamental group of a proper smooth group scheme
@@ -19,6 +21,8 @@ Künneth comparison identify its induced map with group multiplication.
 Consequently the fundamental group is commutative. Multiplication by an
 integer induces the corresponding power map, with the unit basepoint fixed.
 -/
+
+@[expose] public section
 
 noncomputable section
 

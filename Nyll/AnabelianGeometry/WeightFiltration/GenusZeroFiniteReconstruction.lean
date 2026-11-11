@@ -4,13 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroFiniteModels
-import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.GeometricBasePoint
-import Nyll.AnabelianGeometry.WeightFiltration.AlignedRationalModelAmbient
-import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticAlignedCoefficientEmbedding
-import Nyll.AnabelianGeometry.WeightFiltration.AlignedRationalModelReconstruction
-import Nyll.SchemeTheory.FunctionFields.GeometricIntegrality
-import Nyll.SchemeTheory.Morphisms.GeometricallyIrreducibleConnected
+module
+
+public import Nyll.GaloisCohomology.FieldTheory.FinitelyGeneratedExtensions
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedBaseIsomorphism
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroFiniteModels
+public import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.GeometricBasePoint
+public import Nyll.AnabelianGeometry.WeightFiltration.AlignedRationalModelAmbient
+public import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticAlignedCoefficientEmbedding
+public import Nyll.AnabelianGeometry.WeightFiltration.AlignedRationalModelReconstruction
+public import Nyll.SchemeTheory.FunctionFields.GeometricIntegrality
+public import Nyll.SchemeTheory.Morphisms.GeometricallyIrreducibleConnected
+public import Nyll.ProCGroups.Topologies.ArithmeticInnerCorrectionFiberTransport
 
 /-! # Finite reconstruction from the original genus-zero opens
 
@@ -21,6 +26,8 @@ finite rational models are used. The conclusion retains their ambient squares,
 the literal point comparisons, and the same correction and reconstruction
 produced by the split theorem, for subsequent Galois descent.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits CategoryTheory.PreGaloisCategory
@@ -100,7 +107,7 @@ private theorem exists_aligned_fiber_comparisons
 /-- The actual finite rational models, ambient comparisons, inertia matching and
 projective transformation retained for fixed aligned geometric points. -/
 def genusZeroFiniteReconstructionResult
-    (k : Type) [Field k] [NumberField k]
+    (k : Type) [Field k] [CharZero k] [Field.FG k]
     {C₁ C₂ : Scheme}
     (c₁ : C₁ ⟶ Spec (.of k)) (c₂ : C₂ ⟶ Spec (.of k))
     [GeometricallyIntegral c₁]
@@ -134,7 +141,10 @@ def genusZeroFiniteReconstructionResult
       let _hkκΩ₂ : IsScalarTower k κ Ω₂ :=
         IsScalarTower.of_algebraMap_eq (fun a => (b₂.commutes a).symm)
       ∃ E : FiniteGaloisIntermediateField k κ,
-      let _hE : NumberField E := NumberField.of_module_finite k E
+      let _hcharE : CharZero E :=
+        charZero_of_injective_algebraMap (algebraMap k E).injective
+      let _hE : Field.FG E :=
+        FieldTheory.fg_of_finiteDimensional k E (inferInstance : Field.FG k)
       let _hEκ : IsAlgClosure E κ :=
         ⟨inferInstance, Algebra.IsAlgebraic.tower_top (K := k) (L := E) (A := κ)⟩
       let _hFE : IsFiniteEtale (Spec.map (CommRingCat.ofHom (algebraMap k E))) :=
@@ -223,7 +233,7 @@ def genusZeroFiniteReconstructionResult
           (rationalConfigurationOpen s).ι ≫ π E 1
 
 private theorem exists_reconstruction_of_aligned_fibers
-    (k : Type) [Field k] [NumberField k]
+    (k : Type) [Field k] [CharZero k] [Field.FG k]
     {C₁ C₂ : Scheme}
     (c₁ : C₁ ⟶ Spec (.of k)) (c₂ : C₂ ⟶ Spec (.of k))
     [IsProper c₁] [SmoothOfRelativeDimension 1 c₁] [GeometricallyIntegral c₁]
@@ -290,7 +300,7 @@ private theorem exists_reconstruction_of_aligned_fibers
     exists_common_rational_models_of_geometricGenus_zero
       k c₁ c₂ U₁ U₂ hU₁ hU₂ hg₁ hg₂ hr₁ hr₂
   refine ⟨E, ?_⟩
-  intro hE hEκ hFE
+  intro hcharE hE hEκ hFE
   refine ⟨s, t, hs, ht, I₁, I₂, hproper₁, hproper₂,
     Js, Jt, hJs, hJt, hJsambient, hJtambient, ?_⟩
   intro Ys Yt Zs Zt Jκs Jκt
@@ -329,7 +339,7 @@ private theorem exists_reconstruction_of_aligned_fibers
 The only curve data supplied are the compactifications, nonempty opens, genus
 zero, at least three geometric punctures, and the original arithmetic isomorphism. -/
 theorem exists_genusZero_finite_reconstruction
-    (k : Type) [Field k] [NumberField k]
+    (k : Type) [Field k] [CharZero k] [Field.FG k]
     {C₁ C₂ : Scheme}
     (c₁ : C₁ ⟶ Spec (.of k)) (c₂ : C₂ ⟶ Spec (.of k))
     [IsProper c₁] [SmoothOfRelativeDimension 1 c₁] [GeometricallyIntegral c₁]

@@ -4,15 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueCoefficient
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueLocalization
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeMaximalResidue
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueEpi
-import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
-import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
+module
 
-import Mathlib.RingTheory.Ideal.Pointwise
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueCoefficient
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueLocalization
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeMaximalResidue
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueEpi
+public import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
+public import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
+
+public import Mathlib.RingTheory.Ideal.Pointwise
 
 /-!
 # Native residue actions on roots
@@ -20,6 +22,8 @@ import Mathlib.RingTheory.Ideal.Pointwise
 Constructs local residue-root group objects and maps induced by quotient automorphisms.
 Identifies the native residue morphism with the localization roots action.
 -/
+
+@[expose] public section
 
 noncomputable section
 

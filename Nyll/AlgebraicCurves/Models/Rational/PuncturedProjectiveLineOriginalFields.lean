@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
-import Nyll.AlgebraicCurves.Models.Charts.OpenChartGenericPoints
+module
+
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
+public import Nyll.AlgebraicCurves.Models.Charts.OpenChartGenericPoints
 
 /-! # Original arithmetic function field in the fixed geometric ambient field
 
@@ -13,6 +15,8 @@ The algebras are composites of the existing arithmetic and geometric chart
 equivalences. The same ambient field remains unchanged. Closure, tower and
 point-square properties are proved, with no additional compatibility input.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve
@@ -22,16 +26,15 @@ namespace AlgebraicGeometry.ProjSpace
 
 attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
   rationalConfigurationGeometricFieldAlgebra rationalConfigurationGeometricConstantAlgebra
+  rationalConfigurationAmbientSMulRatFunc
 
-local instance (priority := 2000) originalFieldSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E] [Algebra A (RatFunc E)] :
-    SMul A (RatFunc E) := (inferInstance : Algebra A (RatFunc E)).toSMul
-
-private abbrev originalFieldArithmeticScheme
+/-- The original rational open over the arithmetic coefficient field. -/
+abbrev originalFieldArithmeticScheme
     (k : Type) [Field k] (s : Finset (Projectivization k (k × k))) : Scheme :=
   (rationalConfigurationOpen s : Scheme)
 
-private abbrev originalFieldGeometricScheme
+/-- The same rational open after the specified extension of constants. -/
+abbrev originalFieldGeometricScheme
     (k κ : Type) [Field k] [Field κ] [Algebra k κ]
     (s : Finset (Projectivization k (k × k))) : Scheme :=
   Limits.pullback (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
@@ -76,17 +79,18 @@ attribute [local instance] rationalConfigurationOriginalFieldAlgebra
   rationalConfigurationOriginalConstantAlgebra
   rationalConfigurationOriginalFieldExtensionAlgebra
 
+omit [Infinite k] in
 /-- Exact instance and point suppliers for the named arithmetic/geometric
 Kummer-fiber comparison on the bare rational configuration. -/
 theorem rationalConfigurationOriginalField_suppliers
     [CharZero k] [Algebra.IsAlgebraic k κ]
     [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω] :
-    letI : Algebra (originalFieldArithmeticScheme k s).functionField Ω :=
+    let : Algebra (originalFieldArithmeticScheme k s).functionField Ω :=
       rationalConfigurationOriginalAmbientAlgebra k κ s Ω
-    letI : Algebra (RatFunc κ) Ω := rationalConfigurationGeometricAmbientAlgebra k κ s Ω
-    letI : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
-    letI : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
-    letI : Algebra k Ω := rationalConfigurationBaseAmbientAlgebra k κ s Ω
+    let : Algebra (RatFunc κ) Ω := rationalConfigurationGeometricAmbientAlgebra k κ s Ω
+    let : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
+    let : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
+    let : Algebra k Ω := rationalConfigurationBaseAmbientAlgebra k κ s Ω
     IsScalarTower (RatFunc k) (originalFieldArithmeticScheme k s).functionField Ω ∧
       IsScalarTower (originalFieldArithmeticScheme k s).functionField
         (originalFieldGeometricScheme k κ s).functionField Ω ∧
@@ -103,12 +107,7 @@ theorem rationalConfigurationOriginalField_suppliers
       ((originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω ≫
           (rationalConfigurationBaseChangeChart k κ s ≫ π κ 1) =
         Spec.map (CommRingCat.ofHom (algebraMap κ Ω))) := by
-  let : Algebra (originalFieldArithmeticScheme k s).functionField Ω :=
-    rationalConfigurationOriginalAmbientAlgebra k κ s Ω
-  let : Algebra (RatFunc κ) Ω := rationalConfigurationGeometricAmbientAlgebra k κ s Ω
-  let : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
-  let : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
-  let : Algebra k Ω := rationalConfigurationBaseAmbientAlgebra k κ s Ω
+  intro sharedOwner1 sharedOwner2 sharedOwner3 sharedOwner4 sharedOwner5
   have ht := rationalConfigurationAmbient_scalarTowers k κ s Ω
   let : IsScalarTower κ (RatFunc κ) Ω := ht.2.1
   let : IsScalarTower (RatFunc k) (RatFunc κ) Ω := ht.2.2.2.1

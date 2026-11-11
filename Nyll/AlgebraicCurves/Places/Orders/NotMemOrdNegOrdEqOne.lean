@@ -10,22 +10,26 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
-import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
-import Nyll.AlgebraicCurves.Cohomology.Adelic.Index
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveSeparatingTranscendental
-import Nyll.AlgebraicCurves.Places.Orders.OrdNegTranscendental
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.FiniteDimensionalLSpaceZero
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Genus.AdelicGenus
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Index.AdicValuationSubLeRiemannGenus
-import Nyll.AlgebraicCurves.Places.Basic
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.SectionBounds
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncIndexOfSpecialtyFinite
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Index.RiemannGenusBoundedIndexFinite
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
+public import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
+public import Nyll.AlgebraicCurves.Cohomology.Adelic.Index
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveSeparatingTranscendental
+public import Nyll.AlgebraicCurves.Places.Orders.OrdNegTranscendental
+public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.FiniteDimensionalLSpaceZero
+public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Genus.AdelicGenus
+public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Index.AdicValuationSubLeRiemannGenus
+public import Nyll.AlgebraicCurves.Places.Basic
+public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.SectionBounds
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncIndexOfSpecialtyFinite
+public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Index.RiemannGenusBoundedIndexFinite
 
 /-!
 # Exists place not Mem ord neg and forall ord eq one
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -63,20 +67,8 @@ variable {K : Type*} [Field K]
 variable {F : Type*} [Field F] [Algebra K F]
 
 private theorem ord_nonneg_of_mem' (v : Place K F) {f : F}
-    (hf : f ∈ v.toValuationSubring) : 0 ≤ v.ord f := by
-  rcases eq_or_ne f 0 with rfl | hf0
-  · rw [v.ord_zero]
-  obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
-  obtain ⟨n, u, hu⟩ :=
-    IsDiscreteValuationRing.eq_unit_mul_pow_irreducible
-      (x := (⟨f, hf⟩ : v.toValuationSubring)) (by simpa [Subtype.ext_iff] using hf0) hπ
-  have hcoe : f = ((u : v.toValuationSubring) : F) * ((π : F) ^ (n : ℤ)) := by
-    have h := congrArg (Subtype.val) hu
-    push_cast at h
-    rw [zpow_natCast]
-    exact h
-  rw [hcoe, v.ord_unit_smul_zpow u hπ (n : ℤ)]
-  exact Int.natCast_nonneg n
+    (hf : f ∈ v.toValuationSubring) : 0 ≤ v.ord f :=
+  _root_.AlgebraicCurve.Place.ord_nonneg_of_mem v hf
 
 private theorem mem_of_ord_nonneg' (v : Place K F) {f : F} (hf : f ≠ 0)
     (h : 0 ≤ v.ord f) : f ∈ v.toValuationSubring := by

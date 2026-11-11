@@ -4,19 +4,21 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Sites.Subcanonical
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Geometry
-import Nyll.EtaleFundamentalGroups.Pi1.FiniteEtale.GaloisCategory
-import Mathlib.AlgebraicGeometry.Sites.EtalePoint
-import Mathlib.CategoryTheory.MorphismProperty.Comma
-import Mathlib.CategoryTheory.Adjunction.Basic
-import Mathlib.CategoryTheory.HomCongr
-import Mathlib.CategoryTheory.Sites.Canonical
-import Mathlib.CategoryTheory.Sites.Point.Basic
-import Mathlib.CategoryTheory.ShrinkYoneda
-import Mathlib.CategoryTheory.Comma.Over.Pullback
-import Mathlib.CategoryTheory.FintypeCat
+module
+
+public import Nyll.EtaleCohomology.Sites.Subcanonical
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Geometry
+public import Nyll.EtaleFundamentalGroups.Pi1.FiniteEtale.GaloisCategory
+public import Mathlib.AlgebraicGeometry.Sites.EtalePoint
+public import Mathlib.CategoryTheory.MorphismProperty.Comma
+public import Mathlib.CategoryTheory.Adjunction.Basic
+public import Mathlib.CategoryTheory.HomCongr
+public import Mathlib.CategoryTheory.Sites.Canonical
+public import Mathlib.CategoryTheory.Sites.Point.Basic
+public import Mathlib.CategoryTheory.ShrinkYoneda
+public import Mathlib.CategoryTheory.Comma.Over.Pullback
+public import Mathlib.CategoryTheory.FintypeCat
 
 /-!
 # Sheaves represented by finite étale covers
@@ -35,6 +37,8 @@ This supplies the represented-sheaf and fiber comparison needed for
 https://stacks.math.columbia.edu/tag/09Y8 . The converse representability
 of finite locally constant sheaves is a subsequent step.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -66,7 +70,9 @@ def finiteEtaleSheafFullyFaithful (X : Scheme.{u}) :
     (Q := ⊤) (W := ⊤) (fun _ _ _ hf => hf.toEtale)).comp
       X.smallEtaleTopology.yonedaFullyFaithful
 
-private def representableSheafFiberIso {C : Type v} [Category.{u} C]
+/-- The existing Yoneda fiber comparison identifies the stalk of every represented
+sheaf with the value of the original point functor. -/
+def representableSheafFiberIso {C : Type v} [Category.{u} C]
     {J : GrothendieckTopology C} [J.Subcanonical] (Φ : J.Point.{u}) :
     J.yoneda ⋙ Φ.sheafFiber ≅ Φ.fiber := by
   change yoneda ⋙ Φ.presheafFiber ≅ Φ.fiber
@@ -82,18 +88,21 @@ def finiteEtaleSheafStalkIso {X : Scheme.{u}} {Ω : Type u} [Field Ω] [IsSepClo
     Functor.isoWhiskerLeft (finiteEtaleToEtale X)
       (representableSheafFiberIso (Scheme.pointSmallEtale s))
 
-private def finiteEtalePoint (Ω : Type u) [Field Ω] : FiniteEtale (Spec (.of Ω)) :=
+/-- The identity finite étale object over the geometric-point field. -/
+def finiteEtalePoint (Ω : Type u) [Field Ω] : FiniteEtale (Spec (.of Ω)) :=
   MorphismProperty.Over.mk (⊤ : MorphismProperty Scheme.{u}) (𝟙 (Spec (.of Ω)))
     (show IsFiniteEtale (𝟙 (Spec (.of Ω))) from ⟨⟩)
 
-private def finiteEtaleSectionEquivPoints {Ω : Type u} [Field Ω] [IsSepClosed Ω]
+/-- Sections of a finite étale object over a separably closed field are its points. -/
+def finiteEtaleSectionEquivPoints {Ω : Type u} [Field Ω] [IsSepClosed Ω]
     (W : FiniteEtale (Spec (.of Ω))) :
     (finiteEtalePoint Ω ⟶ W) ≃ W.left :=
   (FiniteEtale.equivFintypeCat Ω).fullyFaithfulFunctor.homEquiv.trans
     ((InducedCategory.homEquiv.trans TypeCat.homEquiv).trans
       (Equiv.funUnique (Spec (.of Ω)) W.left))
 
-private def finiteEtaleGeometricHomEquivFiber {X : Scheme.{u}} {Ω : Type u}
+/-- Original geometric-point lifts identify with the finite étale geometric fiber. -/
+def finiteEtaleGeometricHomEquivFiber {X : Scheme.{u}} {Ω : Type u}
     [Field Ω] [IsSepClosed Ω] (s : Spec (.of Ω) ⟶ X) (W : FiniteEtale X) :
     (Over.mk s ⟶ (FiniteEtale.forget X).obj W) ≃ (FiniteEtale.fiber s).obj W := by
   let e : (Over.map s).obj (Over.mk (𝟙 (Spec (.of Ω)))) ≅ Over.mk s :=
@@ -122,7 +131,8 @@ private lemma finiteEtaleGeometricHomEquivFiber_apply {X : Scheme.{u}} {Ω : Typ
       (𝟙 (Spec (.of Ω))) _) (default : Spec (.of Ω)) = _
   simp only [Category.id_comp, Category.comp_id]
 
-private def finiteEtaleGeometricFiberIso {X : Scheme.{u}} {Ω : Type u}
+/-- The geometric-point functor agrees naturally with the finite étale fiber functor. -/
+def finiteEtaleGeometricFiberIso {X : Scheme.{u}} {Ω : Type u}
     [Field Ω] [IsSepClosed Ω] (s : Spec (.of Ω) ⟶ X) :
     finiteEtaleToEtale X ⋙ (Scheme.pointSmallEtale s).fiber ≅
       FiniteEtale.fiber s ⋙ forget FintypeCat :=

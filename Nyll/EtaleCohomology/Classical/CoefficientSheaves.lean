@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Classical.ModuleCohomology
-import Mathlib.Algebra.Category.Grp.ZModuleEquivalence
-import Mathlib.Algebra.Category.ModuleCat.ChangeOfRings
-import Mathlib.Algebra.Category.ModuleCat.Abelian
-import Mathlib.Algebra.Category.Grp.FilteredColimits
-import Mathlib.CategoryTheory.Adjunction.Basic
-import Mathlib.CategoryTheory.Sites.Adjunction
-import Mathlib.Algebra.Homology.ShortComplex.ShortExact
+module
+
+public import Nyll.EtaleCohomology.Classical.ModuleCohomology
+public import Mathlib.Algebra.Category.Grp.ZModuleEquivalence
+public import Mathlib.Algebra.Category.ModuleCat.ChangeOfRings
+public import Mathlib.Algebra.Category.ModuleCat.Abelian
+public import Mathlib.Algebra.Category.Grp.FilteredColimits
+public import Mathlib.CategoryTheory.Adjunction.Basic
+public import Mathlib.CategoryTheory.Sites.Adjunction
+public import Mathlib.Algebra.Homology.ShortComplex.ShortExact
 
 /-!
 # Exactness of forgetting coefficients
@@ -21,6 +23,8 @@ supply both adjoints to the coefficient-forgetting functor. This also supplies
 sheaf composition on sites whose object universe is larger than the coefficients.
 -/
 
+
+@[expose] public section
 
 noncomputable section
 

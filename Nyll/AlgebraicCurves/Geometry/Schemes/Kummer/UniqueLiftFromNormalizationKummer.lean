@@ -10,14 +10,18 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.Normalization
-import Mathlib.AlgebraicGeometry.Morphisms.Etale
+module
 
-import Nyll.SchemeTheory.RingTheory.Etale.IntegrallyClosedIntegralClosureEqAdjoinEtaleFinite
+public import Mathlib.AlgebraicGeometry.Normalization
+public import Mathlib.AlgebraicGeometry.Morphisms.Etale
+
+public import Nyll.SchemeTheory.RingTheory.Etale.IntegrallyClosedIntegralClosureEqAdjoinEtaleFinite
 
 /-!
 # exists Unique lift from Normalization kummer of is Affine Open
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -221,11 +225,11 @@ theorem yval_res {V V' : X.Opens} [Nonempty V] [Nonempty V'] (hV : IsAffineOpen 
     CommRingCat.comp_apply, secIso_hom_res]
 
 theorem normalizationObjIso_hom_app (V : X.Opens) [Nonempty V] (hV : IsAffineOpen V) (r : Γ(X, V)) :
-    letI := ((fK k g).app V).hom.toAlgebra
+    let := ((fK k g).app V).hom.toAlgebra
     ((fK k g).normalizationObjIso hV).hom ((fK k g).fromNormalization.app V r) =
       algebraMap Γ(X, V) (integralClosure Γ(X, V) Γ(Spec (CommRingCat.of (KA k g)), (fK k g) ⁻¹ᵁ
         V)) r := by
-  let := ((fK k g).app V).hom.toAlgebra
+  intro sharedOwner1
   rw [(fK k g).fromNormalization_app hV]
   change (((fK k g).normalizationObjIso hV).inv ≫ ((fK k g).normalizationObjIso hV).hom)
     (algebraMap _ _ r) = _
@@ -378,9 +382,9 @@ theorem existsUnique_algHom (hnorm : ∀ x : X, IsIntegrallyClosed (X.presheaf.s
     (T : Γ((fK k g).normalization, (fK k g).fromNormalization ⁻¹ᵁ V))
     (hT : yval k g V hV T = algebraMap X.functionField (KA k g) h⁻¹ * AdjoinRoot.root _)
     (C : Type u) [CommRing C] [Algebra Γ(X, V) C] (c : C) (hc : c ^ k = algebraMap Γ(X, V) C uV) :
-    letI := ((fK k g).fromNormalization.app V).hom.toAlgebra
+    let := ((fK k g).fromNormalization.app V).hom.toAlgebra
     ∃! χ : Γ((fK k g).normalization, (fK k g).fromNormalization ⁻¹ᵁ V) →ₐ[Γ(X, V)] C, χ T = c := by
-  let algB := ((fK k g).fromNormalization.app V).hom.toAlgebra
+  intro algB
   let algS := ((fK k g).app V).hom.toAlgebra
   have : IsIntegrallyClosed Γ(X, V) := isIntegrallyClosed_sections V hV hnorm
   have : IsFractionRing Γ(X, V) X.functionField := functionField_isFractionRing_of_isAffineOpen X V

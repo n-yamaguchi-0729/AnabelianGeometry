@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Morphisms.GeometricallyIntegralFieldDescent
-import Nyll.SchemeTheory.Morphisms.GeometricallyIntegralDescent
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyIntegralAlgClosed
+module
+
+public import Nyll.SchemeTheory.Morphisms.GeometricallyIntegralFieldDescent
+public import Nyll.SchemeTheory.Morphisms.GeometricallyIntegralDescent
+public import Nyll.SchemeTheory.Morphisms.GeometricallyIntegralAlgClosed
 
 /-!
 # Geometric integrality from the original recovered cover
@@ -16,6 +18,8 @@ Geometric integrality then descends over the coefficient field and extends
 across the given dense open compactification. The cover and its point are
 not replaced, and the coefficient field is not enlarged.
 -/
+
+@[expose] public section
 
 noncomputable section
 

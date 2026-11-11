@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.CuspidalInertia.ConnectedCoverCuspKernel
-import Nyll.AnabelianGeometry.WeightFiltration.CommonOpenCompactificationKernel
+module
+
+public import Nyll.AnabelianGeometry.CuspidalInertia.ConnectedCoverCuspKernel
+public import Nyll.AnabelianGeometry.WeightFiltration.CommonOpenCompactificationKernel
 
 /-! # The relative kernel at the actual recovered point
 
@@ -15,6 +17,8 @@ connected-cover theorem to apply; its generic embedding reconstructs the
 prescribed point exactly. The given proper compactification is compared by
 the common-open theorem, using its actual structural square.
 -/
+
+@[expose] public section
 
 noncomputable section
 

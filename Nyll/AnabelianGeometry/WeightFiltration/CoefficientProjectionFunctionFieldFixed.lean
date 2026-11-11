@@ -3,11 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.GenericPointNaturality
-import Nyll.AlgebraicCurves.Models.ConstantExtension.SemilinearFunctionField
-import Nyll.AlgebraicCurves.Models.ConstantExtension.BaseChangeSemilinearAction
+module
+
+public import Nyll.SchemeTheory.FunctionFields.GenericPointNaturality
+public import Nyll.AlgebraicCurves.Models.ConstantExtension.SemilinearFunctionField
+public import Nyll.AlgebraicCurves.Models.ConstantExtension.BaseChangeSemilinearAction
 
 /-! # CoefficientProjectionFunctionFieldFixed -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve

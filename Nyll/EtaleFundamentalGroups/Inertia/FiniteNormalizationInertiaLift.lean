@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.NormalizationAutomorphismSurjectivity
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+module
+
+public import Nyll.SchemeTheory.Normalization.NormalizationAutomorphismSurjectivity
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
 
 /-!
 # Lifting normalization inertia to finite fields
@@ -13,6 +15,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
 Transfers the inertia difference condition through normalization restriction and lifts intrinsic
 finite-normalization inertia to finite-field inertia.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.FiniteEtale.PointSections
-import Nyll.SchemeTheory.FiniteEtale.Algebra.PointSpecialization
-import Nyll.EtaleFundamentalGroups.GeometricFiber.BasePoint
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+module
+
+public import Nyll.SchemeTheory.FiniteEtale.PointSections
+public import Nyll.SchemeTheory.FiniteEtale.Algebra.PointSpecialization
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.BasePoint
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
 
 /-!
 # The actual specialization comparison of geometric fibers
@@ -18,6 +20,8 @@ correspondence turns this same specialization into a natural isomorphism of
 geometric fiber functors. Its pointwise action is compatible with the actual
 normal-local-ring and fraction-field automorphisms.
 -/
+
+@[expose] public section
 
 noncomputable section
 

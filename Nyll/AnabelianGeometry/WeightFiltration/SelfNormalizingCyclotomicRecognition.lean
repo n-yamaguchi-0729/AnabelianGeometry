@@ -144,7 +144,7 @@ theorem selfNormalizingCyclotomicRoots_eq_conjugate_boundaryInertia
       have hwq : w ∈ (Subgroup.zpowers q).topologicalClosure := hIq hw
       have hcomm := congrArg Subtype.val
         (mul_comm (⟨v, hv⟩ : (Subgroup.zpowers q).topologicalClosure) ⟨w, hwq⟩)
-      first | exact hcomm | exact hcomm.symm
+      exact hcomm.symm
     rw [hself] at hvnorm
     exact hvnorm
   have htest := candidate_originalRoots_all_open_relative_tests

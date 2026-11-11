@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsSurjectivity
-import Nyll.ProCGroups.InverseSystems.FiniteStageFactorization
-import Nyll.ProCGroups.Generation.Procyclic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsSurjectivity
+public import Nyll.ProCGroups.InverseSystems.FiniteStageFactorization
+public import Nyll.ProCGroups.Generation.Procyclic
 
 /-! # Procyclicity of the actual roots inverse limit -/
+
+@[expose] public section
 
 noncomputable section
 

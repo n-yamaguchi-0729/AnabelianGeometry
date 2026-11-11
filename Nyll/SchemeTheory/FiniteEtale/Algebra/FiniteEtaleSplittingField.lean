@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.TotallySplit
-import Mathlib.RingTheory.Ideal.Quotient.Operations
+module
+
+public import Mathlib.RingTheory.TotallySplit
+public import Mathlib.RingTheory.Ideal.Quotient.Operations
 
 /-!
 # A finite separable splitting field for a finite étale algebra
@@ -14,6 +16,8 @@ A maximal quotient of the actual finite faithfully flat splitting algebra
 is a finite separable field extension and still splits the original algebra.
 The construction also applies to the zero algebra.
 -/
+
+@[expose] public section
 
 noncomputable section
 

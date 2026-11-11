@@ -3,10 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.SchemeTheory.ProjectiveSpace.BaseChange
-import Nyll.SchemeTheory.ProjectiveSpace.RationalPunctureCoordinateChange
-import Mathlib.AlgebraicGeometry.Morphisms.OpenImmersion
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Basic
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.BaseChange
+public import Nyll.SchemeTheory.ProjectiveSpace.RationalPunctureCoordinateChange
+public import Mathlib.AlgebraicGeometry.Morphisms.OpenImmersion
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Basic
 
 /-! # The actual projective puncture open and its constant-extension chart
 
@@ -16,23 +18,27 @@ It works for every finite set, hence retains all n >= 3 cases. It does not yet
 prove the Proj smooth/function-field identification needed to package CurveModel.
 -/
 
+@[expose] public section
+
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
 
 namespace AlgebraicGeometry.ProjSpace
+
+universe u
 attribute [local instance] MvPolynomial.gradedAlgebra
 
 /-- The actual projective line scheme used by the rational-point owners. -/
-abbrev projectiveLineScheme (k : Type) [Field k] : Scheme :=
+abbrev projectiveLineScheme (k : Type u) [Field k] : Scheme.{u} :=
   Proj (MvPolynomial.homogeneousSubmodule (Fin 2) k)
 
 /-- Delete precisely the prescribed finite rational configuration. -/
-def rationalConfigurationOpen {k : Type} [Field k]
+def rationalConfigurationOpen {k : Type u} [Field k]
     (s : Finset (Projectivization k (k × k))) : (projectiveLineScheme k).Opens :=
   s.inf projectivePunctureOpen
 
 private theorem mem_projectivePunctureOpen_iff_ne
-    {k : Type} [Field k] (p : Projectivization k (k × k))
+    {k : Type u} [Field k] (p : Projectivization k (k × k))
     (x : projectiveLineScheme k) :
     x ∈ projectivePunctureOpen p ↔ x ≠ projectiveRationalPoint p := by
   induction p using Projectivization.ind with
@@ -50,7 +56,7 @@ private theorem mem_projectivePunctureOpen_iff_ne
 
 /-- No puncture label is dropped: membership excludes every point of s. -/
 theorem mem_rationalConfigurationOpen_iff
-    {k : Type} [Field k] (s : Finset (Projectivization k (k × k)))
+    {k : Type u} [Field k] (s : Finset (Projectivization k (k × k)))
     (x : projectiveLineScheme k) :
     x ∈ rationalConfigurationOpen s ↔ ∀ p ∈ s, x ≠ projectiveRationalPoint p := by
   classical
@@ -70,14 +76,14 @@ theorem mem_rationalConfigurationOpen_iff
         fun q hq => h q (Finset.mem_insert_of_mem hq)⟩
 
 /-- The actual projective-space constant-extension comparison. -/
-def projectiveLineBaseChangeIso (k κ : Type) [Field k] [Field κ] [Algebra k κ] :
+def projectiveLineBaseChangeIso (k κ : Type u) [Field k] [Field κ] [Algebra k κ] :
     projectiveLineScheme κ ≅
       pullback (π k 1) (Spec.map (CommRingCat.ofHom (algebraMap k κ))) :=
   (isPullback_map k κ 1).isoPullback
 
 /-- The canonical map from the actual base-changed punctured scheme into P1_κ. -/
 def rationalConfigurationBaseChangeChart
-    (k κ : Type) [Field k] [Field κ] [Algebra k κ]
+    (k κ : Type u) [Field k] [Field κ] [Algebra k κ]
     (s : Finset (Projectivization k (k × k))) :
     pullback (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
         ((rationalConfigurationOpen s).ι ≫ π k 1) ⟶ projectiveLineScheme κ :=
@@ -87,7 +93,7 @@ def rationalConfigurationBaseChangeChart
 
 /-- The same open immersion is obtained by actual base change of the original open. -/
 theorem rationalConfigurationBaseChangeChart_isPullback
-    (k κ : Type) [Field k] [Field κ] [Algebra k κ]
+    (k κ : Type u) [Field k] [Field κ] [Algebra k κ]
     (s : Finset (Projectivization k (k × k))) :
     IsPullback (rationalConfigurationBaseChangeChart k κ s)
       (pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
@@ -99,7 +105,7 @@ theorem rationalConfigurationBaseChangeChart_isPullback
       (isPullback_map k κ 1).flip
 
 instance rationalConfigurationBaseChangeChart_isOpenImmersion
-    (k κ : Type) [Field k] [Field κ] [Algebra k κ]
+    (k κ : Type u) [Field k] [Field κ] [Algebra k κ]
     (s : Finset (Projectivization k (k × k))) :
     IsOpenImmersion (rationalConfigurationBaseChangeChart k κ s) := by
   let h := rationalConfigurationBaseChangeChart_isPullback k κ s
@@ -111,7 +117,7 @@ instance rationalConfigurationBaseChangeChart_isOpenImmersion
 
 /-- The geometric chart retains the actual coefficient projection. -/
 theorem rationalConfigurationBaseChangeChart_comp_π
-    (k κ : Type) [Field k] [Field κ] [Algebra k κ]
+    (k κ : Type u) [Field k] [Field κ] [Algebra k κ]
     (s : Finset (Projectivization k (k × k))) :
     rationalConfigurationBaseChangeChart k κ s ≫ π κ 1 =
       pullback.fst (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
@@ -120,7 +126,7 @@ theorem rationalConfigurationBaseChangeChart_comp_π
 
 /-- The geometric chart retains the actual map to the arithmetic open. -/
 theorem rationalConfigurationBaseChangeChart_comp_map
-    (k κ : Type) [Field k] [Field κ] [Algebra k κ]
+    (k κ : Type u) [Field k] [Field κ] [Algebra k κ]
     (s : Finset (Projectivization k (k × k))) :
     rationalConfigurationBaseChangeChart k κ s ≫ map k κ 1 =
       pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
@@ -130,7 +136,7 @@ theorem rationalConfigurationBaseChangeChart_comp_map
 /-- This is exactly the hproj square used by the rational source caller,
 before supplying the same-C rational CurveModel. -/
 theorem rationalConfigurationBaseChangeChart_comp_comparison_fst
-    (k κ : Type) [Field k] [Field κ] [Algebra k κ]
+    (k κ : Type u) [Field k] [Field κ] [Algebra k κ]
     (s : Finset (Projectivization k (k × k))) :
     rationalConfigurationBaseChangeChart k κ s ≫ (projectiveLineBaseChangeIso k κ).hom ≫
         pullback.fst (π k 1) (Spec.map (CommRingCat.ofHom (algebraMap k κ))) =
@@ -143,7 +149,7 @@ theorem rationalConfigurationBaseChangeChart_comp_comparison_fst
 
 /-- This is the coefficient equation heC, with no chosen unrelated comparison. -/
 theorem projectiveLineBaseChangeIso_hom_snd
-    (k κ : Type) [Field k] [Field κ] [Algebra k κ] :
+    (k κ : Type u) [Field k] [Field κ] [Algebra k κ] :
     (projectiveLineBaseChangeIso k κ).hom ≫
         pullback.snd (π k 1) (Spec.map (CommRingCat.ofHom (algebraMap k κ))) = π κ 1 :=
   (isPullback_map k κ 1).isoPullback_hom_snd

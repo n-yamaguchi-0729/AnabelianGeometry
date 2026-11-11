@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticSections
-import Mathlib.CategoryTheory.Limits.MorphismProperty
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticSections
+public import Mathlib.CategoryTheory.Limits.MorphismProperty
 
 /-!
 # Arithmetic Section Factorization
@@ -12,6 +14,8 @@ import Mathlib.CategoryTheory.Limits.MorphismProperty
 Every categorical section after a separable constant extension factors
 through the pullback of an actual finite étale constant cover.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory Limits

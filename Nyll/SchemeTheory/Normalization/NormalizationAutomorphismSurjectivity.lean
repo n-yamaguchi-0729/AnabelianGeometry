@@ -4,9 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.IntegralClosureAutomorphismRestriction
-import Mathlib.RingTheory.Localization.FractionRing
-import Mathlib.RingTheory.Localization.Integral
+module
+
+public import Mathlib.Algebra.Ring.Hom.InjSurj
+public import Nyll.SchemeTheory.Normalization.IntegralClosureAutomorphismRestriction
+public import Mathlib.RingTheory.Localization.FractionRing
+public import Mathlib.RingTheory.Localization.Integral
 
 /-!
 # Extending normalization automorphisms to fraction fields
@@ -15,6 +18,8 @@ Proves that every algebra automorphism of the integral closure in a finite field
 extends to an automorphism over the base fraction field. Coefficient-square lemmas identify the
 extension and its restriction.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -59,7 +64,8 @@ theorem integralClosure_restrictScalars_surjective
     Function.Surjective
       (fun σ : F ≃ₐ[K] F => (σ.restrictScalars A).mapIntegralClosure) := by
   intro τ
-  have : IsDomain A := (IsFractionRing.injective A K).isDomain
+  have : IsDomain A :=
+    Function.Injective.isDomain (algebraMap A K) (IsFractionRing.injective A K)
   have : IsFractionRing (integralClosure A F) F :=
     integralClosure.isFractionRing_of_finite_extension (A := A) K F
   let σ : F ≃ₐ[K] F := IsFractionRing.fieldEquivOfAlgEquiv K F F τ

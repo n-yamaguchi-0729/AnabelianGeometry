@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.ProjectiveSpace.CoordinateChange
-import Nyll.SchemeTheory.ProjectiveSpace.CrossRatioSeparation
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.CoordinateChange
+public import Nyll.SchemeTheory.ProjectiveSpace.CrossRatioSeparation
 
 /-!
 # Normalization of three projective points
@@ -13,6 +15,8 @@ import Nyll.SchemeTheory.ProjectiveSpace.CrossRatioSeparation
 Three distinct ordered points admit an explicit invertible coordinate change
 sending them to zero, infinity, and one. Its affine coordinate is the cross ratio.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.ProjectiveLine
 

@@ -5,11 +5,15 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
 
-import Nyll.EtaleFundamentalGroups.ContinuousActions.ClosedNormalClosure
-import Nyll.EtaleFundamentalGroups.ContinuousActions.RestrictionEssentialImage
-import Nyll.EtaleFundamentalGroups.GaloisCategories.Surjectivity
-import Nyll.EtaleFundamentalGroups.GaloisCategories.TrivialComposite
-import Mathlib.Data.List.TFAE
+module
+
+public import Nyll.EtaleFundamentalGroups.ContinuousActions.ClosedNormalClosure
+public import Nyll.EtaleFundamentalGroups.ContinuousActions.RestrictionEssentialImage
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.Surjectivity
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.TrivialComposite
+public import Mathlib.Data.List.TFAE
+public import Nyll.ProCGroups.Presentations.Profinite
+public import Nyll.ProCGroups.Topologies.ContinuousMonoidHom
 
 /-!
 # Exact sequences of Galois categories
@@ -18,6 +22,8 @@ For two composable functors of Galois categories, exactness of the induced
 sequence of profinite automorphism groups is equivalent to the two standard
 categorical essential-image criteria.
 -/
+
+@[expose] public section
 
 universe u₁ u₂ v₁ v₂ x₁ x₂ w
 
@@ -123,7 +129,9 @@ private theorem kernel_fixed_of_epi
       congrArg (F'.map q) (kernel_fixed_functor_obj H t X a ha x)
     _ = y := hx
 
-private theorem essImage_of_epi
+/-- Under a surjective fundamental-group map, an epimorphic quotient of an
+object in the functor image lies in its actual essential image. -/
+theorem essImage_of_epi_of_autHom_surjective
     (H : C ⥤ C') (t : H ⋙ F' ≅ F)
     (hs : Function.Surjective (autHomOfCompIso H t))
     (X : C) (X' : C') (q : H.obj X ⟶ X') [Epi q] :
@@ -135,6 +143,7 @@ private theorem essImage_of_epi
       ((functorToContAction F').obj X')).2
   intro a ha
   apply MonoidHom.mem_ker.mpr
+  apply Aut.ext
   apply Iso.ext
   apply FintypeCat.hom_ext
   intro y
@@ -222,6 +231,7 @@ theorem autHomOfCompIso_exact_sequence_tfae
           h hs ((functorToContAction F').obj X')).2
       intro g hg
       apply MonoidHom.mem_ker.mpr
+      apply Aut.ext
       apply Iso.ext
       apply FintypeCat.hom_ext
       intro y
@@ -289,7 +299,7 @@ theorem autHomOfCompIso_exact_sequence_tfae
           h hs Y).1 hresY
       have hgy : g ∈ (Action.ρAut Y.obj).ker := hkerY hg
       change Action.ρAut Y.obj g = 1 at hgy
-      have hgy' := congrArg Iso.hom hgy
+      have hgy' := congrArg (fun a : Aut Y.obj.V => a.asIso.hom) hgy
       exact ConcreteCategory.congr_hom hgy' y
     · apply
         ProCGroups.Presentations.closedNormalClosure_le_closed_normal
@@ -320,7 +330,7 @@ theorem autHomOfCompIso_exact_sequence_tfae
     · intro hdec
       obtain ⟨X, q, hq⟩ := hepi X' hdec
       let : Epi q := hq
-      exact essImage_of_epi H t hs X X' q
+      exact essImage_of_epi_of_autHom_surjective H t hs X X' q
   tfae_finish
 
 end CategoryTheory.PreGaloisCategory

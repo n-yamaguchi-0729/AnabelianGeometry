@@ -10,23 +10,28 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.Modules.Tensor.Monoidal
-import Nyll.SchemeTheory.Modules.Tensor.TensorPowers
-import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
-import Nyll.SchemeTheory.Modules.ProjectivePresentation.ProjectivePresentation
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.OModulePresheafEulerChar
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
-import Nyll.SchemeTheory.Modules.Tensor.TensorSections
-import Nyll.SchemeTheory.ProjectiveSpace.Basic
-import Nyll.AlgebraicCurves.Geometry.Projective.ProjTwistDatum
-import Nyll.SchemeTheory.Modules.Tensor.TensorFrames
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.DZeroModulesEqZeroIffUnique
-import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.FiniteModules
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleTensor
+module
+
+public import Mathlib.Algebra.Group.Nat.Defs
+public import Nyll.SchemeTheory.Modules.Tensor.Monoidal
+public import Nyll.SchemeTheory.Modules.Tensor.TensorPowers
+public import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
+public import Nyll.SchemeTheory.Modules.ProjectivePresentation.ProjectivePresentation
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.OModulePresheafEulerChar
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
+public import Nyll.SchemeTheory.Modules.Tensor.TensorSections
+public import Nyll.SchemeTheory.ProjectiveSpace.Basic
+public import Nyll.AlgebraicCurves.Geometry.Projective.ProjTwistDatum
+public import Nyll.SchemeTheory.Modules.Tensor.TensorFrames
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.DZeroModulesEqZeroIffUnique
+public import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.FiniteModules
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleTensor
 
 /-!
 Polynomial bounds on Čech section ranks of tensor powers from a projective presentation.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -395,7 +400,8 @@ theorem pow_le_finrank_wordSpan [Finite ι] (hu : u i₀ = 1) {d : ℕ} (z : Fin
     calc ∑ t, ((P t) ^ (α t : ℕ)).totalDegree ≤ ∑ _t : Fin d, m * e := by
             refine Finset.sum_le_sum fun t _ => (MvPolynomial.totalDegree_pow _ _).trans ?_
             exact Nat.mul_le_mul (Nat.lt_succ_iff.mp (α t).2) (he t)
-      _ = d * m * e := by simp [mul_assoc]
+      _ = d * m * e := by simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fin,
+          Nat.nsmul_eq_mul, mul_assoc]
       _ ≤ n := hmn
   let v' : (Fin d → Fin (m + 1)) → wordSpan (k := k) u n := fun α => ⟨v α, hmem α⟩
   have hv' : LinearIndependent k v' := LinearIndependent.of_comp (wordSpan (k := k) u n).subtype hv
@@ -680,9 +686,8 @@ theorem toH0_injective : Function.Injective (toH0 f M 𝒦) := by
   exact congrArg Subtype.val hxy
 
 theorem isInvertible_tensorPow {𝓛 : X.Modules} (h𝓛 : Scheme.Modules.IsInvertible 𝓛) :
-    ∀ n : ℕ, Scheme.Modules.IsInvertible (𝓛.tensorPow n)
-  | 0 => Scheme.Modules.isInvertible_unit X
-  | n + 1 => (isInvertible_tensorPow h𝓛 n).tensor h𝓛
+    ∀ n : ℕ, Scheme.Modules.IsInvertible (𝓛.tensorPow n) :=
+  _root_.AlgebraicGeometry.Scheme.Modules.IsInvertible.tensorPow h𝓛
 
 theorem finite_H0 [IsProper f] (hM : Scheme.Modules.IsInvertible M) :
     Module.Finite k ((OModulePresheaf.ofModules f M).H0 𝒦) :=

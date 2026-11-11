@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.LocalCoefficientRatios
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationResidueAction
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.LocalCoefficientRatios
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationResidueAction
 
 /-!
 # Actual finite tame coordinates on arbitrary local elements
@@ -14,6 +16,8 @@ The original finite tame coordinate evaluates unit ratios of nonzero local
 elements by their normalized valuation. Both the local action and the residue
 map are the existing finite-normalization maps.
 -/
+
+@[expose] public section
 
 noncomputable section
 

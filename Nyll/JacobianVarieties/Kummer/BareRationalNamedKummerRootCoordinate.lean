@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineOriginalFields
-import Nyll.JacobianVarieties.Kummer.NamedKummerCoefficientRootCoordinate
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
+module
+
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineOriginalFields
+public import Nyll.JacobianVarieties.Kummer.NamedKummerCoefficientRootCoordinate
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
 
 /-! # Retaining the same root coordinate at the original bare point
 
@@ -14,6 +16,8 @@ The canonical generic root coordinate and the original bare-point coordinate
 are related by literal equality transport of the actual fiber. The same
 chosen torsor, geometric comparison and original generic action are retained.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry AlgebraicGeometry.FiniteEtale AlgebraicCurve
@@ -99,11 +103,11 @@ theorem rationalConfiguration_namedKummer_geometricRestriction_with_rootCoordina
       ((projectiveLineRatFuncModel κ).openBoundaryPlaces
         (rationalConfigurationBaseChangeChart k κ s)) n)
     (hunit : (w.val : RatFunc κ) = algebraMap (RatFunc k) (RatFunc κ) (u.val : RatFunc k)) :
-    letI : Algebra (rationalConfigurationOpen s : Scheme).functionField Ω :=
+    let : Algebra (rationalConfigurationOpen s : Scheme).functionField Ω :=
       rationalConfigurationOriginalAmbientAlgebra k κ s Ω
-    letI : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
-    letI : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
-    letI : IsSepClosure (rationalConfigurationOpen s : Scheme).functionField Ω :=
+    let : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
+    let : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
+    let : IsSepClosure (rationalConfigurationOpen s : Scheme).functionField Ω :=
       (rationalConfigurationOriginalField_suppliers k κ s Ω).2.2.2.2.1
     let hn : IsUnit ((n : ℕ) : k) :=
       isUnit_iff_ne_zero.mpr (Nat.cast_ne_zero.mpr n.ne_zero)
@@ -123,7 +127,7 @@ theorem rationalConfiguration_namedKummer_geometricRestriction_with_rootCoordina
       (MG.place_not_mem_openBoundaryPlaces jG)
     let q := arithmeticFundamentalGroupHom k κ (jA ≫ MA.toBase) ξA
     let inc := rationalConfigurationGeometricInclusion k κ s Ω
-    letI := CurveModel.OpenKummer.kummerGeometricRootAction MG (MG.openBoundaryPlaces jG)
+    let := CurveModel.OpenKummer.kummerGeometricRootAction MG (MG.openBoundaryPlaces jG)
       n w jG hjG (MG.place_not_mem_openBoundaryPlaces jG) hnκ ξG
     let ξCan := (rationalConfigurationOpen s : Scheme).genericExtensionMorphism Ω
     let b := algebraMap (RatFunc k) Ω (u.val : RatFunc k)
@@ -153,15 +157,8 @@ theorem rationalConfiguration_namedKummer_geometricRestriction_with_rootCoordina
               tA.toMulAction.toSMul.smul
                 (restrictRootsOfUnity (q p).toRingHom (n : ℕ) ζ) (p • x)) ∧
           ∀ x, eBare x = eCan (((eqToIso (congrArg fiber hp)).hom.app WA) x) := by
-  let : Algebra (rationalConfigurationOpen s : Scheme).functionField Ω :=
-    rationalConfigurationOriginalAmbientAlgebra k κ s Ω
-  let : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
-  let : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
-  let : IsSepClosure (rationalConfigurationOpen s : Scheme).functionField Ω :=
-    (rationalConfigurationOriginalField_suppliers k κ s Ω).2.2.2.2.1
-  intro hn hnκ ξG ξA jA jG MA MG hjA hjG WA WG q inc ξCan b
-  let := CurveModel.OpenKummer.kummerGeometricRootAction MG (MG.openBoundaryPlaces jG)
-    n w jG hjG (MG.place_not_mem_openBoundaryPlaces jG) hnκ ξG
+  intro originalAlgebra arithmeticAlgebra constantAlgebra sepClosure
+    hn hnκ ξG ξA jA jG MA MG hjA hjG WA WG q inc rootAction ξCan b
   let X := (rationalConfigurationOpen s : Scheme)
   let Y := rationalConfigurationGeometricScheme k κ s
   let a : Y ⟶ X := Limits.pullback.snd

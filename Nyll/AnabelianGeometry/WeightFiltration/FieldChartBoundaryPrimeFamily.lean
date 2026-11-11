@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.FieldChartBoundaryCentralizer
-import Nyll.AnabelianGeometry.WeightFiltration.FieldChartBoundaryPrimeTransport
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.FieldChartBoundaryCentralizer
+public import Nyll.AnabelianGeometry.WeightFiltration.FieldChartBoundaryPrimeTransport
 
 /-! # Transporting the original boundary normalization-prime family
 
@@ -12,6 +14,8 @@ The target family is assembled only from the normalization-comap transport of
 its original family under the exact field-chart boundary equivalence. Both
 inertia subgroups live at the unchanged generic point and in the same Ω.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve

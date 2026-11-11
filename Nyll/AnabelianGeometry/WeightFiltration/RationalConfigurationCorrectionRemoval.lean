@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticCorrectionBoundaryTransport
-import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationRangeFixed
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticCorrectionBoundaryTransport
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationRangeFixed
 
 /-! # Remove the finite arithmetic correction without changing the cusp bijection
 
@@ -14,6 +16,8 @@ conjugacy. Abelianization removes that geometric conjugacy. The remaining
 arithmetic correction is removed using the cyclotomic stability of every actual
 rational puncture, retaining exactly the same cusp correspondence.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicGeometry.FiniteEtale

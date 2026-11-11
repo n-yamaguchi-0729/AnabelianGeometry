@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
-import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingFiniteTameCharacter
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
-import Mathlib.RingTheory.Ideal.Pointwise
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
+public import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingFiniteTameCharacter
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
+public import Mathlib.RingTheory.Ideal.Pointwise
 
 /-!
 # Primitive roots of native finite tame orders
@@ -17,6 +19,8 @@ The actual local inertia-character image supplies a primitive root of the
 intrinsic tame order. Consequently its full root group is preserved by
 every residue-field embedding.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsTopology
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacter
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacterContinuity
-import Mathlib.Algebra.Category.Grp.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsTopology
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacter
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacterContinuity
+public import Mathlib.Algebra.Category.Grp.Basic
 
 /-!
 # The SAME tame roots limit as its native group object
@@ -16,6 +18,8 @@ The carrier, group, and topology are exactly those of the existing actual
 roots limit. This native object is shared by the quotient isomorphism and
 the original decomposition action, so neither must reopen the raw index.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.Extensions.FiniteSimpleExtensions
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.TwoMulGenusFFSubTwoEqSeparable
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveSeparatingTranscendental
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveTranscendentalPerfectField
-import Nyll.AlgebraicCurves.Places.Ramification.FiniteRamification
-import Mathlib.Algebra.BigOperators.Finprod
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Extensions.FiniteSimpleExtensions
+public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.TwoMulGenusFFSubTwoEqSeparable
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveSeparatingTranscendental
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveTranscendentalPerfectField
+public import Nyll.AlgebraicCurves.Places.Ramification.FiniteRamification
+public import Mathlib.Algebra.BigOperators.Finprod
 
 /-! # Detecting unramified covers from their genera
 
@@ -22,6 +24,8 @@ https://doi.org/10.1023/A:1000114400142.
 The results use the actual extension and its degree. A ramification formula,
 a finite exceptional set, and values for the two genera are not inputs.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,17 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.FiberTranslation
-import Nyll.EtaleFundamentalGroups.Cohomology.FiberMap
-import Nyll.EtaleFundamentalGroups.Cohomology.FiberCoefficientMap
-import Nyll.EtaleFundamentalGroups.Cohomology.LocalTrivialization
-import Nyll.EtaleFundamentalGroups.Cohomology.StalkFiber
-import Nyll.EtaleFundamentalGroups.Cohomology.TorsorCharacter
-import Nyll.EtaleFundamentalGroups.Cohomology.TorsorCharacterNaturality
-import Nyll.EtaleCohomology.Constructible.Monodromy
-import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberIso
-import Mathlib.CategoryTheory.Action.Concrete
-import Mathlib.Topology.Category.FinTopCat
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiberTranslation
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiberMap
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiberCoefficientMap
+public import Nyll.EtaleFundamentalGroups.Cohomology.LocalTrivialization
+public import Nyll.EtaleFundamentalGroups.Cohomology.StalkFiber
+public import Nyll.EtaleFundamentalGroups.Cohomology.TorsorCharacter
+public import Nyll.EtaleFundamentalGroups.Cohomology.TorsorCharacterNaturality
+public import Nyll.EtaleCohomology.Constructible.Monodromy
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberIso
+public import Mathlib.CategoryTheory.Action.Concrete
+public import Mathlib.Topology.Category.FinTopCat
 
 /-!
 # Characters of actual étale extensions
@@ -25,6 +27,8 @@ torsor for those coefficients, so displacement defines a continuous character
 of the étale fundamental group. No monodromy or comparison property is added
 as an assumption on the extension.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -42,7 +46,8 @@ variable {X : Scheme.{u}} [ConnectedSpace X] (A : AddCommGrpCat.{u}) [Finite A]
   (t : (Functor.const X.Etaleᵒᵖ).obj PUnit ⟶ Q.obj ⋙ forget AddCommGrpCat.{u})
   {Ω : Type u} [Field Ω] [IsSepClosed Ω] (ξ : Spec (.of Ω) ⟶ X)
 
-private abbrev liftSheaf : EtaleFiniteLocallyConstantSetSheaf X :=
+/-- The finite locally constant sheaf of lifts of a quotient section. -/
+abbrev liftSheaf : EtaleFiniteLocallyConstantSetSheaf X :=
   ⟨extensionFiber (ShortComplex.mk i p h) t,
     extensionFiber_isFiniteLocallyConstant (ShortComplex.mk i p h) t hs
       (constantAbelian_isFiniteLocallyConstant X A)⟩
@@ -51,7 +56,8 @@ private abbrev liftSheaf : EtaleFiniteLocallyConstantSetSheaf X :=
 abbrev extensionMonodromy : ContAction FintypeCat.{u} (Aut (FiniteEtale.fiber ξ)) :=
   (finiteLocallyConstantSetMonodromy ξ).functor.obj (liftSheaf A i p h hs t)
 
-private def monodromyFiberEquiv :
+/-- The monodromy carrier identifies with the geometric fiber of quotient lifts. -/
+def monodromyFiberEquiv :
     (extensionMonodromy A i p h hs t ξ).obj.V ≃
       abelianExtensionFiber
         ((ShortComplex.mk i p h).map (Scheme.pointSmallEtale ξ).sheafFiber)
@@ -68,7 +74,8 @@ def extensionMonodromyTorsor :
     (shortExact_geometricStalk ξ _ hs) _ A (constantAbelianStalkIso ξ A).symm
     (monodromyFiberEquiv A i p h hs t ξ)
 
-private abbrev translationMorphism (a : A) :
+/-- Translation by a coefficient acts on the sheaf of quotient lifts. -/
+abbrev translationMorphism (a : A) :
     liftSheaf A i p h hs t ⟶ liftSheaf A i p h hs t :=
   ObjectProperty.homMk (constantFiberTranslation A i p h t a)
 
@@ -77,7 +84,7 @@ theorem translation_on_monodromy (a : A)
     let := extensionMonodromyTorsor A i p h hs t ξ
     ((finiteLocallyConstantSetMonodromy ξ).functor.map
       (translationMorphism A i p h hs t a)).hom.hom q = Multiplicative.ofAdd a • q := by
-  let T := extensionMonodromyTorsor A i p h hs t ξ
+  intro T
   let e := monodromyFiberEquiv A i p h hs t ξ
   let I := finiteLocallyConstantSetMonodromyStalkIso ξ
   let F := liftSheaf A i p h hs t
@@ -97,7 +104,7 @@ theorem extensionMonodromy_commutes :
     let := extensionMonodromyTorsor A i p h hs t ξ
     SMulCommClass (Aut (FiniteEtale.fiber ξ)) (Multiplicative A)
       (extensionMonodromy A i p h hs t ξ).obj.V := by
-  let T := extensionMonodromyTorsor A i p h hs t ξ
+  intro T
   constructor
   intro g a q
   let f := (finiteLocallyConstantSetMonodromy ξ).functor.map
@@ -113,7 +120,7 @@ an abelian étale extension. The coefficient group has its discrete topology. -/
 def extensionMonodromyCharacter :
     let : TopologicalSpace (Multiplicative A) := ⊥
     Aut (FiniteEtale.fiber ξ) →ₜ* Multiplicative A := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
+  intro sharedDefinitionOwner1
   let T := extensionMonodromyTorsor A i p h hs t ξ
   have := extensionMonodromy_commutes A i p h hs t ξ
   let M := extensionMonodromy A i p h hs t ξ
@@ -131,7 +138,7 @@ theorem extensionMonodromyCharacter_basePoint
       (ContinuousMonoidHom.toContinuousMonoidHom
         (PreGaloisCategory.continuousConjAut τ)) =
       extensionMonodromyCharacter A i p h hs t ξ := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
+  intro sharedOwner1
   let T := extensionMonodromyTorsor A i p h hs t ξ
   let T' := extensionMonodromyTorsor A i p h hs t η
   have := extensionMonodromy_commutes A i p h hs t ξ
@@ -181,7 +188,7 @@ theorem extensionMonodromyCharacter_eq_of_comparison
     let : TopologicalSpace (Multiplicative A) := ⊥
     extensionMonodromyCharacter A i p h hs t ξ =
       extensionMonodromyCharacter A i' p' h' hs' t ξ := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
+  intro sharedOwner1
   let T := extensionMonodromyTorsor A i p h hs t ξ
   let T' := extensionMonodromyTorsor A i' p' h' hs' t ξ
   have := extensionMonodromy_commutes A i p h hs t ξ
@@ -233,8 +240,7 @@ theorem extensionMonodromyCharacter_changeCoefficients
     let : TopologicalSpace (Multiplicative B) := ⊥
     (discreteCoefficientHom α.hom).comp (extensionMonodromyCharacter A i p h hs t ξ) =
       extensionMonodromyCharacter B i' p' h' hs' t ξ := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
-  let : TopologicalSpace (Multiplicative B) := ⊥
+  intro sharedOwner1 sharedOwner2
   let T := extensionMonodromyTorsor A i p h hs t ξ
   let T' := extensionMonodromyTorsor B i' p' h' hs' t ξ
   have := extensionMonodromy_commutes A i p h hs t ξ

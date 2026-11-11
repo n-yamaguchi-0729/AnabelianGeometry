@@ -4,9 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Ring.GeomSum
+module
+
+public import Mathlib.Algebra.Ring.GeomSum
 
 /-! # The invertible-difference case of the cyclotomic norm kernel -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.KummerTheory
 
@@ -23,12 +27,13 @@ theorem geomSum_mul_eq_zero_iff_of_isUnit_sub_one
     rw [geom_sum_mul, hu, sub_self]
   have hzero : S = 0 := by
     calc
-      S = (S * (u - 1)) * (↑(v⁻¹) : R) := by simp [← hv, mul_assoc]
+      S = (S * (u - 1)) * (↑(v⁻¹) : R) := by
+        rw [← hv, mul_assoc, Units.mul_inv, mul_one]
       _ = 0 := by rw [hgeom, zero_mul]
   constructor
   · intro _
     refine ⟨(↑(v⁻¹) : R) * t, ?_⟩
-    simp [← hv, ← mul_assoc]
+    rw [← hv, ← mul_assoc, Units.mul_inv, one_mul]
   · intro _
     change S * t = 0
     rw [hzero, zero_mul]

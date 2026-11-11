@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
+import Nyll.AnabelianGeometry.FunctionField.All
 import Nyll.AnabelianGeometry.GeometricFundamentalGroup.All
 import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.All
 import Nyll.AnabelianGeometry.ProjectiveLine.All
@@ -11,6 +12,8 @@ import Nyll.AnabelianGeometry.KummerTheory.All
 import Nyll.AnabelianGeometry.CuspidalInertia.All
 import Nyll.AnabelianGeometry.GaloisRepresentations.All
 import Nyll.AnabelianGeometry.WeightFiltration.All
+
+import Nyll.AnabelianGeometry.FiniteField.All
 
 /-!
 # Anabelian geometry

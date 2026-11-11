@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.KummerTheory.AbelianRadicalPowerClasses
-import Mathlib.NumberTheory.NumberField.Units.Basic
-import Mathlib.NumberTheory.NumberField.Cyclotomic.Basic
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.AbelianRadicalPowerClasses
+public import Mathlib.NumberTheory.NumberField.Units.Basic
+public import Mathlib.NumberTheory.NumberField.Cyclotomic.Basic
 
 /-!
 # A uniform bound for radicals in abelian extensions of number fields
@@ -16,6 +18,8 @@ any power class that acquires a radical in an abelian Galois extension
 containing the relevant roots of unity. The bound is independent of the
 radical exponent and the extension.
 -/
+
+@[expose] public section
 
 noncomputable section
 

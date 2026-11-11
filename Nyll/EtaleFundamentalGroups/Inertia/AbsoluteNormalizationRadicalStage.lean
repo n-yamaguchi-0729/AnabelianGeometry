@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteUniformizerAmbient
-import Nyll.EtaleFundamentalGroups.Inertia.NativeNormalizationRadical
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteUniformizerAmbient
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeNormalizationRadical
 
 /-!
 # The actual finite-normalization radical stage of the absolute DVR argument
@@ -16,6 +18,8 @@ Its literal membership and proved integrality construct the root in the
 native finite normalization. The original power equation is retained using
 the stored coefficient map, with no finite-field scalar action opened here.
 -/
+
+@[expose] public section
 
 noncomputable section
 

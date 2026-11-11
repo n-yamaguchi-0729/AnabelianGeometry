@@ -3,12 +3,14 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineGenericPoints
-import Nyll.AlgebraicCurves.Models.FunctionFields.FieldReparametrization
-import Nyll.AlgebraicCurves.Models.Construction.CurveIsIntegral
-import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineRatFuncModel
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineGenericPoints
+public import Nyll.AlgebraicCurves.Models.FunctionFields.FieldReparametrization
+public import Nyll.AlgebraicCurves.Models.Construction.CurveIsIntegral
+public import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineRatFuncModel
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
 
 /-! # The actual field coordinate and literal target model of a punctured line
 
@@ -17,18 +19,17 @@ chart. The target model is the same projective line reparametrized by that
 coordinate. No field-map compatibility or boundary cardinality is assumed.
 -/
 
+@[expose] public section
+
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve
 open scoped RatFunc
 
 namespace AlgebraicGeometry.ProjSpace
 
-attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
+attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra projectiveSpace_isIntegral
 
-local instance configurationFieldProjectiveLine_integral (K : Type) [Field K] :
-    IsIntegral (projectiveLineScheme K) := projectiveSpace_isIntegral K 1
-
-variable (k κ : Type) [Field k] [Field κ] [Algebra k κ] [Infinite k]
+variable (k κ : Type) [Field k] [Field κ] [Algebra k κ]
 
 /-- The geometric rational-function algebra is its actual open-chart coordinate. -/
 @[instance_reducible]

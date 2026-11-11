@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGalois
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldFundamentalGroupConjugacy
-import Nyll.EtaleFundamentalGroups.GeometricFiber.BasePoint
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGalois
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldFundamentalGroupConjugacy
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.BasePoint
 
 /-!
 # Comparing the strict-fraction and canonical fraction-point maps
@@ -15,6 +17,8 @@ The actual field comparison used for the inertia image is whiskered through
 the original scheme pullback. This constructs the target base-point
 comparison and proves the map square exactly, including its inner conjugator.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -44,8 +48,9 @@ theorem fundamentalGroupHom_conjAut
     dsimp only [t]
     rw [← Iso.trans_assoc, Iso.self_symm_id, Iso.refl_trans]
   rw [ht, Iso.trans_conjAut]
-  exact congrArg (pullbackFiberIso r p').conjAut
-    (Functor.map_conjAut W s τ).symm
+  apply congrArg (pullbackFiberIso r p').conjAut
+  apply Aut.ext
+  exact (Functor.map_conjAut W s τ).symm
 
 variable (F E L : Type u) [Field F] [Field E] [Field L]
   [Algebra F E] [Algebra E L] [Algebra F L] [IsScalarTower F E L]
@@ -58,7 +63,8 @@ def fieldSourceComparisonFiberIso :
     fiber ((ξ E L ≫ ξ F E) ≫ r) ≅ fiber (ξ F L ≫ r) :=
   (pullbackFiberIso r (ξ E L ≫ ξ F E)).symm ≪≫
     Functor.isoWhiskerLeft (pullback r)
-      (fieldBasePointFiberIso F E L ≪≫ fieldFundamentalGroupComparisonAut F E L) ≪≫
+      (fieldBasePointFiberIso F E L ≪≫
+        (fieldFundamentalGroupComparisonAut F E L).asIso) ≪≫
     pullbackFiberIso r (ξ F L)
 
 /-- The canonical Galois map and the strict-fraction comparison commute
@@ -73,12 +79,12 @@ theorem fieldSourceAbsoluteGaloisHom_comparison
             (absoluteGaloisToFiberAutMulEquiv F L inferInstance).symm τ) := by
   let p : fiber (ξ E L ≫ ξ F E) ≅ fib F L := fieldBasePointFiberIso F E L
   let a : Aut (fib F L) := fieldFundamentalGroupComparisonAut F E L
-  have h := fundamentalGroupHom_conjAut r (ξ E L ≫ ξ F E) (ξ F L) (p ≪≫ a) τ
-  have hinner (b c : Aut (fib F L)) : b.conjAut c = MulAut.conj b c := by
+  have h := fundamentalGroupHom_conjAut r (ξ E L ≫ ξ F E) (ξ F L) (p ≪≫ a.asIso) τ
+  have hinner (b c : Aut (fib F L)) : b.asIso.conjAut c = MulAut.conj b c := by
     apply Aut.ext
     rfl
-  have hs : (p ≪≫ a).conjAut τ = MulAut.conj a (p.conjAut τ) :=
-    (Iso.trans_conjAut p a τ).trans (hinner a (p.conjAut τ))
+  have hs : (p ≪≫ a.asIso).conjAut τ = MulAut.conj a (p.conjAut τ) :=
+    (Iso.trans_conjAut p a.asIso τ).trans (hinner a (p.conjAut τ))
   have hmap := h.trans (congrArg (fundamentalGroupHom r (ξ F L)) hs)
   let absolute := absoluteGaloisToFiberAutMulEquiv F L inferInstance
   have habsolute : suppliedGaloisEquivFundamentalGroup F L

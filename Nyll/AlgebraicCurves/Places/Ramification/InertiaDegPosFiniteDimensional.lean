@@ -11,11 +11,15 @@ AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
 
-import Nyll.AlgebraicCurves.Places.Residue.FiniteResidueFieldFiniteDimensional
+module
+
+public import Nyll.AlgebraicCurves.Places.Residue.FiniteResidueFieldFiniteDimensional
 
 /-!
 # Positivity of the residue degree of a finite extension
 -/
+
+@[expose] public section
 
 theorem _root_.AlgebraicCurve.Place.inertiaDeg_pos_of_finiteDimensional {K F F' : Type*} [Field K]
   [Field F] [Field F'] [Algebra K F] [Algebra K F'] [Algebra F F'] [IsScalarTower K F F']

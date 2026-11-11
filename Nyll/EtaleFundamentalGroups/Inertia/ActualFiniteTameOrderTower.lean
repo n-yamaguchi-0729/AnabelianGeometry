@@ -4,18 +4,20 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameIndex
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationRamificationTower
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationTower
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelFieldAlgebra
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameRamification
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealNormalizationCoprimality
-import Nyll.EtaleFundamentalGroups.Inertia.NativeFiniteNormalizationTameProperties
-import Nyll.SchemeTheory.Normalization.IntegralClosureAutomorphisms
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.CanonicalCharacterTower
-import Mathlib.RingTheory.DedekindDomain.IntegralClosure
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameIndex
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationRamificationTower
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationTower
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelFieldAlgebra
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameRamification
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealNormalizationCoprimality
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeFiniteNormalizationTameProperties
+public import Nyll.SchemeTheory.Normalization.IntegralClosureAutomorphisms
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.CanonicalCharacterTower
+public import Mathlib.RingTheory.DedekindDomain.IntegralClosure
 
 /-!
 # Divisibility of tame orders in finite towers
@@ -23,6 +25,8 @@ import Mathlib.RingTheory.DedekindDomain.IntegralClosure
 Supplies the finite-stage tame arithmetic and proves that tame orders divide along inclusions of
 finite Galois stages.
 -/
+
+@[expose] public section
 
 noncomputable section
 

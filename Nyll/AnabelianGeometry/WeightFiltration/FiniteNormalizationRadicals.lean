@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationCoefficientSquare
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelFieldAlgebra
-import Mathlib.RingTheory.IntegralClosure.IsIntegral.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationCoefficientSquare
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelFieldAlgebra
+public import Mathlib.RingTheory.IntegralClosure.IsIntegral.Basic
 
 /-!
 # Realizing radicals in actual finite normalizations
@@ -15,6 +17,8 @@ A root of a power equation over the base ring belongs to an actual finite
 normalization inside the prescribed Galois overfield. The ambient inclusion
 retains the original root, and the power equation holds in the normalization.
 -/
+
+@[expose] public section
 
 noncomputable section
 

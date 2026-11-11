@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.DivisorClasses
-import Nyll.JacobianVarieties.Pic0.MkEqNotMemSupport
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.PicardZero
+module
+
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.KummerClasses
+public import Nyll.JacobianVarieties.Pic0.MkEqNotMemSupport
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.PicardZero
 
 /-!
 # Kummer representatives avoiding prescribed places
@@ -15,6 +17,8 @@ The existing moving lemma chooses the divisor first. Torsion of its class
 then produces a genuine rational function with precisely the required
 divisor, so the representative avoids the actual Abel--Jacobi basepoint.
 -/
+
+@[expose] public section
 
 noncomputable section
 

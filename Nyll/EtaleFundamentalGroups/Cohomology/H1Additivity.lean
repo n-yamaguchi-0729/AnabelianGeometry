@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.H1Naturality
-import Mathlib.CategoryTheory.Sites.Abelian
-import Mathlib.Algebra.Group.Prod
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1Naturality
+public import Mathlib.CategoryTheory.Sites.Abelian
+public import Mathlib.Algebra.Group.Prod
 
 /-!
 # Additivity and injectivity of the actual étale H¹ comparison
@@ -16,6 +18,8 @@ addition on the product coefficient group. These operations use the existing
 additive cohomology functor. Combined with the proved zero detection, this gives
 injectivity into continuous characters without redefining étale cohomology.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -34,7 +38,7 @@ theorem h1Character_add
     let : TopologicalSpace (Multiplicative A) := ⊥
     let : DiscreteTopology (Multiplicative A) := ⟨rfl⟩
     h1Character A ξ (a + b) = h1Character A ξ a * h1Character A ξ b := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
+  intro sharedOwner1
   have : DiscreteTopology (Multiplicative A) := ⟨rfl⟩
   let C := AddCommGrpCat.of (A × A)
   let : TopologicalSpace (Multiplicative C) := ⊥
@@ -94,8 +98,7 @@ def h1CharacterAddHom :
     let : DiscreteTopology (Multiplicative A) := ⟨rfl⟩
     Sheaf.H.{u} ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).obj A) 1 →+
       Additive (Aut (FiniteEtale.fiber ξ) →ₜ* Multiplicative A) := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
-  have : DiscreteTopology (Multiplicative A) := ⟨rfl⟩
+  intro sharedDefinitionOwner1 discreteTopology
   exact
     { toFun := fun a => Additive.ofMul (h1Character A ξ a)
       map_zero' := (h1Character_eq_one_iff A ξ 0).mpr rfl
@@ -106,7 +109,7 @@ characters is injective for finite constant abelian coefficients. -/
 theorem h1Character_injective :
     let : TopologicalSpace (Multiplicative A) := ⊥
     Function.Injective (h1Character A ξ) := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
+  intro sharedOwner1
   have : DiscreteTopology (Multiplicative A) := ⟨rfl⟩
   have hi : Function.Injective (h1CharacterAddHom A ξ) :=
     (AddMonoidHom.ker_eq_bot_iff (h1CharacterAddHom A ξ)).mp (by

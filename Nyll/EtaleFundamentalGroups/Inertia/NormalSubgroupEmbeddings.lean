@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.FieldTheory.Galois.Basic
-import Mathlib.FieldTheory.Normal.Basic
-import Mathlib.GroupTheory.GroupAction.SubMulAction
+module
+
+public import Mathlib.FieldTheory.Galois.Basic
+public import Mathlib.FieldTheory.Normal.Basic
+public import Mathlib.GroupTheory.GroupAction.SubMulAction
 
 /-!
 # Normal subgroups acting on field embeddings
@@ -16,6 +18,8 @@ fixing an intermediate field is equivalent to fixing every embedding of that
 field into the ambient extension. The intermediate field need not be normal
 or finite, and the subgroup need not be closed.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups
 

@@ -4,8 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveResidues
-import Nyll.JacobianVarieties.Kummer.OpenDivisorCardinality
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveResidues
+public import Nyll.JacobianVarieties.Kummer.OpenDivisorCardinality
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
+public import Nyll.JacobianVarieties.Kummer.BoundaryResidueCardinality
 
 /-!
 # Genus and boundary ranks in the actual residue sequence
@@ -15,6 +19,8 @@ These counts apply to the actual cohomology maps constructed from Kummer
 covers. Intrinsic recognition of this filtration from arithmetic Galois
 action is not assumed here.
 -/
+
+@[expose] public section
 
 noncomputable section
 

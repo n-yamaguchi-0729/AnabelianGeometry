@@ -4,12 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaValues
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteResidueSequence
-import Mathlib.Algebra.Group.Pi.Lemmas
-import Mathlib.Data.Fintype.BigOperators
-import Mathlib.Data.Set.Prod
-import Nyll.AlgebraicCurves.Models.Points.RationalPointExistence
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaValues
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteResidueSequence
+public import Mathlib.Algebra.Group.Pi.Lemmas
+public import Mathlib.Data.Fintype.BigOperators
+public import Mathlib.Data.Set.Prod
+public import Nyll.AlgebraicCurves.Models.Points.RationalPointExistence
+public import Nyll.ProCGroups.ProC.Quotients.ClosedNormal
+public import Nyll.ProCGroups.Topologies.ContinuousMulEquiv
+public import Nyll.ProCGroups.Topologies.TopologicallyCharacteristicSubgroups
 
 /-!
 # The diagonal relation among actual boundary inertia images
@@ -18,6 +23,8 @@ The sum-zero residue theorem kills the common diagonal parameter. Finite
 root characters detect triviality through the existing closed-subgroup
 criterion, rather than through a second duality construction.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -44,13 +51,14 @@ private theorem roots_eq_of_sumZero_pairings
   let b : ι → ℤ := Pi.single i 1 - Pi.single j 1
   have hb : (∑ k, (b k : ZMod (n : ℕ))) = 0 := by
     rw [← Int.cast_sum]
-    simp [b, Finset.sum_sub_distrib]
+    simp only [b, Pi.sub_apply, Finset.sum_sub_distrib, Fintype.sum_pi_single',
+      sub_self, Int.cast_zero]
   have hpair := h (fun k => (b k : ZMod (n : ℕ))) hb
   have hsingle (k : ι) : (∏ a, r a ^ ((Pi.single k (1 : ℤ) : ι → ℤ) a)) = r k := by
     rw [Fintype.prod_eq_single k]
     · rw [Pi.single_eq_same, zpow_one]
     · intro a ha
-      simp [Pi.single_eq_of_ne ha]
+      rw [Pi.single_eq_of_ne ha, zpow_zero]
   simp_rw [heval, b, Pi.sub_apply, zpow_sub, ← div_eq_mul_inv] at hpair
   rw [Finset.prod_div_distrib, hsingle, hsingle] at hpair
   exact div_eq_one.mp hpair

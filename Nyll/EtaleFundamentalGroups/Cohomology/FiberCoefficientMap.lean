@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.FiberMap
-import Mathlib.CategoryTheory.Sites.ConstantSheaf
-import Mathlib.CategoryTheory.Sites.Sheafification
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiberMap
+public import Mathlib.CategoryTheory.Sites.ConstantSheaf
+public import Mathlib.CategoryTheory.Sites.Sheafification
 
 /-!
 # Changing the coefficients of a lift sheaf
@@ -15,6 +17,8 @@ The map induced by a morphism of extensions carries translation by a constant
 coefficient to translation by its image. The coefficient comparison is the
 actual constant-sheaf functor map, with its sheafification unit naturality.
 -/
+
+@[expose] public section
 
 noncomputable section
 

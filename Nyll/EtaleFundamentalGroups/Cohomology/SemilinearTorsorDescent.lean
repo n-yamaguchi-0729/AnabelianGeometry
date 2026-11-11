@@ -3,13 +3,17 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Mathlib.Algebra.Torsor.Basic
-import Mathlib.Topology.Algebra.MulAction
-import Mathlib.Topology.LocallyConstant.Basic
-import Mathlib.Topology.Maps.Basic
-import Mathlib.RepresentationTheory.Homological.GroupCohomology.Hilbert90
+module
+
+public import Mathlib.Algebra.Torsor.Basic
+public import Mathlib.Topology.Algebra.MulAction
+public import Mathlib.Topology.LocallyConstant.Basic
+public import Mathlib.Topology.Maps.Basic
+public import Mathlib.RepresentationTheory.Homological.GroupCohomology.Hilbert90
 
 /-! # Descent of semilinear torsor actions and displacement cocycles -/
+
+@[expose] public section
 
 noncomputable section
 open groupCohomology

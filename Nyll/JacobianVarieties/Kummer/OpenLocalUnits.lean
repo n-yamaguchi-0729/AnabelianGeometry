@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.IsClosedSingletonNeGenericPoint
-import Nyll.AlgebraicCurves.Models.Construction.Basic
-import Nyll.AlgebraicCurves.Places.Basic
-import Nyll.JacobianVarieties.Kummer.OpenDivisorResidues
-import Nyll.SchemeTheory.FunctionFields.StalkFunctoriality
+module
+
+public import Nyll.AlgebraicCurves.Geometry.IsClosedSingletonNeGenericPoint
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
+public import Nyll.AlgebraicCurves.Places.Basic
+public import Nyll.JacobianVarieties.Kummer.OpenDivisorResidues
+public import Nyll.SchemeTheory.FunctionFields.StalkFunctoriality
 
 /-!
 # Local Kummer equations away from a boundary
@@ -18,6 +20,8 @@ power and obtain a unit. For an actual open immersion, the canonical
 function-field map transports these two local-ring membership statements.
 No comparison with the cohomology of the open curve is postulated.
 -/
+
+@[expose] public section
 
 noncomputable section
 

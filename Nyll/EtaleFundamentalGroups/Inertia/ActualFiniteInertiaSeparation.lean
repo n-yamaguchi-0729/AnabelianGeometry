@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationGaloisFaithful
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteGaloisRestrictionSeparation
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationRestriction
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationGaloisFaithful
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteGaloisRestrictionSeparation
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationRestriction
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
 
 /-!
 # Actual finite inertia restrictions separate original inertia
@@ -17,6 +19,8 @@ import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
 Finite normalization faithfulness and finite Galois closure separation are
 both proved from the original inputs. No separation premise is added.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

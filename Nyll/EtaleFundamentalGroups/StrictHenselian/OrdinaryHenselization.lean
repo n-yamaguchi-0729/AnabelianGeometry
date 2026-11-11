@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkHenselian
-import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkResidue
-import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkStructure
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkHenselian
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkResidue
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkStructure
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
 
 /-!
 # The ordinary henselization at the residue-field point
@@ -18,6 +20,8 @@ Its actual evaluation is surjective because its composite with the original
 structure map is the residue map of `A`. Consequently its residue-field
 embedding is an isomorphism with `κ(A)`, without a separably closed field.
 -/
+
+@[expose] public section
 
 noncomputable section
 

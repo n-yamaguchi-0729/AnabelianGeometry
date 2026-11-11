@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncRationalPairConstantExtension
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncRationalPairConstantExtension
 
 /-! # Constant extension preserves the divisor of the same pair function
 
@@ -13,6 +15,8 @@ separable constant extension its orders at all places are determined by its
 arithmetic orders. Rationality of the two arithmetic places identifies their
 unique extensions and excludes additional support.
 -/
+
+@[expose] public section
 
 noncomputable section
 

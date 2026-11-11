@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaGeneration
-import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertiaHom
-import Nyll.AnabelianGeometry.WeightFiltration.PlaceInertiaConstantRoots
-import Mathlib.GroupTheory.NoncommPiCoprod
-import Mathlib.Topology.Algebra.Monoid
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaGeneration
+public import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertiaHom
+public import Nyll.AnabelianGeometry.WeightFiltration.PlaceInertiaConstantRoots
+public import Mathlib.GroupTheory.NoncommPiCoprod
+public import Mathlib.Topology.Algebra.Monoid
 
 /-!
 # The actual boundary inertia map
@@ -18,6 +20,8 @@ product maps continuously onto the actual abelian compactification kernel.
 The product construction and its range formula reuse the finite coproduct API.
 -/
 
+@[expose] public section
+
 noncomputable section
 
 open AlgebraicGeometry CategoryTheory AlgebraicCurve
@@ -26,7 +30,8 @@ open ProCGroups.Abelian
 
 namespace AnabelianGeometry.WeightFiltration
 
-private def continuousPiCoprod
+/-- A finite product of commuting continuous homomorphisms is continuous. -/
+def continuousPiCoprod
     {ι T G : Type*} [Fintype ι] [Group T] [TopologicalSpace T]
     [CommGroup G] [TopologicalSpace G] [IsTopologicalGroup G]
     (f : ι → T →ₜ* G) : (ι → T) →ₜ* G := by

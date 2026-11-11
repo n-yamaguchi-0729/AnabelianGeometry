@@ -4,18 +4,20 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Etale.ResidueFieldExtension
-import Mathlib.RingTheory.FiniteType
-import Mathlib.RingTheory.Finiteness.Basic
-import Mathlib.RingTheory.Flat.FaithfullyFlat.Algebra
-import Mathlib.RingTheory.Flat.Localization
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
-import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
-import Mathlib.RingTheory.LocalRing.RingHom.Basic
-import Mathlib.RingTheory.Localization.AtPrime.Basic
-import Mathlib.RingTheory.Localization.Submodule
-import Mathlib.RingTheory.Smooth.Flat
-import Mathlib.RingTheory.Unramified.LocalRing
+module
+
+public import Nyll.SchemeTheory.Etale.ResidueFieldExtension
+public import Mathlib.RingTheory.FiniteType
+public import Mathlib.RingTheory.Finiteness.Basic
+public import Mathlib.RingTheory.Flat.FaithfullyFlat.Algebra
+public import Mathlib.RingTheory.Flat.Localization
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+public import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
+public import Mathlib.RingTheory.LocalRing.RingHom.Basic
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
+public import Mathlib.RingTheory.Localization.Submodule
+public import Mathlib.RingTheory.Smooth.Flat
+public import Mathlib.RingTheory.Unramified.LocalRing
 
 /-!
 # Local Noetherian base change realizing a residue extension
@@ -32,6 +34,8 @@ The localization need not itself be finitely presented over the original
 ring; its flatness and the displayed residue compatibility are the facts
 needed for the proper-section base-change argument.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,17 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaSurjectivity
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteCanonicalTameMorphism
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteRootsGroupMap
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationResidueMap
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTamePrimitiveRoots
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameCoprimeExactness
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameOrderTower
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameIndex
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationAutomorphisms
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaSurjectivity
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteCanonicalTameMorphism
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteRootsGroupMap
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationResidueMap
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTamePrimitiveRoots
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameCoprimeExactness
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameOrderTower
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameIndex
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationAutomorphisms
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
 
 /-!
 # Surjectivity of the actual finite tame coordinates
@@ -25,6 +27,8 @@ original inertia restriction is onto. Their SAME existing composite is
 therefore surjective. The same finite primitive root also gives a primitive
 root in the original ambient residue field.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

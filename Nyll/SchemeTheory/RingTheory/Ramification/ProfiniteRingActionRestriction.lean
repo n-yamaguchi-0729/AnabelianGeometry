@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.ProfiniteInertiaMap
-import Mathlib.Algebra.Category.Grp.Basic
-import Mathlib.Algebra.Category.Ring.Basic
-import Mathlib.Topology.Algebra.MulAction
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.ProfiniteInertiaMap
+public import Mathlib.Algebra.Category.Grp.Basic
+public import Mathlib.Algebra.Category.Ring.Basic
+public import Mathlib.Topology.Algebra.MulAction
 
 /-!
 # A data-only boundary for profinite ring-action restrictions
@@ -17,6 +19,8 @@ particular it stores no equivariance, invariance, surjectivity, contraction,
 stabilizer-image, or inertia-image proof. These facts must be proved for a
 concrete diagram before the ordinary image theorem can be applied.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,10 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.GenericGaloisMapComparison
-import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointSurjective
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.GenericGaloisMapComparison
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointSurjective
 
 /-! # Surjectivity of the same absolute generic Galois map -/
+
+@[expose] public section
 
 noncomputable section
 

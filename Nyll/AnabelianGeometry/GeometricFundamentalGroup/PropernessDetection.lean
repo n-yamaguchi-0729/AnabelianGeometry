@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenCoverH1Numerics
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProperCoverH1Degree
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.PositiveGenusCover
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.CoverCohomologyTransport
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
-import Nyll.SchemeTheory.Pi1.Affine.Over
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenCoverH1Numerics
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProperCoverH1Degree
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.PositiveGenusCover
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.CoverCohomologyTransport
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
+public import Nyll.SchemeTheory.Pi1.Affine.Over
 
 /-! # Detecting properness from the full geometric fundamental group
 
@@ -19,6 +21,8 @@ its actual transport has the same degree and finite H¹. Riemann--Hurwitz
 then contradicts the different proper and open H¹ formulas. This is the
 full-group cover-detection argument; it makes no finite-derived-quotient claim.
 -/
+
+@[expose] public section
 
 noncomputable section
 

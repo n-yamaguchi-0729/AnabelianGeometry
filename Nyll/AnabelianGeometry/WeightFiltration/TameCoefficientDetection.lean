@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.TameCoefficientReduction
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameSurjectivity
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.TameCoefficientReduction
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameSurjectivity
 
 /-!
 # Primitive values and detection by tame coefficients
@@ -13,6 +15,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameSurjectivity
 The actual inertia coefficient attains a primitive root at every invertible
 exponent. Its powers therefore detect divisibility by that exponent.
 -/
+
+@[expose] public section
 
 noncomputable section
 

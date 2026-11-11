@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteNormalizationRadicalStage
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteTameRootsSystem
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationRadicalTameDivisibility
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+module
+
+public import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteNormalizationRadicalStage
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteTameRootsSystem
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationRadicalTameDivisibility
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
 
 /-!
 # Cofinality of the actual finite tame orders in every invertible exponent
@@ -21,6 +23,8 @@ degree image set is cofinal in the full divisibility order.
 
 Reference: https://stacks.math.columbia.edu/tag/0BUB
 -/
+
+@[expose] public section
 
 noncomputable section
 

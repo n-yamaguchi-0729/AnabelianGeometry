@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.AlgebraicGeometry.Pullbacks
-import Mathlib.AlgebraicGeometry.Restrict
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Basic
+module
+
+public import Mathlib.AlgebraicGeometry.Pullbacks
+public import Mathlib.AlgebraicGeometry.Restrict
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Basic
 
 /-! # The actual open in a scalar extension
 
@@ -16,6 +18,8 @@ open in the scalar extension of the compactification. These two schemes are
 identified by their actual pullback squares, with both projections retained.
 -/
 
+@[expose] public section
+
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
 
@@ -24,7 +28,8 @@ namespace AnabelianGeometry.ArithmeticIsomorphisms
 universe u
 variable {C S T : Scheme.{u}} (c : C ⟶ S) (s : T ⟶ S) (U : C.Opens)
 
-private theorem openBaseChange_isPullback :
+/-- The inverse-image open and its two original projections form the coefficient pullback square. -/
+theorem openBaseChange_isPullback :
     IsPullback ((pullback.fst c s ⁻¹ᵁ U).ι ≫ pullback.snd c s)
       (morphismRestrict (pullback.fst c s) U) s (U.ι ≫ c) :=
   ((isPullback_morphismRestrict (pullback.fst c s) U).paste_vert

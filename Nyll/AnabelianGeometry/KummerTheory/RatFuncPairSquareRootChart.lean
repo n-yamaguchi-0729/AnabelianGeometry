@@ -3,13 +3,17 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.KummerTheory.RatFuncPairSquareRootCoordinate
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.RatFuncPairSquareRootCoordinate
 
 /-! # The original quadratic root algebra over the actual open-chart field
 
 Change only the coefficient presentation using the actual open function-field
 coordinate. The quotient's root and the given pair square map are retained.
 -/
+@[expose] public section
+
 noncomputable section
 open AlgebraicCurve Polynomial
 

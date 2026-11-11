@@ -4,12 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Ramification.FiniteCurveBoundaryMap
-import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FunctionField
-import Nyll.SchemeTheory.FunctionFields.OpenImmersion
+module
+
+public import Nyll.AlgebraicCurves.Models.Ramification.FiniteCurveBoundaryMap
+public import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FunctionField
+public import Nyll.SchemeTheory.FunctionFields.OpenImmersion
 
 /-! # The degree of the compactified map is the actual open-cover degree -/
+
+@[expose] public section
+
+universe uGeom uField₁ uField₂
 
 noncomputable section
 
@@ -21,7 +27,7 @@ namespace EtaleFundamentalGroups
 attribute [local instance] CurveModel.isIntegral CurveModel.isProper CurveModel.smooth
 
 theorem finiteCurveFieldMap_eq_actual_functionFieldMap
-    {K F E : Type} [Field K] [IsAlgClosed K]
+    {K : Type uGeom} {F : Type uField₁} {E : Type uField₂} [Field K] [IsAlgClosed K]
     [Field F] [Field E] [Algebra K F] [Algebra K E]
     (M : CurveModel K F) (N : CurveModel K E)
     (d : N.C ⟶ M.C) (hd : d ≫ M.toBase = N.toBase)
@@ -46,10 +52,10 @@ theorem finiteCurveFieldMap_eq_actual_functionFieldMap
 /-- Degree comparison for the original open cover and its actual proper
 extension square. No numerical degree comparison is assumed. -/
 theorem finrankAlong_openCover_eq_actual
-    {K F E : Type} [Field K] [IsAlgClosed K]
+    {K : Type uGeom} {F : Type uField₁} {E : Type uField₂} [Field K] [IsAlgClosed K]
     [Field F] [Field E] [Algebra K F] [Algebra K E]
     (M : CurveModel K F) (N : CurveModel K E)
-    {X : Scheme} [IsIntegral X] [IsNormalIntegral X]
+    {X : Scheme.{uGeom}} [IsIntegral X] [IsNormalIntegral X]
     (j : X ⟶ M.C) [IsOpenImmersion j]
     (W : FiniteEtale X) [IsConnected W]
     (d : N.C ⟶ M.C) (hd : d ≫ M.toBase = N.toBase)
@@ -61,7 +67,7 @@ theorem finrankAlong_openCover_eq_actual
     finrankAlong K (M.finiteCurveFieldMap N d hd hsurj) =
       Module.finrank X.functionField W.left.functionField := by
   intro hIntegral algW
-  have : IsIntegral ((Functor.id Scheme).obj W.left) := hIntegral
+  have : IsIntegral ((Functor.id Scheme.{uGeom}).obj W.left) := hIntegral
   have : IsIntegral ((Functor.fromPUnit X).obj W.right) :=
     inferInstanceAs (IsIntegral X)
   let hj : DenseRange j :=

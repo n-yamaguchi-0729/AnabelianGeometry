@@ -3,12 +3,19 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareFiniteBaseConfiguration
-import Nyll.AnabelianGeometry.KummerTheory.NamedRationalSquareCoverModel
-import Nyll.AnabelianGeometry.KummerTheory.ProjectivePairSquareBaseChangeGeneric
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareFiniteBaseConfiguration
+public import Nyll.AnabelianGeometry.KummerTheory.NamedRationalSquareCoverModel
+public import Nyll.AnabelianGeometry.KummerTheory.ProjectivePairSquareBaseChangeGeneric
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineDensity
 
 /-! # Original named square units over a finite coefficient extension -/
+
+@[expose] public section
+
+universe u
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve
@@ -19,40 +26,11 @@ attribute [local instance] Classical.propDecidable
   MvPolynomial.gradedAlgebra Polynomial.algebra projectiveSpace_isIntegral
 namespace AnabelianGeometry.WeightFiltration
 
-private theorem namedSquare_configurationOpen_nonempty
-    (k : Type) [Field k] (s : Finset (Projectivization k (k × k))) :
-    Nonempty (rationalConfigurationOpen s : Scheme) := by
-  refine ⟨⟨zeroHomogeneousPoint k 1, ?_⟩⟩
-  apply (mem_rationalConfigurationOpen_iff s _).mpr
-  intro p _ hpoint
-  have hmem := punctureForm_mem_rationalPuncturePoint p.rep p.rep_nonzero
-  change punctureForm p.rep ∈ (projectiveRationalPoint p).asHomogeneousIdeal at hmem
-  rw [← hpoint] at hmem
-  change punctureForm p.rep ∈ (⊥ : Ideal (MvPolynomial (Fin 2) k)) at hmem
-  have hform : punctureForm p.rep = 0 := Ideal.mem_bot.mp hmem
-  apply p.rep_nonzero
-  apply Prod.ext
-  · have h := congrArg (MvPolynomial.eval (![0, 1] : Fin 2 → k)) hform
-    simpa [punctureForm] using h
-  · have h := congrArg (MvPolynomial.eval (![1, 0] : Fin 2 → k)) hform
-    simpa [punctureForm] using h
-
-/-- A finite set of rational punctures leaves an integral projective-line open. -/
-local instance namedSquare_configurationOpen_integral
-    (k : Type) [Field k] (s : Finset (Projectivization k (k × k))) :
-    IsIntegral (rationalConfigurationOpen s : Scheme) := by
-  let : Nonempty (rationalConfigurationOpen s : Scheme) :=
-    namedSquare_configurationOpen_nonempty k s
-  exact isIntegral_of_isOpenImmersion (rationalConfigurationOpen s).ι
-
 /-- The rational configuration open is dense over every field. -/
 theorem namedSquare_configurationOpen_denseRange
-    (k : Type) [Field k] (s : Finset (Projectivization k (k × k))) :
-    DenseRange (rationalConfigurationOpen s).ι := by
-  let : Nonempty (rationalConfigurationOpen s : Scheme) :=
-    namedSquare_configurationOpen_nonempty k s
-  have hopen := (rationalConfigurationOpen s).ι.isOpenEmbedding.isOpenMap
-  exact hopen.denseRange_of_isPreirreducibleSpace (rationalConfigurationOpen s).ι
+    (k : Type u) [Field k] (s : Finset (Projectivization k (k × k))) :
+    DenseRange (rationalConfigurationOpen s).ι :=
+  rationalConfigurationOpen_denseRange k s
 
 theorem namedSquare_originalUnit_exists_finiteBase_configuration
     (k E : Type) [Field k] [Field E] [Algebra k E]

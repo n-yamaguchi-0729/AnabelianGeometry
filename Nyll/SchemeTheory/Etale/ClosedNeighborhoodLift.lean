@@ -38,7 +38,9 @@ open CategoryTheory Limits AlgebraicGeometry TensorProduct
 
 namespace AlgebraicGeometry.Etale
 
-private theorem exists_affineCover_factor
+/-- A morphism from a nonempty scheme with at most one point factors through
+one of the original affine open charts of its target. -/
+theorem exists_affineCover_factor
     {P W : Scheme.{u}} [Subsingleton P] [Nonempty P] (w : P ⟶ W) :
     ∃ (a : W.affineCover.I₀) (w' : P ⟶ W.affineCover.X a),
       w' ≫ W.affineCover.f a = w := by

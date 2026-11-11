@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.CharacterAnnihilatorTransport
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.EtaleFundamentalGroups.GaloisCategories.ConnectedActions
-import Nyll.EtaleFundamentalGroups.GaloisCategories.CoverTransportFiber
-import Nyll.EtaleFundamentalGroups.GeometricFiber.MatchedFiberCoverGroupTransport
-import Nyll.EtaleFundamentalGroups.GaloisCovers.Basic
-import Mathlib.CategoryTheory.Endomorphism
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.CharacterAnnihilatorTransport
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.ConnectedActions
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.CoverTransportFiber
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.MatchedFiberCoverGroupTransport
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.Basic
+public import Mathlib.CategoryTheory.Endomorphism
 
 /-! # Finite covers and their cohomology under fundamental-group isomorphisms
 
@@ -20,6 +22,8 @@ connected finite étale cover, its chosen point, degree, and all finite
 constant-coefficient H¹ groups. The covering-group isomorphism retains the
 original inclusion square; no matching of covers or cohomology is assumed.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -45,6 +49,19 @@ def finiteH1EquivOfFundamentalGroupEquiv
   have : DiscreteTopology (Multiplicative C) := ⟨rfl⟩
   exact (finiteH1CharacterEquiv C x).trans
     ((WeightFiltration.characterPullback e.symm).trans (finiteH1CharacterEquiv C y).symm)
+
+/-- Finite-coefficient H¹ only uses the full topological abelianization of
+the fundamental group; an isomorphism of the full group is unnecessary. -/
+def finiteH1EquivOfAbelianizationEquiv
+    (e : TopologicalAbelianization (π₁ᵉᵗ(x)) ≃ₜ*
+      TopologicalAbelianization (π₁ᵉᵗ(y))) (C : AddCommGrpCat.{u}) [Finite C] :
+    Sheaf.H.{u} ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).obj C) 1 ≃+
+      Sheaf.H.{u} ((constantSheaf Y.smallEtaleTopology AddCommGrpCat.{u}).obj C) 1 := by
+  let : TopologicalSpace (Multiplicative C) := ⊥
+  have : DiscreteTopology (Multiplicative C) := ⟨rfl⟩
+  exact (finiteH1AbelianCharacterEquiv C x).trans
+    ((WeightFiltration.characterPullback e.symm).trans
+      (finiteH1AbelianCharacterEquiv C y).symm)
 
 /-- Transport an actual connected pointed cover, retaining its degree,
 covering-group inclusion, and finite constant-coefficient cohomology. -/

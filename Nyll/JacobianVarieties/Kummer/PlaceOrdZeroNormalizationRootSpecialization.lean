@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroKummerCover
-import Nyll.JacobianVarieties.Kummer.KummerUnitRootSpecialization
-import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrime
-import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeField
+module
+
+public import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroKummerCover
+public import Nyll.JacobianVarieties.Kummer.KummerUnitRootSpecialization
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrime
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeField
 
 /-!
 # Order-zero Kummer roots in the original normalization localization
@@ -19,13 +21,17 @@ fraction-field instances needed for actual finite etale point specialization.
 The base remains the original valuation ring throughout.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 
 open EtaleFundamentalGroups EtaleFundamentalGroups.StrictHenselian
 
 namespace AlgebraicCurve.Place
 
-variable {k F : Type} [Field k] [Field F] [Algebra k F]
+variable {k F : Type u} [Field k] [Field F] [Algebra k F]
 
 /-- The original generic roots specialize to roots of the residue of the
 unchanged order-zero unit. The displayed evaluation is through the actual
@@ -34,7 +40,7 @@ No lying-over or Galois assumption is needed for this root specialization. -/
 theorem exists_ordZero_normalizationRootSpecialization
     (v : Place k F) (u : Fˣ) (hu : v.ord (u : F) = 0)
     (n : ℕ) (hn : IsUnit (n : k))
-    (Ω : Type) [Field Ω] [Algebra F Ω]
+    (Ω : Type u) [Field Ω] [Algebra F Ω]
     [Algebra v.toValuationSubring Ω] [IsScalarTower v.toValuationSubring F Ω]
     [Algebra.IsAlgebraic F Ω] [IsSepClosed Ω]
     (Q : Ideal (integralClosure v.toValuationSubring Ω)) [Q.IsPrime] :

@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.Kernel
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.Translation
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawSchemeNsmulCompEqCompSchemeNsmul
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawSurjectiveSchemeNsmulFlat
-import Nyll.AlgebraicCurves.Geometry.Picard.GroupLaw.RelativeGroupLaw
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationCover
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+module
+
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.Kernel
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.Translation
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawSchemeNsmulCompEqCompSchemeNsmul
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawSurjectiveSchemeNsmulFlat
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.Basic
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationCover
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
 
 /-!
 # Torsion translations of multiplication covers
@@ -21,6 +23,10 @@ Its inverse is translation by the inverse section, so it gives an automorphism
 of the actual finite étale multiplication cover. On relative scheme points its
 action is the original group law, with no comparison of actions assumed.
 -/
+
+@[expose] public section
+
+universe u
 
 noncomputable section
 
@@ -32,12 +38,12 @@ open RelativeGroupLaw_surjective_schemeNsmul_of_flat_of_field.GoodReductionJacob
 
 namespace GoodReductionJacobian.RelativeGroupLaw
 
-variable {K : Type} [Field K] {A : Scheme.{0}} {f : A ⟶ Spec (CommRingCat.of K)}
+variable {K : Type u} [Field K] {A : Scheme.{u}} {f : A ⟶ Spec (CommRingCat.of K)}
 variable (G : RelativeGroupLaw K f)
 
 /-- Evaluation of translation on any relative point is multiplication by the
 same section pulled back to the test scheme. -/
-theorem point_comp_translate {T : Scheme.{0}} (s : T ⟶ Spec (CommRingCat.of K))
+theorem point_comp_translate {T : Scheme.{u}} (s : T ⟶ Spec (CommRingCat.of K))
     (x : SchemeHomOver s f) (t : SchemeHomOver (𝟙 (Spec (CommRingCat.of K))) f) :
     x.1 ≫ G.translate t =
       (G.mul s x (GoodReductionJacobian.schemeHomOverComp s (Category.comp_id s) t)).1 := by
@@ -69,7 +75,7 @@ theorem translate_comp_translate
 
 /-- Translation is an actual scheme isomorphism, with inverse translation by
 the inverse section. -/
-def translateIso (t : SchemeHomOver (𝟙 (Spec (CommRingCat.of K))) f) : A ≅ A where
+def sectionTranslationIso (t : SchemeHomOver (𝟙 (Spec (CommRingCat.of K))) f) : A ≅ A where
   hom := G.translate t
   inv := G.translate (G.inv (𝟙 _) t)
   hom_inv_id := by
@@ -99,8 +105,8 @@ def multiplicationCoverTranslation (hc : G.IsCommutative) [CharZero K]
     (t : SchemeHomOver (𝟙 (Spec (CommRingCat.of K))) f)
     (ht : G.IsTorsionPoint (𝟙 _) (n : ℕ) t) :
     Aut (G.multiplicationCover hc n) :=
-  MorphismProperty.Over.isoMk (G.translateIso t)
-    (G.translate_comp_schemeNsmul hc (n : ℕ) t ht)
+  Aut.of (MorphismProperty.Over.isoMk (G.sectionTranslationIso t)
+    (G.translate_comp_schemeNsmul hc (n : ℕ) t ht))
 
 /-- The underlying scheme map of the deck automorphism is the original
 translation morphism. -/
@@ -108,7 +114,7 @@ theorem multiplicationCoverTranslation_hom_left (hc : G.IsCommutative) [CharZero
     [IsProper f] [Smooth f] (n : ℕ+)
     (t : SchemeHomOver (𝟙 (Spec (CommRingCat.of K))) f)
     (ht : G.IsTorsionPoint (𝟙 _) (n : ℕ) t) :
-    (G.multiplicationCoverTranslation hc n t ht).hom.left = G.translate t := rfl
+    (G.multiplicationCoverTranslation hc n t ht).asIso.hom.left = G.translate t := rfl
 
 /-- On the actual underlying scheme points, a torsion deck translation acts
 by the original group law. This computes its action before any fibre-to-torsion
@@ -117,46 +123,58 @@ theorem point_comp_multiplicationCoverTranslation (hc : G.IsCommutative) [CharZe
     [IsProper f] [Smooth f] (n : ℕ+)
     (t : SchemeHomOver (𝟙 (Spec (CommRingCat.of K))) f)
     (ht : G.IsTorsionPoint (𝟙 _) (n : ℕ) t)
-    {T : Scheme.{0}} (s : T ⟶ Spec (CommRingCat.of K)) (x : SchemeHomOver s f) :
-    x.1 ≫ (G.multiplicationCoverTranslation hc n t ht).hom.left =
+    {T : Scheme.{u}} (s : T ⟶ Spec (CommRingCat.of K)) (x : SchemeHomOver s f) :
+    x.1 ≫ (G.multiplicationCoverTranslation hc n t ht).asIso.hom.left =
       (G.mul s x (GoodReductionJacobian.schemeHomOverComp s (Category.comp_id s) t)).1 :=
   G.point_comp_translate s x t
 
+/-- The actual division point in any multiplication fibre whose original
+multiplication morphism is finite étale. -/
+def multiplicationFiberPointOfFiniteEtale
+    {Ω : Type u} [Field Ω] [IsSepClosed Ω]
+    (ξ : Spec (CommRingCat.of Ω) ⟶ A) (n : ℕ)
+    [IsFiniteEtale (G.schemeNsmul n)]
+    (z : (FiniteEtale.fiber ξ).obj (FiniteEtale.mk (G.schemeNsmul n))) :
+    SchemeHomOver (ξ ≫ f) f := by
+  let p : Over.mk ξ ⟶ (FiniteEtale.mk (G.schemeNsmul n)).toComma :=
+    FiniteEtale.fiberObjEquivHom ξ (FiniteEtale.mk (G.schemeNsmul n)) z
+  let q : Spec (CommRingCat.of Ω) ⟶ A := p.left
+  have hq : q ≫ G.schemeNsmul n = ξ := Over.w p
+  refine ⟨q, ?_⟩
+  calc
+    q ≫ f = q ≫ (G.schemeNsmul n ≫ f) :=
+      congrArg (fun r : A ⟶ Spec (CommRingCat.of K) => q ≫ r)
+        (G.schemeNsmul_over n).symm
+    _ = (q ≫ G.schemeNsmul n) ≫ f :=
+      (Category.assoc q (G.schemeNsmul n) f).symm
+    _ = ξ ≫ f := congrArg (fun r : Spec (CommRingCat.of Ω) ⟶ A => r ≫ f) hq
+
 /-- The point of the original group scheme underlying an actual geometric
-point in a multiplication-cover fibre. -/
+point in a positive multiplication-cover fibre in characteristic zero. -/
 def multiplicationFiberPoint (hc : G.IsCommutative) [CharZero K]
-    [IsProper f] [Smooth f] {Ω : Type} [Field Ω] [IsSepClosed Ω]
+    [IsProper f] [Smooth f] {Ω : Type u} [Field Ω] [IsSepClosed Ω]
     (ξ : Spec (CommRingCat.of Ω) ⟶ A) (n : ℕ+)
     (z : (FiniteEtale.fiber ξ).obj (G.multiplicationCover hc n)) :
     SchemeHomOver (ξ ≫ f) f := by
-  let p : Over.mk ξ ⟶ (G.multiplicationCover hc n).toComma :=
-    FiniteEtale.fiberObjEquivHom ξ (G.multiplicationCover hc n) z
-  let q : Spec (CommRingCat.of Ω) ⟶ A := p.left
-  have hq : q ≫ G.schemeNsmul (n : ℕ) = ξ := Over.w p
-  refine ⟨q, ?_⟩
-  calc
-    q ≫ f = q ≫ (G.schemeNsmul (n : ℕ) ≫ f) :=
-      congrArg (fun r : A ⟶ Spec (CommRingCat.of K) => q ≫ r)
-        (G.schemeNsmul_over (n : ℕ)).symm
-    _ = (q ≫ G.schemeNsmul (n : ℕ)) ≫ f :=
-      (Category.assoc q (G.schemeNsmul (n : ℕ)) f).symm
-    _ = ξ ≫ f := congrArg (fun r : Spec (CommRingCat.of Ω) ⟶ A => r ≫ f) hq
+  have : IsFiniteEtale (G.schemeNsmul (n : ℕ)) :=
+    G.isFiniteEtale_schemeNsmul_of_charZero hc n
+  exact G.multiplicationFiberPointOfFiniteEtale ξ (n : ℕ) z
 
 /-- The action of a torsion deck translation on the actual geometric fibre
 is pointwise multiplication by the torsion section. -/
 theorem multiplicationFiberPoint_map_translation (hc : G.IsCommutative) [CharZero K]
-    [IsProper f] [Smooth f] {Ω : Type} [Field Ω] [IsSepClosed Ω]
+    [IsProper f] [Smooth f] {Ω : Type u} [Field Ω] [IsSepClosed Ω]
     (ξ : Spec (CommRingCat.of Ω) ⟶ A) (n : ℕ+)
     (t : SchemeHomOver (𝟙 (Spec (CommRingCat.of K))) f)
     (ht : G.IsTorsionPoint (𝟙 _) (n : ℕ) t)
     (z : (FiniteEtale.fiber ξ).obj (G.multiplicationCover hc n)) :
     G.multiplicationFiberPoint hc ξ n
-        ((FiniteEtale.fiber ξ).map (G.multiplicationCoverTranslation hc n t ht).hom z) =
+        ((FiniteEtale.fiber ξ).map (G.multiplicationCoverTranslation hc n t ht).asIso.hom z) =
       G.mul (ξ ≫ f) (G.multiplicationFiberPoint hc ξ n z)
         (GoodReductionJacobian.schemeHomOverComp (ξ ≫ f) (Category.comp_id (ξ ≫ f)) t) := by
   apply Subtype.ext
   have h := FiniteEtale.fiberObjEquivHom_naturality ξ
-    (G.multiplicationCoverTranslation hc n t ht).hom z
+    (G.multiplicationCoverTranslation hc n t ht).asIso.hom z
   have hleft := congrArg
     (fun q : Over.mk ξ ⟶ (G.multiplicationCover hc n).toComma => q.left) h.symm
   exact hleft.trans (G.point_comp_translate (ξ ≫ f)

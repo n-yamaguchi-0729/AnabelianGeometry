@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Sites.EtaleRestriction
-import Nyll.SchemeTheory.Descent.AffineCocycle
-import Nyll.SchemeTheory.Descent.ActionOverlap
-import Mathlib.AlgebraicGeometry.Sites.Etale
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.HasPullback
-import Mathlib.CategoryTheory.MorphismProperty.Comma
-import Mathlib.CategoryTheory.Yoneda
+module
+
+public import Nyll.EtaleCohomology.Sites.EtaleRestriction
+public import Nyll.SchemeTheory.Descent.AffineCocycle
+public import Nyll.SchemeTheory.Descent.ActionOverlap
+public import Mathlib.AlgebraicGeometry.Sites.Etale
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.HasPullback
+public import Mathlib.CategoryTheory.MorphismProperty.Comma
+public import Mathlib.CategoryTheory.Yoneda
 
 /-!
 # Descent actions supplied by a local representer
@@ -19,6 +21,8 @@ The universal section of a representer on an étale cover constructs its
 descent action. The unit and action laws follow from the actual naturality
 and uniqueness in the representing equivalence.
 -/
+
+@[expose] public section
 
 noncomputable section
 

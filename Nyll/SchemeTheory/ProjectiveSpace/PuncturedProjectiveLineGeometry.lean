@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineDensity
-import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLineSmooth
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
-import Nyll.SchemeTheory.Normalization.Normal
-import Mathlib.AlgebraicGeometry.Noetherian
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineDensity
+public import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLineSmooth
+public import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
+public import Nyll.SchemeTheory.Normalization.Normal
+public import Mathlib.AlgebraicGeometry.Noetherian
 
 /-! # Geometry of the actual rational-configuration open
 
@@ -20,6 +22,10 @@ Noetherian scheme supply compactness. No replacement scheme or additional
 geometric hypothesis is introduced.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 
 open CategoryTheory AlgebraicGeometry TopologicalSpace
@@ -30,7 +36,7 @@ attribute [local instance] MvPolynomial.gradedAlgebra
 
 section Arithmetic
 
-variable (k : Type) [Field k]
+variable (k : Type u) [Field k]
   (s : Finset (Projectivization k (k × k)))
 
 /-- The actual arithmetic open is smooth over its original coefficient field. -/
@@ -69,8 +75,6 @@ instance rationalConfigurationOpen_quasiSeparatedSpace :
     QuasiSeparatedSpace (rationalConfigurationOpen s : Scheme) := by
   infer_instance
 
-variable [Infinite k]
-
 instance rationalConfigurationOpen_isIntegral :
     IsIntegral (rationalConfigurationOpen s : Scheme) := by
   let : IsIntegral (projectiveLineScheme k) := projectiveSpace_isIntegral k 1
@@ -94,7 +98,7 @@ end Arithmetic
 
 section Geometric
 
-variable (k κ : Type) [Field k] [Field κ] [Algebra k κ]
+variable (k κ : Type u) [Field k] [Field κ] [Algebra k κ]
   (s : Finset (Projectivization k (k × k)))
 
 /-- The original coefficient projection of the literal pullback is smooth. -/
@@ -140,8 +144,6 @@ instance rationalConfigurationBaseChange_quasiSeparatedSpace :
       (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
       ((rationalConfigurationOpen s).ι ≫ π k 1) : Scheme) := by
   infer_instance
-
-variable [Infinite k]
 
 instance rationalConfigurationBaseChange_isIntegral :
     IsIntegral (Limits.pullback

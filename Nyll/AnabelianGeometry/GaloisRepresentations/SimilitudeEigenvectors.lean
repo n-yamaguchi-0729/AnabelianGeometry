@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.LinearAlgebra.BilinearForm.Basic
-import Mathlib.LinearAlgebra.FiniteDimensional.Basic
+module
+
+public import Mathlib.LinearAlgebra.BilinearForm.Basic
+public import Mathlib.LinearAlgebra.FiniteDimensional.Basic
 
 /-!
 # Excluding the multiplier as an eigenvalue of a similitude
@@ -19,6 +21,8 @@ In arithmetic applications the pairing is the Weil pairing and `F` is a
 good-reduction Frobenius. This file proves only the linear algebra;
 good reduction and the absence of fixed vectors must be proved separately.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.GaloisRepresentations
 

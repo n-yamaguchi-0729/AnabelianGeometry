@@ -4,15 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentCoverAutomorphisms
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.EtaleFundamentalGroups.Pi1.FiniteEtale.GaloisCategory
-import Nyll.EtaleFundamentalGroups.GaloisCategories.GaloisObjectQuotient
-import Nyll.ProCGroups.ProC.InverseLimits.Predicates
-import Nyll.ProCGroups.Generation.Procyclic
-import Mathlib.CategoryTheory.Galois.Topology
-import Mathlib.Algebra.Group.Equiv.Opposite
-import Mathlib.GroupTheory.QuotientGroup.Basic
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentCoverAutomorphisms
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Nyll.EtaleFundamentalGroups.Pi1.FiniteEtale.GaloisCategory
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.GaloisObjectQuotient
+public import Nyll.ProCGroups.ProC.InverseLimits.Predicates
+public import Nyll.ProCGroups.Generation.Procyclic
+public import Mathlib.CategoryTheory.Galois.Topology
+public import Mathlib.Algebra.Group.Equiv.Opposite
+public import Mathlib.GroupTheory.QuotientGroup.Basic
+public import Nyll.ProCGroups.Generation.Basic
+public import Nyll.ProCGroups.ProC.OpenNormalSubgroups.ProCGroup
 
 /-!
 # Cyclic finite quotients of the actual multiplicative-line fundamental group
@@ -22,6 +26,8 @@ automorphism group. Each such stabilizer is the kernel of the quotient to the op
 automorphism group. The proved geometric cyclicity therefore implies cyclicity of every open
 normal quotient. No classification of covers or cofinal Kummer system is assumed.
 -/
+
+@[expose] public section
 
 noncomputable section
 

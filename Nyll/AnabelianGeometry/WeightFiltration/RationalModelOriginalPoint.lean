@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.AlignedRationalModelAmbient
-import Nyll.AnabelianGeometry.WeightFiltration.SameModelIsoInertia
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteRationalModelBaseChange
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ConstantFieldInclusionFiberPoint
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
-import Nyll.AlgebraicCurves.Models.Charts.OpenChartGenericPoints
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.AlignedRationalModelAmbient
+public import Nyll.AnabelianGeometry.WeightFiltration.SameModelIsoInertia
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteRationalModelBaseChange
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ConstantFieldInclusionFiberPoint
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
+public import Nyll.AlgebraicCurves.Models.Charts.OpenChartGenericPoints
 
 /-! # Return the actual rational model point to the original geometric curve
 
@@ -18,6 +20,8 @@ Transporting its generic ambient backwards retains both the original arithmetic
 point and the fixed coefficient embedding. These are the point equalities
 needed to use the same-place inertia comparison for the original Galois action.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry.SmoothProperCurve

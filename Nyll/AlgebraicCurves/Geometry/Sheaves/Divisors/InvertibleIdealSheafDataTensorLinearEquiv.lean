@@ -10,16 +10,20 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.FunctionField
-import Mathlib.AlgebraicGeometry.IdealSheaf.Basic
-import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.QuasicoherentModules
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.CoherentModules
-import Nyll.AlgebraicCurves.Geometry.Projective.ModulesProjectiveSections
+module
+
+public import Mathlib.AlgebraicGeometry.FunctionField
+public import Mathlib.AlgebraicGeometry.IdealSheaf.Basic
+public import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.QuasicoherentModules
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.CoherentModules
+public import Nyll.AlgebraicCurves.Geometry.Projective.ModulesProjectiveSections
 
 /-!
 # Scheme Modules Is Invertible exists ideal Sheaf Data tensor linear Equiv of presentation
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

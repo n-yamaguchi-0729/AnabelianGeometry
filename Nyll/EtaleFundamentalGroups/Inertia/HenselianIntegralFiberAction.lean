@@ -4,17 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.HenselianIntegralFiber
-import Mathlib.Algebra.Group.Idempotent
-import Mathlib.Algebra.Group.Subgroup.Map
-import Mathlib.Algebra.Ring.Action.Basic
-import Mathlib.FieldTheory.PurelyInseparable.Basic
-import Mathlib.RingTheory.Ideal.GoingUp
-import Mathlib.RingTheory.Ideal.Over
-import Mathlib.RingTheory.Ideal.Pointwise
-import Mathlib.RingTheory.Ideal.Quotient.Basic
-import Mathlib.RingTheory.Ideal.Quotient.Operations
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.HenselianIntegralFiber
+public import Mathlib.Algebra.Group.Idempotent
+public import Mathlib.Algebra.Group.Subgroup.Map
+public import Mathlib.Algebra.Ring.Action.Basic
+public import Mathlib.FieldTheory.PurelyInseparable.Basic
+public import Mathlib.RingTheory.Ideal.GoingUp
+public import Mathlib.RingTheory.Ideal.Over
+public import Mathlib.RingTheory.Ideal.Pointwise
+public import Mathlib.RingTheory.Ideal.Quotient.Basic
+public import Mathlib.RingTheory.Ideal.Quotient.Operations
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
 
 
 /-!
@@ -26,6 +28,8 @@ makes the residue quotient purely inseparable, so the prime stabilizer is its
 inertia group. These are the group-action inputs for the invariant-factor
 projection in Stacks tag 0BST.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 
@@ -144,7 +148,7 @@ theorem inertia_eq_stabilizer_of_integral_of_residue_isSepClosed
   have hker : (⟨g, hg⟩ : MulAction.stabilizer G q) ∈ ρ.ker := by
     change ρ ⟨g, hg⟩ = 1
     apply AlgEquiv.coe_toAlgHom_injective
-    apply AlgHom.coe_ringHom_injective
+    apply AlgHom.toRingHom_injective
     apply IsPurelyInseparable.injective_comp_algebraMap
       (IsLocalRing.ResidueField A) (R ⧸ q) (R ⧸ q)
     exact ((ρ ⟨g, hg⟩).toAlgHom.comp_algebraMap).trans

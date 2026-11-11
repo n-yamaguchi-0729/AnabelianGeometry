@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackFiberPoint
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackFiberPoint
 
 /-!
 # Geometric fiber comparison under a source isomorphism
@@ -13,6 +15,8 @@ Precomposition of field-valued points supplies the fiber comparison. The
 existing point representation and equivalence of hom sets retain its actual
 coefficient map, without choosing an unspecified fiber isomorphism.
 -/
+
+@[expose] public section
 
 noncomputable section
 

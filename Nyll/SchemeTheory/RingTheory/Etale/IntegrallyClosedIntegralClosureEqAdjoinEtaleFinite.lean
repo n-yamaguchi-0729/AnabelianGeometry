@@ -10,12 +10,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.RingTheory.Etale.AdjoinRootEtaleFiniteXPowSubC
-import Nyll.SchemeTheory.RingTheory.IntegralClosure.IntegrallyClosedIntegralClosureEqAdjoinRootXPowSubC
+module
+
+public import Nyll.SchemeTheory.RingTheory.Etale.AdjoinRootEtaleFiniteXPowSubC
+public import Nyll.SchemeTheory.RingTheory.IntegralClosure.IntegrallyClosedIntegralClosureEqAdjoinRootXPowSubC
 
 /-!
 # Is Integrally Closed integral Closure eq adjoin and etale and finite of eq mul pow
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticExact
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticMap
-import Nyll.EtaleFundamentalGroups.GeometricFiber.SeparableInjectivity
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticExact
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticMap
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.SeparableInjectivity
 
 /-!
 # Arithmetic Exact Sequence
@@ -13,6 +15,8 @@ import Nyll.EtaleFundamentalGroups.GeometricFiber.SeparableInjectivity
 The arithmetic short exact sequence over a separable closure. Both maps
 are the actual continuous maps on geometric fiber automorphism groups.
 -/
+
+@[expose] public section
 
 noncomputable section
 universe u

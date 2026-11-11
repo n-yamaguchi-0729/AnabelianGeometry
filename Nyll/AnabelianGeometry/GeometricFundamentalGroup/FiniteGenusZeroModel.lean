@@ -4,16 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ConstantBaseFieldRange
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteRationalCoordinate
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteBoundarySplitting
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroParameter
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
-import Nyll.AlgebraicCurves.Models.FunctionFields.CurveModelIsoFunctionField
-import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineRatFuncModel
-import Nyll.AlgebraicCurves.Models.Points.InfinitePlace
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Algebra
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ConstantBaseFieldRange
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteRationalCoordinate
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteBoundarySplitting
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroParameter
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
+public import Nyll.AlgebraicCurves.Models.FunctionFields.CurveModelIsoFunctionField
+public import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineRatFuncModel
+public import Nyll.AlgebraicCurves.Models.Points.InfinitePlace
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Algebra
 
 /-! # A finite splitting field for an actual genus-zero curve
 
@@ -23,6 +25,10 @@ base-change function field has precisely that compositum as its image, so the
 smooth proper curve itself becomes the projective line over that finite field.
 -/
 
+@[expose] public section
+
+universe u v
+
 noncomputable section
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve
@@ -30,9 +36,9 @@ open AlgebraicGeometry.SmoothProperCurve AlgebraicGeometry.ProjSpace
 
 namespace AnabelianGeometry.GeometricFundamentalGroup
 
-variable {k Ω F : Type} [Field k] [Field Ω] [Algebra k Ω] [IsGalois k Ω]
+variable {k Ω F : Type u} [Field k] [Field Ω] [Algebra k Ω] [IsGalois k Ω]
     [Field F] [Algebra Ω F] [Algebra k F] [IsScalarTower k Ω F]
-    (M : CurveModel Ω F) {C : Scheme} [IsIntegral C]
+    (M : CurveModel Ω F) {C : Scheme.{u}} [IsIntegral C]
     (c : C ⟶ Spec (CommRingCat.of k)) [IsProper c]
     [SmoothOfRelativeDimension 1 c] [GeometricallyIntegral c]
     (e : M.C ≅ pullback c (specMap k Ω))
@@ -71,7 +77,7 @@ theorem exists_finiteGalois_projectiveLine_model_of_parameter_above
         (Set.range (M.constantBaseEmbedding c e)) := by
       rw [M.adjoin_constantBaseEmbedding_eq_top c e he]
       exact IntermediateField.mem_top
-    refine IntermediateField.adjoin_induction Ω (p := fun x _ =>
+    refine IntermediateField.adjoin_induction Ω (motive := fun x _ =>
       x ∈ IntermediateField.adjoin A (Set.range (algebraMap Ω F)))
       ?_ ?_ ?_ ?_ ?_ hx
     · rintro _ ⟨a, rfl⟩
@@ -162,7 +168,7 @@ base-changed curve, not just abstract labels, are retained. -/
 theorem exists_finiteGalois_projectiveLine_model_and_points_above
     [IsAlgClosed Ω] [IsCurveOver Ω F] [Algebra.EssFiniteType Ω F]
     (hg : genusFF Ω F = 0) (D : FiniteGaloisIntermediateField k Ω)
-    {ι : Type} [Finite ι]
+    {ι : Type v} [Finite ι]
     (p : ι → (Spec (.of Ω) ⟶ C))
     (hp : ∀ i, p i ≫ c = Spec.map (CommRingCat.ofHom (algebraMap k Ω))) :
     ∃ E : FiniteGaloisIntermediateField k Ω, D ≤ E ∧
@@ -204,7 +210,7 @@ theorem exists_finiteGalois_projectiveLine_model_and_points_above
 prescribed lower bound on the finite constant field. -/
 theorem exists_finiteGalois_projectiveLine_model_and_points
     [IsAlgClosed Ω] [IsCurveOver Ω F] [Algebra.EssFiniteType Ω F]
-    (hg : genusFF Ω F = 0) {ι : Type} [Finite ι]
+    (hg : genusFF Ω F = 0) {ι : Type v} [Finite ι]
     (p : ι → (Spec (.of Ω) ⟶ C))
     (hp : ∀ i, p i ≫ c = Spec.map (CommRingCat.ofHom (algebraMap k Ω))) :
     ∃ E : FiniteGaloisIntermediateField k Ω,

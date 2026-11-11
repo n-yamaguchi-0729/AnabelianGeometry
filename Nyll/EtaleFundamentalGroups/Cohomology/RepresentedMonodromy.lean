@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Constructible.Monodromy
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteAbelianStalk
+module
+
+public import Nyll.EtaleCohomology.Constructible.Monodromy
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteAbelianStalk
 
 /-!
 # The actual monodromy of a descended finite representation
@@ -14,6 +16,8 @@ The unit of finite étale representability identifies the monodromy of a
 represented sheaf with the original geometric fiber. Its comparison with
 the actual stalk is the existing represented-sheaf stalk comparison.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -35,6 +39,23 @@ def representedMonodromyIso (V : FiniteEtale X) :
       (functorToContAction (FiniteEtale.fiber ξ)).obj V :=
   ((functorToContAction (FiniteEtale.fiber ξ)).mapIso
     ((finiteEtaleEquivFiniteLocallyConstantSetSheaf X).unitIso.app V)).symm
+
+/-- The comparison with the original geometric fibre respects the original
+maps of finite covers. -/
+theorem representedMonodromyIso_inv_naturality
+    {V W : FiniteEtale X} (f : V ⟶ W) :
+    (functorToContAction (FiniteEtale.fiber ξ)).map f ≫
+        (representedMonodromyIso ξ W).inv =
+      (representedMonodromyIso ξ V).inv ≫
+        (finiteLocallyConstantSetMonodromy ξ).functor.map
+          ((finiteEtaleEquivFiniteLocallyConstantSetSheaf X).functor.map f) := by
+  let E := finiteEtaleEquivFiniteLocallyConstantSetSheaf X
+  let F := functorToContAction (FiniteEtale.fiber ξ)
+  change F.map f ≫ F.map (E.unitIso.hom.app W) =
+    F.map (E.unitIso.hom.app V) ≫ F.map (E.inverse.map (E.functor.map f))
+  rw [← F.map_comp, ← F.map_comp]
+  apply congrArg F.map
+  simpa only [Functor.id_map, Functor.comp_map] using E.unitIso.hom.naturality f
 
 /-- The monodromy isomorphism agrees with the actual geometric stalk
 comparison, by naturality and the unit-counit identity. -/

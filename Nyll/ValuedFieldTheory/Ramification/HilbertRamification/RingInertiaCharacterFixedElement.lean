@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Ring.Action.Basic
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacter
-import Mathlib.RingTheory.DiscreteValuationRing.Basic
-import Mathlib.Tactic.Ring
+module
+
+public import Mathlib.Algebra.Ring.Action.Basic
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacter
+public import Mathlib.RingTheory.DiscreteValuationRing.Basic
+public import Mathlib.Tactic.Ring
 
 /-!
 # Fixed elements and powers of the inertia character
@@ -16,6 +18,8 @@ Proves that fixing a unit times a uniformizer power makes the same power of the 
 character trivial. It deduces the corresponding result using the additive valuation of a nonzero
 fixed element.
 -/
+
+@[expose] public section
 
 noncomputable section
 

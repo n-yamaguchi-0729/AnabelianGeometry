@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalArithmeticScalarRoots
-import Nyll.EtaleFundamentalGroups.GeometricFiber.SourceIsoGalois
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisPoint
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldMonodromyLift
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalArithmeticScalarRoots
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.SourceIsoGalois
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisPoint
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldMonodromyLift
 
 /-!
 # The same arithmetic root coordinate for the original RatFunc Galois action
@@ -19,6 +21,8 @@ point. The existing coordinate is retained, as is the source-induced action
 used by the one fixed arithmetic base-point correction. No field-action or
 base-point compatibility is an additional input.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -54,16 +58,16 @@ private theorem coordinate_sourceIso_eval
     (hsource : (Scheme.Spec.mapIso σ.toRingEquiv.toCommRingCatIso.op).hom ≫ x = x)
     (y : (fiber x).obj W) :
     (eBare ((show π₁ᵉᵗ(x) from
-      fiberSourceIso x (Scheme.Spec.mapIso σ.toRingEquiv.toCommRingCatIso.op) ≪≫
-        eqToIso (congrArg fiber hsource)) • y)).val = σ (eBare y).val := by
+      Aut.of (fiberSourceIso x (Scheme.Spec.mapIso σ.toRingEquiv.toCommRingCatIso.op) ≪≫
+        eqToIso (congrArg fiber hsource))) • y)).val = σ (eBare y).val := by
   subst x
   change ∀ y, eBare y = eCan y at hBare
   let θ := fieldSourceAbsoluteGaloisHom X.functionField Ω
     (X.fromSpecStalk (genericPoint X))
   have hθ : θ σ =
-      fiberSourceIso (X.genericExtensionMorphism Ω)
+      Aut.of (fiberSourceIso (X.genericExtensionMorphism Ω)
           (Scheme.Spec.mapIso σ.toRingEquiv.toCommRingCatIso.op) ≪≫
-        eqToIso (congrArg fiber hsource) := by
+        eqToIso (congrArg fiber hsource)) := by
     apply Aut.ext
     ext Z z
     apply (fiberObjEquivHom (X.genericExtensionMorphism Ω) Z).injective
@@ -113,11 +117,11 @@ theorem fieldChart_arithmeticRootCoordinate_fieldSource_eval
       ∃ hsource : e.hom ≫ x = x,
         (∀ y : (fiber x).obj W,
           (eBare ((show π₁ᵉᵗ(x) from
-            fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource)) • y)).val =
+            Aut.of (fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource))) • y)).val =
             σ (eBare y).val) ∧
         continuousConjAut (eqToIso (congrArg fiber hchart))
             (fieldSourceAbsoluteGaloisHom F Ω (X.functionFieldChartPoint E) σ) =
-          fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource) := by
+          Aut.of (fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource)) := by
   have hsurj : Function.Surjective (algebraMap F X.functionField) := by
     rw [hfield]
     exact E.surjective
@@ -175,13 +179,13 @@ theorem rationalConfiguration_arithmeticRootCoordinate_fieldSource_eval
     [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
     (n : ℕ) (W : FiniteEtale (rationalConfigurationOpen s : Scheme)) (b : Ω) :
     let X : Scheme := (rationalConfigurationOpen s : Scheme)
-    letI : Algebra X.functionField Ω := rationalConfigurationOriginalAmbientAlgebra k κ s Ω
-    letI : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
-    letI : IsSepClosure X.functionField Ω :=
+    let : Algebra X.functionField Ω := rationalConfigurationOriginalAmbientAlgebra k κ s Ω
+    let : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
+    let : IsSepClosure X.functionField Ω :=
       (rationalConfigurationOriginalField_suppliers k κ s Ω).2.2.2.2.1
-    letI : IsAlgClosure (RatFunc k) Ω :=
+    let : IsAlgClosure (RatFunc k) Ω :=
       rationalConfigurationAmbient_isAlgClosure_arithmetic k κ s Ω
-    letI : IsSepClosure (RatFunc k) Ω := inferInstance
+    let : IsSepClosure (RatFunc k) Ω := inferInstance
     let x := rationalConfigurationArithmeticBasePoint k κ s Ω
     ∀ (hp : x = X.genericExtensionMorphism Ω)
       (eCan : (fiber (X.genericExtensionMorphism Ω)).obj W ≃ {z : Ω // z ^ n = b})
@@ -200,21 +204,14 @@ theorem rationalConfiguration_arithmeticRootCoordinate_fieldSource_eval
       ∃ hsource : e.hom ≫ x = x,
         (∀ y : (fiber x).obj W,
           (eBare ((show π₁ᵉᵗ(x) from
-            fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource)) • y)).val =
+            Aut.of (fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource))) • y)).val =
             σ (eBare y).val) ∧
         continuousConjAut (eqToIso (congrArg fiber hchart))
             (fieldSourceAbsoluteGaloisHom (RatFunc k) Ω
               (rationalConfigurationArithmeticGenericPoint k s) σ) =
-          fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource) := by
-  intro X
-  let : Algebra X.functionField Ω := rationalConfigurationOriginalAmbientAlgebra k κ s Ω
-  let : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
-  let : IsSepClosure X.functionField Ω :=
-    (rationalConfigurationOriginalField_suppliers k κ s Ω).2.2.2.2.1
-  let : IsAlgClosure (RatFunc k) Ω :=
-    rationalConfigurationAmbient_isAlgClosure_arithmetic k κ s Ω
-  let : IsSepClosure (RatFunc k) Ω := inferInstance
-  intro x hp eCan hCan eBare hBare
+          Aut.of (fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource)) := by
+  intro X originalAlgebra arithmeticAlgebra originalSepClosure arithmeticAlgClosure
+    arithmeticSepClosure x hp eCan hCan eBare hBare
   let : IsScalarTower (RatFunc k) X.functionField Ω :=
     (rationalConfigurationOriginalField_suppliers k κ s Ω).1
   exact fieldChart_arithmeticRootCoordinate_fieldSource_eval (RatFunc k) Ω X

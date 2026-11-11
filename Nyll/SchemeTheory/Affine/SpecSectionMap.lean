@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Category.Ring.Basic
-import Mathlib.AlgebraicGeometry.Scheme
+module
+
+public import Mathlib.Algebra.Category.Ring.Basic
+public import Mathlib.AlgebraicGeometry.Scheme
 
 /-!
 # The actual section map of a morphism from a spectrum
@@ -14,6 +16,8 @@ The ΓSpec conversion is performed in this generic owner. The exported
 constructor and its equations keep that intermediate section ring out of
 callers that use the resulting morphism.
 -/
+
+@[expose] public section
 
 noncomputable section
 

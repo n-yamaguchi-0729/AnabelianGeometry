@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinate
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinate
 
 /-!
 # Identity detection at one actual tame degree
@@ -12,6 +14,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinate
 The SAME canonical quotient-root equivalence preserves and reflects identity.
 This comparison is proved before the global inverse-limit group is introduced.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

@@ -4,15 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeEmbedding
-import Nyll.SchemeTheory.RingTheory.Localization.SubalgebraPrime
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaDiagram
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
-import Mathlib.Algebra.Algebra.Subalgebra.Basic
-import Mathlib.Algebra.Category.Ring.Basic
-import Mathlib.Algebra.Category.CommAlgCat.Basic
-import Mathlib.Algebra.Algebra.Subalgebra.Operations
-import Mathlib.RingTheory.Localization.AtPrime.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeEmbedding
+public import Nyll.SchemeTheory.RingTheory.Localization.SubalgebraPrime
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaDiagram
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
+public import Mathlib.Algebra.Algebra.Subalgebra.Basic
+public import Mathlib.Algebra.Category.Ring.Basic
+public import Mathlib.Algebra.Category.CommAlgCat.Basic
+public import Mathlib.Algebra.Algebra.Subalgebra.Operations
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
 
 /-!
 # The literal inertia-invariant prime localization maps to the normalization
@@ -28,6 +30,8 @@ No invariant/stalk comparison, alternate action, or compatibility premise is
 introduced. The finite-stage image and whole invariant-image results remain
 separate.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedComposition
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedComposition
 
 /-!
 # Strict composition with the canonical geometric-point identifications
@@ -13,6 +15,8 @@ The pullback pentagon identifies the composite fiber comparison with the
 canonical one.  Consequently the original fundamental-group homomorphisms
 compose after transport along the specified equality of geometric points.
 -/
+
+@[expose] public section
 
 noncomputable section
 

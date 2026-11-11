@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Descent.ActionOverlap
-import Nyll.SchemeTheory.Descent.AffineAlgebraCoaction
-import Nyll.SchemeTheory.Descent.AffineCocycle
-import Nyll.SchemeTheory.Descent.AlgebraCoaction
-import Mathlib.AlgebraicGeometry.Pullbacks
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.HasPullback
-import Mathlib.RingTheory.TensorProduct.Maps
+module
+
+public import Nyll.SchemeTheory.Descent.ActionOverlap
+public import Nyll.SchemeTheory.Descent.AffineAlgebraCoaction
+public import Nyll.SchemeTheory.Descent.AffineCocycle
+public import Nyll.SchemeTheory.Descent.AlgebraCoaction
+public import Mathlib.AlgebraicGeometry.Pullbacks
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.HasPullback
+public import Mathlib.RingTheory.TensorProduct.Maps
 
 /-!
 # Tensor coordinates for genuine descent actions
@@ -19,6 +21,8 @@ We transport an action across the equality between a composite structure map
 and its affine coordinate map. The resulting overlap isomorphism, its two base
 coordinates, and its diagonal restriction are expressed in tensor coordinates.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -61,7 +65,7 @@ lemma pullbackActionCongr_base : pullbackActionCongr f p g e a ≫ g = pullback.
 variable
   (hunit : pullback.lift (f := f) (g := p ≫ f) p (𝟙 Z)
     (Category.id_comp (p ≫ f)).symm ≫ a = 𝟙 Z)
-  (hassoc : pullbackActionStep f (p ≫ f) a (by rw [← Category.assoc, ha]) ≫ a =
+  (hassoc : pullbackActionStep f (p ≫ f) a (pullbackAction_base f p a ha) ≫ a =
     pullbackSkipMiddle f (p ≫ f) ≫ a)
 
 /-- The geometric overlap isomorphism in the changed pullback coordinates. -/

@@ -10,18 +10,23 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.RingTheory.Flat.Product
-import Nyll.SchemeTheory.RingTheory.Flat.Kernel
-import Nyll.SchemeTheory.Cohomology.Cech.TwoChartCech
-import Mathlib.RingTheory.Flat.Basic
-import Mathlib.LinearAlgebra.TensorProduct.Prod
-import Mathlib.RingTheory.Flat.Equalizer
-import Mathlib.RingTheory.Flat.EquationalCriterion
-import Mathlib.Algebra.Module.FinitePresentation
+module
+
+public import Nyll.SchemeTheory.RingTheory.Flat.Product
+public import Nyll.SchemeTheory.RingTheory.Flat.Kernel
+public import Nyll.SchemeTheory.Cohomology.Cech.TwoChartCech
+public import Mathlib.RingTheory.Flat.Basic
+public import Mathlib.LinearAlgebra.TensorProduct.Prod
+public import Mathlib.RingTheory.Flat.Equalizer
+public import Mathlib.RingTheory.Flat.EquationalCriterion
+public import Mathlib.Algebra.Module.FinitePresentation
+public import Nyll.SchemeTheory.Cohomology.Sheaves.CoherentBaseChange
 
 /-!
 # Module exists two Term Complex ker Map Base Change bijective of flat complex
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -73,14 +78,14 @@ theorem subtype_baseChange_injective {M K : Type u} [AddCommGroup M] [Module R M
     [AddCommGroup K] [Module R K] [Module.Flat R K] (σ : M →ₗ[R] K)
     (hσ : Function.Surjective σ) :
     Function.Injective ((LinearMap.ker σ).subtype.baseChange A) := by
-  rw [LinearMap.baseChange_eq_ltensor]
+  rw [LinearMap.baseChange_eq_lTensor]
   exact LinearMap.lTensor_injective_of_exact_of_flat σ hσ _ (LinearMap.ker σ).injective_subtype
     (σ.exact_subtype_ker_map) A
 
 theorem subtype_baseChange_exact {M K : Type u} [AddCommGroup M] [Module R M]
     [AddCommGroup K] [Module R K] (σ : M →ₗ[R] K) (hσ : Function.Surjective σ) :
     Function.Exact ((LinearMap.ker σ).subtype.baseChange A) (σ.baseChange A) := by
-  rw [LinearMap.baseChange_eq_ltensor, LinearMap.baseChange_eq_ltensor]
+  rw [LinearMap.baseChange_eq_lTensor, LinearMap.baseChange_eq_lTensor]
   exact lTensor_exact A (σ.exact_subtype_ker_map) hσ
 
 omit [Algebra R A] in

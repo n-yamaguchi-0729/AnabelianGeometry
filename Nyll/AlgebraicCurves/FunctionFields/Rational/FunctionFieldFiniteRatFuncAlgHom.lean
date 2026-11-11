@@ -10,49 +10,53 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Algebra.Algebra.Basic
-import Mathlib.Algebra.Algebra.Defs
-import Mathlib.Algebra.Algebra.Hom
-import Mathlib.Algebra.Algebra.Subalgebra.Lattice
-import Mathlib.Algebra.Algebra.Tower
-import Mathlib.Algebra.GroupWithZero.Units.Lemmas
-import Mathlib.Algebra.Polynomial.AlgebraMap
-import Mathlib.Algebra.Ring.Subsemiring.Basic
-import Mathlib.Basic.Finite.Defs
-import Mathlib.Combinatorics.Matroid.Basic
-import Mathlib.Data.Fin.VecNotation
-import Mathlib.Data.Set.Card
-import Mathlib.Data.Set.Finite.Basic
-import Mathlib.Data.Set.Image
-import Mathlib.Data.Set.Insert
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Algebra
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Defs
-import Mathlib.FieldTheory.IntermediateField.Basic
-import Mathlib.FieldTheory.RatFunc.AsPolynomial
-import Mathlib.FieldTheory.RatFunc.Basic
-import Mathlib.FieldTheory.RatFunc.Defs
-import Mathlib.LinearAlgebra.FiniteDimensional.Defs
-import Mathlib.LinearAlgebra.Span.Defs
-import Mathlib.RingTheory.Adjoin.Polynomial.Basic
-import Mathlib.RingTheory.Algebraic.Basic
-import Mathlib.RingTheory.Algebraic.Defs
-import Mathlib.RingTheory.Algebraic.Integral
-import Mathlib.RingTheory.AlgebraicIndependent.Basic
-import Mathlib.RingTheory.AlgebraicIndependent.Defs
-import Mathlib.RingTheory.AlgebraicIndependent.TranscendenceBasis
-import Mathlib.RingTheory.AlgebraicIndependent.Transcendental
-import Mathlib.RingTheory.Finiteness.Basic
-import Mathlib.RingTheory.Finiteness.Defs
-import Mathlib.RingTheory.Localization.FractionRing
-import Mathlib.RingTheory.Polynomial.Tower
-import Mathlib.RingTheory.SimpleRing.Basic
-import Mathlib.Tactic.Convert
-import Mathlib.Tactic.FinCases
+module
+
+public import Mathlib.Algebra.Algebra.Basic
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.Algebra.Algebra.Hom
+public import Mathlib.Algebra.Algebra.Subalgebra.Lattice
+public import Mathlib.Algebra.Algebra.Tower
+public import Mathlib.Algebra.GroupWithZero.Units.Lemmas
+public import Mathlib.Algebra.Polynomial.AlgebraMap
+public import Mathlib.Algebra.Ring.Subsemiring.Basic
+public import Mathlib.Basic.Finite.Defs
+public import Mathlib.Combinatorics.Matroid.Basic
+public import Mathlib.Data.Fin.VecNotation
+public import Mathlib.Data.Set.Card
+public import Mathlib.Data.Set.Finite.Basic
+public import Mathlib.Data.Set.Image
+public import Mathlib.Data.Set.Insert
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Algebra
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Defs
+public import Mathlib.FieldTheory.IntermediateField.Basic
+public import Mathlib.FieldTheory.RatFunc.AsPolynomial
+public import Mathlib.FieldTheory.RatFunc.Basic
+public import Mathlib.FieldTheory.RatFunc.Defs
+public import Mathlib.LinearAlgebra.FiniteDimensional.Defs
+public import Mathlib.LinearAlgebra.Span.Defs
+public import Mathlib.RingTheory.Adjoin.Polynomial.Basic
+public import Mathlib.RingTheory.Algebraic.Basic
+public import Mathlib.RingTheory.Algebraic.Defs
+public import Mathlib.RingTheory.Algebraic.Integral
+public import Mathlib.RingTheory.AlgebraicIndependent.Basic
+public import Mathlib.RingTheory.AlgebraicIndependent.Defs
+public import Mathlib.RingTheory.AlgebraicIndependent.TranscendenceBasis
+public import Mathlib.RingTheory.AlgebraicIndependent.Transcendental
+public import Mathlib.RingTheory.Finiteness.Basic
+public import Mathlib.RingTheory.Finiteness.Defs
+public import Mathlib.RingTheory.Localization.FractionRing
+public import Mathlib.RingTheory.Polynomial.Tower
+public import Mathlib.RingTheory.SimpleRing.Basic
+public import Mathlib.Tactic.Convert
+public import Mathlib.Tactic.FinCases
 
 /-!
 # Function Field finite of rat Func Alg Hom
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -67,7 +71,7 @@ theorem isTranscendenceBasis_polynomial_X (K : Type*) [Field K] :
   rw [isTranscendenceBasis_iff_algebraicIndependent_isAlgebraic]
   refine ⟨algebraicIndependent_iff_transcendental.mpr (transcendental_X K), ?_⟩
   have h : Algebra.adjoin K (Set.range ![(X : K[X])]) = ⊤ := by
-    simp [Polynomial.adjoin_X]
+    rw [Matrix.range_cons_empty, Polynomial.adjoin_X]
   rw [h]
   exact ⟨fun x => isAlgebraic_algebraMap (⟨x, Algebra.mem_top⟩ : (⊤ : Subalgebra K K[X]))⟩
 
@@ -82,7 +86,8 @@ theorem isTranscendenceBasis_ratFunc_X (K : Type*) [Field K] :
   convert h using 1
   ext i
   fin_cases i
-  simp [RatFunc.algebraMap_X]
+  change RatFunc.X = algebraMap K[X] (RatFunc K) X
+  exact RatFunc.algebraMap_X.symm
 
 variable {K F : Type*} [Field K] [Field F] [Algebra K F]
   [Algebra (RatFunc K) F] [IsScalarTower K (RatFunc K) F] [FiniteDimensional (RatFunc K) F]
@@ -104,7 +109,7 @@ theorem transcendental_apply_X (φ : RatFunc K →ₐ[K] F) : Transcendental K (
   intro p q hpq
   apply hX
   apply φ.toRingHom.injective
-  simpa [aeval_algHom_apply] using hpq
+  simpa only [AlgHom.toRingHom_eq_coe, AlgHom.coe_toRingHom, aeval_algHom_apply] using hpq
 
 theorem isTranscendenceBasis_apply_X (φ : RatFunc K →ₐ[K] F) :
     IsTranscendenceBasis K (Subtype.val : ({φ RatFunc.X} : Set F) → F) := by
@@ -114,7 +119,8 @@ theorem isTranscendenceBasis_apply_X (φ : RatFunc K →ₐ[K] F) :
   have hbase_t : (AlgebraicIndependent.matroid K F).IsBase ({t₀} : Set F) := by
     rw [AlgebraicIndependent.matroid_isBase_iff]
     have h := (isTranscendenceBasis_t0 (K := K) (F := F)).to_subtype_range
-    convert h using 2 <;> simp [ht₀]
+    rw [← ht₀, Matrix.range_cons_empty] at h
+    exact h
   have hind_g : (AlgebraicIndependent.matroid K F).Indep ({g} : Set F) := by
     rw [AlgebraicIndependent.matroid_indep_iff]
     have h := (algebraicIndependent_iff_transcendental.mpr (transcendental_apply_X
@@ -126,7 +132,8 @@ theorem isTranscendenceBasis_apply_X (φ : RatFunc K →ₐ[K] F) :
   have hcard : B.ncard = 1 := by
     rw [hB.ncard_eq_ncard_of_isBase hbase_t, Set.ncard_singleton]
   obtain ⟨b, rfl⟩ := Set.ncard_eq_one.mp hcard
-  have hgb : g = b := by simpa using hgB
+  have hgb : g = b := by
+    exact Set.mem_singleton_iff.mp (hgB (Set.mem_singleton g))
   rw [← AlgebraicIndependent.matroid_isBase_iff, hgb]
   exact hB
 omit [FiniteDimensional (RatFunc K) F] in

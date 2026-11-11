@@ -4,16 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.CategoryTheory.Sites.Point.Comap
-import Mathlib.CategoryTheory.Sites.Point.Basic
-import Mathlib.CategoryTheory.Sites.Continuous
-import Mathlib.CategoryTheory.Sites.CoverPreserving
-import Mathlib.CategoryTheory.Sites.Sheaf
-import Mathlib.CategoryTheory.Elements
-import Mathlib.CategoryTheory.Functor.Flat
-import Mathlib.CategoryTheory.Functor.Category
-import Mathlib.CategoryTheory.Limits.Final
-import Mathlib.CategoryTheory.Limits.FinallySmall
+module
+
+public import Mathlib.CategoryTheory.Sites.Point.Comap
+public import Mathlib.CategoryTheory.Sites.Point.Basic
+public import Mathlib.CategoryTheory.Sites.Continuous
+public import Mathlib.CategoryTheory.Sites.CoverPreserving
+public import Mathlib.CategoryTheory.Sites.Sheaf
+public import Mathlib.CategoryTheory.Elements
+public import Mathlib.CategoryTheory.Functor.Flat
+public import Mathlib.CategoryTheory.Functor.Category
+public import Mathlib.CategoryTheory.Limits.Final
+public import Mathlib.CategoryTheory.Limits.FinallySmall
 
 /-!
 # Stalks of restriction under an initial neighborhood functor
@@ -24,6 +26,8 @@ neighborhood functor is final, so the result follows from the comparison of
 colimits. The coefficient category only needs colimits of the size of the
 points; no abelian structure or scheme hypothesis is used.
 -/
+
+@[expose] public section
 
 noncomputable section
 

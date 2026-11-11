@@ -3,9 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalArithmeticScalarRoots
-import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationSquareNamedTransport
-import Nyll.AnabelianGeometry.WeightFiltration.QuadraticScalarFiniteBaseCoverIso
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalArithmeticScalarRoots
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationSquareNamedTransport
+public import Nyll.AnabelianGeometry.WeightFiltration.QuadraticScalarFiniteBaseCoverIso
+public import Nyll.GaloisCohomology.Kummer.Concrete.RootCharacters
 
 /-! # The same rooted arithmetic square transport over its actual scalar field
 
@@ -15,6 +18,8 @@ coordinates, torsors, Isom map, base point and scalar radical are retained,
 and the same scalar field constructs the actual pulled-back cover isomorphism.
 No comparison of arbitrary square roots or their complements is postulated.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve AlgebraicGeometry.FiniteEtale
 open AlgebraicGeometry.ProjSpace CategoryTheory.PreGaloisCategory
@@ -157,7 +162,7 @@ def RationalConfigurationArithmeticSquareTransportWithFiniteBase
 
 /-- The existing rooted transport supplies the strengthened square conclusion. -/
 theorem arithmeticSquareTransport_with_finiteBase_of_rootedScalar
-    (k κ : Type) [Field k] [NumberField k] [Field κ] [Algebra k κ]
+    (k κ : Type) [Field k] [CharZero k] [Field κ] [Algebra k κ]
     [IsAlgClosed κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k)))
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
@@ -177,7 +182,7 @@ theorem arithmeticSquareTransport_with_finiteBase_of_rootedScalar
       k κ s t Ω₁ Ω₂ (2 : ℕ+) us ut eP) :
     RationalConfigurationArithmeticSquareTransportWithFiniteBase
       k κ s t Ω₁ Ω₂ us ut eP := by
-  unfold RationalConfigurationArithmeticSquareTransportWithFiniteBase
+  delta RationalConfigurationArithmeticSquareTransportWithFiniteBase
   intro A_s A_t B_s B_t C_s C_t sep_s sep_t hn M iS hiS iT hiT ξs ξt Fs Ft AS ATs ea AT
   obtain ⟨u, hu⟩ := h
   have he : (u : ZMod ((2 : ℕ+) : ℕ)).val = 1 := zmod_two_unit_val_eq_one u

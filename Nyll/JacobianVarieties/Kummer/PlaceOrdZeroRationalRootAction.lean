@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroNormalizationRootAction
-import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroRationalRootScaling
+module
+
+public import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroNormalizationRootAction
+public import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroRationalRootScaling
 
 /-!
 # One rational root specialization with scaling and original decomposition action
@@ -22,6 +24,10 @@ arithmetic fundamental-group projection: the latter's fixed inner-conjugacy
 correction remains to be handled at the arithmetic caller.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 
 open SchemeTheory EtaleFundamentalGroups.Inertia EtaleFundamentalGroups.StrictHenselian
@@ -31,7 +37,7 @@ namespace AlgebraicCurve.Place
 attribute [local instance] normalizationInertiaImageAction normalizationCommAlgGaloisAction
 
 private theorem canonicalConstantResidueMap_equivariant
-    (k A F κ Ω : Type) [Field k] [CommRing A] [IsLocalRing A]
+    (k A F κ Ω : Type u) [Field k] [CommRing A] [IsLocalRing A]
     [Field F] [Field κ] [Field Ω]
     [Algebra k A] [Algebra k F] [Algebra k κ] [Algebra k Ω]
     [Algebra A F] [IsFractionRing A F] [Algebra F Ω] [Algebra A Ω] [Algebra κ Ω]
@@ -76,7 +82,7 @@ private theorem canonicalConstantResidueMap_equivariant
       congrArg (algebraMap (normalizationCommAlgCat A Ω) Q.ResidueField) hconstant
     _ = c (δ x) := (hcoeff (δ x)).symm
 
-variable {k F : Type} [Field k] [Field F] [Algebra k F]
+variable {k F : Type u} [Field k] [Field F] [Algebra k F]
 
 /-- One and the same rational specialization retains its original integral
 lift, full constant-root scaling, and the original decomposition action with
@@ -84,7 +90,7 @@ its literal restriction to the fixed coefficient field. -/
 theorem exists_ordZero_rationalRootSpecialization_scaling_equivariant
     (v : Place k F) (hv : v.IsRational) (u : Fˣ) (hu : v.ord (u : F) = 0)
     (n : ℕ) (hn : IsUnit (n : k))
-    (κ Ω : Type) [Field κ] [Field Ω]
+    (κ Ω : Type u) [Field κ] [Field Ω]
     [Algebra k κ] [Algebra k Ω] [Algebra F Ω]
     [Algebra v.toValuationSubring Ω] [Algebra κ Ω]
     [IsScalarTower v.toValuationSubring F Ω]
@@ -94,7 +100,7 @@ theorem exists_ordZero_rationalRootSpecialization_scaling_equivariant
     [IsGalois F Ω] [IsSepClosed Ω]
     (Q : Ideal (integralClosure v.toValuationSubring Ω)) [hQmax : Q.IsMaximal] :
     let nativeQ : Ideal (normalizationCommAlgCat v.toValuationSubring Ω) := Q
-    letI : nativeQ.IsMaximal := hQmax
+    let : nativeQ.IsMaximal := hQmax
     let c : κ →+* IsLocalRing.ResidueField (Localization.AtPrime Q) :=
       (maximalQuotientResidueEquiv Q).toRingHom.comp
         (arithmeticConstantResidueMap k v.toValuationSubring κ Ω Q)
@@ -113,9 +119,7 @@ theorem exists_ordZero_rationalRootSpecialization_scaling_equivariant
         (b : {b : Ω // b ^ n = algebraMap F Ω (u : F)}),
         (E ⟨d.val b.val, by rw [← map_pow, b.property, d.val.commutes]⟩).val =
           ((d.val.restrictScalars k).restrictNormal κ) (E b).val := by
-  intro nativeQ
-  let : nativeQ.IsMaximal := hQmax
-  intro c
+  intro nativeQ nativeMaximal c
   obtain ⟨hc, _hconstants, _hvalue⟩ :=
     ordZero_normalizationResidue_constants v hv u hu κ Ω Q
   obtain ⟨E, hE, hscale⟩ :=

@@ -4,16 +4,20 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.ProjectiveSpace.Basic
-import Mathlib.Algebra.MvPolynomial.Funext
-import Mathlib.RingTheory.GradedAlgebra.Homogeneous.Maps
-import Mathlib.Tactic.FinCases
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.Basic
+public import Mathlib.Algebra.MvPolynomial.Funext
+public import Mathlib.RingTheory.GradedAlgebra.Homogeneous.Maps
+public import Mathlib.Tactic.FinCases
 
 /-! # Linear coordinate changes on the projective-line scheme
 
 The infinite-field hypothesis is used for polynomial identities by evaluation.
 The identification with rational closed points is treated separately.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -42,7 +46,10 @@ def coordinateForm (f : V₂ →ₗ[K] V₂) (i : Fin 2) : P₂ :=
 theorem coordinate_vector_decomposition (v : V₂) :
     v = v 0 • coordinateBasisVector 0 + v 1 • coordinateBasisVector 1 := by
   ext j
-  fin_cases j <;> simp [coordinateBasisVector]
+  fin_cases j <;>
+    simp only [Fin.mk_one, Fin.zero_eta, Fin.isValue, coordinateBasisVector, Pi.add_apply,
+      Pi.smul_apply, Pi.single_eq_same, smul_eq_mul, mul_one, ne_eq, one_ne_zero,
+      zero_ne_one, not_false_eq_true, Pi.single_eq_of_ne, mul_zero, add_zero, zero_add]
 
 theorem coordinateForm_isHomogeneous (f : V₂ →ₗ[K] V₂) (i : Fin 2) :
     (coordinateForm f i).IsHomogeneous 1 := by
@@ -54,9 +61,10 @@ theorem eval_coordinateForm (f : V₂ →ₗ[K] V₂) (i : Fin 2) (v : V₂) :
   calc
     MvPolynomial.eval v (coordinateForm f i) =
         f (coordinateBasisVector 0) i * v 0 +
-          f (coordinateBasisVector 1) i * v 1 := by simp [coordinateForm]
+          f (coordinateBasisVector 1) i * v 1 := by simp only [coordinateForm, Fin.isValue, map_add,
+            map_mul, eval_C, eval_X]
     _ = f (v 0 • coordinateBasisVector 0 + v 1 • coordinateBasisVector 1) i := by
-      simp [map_add, map_smul, mul_comm]
+      simp only [Fin.isValue, mul_comm, map_add, map_smul, Pi.add_apply, Pi.smul_apply, smul_eq_mul]
     _ = f v i := by rw [← coordinate_vector_decomposition v]
 
 /-- Graded pullback of polynomials by a linear coordinate map. -/
@@ -71,11 +79,13 @@ def linearSubstitution (f : V₂ →ₗ[K] V₂) : 𝒜 →+*ᵍ 𝒜 where
 
 @[simp]
 theorem linearSubstitution_C (f : V₂ →ₗ[K] V₂) (a : K) :
-    linearSubstitution f (C a) = C a := by simp [linearSubstitution]
+    linearSubstitution f (C a) = C a := by simp only [linearSubstitution, AlgHom.toRingHom_eq_coe,
+      GradedRingHom.coe_mk, RingHom.coe_coe, algHom_C, MvPolynomial.algebraMap_eq]
 
 @[simp]
 theorem linearSubstitution_X (f : V₂ →ₗ[K] V₂) (i : Fin 2) :
-    linearSubstitution f (X i) = coordinateForm f i := by simp [linearSubstitution]
+    linearSubstitution f (X i) = coordinateForm f i := by simp only [linearSubstitution,
+      AlgHom.toRingHom_eq_coe, GradedRingHom.coe_mk, RingHom.coe_coe, aeval_X]
 
 /-- Substitution has the intended evaluation action. -/
 @[simp]
@@ -214,7 +224,10 @@ theorem linearSubstitution_awayMap_fromZero (f : V₂ →ₗ[K] V₂) (s : P₂)
   change (Localization.mk _ _ : Localization.Away (linearSubstitution f s)) =
     Localization.mk _ _
   refine Localization.mk_eq_mk_iff.mpr (Localization.r_of_eq ?_)
-  simp [grad0Equiv, linearSubstitution]
+  simp only [linearSubstitution, AlgHom.toRingHom_eq_coe, Nat.reduceAdd, grad0Equiv,
+    RingEquiv.toRingHom_eq_coe, RingHom.coe_coe, RingEquiv.coe_mk, Equiv.coe_fn_mk,
+    SetLike.GradeZero.coe_one, GradedRingHom.coe_mk, algHom_C, MvPolynomial.algebraMap_eq, one_mul,
+    map_one]
 
 private theorem awayι_comp_π_of_pos
     {d : ℕ} (hd : 0 < d) (s : P₂) (hs : s ∈ 𝒜 d) :

@@ -4,15 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationCofinality
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationCover
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ProperGroupScheme
-import Mathlib.AlgebraicGeometry.Geometrically.Connected
-import Mathlib.CategoryTheory.Galois.Decomposition
-import Mathlib.CategoryTheory.Galois.Prorepresentability
-import Mathlib.CategoryTheory.Galois.Topology
-import Nyll.ProCGroups.Abelian.FullTateModule
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationCofinality
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationCover
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ProperGroupScheme
+public import Mathlib.AlgebraicGeometry.Geometrically.Connected
+public import Mathlib.CategoryTheory.Galois.Decomposition
+public import Mathlib.CategoryTheory.Galois.Prorepresentability
+public import Mathlib.CategoryTheory.Galois.Topology
+public import Nyll.ProCGroups.Abelian.FullTateModule
 
 /-!
 # Separation by actual multiplication monodromy
@@ -24,7 +26,11 @@ recover the whole fibre action from its value at the unit, and cofinality
 then detects every Galois fibre.
 -/
 
+@[expose] public section
+
 noncomputable section
+
+universe u
 
 open CategoryTheory CategoryTheory.PreGaloisCategory
 open AlgebraicGeometry AlgebraicGeometry.FiniteEtale
@@ -32,8 +38,8 @@ open scoped FintypeCatDiscrete
 
 namespace GoodReductionJacobian.RelativeGroupLaw
 
-variable {K : Type} [Field K] [IsAlgClosed K] [CharZero K]
-  {A : Scheme} {f : A ⟶ Spec (.of K)}
+variable {K : Type u} [Field K] [IsAlgClosed K] [CharZero K]
+  {A : Scheme.{u}} {f : A ⟶ Spec (.of K)}
   [IsProper f] [Smooth f] [GeometricallyConnected f]
   (G : RelativeGroupLaw K f) (hc : G.IsCommutative)
 
@@ -88,6 +94,7 @@ theorem fundamentalGroup_ext_of_multiplicationMonodromy
     rw [← mul_smul, G.fundamentalGroup_mul_comm g a, mul_smul, hunit,
       ← mul_smul, G.fundamentalGroup_mul_comm a h, mul_smul]
   apply Aut.ext
+  apply Iso.ext
   apply natTrans_ext_of_isGalois F
   intro W hW
   obtain ⟨n, ⟨q⟩⟩ := G.exists_multiplicationCover_hom hc W

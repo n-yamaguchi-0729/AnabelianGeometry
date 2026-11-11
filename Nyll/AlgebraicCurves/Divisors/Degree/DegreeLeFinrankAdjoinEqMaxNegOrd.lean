@@ -10,16 +10,20 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
-import Nyll.AlgebraicCurves.Cohomology.Adelic.Repartitions
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
-import Nyll.AlgebraicCurves.Cohomology.Adelic.Index
-import Nyll.AlgebraicCurves.Places.Orders.PrescribedOrders
-import Nyll.AlgebraicCurves.Places.Basic
+module
+
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+public import Nyll.AlgebraicCurves.Cohomology.Adelic.Repartitions
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
+public import Nyll.AlgebraicCurves.Cohomology.Adelic.Index
+public import Nyll.AlgebraicCurves.Places.Orders.PrescribedOrders
+public import Nyll.AlgebraicCurves.Places.Basic
 
 /-!
 # Divisor degree le finrank adjoin of eq max neg ord
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -248,7 +252,8 @@ theorem _root_.AlgebraicCurve.Divisor.degree_le_finrank_adjoin_of_eq_max_neg_ord
     have hreg : ∀ k, ∀ v' ∈ S, c * zF k ∈ v'.toValuationSubring := by
       intro k v' hv'
       rcases eq_or_ne (zF k) 0 with hz0 | hz0
-      · simp [hz0]
+      · rw [hz0, mul_zero]
+        exact zero_mem _
       refine v'.mem_of_ord_nonneg (mul_ne_zero hc0 hz0) ?_
       rw [v'.ord_mul hc0 hz0, hcord v' hv']
       split_ifs with heq
@@ -280,7 +285,7 @@ theorem _root_.AlgebraicCurve.Divisor.degree_le_finrank_adjoin_of_eq_max_neg_ord
     intro v hv k h
     have := (hz_unit v hv k)
     rw [show (⟨z v hv k, hz_reg v hv k v hv⟩ : v.toValuationSubring) = 0 from
-      Subtype.ext (by simp [h])] at this
+      Subtype.ext h] at this
     exact not_isUnit_zero this
   have hT_ne0 : ∀ i : ι, T i ≠ 0 := fun i =>
     mul_ne_zero (hz_ne0 i.1.1 i.1.2 i.2.2) (zpow_ne_zero _ (ht0 i.1.1 i.1.2))
@@ -411,7 +416,8 @@ theorem _root_.AlgebraicCurve.Divisor.degree_le_finrank_adjoin_of_eq_max_neg_ord
         linarith [hmle i hi]
       · have : φ i = 0 := by
           by_contra h; exact hi (Finset.mem_filter.mpr ⟨Finset.mem_univ _, h⟩)
-        simp [this]
+        rw [this, ZeroMemClass.coe_zero, mul_zero, zero_mul, mul_zero]
+        exact zero_mem _
     have hsum_O : (∑ i, (⟨_, hμψT_mem i⟩ : vv.toValuationSubring)) = 0 := by
       refine Subtype.ext ?_
       simp only [AddSubmonoidClass.coe_finsetSum, ZeroMemClass.coe_zero]
@@ -432,7 +438,9 @@ theorem _root_.AlgebraicCurve.Divisor.degree_le_finrank_adjoin_of_eq_max_neg_ord
       · have hφ0 : φ i = 0 := by
           by_contra h; exact hi (Finset.mem_filter.mpr ⟨Finset.mem_univ _, h⟩)
         rw [show (⟨_, hμψT_mem i⟩ : vv.toValuationSubring) = 0 from
-          Subtype.ext (by simp [hφ0]), map_zero]
+          Subtype.ext (by
+            change μ * (x ^ q₂ * ((φ i : E) : F) * T i) = (0 : F)
+            rw [hφ0, ZeroMemClass.coe_zero, mul_zero, zero_mul, mul_zero]), map_zero]
     let j : Fin vv.deg → ι := fun k => ⟨i₃.1, i₃.2.1, k⟩
     have hreindex : ∑ i, IsLocalRing.residue _ (⟨_, hμψT_mem i⟩ : vv.toValuationSubring)
         = ∑ k, IsLocalRing.residue _ (⟨_, hμψT_mem (j k)⟩ : vv.toValuationSubring) := by

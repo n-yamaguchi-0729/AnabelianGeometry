@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.TransportedCandidateAllOpenTests
-import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryInertiaRecognition
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.TransportedCandidateAllOpenTests
+public import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryInertiaRecognition
 
 /-! # Recognition from the actual transported roots candidate
 
@@ -13,6 +15,8 @@ All open-subgroup tests are constructed by the preceding geometric owner.
 Maximal procyclicity is proved from a source centralizer calculation; no
 conclusion about target inertia or preservation is assumed.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -30,7 +34,7 @@ attribute [local instance]
   connectedCoverPlaceConstantAmbientTower
 
 variable
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ]
     [Algebra k κ] [IsSepClosure k κ]
     {C₀ X : Scheme}

@@ -3,10 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.KummerTheory.RatFuncCoordinatePlaceUniqueness
-import Nyll.AnabelianGeometry.WeightFiltration.QuadraticBoundaryFiniteLabels
-import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
-import Mathlib.AlgebraicGeometry.OpenImmersion
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.RatFuncCoordinatePlaceUniqueness
+public import Nyll.AnabelianGeometry.WeightFiltration.QuadraticBoundaryFiniteLabels
+public import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
+public import Mathlib.AlgebraicGeometry.OpenImmersion
 
 /-! # The retained square-root labels belong to the actual omitted boundary
 
@@ -15,6 +17,8 @@ the literal pullback range give both directions of boundary membership.
 The selected finite root and its negative therefore give actual omitted places,
 not merely a list that contains the omitted places.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve
 open AlgebraicGeometry.ProjSpace

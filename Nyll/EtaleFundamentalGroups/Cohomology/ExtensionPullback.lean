@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Homology.ShortComplex.ShortExact
-import Mathlib.CategoryTheory.Abelian.Basic
+module
+
+public import Mathlib.Algebra.Homology.ShortComplex.ShortExact
+public import Mathlib.CategoryTheory.Abelian.Basic
 
 /-!
 # Pulling an extension back with its original coefficient identification
@@ -14,6 +16,8 @@ The middle object is the actual categorical pullback. Its kernel is identified
 using a specified isomorphism to the original kernel, and its short exactness
 is proved from the pullback and kernel universal properties.
 -/
+
+@[expose] public section
 
 noncomputable section
 

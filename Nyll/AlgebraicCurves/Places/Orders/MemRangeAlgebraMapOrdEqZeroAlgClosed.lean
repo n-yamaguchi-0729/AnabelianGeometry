@@ -10,27 +10,32 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
-import Mathlib.FieldTheory.RatFunc.AsPolynomial
-import Mathlib.RingTheory.Unramified.Field
-import Mathlib.FieldTheory.Relrank
-import Mathlib.FieldTheory.RatFunc.IntermediateField
-import Mathlib.FieldTheory.IsAlgClosed.Basic
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Algebra
-import Mathlib.RingTheory.Algebraic.Basic
-import Mathlib.RingTheory.Adjoin.Polynomial.Basic
-import Mathlib.FieldTheory.RatFunc.Degree
-import Mathlib.FieldTheory.Separable
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncNeOfHeightOneSpectrum
-import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
-import Nyll.AlgebraicCurves.Places.ValuationRings.ComapEqToValuationSubring
-import Nyll.AlgebraicCurves.Places.Orders.OrdAlgebraMapEqMulOrd
-import Nyll.AlgebraicCurves.FunctionFields.Extensions.FiniteSimpleExtensions
+module
+
+public import Nyll.SchemeTheory.FunctionFields.AlgebraIsSeparableFinrankFieldRangeFrobeniusEq
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+public import Mathlib.FieldTheory.RatFunc.AsPolynomial
+public import Mathlib.RingTheory.Unramified.Field
+public import Mathlib.FieldTheory.Relrank
+public import Mathlib.FieldTheory.RatFunc.IntermediateField
+public import Mathlib.FieldTheory.IsAlgClosed.Basic
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Algebra
+public import Mathlib.RingTheory.Algebraic.Basic
+public import Mathlib.RingTheory.Adjoin.Polynomial.Basic
+public import Mathlib.FieldTheory.RatFunc.Degree
+public import Mathlib.FieldTheory.Separable
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncNeOfHeightOneSpectrum
+public import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
+public import Nyll.AlgebraicCurves.Places.ValuationRings.ComapEqToValuationSubring
+public import Nyll.AlgebraicCurves.Places.Orders.OrdAlgebraMapEqMulOrd
+public import Nyll.AlgebraicCurves.FunctionFields.Extensions.FiniteSimpleExtensions
 
 /-!
 # Place mem range algebra Map of forall ord eq zero of is Alg Closed
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -56,62 +61,8 @@ theorem AlgebraicCurve.isSeparable_of_finrank_fieldRange_frobenius_eq
     (p : ℕ) [Fact p.Prime] [CharP F p]
     (hdeg : Module.finrank (frobenius F p).fieldRange F = p)
     (y : E) (hy : algebraMap E F y ∉ (frobenius F p).fieldRange) :
-    Algebra.IsSeparable E F := by
-  set S : Subfield F := (frobenius F p).fieldRange with hS
-  have : IsSimpleOrder (IntermediateField S F) :=
-    IntermediateField.isSimpleOrder_of_finrank_prime S F (by rw [hdeg]; exact Fact.out)
-  set D := KaehlerDifferential.D E F with hD
-  have hDS : ∀ s : F, s ∈ S → D s = 0 := by
-    intro s hs
-    obtain ⟨a, rfl⟩ := RingHom.mem_fieldRange.mp hs
-    rw [frobenius_def, D.leibniz_pow, ← Nat.cast_smul_eq_nsmul F, CharP.cast_eq_zero, zero_smul]
-  have hDy : D (algebraMap E F y) = 0 := D.map_algebraMap y
-  let Z : IntermediateField S F :=
-    { carrier := {z | D z = 0}
-      mul_mem' := by
-        intro a b ha hb
-        simp only [Set.mem_ofPred_eq] at ha hb ⊢
-        rw [D.leibniz, ha, hb, smul_zero, smul_zero, add_zero]
-      one_mem' := D.map_one_eq_zero
-      add_mem' := by
-        intro a b ha hb
-        simp only [Set.mem_ofPred_eq] at ha hb ⊢
-        rw [map_add, ha, hb, add_zero]
-      zero_mem' := map_zero D
-      algebraMap_mem' := fun s => hDS _ s.2
-      inv_mem' := by
-        intro z hz
-        simp only [Set.mem_ofPred_eq] at hz ⊢
-        rw [D.leibniz_inv, hz, smul_zero] }
-  have hyZ : IntermediateField.adjoin S {algebraMap E F y} ≤ Z :=
-    IntermediateField.adjoin_le_iff.mpr (Set.singleton_subset_iff.mpr hDy)
-  have hZ : Z = ⊤ := by
-    rcases IsSimpleOrder.eq_bot_or_eq_top (IntermediateField.adjoin S {algebraMap E F y})
-      with h | h
-    · exfalso
-      apply hy
-      have hmem : algebraMap E F y ∈ (⊥ : IntermediateField S F) :=
-        h ▸ IntermediateField.mem_adjoin_simple_self S (algebraMap E F y)
-      obtain ⟨s, hs⟩ := IntermediateField.mem_bot.mp hmem
-      rw [← hs]
-      exact s.2
-    · rw [h] at hyZ
-      exact top_le_iff.mp hyZ
-  have hD0 : ∀ z : F, D z = 0 := fun z => by
-    have hz : z ∈ Z := hZ ▸ IntermediateField.mem_top
-    exact hz
-  have : Subsingleton (KaehlerDifferential E F) := by
-    refine subsingleton_of_forall_eq 0 fun ω => ?_
-    have hω : ω ∈ Submodule.span F (Set.range D) := by
-      rw [hD, KaehlerDifferential.span_range_derivation]
-      trivial
-    have hle : Submodule.span F (Set.range D) ≤ ⊥ := by
-      refine Submodule.span_le.mpr ?_
-      rintro _ ⟨z, rfl⟩
-      exact (Submodule.mem_bot F).mpr (hD0 z)
-    exact (Submodule.mem_bot F).mp (hle hω)
-  have : Algebra.FormallyUnramified E F := ⟨inferInstance⟩
-  exact Algebra.FormallyUnramified.isSeparable E F
+    Algebra.IsSeparable E F :=
+  _root_.Algebra.IsSeparable.of_finrank_fieldRange_frobenius_eq p hdeg y hy
 
 namespace AlgebraicCurve
 open _root_.AlgebraicCurve

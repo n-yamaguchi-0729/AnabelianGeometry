@@ -10,14 +10,19 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Algebra.MvPolynomial.Funext
-import Mathlib.RingTheory.Localization.Away.AdjoinRoot
-import Nyll.SchemeTheory.RingTheory.FieldExtensions.IntermediateFieldMemAdjoinSumMul
-import Nyll.SchemeTheory.RingTheory.Dimension.IdealNeZeroIsMaximalRadicalMapIsPrime
+module
+
+public import Mathlib.Algebra.MvPolynomial.Eval
+public import Mathlib.Algebra.MvPolynomial.Funext
+public import Mathlib.RingTheory.Localization.Away.AdjoinRoot
+public import Nyll.SchemeTheory.RingTheory.FieldExtensions.IntermediateFieldMemAdjoinSumMul
+public import Nyll.SchemeTheory.RingTheory.Dimension.IdealNeZeroIsMaximalRadicalMapIsPrime
 
 /-!
 # Ideal exists mem and mem and radical span singleton is Prime
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -56,7 +61,8 @@ theorem mem_span_X_sub_C_of_aeval_eq_zero {R : Type*} [CommRing R] {σ : Type*} 
     {p : MvPolynomial σ R} (hp : MvPolynomial.aeval a p = 0) :
     p ∈ Ideal.span (Set.range fun i : σ => (X i - C (a i) : MvPolynomial σ R)) := by
   let φ : MvPolynomial σ R →ₐ[R] MvPolynomial σ R := MvPolynomial.aeval fun i => C (a i)
-  have hφX : ∀ i, φ (X i) = C (a i) := fun i => by simp [φ]
+  have hφX : ∀ i, φ (X i) = C (a i) :=
+    fun i => MvPolynomial.aeval_X (R := R) (fun j => C (a j)) i
   have hφ : ∀ q : MvPolynomial σ R, φ q = C (MvPolynomial.aeval a q) := by
     intro q
     have h1 : φ = (IsScalarTower.toAlgHom R R (MvPolynomial σ R)).comp (MvPolynomial.aeval a) := by
@@ -136,8 +142,10 @@ theorem two_le_height_of_mem_of_mem (k : Type u) [Field k] {σ : Type*}
   let v₂ : σ → MvPolynomial σ k := fun l => if l = i then C a else if l = j then C b else X l
   let φ₁ : MvPolynomial σ k →ₐ[k] MvPolynomial σ k := MvPolynomial.aeval v₁
   let φ₂ : MvPolynomial σ k →ₐ[k] MvPolynomial σ k := MvPolynomial.aeval v₂
-  have hφ₁X : ∀ l, φ₁ (X l) = v₁ l := fun l => by simp [φ₁]
-  have hφ₂X : ∀ l, φ₂ (X l) = v₂ l := fun l => by simp [φ₂]
+  have hφ₁X : ∀ l, φ₁ (X l) = v₁ l :=
+    fun l => MvPolynomial.aeval_X (R := k) v₁ l
+  have hφ₂X : ∀ l, φ₂ (X l) = v₂ l :=
+    fun l => MvPolynomial.aeval_X (R := k) v₂ l
   let P₁ : Ideal (MvPolynomial σ k) := RingHom.ker φ₁.toRingHom
   let P₂ : Ideal (MvPolynomial σ k) := RingHom.ker φ₂.toRingHom
   have hP₁ : P₁.IsPrime := RingHom.ker_isPrime _
@@ -379,7 +387,8 @@ theorem exists_ne_zero_forall_fibre
       exact hb₃2
   set ξ' : Ω := UΩ * xΩ 0 + WΩ * xΩ 1 with hξ'
   let g_C : C2 →ₐ[k] Ω := (MvPolynomial.aeval (R := A') xΩ).restrictScalars k
-  have hgCX : ∀ i, g_C (X i) = xΩ i := fun i => by simp [g_C]
+  have hgCX : ∀ i, g_C (X i) = xΩ i :=
+    fun i => MvPolynomial.aeval_X (R := A') xΩ i
   have hgCC : ∀ a : A', g_C (C a) = algebraMap Kf Ω (algebraMap A' Kf a) := by
     intro a
     simp only [g_C, AlgHom.coe_restrictScalars', MvPolynomial.algHom_C]
@@ -613,7 +622,11 @@ theorem irredHyp
   let ι : Fin 2 → Fin s := ![i₀, i₁]
   have hι : Function.Injective ι := by
     intro a b hab
-    fin_cases a <;> fin_cases b <;> simp_all [ι]
+    fin_cases a <;> fin_cases b
+    · rfl
+    · exact (hi hab).elim
+    · exact (hi hab.symm).elim
+    · rfl
   let T : Fin 2 → A := fun j => g (X (ι j))
   have hT : AlgebraicIndependent k T :=
     ((MvPolynomial.algebraicIndependent_X (Fin s) k).comp ι hι).map' (f := g) hg
@@ -744,16 +757,21 @@ theorem irredHyp
   let ρ := rho k A' t₂' g₂
   let av : Fin 2 → A' := ![algebraMap k A' (a 1), algebraMap k A' (a 2)]
   let ψ : MvPolynomial (Fin 2) A' →ₐ[A'] A' := MvPolynomial.aeval av
-  have hψ : Function.Surjective ψ := fun b => ⟨C b, by simp [ψ]⟩
+  have hψ : Function.Surjective ψ :=
+    fun b => ⟨C b, MvPolynomial.aeval_C av b⟩
   have hρC : ∀ c : k, ρ (C c) = C (algebraMap k A' c) := by
     intro c
     rw [← MvPolynomial.algebraMap_eq, AlgHom.commutes, MvPolynomial.algebraMap_apply]
-  have hρX0 : ρ (X 0) = C t₂' * X 0 + C g₂ * X 1 := by
-    simp [ρ, rho, rhoVec]
-  have hρX1 : ρ (X 1) = X 0 := by simp [ρ, rho, rhoVec]
-  have hρX2 : ρ (X 2) = X 1 := by simp [ρ, rho, rhoVec]
-  have hψX0 : ψ (X 0) = algebraMap k A' (a 1) := by simp [ψ, av]
-  have hψX1 : ψ (X 1) = algebraMap k A' (a 2) := by simp [ψ, av]
+  have hρX0 : ρ (X 0) = C t₂' * X 0 + C g₂ * X 1 :=
+    MvPolynomial.aeval_X (R := k) (rhoVec A' t₂' g₂) 0
+  have hρX1 : ρ (X 1) = X 0 :=
+    MvPolynomial.aeval_X (R := k) (rhoVec A' t₂' g₂) 1
+  have hρX2 : ρ (X 2) = X 1 :=
+    MvPolynomial.aeval_X (R := k) (rhoVec A' t₂' g₂) 2
+  have hψX0 : ψ (X 0) = algebraMap k A' (a 1) :=
+    MvPolynomial.aeval_X (R := A') av 0
+  have hψX1 : ψ (X 1) = algebraMap k A' (a 2) :=
+    MvPolynomial.aeval_X (R := A') av 1
   set J : Ideal (MvPolynomial (Fin 2) A') := n.map ρ.toRingHom with hJ
   have hnle : n ≤ Ideal.span (Set.range fun i : Fin 3 => (X i - C (a i) : MvPolynomial (Fin 3) k))
     :=
@@ -810,7 +828,7 @@ theorem irredHyp
     refine le_antisymm ?_ ?_
     · exact (Ideal.map_mono hJle).trans Ideal.map_comap_le
     · rw [Ideal.span_singleton_le_iff_mem]
-      have : ψ.toRingHom (C h) = h := by simp [ψ]
+      have : ψ.toRingHom (C h) = h := MvPolynomial.aeval_C av h
       rw [← this]
       exact Ideal.mem_map_of_mem _ hChJ
   have hA' : (Ideal.span {F}).map (algebraMap A A') = ⊤ ∨

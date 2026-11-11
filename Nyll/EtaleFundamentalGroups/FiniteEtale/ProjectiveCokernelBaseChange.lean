@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Cohomology.Cech.TwoChartCech
-import Mathlib.Algebra.Module.Projective
-import Mathlib.RingTheory.Finiteness.Basic
+module
+
+public import Nyll.SchemeTheory.Cohomology.Cech.TwoChartCech
+public import Mathlib.Algebra.Module.Projective
+public import Mathlib.RingTheory.Finiteness.Basic
 
 /-!
 # Kernel base change for a map with projective cokernel
@@ -15,6 +17,8 @@ Splitting the cokernel makes the image a projective direct summand.
 Splitting the surjection onto this image makes the kernel a finite
 projective direct summand and proves its canonical arbitrary base change.
 -/
+
+@[expose] public section
 
 noncomputable section
 

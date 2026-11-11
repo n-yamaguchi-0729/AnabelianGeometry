@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.PointedH1Pullback
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
-import Nyll.EtaleFundamentalGroups.GeometricFiber.DeckFundamentalGroup
-import Nyll.EtaleFundamentalGroups.GaloisCategories.GaloisObjectQuotient
-import Nyll.GaloisCohomology.ProP.FiniteCoefficientTransfer
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.PointedH1Pullback
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.DeckFundamentalGroup
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.GaloisObjectQuotient
+public import Nyll.GaloisCohomology.ProP.FiniteCoefficientTransfer
 
 /-!
 # Descent of actual finite-coefficient H¹ along Galois covers
@@ -18,6 +20,8 @@ every actual geometric deck pullback descends to the base. The proof constructs
 the descended character by normalized continuous transfer, using the proved
 geometric deck/conjugation comparison and actual derived-H¹ naturality.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -92,7 +96,7 @@ theorem exists_constantH1Pullback_eq_of_deckInvariant
     (hcop : (Nat.card (Multiplicative B)).Coprime
       (pointedCoverOpenSubgroup A xi).toSubgroup.index)
     (c : Sheaf.H.{u} ((constantSheaf A.left.smallEtaleTopology AddCommGrpCat.{u}).obj B) 1)
-    (hinv : ∀ σ : Aut A, constantCohomologyPullback σ.hom.left B 1 c = c) :
+    (hinv : ∀ σ : Aut A, constantCohomologyPullback σ.asIso.hom.left B 1 c = c) :
     ∃ b : Sheaf.H.{u} ((constantSheaf S.smallEtaleTopology AddCommGrpCat.{u}).obj B) 1,
       constantCohomologyPullback A.hom B 1 b = c := by
   let : TopologicalSpace (Multiplicative B) := ⊥
@@ -115,13 +119,13 @@ theorem exists_constantH1Pullback_eq_of_deckInvariant
     let σ : Aut A :=
       (galoisObjectQuotientMonoidHom (C := FiniteEtale S) (FiniteEtale.fiber (xi ≫ A.hom)) G A
         (FiniteEtale.liftedFiberPoint A xi) g⁻¹).unop
-    have hσ : (FiniteEtale.fiber (xi ≫ A.hom)).map σ.hom
+    have hσ : (FiniteEtale.fiber (xi ≫ A.hom)).map σ.asIso.hom
         (FiniteEtale.liftedFiberPoint A xi) =
         g⁻¹ • FiniteEtale.liftedFiberPoint A xi :=
       galoisObjectQuotientMonoidHom_evaluation (C := FiniteEtale S)
         (FiniteEtale.fiber (xi ≫ A.hom)) G A (FiniteEtale.liftedFiberPoint A xi) g⁻¹
     let t := FiniteEtale.deckPointedGeometricFiberIso A xi σ g⁻¹ hσ
-    let d := autHomOfCompIso (FiniteEtale.pullback σ.hom.left) t
+    let d := autHomOfCompIso (FiniteEtale.pullback σ.asIso.hom.left) t
     let a := e.symm h
     have ha : FiniteEtale.fundamentalGroupHom A.hom xi a = (h : G) :=
       (FiniteEtale.fundamentalGroupEquivStabilizerOfLift_coe A xi a).symm.trans
@@ -137,7 +141,7 @@ theorem exists_constantH1Pullback_eq_of_deckInvariant
     have hp : χ (d a) = χ a := by
       have hn := congrArg
         (fun ψ : Aut (FiniteEtale.fiber xi) →ₜ* Multiplicative B => ψ a)
-        (h1Character_pointedSchemePullback σ.hom.left B xi xi t c)
+        (h1Character_pointedSchemePullback σ.asIso.hom.left B xi xi t c)
       exact hn.trans (congrArg (fun z => h1Character B xi z a) (hinv σ))
     change χ (e.symm (MulAut.conjNormal g h)) = χ (e.symm h)
     rw [← hd, e.symm_apply_apply]
@@ -173,7 +177,7 @@ transformation. This follows from the constructed conjugation comparison. -/
 theorem constantH1Pullback_deck_of_base
     (b : Sheaf.H.{u} ((constantSheaf S.smallEtaleTopology AddCommGrpCat.{u}).obj B) 1)
     (σ : Aut A) :
-    constantCohomologyPullback σ.hom.left B 1
+    constantCohomologyPullback σ.asIso.hom.left B 1
       (constantCohomologyPullback A.hom B 1 b) =
       constantCohomologyPullback A.hom B 1 b := by
   let : TopologicalSpace (Multiplicative B) := ⊥
@@ -181,7 +185,7 @@ theorem constantH1Pullback_deck_of_base
   obtain ⟨g, hg⟩ := galoisObjectQuotientMonoidHom_surjective
     (C := FiniteEtale S) (FiniteEtale.fiber (xi ≫ A.hom)) G A
     (FiniteEtale.liftedFiberPoint A xi) (MulOpposite.op σ)
-  have hσ : (FiniteEtale.fiber (xi ≫ A.hom)).map σ.hom
+  have hσ : (FiniteEtale.fiber (xi ≫ A.hom)).map σ.asIso.hom
       (FiniteEtale.liftedFiberPoint A xi) =
       g • FiniteEtale.liftedFiberPoint A xi := by
     have he := galoisObjectQuotientMonoidHom_evaluation
@@ -190,7 +194,7 @@ theorem constantH1Pullback_deck_of_base
     rw [hg] at he
     exact he
   let t := FiniteEtale.deckPointedGeometricFiberIso A xi σ g hσ
-  let d := autHomOfCompIso (FiniteEtale.pullback σ.hom.left) t
+  let d := autHomOfCompIso (FiniteEtale.pullback σ.asIso.hom.left) t
   let c := constantCohomologyPullback A.hom B 1 b
   let χ := h1Character (X := S) B (xi ≫ A.hom) b
   have hb (a : Aut (FiniteEtale.fiber xi)) :
@@ -204,9 +208,9 @@ theorem constantH1Pullback_deck_of_base
   have hd := FiniteEtale.fundamentalGroupHom_deckPointed A xi σ g hσ a
   have hp := congrArg
     (fun ρ : Aut (FiniteEtale.fiber xi) →ₜ* Multiplicative B => ρ a)
-    (h1Character_pointedSchemePullback σ.hom.left B xi xi t c)
+    (h1Character_pointedSchemePullback σ.asIso.hom.left B xi xi t c)
   calc
-    h1Character B xi (constantCohomologyPullback σ.hom.left B 1 c) a =
+    h1Character B xi (constantCohomologyPullback σ.asIso.hom.left B 1 c) a =
         h1Character B xi c (d a) := hp.symm
     _ = χ (FiniteEtale.fundamentalGroupHom A.hom xi (d a)) := (hb (d a)).symm
     _ = χ (g⁻¹ * FiniteEtale.fundamentalGroupHom A.hom xi a * g) :=
@@ -223,7 +227,7 @@ theorem mem_range_constantH1Pullback_iff_deckInvariant
       (pointedCoverOpenSubgroup A xi).toSubgroup.index)
     (c : Sheaf.H.{u} ((constantSheaf A.left.smallEtaleTopology AddCommGrpCat.{u}).obj B) 1) :
     c ∈ Set.range (constantCohomologyPullback A.hom B 1) ↔
-      ∀ σ : Aut A, constantCohomologyPullback σ.hom.left B 1 c = c := by
+      ∀ σ : Aut A, constantCohomologyPullback σ.asIso.hom.left B 1 c = c := by
   constructor
   · rintro ⟨b, rfl⟩ σ
     exact constantH1Pullback_deck_of_base A xi B b σ

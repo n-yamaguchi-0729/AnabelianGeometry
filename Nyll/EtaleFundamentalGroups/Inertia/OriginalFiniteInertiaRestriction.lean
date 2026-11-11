@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaCoefficientRestriction
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaCoefficientRestriction
 
 /-!
 # Original inertia at finite normalization primes
@@ -13,6 +15,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaCoefficientRestric
 Proves the coefficient difference condition for restriction of original inertia to the
 contracted finite normalization prime.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

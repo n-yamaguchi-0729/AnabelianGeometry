@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
-import Mathlib.RingTheory.Localization.Integral
-import Mathlib.RingTheory.Localization.AtPrime.Extension
-import Mathlib.Tactic.Ring
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
+public import Mathlib.RingTheory.Localization.Integral
+public import Mathlib.RingTheory.Localization.AtPrime.Extension
+public import Mathlib.Tactic.Ring
 
 /-!
 # Original normalization inertia over an actual localized base
@@ -21,6 +23,8 @@ The fraction argument extends the one in
 `EtaleFundamentalGroups.Inertia.Normalization.Localization` to an arbitrary
 model of the base localization, retaining the original actions throughout.
 -/
+
+@[expose] public section
 
 noncomputable section
 

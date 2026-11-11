@@ -3,11 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.ProjectiveLine.SamePunctureFourCyclicClasses
-import Nyll.SchemeTheory.ProjectiveSpace.Configuration
-import Nyll.AnabelianGeometry.ProjectiveLine.NumberFieldConfiguration
+module
+
+public import Nyll.AnabelianGeometry.ProjectiveLine.SamePunctureFourCyclicClasses
+public import Nyll.SchemeTheory.ProjectiveSpace.Configuration
+public import Nyll.AnabelianGeometry.ProjectiveLine.CharacteristicZeroConfiguration
 
 /-! # Same Lifted Cross Ratio Rigidity -/
+
+@[expose] public section
 
 noncomputable section
 namespace AnabelianGeometry.ProjectiveLine
@@ -32,7 +36,7 @@ theorem squareCover_labels_ne_of_projection
   exact hab (hx.symm.trans ((congrArg p h).trans hy))
 
 theorem crossRatio_eq_of_same_lifted_cyclic_data
-    {k E : Type} [Field k] [Field E] [NumberField E] [Algebra k E]
+    {k E : Type} [Field k] [Field E] [CharZero E] [Algebra k E]
     {s t : Finset (Projectivization k (k × k))}
     {S T : Finset (Projectivization E (E × E))}
     (σ : s ≃ t) (τ : S ≃ T) (pS : S → s)

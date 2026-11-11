@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealCanonicalTameCharacter
-import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealCanonicalTameCharacter
+public import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
 
 /-!
 # Canonical tame characters of coefficient algebras
@@ -14,6 +16,8 @@ import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
 Constructs the canonical finite tame character on intrinsic coefficient inertia with values in
 its full residue-root group.
 -/
+
+@[expose] public section
 
 noncomputable section
 

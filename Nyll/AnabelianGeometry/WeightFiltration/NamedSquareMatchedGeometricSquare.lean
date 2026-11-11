@@ -3,9 +3,13 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareGeometricGroupSquare
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareGeometricGroupSquare
 
 /-! # The matched geometric square of the named model -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve
@@ -14,7 +18,8 @@ open scoped FintypeCatDiscrete
 attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
 namespace AnabelianGeometry.WeightFiltration
 
-private def matchedPointGroupEquiv
+/-- Transport the matched fundamental-group equivalence to the specified base points. -/
+def matchedPointGroupEquiv
     {S T : Scheme} {Ωs Ωt : Type} [Field Ωs] [Field Ωt]
     {xs ys : Spec (.of Ωs) ⟶ S} {xt yt : Spec (.of Ωt) ⟶ T}
     (hs : xs = ys) (ht : xt = yt) (α : π₁ᵉᵗ(ys) ≃ₜ* π₁ᵉᵗ(yt)) :

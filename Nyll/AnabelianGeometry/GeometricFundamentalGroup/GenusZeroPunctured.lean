@@ -4,17 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalPuncturedChart
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroParameter
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.AffineLineFundamentalGroup
-import Nyll.AlgebraicCurves.Places.Orders.NotMemOrdNegOrdEqOne
-import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
-import Nyll.AlgebraicCurves.Places.Rational.Basic
-import Nyll.AlgebraicCurves.Models.FunctionFields.CurveModelIsoAlgEquiv
-import Nyll.AlgebraicCurves.Models.Points.IsoCompToBaseEqPlaceOfPointCongrEq
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
-import Nyll.SchemeTheory.Pi1.Affine.Over
-import Mathlib.FieldTheory.RatFunc.AsPolynomial
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalPuncturedChart
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroParameter
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.AffineLineFundamentalGroup
+public import Nyll.AlgebraicCurves.Places.Orders.NotMemOrdNegOrdEqOne
+public import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
+public import Nyll.AlgebraicCurves.Places.Rational.Basic
+public import Nyll.AlgebraicCurves.Models.FunctionFields.CurveModelIsoAlgEquiv
+public import Nyll.AlgebraicCurves.Models.Points.IsoCompToBaseEqPlaceOfPointCongrEq
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
+public import Nyll.SchemeTheory.Pi1.Affine.Over
+public import Mathlib.FieldTheory.RatFunc.AsPolynomial
 
 /-!
 # A genus-zero curve with one puncture
@@ -23,6 +25,8 @@ A parameter with its unique pole at the prescribed puncture identifies that plac
 infinity. The induced curve-model isomorphism identifies the given open complement with the
 actual affine line. The fundamental group is transported through this scheme isomorphism.
 -/
+
+@[expose] public section
 
 noncomputable section
 

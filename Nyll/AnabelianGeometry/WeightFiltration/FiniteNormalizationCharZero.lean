@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationTameRatios
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameOrderTower
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationTameRatios
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameOrderTower
 
 /-!
 # Tame unit ratios in residue characteristic zero
@@ -13,6 +15,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameOrderTower
 In residue characteristic zero, the finite normalization exponent is one.
 Consequently the original tame coordinate evaluates local unit ratios directly.
 -/
+
+@[expose] public section
 
 noncomputable section
 

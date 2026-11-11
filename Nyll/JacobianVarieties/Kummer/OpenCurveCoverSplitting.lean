@@ -5,11 +5,13 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverCharacter
-import Nyll.SchemeTheory.FunctionFields.OpenImmersion
-import Nyll.AlgebraicCurves.Geometry.Schemes.Kummer.RootFromNormalizationKummerUniqueLift
-import Nyll.AlgebraicCurves.Geometry.Schemes.Kummer.PowEqSectionFromNormalizationKummer
-import Mathlib.RingTheory.Localization.FractionRing
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverCharacter
+public import Nyll.SchemeTheory.FunctionFields.OpenImmersion
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Kummer.RootFromNormalizationKummerUniqueLift
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Kummer.PowEqSectionFromNormalizationKummer
+public import Mathlib.RingTheory.Localization.FractionRing
 
 /-!
 # Splitting and the kernel of the actual open Kummer class
@@ -18,6 +20,8 @@ A section of the actual normalized cover is equivalent to an actual nth
 power in the original function field. Consequently the kernel of the
 derived H¹ class is exactly the previously defined subgroup of powers.
 -/
+
+@[expose] public section
 
 noncomputable section
 

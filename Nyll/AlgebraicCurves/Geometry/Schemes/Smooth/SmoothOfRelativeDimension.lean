@@ -10,17 +10,21 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.Morphisms.Smooth
-import Mathlib.RingTheory.Smooth.StandardSmoothCotangent
-import Mathlib.RingTheory.RingHom.StandardSmooth
-import Mathlib.RingTheory.Localization.Defs
-import Mathlib.RingTheory.Nilpotent.Lemmas
-import Mathlib.Topology.Irreducible
-import Mathlib.Tactic.Algebraize
+module
+
+public import Mathlib.AlgebraicGeometry.Morphisms.Smooth
+public import Mathlib.RingTheory.Smooth.StandardSmoothCotangent
+public import Mathlib.RingTheory.RingHom.StandardSmooth
+public import Mathlib.RingTheory.Localization.Defs
+public import Mathlib.RingTheory.Nilpotent.Lemmas
+public import Mathlib.Topology.Irreducible
+public import Mathlib.Tactic.Algebraize
 
 /-!
 # smooth Of Relative Dimension of irreducible Space
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

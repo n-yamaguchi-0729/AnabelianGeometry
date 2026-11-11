@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingFiniteTameCharacter
-import Mathlib.Algebra.Category.Grp.Basic
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingFiniteTameCharacter
+public import Mathlib.Algebra.Category.Grp.Basic
 
 /-!
 # Group objects for the local tame character
@@ -13,6 +15,8 @@ import Mathlib.Algebra.Category.Grp.Basic
 Defines group objects for local inertia and the roots of unity of the tame order. It presents
 the finite local tame character as a homomorphism between them.
 -/
+
+@[expose] public section
 
 noncomputable section
 

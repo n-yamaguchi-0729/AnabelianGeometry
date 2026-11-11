@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
-import Nyll.SchemeTheory.Normalization.NativeNormalizationPrime
-import Mathlib.Algebra.Algebra.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
+public import Nyll.SchemeTheory.Normalization.NativeNormalizationPrime
+public import Mathlib.Algebra.Algebra.Basic
 
 /-!
 # Tame and wild degrees at finite stages
@@ -16,6 +18,8 @@ import Mathlib.Algebra.Algebra.Basic
 Proves nonvanishing of the finite contracted normalization prime and defines the tame and wild
 orders for its intrinsic coefficient-automorphism action.
 -/
+
+@[expose] public section
 
 noncomputable section
 

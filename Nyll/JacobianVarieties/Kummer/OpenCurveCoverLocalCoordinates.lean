@@ -5,11 +5,13 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenCurveCover
-import Nyll.JacobianVarieties.Kummer.CurveCoverLocalCoordinates
-import Nyll.AlgebraicCurves.Geometry.Schemes.Kummer.RootFromNormalizationKummerUniqueLift
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
-import Mathlib.AlgebraicGeometry.Normalization
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCover
+public import Nyll.AlgebraicCurves.Models.Kummer.CurveCoverLocalCoordinates
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Kummer.RootFromNormalizationKummerUniqueLift
+public import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
+public import Mathlib.AlgebraicGeometry.Normalization
 
 /-!
 # Actual affine root coordinates on the normalized Kummer cover
@@ -23,6 +25,8 @@ root-scaling automorphisms on geometric fibers.
 The local sections are supplied by the existing Kummer normalization theorem,
 whose Anthropic FLT attribution is retained in its original source file.
 -/
+
+@[expose] public section
 
 noncomputable section
 

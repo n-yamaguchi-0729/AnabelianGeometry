@@ -4,7 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Purity.PuncturedSpectrumPurityNormalization
+module
+
+public import Nyll.EtaleFundamentalGroups.Purity.PuncturedSpectrumPurityNormalization
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FunctionField
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Integral
 
 /-!
 # Finiteness of canonical normalizations from dense open covers
@@ -14,6 +18,8 @@ induces a finite separable extension of the ambient function field.  Hence
 the relative normalization of the ambient scheme in that extension is
 finite.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -40,11 +46,7 @@ private theorem functionFieldMap_comp_of_denseRange
       exact hf.comp hg f.continuous
     (g.functionFieldMap hg).comp (f.functionFieldMap hf) =
       (g ≫ f).functionFieldMap hgf := by
-  let hgf : DenseRange (g ≫ f) := by
-    change DenseRange (f.base ∘ g.base)
-    exact hf.comp hg f.continuous
-  change (g.functionFieldMap hg).comp (f.functionFieldMap hf) =
-    (g ≫ f).functionFieldMap hgf
+  intro hgf
   let hfgeneric : f (genericPoint S) = genericPoint T :=
     f.map_genericPoint_of_denseRange hf
   let hggeneric : g (genericPoint R) = genericPoint S :=
@@ -110,26 +112,17 @@ theorem genericExtensionMorphism_eq_connectedCoverGenericComposite_comp
     [IsNormalIntegral U] [IsLocallyNoetherian U]
     (j : U ⟶ X) [IsOpenImmersion j]
     (W : FiniteEtale U) [IsConnected W] :
-    letI : IsIntegral W.left :=
+    let : IsIntegral W.left :=
       EtaleFundamentalGroups.isIntegral_left_of_isConnected_finiteEtale W
     let L := W.left.functionField
-    letI : Algebra U.functionField L :=
+    let : Algebra U.functionField L :=
       EtaleFundamentalGroups.finiteEtaleFunctionFieldAlgebra W
     let e : X.functionField ≃+* U.functionField :=
       j.functionFieldRingEquivOfIsOpenImmersion
-    letI : Algebra X.functionField L :=
+    let : Algebra X.functionField L :=
       ((algebraMap U.functionField L).comp e.toRingHom).toAlgebra
     X.genericExtensionMorphism L = connectedCoverGenericComposite W ≫ j := by
-  dsimp only
-  let : IsIntegral W.left :=
-    EtaleFundamentalGroups.isIntegral_left_of_isConnected_finiteEtale W
-  let L := W.left.functionField
-  let : Algebra U.functionField L :=
-    EtaleFundamentalGroups.finiteEtaleFunctionFieldAlgebra W
-  let e : X.functionField ≃+* U.functionField :=
-    j.functionFieldRingEquivOfIsOpenImmersion
-  let : Algebra X.functionField L :=
-    ((algebraMap U.functionField L).comp e.toRingHom).toAlgebra
+  intro sharedOwner1 L sharedOwner2 e sharedOwner3
   let hj : DenseRange j :=
     j.isOpenEmbedding.isOpenMap.denseRange_of_isPreirreducibleSpace j
   let wHom : W.left ⟶ U := W.hom
@@ -178,7 +171,7 @@ private theorem connectedCoverGenericNormalization_isFinite_core
       (algebraMap X.functionField L).comp e.symm.toRingHom =
         (RingEquiv.refl L).toRingHom.comp (algebraMap U.functionField L) := by
     ext a
-    simp [RingHom.algebraMap_toAlgebra]
+    exact congrArg (algebraMap U.functionField L) (e.apply_symm_apply a)
   let : FiniteDimensional U.functionField L :=
     EtaleFundamentalGroups.finiteDimensional_functionField_of_finiteEtale_isConnected W
   let : FiniteDimensional X.functionField L :=
@@ -204,12 +197,12 @@ theorem connectedCoverGenericNormalization_isFinite_of_isOpenImmersion
     (j : U ⟶ X) [IsOpenImmersion j] [QuasiCompact j] [QuasiSeparated j]
     [Nonempty U]
     (W : FiniteEtale U) [IsConnected W] :
-    letI : IsIntegral U := isIntegral_of_isOpenImmersion j
+    let : IsIntegral U := isIntegral_of_isOpenImmersion j
     letI : IsNormalIntegral U := IsNormalIntegral.of_isOpenImmersion j
     letI : IsLocallyNoetherian U :=
       isLocallyNoetherian_of_isOpenImmersion j
     IsFinite (connectedCoverGenericComposite W ≫ j).fromNormalization := by
-  let hUintegral : IsIntegral U := isIntegral_of_isOpenImmersion j
+  intro hUintegral
   let hUnormal : @IsNormalIntegral U hUintegral :=
     @IsNormalIntegral.of_isOpenImmersion X U _ _ hUintegral j _
   let hUnoetherian : IsLocallyNoetherian U :=

@@ -3,7 +3,9 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
 
 /-! # Bidirectional original-cusp recognition using the same geometric equivalence
 
@@ -13,6 +15,8 @@ forward equivalence, by injectivity of the actual geometric inclusion.
 Both original ambient fields and original prime families stay unchanged.
 -/
 
+@[expose] public section
+
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicGeometry.FiniteEtale
 open AlgebraicGeometry.ProjSpace
@@ -21,7 +25,7 @@ namespace AnabelianGeometry.WeightFiltration
 
 /-- The two directions use eΔ and its actual inverse, not independent cusp-wise choices. -/
 theorem bare_rationalConfiguration_bidirectionalCusps_recognition
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
@@ -91,7 +95,7 @@ theorem bare_rationalConfiguration_bidirectionalCusps_recognition
 /-- Bidirectional recognition for the canonical closures, with only the
 number field, finite configurations and arithmetic isomorphism as inputs. -/
 theorem bare_rationalConfiguration_bidirectionalCusps_recognition_canonical
-    (k : Type) [Field k] [NumberField k]
+    (k : Type) [Field k] [CharZero k] [Field.FG k]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (eP : rationalConfigurationArithmeticGroup k (AlgebraicClosure k) s
         (rationalConfigurationCanonicalAmbient k s) ≃ₜ*

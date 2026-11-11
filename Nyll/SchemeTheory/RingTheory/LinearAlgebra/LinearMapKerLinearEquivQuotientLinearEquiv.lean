@@ -10,11 +10,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.LinearAlgebra.Quotient.Basic
+module
+
+public import Mathlib.LinearAlgebra.Quotient.Basic
 
 /-!
 # Linear Map exists ker linear Equiv and quotient linear Equiv of surjective of forall exact
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

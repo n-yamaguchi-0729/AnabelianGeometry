@@ -3,13 +3,17 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.SchemeTheory.Gluing.CommonCover
+module
+
+public import Nyll.SchemeTheory.Gluing.CommonCover
 
 /-!
 # Compatibility names for relative cover recovery
 
 The general constructions live in SchemeTheory.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups
 

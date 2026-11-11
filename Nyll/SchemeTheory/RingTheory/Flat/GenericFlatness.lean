@@ -10,21 +10,23 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Algebra.Module.LocalizedModule.Basic
-import Mathlib.Algebra.MvPolynomial.Equiv
-import Mathlib.LinearAlgebra.Basis.Basic
-import Mathlib.LinearAlgebra.Isomorphisms
-import Mathlib.LinearAlgebra.LinearIndependent.Lemmas
-import Mathlib.LinearAlgebra.TensorProduct.RightExactness
-import Mathlib.RingTheory.FiniteType
-import Mathlib.RingTheory.Finiteness.Basic
-import Mathlib.RingTheory.Flat.Basic
-import Mathlib.RingTheory.Flat.Tensor
-import Mathlib.RingTheory.Localization.BaseChange
-import Mathlib.RingTheory.Noetherian.Basic
-import Mathlib.RingTheory.Polynomial.Basic
-import Mathlib.Tactic.Choose
-import Mathlib.Tactic.Ring
+module
+
+public import Mathlib.Algebra.Module.LocalizedModule.Basic
+public import Mathlib.Algebra.MvPolynomial.Equiv
+public import Mathlib.LinearAlgebra.Basis.Basic
+public import Mathlib.LinearAlgebra.Isomorphisms
+public import Mathlib.LinearAlgebra.LinearIndependent.Lemmas
+public import Mathlib.LinearAlgebra.TensorProduct.RightExactness
+public import Mathlib.RingTheory.FiniteType
+public import Mathlib.RingTheory.Finiteness.Basic
+public import Mathlib.RingTheory.Flat.Basic
+public import Mathlib.RingTheory.Flat.Tensor
+public import Mathlib.RingTheory.Localization.BaseChange
+public import Mathlib.RingTheory.Noetherian.Basic
+public import Mathlib.RingTheory.Polynomial.Basic
+public import Mathlib.Tactic.Choose
+public import Mathlib.Tactic.Ring
 
 /-!
 # Generic flatness of finite modules over finite-type algebras
@@ -33,6 +35,8 @@ A finite module over a finite-type algebra over a noetherian domain becomes flat
 localizing at a suitable nonzero base element. The proof controls tensor kernels and
 passes to the localized module.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

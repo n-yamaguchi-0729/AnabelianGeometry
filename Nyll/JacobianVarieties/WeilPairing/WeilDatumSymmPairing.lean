@@ -10,11 +10,15 @@ Upstream per-file ATTRIBUTION: https://github.com/anthropics/fermats-last-theore
 Repository maintainer: Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 -/
 
-import Nyll.JacobianVarieties.WeilPairing.Datum
+module
+
+public import Nyll.JacobianVarieties.WeilPairing.Datum
 
 /-!
 Interchanging the two divisors in Weil pairing data inverts the pairing.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

@@ -10,17 +10,21 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
-import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
-import Nyll.SchemeTheory.Cohomology.Cech.TwoAffineOpenCover
-import Nyll.AlgebraicCurves.Geometry.Picard.Rigidification.RigidifiedBundleIsoPullbackOpenCover
-import Nyll.AlgebraicCurves.Geometry.Schemes.Sections.BijectiveAlgebraMapSectionsBaseChange
-import Nyll.AlgebraicCurves.Geometry.Schemes.Sections.BijectiveAlgebraMapSections
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Pullback.InvertiblePullbackBaseChangeSndIsoUnit
+module
+
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
+public import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
+public import Nyll.SchemeTheory.Cohomology.Cech.TwoAffineOpenCover
+public import Nyll.AlgebraicCurves.Geometry.Picard.Rigidification.RigidifiedBundleIsoPullbackOpenCover
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Sections.BijectiveAlgebraMapSectionsBaseChange
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Sections.BijectiveAlgebraMapSections
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Pullback.InvertiblePullbackBaseChangeSndIsoUnit
 
 /-!
 # Triviality of fibrewise trivial rigidified line bundles
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

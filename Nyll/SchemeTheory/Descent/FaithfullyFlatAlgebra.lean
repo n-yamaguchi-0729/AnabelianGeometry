@@ -58,10 +58,10 @@ def invariants (ρ :
     letI : Algebra R B := f.toAlgebra
     letI : Algebra R C := Algebra.compHom C f
     C →ₐ[B] B ⊗[R] C) :
-    letI : Algebra R C := Algebra.compHom C f
+    let : Algebra R C := Algebra.compHom C f
     Subalgebra R C := by
+  intro compositeAlgebra
   letI : Algebra R B := f.toAlgebra
-  letI : Algebra R C := Algebra.compHom C f
   letI : IsScalarTower R B C := IsScalarTower.of_compHom R B C
   exact AlgHom.equalizer (ρ.restrictScalars R) Algebra.TensorProduct.includeRight
 
@@ -71,9 +71,9 @@ def invariantsBaseChange (ρ :
     letI : Algebra R B := f.toAlgebra
     letI : Algebra R C := Algebra.compHom C f
     C →ₐ[B] B ⊗[R] C) :
-    letI : Algebra R B := f.toAlgebra
+    let : Algebra R B := f.toAlgebra
     B ⊗[R] invariants f C ρ →ₐ[B] C := by
-  letI : Algebra R B := f.toAlgebra
+  intro baseAlgebra
   letI : Algebra R C := Algebra.compHom C f
   letI : IsScalarTower R B C := IsScalarTower.of_compHom R B C
   exact Algebra.TensorProduct.lift (Algebra.ofId B C) (invariants f C ρ).val
@@ -85,9 +85,9 @@ theorem invariantsBaseChange_tmul (ρ :
     letI : Algebra R C := Algebra.compHom C f
     C →ₐ[B] B ⊗[R] C)
     (b : B) (d : invariants f C ρ) :
-    letI : Algebra R B := f.toAlgebra
+    let : Algebra R B := f.toAlgebra
     invariantsBaseChange f C ρ (b ⊗ₜ[R] d) = algebraMap B C b * (d : C) := by
-  let : Algebra R B := f.toAlgebra
+  intro baseAlgebra
   rfl
 
 private def invariantsFork (ρ :
@@ -209,9 +209,9 @@ def invariantsBaseChangeEquiv (hf : f.FaithfullyFlat)
         (ModuleCat.extendRestrictScalarsAdj f).toComonad.δ.app (ModuleCat.of B C) =
       coactionLinear f C ρ ≫
         (ModuleCat.extendRestrictScalarsAdj f).toComonad.map (coactionLinear f C ρ)) :
-    letI : Algebra R B := f.toAlgebra
+    let : Algebra R B := f.toAlgebra
     B ⊗[R] invariants f C ρ ≃ₐ[B] C := by
-  letI : Algebra R B := f.toAlgebra
+  intro baseAlgebra
   exact AlgEquiv.ofBijective (invariantsBaseChange f C ρ)
     (invariantsBaseChange_bijective f C hf ρ hε hδ)
 
@@ -229,10 +229,10 @@ theorem invariantsBaseChangeEquiv_tmul (hf : f.FaithfullyFlat)
       coactionLinear f C ρ ≫
         (ModuleCat.extendRestrictScalarsAdj f).toComonad.map (coactionLinear f C ρ))
     (b : B) (z : invariants f C ρ) :
-    letI : Algebra R B := f.toAlgebra
+    let : Algebra R B := f.toAlgebra
     invariantsBaseChangeEquiv f C hf ρ hε hδ (b ⊗ₜ[R] z) =
       algebraMap B C b * (z : C) := by
-  let : Algebra R B := f.toAlgebra
+  intro baseAlgebra
   rfl
 
 end Algebra.FaithfullyFlatDescent

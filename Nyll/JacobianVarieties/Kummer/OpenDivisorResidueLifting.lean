@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenDivisorResidues
-import Nyll.JacobianVarieties.Picard.Torsion.CurveModelDivisibility
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenDivisorResidues
+public import Nyll.JacobianVarieties.Picard.Torsion.CurveModelDivisibility
 
 /-!
 # Lifting boundary divisor residues to actual functions
@@ -16,6 +18,10 @@ an actual nonzero function with the prescribed orders modulo the exponent.
 The divisor's class is divided using the actual Picard scheme of the curve.
 -/
 
+@[expose] public section
+
+universe u v
+
 noncomputable section
 
 open CategoryTheory AlgebraicGeometry NeronModelInfra
@@ -25,7 +31,7 @@ namespace AlgebraicCurve.CurveModel
 /-- Every degree-zero divisor is congruent modulo an invertible exponent
 to the principal divisor of an actual nonzero function. -/
 theorem exists_function_ord_mod_eq
-    {K F : Type} [Field K] [IsAlgClosed K]
+    {K : Type u} {F : Type v} [Field K] [IsAlgClosed K]
     [Field F] [Algebra K F] [IsCurveOver K F]
     (M : CurveModel K F)
     (ε : SchemeHomOver (𝟙 (Spec (.of K))) M.toBase)
@@ -54,7 +60,7 @@ theorem exists_function_ord_mod_eq
 the function constructed from it is unramified there and has its prescribed
 boundary residues. -/
 theorem exists_openKummerUnits_residue_eq
-    {K F : Type} [Field K] [IsAlgClosed K]
+    {K : Type u} {F : Type v} [Field K] [IsAlgClosed K]
     [Field F] [Algebra K F] [IsCurveOver K F]
     (M : CurveModel K F)
     (ε : SchemeHomOver (𝟙 (Spec (.of K))) M.toBase)

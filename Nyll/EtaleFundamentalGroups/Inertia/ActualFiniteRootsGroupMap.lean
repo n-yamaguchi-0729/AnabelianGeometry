@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationResidueMap
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameGroups
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationRootsGroup
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationResidueMap
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameGroups
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationRootsGroup
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
 
 /-!
 # Finite residue roots in the ambient field
@@ -17,6 +19,8 @@ import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityField
 Constructs the homomorphism from finite tame-degree residue roots into roots of the same degree
 in the original ambient residue field.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameIndex
-import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameIndex
+public import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
 
 /-!
 # Positivity and invertibility of intrinsic tame orders
@@ -14,6 +16,8 @@ import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
 Proves positivity of the intrinsic finite tame order and its invertibility in the original local
 coefficient ring under the stated hypotheses.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

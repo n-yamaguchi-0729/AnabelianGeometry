@@ -3,15 +3,19 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldTower
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.FiniteFamilyModel
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldTower
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.FiniteFamilyModel
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
 
 /-!
 # Constant Field Rebase
 
 The standard iterated cover chart is the original chart after extending coefficients.
 -/
+
+@[expose] public section
 
 noncomputable section
 universe u
@@ -25,8 +29,6 @@ local notation "φF" => Spec.map (CommRingCat.ofHom (algebraMap k F))
 local notation "φL" => Spec.map (CommRingCat.ofHom (algebraMap k L))
 local notation "ψ" => Spec.map (CommRingCat.ofHom F.val.toRingHom)
 local notation "UF" => constantFieldOpenCover k F X f 𝒰
-local notation "UL" => constantFieldOpenCover k L X f 𝒰
-local notation "UD" => constantFieldOpenCover F L (pullback φF f) (pullback.fst φF f) UF
 
 /-- The standard iterated cover chart is the original chart after extending coefficients. -/
 def constantFieldRebasedChartIso (i : 𝒰.I₀) :
@@ -115,7 +117,7 @@ theorem exists_finiteIntermediateField_rebased_local_models (k L : Type u) [Fiel
             (pullback.fst (Spec.map (CommRingCat.ofHom (algebraMap k F))) f)
             (coefficientModelMap (Spec.map (CommRingCat.ofHom (algebraMap k F))) f (𝒰.f i)))).obj
             ((FiniteEtale.pullback (constantFieldTowerIso k L F X f).hom).obj Z)) := by
-  let 𝒰 := X.affineCover.finiteSubcover
+  intro 𝒰
   let : ∀ i : 𝒰.I₀, IsAffine (𝒰.X i) := fun i ↦ inferInstanceAs (IsAffine (Spec _))
   obtain ⟨F, hF, M, hrec⟩ :=
     FiniteEtale.exists_finiteIntermediateField_affine_scheme_model_family k L

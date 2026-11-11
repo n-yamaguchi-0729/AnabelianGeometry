@@ -7,7 +7,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 import Nyll.AnabelianGeometry.WeightFiltration.BareRationalNormalizedCuspKummerClasses
 import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairCrossRatio
 import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairNormalizedValues
-import Nyll.AnabelianGeometry.KummerTheory.CoprimeCoefficientCyclicClasses
+import Nyll.AnabelianGeometry.KummerTheory.FinitelyGeneratedPowerSeparation
 
 /-! # Cyclic cross-ratio classes from the original arithmetic isomorphism
 
@@ -27,7 +27,7 @@ attribute [local instance] Classical.propDecidable
 /-- The original arithmetic isomorphism identifies the cyclic subgroups of
 all nonzero normalized cross ratios under one fixed puncture bijection. -/
 theorem bare_rationalConfiguration_crossRatio_cyclic_classes
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
@@ -78,7 +78,8 @@ theorem bare_rationalConfiguration_crossRatio_cyclic_classes
   · exact rationalConfiguration_pairFunction_chosenValue_ratio_eq_crossRatio
       k κ t (σ a) (σ b) (σ c₀) (σ c)
       (σ.injective.ne hc₀b) (σ.injective.ne hcb) g hg hgg
-  · apply AnabelianGeometry.KummerTheory.numberField_zpowers_eq_of_forall_unit_power_classes
+  · apply AnabelianGeometry.KummerTheory.fg_zpowers_eq_of_forall_unit_power_classes
+      (inferInstance : Field.FG k)
     intro n
     have hn : IsUnit ((n : ℕ) : κ) := isUnit_iff_ne_zero.mpr (Nat.cast_ne_zero.mpr n.ne_zero)
     obtain ⟨us, ut, ws, wt, hus, hut, hws, hwt, hvector, hres, htransport, H⟩ := hall n hn

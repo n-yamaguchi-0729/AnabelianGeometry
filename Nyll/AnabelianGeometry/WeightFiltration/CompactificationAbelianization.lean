@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.OpenImmersionSurjective
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
-import Nyll.ProCGroups.Abelian.TopologicalAbelianizationKernel
-import Mathlib.Algebra.Group.Subgroup.Ker
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.OpenImmersionSurjective
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+public import Nyll.ProCGroups.Abelian.TopologicalAbelianizationKernel
+public import Mathlib.Algebra.Group.Subgroup.Ker
 
 /-!
 # The actual compactification map on abelianized fundamental groups
@@ -17,6 +19,8 @@ Noetherian integral compactification, this map is surjective; its kernel is
 the image of the kernel before abelianization. Identifying this kernel with
 the boundary Tate module is a further geometric calculation.
 -/
+
+@[expose] public section
 
 noncomputable section
 

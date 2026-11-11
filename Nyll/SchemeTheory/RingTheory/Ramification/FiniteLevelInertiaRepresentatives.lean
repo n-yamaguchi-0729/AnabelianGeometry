@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
-import Mathlib.Data.Finset.Image
-import Mathlib.FieldTheory.Galois.GaloisClosure
-import Mathlib.FieldTheory.Normal.Basic
-import Mathlib.RingTheory.IntegralClosure.IsIntegral.Basic
-import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
-import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
+public import Mathlib.Data.Finset.Image
+public import Mathlib.FieldTheory.Galois.GaloisClosure
+public import Mathlib.FieldTheory.Normal.Basic
+public import Mathlib.RingTheory.IntegralClosure.IsIntegral.Basic
+public import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
+public import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
 
 
 /-!
@@ -22,6 +24,8 @@ elements are integral over the original base and fixed by the inertia of the
 literal contracted prime. This supplies simultaneous coefficients, including
 numerators and denominators, for the localized-invariant colimit construction.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -3,17 +3,21 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldTower
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldLimit
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.FiniteFamilyModel
-import Mathlib.FieldTheory.IntermediateField.Algebraic
-import Mathlib.CategoryTheory.Comma.Over.Pullback
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldTower
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldLimit
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.FiniteFamilyModel
+public import Mathlib.FieldTheory.IntermediateField.Algebraic
+public import Mathlib.CategoryTheory.Comma.Over.Pullback
 
 /-!
 # Finite Tower Model
 
 Two finite coefficient extensions give the model over their actual composite subfield.
 -/
+
+@[expose] public section
 
 noncomputable section
 universe u
@@ -30,7 +34,7 @@ local notation "η" => Spec.map (CommRingCat.ofHom (algebraMap F E))
 local notation "ψF" => Spec.map (CommRingCat.ofHom F.val.toRingHom)
 local notation "ψE" => Spec.map (CommRingCat.ofHom (AlgHom.toRingHom (IntermediateField.val E)))
 
-private theorem finiteIntermediateTowerSpec_comp : η ≫ φF = φE := by
+theorem finiteIntermediateTowerSpec_comp : η ≫ φF = φE := by
   rw [← Spec.map_comp]
   rfl
 
@@ -53,7 +57,7 @@ theorem finiteIntermediateTowerIso_hom_snd :
     pullback.congrHom_hom, pullback.lift_snd, Category.comp_id,
     pullbackRightPullbackFstIso_hom_snd]
 
-private theorem finiteIntermediateTowerInclusion_comp : ψE ≫ η = ψF := by
+theorem finiteIntermediateTowerInclusion_comp : ψE ≫ η = ψF := by
   rw [← Spec.map_comp]
   rfl
 

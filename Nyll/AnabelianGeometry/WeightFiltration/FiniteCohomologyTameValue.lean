@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.OpenKummerTameValue
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteCohomologyPlaceInertia
-import Mathlib.Algebra.Group.Basic
-import Mathlib.Algebra.Group.Units.Hom
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.OpenKummerTameValue
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteCohomologyPlaceInertia
+public import Mathlib.Algebra.Group.Basic
+public import Mathlib.Algebra.Group.Units.Hom
 
 /-!
 # Full boundary inertia values of actual finite étale cohomology
@@ -15,6 +17,8 @@ import Mathlib.Algebra.Group.Units.Hom
 Each actual cohomology character evaluates on place inertia as the tame
 coefficient raised to its residue, not merely with the same vanishing locus.
 -/
+
+@[expose] public section
 
 noncomputable section
 

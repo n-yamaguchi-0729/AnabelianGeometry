@@ -10,15 +10,19 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafConstructions
-import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafIdealFiltration
-import Nyll.SchemeTheory.Cohomology.Sheaves.ModulePresheafHasDevissageStep
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.IdealAnnihilates
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.Pushforward
+module
+
+public import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafConstructions
+public import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafIdealFiltration
+public import Nyll.SchemeTheory.Cohomology.Sheaves.ModulePresheafHasDevissageStep
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.IdealAnnihilates
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.Pushforward
 
 /-!
 # OModule Presheaf forall coherent of forall integral
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

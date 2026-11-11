@@ -4,11 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationDegreeLift
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawEtaleSchemeNsmul
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawSmoothOfRelativeDimension
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawFiniteEndKerStrNatCardEqEndDegree
-import Mathlib.AlgebraicGeometry.ZariskisMainTheorem
+module
+
+public import Nyll.AbelianVarieties.Tate.FiniteTorsion
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationDegreeLift
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawEtaleSchemeNsmul
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawSmoothOfRelativeDimension
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawFiniteEndKerStrNatCardEqEndDegree
+public import Mathlib.AlgebraicGeometry.ZariskisMainTheorem
 
 /-!
 # Multiplication covers of degree invertible in the local base ring
@@ -19,6 +22,10 @@ Combined with the degree lifting theorem, this supplies a multiplication cover
 over every connected finite étale cover whose degree is invertible, in arbitrary
 characteristic.
 -/
+
+@[expose] public section
+
+universe u
 
 noncomputable section
 
@@ -31,25 +38,8 @@ namespace GoodReductionJacobian.RelativeGroupLaw
 
 section LocalRing
 
-variable {K : Type} [CommRing K] [IsLocalRing K] {A : Scheme} {f : A ⟶ Spec (.of K)}
+variable {K : Type u} [CommRing K] [IsLocalRing K] {A : Scheme.{u}} {f : A ⟶ Spec (.of K)}
   [IsProper f] [Smooth f] (G : RelativeGroupLaw K f) (hc : G.IsCommutative)
-
-include hc in
-/-- Multiplication by an invertible integer is an actual finite étale morphism. -/
-theorem isFiniteEtale_schemeNsmul_of_isUnit (n : ℕ) (hn : IsUnit (n : K)) :
-    IsFiniteEtale (G.schemeNsmul n) := by
-  obtain ⟨d, hd⟩ := G.exists_smoothOfRelativeDimension_of_smooth_of_isLocalRing
-  have _ : SmoothOfRelativeDimension d f := hd
-  have _ : Etale (G.schemeNsmul n) :=
-    G.etale_schemeNsmul_of_isUnit_of_smoothOfRelativeDimension hc d n hn
-  have _ : IsProper (G.schemeNsmul n) := by
-    have _ : IsProper (G.schemeNsmul n ≫ f) := by
-      rw [G.schemeNsmul_over]
-      infer_instance
-    exact IsProper.of_comp _ f
-  have _ : LocallyQuasiFinite (G.schemeNsmul n) := locallyQuasiFinite_of_etale _
-  have _ : IsFinite (G.schemeNsmul n) := IsFinite.of_isProper_of_locallyQuasiFinite _
-  exact IsFiniteEtale.mk
 
 /-- The original multiplication morphism bundled as a finite étale cover. -/
 def unitMultiplicationCover (n : ℕ) (hn : IsUnit (n : K)) : FiniteEtale A := by
@@ -58,7 +48,7 @@ def unitMultiplicationCover (n : ℕ) (hn : IsUnit (n : K)) : FiniteEtale A := b
 
 end LocalRing
 
-variable {K : Type} [Field K] {A : Scheme} {f : A ⟶ Spec (.of K)}
+variable {K : Type u} [Field K] {A : Scheme.{u}} {f : A ⟶ Spec (.of K)}
   [IsProper f] [Smooth f] (G : RelativeGroupLaw K f) (hc : G.IsCommutative)
 
 theorem isConnected_unitMultiplicationCover [GeometricallyConnected f]

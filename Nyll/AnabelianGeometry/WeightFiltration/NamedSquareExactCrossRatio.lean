@@ -3,11 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.ProjectiveLine.SameLiftedCrossRatioRigidity
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareMatchedRootLabels
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareSelectedLabels
+module
+
+public import Nyll.AnabelianGeometry.ProjectiveLine.SameLiftedCrossRatioRigidity
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareMatchedRootLabels
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareSelectedLabels
 
 /-! # Cross-ratio rigidity for named square models -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve
@@ -18,7 +22,7 @@ attribute [local instance] Classical.propDecidable
 namespace AnabelianGeometry.WeightFiltration
 
 section Named
-variable (k E : Type) [Field k] [Field E] [NumberField E] [Algebra k E]
+variable (k E : Type) [Field k] [Field E] [CharZero E] [Algebra k E]
 variable (s t : Finset (Projectivization k (k × k)))
 variable (S T : Finset (Projectivization E (E × E)))
 variable (qS : (projectiveLineRatFuncModel E).C ⟶

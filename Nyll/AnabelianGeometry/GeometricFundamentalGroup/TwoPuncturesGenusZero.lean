@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroTwoPunctures
-import Nyll.AlgebraicCurves.Cohomology.FiniteH0H1StructureSheafAlgClosed
-import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveCurveModelIsoFunctionFieldGermEq
-import Mathlib.AlgebraicGeometry.Restrict
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroTwoPunctures
+public import Nyll.AlgebraicCurves.Cohomology.FiniteH0H1StructureSheafAlgClosed
+public import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveCurveModelIsoFunctionFieldGermEq
+public import Mathlib.AlgebraicGeometry.Restrict
 
 /-!
 # The two-puncture chart from coherent genus zero
@@ -17,6 +19,8 @@ we construct its curve model and transport both specified punctures. The resulti
 isomorphism identifies their complement with the spectrum of the Laurent polynomial ring.
 This geometric theorem alone does not assert the structure of its étale fundamental group.
 -/
+
+@[expose] public section
 
 noncomputable section
 

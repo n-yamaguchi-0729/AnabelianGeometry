@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationTameProperties
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationTameProperties
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
 
 /-!
 # Finite tame degrees as roots-system indices
@@ -15,6 +17,8 @@ import Mathlib.RingTheory.LocalRing.ResidueField.Basic
 Proves positivity and base-ring invertibility of the finite tame degree, and uses them to
 construct an index of the canonical roots system.
 -/
+
+@[expose] public section
 
 noncomputable section
 

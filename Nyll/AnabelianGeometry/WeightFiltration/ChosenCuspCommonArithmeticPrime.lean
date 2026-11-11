@@ -3,16 +3,20 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationMatchedAmbientAction
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
-import Nyll.AnabelianGeometry.WeightFiltration.OriginalRationalCuspDecompositionImage
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationBoundaryPlaceOrders
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationMatchedAmbientAction
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
+public import Nyll.AnabelianGeometry.WeightFiltration.OriginalRationalCuspDecompositionImage
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationBoundaryPlaceOrders
 
 /-! # A common arithmetic prime for chosen rational cusp inertia
 
 The prescribed geometric normalization prime determines its arithmetic comap
 and the existing decomposition data over the original ambient field.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve SchemeTheory
@@ -42,7 +46,7 @@ private theorem exists_normalizing_surjective_subgroup
   exact ⟨⟨g, hg⟩, hfg⟩
 
 theorem rationalConfigurationChosenInertia_commonArithmeticPrime
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]

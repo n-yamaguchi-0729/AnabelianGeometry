@@ -4,8 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Classical.KummerRootCover
-import Nyll.SchemeTheory.FiniteEtale.Algebra.PointSpecialization
+module
+
+public import Nyll.EtaleCohomology.Classical.KummerRootCover
+public import Nyll.SchemeTheory.FiniteEtale.Algebra.PointSpecialization
+public import Nyll.SchemeTheory.RingTheory.Etale.AdjoinRootEtaleFiniteXPowSubC
 
 /-!
 # Actual reduction of the roots of a local Kummer unit
@@ -14,6 +17,8 @@ The finite étale algebra is the literal quotient by T^n-a. Its generic roots
 specialize through the existing integral-point lift, and hence reduce the
 same distinguished root. No equivalence of root fields is an input.
 -/
+
+@[expose] public section
 
 noncomputable section
 open Polynomial EtaleCohomology
@@ -65,14 +70,12 @@ same generic root. This exposes the actual evaluation used by specialization. -/
 theorem kummerUnitRootSpecialization_evaluation
     (b : {b : L // b ^ n = algebraMap H L (a : H)}) :
     let h := AdjoinRoot.etale_and_finite_X_pow_sub_C_of_isUnit n (a : H) hn a.isUnit
-    letI : Algebra.Etale H (kummerRootAlgebra n a) := h.1
-    letI : Module.Finite H (kummerRootAlgebra n a) := h.2
+    let : Algebra.Etale H (kummerRootAlgebra n a) := h.1
+    let : Module.Finite H (kummerRootAlgebra n a) := h.2
     ∃ r : R, algebraMap R L r = b.val ∧
       (kummerUnitRootSpecialization H R L n a hn b).val = IsLocalRing.residue R r := by
-  intro h
+  intro h etale finite
   let f := (kummerUnitPointRootEquiv H L n a).symm b
-  let : Algebra.Etale H (kummerRootAlgebra n a) := h.1
-  let : Module.Finite H (kummerRootAlgebra n a) := h.2
   let r := integralPointLift H R L (kummerRootAlgebra n a) f (AdjoinRoot.root _)
   refine ⟨r, ?_, ?_⟩
   · exact (integralPointLift_evaluation H R L (kummerRootAlgebra n a)

@@ -3,11 +3,13 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticSections
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConnected
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticComposite
-import Nyll.EtaleFundamentalGroups.GaloisCategories.NormalImage
-import Nyll.EtaleFundamentalGroups.GaloisCategories.TrivialQuotient
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticSections
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConnected
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticComposite
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.NormalImage
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.TrivialQuotient
 
 /-!
 # Arithmetic Normal
@@ -15,6 +17,8 @@ import Nyll.EtaleFundamentalGroups.GaloisCategories.TrivialQuotient
 The geometric fundamental group has normal image after extension to a
 separable closure with connected base change.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory Limits CategoryTheory.PreGaloisCategory

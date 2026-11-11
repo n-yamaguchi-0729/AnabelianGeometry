@@ -3,16 +3,20 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.OverlapTransitionDescent
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.RawStageGlue
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.RawOverlapSupplier
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.StageRecovery
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.OverlapTransitionDescent
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.RawStageGlue
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.RawOverlapSupplier
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.StageRecovery
 
 /-!
 # Recovered Finite Stage
 
 The actually descended transition with its coefficient structure.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory Limits Opposite AlgebraicGeometry

@@ -10,18 +10,22 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
-import Mathlib.RingTheory.Algebraic.Basic
-import Mathlib.FieldTheory.RatFunc.Degree
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncNeOfHeightOneSpectrum
-import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
-import Nyll.AlgebraicCurves.Places.ValuationRings.ComapEqToValuationSubring
-import Nyll.AlgebraicCurves.Places.Orders.OrdAlgebraMapEqMulOrd
+module
+
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+public import Mathlib.RingTheory.Algebraic.Basic
+public import Mathlib.FieldTheory.RatFunc.Degree
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncNeOfHeightOneSpectrum
+public import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
+public import Nyll.AlgebraicCurves.Places.ValuationRings.ComapEqToValuationSubring
+public import Nyll.AlgebraicCurves.Places.Orders.OrdAlgebraMapEqMulOrd
 
 /-!
 # Place exists ord neg of transcendental
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

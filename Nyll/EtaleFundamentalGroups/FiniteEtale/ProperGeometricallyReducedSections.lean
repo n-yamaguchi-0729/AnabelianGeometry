@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Affine.FlatBaseChangeAffinization
-import Nyll.SchemeTheory.FiniteEtale.Algebra.FiniteGeometricallyReducedEtale
-import Mathlib.AlgebraicGeometry.Geometrically.Reduced
-import Mathlib.Algebra.Category.Ring.Constructions
-import Nyll.AlgebraicCurves.Geometry.Schemes.Sections.FiniteAppTopProper
+module
+
+public import Nyll.SchemeTheory.Affine.FlatBaseChangeAffinization
+public import Nyll.SchemeTheory.FiniteEtale.Algebra.FiniteGeometricallyReducedEtale
+public import Mathlib.AlgebraicGeometry.Geometrically.Reduced
+public import Mathlib.Algebra.Category.Ring.Constructions
+public import Nyll.SchemeTheory.Morphisms.ProperGlobalSectionsFinite
 
 /-!
 # Global sections of proper geometrically reduced schemes over fields
@@ -19,6 +21,8 @@ identifies it with the actual sections of the reduced geometric fibre.
 The resulting finite étale algebra is the field case of the supplier
 needed for Stacks Project Tag 0BUN.
 -/
+
+@[expose] public section
 
 noncomputable section
 

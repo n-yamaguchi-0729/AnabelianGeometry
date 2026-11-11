@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveResidueRanks
-import Mathlib.Data.Nat.Log
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveResidueRanks
+public import Mathlib.Data.Nat.Log
 
 /-!
 # Recovering numerical invariants from the actual residue filtration
@@ -15,6 +17,8 @@ image determines the size of a nonempty boundary. These are explicit
 numerical formulas. Recognition of the filtration from arithmetic group
 data is a separate theorem and is not an assumption hidden in this file.
 -/
+
+@[expose] public section
 
 noncomputable section
 

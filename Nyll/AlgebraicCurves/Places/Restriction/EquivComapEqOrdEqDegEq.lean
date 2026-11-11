@@ -10,11 +10,17 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+module
+
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
 
 /-!
 # Place exists equiv comap eq and ord eq and deg eq of ring Equiv
 -/
+
+@[expose] public section
+
+universe u v w x
 
 section ProofImplementation
 
@@ -27,7 +33,8 @@ noncomputable section
 
 namespace PlaceTransport
 
-variable {K K' F F' : Type} [Field K] [Field K'] [Field F] [Field F'] [Algebra K F] [Algebra K' F']
+variable {K : Type u} {K' : Type v} {F : Type w} {F' : Type x}
+  [Field K] [Field K'] [Field F] [Field F'] [Algebra K F] [Algebra K' F']
 
 theorem symm_algebraMap (e : K ≃+* K') (φ : F ≃+* F') (hφ : ∀ a : K, φ (algebraMap K F a) =
   algebraMap K' F' (e a))
@@ -51,7 +58,8 @@ def integersEquiv (φ : F ≃+* F') (A : ValuationSubring F) :
 @[scoped simp] theorem coe_integersEquiv_apply (φ : F ≃+* F') (A : ValuationSubring F) (x : A) :
     ((integersEquiv φ A x : (A.comap φ.symm.toRingHom : ValuationSubring F')) : F') = φ x := rfl
 
-private def _root_.PlaceTransport.map (e : K ≃+* K') (φ : F ≃+* F') (hφ : ∀ a : K, φ (algebraMap K
+/-- Transport a place along compatible equivalences of constants and function fields. -/
+def _root_.PlaceTransport.map (e : K ≃+* K') (φ : F ≃+* F') (hφ : ∀ a : K, φ (algebraMap K
   F a) = algebraMap K' F' (e a))
     (v : Place K F) : Place K' F' where
   toValuationSubring := v.toValuationSubring.comap φ.symm.toRingHom
@@ -146,16 +154,16 @@ theorem deg_map (e : K ≃+* K') (φ : F ≃+* F') (hφ : ∀ a : K, φ (algebra
         : F')
     rw [Place.coe_algebraMap, Place.coe_algebraMap, hφ]
   have h := lift_rank_eq_of_equiv_equiv (e : K → K') j.toAddEquiv e.bijective hj
-  simp only [Cardinal.lift_id] at h
   unfold Place.deg Module.finrank
-  rw [h]
+  simpa only [Cardinal.toNat_lift] using congrArg Cardinal.toNat h.symm
 
 end PlaceTransport
 
 end
 
 theorem _root_.AlgebraicCurve.Place.exists_equiv_comap_eq_and_ord_eq_and_deg_eq_of_ringEquiv
-    {K K' F F' : Type} [Field K] [Field K'] [Field F] [Field F'] [Algebra K F] [Algebra K' F']
+    {K : Type u} {K' : Type v} {F : Type w} {F' : Type x}
+    [Field K] [Field K'] [Field F] [Field F'] [Algebra K F] [Algebra K' F']
     (e : K ≃+* K') (φ : F ≃+* F') (hφ : ∀ a : K, φ (algebraMap K F a) = algebraMap K' F' (e a)) :
     ∃ Φ : Place K F ≃ Place K' F',
       (∀ v : Place K F, (Φ v).toValuationSubring = v.toValuationSubring.comap φ.symm.toRingHom) ∧

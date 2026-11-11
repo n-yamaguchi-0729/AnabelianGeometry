@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameOrder
-import Nyll.EtaleFundamentalGroups.Inertia.UniformizerRadicalRamification
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingTameOrderVanishing
-import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
-import Mathlib.Algebra.Algebra.Defs
-import Mathlib.RingTheory.Localization.AtPrime.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameOrder
+public import Nyll.EtaleFundamentalGroups.Inertia.UniformizerRadicalRamification
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingTameOrderVanishing
+public import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
+public import Mathlib.Algebra.Algebra.Defs
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
 
 /-!
 # Tame orders and ramification indices
@@ -17,6 +19,8 @@ import Mathlib.RingTheory.Localization.AtPrime.Basic
 Proves that the finite tame order at the original normalization prime divides its ramification
 index.
 -/
+
+@[expose] public section
 
 noncomputable section
 

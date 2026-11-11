@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ProCGroups.Abelian.FullTateModule
-import Nyll.ProCGroups.Abelian.RestrictedTateModule
-import Mathlib.GroupTheory.OrderOfElement
+module
+
+public import Nyll.ProCGroups.Abelian.FullTateModule
+public import Nyll.ProCGroups.Abelian.RestrictedTateModule
+public import Mathlib.GroupTheory.OrderOfElement
 
 /-!
 # Finite point subgroups contain no nonzero compatible Tate family
@@ -15,6 +17,8 @@ This is the group-theoretic input for ruling out fixed Tate vectors after
 identifying fixed geometric points with a finite rational-point group.
 The geometric identification and finiteness are separate requirements.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.WeightFiltration
 

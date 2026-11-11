@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionFiberSquare
-import Nyll.EtaleFundamentalGroups.Cohomology.FiberTranslation
-import Nyll.EtaleFundamentalGroups.Cohomology.H1FiniteCover
-import Nyll.EtaleFundamentalGroups.Cohomology.SchemePullback
-import Mathlib.Algebra.Category.Grp.ForgetCorepresentable
-import Mathlib.CategoryTheory.Sites.Sheafification
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionFiberSquare
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiberTranslation
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1FiniteCover
+public import Nyll.EtaleFundamentalGroups.Cohomology.SchemePullback
+public import Mathlib.Algebra.Category.Grp.ForgetCorepresentable
+public import Mathlib.CategoryTheory.Sites.Sheafification
 
 /-!
 # Constant torsor translations as additive shears
@@ -20,6 +22,8 @@ This realizes the torsor action using genuine abelian-sheaf morphisms, so its
 compatibility with inverse image follows from additivity and the naturality
 of the existing constant-coefficient comparison.
 -/
+
+@[expose] public section
 
 noncomputable section
 

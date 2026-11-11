@@ -4,11 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.DescendedCoverKernelImage
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverInjectivity
-import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricAbelianGaloisAction
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.CoefficientPullback
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldTower
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.DescendedCoverKernelImage
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverInjectivity
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricAbelianGaloisAction
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.CoefficientPullback
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldTower
+public import Nyll.ProCGroups.Topologies.ContinuousMulEquiv
 
 /-!
 # The actual recovered cover and arithmetic conjugation
@@ -18,6 +21,8 @@ its evaluation under the original covering map, and the action on abelianized
 classes. It introduces no new Galois action or weight construction.
 
 -/
+
+@[expose] public section
 
 noncomputable section
 

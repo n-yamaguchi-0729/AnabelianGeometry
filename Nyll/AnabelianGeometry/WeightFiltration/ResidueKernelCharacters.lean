@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.CohomologyKernelDescent
-import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveCohomologyExactness
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.CohomologyKernelDescent
+public import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveCohomologyExactness
 
 /-!
 # Boundary residues detect restriction to the compactification kernel
@@ -13,6 +15,8 @@ import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveCohomologyExactness
 The zero-residue condition is equivalent to the vanishing of the actual
 monodromy character on the kernel of the geometric fundamental-group map.
 -/
+
+@[expose] public section
 
 noncomputable section
 

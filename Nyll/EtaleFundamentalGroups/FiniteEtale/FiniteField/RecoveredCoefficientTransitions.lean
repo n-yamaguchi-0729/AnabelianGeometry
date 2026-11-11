@@ -3,10 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.RecoveredOverlap
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldCover
-import Mathlib.CategoryTheory.Comma.Over.Pullback
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.RecoveredOverlap
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldCover
+public import Mathlib.CategoryTheory.Comma.Over.Pullback
 
 /-!
 # Coefficient transitions for recovered local models
@@ -15,6 +17,8 @@ Recovered overlap maps are transported to literal coefficient extensions.
 Their transitions preserve the coefficient projections and recover the original
 chart maps.
 -/
+
+@[expose] public section
 
 noncomputable section
 universe u

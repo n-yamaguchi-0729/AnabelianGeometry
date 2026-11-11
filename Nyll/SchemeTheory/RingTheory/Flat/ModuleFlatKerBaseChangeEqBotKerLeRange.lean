@@ -10,20 +10,24 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Algebra.Exact.Basic
-import Mathlib.Algebra.Module.Submodule.Equiv
-import Mathlib.Algebra.Module.Submodule.Ker
-import Mathlib.Algebra.Module.Submodule.Range
-import Mathlib.LinearAlgebra.FreeModule.Basic
-import Mathlib.LinearAlgebra.TensorProduct.RightExactness
-import Mathlib.LinearAlgebra.TensorProduct.Tower
-import Mathlib.RingTheory.Flat.Basic
-import Nyll.SchemeTheory.RingTheory.Flat.TensorInjectivity
-import Nyll.SchemeTheory.RingTheory.Flat.Kernel
+module
+
+public import Mathlib.Algebra.Exact.Basic
+public import Mathlib.Algebra.Module.Submodule.Equiv
+public import Mathlib.Algebra.Module.Submodule.Ker
+public import Mathlib.Algebra.Module.Submodule.Range
+public import Mathlib.LinearAlgebra.FreeModule.Basic
+public import Mathlib.LinearAlgebra.TensorProduct.RightExactness
+public import Mathlib.LinearAlgebra.TensorProduct.Tower
+public import Mathlib.RingTheory.Flat.Basic
+public import Nyll.SchemeTheory.RingTheory.Flat.TensorInjectivity
+public import Nyll.SchemeTheory.RingTheory.Flat.Kernel
 
 /-!
 # Module Flat ker base Change eq bot and ker le range of flat of exact
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -88,7 +92,7 @@ theorem _root_.Module.Flat.ker_baseChange_eq_bot_and_ker_le_range_of_flat_of_exa
   constructor
   · rw [Submodule.eq_bot_iff]
     intro x hx
-    rw [LinearMap.mem_ker, LinearMap.baseChange_eq_ltensor] at hx
+    rw [LinearMap.mem_ker, LinearMap.baseChange_eq_lTensor] at hx
     have hx' : x ∈ LinearMap.ker ((d 0).lTensor A) := hx
     rw [hker 0] at hx'
     obtain ⟨y, rfl⟩ := hx'
@@ -96,10 +100,10 @@ theorem _root_.Module.Flat.ker_baseChange_eq_bot_and_ker_le_range_of_flat_of_exa
     have : Subsingleton ↥(Z 0) := by rw [hZ0]; infer_instance
     rw [Subsingleton.elim y 0, map_zero]
   · intro i x hx
-    rw [LinearMap.mem_ker, LinearMap.baseChange_eq_ltensor] at hx
+    rw [LinearMap.mem_ker, LinearMap.baseChange_eq_lTensor] at hx
     have hx' : x ∈ LinearMap.ker ((d (i + 1)).lTensor A) := hx
     rw [hker (i + 1), ← hrange i] at hx'
     obtain ⟨y, rfl⟩ := hx'
-    exact ⟨y, by rw [LinearMap.baseChange_eq_ltensor]⟩
+    exact ⟨y, by rw [LinearMap.baseChange_eq_lTensor]⟩
 end AlgebraicCurves.Foundations.Algebra.Proofs.ModuleFlatKerBaseChangeBotKerLe
 end ProofImplementation

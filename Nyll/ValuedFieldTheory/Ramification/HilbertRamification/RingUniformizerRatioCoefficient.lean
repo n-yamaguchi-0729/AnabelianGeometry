@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacter
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacter
 
 /-!
 # Ring coefficients of uniformizer-ratio units
@@ -12,6 +14,8 @@ import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharac
 Extracts a ring coefficient from the uniformizer-ratio unit, together with its unit property and
 the equation relating a uniformizer to its image under the action.
 -/
+
+@[expose] public section
 
 noncomputable section
 

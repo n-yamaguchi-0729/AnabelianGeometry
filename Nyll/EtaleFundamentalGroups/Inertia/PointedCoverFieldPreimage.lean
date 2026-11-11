@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteDivisorialFiniteQuotientNaturality
-import Nyll.EtaleFundamentalGroups.Inertia.NormalRestrictionKernel
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteDivisorialFiniteQuotientNaturality
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalRestrictionKernel
 
 /-!
 # The exact field preimage of the same pointed cover subgroup
@@ -13,6 +15,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.NormalRestrictionKernel
 The chosen geometric lift supplies both the field embedding and the deck
 quotient. Its kernel pulls back to exactly the scalar-restriction image.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -42,21 +46,22 @@ subgroup as its preimage under the absolute generic Galois map. -/
 theorem pointedCoverKernel_comap_absoluteGenericGalois
     (W : FiniteEtale U) (hW : IsGalois W)
     (w : (fiber (U.genericExtensionMorphism Ω)).obj W) :
-    letI : IsGalois W := hW
-    letI : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
+    let : IsGalois W := hW
+    let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
     let K := U.functionField
     let L := W.left.functionField
-    letI : Algebra K L := finiteEtaleFunctionFieldAlgebra W
-    letI : FiniteDimensional K L :=
+    let : Algebra K L := finiteEtaleFunctionFieldAlgebra W
+    let : FiniteDimensional K L :=
       finiteDimensional_functionField_of_finiteEtale_isConnected W
-    letI : _root_.IsGalois K L := isGalois_functionField_of_isGalois_finiteEtale W hW
-    let h := genericExtension_point_comp U Ω
+    let : _root_.IsGalois K L := isGalois_functionField_of_isGalois_finiteEtale W hW
+    let h : ξ K Ω ≫ U.genericExtensionMorphism K = U.genericExtensionMorphism Ω := by
+      exact genericExtension_point_comp U Ω
     let x := (absoluteGenericFiberIso U Ω).inv.app W w
     let g := genericPointLiftRebase h W
       (fiberObjEquivHom (ξ K Ω ≫ U.genericExtensionMorphism K) W x)
     let j := finiteEtaleGenericHomFunctionFieldAlgHom W g
-    letI : Algebra L Ω := j.toRingHom.toAlgebra
-    letI : IsScalarTower K L Ω := by
+    let : Algebra L Ω := j.toRingHom.toAlgebra
+    let : IsScalarTower K L Ω := by
       apply IsScalarTower.of_algebraMap_eq'
       ext z
       exact (j.commutes z).symm
@@ -64,28 +69,8 @@ theorem pointedCoverKernel_comap_absoluteGenericGalois
       (U.genericExtensionMorphism Ω) W hW w).ker.comap
         (absoluteGenericGaloisToFundamentalGroup U Ω) =
       (AlgEquiv.restrictScalarsHom K : Gal(Ω/L) →* Gal(Ω/K)).range := by
-  let : IsGalois W := hW
-  let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
-  let K := U.functionField
-  let L := W.left.functionField
-  let : Algebra K L := finiteEtaleFunctionFieldAlgebra W
-  let : FiniteDimensional K L :=
-    finiteDimensional_functionField_of_finiteEtale_isConnected W
-  let : _root_.IsGalois K L := isGalois_functionField_of_isGalois_finiteEtale W hW
-  let h := genericExtension_point_comp U Ω
-  let x := (absoluteGenericFiberIso U Ω).inv.app W w
-  let g := genericPointLiftRebase h W
-    (fiberObjEquivHom (ξ K Ω ≫ U.genericExtensionMorphism K) W x)
-  let j := finiteEtaleGenericHomFunctionFieldAlgHom W g
-  let : Algebra L Ω := j.toRingHom.toAlgebra
-  let : IsScalarTower K L Ω := by
-    apply IsScalarTower.of_algebraMap_eq'
-    ext z
-    exact (j.commutes z).symm
-  change (finiteEtaleGaloisCoverQuotientMonoidHom
-    (U.genericExtensionMorphism Ω) W hW w).ker.comap
-      (absoluteGenericGaloisToFundamentalGroup U Ω) =
-    (AlgEquiv.restrictScalarsHom K : Gal(Ω/L) →* Gal(Ω/K)).range
+  intro sharedOwner1 sharedOwner2 K L sharedOwner5 sharedOwner6 sharedOwner7 h x g j
+    sharedOwner12 sharedOwner13
   rw [← normalRestriction_ker_eq_restrictScalars_range]
   ext σ
   change finiteEtaleGaloisCoverQuotientMonoidHom

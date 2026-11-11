@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.RationalBoundaryArithmeticEquivariance
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsResidueAction
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalBoundaryArithmeticEquivariance
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsResidueAction
 
 /-! # Rational boundary ranges under arithmetic conjugation
 
@@ -14,6 +16,8 @@ nontrivially on inertia. Their action is cyclotomic, and therefore preserves
 the entire abelian inertia range. This is the required statement for a finite
 constant-cover correction, even when the correcting element is not geometric.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory CategoryTheory.Limits AlgebraicCurve

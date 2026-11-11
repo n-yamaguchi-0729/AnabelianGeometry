@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.KummerTheory.RootField
-import Nyll.AnabelianGeometry.KummerTheory.Ratios
-import Mathlib.FieldTheory.IsAlgClosed.Basic
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.RootField
+public import Nyll.AnabelianGeometry.KummerTheory.Ratios
+public import Mathlib.FieldTheory.IsAlgClosed.Basic
 
 /-!
 # Intersections of simultaneously twisted full root fields
@@ -15,6 +17,8 @@ Intersecting the composita of the full root fields of `c * x` and `c * y`
 over all nonzero base-field twists `c` recovers the full root field of `y / x`.
 Roots of unity are retained throughout, so the base need not contain them.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.KummerTheory
 

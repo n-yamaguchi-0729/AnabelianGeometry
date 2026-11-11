@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.FieldTheory.SeparableClosure
-import Mathlib.RingTheory.RootsOfUnity.Basic
+module
+
+public import Mathlib.FieldTheory.SeparableClosure
+public import Mathlib.RingTheory.RootsOfUnity.Basic
 
 /-!
 # Prime-to-characteristic roots of unity in the separable closure
@@ -16,6 +18,8 @@ the change of residue field needed in Stacks Project, Tag 0BUB.
 
 Reference: https://stacks.math.columbia.edu/tag/0BUB
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoefficientEvaluation
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoefficientEvaluation
 
 /-!
 # Residue fixedness of actual finite normalization inertia
@@ -12,6 +14,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoefficientEvaluation
 The existing local action and the existing ambient residue map satisfy the
 literal residue-fixed square. No replacement action or residue field is used.
 -/
+
+@[expose] public section
 
 noncomputable section
 

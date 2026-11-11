@@ -4,12 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.Ideal.Pointwise
-import Mathlib.Algebra.Group.Subgroup.Map
+module
+
+public import Mathlib.RingTheory.Ideal.Pointwise
+public import Mathlib.Algebra.Group.Subgroup.Map
 
 /-!
 # Images of inertia at translated primes
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

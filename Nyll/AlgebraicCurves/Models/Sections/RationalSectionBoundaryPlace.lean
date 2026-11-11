@@ -10,13 +10,15 @@ https://github.com/anthropics/fermats-last-theorem/blob/aa2d8b34692b16c70f699536
 Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
-import Nyll.AlgebraicCurves.Places.ValuationRings.IsRationalRangeStalkSectionEq
-import Nyll.AlgebraicCurves.Places.Rational.Basic
-import Nyll.AlgebraicCurves.Places.Restriction.RestrictEqMem
-import Nyll.AlgebraicCurves.Places.Restriction.OrdAlgebraMapEqOrdComapEq
-import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
-import Nyll.SchemeTheory.FunctionFields.StalkFunctoriality
-import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncConstantExtensionOrders
+module
+
+public import Nyll.AlgebraicCurves.Places.ValuationRings.IsRationalRangeStalkSectionEq
+public import Nyll.AlgebraicCurves.Places.Rational.Basic
+public import Nyll.AlgebraicCurves.Places.Restriction.RestrictEqMem
+public import Nyll.AlgebraicCurves.Places.Restriction.OrdAlgebraMapEqOrdComapEq
+public import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
+public import Nyll.SchemeTheory.FunctionFields.StalkFunctoriality
+public import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncConstantExtensionOrders
 
 /-! # Actual rational section boundary places under constant extension
 
@@ -27,6 +29,8 @@ is derived from stalk functoriality, integrality, and separability of constants.
 In particular, no inertia-preservation or order-comparison assumption is used.
 -/
 
+@[expose] public section
+
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve
 open AnabelianGeometry.KummerTheory
@@ -35,10 +39,12 @@ attribute [local instance] Polynomial.algebra
 
 namespace AlgebraicCurve.CurveModel
 
+universe u v
+
 /-- A specified rational section gives a rational place over any base field.
 This does not require the base field to be algebraically closed. -/
 theorem isRational_placeOfPoint_of_section
-    {k F : Type} [Field k] [Field F] [Algebra k F]
+    {k : Type u} {F : Type v} [Field k] [Field F] [Algebra k F]
     (M : CurveModel k F) (σ : Spec (.of k) ⟶ M.C)
     (hσ : σ ≫ M.toBase = 𝟙 _)
     (x : closedPoints M.C) (hx : x.val = σ (IsLocalRing.closedPoint k)) :
@@ -73,7 +79,7 @@ theorem isRational_placeOfPoint_of_section
 /-- Stalk functoriality places every arithmetic local function in the
 valuation ring at the actual corresponding geometric closed point. -/
 theorem placeOfPoint_le_comap_of_functionFieldMap
-    {k κ F E : Type} [Field k] [Field κ] [Field F] [Field E]
+    {k κ F E : Type u} [Field k] [Field κ] [Field F] [Field E]
     [Algebra k F] [Algebra κ E] [Algebra F E]
     (M₀ : CurveModel k F) (M : CurveModel κ E)
     (f : M.C ⟶ M₀.C) (hf : DenseRange f)
@@ -101,7 +107,7 @@ theorem placeOfPoint_le_comap_of_functionFieldMap
 /-- For rational function fields, the one-sided stalk inclusion already
 forces exact normalized order compatibility. -/
 theorem ratFunc_ord_eq_of_place_le_comap
-    {k κ : Type} [Field k] [Field κ] [Algebra k κ]
+    {k κ : Type u} [Field k] [Field κ] [Algebra k κ]
     [Algebra.IsAlgebraic k κ] [Algebra.IsSeparable k κ]
     (V : Place k (RatFunc k)) (W : Place κ (RatFunc κ))
     (hmem : V.toValuationSubring ≤
@@ -123,7 +129,7 @@ theorem ratFunc_ord_eq_of_place_le_comap
 including a section at infinity. The function-field chart is the only field
 comparison input; normalized orders are a conclusion. -/
 theorem exists_rational_section_boundaryPlace_ord_eq
-    {k κ : Type} [Field k] [Field κ] [Algebra k κ] [IsAlgClosed κ]
+    {k κ : Type u} [Field k] [Field κ] [Algebra k κ] [IsAlgClosed κ]
     [Algebra.IsAlgebraic k κ] [Algebra.IsSeparable k κ]
     (M₀ : CurveModel k (RatFunc k)) (M : CurveModel κ (RatFunc κ))
     (eC : M.C ≅ pullback M₀.toBase (Spec.map (CommRingCat.ofHom (algebraMap k κ))))
@@ -135,7 +141,7 @@ theorem exists_rational_section_boundaryPlace_ord_eq
       (eC.hom ≫ pullback.fst M₀.toBase
         (Spec.map (CommRingCat.ofHom (algebraMap k κ)))).functionFieldMap hπ
         (M₀.ffEquiv z) = M.ffEquiv (algebraMap (RatFunc k) (RatFunc κ) z))
-    {X U : Scheme} (i : X ⟶ M₀.C) (j : U ⟶ M.C) (q : U ⟶ X)
+    {X U : Scheme.{u}} (i : X ⟶ M₀.C) (j : U ⟶ M.C) (q : U ⟶ X)
     (hproj : j ≫ eC.hom ≫ pullback.fst M₀.toBase
       (Spec.map (CommRingCat.ofHom (algebraMap k κ))) = q ≫ i)
     (σ : Spec (.of k) ⟶ M₀.C) (hσ : σ ≫ M₀.toBase = 𝟙 _)

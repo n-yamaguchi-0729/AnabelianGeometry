@@ -10,13 +10,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.JacobianVarieties.WeilPairing.Datum
-import Nyll.JacobianVarieties.Autoduality.Cohomology
-import Nyll.JacobianVarieties.Pic0.TorsionOrdEqMul
-import Nyll.JacobianVarieties.WeilPairing.WeilDatumPairingEqPrincipalSub
-import Nyll.JacobianVarieties.WeilPairing.WeilDatumAddLeftPairing
-import Nyll.JacobianVarieties.WeilPairing.WeilDatumSymmPairing
-import Nyll.JacobianVarieties.WeilPairing.WeilDatumPairingNeZero
+module
+
+public import Nyll.JacobianVarieties.WeilPairing.Datum
+public import Nyll.JacobianVarieties.Autoduality.Cohomology
+public import Nyll.JacobianVarieties.Pic0.TorsionOrdEqMul
+public import Nyll.JacobianVarieties.WeilPairing.WeilDatumPairingEqPrincipalSub
+public import Nyll.JacobianVarieties.WeilPairing.WeilDatumAddLeftPairing
+public import Nyll.JacobianVarieties.WeilPairing.WeilDatumSymmPairing
+public import Nyll.JacobianVarieties.WeilPairing.WeilDatumPairingNeZero
 
 /-!
 # Torsion evaluation through Weil pairings
@@ -24,6 +26,8 @@ import Nyll.JacobianVarieties.WeilPairing.WeilDatumPairingNeZero
 Constructs the additive map from torsion divisor classes to characters whose
 evaluation agrees with the Weil pairing of any representing divisor data.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -73,39 +77,9 @@ private theorem _root_.AlgebraicCurve.WeilDatum.isPrincipal_smul_right_i (d : We
   d.symm.isPrincipal_smul_left_i
 
 open _root_.AlgebraicCurve.WeilDatum
-private theorem degree_eq_zero_of_isPrincipal_i [HasPrincipalDivisors K F] {D : Divisor K F}
-    (hD : Divisor.IsPrincipal D) : Divisor.degree D = 0 := by
-  obtain ⟨f, hf, hDv⟩ := hD
-  obtain ⟨D', hD'v, hD'deg⟩ := HasPrincipalDivisors.exists_divisor (K := K) f hf
-  have hDD' : D = D' := Finsupp.ext fun v => by rw [hDv v, hD'v v]
-  exact hDD' ▸ hD'deg
-
-private theorem _root_.AlgebraicCurve.WeilDatum.degree_D₁_eq_zero_i [HasPrincipalDivisors K F]
-    (d : WeilDatum K F n) (hn : n ≠ 0) :
-    Divisor.degree d.D₁ = 0 := by
-  have h := degree_eq_zero_of_isPrincipal_i d.isPrincipal_smul_left_i
-  rw [map_zsmul, smul_eq_mul] at h
-  exact (mul_eq_zero.mp h).resolve_left (by exact_mod_cast hn)
-
-open _root_.AlgebraicCurve.WeilDatum
-private theorem _root_.AlgebraicCurve.WeilDatum.degree_D₂_eq_zero_i [HasPrincipalDivisors K F]
-    (d : WeilDatum K F n) (hn : n ≠ 0) :
-    Divisor.degree d.D₂ = 0 :=
-  d.symm.degree_D₁_eq_zero_i hn
-
-open _root_.AlgebraicCurve.WeilDatum
 section ClassLayer
 
 variable [NeZero n] [HasPrincipalDivisors K F]
-
-private def _root_.AlgebraicCurve.WeilDatum.degZeroLeft_i (d : WeilDatum K F n) :
-    Divisor.degZero (K := K) (F := F) :=
-  ⟨d.D₁, Divisor.mem_degZero.mpr (d.degree_D₁_eq_zero_i (NeZero.ne n))⟩
-
-open _root_.AlgebraicCurve.WeilDatum
-private def _root_.AlgebraicCurve.WeilDatum.degZeroRight_i (d : WeilDatum K F n) :
-    Divisor.degZero (K := K) (F := F) :=
-  ⟨d.D₂, Divisor.mem_degZero.mpr (d.degree_D₂_eq_zero_i (NeZero.ne n))⟩
 
 open _root_.AlgebraicCurve.WeilDatum
 theorem coe_degZeroLeft_i (d : WeilDatum K F n) :
@@ -133,13 +107,15 @@ theorem mk_mem_torsion_i (D : Divisor.degZero (K := K) (F := F))
   rw [AddSubgroup.mem_addSubgroupOf, hcoe]
   exact Divisor.mem_principal.mpr h
 
-private def _root_.AlgebraicCurve.WeilDatum.classLeft_i (d : WeilDatum K F n) :
+/-- The torsion Picard class of the original left divisor of the Weil datum. -/
+def _root_.AlgebraicCurve.WeilDatum.classLeft_i (d : WeilDatum K F n) :
     Pic0.torsion K F n :=
   ⟨Pic0.mk d.degZeroLeft_i, mk_mem_torsion_i d.degZeroLeft_i (by
     rw [coe_degZeroLeft_i]; exact d.isPrincipal_smul_left_i)⟩
 
 open _root_.AlgebraicCurve.WeilDatum
-private def _root_.AlgebraicCurve.WeilDatum.classRight_i (d : WeilDatum K F n) :
+/-- The torsion Picard class of the original right divisor of the Weil datum. -/
+def _root_.AlgebraicCurve.WeilDatum.classRight_i (d : WeilDatum K F n) :
     Pic0.torsion K F n :=
   ⟨Pic0.mk d.degZeroRight_i, mk_mem_torsion_i d.degZeroRight_i (by
     rw [coe_degZeroRight_i]; exact d.isPrincipal_smul_right_i)⟩

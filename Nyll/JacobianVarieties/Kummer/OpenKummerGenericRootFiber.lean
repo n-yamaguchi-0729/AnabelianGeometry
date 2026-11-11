@@ -4,9 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverTorsor
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldMonodromyLift
-import Mathlib.RingTheory.AdjoinRoot
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverTorsor
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldMonodromyLift
+public import Mathlib.RingTheory.AdjoinRoot
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationSourceIso
 
 /-!
 # Generic-function coordinates on original arithmetic Kummer fibers
@@ -15,6 +18,10 @@ The local root/h coordinate is multiplied by the actual generic value of h.
 The resulting coordinate has nth power equal to the specified generic value
 of w, and retains the original root-scaling and generic Galois actions.
 -/
+
+@[expose] public section
+
+universe u
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory CategoryTheory.PreGaloisCategory
@@ -26,7 +33,7 @@ open scoped FintypeCatDiscrete
 namespace AlgebraicCurve.CurveModel.OpenKummer
 
 private theorem specAutomorphism_eval_appTop
-    {Ω : Type} [Field Ω] (σ : Ω ≃+* Ω) (v : Γ(Spec (.of Ω), ⊤)) :
+    {Ω : Type u} [Field Ω] (σ : Ω ≃+* Ω) (v : Γ(Spec (.of Ω), ⊤)) :
     (Scheme.ΓSpecIso (.of Ω)).hom
         ((Spec.map (CommRingCat.ofHom σ.toRingHom)).appTop v) =
       σ ((Scheme.ΓSpecIso (.of Ω)).hom v) := by
@@ -34,7 +41,7 @@ private theorem specAutomorphism_eval_appTop
     (Scheme.ΓSpecIso_naturality (CommRingCat.ofHom σ.toRingHom)) v
 
 private theorem rootCoordinate_precomp_field
-    {Ω : Type} [Field Ω] {Y : Scheme} (V : Y.Opens) (T : Γ(Y, V))
+    {Ω : Type u} [Field Ω] {Y : Scheme.{u}} (V : Y.Opens) (T : Γ(Y, V))
     (σ : Ω ≃+* Ω) (s s' : Spec (.of Ω) ⟶ Y)
     (hs : s ⁻¹ᵁ V = ⊤) (hs' : s' ⁻¹ᵁ V = ⊤)
     (he : s' = Spec.map (CommRingCat.ofHom σ.toRingHom) ≫ s) :
@@ -54,8 +61,8 @@ private theorem rootCoordinate_precomp_field
 /-- Evaluate a retained generic section equation on a literal affine point.
 Only the composite point must land entirely in the selected open. -/
 private theorem genericSection_point_evaluation
-    {A Ω : Type} [CommRing A] [Field Ω]
-    {Y : Scheme} (r : Spec (.of A) ⟶ Y)
+    {A Ω : Type u} [CommRing A] [Field Ω]
+    {Y : Scheme.{u}} (r : Spec (.of A) ⟶ Y)
     (W : Y.Opens) (T : Γ(Y, W)) (a : A)
     (hT : r.app W T =
       (Spec (.of A)).presheaf.map (homOfLE le_top).op
@@ -85,20 +92,20 @@ private theorem genericSection_point_evaluation
 actual generic value of `w`. Both the existing root-scaling and the original
 generic Galois action are retained under the same coordinate equivalence. -/
 theorem exists_arithmeticKummerFiber_genericRootEquiv
-    {K F : Type} [Field K] [Field F] [Algebra K F]
+    {K F : Type u} [Field K] [Field F] [Algebra K F]
     (M : CurveModel K F) (S : Set (Place K F)) (n : ℕ+)
     (w : Pic0.openKummerUnits K F S n)
-    {X : Scheme} [IsIntegral X] [CompactSpace X]
+    {X : Scheme.{u}} [IsIntegral X] [CompactSpace X]
     (j : X ⟶ M.C) [IsOpenImmersion j] (hj : DenseRange j)
     (hi : ∀ (y : X) (x : closedPoints M.C), x.val = j y → M.placeOfPoint x ∉ S)
     (hn : IsUnit ((n : ℕ) : K))
-    {Ω : Type} [Field Ω] [IsSepClosed Ω] [Algebra X.functionField Ω]
+    {Ω : Type u} [Field Ω] [IsSepClosed Ω] [Algebra X.functionField Ω]
     [IsSepClosure X.functionField Ω] :
     let η := Spec.map (CommRingCat.ofHom (algebraMap X.functionField Ω))
     let ξ := η ≫ X.fromSpecStalk (genericPoint X)
     let W := M.openKummerCover S n hn w j hj hi
     let g := j.functionFieldMap hj (M.ffEquiv (w.val : F))
-    letI := kummerGeometricRootAction M S n w j hj hi hn ξ
+    let := kummerGeometricRootAction M S n w j hj hi hn ξ
     ∃ e : (FiniteEtale.fiber ξ).obj W ≃
         {β : Ω // β ^ (n : ℕ) = algebraMap X.functionField Ω g},
       (∀ (ζ : rootsOfUnity (n : ℕ) K) x,
@@ -107,8 +114,7 @@ theorem exists_arithmeticKummerFiber_genericRootEquiv
         (e (FiniteEtale.fundamentalGroupHom (X.fromSpecStalk (genericPoint X)) η
           (toAut (FiniteEtale.fiber η) (Ω ≃ₐ[X.functionField] Ω) σ) • x)).val =
           σ (e x).val := by
-  intro η ξ W g
-  let := kummerGeometricRootAction M S n w j hj hi hn ξ
+  intro η ξ W g rootAction
   let A := AdjoinRoot (Polynomial.X ^ (n : ℕ) - Polynomial.C g)
   let f := M.openKummerGenericMap S n w j hj
   let π := f.fromNormalization
@@ -215,7 +221,7 @@ theorem exists_arithmeticKummerFiber_genericRootEquiv
           ⟨(l x).1 ≫ d.hom,
             (Category.assoc _ _ _).trans ((congrArg ((l x).1 ≫ ·) hd).trans (l x).2)⟩ := by
         apply Subtype.ext
-        exact fiberLiftEquiv_naturality ξ (kummerCoverRootScale M S n w j hj hi hn ζ).hom x
+        exact fiberLiftEquiv_naturality ξ (kummerCoverRootScale M S n w j hj hi hn ζ).asIso.hom x
       change (Scheme.ΓSpecIso (.of Ω)).hom (c (l (ζ • x))) = _
       rw [hl]
       change (Scheme.ΓSpecIso (.of Ω)).hom (rootLiftCoordinate π V ξ hξ T _) = _

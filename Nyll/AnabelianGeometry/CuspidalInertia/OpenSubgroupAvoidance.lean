@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.CuspidalInertia.FiniteQuotientSeparation
-import Mathlib.GroupTheory.Subgroup.Centralizer
+module
+
+public import Nyll.AnabelianGeometry.CuspidalInertia.FiniteQuotientSeparation
+public import Mathlib.GroupTheory.Subgroup.Centralizer
 
 /-!
 # Open subgroups avoiding compact families
@@ -14,6 +16,8 @@ Uniform noncommutation in a finite quotient gives an open subgroup containing
 one prescribed element and avoiding a whole compact family. Applying this to
 a conjugacy-saturated family makes the avoidance stable under conjugation.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.CuspidalInertia
 

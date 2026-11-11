@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalKummer
-import Mathlib.FieldTheory.KummerExtension
-import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalKummer
+public import Mathlib.FieldTheory.KummerExtension
+public import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
 
 /-!
 # The cyclic Galois group of a two-branch rational cover
@@ -17,6 +19,8 @@ with the degree-th roots of unity in the constant field, and this identification
 a generating coordinate. The power-coordinate theorem supplies the Kummer generator; neither
 normality nor cyclicity is assumed.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -43,7 +47,7 @@ theorem cyclic_galois_of_two_branches_charZero
   have hn : 0 < n := Module.finrank_pos
   have : NeZero n := ⟨hn.ne'⟩
   have : NeZero (n : K) := ⟨Nat.cast_ne_zero.mpr hn.ne'⟩
-  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_primitiveRoot K n
+  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_isPrimitiveRoot K n
   have hK : (primitiveRoots n K).Nonempty := ⟨ζ, (mem_primitiveRoots hn).mpr hζ⟩
   have hE : (primitiveRoots n (RatFunc K)).Nonempty :=
     ⟨algebraMap K (RatFunc K) ζ, (mem_primitiveRoots hn).mpr

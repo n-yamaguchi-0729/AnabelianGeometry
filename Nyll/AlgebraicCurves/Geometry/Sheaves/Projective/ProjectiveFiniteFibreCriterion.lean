@@ -10,26 +10,30 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.Morphisms.QuasiFinite
-import Mathlib.AlgebraicGeometry.ZariskisMainTheorem
-import Nyll.SchemeTheory.Modules.Tensor.Monoidal
-import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
-import Nyll.SchemeTheory.Modules.Tensor.TensorPowers
-import Nyll.SchemeTheory.Modules.Tensor.TensorSections
-import Nyll.SchemeTheory.Modules.ProjectivePresentation.ProjectivePresentation
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Divisors.SectionZeroScheme
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Projective.InvertibleTensorPow
-import Nyll.AlgebraicCurves.Geometry.Schemes.Points.HomIsClosedIrreducibleSubsetFiber
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Divisors.ProjPresentationSubsetSupportZeroSchemeIdealOrDisjoint
-import Nyll.AlgebraicCurves.Geometry.Schemes.Covers.MemIffSubsetUnionPreimageOrDisjoint
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Divisors.InvertiblePullbackSectionEqZeroIffMemSupport
-import Nyll.AlgebraicCurves.Geometry.Schemes.Points.OverHomBaseClosedPointEq
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Divisors.HomTensorPowThreeSupportZeroSchemeIdealEq
+module
+
+public import Mathlib.AlgebraicGeometry.Morphisms.QuasiFinite
+public import Mathlib.AlgebraicGeometry.ZariskisMainTheorem
+public import Nyll.SchemeTheory.Modules.Tensor.Monoidal
+public import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
+public import Nyll.SchemeTheory.Modules.Tensor.TensorPowers
+public import Nyll.SchemeTheory.Modules.Tensor.TensorSections
+public import Nyll.SchemeTheory.Modules.ProjectivePresentation.ProjectivePresentation
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Divisors.SectionZeroScheme
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Projective.InvertibleTensorPow
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Points.HomIsClosedIrreducibleSubsetFiber
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Divisors.ProjPresentationSubsetSupportZeroSchemeIdealOrDisjoint
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Covers.MemIffSubsetUnionPreimageOrDisjoint
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Divisors.InvertiblePullbackSectionEqZeroIffMemSupport
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Points.OverHomBaseClosedPointEq
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Divisors.HomTensorPowThreeSupportZeroSchemeIdealEq
 
 /-!
 # Scheme Modules Proj Presentation is Finite to Proj of finite set Of forall pullback
 Section eq zero iff
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

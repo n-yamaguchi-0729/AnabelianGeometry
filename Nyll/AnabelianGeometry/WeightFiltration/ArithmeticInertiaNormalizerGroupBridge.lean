@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Group.Subgroup.Ker
-import Mathlib.GroupTheory.Subgroup.Centralizer
+module
+
+public import Mathlib.Algebra.Group.Subgroup.Ker
+public import Mathlib.GroupTheory.Subgroup.Centralizer
 
 /-! # Pure-group bridges for arithmetic inertia normalizers
 
@@ -14,6 +16,8 @@ The arithmetic application supplies its actual inclusions, quotient maps, and
 self-normalizing geometric inertia; no arithmetic decomposition equality is
 assumed in the kernel-lifting theorem.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.WeightFiltration
 

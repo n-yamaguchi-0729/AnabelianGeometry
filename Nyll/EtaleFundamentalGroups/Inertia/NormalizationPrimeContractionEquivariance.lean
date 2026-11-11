@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteNormalizationPrime
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteNormalizationPrime
 
 /-!
 # Equivariance of contraction of actual normalization primes
 -/
+
+@[expose] public section
 
 noncomputable section
 

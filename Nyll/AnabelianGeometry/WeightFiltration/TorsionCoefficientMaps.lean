@@ -4,7 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.TorsionSpecialization
+module
+
+public import Nyll.AbelianVarieties.Tate.FiniteTorsion
+public import Nyll.AnabelianGeometry.WeightFiltration.TorsionSpecialization
+public import Nyll.ProCGroups.Abelian.FullTateModule
 
 /-!
 # Coefficient maps in the actual torsion and section-algebra descriptions
@@ -13,6 +17,8 @@ The kernel comparison respects the original coefficient extension on points.
 This identifies the additive torsion map with composition on the existing
 section algebra, so actual integral lifting and reduction can retain the group law.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -50,14 +56,6 @@ theorem torsionCoefficientMap_transition
 
 variable [IsLocalRing H] [IsProper f] [Smooth f]
 
-/-- Torsion points are algebra maps on the actual finite kernel's section algebra. -/
-def torsionLevelEquivKernelSections (T : Type) [CommRing T] [Algebra H T]
-    (n : ℕ+) (hn : IsUnit ((n : ℕ) : H)) :
-    ProCGroups.torsionLevel (G.AlgPoints hc T) n ≃
-      (Γ((G.unitTorsionCover hc n hn).left, ⊤) →ₐ[H] T) :=
-  (G.torsionLevelEquivUnitKernelPoints hc T n hn).trans
-    (pointHomAlgEquiv H T (G.unitTorsionCover hc n hn))
-
 /-- The kernel's section algebra sees coefficient extension as composition. -/
 theorem torsionLevelEquivKernelSections_map
     {T T' : Type} [CommRing T] [CommRing T'] [Algebra H T] [Algebra H T']
@@ -66,7 +64,7 @@ theorem torsionLevelEquivKernelSections_map
     G.torsionLevelEquivKernelSections hc T' n hn
         (G.torsionCoefficientMap hc a n x) =
       a.comp (G.torsionLevelEquivKernelSections hc T n hn x) := by
-  apply AlgHom.coe_ringHom_injective
+  apply AlgHom.toRingHom_injective
   refine congrArg (fun k : Γ((G.unitTorsionCover hc n hn).left, ⊤) ⟶
       CommRingCat.of T' => k.hom) ?_
   apply Spec.map_injective

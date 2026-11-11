@@ -4,11 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
-import Nyll.JacobianVarieties.Kummer.OpenDivisorResidueLifting
-import Nyll.AlgebraicCurves.Places.Degree.DegEqOneAlgClosed
-import Nyll.AlgebraicCurves.Places.Degree.DegNeZeroFiniteDimensionalAdjoin
-import Mathlib.Algebra.BigOperators.Finsupp.Basic
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
+public import Nyll.JacobianVarieties.Kummer.OpenDivisorResidueLifting
+public import Nyll.AlgebraicCurves.Places.Degree.DegEqOneAlgClosed
+public import Nyll.AlgebraicCurves.Places.Degree.DegNeZeroFiniteDimensionalAdjoin
+public import Mathlib.Algebra.BigOperators.Finsupp.Basic
+public import Nyll.SchemeTheory.FunctionFields.StructureMorphism
 
 /-!
 # Realizing degree-zero boundary residues
@@ -18,6 +21,10 @@ supported on the boundary: subtract its total integral degree at a chosen
 boundary point. Actual Pic⁰ divisibility then realizes that divisor modulo
 the exponent by a function unramified away from the boundary.
 -/
+
+@[expose] public section
+
+universe u v
 
 noncomputable section
 
@@ -29,7 +36,7 @@ namespace AlgebraicCurve.CurveModel
 /-- Every sum-zero boundary residue vector is realized by an actual
 function whose orders off the boundary are divisible by the exponent. -/
 theorem exists_openKummerUnits_of_sum_eq_zero
-    {K F : Type} [Field K] [IsAlgClosed K]
+    {K : Type u} {F : Type v} [Field K] [IsAlgClosed K]
     [Field F] [Algebra K F] [IsCurveOver K F]
     (M : CurveModel K F)
     (ε : SchemeHomOver (𝟙 (Spec (.of K))) M.toBase)

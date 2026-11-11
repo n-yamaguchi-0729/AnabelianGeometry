@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryModule
-import Mathlib.LinearAlgebra.Quotient.Basic
+module
+
+public import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryModule
+public import Mathlib.LinearAlgebra.Quotient.Basic
 
 /-!
 # Permutations of the reduced boundary module
@@ -14,6 +16,8 @@ Permuting boundary labels preserves the diagonal relation and induces a
 linear equivalence on the reduced boundary module. The equivalence sends
 each boundary coordinate to its permuted coordinate.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.CuspidalInertia
 

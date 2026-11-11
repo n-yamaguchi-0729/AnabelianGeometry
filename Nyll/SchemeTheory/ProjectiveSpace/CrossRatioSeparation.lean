@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.ProjectiveSpace.CrossRatio
-import Mathlib.Tactic.LinearCombination
-import Mathlib.Tactic.FieldSimp
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.CrossRatio
+public import Mathlib.Tactic.LinearCombination
+public import Mathlib.Tactic.FieldSimp
 
 /-!
 # Separation of projective points by a cross ratio
@@ -15,6 +17,8 @@ For a fixed nondegenerate ordered triple, the cross ratio separates fourth
 points in its affine chart. This is proved for homogeneous representatives
 and then for the actual projectivization quotient.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.ProjectiveLine
 

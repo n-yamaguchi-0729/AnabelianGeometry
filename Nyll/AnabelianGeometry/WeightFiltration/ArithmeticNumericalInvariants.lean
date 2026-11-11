@@ -4,17 +4,20 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.LiteralArithmeticBoundaryWeight
-import Nyll.AnabelianGeometry.WeightFiltration.IntrinsicBoundaryWeight
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticKernelEquivalence
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryPreservingNumericalInvariants
-import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.GeometricBasePoint
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.PropernessDetection
-import Nyll.AlgebraicCurves.Models.Construction.LiteralArithmeticCurveModel
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricGenus
-import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveTwoAffineCover
-import Nyll.SchemeTheory.FunctionFields.GeometricIntegrality
-import Nyll.SchemeTheory.Morphisms.GeometricallyIrreducibleConnected
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.LiteralArithmeticBoundaryWeight
+public import Nyll.AnabelianGeometry.WeightFiltration.IntrinsicBoundaryWeight
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticKernelEquivalence
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryPreservingNumericalInvariants
+public import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.GeometricBasePoint
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.PropernessDetection
+public import Nyll.AlgebraicCurves.Models.Construction.LiteralArithmeticCurveModel
+public import Nyll.AlgebraicCurves.Geometry.Curves.GeometricGenus
+public import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveTwoAffineCover
+public import Nyll.SchemeTheory.FunctionFields.GeometricIntegrality
+public import Nyll.SchemeTheory.Morphisms.GeometricallyIrreducibleConnected
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsResidueAction
 
 /-! # Numerical invariants from the original arithmetic fundamental groups
 
@@ -35,6 +38,8 @@ e12912, Lemma 1.6 and Proposition 1.7: https://doi.org/10.1112/jlms.12912.
 The present result concerns full arithmetic fundamental groups over number
 fields; it does not assert the paper's general finite-step reconstruction theorem.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory CategoryTheory.PreGaloisCategory
@@ -74,7 +79,7 @@ private theorem geometricGenus_eq_literal_genus
     Submodule.mkQ_surjective (LinearMap.range d)
   have hexκ : Function.Exact (d.baseChange κ) ((LinearMap.range d).mkQ.baseChange κ) := by
     have ht := lTensor_exact κ hex hsurj
-    rwa [← LinearMap.baseChange_eq_ltensor, ← LinearMap.baseChange_eq_ltensor] at ht
+    rwa [← LinearMap.baseChange_eq_lTensor, ← LinearMap.baseChange_eq_lTensor] at ht
   let e := hexκ.linearEquivOfSurjective (LinearMap.baseChange_surjective κ hsurj)
   calc
     geometricGenus k c = Module.finrank k (V.structureSheafSections c).H1 :=

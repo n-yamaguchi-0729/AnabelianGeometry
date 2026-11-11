@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticNaturality
-import Nyll.ProCGroups.Abelian.TopologicalAbelianizationFunctoriality
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticNaturality
+public import Nyll.ProCGroups.Abelian.TopologicalAbelianizationFunctoriality
 
 /-!
 # Conjugation naturality on actual arithmetic kernels
@@ -14,6 +16,8 @@ A morphism over the base field restricts to the original arithmetic kernels.
 The induced map on their topological abelianizations commutes with arithmetic
 conjugation, so its kernel is preserved by every arithmetic representative.
 -/
+
+@[expose] public section
 
 noncomputable section
 

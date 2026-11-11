@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteConstantField
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Defs
-import Mathlib.FieldTheory.Galois.GaloisClosure
-import Mathlib.FieldTheory.RatFunc.AsPolynomial
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteConstantField
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Defs
+public import Mathlib.FieldTheory.Galois.GaloisClosure
+public import Mathlib.FieldTheory.RatFunc.AsPolynomial
 
 /-! # A rational coordinate over a finite field of constants
 
@@ -16,6 +18,8 @@ Galois extension of constants, a finite Galois extension already contains a
 rational coordinate and all coefficients needed to express the original
 field generators. The resulting equality is in the original ambient field.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -45,7 +49,7 @@ theorem exists_finiteGalois_rational_coordinate_compositum
     have hx : x ∈ IntermediateField.adjoin K ({z} : Set F) := by
       rw [hz]
       exact IntermediateField.mem_top
-    refine IntermediateField.adjoin_induction K (p := fun x _ =>
+    refine IntermediateField.adjoin_induction K (motive := fun x _ =>
       x ∈ IntermediateField.adjoin Z (Set.range (algebraMap K F)))
       ?_ ?_ ?_ ?_ ?_ hx
     · intro x hx

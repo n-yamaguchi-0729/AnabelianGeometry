@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.MaximalQuotientResidueNaturality
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeMaximalResidue
-import Mathlib.RingTheory.Ideal.Quotient.Operations
-import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.MaximalQuotientResidueNaturality
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeMaximalResidue
+public import Mathlib.RingTheory.Ideal.Quotient.Operations
+public import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
 
 /-!
 # Conjugacy of quotient and localization residue maps
@@ -15,6 +17,8 @@ import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
 Identifies the residue automorphism of a localization as the conjugate of the quotient
 automorphism through the canonical maximal-quotient residue equivalence.
 -/
+
+@[expose] public section
 
 noncomputable section
 

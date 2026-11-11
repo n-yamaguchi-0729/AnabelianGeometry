@@ -5,15 +5,17 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverGenericCharacter
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverCharacter
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverAction
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverTorsor
-import Nyll.EtaleFundamentalGroups.GeometricFiber.BasePoint
-import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointSurjective
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
-import Nyll.SchemeTheory.Normalization.Normal
-import Mathlib.FieldTheory.IsSepClosed
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverGenericCharacter
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverCharacter
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverAction
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverTorsor
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.BasePoint
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointSurjective
+public import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
+public import Nyll.SchemeTheory.Normalization.Normal
+public import Mathlib.FieldTheory.IsSepClosed
 
 /-!
 # Multiplicativity of actual Kummer monodromy
@@ -23,6 +25,8 @@ product of the actual roots. Surjectivity of the generic Galois map detects
 equality of characters. Naturality of the same root-scaling automorphisms under
 fiber-functor comparison carries this equality to every geometric basepoint.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -63,11 +67,13 @@ theorem character_basePoint_apply (u : Pic0.openKummerUnits K F S n)
   let y : (FiniteEtale.fiber xi').obj W := t.hom.app W x
   have hcoeff (ζ : rootsOfUnity (n : ℕ) K) : t.hom.app W (ζ • x) = ζ • y := by
     exact ConcreteCategory.congr_hom
-      (t.hom.naturality (kummerCoverRootScale M S n u j hj hinterior hn ζ).hom) x
+      (t.hom.naturality (kummerCoverRootScale M S n u j hj hinterior hn ζ).asIso.hom) x
   have hmon : t.hom.app W (g • x) = b g • y := by
-    have hcat : g.hom.app W ≫ t.hom.app W = t.hom.app W ≫ (b g).hom.app W := by
-      change g.hom.app W ≫ t.hom.app W = t.hom.app W ≫ (t.conjAut g).hom.app W
-      simp only [Iso.conjAut_hom, Iso.conj_apply, NatTrans.comp_app]
+    have hcat :
+        g.asIso.hom.app W ≫ t.hom.app W = t.hom.app W ≫ (b g).asIso.hom.app W := by
+      change g.asIso.hom.app W ≫ t.hom.app W =
+        t.hom.app W ≫ (t.conjAut g).asIso.hom.app W
+      simp only [Iso.conjAut_apply, Iso.trans_hom, Iso.symm_hom, NatTrans.comp_app]
       simp only [← Category.assoc, t.hom_inv_id_app, Category.id_comp]
     exact ConcreteCategory.congr_hom hcat x
   have hx : kummerMonodromyCharacter M S n u j hj hinterior hn xi g • x = g • x := by

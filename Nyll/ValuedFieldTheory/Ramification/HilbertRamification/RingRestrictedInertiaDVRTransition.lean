@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Ring.Action.Basic
-import Mathlib.Algebra.Group.Units.Hom
-import Mathlib.Algebra.GroupWithZero.Units.Basic
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
-import Mathlib.RingTheory.Ideal.Defs
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacter
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.DVRUniformizerFactorization
-import Mathlib.Tactic.Ring
+module
+
+public import Mathlib.Algebra.Ring.Action.Basic
+public import Mathlib.Algebra.Group.Units.Hom
+public import Mathlib.Algebra.GroupWithZero.Units.Basic
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+public import Mathlib.RingTheory.Ideal.Defs
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacter
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.DVRUniformizerFactorization
+public import Mathlib.Tactic.Ring
 
 /-!
 # Uniformizer-ratio identities across DVR maps
@@ -20,6 +22,8 @@ Proves ratio and residue-coefficient identities for compatible ring maps and gro
 across a DVR tower. The exponents are identified with the additive valuation and ramification
 index of a mapped uniformizer.
 -/
+
+@[expose] public section
 
 noncomputable section
 

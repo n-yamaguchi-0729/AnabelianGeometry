@@ -3,11 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveCohomologyExactness
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroFundamentalGroup
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveCohomologyExactness
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroFundamentalGroup
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
 
 /-! # Residue rigidity on genus-zero open curves -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory AlgebraicCurve

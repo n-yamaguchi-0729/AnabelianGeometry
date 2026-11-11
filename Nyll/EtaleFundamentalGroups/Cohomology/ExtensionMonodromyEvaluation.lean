@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionMonodromy
-import Nyll.EtaleFundamentalGroups.Cohomology.RepresentedMonodromy
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionMonodromy
+public import Nyll.EtaleFundamentalGroups.Cohomology.RepresentedMonodromy
 
 /-!
 # Evaluating extension monodromy in a represented abelian sheaf
@@ -15,6 +17,8 @@ from that middle term to a descended finite representation therefore gives
 an equivariant map on geometric monodromy. Its value is computed in the
 original abelian stalk, retaining the original inclusion and coefficient.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -32,7 +36,8 @@ variable {X : Scheme.{u}} [ConnectedSpace X] (A : AddCommGrpCat.{u}) [Finite A]
   (t : (Functor.const X.Etaleᵒᵖ).obj PUnit ⟶ Q.obj ⋙ forget AddCommGrpCat.{u})
   {Ω : Type u} [Field Ω] [IsSepClosed Ω] (ξ : Spec (.of Ω) ⟶ X)
 
-private abbrev lifts : EtaleFiniteLocallyConstantSetSheaf X :=
+/-- The finite locally constant sheaf of lifts of the quotient section. -/
+abbrev lifts : EtaleFiniteLocallyConstantSetSheaf X :=
   ⟨extensionFiber (ShortComplex.mk i p h) t,
     extensionFiber_isFiniteLocallyConstant (ShortComplex.mk i p h) t hs
       (constantAbelian_isFiniteLocallyConstant X A)⟩

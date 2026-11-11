@@ -10,17 +10,21 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.RingTheory.LocalProperties.Exactness
-import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
-import Nyll.SchemeTheory.Modules.Tensor.TensorSections
-import Nyll.SchemeTheory.Modules.Tensor.TensorFrames
-import Nyll.SchemeTheory.Modules.Frames.FrameFromTrivialization
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleTensor
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.QuasicoherentModules
+module
+
+public import Mathlib.RingTheory.LocalProperties.Exactness
+public import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
+public import Nyll.SchemeTheory.Modules.Tensor.TensorSections
+public import Nyll.SchemeTheory.Modules.Tensor.TensorFrames
+public import Nyll.SchemeTheory.Modules.Frames.FrameFromTrivialization
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleTensor
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.QuasicoherentModules
 
 /-!
 # Scheme Modules Is Invertible bijective lift tensor Sections Bilin
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -134,12 +138,10 @@ def thetaBO : Γ(L, X.basicOpen f) ⊗[Γ(X, U)] Γ(M, X.basicOpen f) →ₗ[Γ(
     (LinearMap.mk₂ Γ(X, U) (fun x y => Scheme.Modules.tensorSections x y)
       (fun x₁ x₂ y => Scheme.Modules.tensorSections_add_left x₁ x₂ y)
       (fun a x y => by
-        try dsimp only
         rw [← algebraMap_smul Γ(X, X.basicOpen f) a x, Scheme.Modules.tensorSections_smul_left,
           algebraMap_smul])
       (fun x y₁ y₂ => Scheme.Modules.tensorSections_add_right x y₁ y₂)
       (fun a x y => by
-        try dsimp only
         rw [← algebraMap_smul Γ(X, X.basicOpen f) a y, Scheme.Modules.tensorSections_smul_right,
           algebraMap_smul]))
 

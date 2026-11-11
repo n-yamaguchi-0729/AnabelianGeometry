@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Algebra.Hom
-import Mathlib.Algebra.Algebra.Subalgebra.Basic
-import Mathlib.Algebra.Category.Ring.Basic
-import Mathlib.Algebra.Category.CommAlgCat.Basic
-import Mathlib.Algebra.Algebra.Tower
-import Mathlib.Algebra.Ring.Hom.Defs
-import Mathlib.RingTheory.Ideal.Maps
-import Mathlib.RingTheory.Localization.AtPrime.Basic
+module
+
+public import Mathlib.Algebra.Algebra.Hom
+public import Mathlib.Algebra.Algebra.Subalgebra.Basic
+public import Mathlib.Algebra.Category.Ring.Basic
+public import Mathlib.Algebra.Category.CommAlgCat.Basic
+public import Mathlib.Algebra.Algebra.Tower
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.RingTheory.Ideal.Maps
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
 
 /-!
 # Native subalgebra-prime localization maps with closed coefficient squares
@@ -26,6 +28,8 @@ maps with the original algebra maps. Their proved square mentions only the
 computed RingHoms. No comparison, localization compatibility, alternate
 algebra dictionary, or independent local model is assumed.
 -/
+
+@[expose] public section
 
 noncomputable section
 

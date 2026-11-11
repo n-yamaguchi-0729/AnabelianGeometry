@@ -45,8 +45,8 @@ def coefficientProjection : π₁ᵉᵗ(xi) →ₜ* Gal(L/k) :=
 the comparison induced by the actual coefficient embedding. -/
 def coefficientProjectionConjugator : Gal(L/k) :=
   (suppliedGaloisEquivFundamentalGroup k L).symm
-    ((coefficientFiberComparison k L Ω f xi hbase).symm ≪≫
-      (nonempty_fiber_iso (xi ≫ f) (ξ k L)).some)
+    (Aut.of ((coefficientFiberComparison k L Ω f xi hbase).symm ≪≫
+      (nonempty_fiber_iso (xi ≫ f) (ξ k L)).some))
 
 /-- The exact change of arithmetic quotient, for every group element. -/
 theorem arithmeticFundamentalGroupHom_eq_conjugate_coefficientProjection
@@ -59,7 +59,7 @@ theorem arithmeticFundamentalGroupHom_eq_conjugate_coefficientProjection
   let tc := coefficientFiberComparison k L Ω f xi hbase
   let t : fiber (xi ≫ f) ≅ fib k L :=
     (nonempty_fiber_iso (xi ≫ f) (ξ k L)).some
-  let δ : Aut (fib k L) := tc.symm ≪≫ t
+  let δ : Aut (fib k L) := Aut.of (tc.symm ≪≫ t)
   have h := continuousConjAut_eq_conj tc t (fundamentalGroupHom f xi g)
   change t.conjAut (fundamentalGroupHom f xi g) =
     δ * tc.conjAut (fundamentalGroupHom f xi g) * δ⁻¹ at h
@@ -76,18 +76,19 @@ theorem coefficientProjection_sourceAction
     (hρ : ρ.comp (algebraMap L Ω) = (algebraMap L Ω).comp σ.toRingHom)
     (hsource : e.hom ≫ xi = xi) :
     coefficientProjection k L Ω f xi hbase
-      (fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource)) = σ := by
+      (Aut.of (fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource))) = σ := by
   let ε := suppliedGaloisEquivFundamentalGroup k L
   let E := fieldFiberExtensionIso k L Ω
   let q := eqToIso (congrArg fiber hbase)
-  let g : Aut (fiber xi) := fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource)
+  let g : Aut (fiber xi) := Aut.of (fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource))
   have hfield := fundamentalGroupHom_sourceAction_eq_extendedGalois
     k L Ω f xi e ρ he σ hρ hsource hbase
   have hc : (q ≪≫ E.symm).conjAut (fundamentalGroupHom f xi g) = ε σ := by
     rw [Iso.trans_conjAut, hfield]
     change E.symm.conjAut (E.conjAut (ε σ)) = ε σ
     apply Aut.ext
-    simp only [Iso.conjAut_hom, Iso.symm_self_conj]
+    apply Iso.ext
+    exact congrArg End.asHom (Iso.symm_self_conj E (ε σ).toEnd)
   change ε.symm ((q ≪≫ E.symm).conjAut (fundamentalGroupHom f xi g)) = σ
   exact (congrArg ε.symm hc).trans (ε.symm_apply_apply σ)
 

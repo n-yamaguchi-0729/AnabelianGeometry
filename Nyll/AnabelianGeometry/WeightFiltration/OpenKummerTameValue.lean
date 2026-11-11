@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.PlaceKummerTameValue
-import Nyll.AnabelianGeometry.WeightFiltration.OpenKummerInertiaResidue
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.PlaceKummerTameValue
+public import Nyll.AnabelianGeometry.WeightFiltration.OpenKummerInertiaResidue
 
 /-!
 # Actual open-curve Kummer values on place inertia
@@ -13,6 +15,8 @@ import Nyll.AnabelianGeometry.WeightFiltration.OpenKummerInertiaResidue
 The original monodromy value, embedded in the normalization residue field,
 is the actual tame coefficient raised to the signed order of the radicand.
 -/
+
+@[expose] public section
 
 noncomputable section
 

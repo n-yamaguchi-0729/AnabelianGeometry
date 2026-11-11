@@ -9,14 +9,16 @@ Upstream per-file ATTRIBUTION (earlier FLT and Mathlib notices): https://github.
 Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
-import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveSpaceIntegral
-import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLineSmooth
-import Nyll.SchemeTheory.FunctionFields.ScalarFunctoriality
-import Nyll.SchemeTheory.FunctionFields.StructureMorphism
-import Nyll.SchemeTheory.FunctionFields.OpenImmersion
-import Mathlib.Algebra.MvPolynomial.Equiv
-import Mathlib.FieldTheory.RatFunc.Basic
-import Mathlib.Tactic.FinCases
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveSpaceIntegral
+public import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLineSmooth
+public import Nyll.SchemeTheory.FunctionFields.ScalarFunctoriality
+public import Nyll.SchemeTheory.FunctionFields.StructureMorphism
+public import Nyll.SchemeTheory.FunctionFields.OpenImmersion
+public import Mathlib.Algebra.MvPolynomial.Equiv
+public import Mathlib.FieldTheory.RatFunc.Basic
+public import Mathlib.Tactic.FinCases
 
 /-! # The literal projective-line model of RatFunc
 
@@ -28,6 +30,8 @@ the literal scheme and its structure morphism.
 The arithmetic-to-geometric coefficient-extension compatibility of this
 coordinate is a separate remaining lemma; it is not asserted here.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -73,7 +77,8 @@ namespace AlgebraicGeometry.ProjSpace
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
-private instance chartOne_unique : Unique {i : Fin 2 // i ≠ 1} where
+/-- The sole remaining homogeneous coordinate on the chart where the second is nonzero. -/
+@[instance_reducible] def chartOne_unique : Unique {i : Fin 2 // i ≠ 1} where
   default := ⟨0, by decide⟩
   uniq := by
     rintro ⟨i, hi⟩
@@ -81,6 +86,8 @@ private instance chartOne_unique : Unique {i : Fin 2 // i ≠ 1} where
     fin_cases i
     · rfl
     · exact (hi rfl).elim
+
+attribute [local instance] chartOne_unique
 
 variable (k : Type u) [Field k]
 
@@ -170,14 +177,12 @@ theorem projectiveLineRatFuncEquiv_algebraMap (a : k) :
 
 /-- The same function-field coordinate as an equivalence over k. -/
 def projectiveLineRatFuncAlgEquiv :
-    letI : Algebra k
+    let : Algebra k
       (Proj (MvPolynomial.homogeneousSubmodule (Fin (1 + 1)) k) : Scheme).functionField :=
         (baseToFunctionField (π k 1)).toAlgebra
     RatFunc k ≃ₐ[k]
       (Proj (MvPolynomial.homogeneousSubmodule (Fin (1 + 1)) k) : Scheme).functionField := by
-  let : Algebra k
-      (Proj (MvPolynomial.homogeneousSubmodule (Fin (1 + 1)) k) : Scheme).functionField :=
-    (baseToFunctionField (π k 1)).toAlgebra
+  intro functionFieldAlgebra
   exact AlgEquiv.ofRingEquiv (f := projectiveLineRatFuncEquiv k)
     (projectiveLineRatFuncEquiv_algebraMap k)
 

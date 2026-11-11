@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaCoordinateSeparation
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsTorsionFree
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaCoordinateSeparation
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsTorsionFree
 
 /-!
 # Embedded actual boundary inertia
@@ -13,6 +15,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsTorsionFree
 The actual roots parameter injects into the original fundamental group and
 remains injective after abelianization when a second boundary point exists.
 -/
+
+@[expose] public section
 
 noncomputable section
 

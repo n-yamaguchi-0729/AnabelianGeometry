@@ -10,12 +10,18 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.Modules.Tensor.TensorSections
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
+module
+
+public import Mathlib.RingTheory.LocalProperties.Submodule
+public import Nyll.SchemeTheory.Modules.Tensor.TensorSections
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
+public import Nyll.SchemeTheory.Modules.Tensor.Monoidal
 
 /-!
 # Scheme Modules bijective lift tensor Sections Bilin of is Quasicoherent
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

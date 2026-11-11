@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProperDeckFaithfulness
-import Nyll.EtaleFundamentalGroups.Cohomology.DeckH1Centralizer
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenSubgroupFundamentalGroup
-import Nyll.EtaleFundamentalGroups.GaloisCovers.ConnectedCurveModel
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
-import Nyll.ProCGroups.FiniteStepSolvableQuotients.SlimnessAndTorsion
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProperDeckFaithfulness
+public import Nyll.EtaleFundamentalGroups.Cohomology.DeckH1Centralizer
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenSubgroupFundamentalGroup
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.ConnectedCurveModel
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
+public import Nyll.ProCGroups.FiniteStepSolvableQuotients.SlimnessAndTorsion
 
 /-! # Slimness of actual fundamental groups of proper hyperbolic curves
 
@@ -18,6 +20,8 @@ cover. Its smooth proper model remains hyperbolic by Riemann--Hurwitz.
 Geometric deck H¹ faithfulness proves its center trivial, and the existing
 open-subgroup criterion gives the full centralizer quantification of IsSlim.
 -/
+
+@[expose] public section
 
 noncomputable section
 

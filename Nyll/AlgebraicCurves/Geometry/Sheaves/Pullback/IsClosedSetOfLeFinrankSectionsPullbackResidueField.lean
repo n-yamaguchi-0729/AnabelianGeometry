@@ -10,15 +10,17 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.RingTheory.Spectrum.Prime.Module
-import Nyll.AlgebraicCurves.Cohomology.Cech.TwoChart.SectionsOf
-import Nyll.AlgebraicCurves.Geometry.Schemes.Covers.OrderedAffineCoverComap
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
-import Nyll.SchemeTheory.Cohomology.Sheaves.CoherentBaseChange
-import Nyll.SchemeTheory.Cohomology.Cech.TwoChartCech
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.BaseChange.TwoTermComplexKerMapBaseChangeBijectiveModules
-import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.BaseChangeEquiv
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.DZeroModulesEqZeroIffUnique
+module
+
+public import Mathlib.RingTheory.Spectrum.Prime.Module
+public import Nyll.AlgebraicCurves.Cohomology.Cech.TwoChart.SectionsOf
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Covers.OrderedAffineCoverComap
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
+public import Nyll.SchemeTheory.Cohomology.Sheaves.CoherentBaseChange
+public import Nyll.SchemeTheory.Cohomology.Cech.TwoChartCech
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.BaseChange.TwoTermComplexKerMapBaseChangeBijectiveModules
+public import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.BaseChangeEquiv
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.DZeroModulesEqZeroIffUnique
 
 /-!
 # Upper semicontinuity of the dimension of sections
@@ -26,6 +28,8 @@ import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.DZeroModulesEqZeroIffUn
 Degree-zero Cech cohomology computes global sections and supplies the base-change
 comparison used in the final statement.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -130,7 +134,7 @@ noncomputable def baseChangeCokerEquiv {P : Type u} [AddCommGroup P] [Module R P
   have hsurj : Function.Surjective (LinearMap.range φ).mkQ := Submodule.mkQ_surjective _
   have hexA : Function.Exact (φ.baseChange A) ((LinearMap.range φ).mkQ.baseChange A) := by
     have h := lTensor_exact A hex hsurj
-    rwa [← LinearMap.baseChange_eq_ltensor, ← LinearMap.baseChange_eq_ltensor] at h
+    rwa [← LinearMap.baseChange_eq_lTensor, ← LinearMap.baseChange_eq_lTensor] at h
   exact hexA.linearEquivOfSurjective (LinearMap.baseChange_surjective A hsurj)
 
 theorem fibreDim_le_card {ι : Type u} [Fintype ι] (φ : (ι → R) →ₗ[R] Q) (𝔮 : PrimeSpectrum R)

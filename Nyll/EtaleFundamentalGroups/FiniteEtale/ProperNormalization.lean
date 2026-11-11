@@ -4,17 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperSectionAlgebra
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperNoetherianConnectedFibers
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
-import Nyll.SchemeTheory.Morphisms.ProperNormalization
-import Nyll.SchemeTheory.Morphisms.NormalizationPushforward
-import Nyll.SchemeTheory.Morphisms.EtalePostcomposition
-import Mathlib.AlgebraicGeometry.Morphisms.Etale
-import Mathlib.AlgebraicGeometry.Morphisms.Finite
-import Mathlib.AlgebraicGeometry.Normalization
-import Mathlib.AlgebraicGeometry.Geometrically.Reduced
-import Mathlib.RingTheory.RingHom.Finite
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperSectionAlgebra
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperNoetherianConnectedFibers
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+public import Nyll.SchemeTheory.Morphisms.ProperNormalization
+public import Nyll.SchemeTheory.Morphisms.NormalizationPushforward
+public import Nyll.SchemeTheory.Morphisms.EtalePostcomposition
+public import Mathlib.AlgebraicGeometry.Morphisms.Etale
+public import Mathlib.AlgebraicGeometry.Morphisms.Finite
+public import Mathlib.AlgebraicGeometry.Normalization
+public import Mathlib.AlgebraicGeometry.Geometrically.Reduced
+public import Mathlib.RingTheory.RingHom.Finite
 
 /-!
 # Stein factorization of a proper flat finitely presented reduced family
@@ -27,6 +29,8 @@ normalization base change supplies descent along the affine open cover.
 This proves the finite étale conclusion of Stacks Project Tag 0BUN with
 its original base and finite-presentation hypotheses.
 -/
+
+@[expose] public section
 
 noncomputable section
 

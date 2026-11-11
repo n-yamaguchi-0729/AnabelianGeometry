@@ -4,18 +4,20 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
-import Nyll.EtaleCohomology.Sites.ConstantRepresentable
-import Nyll.EtaleCohomology.Sites.SetSheafFunctors
-import Nyll.EtaleCohomology.Sites.SetPullbackComposition
-import Nyll.SchemeTheory.FiniteEtale.LocalSplitting
-import Nyll.SchemeTheory.FiniteEtale.Forget.FiniteCoproducts
-import Mathlib.AlgebraicGeometry.Cover.MorphismProperty
-import Mathlib.AlgebraicGeometry.Sites.Etale
-import Mathlib.CategoryTheory.MorphismProperty.Comma
-import Mathlib.CategoryTheory.Limits.Preserves.Shapes.Products
-import Mathlib.CategoryTheory.Sites.ConstantSheaf
-import Mathlib.CategoryTheory.Sites.Hypercover.Zero
+module
+
+public import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
+public import Nyll.EtaleCohomology.Sites.ConstantRepresentable
+public import Nyll.EtaleCohomology.Sites.SetSheafFunctors
+public import Nyll.EtaleCohomology.Sites.SetPullbackComposition
+public import Nyll.SchemeTheory.FiniteEtale.LocalSplitting
+public import Nyll.SchemeTheory.FiniteEtale.Forget.FiniteCoproducts
+public import Mathlib.AlgebraicGeometry.Cover.MorphismProperty
+public import Mathlib.AlgebraicGeometry.Sites.Etale
+public import Mathlib.CategoryTheory.MorphismProperty.Comma
+public import Mathlib.CategoryTheory.Limits.Preserves.Shapes.Products
+public import Mathlib.CategoryTheory.Sites.ConstantSheaf
+public import Mathlib.CategoryTheory.Sites.Hypercover.Zero
 
 /-!
 # Finite locally constant étale sheaves of sets
@@ -35,6 +37,8 @@ Finite constant sheaves are explicitly represented by finite étale schemes.
 The full converse for locally constant sheaves requires effective descent.
 -/
 
+@[expose] public section
+
 noncomputable section
 
 open AlgebraicGeometry CategoryTheory Limits
@@ -45,7 +49,8 @@ namespace EtaleCohomology
 
 variable {X Y : Scheme.{u}}
 
-private lemma finite_copies_projection (X : Scheme.{u}) (ι : Type u) [Finite ι] :
+/-- The projection from finitely many copies of a scheme is a finite morphism. -/
+lemma finite_copies_projection (X : Scheme.{u}) (ι : Type u) [Finite ι] :
     IsFinite (Sigma.desc (fun _ : ι => 𝟙 X)) := by
   let T : FiniteEtale X := MorphismProperty.Over.mk ⊤ (𝟙 X)
     (show IsFiniteEtale (𝟙 X) from ⟨⟩)
@@ -69,7 +74,7 @@ private lemma finite_copies_projection (X : Scheme.{u}) (ι : Type u) [Finite ι
 /-- A finite disjoint union of copies of the base as a finite étale scheme.
 Finiteness follows from the existing finite-coproduct preservation theorem. -/
 def finiteEtaleCopies (X : Scheme.{u}) (ι : Type u) [Finite ι] : FiniteEtale X := by
-  have : IsFinite (etaleCopies X ι).hom := finite_copies_projection X ι
+  have : IsFinite (etaleCopies X ι).hom := by exact finite_copies_projection X ι
   have : Etale (etaleCopies X ι).hom := (etaleCopies X ι).prop
   exact MorphismProperty.Over.mk ⊤ (etaleCopies X ι).hom ⟨⟩
 

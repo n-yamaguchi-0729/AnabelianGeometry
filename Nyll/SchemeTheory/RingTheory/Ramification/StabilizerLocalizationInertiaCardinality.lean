@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
-import Mathlib.Algebra.Group.Subgroup.Map
-import Mathlib.SetTheory.Cardinal.Finite
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
+public import Mathlib.Algebra.Group.Subgroup.Map
+public import Mathlib.SetTheory.Cardinal.Finite
 
 /-!
 # Cardinality of localized inertia
@@ -14,6 +16,8 @@ import Mathlib.SetTheory.Cardinal.Finite
 Proves that the inertia group of the stabilizer action on a prime localization has the same
 cardinality as the original ideal inertia group.
 -/
+
+@[expose] public section
 
 open scoped Pointwise
 

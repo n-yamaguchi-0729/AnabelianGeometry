@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteGaloisRestrictionGroupMap
-import Mathlib.Algebra.Category.Ring.Basic
-import Mathlib.FieldTheory.Normal.Defs
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteGaloisRestrictionGroupMap
+public import Mathlib.Algebra.Category.Ring.Basic
+public import Mathlib.FieldTheory.Normal.Defs
 
 /-!
 # Coefficient squares for finite field restriction
@@ -14,6 +16,8 @@ import Mathlib.FieldTheory.Normal.Defs
 Defines the finite intermediate field ring object, its ambient inclusion, and individual Galois
 restriction maps, and proves their commuting square.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,11 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
-import Nyll.AlgebraicCurves.Models.Ramification.RamificationIndexPointPlaceEqOne
-import Mathlib.AlgebraicGeometry.Restrict
+module
+
+public import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
+public import Nyll.AlgebraicCurves.Models.Ramification.RamificationIndexPointPlaceEqOne
+public import Mathlib.AlgebraicGeometry.Restrict
 
 /-! # Interior ramification of an actual open restriction -/
+
+@[expose] public section
+
+universe uGeom uField₁ uField₂
 
 noncomputable section
 
@@ -23,7 +29,7 @@ attribute [local instance] CurveModel.isIntegral CurveModel.isProper CurveModel.
 /-- The actual formally unramified open restriction forces ramification
 index one at every place of its interior. -/
 theorem ramificationIndexAlong_eq_one_outside_openBoundary
-    {K F E : Type} [Field K] [IsAlgClosed K]
+    {K : Type uGeom} {F : Type uField₁} {E : Type uField₂} [Field K] [IsAlgClosed K]
     [Field F] [Field E] [Algebra K F] [Algebra K E]
     (M : CurveModel K F) (N : CurveModel K E)
     (φ : F →ₐ[K] E) (hφ : φ.toRingHom.IsIntegral)
@@ -32,7 +38,7 @@ theorem ramificationIndexAlong_eq_one_outside_openBoundary
       Spec.map (CommRingCat.ofHom (N.ffEquiv.toRingHom.comp
         (φ.toRingHom.comp M.ffEquiv.symm.toRingHom))) ≫
           M.C.fromSpecStalk (genericPoint M.C))
-    {Y : Scheme} (k : Y ⟶ N.C) [IsOpenImmersion k]
+    {Y : Scheme.{uGeom}} (k : Y ⟶ N.C) [IsOpenImmersion k]
     [FormallyUnramified (k ≫ d)]
     (w : Place K E) (hw : w ∉ N.openBoundaryPlaces k) :
     Place.ramificationIndexAlong φ w = 1 := by

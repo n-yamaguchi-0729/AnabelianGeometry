@@ -3,14 +3,18 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Mathlib.AlgebraicGeometry.Morphisms.Flat
-import Mathlib.CategoryTheory.Comma.Over.Pullback
-import Mathlib.CategoryTheory.Limits.Constructions.Over.Connected
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.RelativeGluing
+module
+
+public import Mathlib.AlgebraicGeometry.Morphisms.Flat
+public import Mathlib.CategoryTheory.Comma.Over.Pullback
+public import Mathlib.CategoryTheory.Limits.Constructions.Over.Connected
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.RelativeGluing
 
 /-!
 # Gluing local models from recovered transitions
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory Limits AlgebraicGeometry
@@ -25,17 +29,20 @@ variable (ℓ : ∀ i j : 𝒰.I₀, (V (i, j)).left ⟶ 𝒰.X j)
 variable (hV : ∀ i j : 𝒰.I₀, IsPullback (d i j).left (ℓ i j) (y i ≫ 𝒰.f i) (𝒰.f j))
 
 include hV in
-private theorem rawGluingInclusion_open (i j : 𝒰.I₀) : IsOpenImmersion (d i j).left :=
+/-- A cartesian overlap inclusion is an open immersion. -/
+theorem rawGluingInclusion_open (i j : 𝒰.I₀) : IsOpenImmersion (d i j).left :=
   MorphismProperty.of_isPullback (P := @IsOpenImmersion) (hV i j).flip inferInstance
 
 include hV in
-private theorem rawGluingInclusion_mono (i j : 𝒰.I₀) : Mono (d i j) := by
+/-- The overlap inclusion is a monomorphism over the base. -/
+theorem rawGluingInclusion_mono (i j : 𝒰.I₀) : Mono (d i j) := by
   have : IsOpenImmersion (d i j).left := rawGluingInclusion_open 𝒰 A V d y ℓ hV i j
   apply (Over.forget B).mono_of_mono_map
   exact inferInstanceAs (Mono (d i j).left)
 
 include hV in
-private theorem rawGluingInclusion_isIso (i : 𝒰.I₀) : IsIso (d i i) := by
+/-- The diagonal overlap inclusion is an isomorphism. -/
+theorem rawGluingInclusion_isIso (i : 𝒰.I₀) : IsIso (d i i) := by
   have : IsIso ((Over.forget B).map (d i i)) := by
     change IsIso (d i i).left
     rw [← (hV i i).isoPullback_hom_fst]
@@ -55,10 +62,12 @@ theorem rawGluingTransition_structure
   rw [Category.assoc, Category.assoc, hS]
   exact (hV i j).w
 
-private abbrev rawGluingTriple (i j k : 𝒰.I₀) : Over B :=
+/-- The actual triple overlap formed over its first chart. -/
+abbrev rawGluingTriple (i j k : 𝒰.I₀) : Over B :=
   pullback (d i j) (d i k)
 
-private def rawGluingTripleToOverlap (i j k : 𝒰.I₀) :
+/-- The triple overlap maps to the overlap of the other two charts. -/
+def rawGluingTripleToOverlap (i j k : 𝒰.I₀) :
     rawGluingTriple 𝒰 A V d i j k ⟶ V (j, k) := by
   let r := (pullback.fst (d i j) (d i k)).left
   let s := (pullback.snd (d i j) (d i k)).left
@@ -85,7 +94,8 @@ private def rawGluingTripleToOverlap (i j k : 𝒰.I₀) :
   simp only [Category.assoc, Over.w]
   exact Over.w (pullback.fst (d i j) (d i k))
 
-private def rawGluingTripleTransition (i j k : 𝒰.I₀) :
+/-- The cyclic transition between actual triple overlaps. -/
+def rawGluingTripleTransition (i j k : 𝒰.I₀) :
     rawGluingTriple 𝒰 A V d i j k ⟶ rawGluingTriple 𝒰 A V d j k i :=
   pullback.lift
     (rawGluingTripleToOverlap 𝒰 A V d y ℓ hV t ht i j k)
@@ -94,7 +104,8 @@ private def rawGluingTripleTransition (i j k : 𝒰.I₀) :
       apply Over.OverMorphism.ext
       exact (hV j k).lift_fst _ _ _)
 
-private theorem rawGluingTripleTransition_fac (i j k : 𝒰.I₀) :
+/-- The cyclic transition preserves the prescribed overlap projection. -/
+theorem rawGluingTripleTransition_fac (i j k : 𝒰.I₀) :
     rawGluingTripleTransition 𝒰 A V d y ℓ hV t ht i j k ≫ pullback.snd _ _ =
       pullback.fst _ _ ≫ t i j :=
   pullback.lift_snd _ _ _
@@ -121,7 +132,8 @@ variable (hinj : ∀ (T : Over B) (i j : 𝒰.I₀),
   Function.Injective ((gluingRecoveryFunctor ψ).map (X := T) (Y := V (i, j))))
 
 include hV hrec hinj in
-private theorem rawGluingTransition_id (i : 𝒰.I₀) : t i i = 𝟙 _ := by
+/-- The transition on the diagonal overlap is the identity. -/
+theorem rawGluingTransition_id (i : 𝒰.I₀) : t i i = 𝟙 _ := by
   have : Mono (d i i) := rawGluingInclusion_mono 𝒰 A V d y ℓ hV i i
   apply hinj (V (i, i)) i i
   apply (cancel_mono ((gluingRecoveryFunctor ψ).map (d i i) ≫ h i)).mp
@@ -146,7 +158,8 @@ private theorem rawGluingTripleTransition_chartMap (i j k : 𝒰.I₀) :
     ← K.map_comp, rawGluingTripleTransition_fac, K.map_comp, Category.assoc, hrec]
 
 include hrec hinj in
-private theorem rawGluingTripleTransition_cocycle (i j k : 𝒰.I₀) :
+/-- The actual triple-overlap transitions satisfy the cocycle identity. -/
+theorem rawGluingTripleTransition_cocycle (i j k : 𝒰.I₀) :
     rawGluingTripleTransition 𝒰 A V d y ℓ hV t ht i j k ≫
       rawGluingTripleTransition 𝒰 A V d y ℓ hV t ht j k i ≫
         rawGluingTripleTransition 𝒰 A V d y ℓ hV t ht k i j = 𝟙 _ := by

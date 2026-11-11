@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaValues
-import Nyll.AnabelianGeometry.WeightFiltration.GenusZeroResidueRigidity
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsSurjectivity
-import Nyll.GaloisCohomology.Kummer.Concrete.PrimitiveRootCoordinates
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaValues
+public import Nyll.AnabelianGeometry.WeightFiltration.GenusZeroResidueRigidity
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsSurjectivity
+public import Nyll.GaloisCohomology.Kummer.Concrete.PrimitiveRootCoordinates
 
 /-!
 # Actual finite boundary values determine genus-zero cohomology
@@ -18,6 +20,8 @@ comparison or equality of global characters. The last theorem constructs the
 class belonging to a supplied continuous character using the actual H1
 comparison equivalence.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory AlgebraicCurve
@@ -36,7 +40,7 @@ theorem eq_of_primeToRoots_pow_values
         (primeToRootsSystem K K).projection ⟨n.val, hn⟩ t
       r ^ a.val = r ^ b.val) : a = b := by
   let : NeZero (n : ℕ) := ⟨n.ne_zero⟩
-  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_primitiveRoot K (n : ℕ)
+  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_isPrimitiveRoot K (n : ℕ)
   let z : Kˣ := (hζ.isUnit n.ne_zero).unit'
   have hz : IsPrimitiveRoot z (n : ℕ) := hζ.isUnit_unit' n.ne_zero
   let r : rootsOfUnity (n : ℕ) K := ⟨z, hz.pow_eq_one⟩

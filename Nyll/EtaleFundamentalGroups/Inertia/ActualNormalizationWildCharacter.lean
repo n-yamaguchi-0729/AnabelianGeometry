@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationWildSubgroup
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinateKernel
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.Algebra.Group.Subgroup.Ker
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationWildSubgroup
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinateKernel
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.Algebra.Group.Subgroup.Ker
 
 /-!
 # The independent wild subgroup is detected by canonical finite characters
@@ -17,6 +19,8 @@ import Mathlib.Algebra.Group.Subgroup.Ker
 Only proved kernels of the actual normalized coordinates enter this
 comparison. The global subgroup itself retains its principal-unit definition.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.SchemePullback
-import Nyll.EtaleCohomology.Classical.FiniteTorsion
-import Mathlib.Algebra.Colimit.DirectLimit
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.SchemePullback
+public import Nyll.EtaleCohomology.Classical.FiniteTorsion
+public import Mathlib.Algebra.Colimit.DirectLimit
 
 /-!
 # Actual pullback on finite-coefficient direct-limit cohomology
@@ -15,6 +17,8 @@ The map is induced level by level by the derived cohomology inverse image.
 Compatibility with the original finite coefficient inclusions follows from
 coefficient naturality, independently of fundamental-group characters.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -26,12 +30,14 @@ namespace EtaleFundamentalGroups.Cohomology
 
 variable {X Y : Scheme.{u}} (f : X ⟶ Y) (i : ℕ)
 
-private def finiteTorsionStagePullback (n : ℕ) :
+/-- Pull back one finite coefficient stage and include it in the target direct limit. -/
+def finiteTorsionStagePullback (n : ℕ) :
     finiteTorsionLevel Y i n →+ finiteTorsionCohomology X i :=
   (finiteTorsionClass X i n).comp
     (constantCohomologyPullback f (finiteTorsionCoefficients n) i)
 
-private theorem finiteTorsionStagePullback_compatible (m n : ℕ) (h : m ≤ n)
+/-- The finite-stage pullbacks agree under coefficient transition maps. -/
+theorem finiteTorsionStagePullback_compatible (m n : ℕ) (h : m ≤ n)
     (a : finiteTorsionLevel Y i m) :
     finiteTorsionStagePullback f i m a =
       finiteTorsionStagePullback f i n (finiteTorsionTransition Y i m n h a) := by

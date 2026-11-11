@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.InertiaLocalization
-import Mathlib.Algebra.Ring.Action.Basic
-import Mathlib.Algebra.Ring.Action.End
-import Mathlib.Algebra.Group.Action.End
-import Mathlib.Algebra.Ring.Equiv
-import Mathlib.RingTheory.Ideal.Pointwise
-import Mathlib.RingTheory.Localization.AtPrime.Basic
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.InertiaLocalization
+public import Mathlib.Algebra.Ring.Action.Basic
+public import Mathlib.Algebra.Ring.Action.End
+public import Mathlib.Algebra.Group.Action.End
+public import Mathlib.Algebra.Ring.Equiv
+public import Mathlib.RingTheory.Ideal.Pointwise
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
 
 /-!
 # Stabilizer actions on prime localizations
@@ -19,6 +21,8 @@ Constructs the action of a prime stabilizer on the prime localization and comput
 coefficients. It identifies localization inertia with the original ideal inertia inside the
 stabilizer.
 -/
+
+@[expose] public section
 
 noncomputable section
 

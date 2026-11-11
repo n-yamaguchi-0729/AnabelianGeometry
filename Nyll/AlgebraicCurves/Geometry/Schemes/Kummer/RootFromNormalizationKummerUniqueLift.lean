@@ -10,11 +10,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Schemes.Kummer.UniqueLiftFromNormalizationKummer
+module
+
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Kummer.UniqueLiftFromNormalizationKummer
 
 /-!
 # Kummer roots and unique lifts from normalization
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

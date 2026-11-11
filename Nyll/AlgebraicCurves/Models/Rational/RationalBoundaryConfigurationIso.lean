@@ -3,9 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineStandardPlace
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
-import Mathlib.AlgebraicGeometry.OpenImmersion
+module
+
+public import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineStandardPlace
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
+public import Mathlib.AlgebraicGeometry.OpenImmersion
+public import Nyll.AlgebraicCurves.Geometry.IsClosedSingletonNeGenericPoint
 
 /-! # Recover the literal rational configuration from the actual open boundary
 
@@ -14,6 +17,9 @@ places are rational is isomorphic to the complement of exactly those rational
 projective points. The resulting isomorphism is over the unchanged projective
 line; it does not select a different function-field coordinate.
 -/
+@[expose] public section
+universe u
+
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve TopologicalSpace
 attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
@@ -21,7 +27,7 @@ attribute [local instance] CurveModel.isIntegral CurveModel.smooth
 
 namespace AlgebraicGeometry.ProjSpace
 
-variable (k : Type) [Field k]
+variable (k : Type u) [Field k]
 
 /-- Every rational place is the original model place of an actual rational
 projective point, over the given constant field. -/
@@ -48,13 +54,13 @@ theorem exists_projectiveRationalPoint_of_isRational
 /-- The finite labels and actual open isomorphism are constructed from the
 actual boundary. Membership retains the literal ambient projective point. -/
 theorem exists_rationalConfiguration_iso_of_rationalBoundary
-    {U : Scheme} [Nonempty U]
+    {U : Scheme.{u}} [Nonempty U]
     (j : U ⟶ (projectiveLineRatFuncModel k).C) [IsOpenImmersion j]
     (hboundary : ∀ V : (projectiveLineRatFuncModel k).openBoundaryPlaces j,
       V.val.IsRational) :
     ∃ s : Finset (Projectivization k (k × k)),
       (∀ p, p ∈ s ↔ projectiveRationalPoint p ∉ Set.range j) ∧
-      ∃ e : U ≅ (rationalConfigurationOpen s : Scheme),
+      ∃ e : U ≅ (rationalConfigurationOpen s : Scheme.{u}),
         e.hom ≫ (rationalConfigurationOpen s).ι = j := by
   classical
   let M := projectiveLineRatFuncModel k
@@ -99,7 +105,7 @@ theorem exists_rationalConfiguration_iso_of_rationalBoundary
     · intro hp
       obtain ⟨q, hq, hpq⟩ := houtside (projectiveRationalPoint p) hp
       exact (projectiveRationalPoint_injective hpq).symm ▸ hq
-  let i : (rationalConfigurationOpen s : Scheme) ⟶ M.C :=
+  let i : (rationalConfigurationOpen s : Scheme.{u}) ⟶ M.C :=
     (rationalConfigurationOpen s).ι
   let : IsOpenImmersion i :=
     inferInstanceAs (IsOpenImmersion (rationalConfigurationOpen s).ι)

@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Ring.Action.Basic
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacter
-import Mathlib.Algebra.Group.Subgroup.Defs
-import Mathlib.Tactic.Ring
+module
+
+public import Mathlib.Algebra.Ring.Action.Basic
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacter
+public import Mathlib.Algebra.Group.Subgroup.Defs
+public import Mathlib.Tactic.Ring
 
 /-!
 # The principal-unit kernel of the inertia character
@@ -16,6 +18,8 @@ Characterizes triviality of the DVR inertia character by principal-unit multipli
 elements. It defines the corresponding inertia subgroup and identifies it with the character
 kernel.
 -/
+
+@[expose] public section
 
 noncomputable section
 

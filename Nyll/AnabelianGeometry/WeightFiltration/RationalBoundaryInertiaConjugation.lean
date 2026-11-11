@@ -4,13 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.RationalBoundaryArithmeticEquivariance
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaCyclotomicUpgrade
-import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalBoundaryArithmeticEquivariance
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaCyclotomicUpgrade
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
 
 /-! # Original nonabelian rational boundary conjugation
 
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -5,7 +5,7 @@
 
 This Lean component of [NYLL](https://github.com/n-yamaguchi-0729/NYLL) studies the recovery of algebraic curves from
 their étale fundamental groups, with results on genus-zero reconstruction
-over number fields, geometric slimness and explicit fundamental-group calculations.
+over finitely generated fields of characteristic zero, geometric slimness and explicit fundamental-group calculations.
 The [mathematical guide](https://n-yamaguchi-0729.github.io/NYLL/libraries/anabelian-geometry/) presents the reconstruction theorems and geometric applications
 with links to their formal proofs.
 
@@ -13,7 +13,7 @@ with links to their formal proofs.
 
 <!-- nyll-publication:anabelian-scope:begin -->
 The arithmetic results concern smooth geometrically integral genus-zero curves
-over number fields with at least three geometric punctures. The geometric
+over fields finitely generated over the rationals with at least three geometric punctures. The geometric
 slimness and fundamental-group calculations below concern algebraically closed
 fields of characteristic zero.
 <!-- nyll-publication:anabelian-scope:end -->
@@ -22,7 +22,7 @@ fields of characteristic zero.
 
 | Result | Mathematical content |
 | --- | --- |
-| [Grothendieck’s conjecture for genus-zero curves over number fields — weak reconstruction](Nyll/AnabelianGeometry/WeightFiltration/GenusZeroNakamura.lean#L638) | For opens in smooth proper geometrically integral genus-zero curves over a number field, each with at least three geometric punctures, an isomorphism of pointed arithmetic fundamental groups over G_k implies an isomorphism of the curves over k. This does not identify the induced group map with the supplied isomorphism. |
+| [Grothendieck’s conjecture for genus-zero curves over finitely generated fields — weak reconstruction](Nyll/AnabelianGeometry/WeightFiltration/GenusZeroNakamura.lean#L647) | For opens in smooth proper geometrically integral genus-zero curves over a field finitely generated over the rationals, each with at least three geometric punctures, an isomorphism of pointed arithmetic fundamental groups over G_k implies an isomorphism of the curves over k. This does not identify the induced group map with the supplied isomorphism. |
 | [Proper curve slimness](Nyll/AnabelianGeometry/GeometricFundamentalGroup/ProperCurveSlim.lean) | Slimness of the étale fundamental group of a smooth proper curve model of genus at least two. |
 | [Open curve slimness](Nyll/AnabelianGeometry/GeometricFundamentalGroup/OpenCurveSlim.lean) | Slimness for an open curve with nonempty boundary and `2g + r − 2 > 0`, under the stated normality, local Noetherianity and quasi-compactness hypotheses. |
 
@@ -39,7 +39,7 @@ generated characteristic-zero fields remain unfinished.
 
 ## Public API
 
-Use [leanprover/lean4:v4.35.0-rc2](lean-toolchain) and the Mathlib revision pinned in
+Use [leanprover/lean4:v4.35.0](lean-toolchain) and the Mathlib revision pinned in
 [lake-manifest.json](lake-manifest.json). Add this dependency to your project’s
 lakefile.toml:
 

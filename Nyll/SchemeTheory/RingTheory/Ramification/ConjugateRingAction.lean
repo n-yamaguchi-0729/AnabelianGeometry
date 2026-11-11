@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Ring.Equiv
+module
+
+public import Mathlib.Algebra.Ring.Equiv
 
 /-!
 # Conjugation of ring automorphisms
@@ -12,6 +14,8 @@ import Mathlib.Algebra.Ring.Equiv
 Proves the commuting square for conjugating a ring automorphism through a ring equivalence. It
 also transports a compatible ambient coefficient square to the conjugated automorphism.
 -/
+
+@[expose] public section
 
 namespace SchemeTheory
 

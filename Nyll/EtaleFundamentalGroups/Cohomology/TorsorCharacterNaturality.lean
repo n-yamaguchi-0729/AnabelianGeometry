@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.TorsorCharacter
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.TorsorCharacter
 
 /-!
 # Change of coefficients for torsor displacement characters
@@ -13,6 +15,8 @@ An equivariant map of torsors compatible with a coefficient homomorphism
 carries displacement to the image displacement. This is the group-theoretic
 naturality needed to prove additivity of the étale H¹ comparison.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -27,8 +31,7 @@ abbrev discreteCoefficientHom {A : Type v} {B : Type w}
     let : TopologicalSpace (Multiplicative A) := ⊥
     let : TopologicalSpace (Multiplicative B) := ⊥
     Multiplicative A →ₜ* Multiplicative B := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
-  let : TopologicalSpace (Multiplicative B) := ⊥
+  intro sharedDefinitionOwner1 sharedDefinitionOwner2
   have : DiscreteTopology (Multiplicative A) := ⟨rfl⟩
   exact ⟨α.toMultiplicative, continuous_of_discreteTopology⟩
 

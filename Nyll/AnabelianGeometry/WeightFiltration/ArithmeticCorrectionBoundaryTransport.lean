@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricAbelianGaloisAction
-import Nyll.ProCGroups.Topologies.Conjugation
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricAbelianGaloisAction
+public import Nyll.ProCGroups.Topologies.Conjugation
 
 /-! # Removing an arithmetic correction while retaining boundary ranges
 
@@ -15,6 +17,8 @@ preserves every boundary range fixed by that quotient action. The element
 need not lie in the geometric subgroup. For rational punctures the required
 stability is supplied by `rational_boundaryPlaceInertiaHom_range_galois_fixed`.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.OpenKummerInertiaResidue
-import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertia
-import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveResidues
-import Nyll.AnabelianGeometry.WeightFiltration.KummerCohomologyCharacters
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.OpenKummerInertiaResidue
+public import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertia
+public import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveResidues
+public import Nyll.AnabelianGeometry.WeightFiltration.KummerCohomologyCharacters
 
 /-!
 # Individual boundary residues and actual inertia on derived cohomology
@@ -17,6 +19,8 @@ place vanishes precisely when its character kills the original normalization
 inertia at that place. The Kummer representative and its root are constructed,
 not supplied as comparison hypotheses.
 -/
+
+@[expose] public section
 
 noncomputable section
 

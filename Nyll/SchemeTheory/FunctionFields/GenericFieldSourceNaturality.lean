@@ -4,10 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.FunctionFields.GenericFieldSource
-import Nyll.SchemeTheory.FunctionFields.Functoriality
+module
+
+public import Nyll.SchemeTheory.FunctionFields.GenericFieldSource
+public import Nyll.SchemeTheory.FunctionFields.Functoriality
 
 /-! # Naturality of the actual generic-field source identification -/
+
+@[expose] public section
 
 noncomputable section
 

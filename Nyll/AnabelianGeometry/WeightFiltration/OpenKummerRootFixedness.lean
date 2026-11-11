@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverGenericCharacter
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverGenericCharacter
 
 /-!
 # Fixed roots and actual open-curve Kummer characters
@@ -12,6 +14,8 @@ import Nyll.JacobianVarieties.Kummer.OpenCurveCoverGenericCharacter
 At the geometric generic point, the original monodromy character is trivial
 exactly when the corresponding field automorphism fixes the prescribed root.
 -/
+
+@[expose] public section
 
 noncomputable section
 

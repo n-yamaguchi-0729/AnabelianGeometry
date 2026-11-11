@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameCoordinate
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameNormalizationMap
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteRawTameValue
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameCoordinate
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameNormalizationMap
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteRawTameValue
 
 /-!
 # Scalar values of the actual finite quotient coordinate
@@ -15,6 +17,8 @@ The scalar is the projection of the SAME constructed quotient coordinate.
 Its canonical normalized-raw evaluation closes the root group at one stage;
 subsequent tower comparisons can work entirely with scalars.
 -/
+
+@[expose] public section
 
 noncomputable section
 

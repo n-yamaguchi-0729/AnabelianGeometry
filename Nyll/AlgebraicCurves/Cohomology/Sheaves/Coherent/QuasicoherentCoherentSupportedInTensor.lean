@@ -10,11 +10,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafTensor
+module
+
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafTensor
+public import Mathlib.RingTheory.TensorProduct.Finite
 
 /-!
 # OModule Presheaf is Quasicoherent is Coherent supported In tensor
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -73,19 +78,20 @@ variable {R : Type u} [CommRing R] {V : Scheme.{u}} {π : V ⟶ Spec (.of R)}
   Module.compHom (F.obj (V.basicOpen f)) (algebraMap Γ(V, U) Γ(V, V.basicOpen f))
 
 theorem isScalarTower_modBO (F : OModulePresheaf π) (U : V.Opens) (f : Γ(V, U)) :
-    letI := modBO F U f
-    IsScalarTower Γ(V, U) Γ(V, V.basicOpen f) (F.obj (V.basicOpen f)) :=
-  letI := modBO F U f
-  IsScalarTower.of_algebraMap_smul fun _ _ => rfl
+    let : Module Γ(V, U) (F.obj (V.basicOpen f)) := modBO F U f
+    IsScalarTower Γ(V, U) Γ(V, V.basicOpen f) (F.obj (V.basicOpen f)) := by
+  intro sharedModule
+  exact IsScalarTower.of_algebraMap_smul fun _ _ => rfl
 
 /-- Restriction to a basic open, as a linear map over the ring of sections on the original open. -/
 noncomputable def resBO (F : OModulePresheaf π) (U : V.Opens) (f : Γ(V, U)) :
-    letI := modBO F U f
-    F.obj U →ₗ[Γ(V, U)] F.obj (V.basicOpen f) :=
-  letI := modBO F U f
-  { toFun := F.res (V.basicOpen_le f)
-    map_add' := fun x y => map_add _ x y
-    map_smul' := fun a x => F.res_smul (V.basicOpen_le f) a x }
+    let : Module Γ(V, U) (F.obj (V.basicOpen f)) := modBO F U f
+    F.obj U →ₗ[Γ(V, U)] F.obj (V.basicOpen f) := by
+  intro sharedModule
+  exact
+    { toFun := F.res (V.basicOpen_le f)
+      map_add' := fun x y => map_add _ x y
+      map_smul' := fun a x => F.res_smul (V.basicOpen_le f) a x }
 
 theorem resBO_apply (F : OModulePresheaf π) (U : V.Opens) (f : Γ(V, U)) (x : F.obj U) :
     letI := modBO F U f
@@ -93,9 +99,9 @@ theorem resBO_apply (F : OModulePresheaf π) (U : V.Opens) (f : Γ(V, U)) (x : F
 
 theorem isLocalizedModule_resBO (F : OModulePresheaf π) (hF : F.IsQuasicoherent) (U : V.affineOpens)
     (f : Γ(V, U.1)) :
-    letI := modBO F U.1 f
+    let := modBO F U.1 f
     IsLocalizedModule (Submonoid.powers f) (resBO F U.1 f) := by
-  let := modBO F U.1 f
+  intro sharedOwner1
   have := isScalarTower_modBO F U.1 f
   have : IsLocalization.Away f Γ(V, V.basicOpen f) := U.2.isLocalization_basicOpen f
   obtain ⟨h1, h2⟩ := hF U f

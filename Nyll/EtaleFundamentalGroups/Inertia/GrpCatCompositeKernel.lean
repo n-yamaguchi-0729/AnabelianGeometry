@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Category.Grp.Basic
-import Mathlib.Algebra.Group.Subgroup.Ker
+module
+
+public import Mathlib.Algebra.Category.Grp.Basic
+public import Mathlib.Algebra.Group.Subgroup.Ker
 
 /-!
 # Kernels of three native group morphisms
@@ -13,6 +15,8 @@ import Mathlib.Algebra.Group.Subgroup.Ker
 The categorical composition and its native group dictionaries are closed
 in this group-only owner before concrete field and normalization data enter.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

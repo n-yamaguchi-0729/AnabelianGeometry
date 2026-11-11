@@ -10,13 +10,20 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.RingTheory.RegularLocalRing.Defs
-import Mathlib.Tactic.Choose
-import Mathlib.Tactic.Ring.RingNF
+module
+
+public import Mathlib.Algebra.Module.SpanRankOperations
+public import Mathlib.RingTheory.Ideal.KrullsHeightTheorem
+public import Mathlib.RingTheory.Ideal.Quotient.Noetherian
+public import Mathlib.RingTheory.RegularLocalRing.Defs
+public import Mathlib.Tactic.Choose
+public import Mathlib.Tactic.Ring.RingNF
 
 /-!
 # Mathlib Ring Theory Regular Local Ring Quotient Regular
 -/
+
+@[expose] public section
 
 universe u
 

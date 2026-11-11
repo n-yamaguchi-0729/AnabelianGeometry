@@ -17,6 +17,7 @@ public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Basic
 public import Mathlib.Algebra.Category.Ring.Basic
 public import Mathlib.AlgebraicGeometry.Morphisms.AffineAnd
 public import Mathlib.RingTheory.TensorProduct.Maps
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Algebra.Basic
 
 /-!
 # Effective affine descent in schemes
@@ -50,17 +51,15 @@ theorem invariantsSpec_action_invariant
       letI : Algebra R B := f.toAlgebra
       letI : Algebra R C := Algebra.compHom C f
       C →ₐ[B] B ⊗[R] C) :
-    letI : Algebra R B := f.toAlgebra
-    letI : Algebra R C := Algebra.compHom C f
-    letI : IsScalarTower R B C := IsScalarTower.of_compHom R B C
+    let : Algebra R B := f.toAlgebra
+    let : Algebra R C := Algebra.compHom C f
+    let : IsScalarTower R B C := IsScalarTower.of_compHom R B C
     Algebra.Descent.affineCoactionAction R B C (ρ.restrictScalars R) ≫
         Spec.map (CommRingCat.ofHom (invariants f C ρ).val.toRingHom) =
       pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap R B)))
           (Spec.map (CommRingCat.ofHom (algebraMap R C))) ≫
         Spec.map (CommRingCat.ofHom (invariants f C ρ).val.toRingHom) := by
-  let _ : Algebra R B := f.toAlgebra
-  let _ : Algebra R C := Algebra.compHom C f
-  let _ : IsScalarTower R B C := IsScalarTower.of_compHom R B C
+  intro baseAlgebra compositeAlgebra scalarTower
   rw [Algebra.Descent.affineCoactionAction, Category.assoc, ← Spec.map_comp,
     ← pullbackSpecIso_hom_snd R B C, Category.assoc, ← Spec.map_comp]
   congr 1
@@ -80,9 +79,9 @@ variable (f : R →+* B) (C : Type u) [CommRing C] [Algebra B C]
 /-- The actual invariant spectrum has the original affine scheme as its pullback.
 The comparison is the spectrum of the canonical effective-descent equivalence. -/
 theorem tensorDescent_isPullback (hf : f.FaithfullyFlat) :
-    letI : Algebra R B := f.toAlgebra
-    letI : Algebra R C := Algebra.compHom C f
-    letI : IsScalarTower R B C := IsScalarTower.of_compHom R B C
+    let : Algebra R B := f.toAlgebra
+    let : Algebra R C := Algebra.compHom C f
+    let : IsScalarTower R B C := IsScalarTower.of_compHom R B C
     ∀ (θ : C ⊗[R] B ≃ₐ[B] B ⊗[R] C)
       (_hdiag : (tensorTargetDiagonal R B C).comp θ.toAlgHom = tensorSourceDiagonal R B C)
       (_hcocycle : tensorCocycleLeft R B C θ = tensorCocycleRight R B C θ),
@@ -91,11 +90,7 @@ theorem tensorDescent_isPullback (hf : f.FaithfullyFlat) :
         (Spec.map (CommRingCat.ofHom A.val.toRingHom))
         (Spec.map (CommRingCat.ofHom f))
         (Spec.map (CommRingCat.ofHom (algebraMap R A))) := by
-  let _ : Algebra R B := f.toAlgebra
-  let _ : Algebra R C := Algebra.compHom C f
-  let _ : IsScalarTower R B C := IsScalarTower.of_compHom R B C
-  intro θ hdiag hcocycle
-  let A := FaithfullyFlatDescent.invariants f C (tensorCoaction R B C θ)
+  intro baseAlgebra compositeAlgebra scalarTower θ hdiag hcocycle A
   let e : B ⊗[R] A ≃ₐ[B] C := tensorDescentEquiv f C hf θ hdiag hcocycle
   let eSpec : Spec (.of C) ≅ Spec (.of (B ⊗[R] A)) :=
     Scheme.Spec.mapIso e.toRingEquiv.toCommRingCatIso.op
@@ -134,19 +129,15 @@ theorem tensorDescent_isPullback (hf : f.FaithfullyFlat) :
 when the algebra carrying the descent datum is finite étale. -/
 theorem tensorDescent_isFiniteEtale [Module.Finite B C] [Algebra.Etale B C]
     (hf : f.FaithfullyFlat) :
-    letI : Algebra R B := f.toAlgebra
-    letI : Algebra R C := Algebra.compHom C f
-    letI : IsScalarTower R B C := IsScalarTower.of_compHom R B C
+    let : Algebra R B := f.toAlgebra
+    let : Algebra R C := Algebra.compHom C f
+    let : IsScalarTower R B C := IsScalarTower.of_compHom R B C
     ∀ (θ : C ⊗[R] B ≃ₐ[B] B ⊗[R] C)
       (_hdiag : (tensorTargetDiagonal R B C).comp θ.toAlgHom = tensorSourceDiagonal R B C)
       (_hcocycle : tensorCocycleLeft R B C θ = tensorCocycleRight R B C θ),
       let A := FaithfullyFlatDescent.invariants f C (tensorCoaction R B C θ)
       IsFiniteEtale (Spec.map (CommRingCat.ofHom (algebraMap R A))) := by
-  let _ : Algebra R B := f.toAlgebra
-  let _ : Algebra R C := Algebra.compHom C f
-  let _ : IsScalarTower R B C := IsScalarTower.of_compHom R B C
-  intro θ hdiag hcocycle
-  let A := FaithfullyFlatDescent.invariants f C (tensorCoaction R B C θ)
+  intro baseAlgebra compositeAlgebra scalarTower θ hdiag hcocycle A
   obtain ⟨hfin, het⟩ := FaithfullyFlatDescent.invariants_finite_etale f C hf
     (tensorCoaction R B C θ) (nativeCoactionAxioms f C θ hdiag hcocycle).1
     (nativeCoactionAxioms f C θ hdiag hcocycle).2

@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentEtaleAutomorphisms
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
-import Mathlib.AlgebraicGeometry.AffineScheme
-import Mathlib.GroupTheory.SpecificGroups.Cyclic.Basic
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentEtaleAutomorphisms
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+public import Mathlib.AlgebraicGeometry.AffineScheme
+public import Mathlib.GroupTheory.SpecificGroups.Cyclic.Basic
 
 /-!
 # Cyclic automorphisms of connected finite etale covers of the multiplicative line
@@ -16,6 +18,8 @@ The original cover is affine. Its actual section algebra is finite etale over th
 polynomial ring and has connected spectrum. Pullback of sections by inverse cover automorphisms
 gives an injective group homomorphism into its cyclic algebra automorphism group.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -64,12 +68,12 @@ theorem isCyclic_aut_of_connected_finite_etale_laurent
   let forgetCover : FiniteEtale X ⥤ Scheme := FiniteEtale.forget X ⋙ Over.forget X
   let sectionsAut (σ : Aut Y) : Γ(Y.left, ⊤) ≃ₐ[LaurentPolynomial K] Γ(Y.left, ⊤) :=
     { toRingEquiv :=
-        (Scheme.Γ.mapIso ((forgetCover.mapIso σ).symm.op)).commRingCatIsoToRingEquiv
+        (Scheme.Γ.mapIso ((forgetCover.mapIso σ.asIso).symm.op)).commRingCatIsoToRingEquiv
       commutes' := fun r => by
-        change σ.inv.hom.left.appTop.hom
+        change σ.asIso.inv.hom.left.appTop.hom
           (Y.hom.appTop.hom ((Scheme.ΓSpecIso R).inv.hom r)) =
             Y.hom.appTop.hom ((Scheme.ΓSpecIso R).inv.hom r)
-        have hw := congrArg Scheme.Hom.appTop (MorphismProperty.Over.w σ.inv)
+        have hw := congrArg Scheme.Hom.appTop (MorphismProperty.Over.w σ.asIso.inv)
         exact ConcreteCategory.congr_hom hw ((Scheme.ΓSpecIso R).inv.hom r) }
   let sectionsHom : Aut Y →* (Γ(Y.left, ⊤) ≃ₐ[LaurentPolynomial K] Γ(Y.left, ⊤)) :=
     { toFun := sectionsAut
@@ -80,18 +84,19 @@ theorem isCyclic_aut_of_connected_finite_etale_laurent
       map_mul' := fun σ τ => by
         apply AlgEquiv.ext
         intro r
-        change (σ.inv.hom.left ≫ τ.inv.hom.left).appTop.hom r =
-          σ.inv.hom.left.appTop.hom (τ.inv.hom.left.appTop.hom r)
+        change (σ.asIso.inv.hom.left ≫ τ.asIso.inv.hom.left).appTop.hom r =
+          σ.asIso.inv.hom.left.appTop.hom (τ.asIso.inv.hom.left.appTop.hom r)
         rw [Scheme.Hom.comp_appTop]
         rfl }
   apply isCyclic_of_injective sectionsHom
   intro σ τ h
-  have hinv : σ.inv.hom.left = τ.inv.hom.left := by
+  have hinv : σ.asIso.inv.hom.left = τ.asIso.inv.hom.left := by
     apply ext_of_isAffine
     apply CommRingCat.hom_ext
     apply RingHom.ext
     intro r
     exact congrArg (fun e : Γ(Y.left, ⊤) ≃ₐ[LaurentPolynomial K] Γ(Y.left, ⊤) => e r) h
+  apply Aut.ext
   apply Iso.symm_bijective.injective
   apply Iso.ext
   apply (forgetCover.map_injective)

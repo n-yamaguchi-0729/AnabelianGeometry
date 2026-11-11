@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.Rational.ProjectiveRatFuncPairEvaluation
-import Nyll.AlgebraicCurves.Places.Evaluation.SemilinearEvaluation
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.ProjectiveRatFuncPairEvaluation
+public import Nyll.AlgebraicCurves.Places.Evaluation.SemilinearEvaluation
 
 /-! # Semilinear cross ratios of the actual rational-function places
 
@@ -13,6 +15,8 @@ The comparison uses the actual pair function, its orders, and residue
 evaluation. No classification of rational-function automorphisms and no
 assumed projective formula for the semilinear place action is used.
 -/
+
+@[expose] public section
 
 noncomputable section
 attribute [local instance] Classical.propDecidable

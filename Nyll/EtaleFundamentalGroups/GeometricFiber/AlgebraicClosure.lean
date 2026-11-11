@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldFunctoriality
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FiniteGaloisSets
-import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberFunctorComparison
-import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberIso
-import Mathlib.CategoryTheory.Galois.Prorepresentability
-import Mathlib.FieldTheory.IsSepClosed
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldFunctoriality
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FiniteGaloisSets
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberFunctorComparison
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberIso
+public import Mathlib.CategoryTheory.Galois.Prorepresentability
+public import Mathlib.FieldTheory.IsSepClosed
 
 /-!
 # The absolute Galois group at an algebraic-closure geometric point
@@ -25,6 +27,8 @@ point. The finite-action equivalence respects both this group isomorphism and
 the forgetful functor to the geometric fiber.
 -/
 
+
+@[expose] public section
 
 noncomputable section
 
@@ -42,7 +46,8 @@ section Extension
 
 variable [IsSepClosed K] [IsSepClosed Ω]
 
-private def fieldPointExtension : Over.mk (ξ k Ω) ⟶ Over.mk (ξ k K) :=
+/-- The morphism of geometric points induced by extending their fields. -/
+def fieldPointExtension : Over.mk (ξ k Ω) ⟶ Over.mk (ξ k K) :=
   Over.homMk (ξ K Ω) (fieldGeometricPoint_comp k K Ω)
 
 /-- Extension of the geometric-point field, defined by precomposition on points. -/
@@ -61,16 +66,18 @@ def fieldFiberExtension : fib k K ⟶ fib k Ω where
     rw [fiberObjEquivHom_symm_naturality,
       ← fiberObjEquivHom_naturality (ξ k K) f x, Category.assoc]
 
-private lemma fieldFiberExtension_isIso : IsIso (fieldFiberExtension k K Ω) := by
+/-- Extending the separably closed point field induces an invertible fiber map. -/
+lemma fieldFiberExtension_isIso : IsIso (fieldFiberExtension k K Ω) := by
   obtain ⟨e⟩ := PreGaloisCategory.nonempty_iso_of_exact (fib k K) (fib k Ω)
   let : IsIso (fieldFiberExtension k K Ω ≫ e.inv) :=
     PreGaloisCategory.FibreFunctor.end_isIso (fib k K)
-      (fieldFiberExtension k K Ω ≫ e.inv)
+      (End.of (fieldFiberExtension k K Ω ≫ e.inv))
   exact IsIso.of_isIso_comp_right (fieldFiberExtension k K Ω) e.inv
 
 /-- Extending a separably closed geometric-point field preserves the fiber functor. -/
 def fieldFiberExtensionIso : fib k K ≅ fib k Ω := by
-  letI : IsIso (fieldFiberExtension k K Ω) := fieldFiberExtension_isIso k K Ω
+  have : IsIso (fieldFiberExtension k K Ω) := by
+    exact fieldFiberExtension_isIso k K Ω
   exact asIso (fieldFiberExtension k K Ω)
 
 /-- The canonical comparison sends a geometric point to its composite with the field extension. -/
@@ -90,25 +97,27 @@ section AbsoluteGalois
 
 variable [IsSepClosure k K] [IsSepClosed Ω]
 
-attribute [local instance] IsSepClosure.sep_closed
-
-private def absoluteGaloisToSeparableFiberAut : (K ≃ₐ[k] K) ≃ₜ* Aut (fib k K) :=
-  ContinuousMulEquiv.mk'
-    (PreGaloisCategory.toAutHomeo (fib k K) (K ≃ₐ[k] K))
-    (fun g h ↦ by
-      simpa only [PreGaloisCategory.toAutHomeo_apply] using
-        (PreGaloisCategory.toAut (fib k K) (K ≃ₐ[k] K)).map_mul g h)
+/-- The absolute Galois group identifies with the automorphisms of its separable fiber. -/
+def absoluteGaloisToSeparableFiberAut : (K ≃ₐ[k] K) ≃ₜ* Aut (fib k K) := by
+  let _ : IsSepClosed K := IsSepClosure.sep_closed k
+  exact ContinuousMulEquiv.mk'
+      (PreGaloisCategory.toAutHomeo (fib k K) (K ≃ₐ[k] K))
+      (fun g h ↦ by
+        simpa only [PreGaloisCategory.toAutHomeo_apply] using
+          (PreGaloisCategory.toAut (fib k K) (K ≃ₐ[k] K)).map_mul g h)
 
 /-- The absolute Galois group acts as all automorphisms of the extended geometric fiber. -/
-def absoluteGaloisToExtendedFiberAut : (K ≃ₐ[k] K) ≃ₜ* Aut (fib k Ω) :=
-  (absoluteGaloisToSeparableFiberAut k K).trans
-    (PreGaloisCategory.continuousConjAut (fieldFiberExtensionIso k K Ω))
+def absoluteGaloisToExtendedFiberAut : (K ≃ₐ[k] K) ≃ₜ* Aut (fib k Ω) := by
+  let _ : IsSepClosed K := IsSepClosure.sep_closed k
+  exact (absoluteGaloisToSeparableFiberAut k K).trans
+      (PreGaloisCategory.continuousConjAut (fieldFiberExtensionIso k K Ω))
 
 /-- The finite Galois-set equivalence agrees with the equivalence at the extended point. -/
 def equivContActionExtendedFiberIso :
     (equivContAction k K).functor ≅
       PreGaloisCategory.functorToContAction (fib k Ω) ⋙
         (ContAction.resEquiv FintypeCat (absoluteGaloisToExtendedFiberAut k K Ω)).functor := by
+  let _ : IsSepClosed K := IsSepClosure.sep_closed k
   let e : (K ≃ₐ[k] K) ≃ₜ* Aut (fib k K) := absoluteGaloisToSeparableFiberAut k K
   let t : Aut (fib k K) ≃ₜ* Aut (fib k Ω) :=
     PreGaloisCategory.continuousConjAut (fieldFiberExtensionIso k K Ω)
@@ -133,6 +142,7 @@ def equivContActionExtendedFiberIso :
 def equivContActionExtendedFiberForgetIso :
     (equivContAction k K).functor ⋙
       forget₂ (ContAction FintypeCat.{u} (K ≃ₐ[k] K)) FintypeCat ≅ fib k Ω := by
+  let _ : IsSepClosed K := IsSepClosure.sep_closed k
   let e : (equivContAction k K).functor ⋙
       forget₂ (ContAction FintypeCat.{u} (K ≃ₐ[k] K)) FintypeCat ≅ fib k K :=
     NatIso.ofComponents (fun X ↦ Iso.refl ((fib k K).obj X)) (fun f ↦ by rfl)

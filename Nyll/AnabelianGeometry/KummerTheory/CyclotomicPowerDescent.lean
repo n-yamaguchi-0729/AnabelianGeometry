@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.KummerTheory.RootCocycle
-import Mathlib.FieldTheory.Galois.Infinite
-import Mathlib.Tactic.Ring
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.RootCocycle
+public import Mathlib.FieldTheory.Galois.Infinite
+public import Mathlib.Tactic.Ring
 
 /-!
 # Descent of powers from a cyclotomic action
@@ -17,6 +19,8 @@ raising its power class to m. The proof is the explicit radical-cocycle
 calculation and the Galois fixed-field theorem. It does not assume a
 uniform bound on m or a number-field cyclotomic image theorem.
 -/
+
+@[expose] public section
 
 open scoped IsMulCommutative
 

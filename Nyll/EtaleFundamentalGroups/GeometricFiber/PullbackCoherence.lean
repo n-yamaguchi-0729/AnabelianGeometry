@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
-import Nyll.SchemeTheory.FiniteEtale.BaseChange.PullbackComposition
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
+public import Nyll.SchemeTheory.FiniteEtale.BaseChange.PullbackComposition
 
 /-!
 # Coherence of the canonical finite étale pullback comparisons
@@ -14,6 +16,8 @@ The comparison isomorphisms are determined by the projections of the actual
 pullbacks.  Their associativity supplies strict composition of pointed
 fundamental-group maps, rather than composition only up to conjugation.
 -/
+
+@[expose] public section
 
 noncomputable section
 

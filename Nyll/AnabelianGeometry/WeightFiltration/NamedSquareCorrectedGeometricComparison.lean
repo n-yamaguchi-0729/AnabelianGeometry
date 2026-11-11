@@ -3,30 +3,22 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CommonArithmeticPointGeometricEquiv
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticKernelEquivalence
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConstantFieldCoverGroupTransport
-import Nyll.ProCGroups.Topologies.ArithmeticInnerCorrectionFiberTransport
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CommonArithmeticPointGeometricEquiv
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedBaseIsomorphism
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticKernelEquivalence
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConstantFieldCoverGroupTransport
+public import Nyll.ProCGroups.Topologies.ArithmeticInnerCorrectionFiberTransport
 
 /-! # Named Square Corrected Geometric Comparison -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicGeometry.FiniteEtale
 
 namespace AnabelianGeometry.WeightFiltration
-
-/-- A pointed geometric comparison induces the specified inner conjugate on the
-original arithmetic fundamental groups. -/
-def originalAmbientCorrectedComparison
-    {GS GT XS XT : Scheme} {Ωs Ωt : Type} [Field Ωs] [Field Ωt]
-    (us : GS ⟶ XS) (ut : GT ⟶ XT)
-    (xs : Spec (.of Ωs) ⟶ GS) (xt : Spec (.of Ωt) ⟶ GT)
-    (zs : Spec (.of Ωs) ⟶ XS) (zt : Spec (.of Ωt) ⟶ XT)
-    (hs : xs ≫ us = zs) (ht : xt ≫ ut = zt)
-    (αP : π₁ᵉᵗ(zs) ≃ₜ* π₁ᵉᵗ(zt))
-    (β : π₁ᵉᵗ(xs) ≃ₜ* π₁ᵉᵗ(xt)) (c : π₁ᵉᵗ(zt)) : Prop :=
-  ∀ g, pointedFundamentalGroupHom ut xt zt ht (β g) =
-    c * αP (pointedFundamentalGroupHom us xs zs hs g) * c⁻¹
 
 theorem commonPoint_geometricMap_eq_transport
     (k κ : Type) [Field k] [Field κ] [Algebra k κ] [IsSepClosure k κ]

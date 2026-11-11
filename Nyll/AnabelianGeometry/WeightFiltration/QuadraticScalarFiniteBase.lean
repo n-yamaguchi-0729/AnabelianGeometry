@@ -3,11 +3,14 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.Cohomology.ArithmeticKernelTorsorScalar
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticFieldExtensionPointedConjugacy
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldTower
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
-import Mathlib.NumberTheory.NumberField.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.ArithmeticKernelTorsorScalar
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticFieldExtensionPointedConjugacy
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldTower
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+public import Mathlib.NumberTheory.NumberField.Basic
+public import Nyll.GaloisCohomology.Kummer.Concrete.RootCharacters
 
 /-! # Killing the original quadratic scalar on an actual finite base change
 
@@ -15,6 +18,8 @@ The field is chosen before the coefficient-comparison conjugator. Every
 conjugate of the chosen quadratic radical lies in this same field, so the
 actual pointed field-extension comparison suffices despite its inner correction.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicGeometry.FiniteEtale
 open CategoryTheory.PreGaloisCategory EtaleFundamentalGroups
@@ -84,7 +89,7 @@ theorem scalarFiniteBasePoint_comp_snd (E : IntermediateField k κ)
 image fixes the same scalar radical. No normalizer or quotient-label equality
 is assumed: the single comparison conjugator is supplied by the existing owner. -/
 theorem quadraticScalar_rootQuotient_actual_finiteBase_eq_one
-    [NumberField k] [IsAlgClosure k κ]
+    [CharZero k] [IsAlgClosure k κ]
     (a : kˣ) (β : κˣ)
     (hβ : β ^ 2 = Units.map (algebraMap k κ).toMonoidHom a)
     (X : Scheme) (f : X ⟶ Spec (.of k))

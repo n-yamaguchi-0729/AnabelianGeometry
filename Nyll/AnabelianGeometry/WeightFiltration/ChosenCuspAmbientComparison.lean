@@ -3,14 +3,18 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.ChosenCuspCommonArithmeticPrime
-import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticCorrectionRationalCuspInertia
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CommonArithmeticPointGeometricEquiv
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationPrimeInertiaConjugacy
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.ChosenCuspCommonArithmeticPrime
+public import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticCorrectionRationalCuspInertia
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CommonArithmeticPointGeometricEquiv
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationPrimeInertiaConjugacy
 
 /-!
 # Comparing chosen cusp inertia through a common arithmetic point
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve SchemeTheory
@@ -37,7 +41,7 @@ private theorem chosenAmbient_map_cancel
     exact hi hyx ▸ hy
 
 theorem rationalConfigurationChosenInertia_commonPoint_conjugate
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]

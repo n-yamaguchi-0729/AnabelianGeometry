@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.BaseChange.CochainBaseChangeEquiv
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.DZeroModulesEqZeroIffUnique
-import Nyll.SchemeTheory.Cohomology.Cech.TwoChartCech
+module
+
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.BaseChange.CochainBaseChangeEquiv
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.DZeroModulesEqZeroIffUnique
+public import Nyll.SchemeTheory.Cohomology.Cech.TwoChartCech
 
 /-!
 # Actual section surjectivity and the Čech kernel comparison
@@ -16,6 +18,8 @@ the pullback adjunction unit. Using that formula and actual sheaf gluing,
 surjectivity of the pullback map on sections supplies surjectivity of the
 canonical degree-zero kernel base-change map.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.ConstantKummerRatios
-import Nyll.AnabelianGeometry.WeightFiltration.KummerTameResidue
-import Nyll.AnabelianGeometry.WeightFiltration.TameCoefficientDetection
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.ConstantKummerRatios
+public import Nyll.AnabelianGeometry.WeightFiltration.KummerTameResidue
+public import Nyll.AnabelianGeometry.WeightFiltration.TameCoefficientDetection
 
 /-!
 # Detecting local Kummer ramification by valuation
@@ -15,6 +17,8 @@ When the constant field contains the relevant roots of unity, actual
 normalization inertia fixes a prescribed radical exactly when its base
 valuation is divisible by the exponent.
 -/
+
+@[expose] public section
 
 noncomputable section
 

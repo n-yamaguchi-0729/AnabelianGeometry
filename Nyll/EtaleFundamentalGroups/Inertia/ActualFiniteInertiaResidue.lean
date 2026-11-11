@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalFiniteInertiaRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaLocalization
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationCoefficientSquare
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
-import Mathlib.RingTheory.Localization.AtPrime.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalFiniteInertiaRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaLocalization
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationCoefficientSquare
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
 
 /-!
 # Residue triviality of localized finite inertia
@@ -19,6 +21,8 @@ import Mathlib.RingTheory.Localization.AtPrime.Basic
 Shows that a coefficient map satisfying the inertia difference condition becomes residue-trivial
 after localization, and applies this to the finite inertia action.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -64,13 +68,13 @@ The original inertia congruence supplies this fact; it is not an endpoint input.
 theorem actualFiniteInertiaLocalRingHom_comp_residue [Q.IsPrime]
     (E : FiniteGaloisIntermediateField K L)
     (σ : actualNormalizationInertiaGroup A K L Q) :
-    letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+    let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
     (IsLocalRing.residue
         (Localization.AtPrime (finiteAbsoluteNormalizationPrime A K L Q E))).comp
         (actualFiniteInertiaLocalRingHom A K L Q E σ) =
       IsLocalRing.residue
         (Localization.AtPrime (finiteAbsoluteNormalizationPrime A K L Q E)) := by
-  let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+  intro sharedOwner1
   exact localRingHom_comp_residue_of_sub_mem
     (finiteAbsoluteNormalizationAlgebra A K L E)
     (finiteAbsoluteNormalizationPrime A K L Q E)

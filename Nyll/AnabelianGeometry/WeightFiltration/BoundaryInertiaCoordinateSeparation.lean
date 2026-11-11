@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaRelations
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaRelations
 
 /-!
 # Separation of actual boundary inertia coordinates
@@ -13,6 +15,8 @@ Two boundary points suffice for injectivity of each roots coordinate.
 Three suffice to separate the images of distinct coordinates. These
 statements concern the actual boundary maps, not an auxiliary module.
 -/
+
+@[expose] public section
 
 noncomputable section
 

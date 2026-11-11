@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.CyclotomicCommonLift
-import Nyll.AnabelianGeometry.WeightFiltration.RationalBoundaryCyclotomicFixedPlace
-import Mathlib.FieldTheory.Galois.Profinite
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.CyclotomicCommonLift
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalBoundaryCyclotomicFixedPlace
+public import Mathlib.FieldTheory.Galois.Profinite
 
 /-! # Common lifts with the actual finite coefficient-field label
 
@@ -14,6 +16,8 @@ The cover has its own arithmetic Galois group. The uniform inner correction
 from arithmeticFundamentalGroupHom_fieldExtension_conjugate is retained.
 No G_k action on the descended cover is invented.
 -/
+
+@[expose] public section
 
 noncomputable section
 

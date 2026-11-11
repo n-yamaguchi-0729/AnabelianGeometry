@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsGroup
-import Nyll.EtaleFundamentalGroups.Inertia.RestrictedRootsCoefficientAction
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsGroup
+public import Nyll.EtaleFundamentalGroups.Inertia.RestrictedRootsCoefficientAction
 
 /-!
 # Coefficient maps on the SAME native tame roots group
@@ -13,6 +15,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.RestrictedRootsCoefficientAction
 The coefficient map acts on the existing root coordinates. Its group laws
 are proved here before an original decomposition element is introduced.
 -/
+
+@[expose] public section
 
 noncomputable section
 

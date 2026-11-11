@@ -11,12 +11,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.FieldTheory.RatFunc.AsPolynomial
-import Mathlib.FieldTheory.RatFunc.IntermediateField
+module
+
+public import Mathlib.FieldTheory.RatFunc.AsPolynomial
+public import Mathlib.FieldTheory.RatFunc.IntermediateField
 
 /-!
 # Rat Func exists alg Equiv apply X eq moebius
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -40,7 +44,7 @@ theorem moebius_aux (a b c d : K) (hdet : a * d - b * c ≠ 0) :
     intro h
     have h1 : (RatFunc.C c * RatFunc.X + RatFunc.C d : RatFunc K) = algebraMap K[X] (RatFunc K)
       (Polynomial.C c * Polynomial.X + Polynomial.C d) := by
-      simp [map_add, map_mul]
+      simp only [map_add, map_mul, RatFunc.algebraMap_C, RatFunc.algebraMap_X]
     rw [h1, map_eq_zero_iff _ (IsFractionRing.injective K[X] (RatFunc K))] at h
     have hc : c = 0 := by simpa using congrArg (fun p : K[X] ↦ p.coeff 1) h
     have hd : d = 0 := by simpa using congrArg (fun p : K[X] ↦ p.coeff 0) h
@@ -83,7 +87,7 @@ theorem moebius_aux (a b c d : K) (hdet : a * d - b * c ≠ 0) :
     rw [eq_top_iff, ← RatFunc.adjoin_X (K := K), adjoin_simple_le_iff]
     exact hXmem
   refine ⟨(algEquivOfTranscendental f htr).trans ((equivOfEq htop).trans topEquiv), ?_⟩
-  simp [algEquivOfTranscendental_X]
+  exact algEquivOfTranscendental_X f htr
 
 end RatFunc
 

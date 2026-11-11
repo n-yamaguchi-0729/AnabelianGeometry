@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.AlgebraicGeometry.Morphisms.ClosedImmersion
-import Mathlib.AlgebraicGeometry.PullbackCarrier
-import Mathlib.AlgebraicGeometry.Properties
+module
+
+public import Mathlib.AlgebraicGeometry.Morphisms.ClosedImmersion
+public import Mathlib.AlgebraicGeometry.PullbackCarrier
+public import Mathlib.AlgebraicGeometry.Properties
 
 /-!
 # Factoring a map from a reduced scheme through a closed immersion
@@ -15,6 +17,8 @@ Set-theoretic containment suffices: the pullback is a surjective closed immersio
 into the reduced source, hence an isomorphism. In particular this applies to
 points valued in any field, without an algebraic closure hypothesis.
 -/
+
+@[expose] public section
 
 noncomputable section
 

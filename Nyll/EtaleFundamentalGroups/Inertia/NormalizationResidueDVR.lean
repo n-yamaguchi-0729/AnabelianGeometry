@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeMaximalResidue
-import Nyll.SchemeTheory.RingTheory.Ramification.NormalizationResidueSequence
-import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeEmbedding
-import Mathlib.RingTheory.DiscreteValuationRing.Basic
-import Mathlib.RingTheory.DedekindDomain.Basic
-import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeMaximalResidue
+public import Nyll.SchemeTheory.RingTheory.Ramification.NormalizationResidueSequence
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeEmbedding
+public import Mathlib.RingTheory.DiscreteValuationRing.Basic
+public import Mathlib.RingTheory.DedekindDomain.Basic
+public import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
 
 /-!
 # The residue exact sequence for an actual DVR normalization
@@ -21,6 +23,8 @@ native base residue field. The canonical quotient-to-prime-residue
  equivalence identifies the other field and preserves its coefficient map.
 The final endpoint retains the same native decomposition map and inertia.
 -/
+
+@[expose] public section
 
 noncomputable section
 

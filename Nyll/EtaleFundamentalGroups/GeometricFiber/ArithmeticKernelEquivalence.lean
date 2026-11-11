@@ -4,9 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricAbelianGaloisAction
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricAbelianGaloisAction
 
 /-! # Equivariance induced by an arbitrary arithmetic isomorphism over a fixed base -/
+
+@[expose] public section
 
 noncomputable section
 

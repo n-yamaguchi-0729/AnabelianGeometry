@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingPrincipalWildPrimary
-import Mathlib.RingTheory.Valuation.RamificationGroup
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingPrincipalWildPrimary
+public import Mathlib.RingTheory.Valuation.RamificationGroup
 
 /-!
 # Orders of field automorphisms acting by principal units
@@ -14,6 +16,8 @@ For a valuation ring with finite decomposition group, a compatible surjective ri
 principal-unit multipliers gives a field automorphism of p-power order in positive residue
 characteristic p. In residue characteristic zero, that automorphism is trivial.
 -/
+
+@[expose] public section
 
 noncomputable section
 

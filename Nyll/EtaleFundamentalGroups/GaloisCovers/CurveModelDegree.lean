@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Points.AlgEquivPointPlaceCompHomEqAlgAutSmulPointPlace
-import Nyll.AlgebraicCurves.Models.Ramification.FiniteEtaleRiemannHurwitz
-import Nyll.EtaleFundamentalGroups.GaloisCovers.FunctionFieldAutomorphisms
+module
+
+public import Nyll.AlgebraicCurves.Models.Points.AlgEquivPointPlaceCompHomEqAlgAutSmulPointPlace
+public import Nyll.AlgebraicCurves.Models.Ramification.FiniteEtaleRiemannHurwitz
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.FunctionFieldAutomorphisms
 
 /-! # Comparing the actual étale cover degree with curve-model degree -/
+
+@[expose] public section
 
 noncomputable section
 

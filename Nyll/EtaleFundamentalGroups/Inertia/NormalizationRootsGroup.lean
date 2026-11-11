@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
-import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
+module
+
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
+public import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
 
 /-!
 # Roots in the normalization residue field
@@ -14,6 +16,8 @@ import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
 Defines the native group object of roots of a fixed degree in the original normalization residue
 field.
 -/
+
+@[expose] public section
 
 noncomputable section
 

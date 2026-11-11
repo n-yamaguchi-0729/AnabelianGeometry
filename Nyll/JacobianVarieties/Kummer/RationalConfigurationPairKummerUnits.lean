@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairFunction
-import Nyll.JacobianVarieties.Kummer.OpenDivisorResidues
-import Mathlib.Tactic.NormNum
+module
+
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairFunction
+public import Nyll.JacobianVarieties.Kummer.OpenDivisorResidues
+public import Mathlib.Tactic.NormNum
 
 /-! # Actual arithmetic pair functions and matching Kummer residues
 
@@ -15,6 +17,8 @@ exponent. Its scalar extension is an open Kummer unit for every exponent.
 For any actual label equivalence, the two constructed functions have the
 same residue vector. No function or residue agreement is an assumption.
 -/
+
+@[expose] public section
 
 noncomputable section
 

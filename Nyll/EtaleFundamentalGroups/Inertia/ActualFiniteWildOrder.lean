@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationWildOrder
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelNormalizationAlgebra
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationResidueCharacteristic
-import Nyll.SchemeTheory.Normalization.NativeNormalizationPrime
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationWildOrder
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelNormalizationAlgebra
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationResidueCharacteristic
+public import Nyll.SchemeTheory.Normalization.NativeNormalizationPrime
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
 
 /-!
 # Primary wild order over the original residue characteristic
@@ -20,6 +22,8 @@ Literal prime contraction identifies the finite prime residue characteristic
 with the original base residue characteristic. No subgroup or inertia group
 is introduced during this arithmetic step.
 -/
+
+@[expose] public section
 
 noncomputable section
 

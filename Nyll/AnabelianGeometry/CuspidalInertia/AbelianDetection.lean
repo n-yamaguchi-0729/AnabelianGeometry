@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.CuspidalInertia.CharacterExtension
-import Mathlib.GroupTheory.Commutator.Basic
-import Mathlib.Topology.Algebra.Group.Subgroup
+module
+
+public import Nyll.AnabelianGeometry.CuspidalInertia.CharacterExtension
+public import Mathlib.GroupTheory.Commutator.Basic
+public import Mathlib.Topology.Algebra.Group.Subgroup
 
 /-!
 # Detecting elements in relative open-subgroup abelianizations
@@ -17,6 +19,8 @@ overgroup, even after killing the compact family. The proof constructs a
 continuous finite character and therefore also separates from the closed
 relation subgroup, not only from its abstract group-theoretic closure.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.CuspidalInertia
 

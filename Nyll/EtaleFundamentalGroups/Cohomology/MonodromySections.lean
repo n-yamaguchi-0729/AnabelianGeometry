@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Constructible.Monodromy
-import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantSet
-import Mathlib.CategoryTheory.Action.Concrete
-import Mathlib.CategoryTheory.Limits.Connected
-import Mathlib.CategoryTheory.Limits.Types.Products
-import Mathlib.CategoryTheory.Sites.Sheafification
-import Mathlib.Topology.Category.FinTopCat
+module
+
+public import Nyll.EtaleCohomology.Constructible.Monodromy
+public import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantSet
+public import Mathlib.CategoryTheory.Action.Concrete
+public import Mathlib.CategoryTheory.Limits.Connected
+public import Mathlib.CategoryTheory.Limits.Types.Products
+public import Mathlib.CategoryTheory.Sites.Sheafification
+public import Mathlib.Topology.Category.FinTopCat
 
 /-!
 # Global sections and fixed geometric monodromy points
@@ -20,6 +22,8 @@ a global section is equivalent to existence of a fixed point in its actual
 finite monodromy representation. The reverse implication uses fullness of
 the proved monodromy equivalence, not a descent hypothesis.
 -/
+
+@[expose] public section
 
 noncomputable section
 

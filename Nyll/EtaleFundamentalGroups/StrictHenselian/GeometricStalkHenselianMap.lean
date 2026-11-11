@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalk
-import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkStructure
-import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkResidue
-import Nyll.SchemeTheory.Etale.HenselianLocalSection
-import Nyll.SchemeTheory.Affine.SpecSectionMap
-import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
-import Mathlib.CategoryTheory.Sites.Point.Basic
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalk
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkStructure
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkResidue
+public import Nyll.SchemeTheory.Etale.HenselianLocalSection
+public import Nyll.SchemeTheory.Affine.SpecSectionMap
+public import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
+public import Mathlib.CategoryTheory.Sites.Point.Basic
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
 
 
 /-!
@@ -24,6 +26,8 @@ Its residue is the original evaluation and it extends the given base map.
 No comparison morphism or alternate colimit is assumed.
 -/
 
+@[expose] public section
+
 noncomputable section
 
 open AlgebraicGeometry CategoryTheory
@@ -35,7 +39,8 @@ universe u
 variable {R S : Type u} [CommRing R] [CommRing S] [HenselianLocalRing S]
   (f : R →+* S)
 
-private theorem existsUnique_pointedHenselianLift
+/-- A pointed étale neighborhood has a unique lift over the Henselian target. -/
+theorem existsUnique_pointedHenselianLift
     (W : (Spec (.of R)).Etale)
     (t : (Scheme.pointEtaleNeighborhoods (Spec.map (CommRingCat.ofHom
       ((IsLocalRing.residue S).comp f)))).fiber.obj W) :
@@ -97,7 +102,8 @@ private theorem geometricNeighborhoodHenselianLift_naturality
   · exact ⟨geometricNeighborhoodHenselianLift_comp f V _,
       geometricNeighborhoodHenselianLift_residue f V _⟩
 
-private def henselianNeighborhoodSectionMap
+/-- The map on sections induced by the unique pointed Henselian lift. -/
+def henselianNeighborhoodSectionMap
     (W : (Spec (.of R)).Etale)
     (t : (Scheme.pointEtaleNeighborhoods (Spec.map (CommRingCat.ofHom
       ((IsLocalRing.residue S).comp f)))).fiber.obj W) :
@@ -123,13 +129,16 @@ private theorem henselianNeighborhoodSectionMap_naturality
       (congrArg (fun k : Spec (.of S) ⟶ V.left => k.appTop ≫ e)
         (geometricNeighborhoodHenselianLift_naturality f g t)))
 
-private def geometricStalkToHenselianCat :
+/-- The categorical map from the geometric stalk to the Henselian target. -/
+def geometricStalkToHenselianCat :
     geometricStalk (Spec.map (CommRingCat.ofHom ((IsLocalRing.residue S).comp f))) ⟶
       CommRingCat.of S :=
   (Scheme.pointEtaleNeighborhoods (Spec.map (CommRingCat.ofHom
     ((IsLocalRing.residue S).comp f)))).presheafFiberDesc
     (P := etaleSections (Spec (.of R))) (henselianNeighborhoodSectionMap f)
-    (fun {W V} g t => henselianNeighborhoodSectionMap_naturality f (W := W) (V := V) g t)
+    (by
+      intro W V g t
+      exact henselianNeighborhoodSectionMap_naturality f (W := W) (V := V) g t)
 
 /-- The map out of the actual geometric-stalk colimit into the prescribed
 Henselian target, constructed from its genuine pointed lifts. -/

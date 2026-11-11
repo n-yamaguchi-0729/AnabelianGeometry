@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeResidueAction
-import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
-import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
-import Mathlib.RingTheory.Ideal.Maps
-import Mathlib.RingTheory.Ideal.Pointwise
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeResidueAction
+public import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
+public import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
+public import Mathlib.RingTheory.Ideal.Maps
+public import Mathlib.RingTheory.Ideal.Pointwise
 
 /-!
 # Native coefficient decomposition groups
@@ -17,6 +19,8 @@ The group is the existing native residue stabilizer, with the existing
 coefficient-automorphism action. Ring-only contraction and action comparison
 prove the stability and lifting statements used by actual finite restrictions.
 -/
+
+@[expose] public section
 
 noncomputable section
 

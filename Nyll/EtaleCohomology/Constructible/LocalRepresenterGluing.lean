@@ -4,19 +4,21 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
-import Nyll.EtaleCohomology.Sites.EtaleRestriction
-import Nyll.EtaleCohomology.Sites.EtaleSlice
-import Nyll.SchemeTheory.WeilRestriction.LocalRepresenters
-import Nyll.SchemeTheory.WeilRestriction.LocalRepresenterDiagram
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
-import Mathlib.AlgebraicGeometry.Cover.Directed
-import Mathlib.AlgebraicGeometry.Cover.MorphismProperty
-import Mathlib.AlgebraicGeometry.RelativeGluing
-import Mathlib.CategoryTheory.Comma.Over.Basic
-import Mathlib.CategoryTheory.Limits.Constructions.Over.Connected
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.Equifibered
-import Mathlib.CategoryTheory.MorphismProperty.Comma
+module
+
+public import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
+public import Nyll.EtaleCohomology.Sites.EtaleRestriction
+public import Nyll.EtaleCohomology.Sites.EtaleSlice
+public import Nyll.SchemeTheory.WeilRestriction.LocalRepresenters
+public import Nyll.SchemeTheory.WeilRestriction.LocalRepresenterDiagram
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+public import Mathlib.AlgebraicGeometry.Cover.Directed
+public import Mathlib.AlgebraicGeometry.Cover.MorphismProperty
+public import Mathlib.AlgebraicGeometry.RelativeGluing
+public import Mathlib.CategoryTheory.Comma.Over.Basic
+public import Mathlib.CategoryTheory.Limits.Constructions.Over.Connected
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.Equifibered
+public import Mathlib.CategoryTheory.MorphismProperty.Comma
 
 /-!
 # Gluing finite étale local representers on a directed open cover
@@ -26,6 +28,8 @@ transition maps and their cartesian squares. Relative gluing then constructs
 a finite étale scheme on the whole base, whose restrictions are the chosen
 local schemes. No gluing comparisons or cocycle laws are assumed.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,26 +4,35 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Picard.AbelJacobi.AbelJacobiDivisionDisplacement
-import Nyll.JacobianVarieties.Kummer.MovingRepresentatives
-import Nyll.JacobianVarieties.Kummer.WeilGenericCharacter
-import Nyll.JacobianVarieties.WeilPairing.ConstantExtension
-import Nyll.JacobianVarieties.Picard.ConstantExtensionFixedDivisors
-import Nyll.JacobianVarieties.Pic0.DivisorialWeilPairingDataAlgClosed
-import Nyll.AlgebraicCurves.Models.FunctionFields.CurveModelGeometricGenericLift
-import Nyll.AlgebraicCurves.Models.FunctionFields.CurveModelGenericPointEvaluation
-import Nyll.AlgebraicCurves.Models.ConstantExtension.CurveModelSemilinearFixedField
-import Nyll.AlgebraicCurves.Geometry.Schemes.BaseChange.GenericPointMemPreimageCompPullbackFst
-import Nyll.AlgebraicCurves.Places.Evaluation.EvalAtMapEqComapEq
+module
+
+public import Nyll.JacobianVarieties.Picard.AbelJacobi.AbelJacobiDivisionDisplacement
+public import Nyll.JacobianVarieties.Kummer.MovingRepresentatives
+public import Nyll.JacobianVarieties.Kummer.WeilGenericCharacter
+public import Nyll.JacobianVarieties.WeilPairing.ConstantExtension
+public import Nyll.JacobianVarieties.Picard.ConstantExtensionFixedDivisors
+public import Nyll.JacobianVarieties.Pic0.DivisorialWeilPairingDataAlgClosed
+public import Nyll.AlgebraicCurves.Models.FunctionFields.CurveModelGeometricGenericLift
+public import Nyll.AlgebraicCurves.Models.FunctionFields.CurveModelGenericPointEvaluation
+public import Nyll.AlgebraicCurves.Models.ConstantExtension.CurveModelSemilinearFixedField
+public import Nyll.AlgebraicCurves.Geometry.Schemes.BaseChange.GenericPointMemPreimageCompPullbackFst
+public import Nyll.AlgebraicCurves.Places.Evaluation.EvalAtMapEqComapEq
+public import Nyll.ProCGroups.Abelian.FullTateModule
 
 /-!
 # The actual Abel--Jacobi Weil character at the geometric generic point
 
 This proof constructs the Kummer representative and the division divisor
-from the actual Abel--Jacobi multiplication fibre. It derives the fixed
+from the actual Abel--Jacobi multiplication fibre at an invertible index.
+The geometric generic field is algebraically closed and need not be a
+separable extension of the curve's function field. It derives the fixed
 function, fixed divisor, evaluation and conorm identities before applying
 the Weil reciprocity calculation.
 -/
+
+@[expose] public section
+
+universe u
 
 noncomputable section
 
@@ -49,14 +58,13 @@ attribute [local instance]
 Kummer character agree through the divisorial Weil pairing at the generic
 point. All action and pairing comparisons are conclusions of geometry. -/
 theorem exists_actual_abelJacobi_generic_weil_kummer
-    {K F₀ : Type} [Field K] [IsAlgClosed K] [CharZero K]
+    {K F₀ : Type u} [Field K] [IsAlgClosed K]
     [Field F₀] [Algebra K F₀] [IsCurveOver K F₀]
     (M₀ : CurveModel K F₀)
     [Algebra K M₀.C.functionField]
     (hbase : algebraMap K M₀.C.functionField = baseToFunctionField M₀.toBase)
-    {Ω F : Type} [Field Ω] [IsAlgClosed Ω] [Algebra K Ω]
+    {Ω F : Type u} [Field Ω] [IsAlgClosed Ω] [Algebra K Ω]
     [Algebra M₀.C.functionField Ω] [IsScalarTower K M₀.C.functionField Ω]
-    [IsSepClosed Ω] [IsSepClosure M₀.C.functionField Ω]
     [Field F] [Algebra Ω F] [IsCurveOver Ω F]
     [Algebra F₀ F] [Algebra K F]
     [IsScalarTower K F₀ F] [IsScalarTower K Ω F]
@@ -71,7 +79,7 @@ theorem exists_actual_abelJacobi_generic_weil_kummer
     (hD : RepresentsRelSubPic M₀.toBase ε (algEquivZeroCut M₀.toBase ε) D)
     [Smooth D.toBase] [IsProper D.toBase] [GeometricallyConnected D.toBase]
     (aj : SchemeHomOver M₀.toBase D.toBase)
-    (hclass : ∀ (L : Type) [Field L] (t : Spec (.of L) ⟶ Spec (.of K))
+    (hclass : ∀ (L : Type u) [Field L] (t : Spec (.of L) ⟶ Spec (.of K))
       (x : SchemeHomOver t M₀.toBase),
       Nonempty ((hD.poincare.pullbackAlong
         ⟨x.1 ≫ aj.1, (Category.assoc _ _ _).trans
@@ -110,12 +118,13 @@ theorem exists_actual_abelJacobi_generic_weil_kummer
           (RelativeGroupLaw.AlgPoints.toPoint (e₀ (Pic0.mk Dv))).1 = v.1 ≫ aj.1) →
     ∀ (τ : FiniteEtale.fiber (η ≫ q ≫ aj.1) ≅
         FiniteEtale.fiber (G.one (𝟙 (Spec (.of K)))).1)
-      (_ : (FiniteEtale.fiber (η ≫ q ≫ aj.1)).obj (G.multiplicationCover hc n)),
+      (_ : (FiniteEtale.fiber (η ≫ q ≫ aj.1)).obj
+        (RelativeGroupLaw.UnitMultiplication.cover G hc ⟨n, hn⟩)),
     ∃ u : Pic0.kummerUnits K F₀ n,
       Multiplicative.toAdd (Pic0.kummerClass n u) = a ∧
       ∀ σ : Ω ≃ₐ[M₀.C.functionField] Ω,
         w.pair a (τn.symm
-          (G.multiplicationMonodromy hc n
+          (RelativeGroupLaw.UnitMultiplication.monodromy G hc ⟨n, hn⟩
             (continuousConjAut τ
               (FiniteEtale.fundamentalGroupHom (q ≫ aj.1) η
                 (toAut (FiniteEtale.fiber η) (Ω ≃ₐ[M₀.C.functionField] Ω) σ))))) =
@@ -210,7 +219,7 @@ existsUnique_point_and_ord_eq_and_ord_eq_zero_of_iso_pullback_of_ffEquiv_symm_ge
       (congrArg (fun r : K →+* M₀.C.functionField => Spec.map (CommRingCat.ofHom r)) hbase).symm⟩
   obtain ⟨e, B, E, g, hpoint, hB, heE, hEavoid, hg, hgdiv, hacts⟩ :=
     JacobianVarieties.Picard.exists_abelJacobi_division_divisor_displacement
-      hfg hfg' hgen M₀ ε D hD aj hclass M eC heC hsq uη x s hx hs n
+      hfg hfg' hgen M₀ ε D hD aj hclass M eC heC hsq uη x s hx hs n hn
       e₀ hpoint₀ τ z Dc.support
   have hDE (v : Place Ω F) : Dc v = 0 ∨ (E : Divisor Ω F) v = 0 := by
     by_cases h : Dc v = 0
@@ -254,7 +263,7 @@ existsUnique_point_and_ord_eq_and_ord_eq_zero_of_iso_pullback_of_ffEquiv_symm_ge
     M₀.exists_weilDatum_pairing_eq_generic_kummer n u Dc E
       (M.pointEquivPlace x) (M.pointEquivPlace s) f g hfn hg hfdiv hgdiv'
       hDE hDx hDε b hb hfx hfε σ γ hγ (hfix (u.val : F₀)) hγD hγB' hn
-  let t := G.multiplicationMonodromy hc n
+  let t := RelativeGroupLaw.UnitMultiplication.monodromy G hc ⟨n, hn⟩
     (continuousConjAut τ (FiniteEtale.fundamentalGroupHom (q ≫ aj.1) η
       (toAut (FiniteEtale.fiber η) (Ω ≃ₐ[M₀.C.functionField] Ω) σ)))
   have ht : e₀.symm t.1 = (τn.symm t).1 := by

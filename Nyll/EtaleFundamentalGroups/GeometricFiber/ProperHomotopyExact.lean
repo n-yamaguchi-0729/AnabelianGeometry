@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ProperHomotopyNormal
-import Nyll.EtaleFundamentalGroups.GeometricFiber.HomotopySequenceMaps
-import Nyll.EtaleFundamentalGroups.GaloisCategories.ConnectedSectionDescent
-import Nyll.EtaleFundamentalGroups.GaloisCategories.ExactSequence
-import Nyll.EtaleFundamentalGroups.GaloisCategories.Surjectivity
-import Nyll.EtaleFundamentalGroups.GaloisCategories.TrivialComposite
-import Mathlib.CategoryTheory.Limits.MorphismProperty
-import Nyll.ProCGroups.Presentations.Profinite
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ProperHomotopyNormal
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.HomotopySequenceMaps
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.ConnectedSectionDescent
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.ExactSequence
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.Surjectivity
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.TrivialComposite
+public import Mathlib.CategoryTheory.Limits.MorphismProperty
+public import Nyll.ProCGroups.Presentations.Profinite
 
 /-!
 # The proper homotopy sequence
@@ -22,6 +24,8 @@ finite connected-component decomposition then supplies the categorical
 exactness criterion. Normality and compactness identify the resulting closed
 normal closure with the original image.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory Limits CategoryTheory.PreGaloisCategory

@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ProperCoverSteinComparison
-import Nyll.EtaleFundamentalGroups.GeometricFiber.HomotopySequenceMaps
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperNormalization
-import Nyll.EtaleFundamentalGroups.GaloisCategories.NormalImage
-import Nyll.EtaleFundamentalGroups.GaloisCategories.TrivialComposite
-import Nyll.SchemeTheory.Morphisms.FiniteEtaleGeometricallyReduced
-import Mathlib.CategoryTheory.Limits.MorphismProperty
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ProperCoverSteinComparison
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.HomotopySequenceMaps
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperNormalization
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.NormalImage
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.TrivialComposite
+public import Nyll.SchemeTheory.Morphisms.FiniteEtaleGeometricallyReduced
+public import Mathlib.CategoryTheory.Limits.MorphismProperty
 
 /-!
 # Normality of the proper geometric-fibre image
@@ -21,6 +23,8 @@ from the base whenever the cover has a section on one fibre. Over a separably
 closed fibre this proves the finite-cover criterion for normality of the
 actual image on fundamental groups.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory Limits CategoryTheory.PreGaloisCategory

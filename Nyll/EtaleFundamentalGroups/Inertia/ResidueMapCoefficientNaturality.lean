@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
+module
+
+public import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
 
 /-!
 # Descending a literal coefficient square to residue fields
@@ -12,6 +14,8 @@ import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
 This ring-only lemma uses coefficient surjectivity at a maximal ideal. Its
 applications supply the two coefficient formulas and square from actual maps.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

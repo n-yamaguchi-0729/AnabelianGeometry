@@ -3,9 +3,13 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquarePairFiniteBase
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquarePairFiniteBase
 
 /-! # Proper model data for the named pair square cover over the finite base -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve TopologicalSpace
@@ -15,8 +19,6 @@ open scoped RatFunc
 attribute [local instance] Classical.propDecidable
   MvPolynomial.gradedAlgebra Polynomial.algebra
 namespace AnabelianGeometry.WeightFiltration
-
-attribute [local instance] namedSquare_configurationOpen_integral
 
 private theorem ratFuncModel_generic_square_of_chartPoint
     (E : Type) [Field E] (φ : RatFunc E →ₐ[E] RatFunc E)

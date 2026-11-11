@@ -4,8 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.H1Additivity
-import Nyll.EtaleFundamentalGroups.Cohomology.H1Surjectivity
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1Additivity
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1Surjectivity
+public import Nyll.ProCGroups.Abelian.TopologicalAbelianization
 
 /-!
 # Finite-coefficient étale H¹ and continuous abelian characters
@@ -16,6 +19,8 @@ characters of the étale fundamental group, or equivalently of its topological
 abelianization. Smoothness, properness, noetherianity and characteristic
 assumptions are unnecessary.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -35,8 +40,7 @@ def finiteH1CharacterEquiv :
     let : DiscreteTopology (Multiplicative A) := ⟨rfl⟩
     Sheaf.H.{u} ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).obj A) 1 ≃+
       Additive (Aut (FiniteEtale.fiber ξ) →ₜ* Multiplicative A) := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
-  have : DiscreteTopology (Multiplicative A) := ⟨rfl⟩
+  intro sharedDefinitionOwner1 discreteTopology
   exact AddEquiv.ofBijective (h1CharacterAddHom A ξ)
     ⟨h1Character_injective A ξ, h1Character_surjective A ξ⟩
 
@@ -69,8 +73,7 @@ def h1AbelianCharacterAddHom :
     let : DiscreteTopology (Multiplicative A) := ⟨rfl⟩
     Sheaf.H.{u} ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).obj A) 1 →+
       Additive (TopologicalAbelianization (Aut (FiniteEtale.fiber ξ)) →ₜ* Multiplicative A) := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
-  have : DiscreteTopology (Multiplicative A) := ⟨rfl⟩
+  intro sharedDefinitionOwner1 discreteTopology
   refine
     { toFun := fun a => Additive.ofMul (h1AbelianCharacter A ξ a)
       map_zero' := ?_
@@ -94,8 +97,7 @@ def finiteH1AbelianCharacterEquiv :
     let : DiscreteTopology (Multiplicative A) := ⟨rfl⟩
     Sheaf.H.{u} ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).obj A) 1 ≃+
       Additive (TopologicalAbelianization (Aut (FiniteEtale.fiber ξ)) →ₜ* Multiplicative A) := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
-  have : DiscreteTopology (Multiplicative A) := ⟨rfl⟩
+  intro sharedDefinitionOwner1 discreteTopology
   apply AddEquiv.ofBijective (h1AbelianCharacterAddHom A ξ)
   constructor
   · intro a b hab

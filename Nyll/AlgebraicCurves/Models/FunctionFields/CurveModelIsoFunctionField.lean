@@ -10,8 +10,12 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Models.Points.IsoCompToBaseEqPlaceOfPointCongrEq
-import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
+module
+
+public import Nyll.AlgebraicCurves.Models.Points.IsoCompToBaseEqPlaceOfPointCongrEq
+public import Nyll.AlgebraicCurves.Geometry.Schemes.FunctionFields.OpenImmersionFunctionFieldIso
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Morphisms.IsoCompEqOpenImmersion
+public import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
 
 /-! # A model isomorphism retaining its prescribed function-field map
 
@@ -19,10 +23,48 @@ The generic-point equation in the actual smooth-proper extension construction
 is retained. This permits subsequent normalized Kummer charts to use the same
 pair function, rather than only an unspecified projective-line isomorphism.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve TopologicalSpace
 open AlgebraicCurves.Models.Proofs
 open CurveModel_exists_iso_comp_toBase_eq_placeOfPoint_congr_eq.AlgebraicCurve
+
+namespace AlgebraicGeometry.Scheme
+
+universe u
+
+/-- The original smooth-proper extension construction retains the specified
+isomorphism of function fields and its generic-point equation. -/
+theorem exists_iso_functionFieldMap_eq
+    {K : Type u} [Field K] {X Y : Scheme.{u}}
+    [IsIntegral X] [IsIntegral Y]
+    (cX : X ⟶ Spec (.of K)) (cY : Y ⟶ Spec (.of K))
+    [IsProper cX] [SmoothOfRelativeDimension 1 cX]
+    [IsProper cY] [Smooth cY]
+    (ψ : X.functionField ≅ Y.functionField)
+    (hψ : Spec.map ψ.inv ≫ Y.fromSpecStalk (genericPoint Y) ≫ cY =
+      X.fromSpecStalk (genericPoint X) ≫ cX) :
+    ∃ e : X ≅ Y, e.hom ≫ cY = cX ∧
+      (X.fromSpecStalk (genericPoint X) ≫ e.hom =
+        Spec.map ψ.inv ≫ Y.fromSpecStalk (genericPoint Y)) ∧
+      ∀ hdense : DenseRange e.hom,
+        CommRingCat.ofHom (e.hom.functionFieldMap hdense) = ψ.inv := by
+  obtain ⟨U, hη, j, himm, hj, hjη⟩ :=
+    exists_isOpenImmersion_of_functionField_iso cX cY ψ hψ
+  obtain ⟨e, he, heU⟩ :=
+    exists_iso_comp_eq_of_isOpenImmersion_of_isProper cX cY
+      U ⟨genericPoint X, hη⟩ j hj
+  have hgen : X.fromSpecStalk (genericPoint X) ≫ e.hom =
+      Spec.map ψ.inv ≫ Y.fromSpecStalk (genericPoint Y) := by
+    rw [← Scheme.Opens.fromSpecStalkOfMem_ι U (genericPoint X) hη,
+      Category.assoc, heU, hjη]
+  refine ⟨e, he, hgen, fun hdense => ?_⟩
+  apply Spec.map_injective
+  apply (cancel_mono (Y.fromSpecStalk (genericPoint Y))).mp
+  exact (EtaleFundamentalGroups.Spec_functionFieldMap_fromSpecStalk e.hom hdense).trans hgen
+
+end AlgebraicGeometry.Scheme
 
 namespace AlgebraicCurve.CurveModel
 
@@ -52,23 +94,14 @@ theorem exists_iso_comp_toBase_eq_functionFieldMap_eq
     rw [fromSpecStalk_genericPoint_comp_toBase,
       fromSpecStalk_genericPoint_comp_toBase,
       ← Spec.map_comp, hb]
-  obtain ⟨U, hη, j, himm, hj, hjη⟩ :=
-    AlgebraicGeometry.Scheme.exists_isOpenImmersion_of_functionField_iso M.toBase M'.toBase ψ hψ
-  have : Smooth M'.toBase := SmoothOfRelativeDimension.smooth (n := 1) (f := M'.toBase)
-  obtain ⟨e, he, heU⟩ :=
-    AlgebraicGeometry.Scheme.exists_iso_comp_eq_of_isOpenImmersion_of_isProper M.toBase M'.toBase
-      U ⟨genericPoint M.C, hη⟩ j hj
-  have hgen : M.C.fromSpecStalk (genericPoint M.C) ≫ e.hom =
-      Spec.map ψ.inv ≫ M'.C.fromSpecStalk (genericPoint M'.C) := by
-    rw [← Scheme.Opens.fromSpecStalkOfMem_ι U (genericPoint M.C) hη, Category.assoc, heU, hjη]
+  have : Smooth M'.toBase :=
+    SmoothOfRelativeDimension.smooth (n := 1) (f := M'.toBase)
+  obtain ⟨e, he, -, hfield⟩ :=
+    AlgebraicGeometry.Scheme.exists_iso_functionFieldMap_eq
+      M.toBase M'.toBase ψ hψ
   refine ⟨e, he, fun hdense z => ?_⟩
-  have hcat : CommRingCat.ofHom (e.hom.functionFieldMap hdense) = ψ.inv := by
-    apply Spec.map_injective
-    apply (cancel_mono (M'.C.fromSpecStalk (genericPoint M'.C))).mp
-    exact (EtaleFundamentalGroups.Spec_functionFieldMap_fromSpecStalk e.hom hdense).trans hgen
   have hmap := congrArg (fun q : M'.C.functionField ⟶ M.C.functionField =>
-    q.hom (M'.ffEquiv z)) hcat
+    q.hom (M'.ffEquiv z)) (hfield hdense)
   exact hmap.trans (by rw [hψinv, RingEquiv.symm_apply_apply])
 
 end AlgebraicCurve.CurveModel
-

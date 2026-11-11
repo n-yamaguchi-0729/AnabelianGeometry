@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.AlgebraicGeometry.Normalization
-import Mathlib.AlgebraicGeometry.Morphisms.Proper
+module
+
+public import Mathlib.AlgebraicGeometry.Normalization
+public import Mathlib.AlgebraicGeometry.Morphisms.Proper
 
 /-!
 # Proper relative normalization
@@ -23,6 +25,8 @@ References:
 * https://stacks.math.columbia.edu/tag/03GY
 * https://stacks.math.columbia.edu/tag/03H2
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -58,7 +62,7 @@ lemma integralClosure_eq_top_of_universallyClosed [UniversallyClosed f]
     {U : S.Opens} (hU : IsAffineOpen U) :
     let : Algebra Γ(S, U) Γ(X, f ⁻¹ᵁ U) := (f.app U).hom.toAlgebra
     integralClosure Γ(S, U) Γ(X, f ⁻¹ᵁ U) = ⊤ := by
-  let : Algebra Γ(S, U) Γ(X, f ⁻¹ᵁ U) := (f.app U).hom.toAlgebra
+  intro sectionAlgebra
   rw [integralClosure_eq_top_iff, ← algebraMap_isIntegral_iff,
     RingHom.algebraMap_toAlgebra]
   exact isIntegral_app_of_universallyClosed f hU

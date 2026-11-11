@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.LinearAlgebra.Quotient.Defs
-import Mathlib.Algebra.Module.Pi
-import Mathlib.Algebra.BigOperators.Pi
+module
+
+public import Mathlib.LinearAlgebra.Quotient.Defs
+public import Mathlib.Algebra.Module.Pi
+public import Mathlib.Algebra.BigOperators.Pi
 
 /-!
 # The reduced boundary module
@@ -17,6 +19,8 @@ three distinct labels, two coordinate lines have zero intersection. These
 are integral statements over any commutative ring; no division by the
 number of boundary points is used.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.CuspidalInertia
 

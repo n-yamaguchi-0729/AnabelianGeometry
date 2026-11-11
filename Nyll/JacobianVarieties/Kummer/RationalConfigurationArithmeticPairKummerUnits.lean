@@ -3,11 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationArithmeticPairFunction
-import Nyll.JacobianVarieties.Kummer.OpenDivisorResidues
-import Mathlib.Tactic.NormNum
+module
+
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationArithmeticPairFunction
+public import Nyll.JacobianVarieties.Kummer.OpenDivisorResidues
+public import Mathlib.Tactic.NormNum
 
 /-! # Arithmetic and geometric Kummer units of the same rational pair function -/
+@[expose] public section
+
 noncomputable section
 
 attribute [local instance] Classical.propDecidable

@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameScalarData
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaRestrictionConjugate
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteResidueActionSquare
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameScalarData
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaRestrictionConjugate
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteResidueActionSquare
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
 
 /-!
 # The literal actual scalar restriction diagram
@@ -16,6 +18,8 @@ Each data function is the underlying function of an existing actual map.
 The coefficient and conjugation comparisons are proved separately; none
 is a hypothesis or a field of the diagram.
 -/
+
+@[expose] public section
 
 noncomputable section
 

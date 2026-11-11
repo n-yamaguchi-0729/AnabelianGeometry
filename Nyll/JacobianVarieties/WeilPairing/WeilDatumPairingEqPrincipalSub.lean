@@ -10,16 +10,20 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.JacobianVarieties.WeilPairing.Datum
-import Nyll.JacobianVarieties.Pic0.TorsionOrdEqMul
-import Nyll.AlgebraicCurves.Divisors.Evaluation
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Nyll.AlgebraicCurves.Places.Basic
-import Nyll.JacobianVarieties.WeilPairing.WeilDatumSymmPairing
+module
+
+public import Nyll.JacobianVarieties.WeilPairing.Datum
+public import Nyll.JacobianVarieties.Pic0.TorsionOrdEqMul
+public import Nyll.AlgebraicCurves.Divisors.Evaluation
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.AlgebraicCurves.Places.Basic
+public import Nyll.JacobianVarieties.WeilPairing.WeilDatumSymmPairing
 
 /-!
 The Weil pairing is unchanged when the defining divisors change by principal divisors.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -116,7 +120,8 @@ private theorem degree_eq_zero_of_isPrincipal_i [HasPrincipalDivisors K F] {D : 
   have hDD' : D = D' := Finsupp.ext fun v => by rw [hDv v, hD'v v]
   exact hDD' ▸ hD'deg
 
-private theorem _root_.AlgebraicCurve.WeilDatum.degree_D₁_eq_zero_i [HasPrincipalDivisors K F]
+/-- The left divisor of a positive-order Weil datum has degree zero. -/
+theorem _root_.AlgebraicCurve.WeilDatum.degree_D₁_eq_zero_i [HasPrincipalDivisors K F]
     (d : WeilDatum K F n) (hn : n ≠ 0) :
     Divisor.degree d.D₁ = 0 := by
   have h := degree_eq_zero_of_isPrincipal_i d.isPrincipal_smul_left_i
@@ -124,7 +129,8 @@ private theorem _root_.AlgebraicCurve.WeilDatum.degree_D₁_eq_zero_i [HasPrinci
   exact (mul_eq_zero.mp h).resolve_left (by exact_mod_cast hn)
 
 open _root_.AlgebraicCurve.WeilDatum
-private theorem _root_.AlgebraicCurve.WeilDatum.degree_D₂_eq_zero_i [HasPrincipalDivisors K F]
+/-- The right divisor of a positive-order Weil datum has degree zero. -/
+theorem _root_.AlgebraicCurve.WeilDatum.degree_D₂_eq_zero_i [HasPrincipalDivisors K F]
     (d : WeilDatum K F n) (hn : n ≠ 0) :
     Divisor.degree d.D₂ = 0 :=
   d.symm.degree_D₁_eq_zero_i hn
@@ -134,13 +140,15 @@ section ClassLayer
 
 variable [NeZero n] [HasPrincipalDivisors K F]
 
-private def _root_.AlgebraicCurve.WeilDatum.degZeroLeft_i (d : WeilDatum K F n) :
+/-- The original left divisor, with its proved degree-zero condition. -/
+def _root_.AlgebraicCurve.WeilDatum.degZeroLeft_i (d : WeilDatum K F n) :
     Divisor.degZero (K := K) (F := F) :=
   ⟨d.D₁, Divisor.mem_degZero.mpr (d.degree_D₁_eq_zero_i (NeZero.ne n))⟩
 
 open _root_.AlgebraicCurve.WeilDatum
 
-private def _root_.AlgebraicCurve.WeilDatum.degZeroRight_i (d : WeilDatum K F n) :
+/-- The original right divisor, with its proved degree-zero condition. -/
+def _root_.AlgebraicCurve.WeilDatum.degZeroRight_i (d : WeilDatum K F n) :
     Divisor.degZero (K := K) (F := F) :=
   ⟨d.D₂, Divisor.mem_degZero.mpr (d.degree_D₂_eq_zero_i (NeZero.ne n))⟩
 

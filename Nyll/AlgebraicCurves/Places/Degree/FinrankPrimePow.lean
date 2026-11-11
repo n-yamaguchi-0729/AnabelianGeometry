@@ -10,10 +10,12 @@ Upstream per-file ATTRIBUTION: https://github.com/anthropics/fermats-last-theore
 Repository maintainer: Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 -/
 
-import Mathlib.LinearAlgebra.Dimension.DivisionRing
-import Mathlib.NumberTheory.RamificationInertia.Inertia
-import Mathlib.NumberTheory.RamificationInertia.Ramification
-import Mathlib.RingTheory.Ideal.Norm.AbsNorm
+module
+
+public import Mathlib.LinearAlgebra.Dimension.DivisionRing
+public import Mathlib.NumberTheory.RamificationInertia.Inertia
+public import Mathlib.NumberTheory.RamificationInertia.Ramification
+public import Mathlib.RingTheory.Ideal.Norm.AbsNorm
 
 /-!
 A warning-free compatibility proof for the finrank of a prime-power quotient.
@@ -22,6 +24,8 @@ This is the filtration argument formerly bundled with the legacy
 `NumberTheory.RamificationInertia.Basic` module. It is kept in a project namespace so
 the remaining place trace/norm proofs can use the current split ramification imports.
 -/
+
+@[expose] public section
 
 namespace AlgebraicCurves.Compat.FinrankPrimePow
 

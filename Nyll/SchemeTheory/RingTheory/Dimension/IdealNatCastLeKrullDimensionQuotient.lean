@@ -10,16 +10,20 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.RingTheory.AlgebraicIndependent.Basic
-import Mathlib.RingTheory.MvPolynomial.Localization
-import Mathlib.Order.WithBot
-import Mathlib.Data.ENat.Basic
-import Nyll.SchemeTheory.RingTheory.Dimension.IdealHeightAddKrullDimensionQuotientEqKrullDimension
+module
+
+public import Mathlib.RingTheory.AlgebraicIndependent.Basic
+public import Mathlib.RingTheory.MvPolynomial.Localization
+public import Mathlib.Order.WithBot
+public import Mathlib.Data.ENat.Basic
+public import Nyll.SchemeTheory.RingTheory.Dimension.IdealHeightAddKrullDimensionQuotientEqKrullDimension
 
 /-!
 # Ideal nat Cast le ring Krull Dim quotient of mem minimal Primes map of algebraic
 Independent
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

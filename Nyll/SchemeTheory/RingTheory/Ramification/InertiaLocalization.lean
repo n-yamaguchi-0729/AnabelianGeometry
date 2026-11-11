@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Algebra.Equiv
-import Mathlib.Algebra.Ring.Action.Group
-import Mathlib.RingTheory.Ideal.Pointwise
-import Mathlib.RingTheory.Ideal.Quotient.Defs
-import Mathlib.RingTheory.Localization.AtPrime.Basic
-import Mathlib.RingTheory.Localization.Defs
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+module
+
+public import Mathlib.Algebra.Algebra.Equiv
+public import Mathlib.Algebra.Ring.Action.Group
+public import Mathlib.RingTheory.Ideal.Pointwise
+public import Mathlib.RingTheory.Ideal.Quotient.Defs
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
+public import Mathlib.RingTheory.Localization.Defs
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
 
 /-!
 # Individual inertia automorphisms on the literal prime localization
@@ -23,6 +25,8 @@ its residue action is the identity. No group action on the localization is
 introduced, and no valuation or finiteness hypothesis is required.
 -/
 
+@[expose] public section
+
 noncomputable section
 
 open scoped Pointwise
@@ -31,7 +35,8 @@ namespace SchemeTheory
 
 universe u v
 
-private theorem inertia_comap_eq
+/-- An automorphism acting trivially modulo an ideal preserves that ideal under inverse image. -/
+theorem inertia_comap_eq
     (B : Type u) [CommRing B] (Q : Ideal B) (σ : B ≃+* B)
     (hσ : ∀ b : B, σ b - b ∈ Q) : Q = Q.comap σ.toRingHom := by
   have hI : σ ∈ Q.inertia (B ≃+* B) := hσ

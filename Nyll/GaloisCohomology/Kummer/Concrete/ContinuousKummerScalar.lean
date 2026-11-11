@@ -3,14 +3,18 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.GaloisCohomology.Kummer.Concrete.ContinuousHilbert90
-import Nyll.GaloisCohomology.Kummer.Concrete.RootCharacters
+module
+
+public import Nyll.GaloisCohomology.Kummer.Concrete.ContinuousHilbert90
+public import Nyll.GaloisCohomology.Kummer.Concrete.RootCharacters
 
 /-!
 A locally constant cyclotomic root-valued cocycle is the cocycle of an
 actual radical of a nonzero base-field scalar. Roots of unity need not lie
 in the base field. This supplies the scalar for arithmetic Kummer twists.
 -/
+
+@[expose] public section
 
 namespace KummerTheory
 open groupCohomology

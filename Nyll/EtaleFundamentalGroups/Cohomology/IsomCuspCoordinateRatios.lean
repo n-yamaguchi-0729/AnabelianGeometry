@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.Cohomology.KernelTorsorIsom
-import Nyll.GaloisCohomology.Kummer.Concrete.ContinuousKummerScalar
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.KernelTorsorIsom
+public import Nyll.GaloisCohomology.Kummer.Concrete.ContinuousKummerScalar
 
 /-!
 # Pointwise cusp ratios from the same arithmetic Isom
@@ -14,6 +16,8 @@ fixed coefficient labels. Only the chosen arithmetic element needs to agree
 with the original decomposition action at the two cusps. The same Isom and
 its displacement at the original point are retained.
 -/
+
+@[expose] public section
 
 noncomputable section
 namespace EtaleFundamentalGroups.Cohomology

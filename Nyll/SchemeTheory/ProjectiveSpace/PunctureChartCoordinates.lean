@@ -4,10 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.ProjectiveSpace.PunctureChart
-import Nyll.SchemeTheory.ProjectiveSpace.BaseChange
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.PunctureChart
+public import Nyll.SchemeTheory.ProjectiveSpace.BaseChange
 
 /-! # Actual affine-chart coordinates of a projective puncture zero -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteDivisorialFiniteQuotientCompatibility
-import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertiaHom
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteDivisorialFiniteQuotientCompatibility
+public import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertiaHom
 
 /-!
 # The same generic Galois map in the place-inertia and finite-cover constructions
@@ -13,6 +15,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertiaHom
 Equality transport removes the redundant identity map of the function field.
 No new geometric base point or conjugating element is selected.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -39,9 +43,10 @@ private theorem fundamentalGroupHom_eqToIso_congr
         (fundamentalGroupHom f x a) =
       fundamentalGroupHom g x a := by
   subst g
+  apply Aut.ext
   apply Iso.ext
-  change 𝟙 _ ≫ (fundamentalGroupHom f x a).hom ≫ 𝟙 _ =
-    (fundamentalGroupHom f x a).hom
+  change 𝟙 _ ≫ (fundamentalGroupHom f x a).asIso.hom ≫ 𝟙 _ =
+    (fundamentalGroupHom f x a).asIso.hom
   simp only [Category.id_comp, Category.comp_id]
 
 private theorem absoluteGaloisToFiberAutMulEquiv_eq_toAut

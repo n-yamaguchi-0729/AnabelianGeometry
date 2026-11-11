@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Group.Subgroup.Ker
-import Mathlib.GroupTheory.DoubleCoset
-import Mathlib.GroupTheory.GroupAction.Basic
+module
+
+public import Mathlib.Algebra.Group.Subgroup.Ker
+public import Mathlib.GroupTheory.DoubleCoset
+public import Mathlib.GroupTheory.GroupAction.Basic
 
 /-!
 # Double cosets for a specified surjective action
@@ -14,6 +16,8 @@ import Mathlib.GroupTheory.GroupAction.Basic
 The representative g is sent to its original action on the chosen point.
 The kernel and stabilizer-image identities supply the exact quotient relation.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -38,7 +42,7 @@ def doubleCosetEquivOfSurjectiveAction
         apply MulAction.mem_stabilizer_iff.mp
         rw [← hI]
         exact ⟨i, hi, rfl⟩
-      simp [map_mul, mul_smul, hn', hi'])
+      simp only [map_mul, hn', one_mul, mul_smul, hi'])
   refine Equiv.ofBijective φ ⟨?_, ?_⟩
   · intro a b
     refine Quotient.inductionOn₂' a b ?_
@@ -53,9 +57,9 @@ def doubleCosetEquivOfSurjectiveAction
       rw [hN, MonoidHom.mem_ker]
       simp only [map_mul, map_inv]
       rw [hρi]
-      simp [map_mul, map_inv]
+      simp only [map_mul, map_inv, mul_inv_rev, inv_inv, mul_inv_cancel_left, mul_inv_cancel]
     exact DoubleCoset.eq.mpr
-      ⟨h * i⁻¹ * g⁻¹, hn, i, hi, by simp [mul_assoc]⟩
+      ⟨h * i⁻¹ * g⁻¹, hn, i, hi, by simp only [mul_assoc, inv_mul_cancel, mul_one]⟩
   · intro x
     obtain ⟨d, hd⟩ := MulAction.exists_smul_eq D w₀ x
     obtain ⟨g, rfl⟩ := hρ d

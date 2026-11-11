@@ -4,13 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.FieldTheory.RatFunc.Basic
-import Mathlib.RingTheory.UniqueFactorizationDomain.Multiplicity
-import Mathlib.Algebra.Polynomial.Degree.Units
-import Mathlib.Algebra.BigOperators.Group.Finset.Basic
-import Mathlib.Tactic
+module
+
+public import Mathlib.FieldTheory.RatFunc.Basic
+public import Mathlib.RingTheory.UniqueFactorizationDomain.Multiplicity
+public import Mathlib.Algebra.Polynomial.Degree.Units
+public import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+public import Mathlib.Tactic
 
 /-! # Rational-function square classes from all finite prime multiplicities -/
+
+@[expose] public section
 
 noncomputable section
 open Polynomial UniqueFactorizationMonoid

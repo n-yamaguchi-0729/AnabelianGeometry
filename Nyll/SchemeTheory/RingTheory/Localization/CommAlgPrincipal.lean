@@ -4,16 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
-import Nyll.SchemeTheory.RingTheory.Localization.AwayAlgebra
-import Nyll.SchemeTheory.RingTheory.Localization.AwayToPrime
-import Nyll.SchemeTheory.RingTheory.Localization.SubalgebraPrime
-import Mathlib.Algebra.Category.CommAlgCat.Basic
-import Mathlib.Algebra.Ring.Hom.Defs
-import Mathlib.RingTheory.Ideal.Maps
-import Mathlib.RingTheory.Localization.AtPrime.Basic
-import Mathlib.RingTheory.Localization.Away.Basic
-import Mathlib.RingTheory.Localization.Defs
+module
+
+public import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
+public import Nyll.SchemeTheory.RingTheory.Localization.AwayAlgebra
+public import Nyll.SchemeTheory.RingTheory.Localization.AwayToPrime
+public import Nyll.SchemeTheory.RingTheory.Localization.SubalgebraPrime
+public import Mathlib.Algebra.Category.CommAlgCat.Basic
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.RingTheory.Ideal.Maps
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
+public import Mathlib.RingTheory.Localization.Away.Basic
+public import Mathlib.RingTheory.Localization.Defs
 
 /-!
 # Actual principal and prime localization objects over a fixed base
@@ -23,6 +25,8 @@ The maps are the already proved native RingHoms. The contracted ideal is
 computed before its membership condition is used, so the public map and
 coefficient equation mention only the computed ideal and objects.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -130,7 +134,7 @@ theorem commAlgPrincipalToPrimeMap_injective {A : Type u} [CommRing A]
 
 /-- A transported divisor becomes a unit in the target principal localization.
 The target localization algebra is used only in this coefficient-ring scope. -/
-private theorem principalCoefficientMap_comp_isUnit_of_dvd
+theorem principalCoefficientMap_comp_isUnit_of_dvd
     {R S : Type v} [CommRing R] [CommRing S]
     (f : R →+* S) (r : R) (s : S) (h : f.toFun r ∣ s) :
     IsUnit (((principalLocalizationCoefficientMap S s).comp f).toFun r) := by

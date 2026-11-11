@@ -4,32 +4,34 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Sites.BaseChange
-import Nyll.EtaleCohomology.Sites.SheafFunctors
-import Nyll.EtaleCohomology.Sites.Stalks
-import Mathlib.Algebra.Category.ModuleCat.AB
-import Mathlib.Algebra.Category.ModuleCat.Colimits
-import Mathlib.Algebra.Category.ModuleCat.FilteredColimits
-import Mathlib.Algebra.Category.ModuleCat.Limits
-import Mathlib.Algebra.Homology.ShortComplex.Basic
-import Mathlib.Algebra.Homology.ShortComplex.ExactFunctor
-import Mathlib.Algebra.Homology.ShortComplex.ShortExact
-import Mathlib.AlgebraicGeometry.Sites.AffineEtale
-import Mathlib.AlgebraicGeometry.Sites.EtalePoint
-import Mathlib.CategoryTheory.Comma.Over.Pullback
-import Mathlib.CategoryTheory.Adjunction.Basic
-import Mathlib.CategoryTheory.Adjunction.Mates
-import Mathlib.CategoryTheory.Category.Cat
-import Mathlib.CategoryTheory.Sites.Point.Basic
-import Mathlib.CategoryTheory.Sites.Point.Comap
-import Mathlib.CategoryTheory.Sites.Point.Category
-import Mathlib.CategoryTheory.Sites.Point.Skyscraper
-import Mathlib.CategoryTheory.Elements
-import Mathlib.CategoryTheory.Functor.Flat
-import Mathlib.CategoryTheory.Limits.Final
-import Mathlib.CategoryTheory.Limits.FinallySmall
-import Mathlib.CategoryTheory.Preadditive.AdditiveFunctor
-import Mathlib.CategoryTheory.Preadditive.Biproducts
+module
+
+public import Nyll.EtaleCohomology.Sites.BaseChange
+public import Nyll.EtaleCohomology.Sites.SheafFunctors
+public import Nyll.EtaleCohomology.Sites.Stalks
+public import Mathlib.Algebra.Category.ModuleCat.AB
+public import Mathlib.Algebra.Category.ModuleCat.Colimits
+public import Mathlib.Algebra.Category.ModuleCat.FilteredColimits
+public import Mathlib.Algebra.Category.ModuleCat.Limits
+public import Mathlib.Algebra.Homology.ShortComplex.Basic
+public import Mathlib.Algebra.Homology.ShortComplex.ExactFunctor
+public import Mathlib.Algebra.Homology.ShortComplex.ShortExact
+public import Mathlib.AlgebraicGeometry.Sites.AffineEtale
+public import Mathlib.AlgebraicGeometry.Sites.EtalePoint
+public import Mathlib.CategoryTheory.Comma.Over.Pullback
+public import Mathlib.CategoryTheory.Adjunction.Basic
+public import Mathlib.CategoryTheory.Adjunction.Mates
+public import Mathlib.CategoryTheory.Category.Cat
+public import Mathlib.CategoryTheory.Sites.Point.Basic
+public import Mathlib.CategoryTheory.Sites.Point.Comap
+public import Mathlib.CategoryTheory.Sites.Point.Category
+public import Mathlib.CategoryTheory.Sites.Point.Skyscraper
+public import Mathlib.CategoryTheory.Elements
+public import Mathlib.CategoryTheory.Functor.Flat
+public import Mathlib.CategoryTheory.Limits.Final
+public import Mathlib.CategoryTheory.Limits.FinallySmall
+public import Mathlib.CategoryTheory.Preadditive.AdditiveFunctor
+public import Mathlib.CategoryTheory.Preadditive.Biproducts
 
 /-!
 # Geometric stalks of inverse image
@@ -44,9 +46,11 @@ Geometric stalks then detect preservation of short exact sequences.
 -/
 
 
+@[expose] public section
+
 noncomputable section
 
-universe u
+universe u vA uA
 
 open AlgebraicGeometry CategoryTheory CategoryTheory.Limits Opposite
 
@@ -89,12 +93,11 @@ def geometricPointComapIso :
     apply GrothendieckTopology.Point.Hom.ext
     exact (geometricFiberBaseChangeIso f s).inv_hom_id
 
-variable (R : Type u) [CommRing R]
-
 /-- The stalk at the comapped geometric point is the stalk at its composite point. -/
-def geometricComapSheafFiberIso :
+def geometricComapSheafFiberIsoOfCoefficients
+    (A : Type uA) [Category.{vA} A] [HasColimitsOfSize.{u, u} A] :
     ((Scheme.pointSmallEtale s).comap (etaleBaseChange f)
-      (etaleBaseChange_coverPreserving f)).sheafFiber (A := ModuleCat.{u} R) ≅
+      (etaleBaseChange_coverPreserving f)).sheafFiber (A := A) ≅
       (Scheme.pointSmallEtale (s ≫ f)).sheafFiber where
   hom := (geometricPointComapIso f s).inv.sheafFiber
   inv := (geometricPointComapIso f s).hom.sheafFiber
@@ -104,6 +107,15 @@ def geometricComapSheafFiberIso :
   inv_hom_id := by
     rw [← GrothendieckTopology.Point.Hom.sheafFiber_comp, Iso.inv_hom_id,
       GrothendieckTopology.Point.Hom.sheafFiber_id]
+
+variable (R : Type u) [CommRing R]
+
+/-- The stalk at the comapped geometric point is the stalk at its composite point. -/
+def geometricComapSheafFiberIso :
+    ((Scheme.pointSmallEtale s).comap (etaleBaseChange f)
+      (etaleBaseChange_coverPreserving f)).sheafFiber (A := ModuleCat.{u} R) ≅
+      (Scheme.pointSmallEtale (s ≫ f)).sheafFiber :=
+  geometricComapSheafFiberIsoOfCoefficients f s (ModuleCat.{u} R)
 
 /-- The geometric stalk of inverse image is the stalk at the composite geometric point. -/
 def etalePullbackStalkIso :

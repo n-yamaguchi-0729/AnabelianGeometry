@@ -10,13 +10,15 @@ The finite-kernel calls are replaced by the existing profinite transitivity
 and quotient-action surjectivity owners, with a separate quotient scope.
 -/
 
-import Mathlib.RingTheory.Invariant.Basic
-import Mathlib.RingTheory.Invariant.Profinite
-import Mathlib.RingTheory.Ideal.Defs
-import Mathlib.RingTheory.Ideal.Over
-import Mathlib.RingTheory.Ideal.Pointwise
-import Mathlib.RingTheory.Ideal.Quotient.Basic
-import Mathlib.Topology.Algebra.MulAction
+module
+
+public import Mathlib.RingTheory.Invariant.Basic
+public import Mathlib.RingTheory.Invariant.Profinite
+public import Mathlib.RingTheory.Ideal.Defs
+public import Mathlib.RingTheory.Ideal.Over
+public import Mathlib.RingTheory.Ideal.Pointwise
+public import Mathlib.RingTheory.Ideal.Quotient.Basic
+public import Mathlib.Topology.Algebra.MulAction
 
 
 /-!
@@ -27,6 +29,8 @@ kernel acting continuously on the discrete ring. The two substantial inputs
 are the existing profinite prime-orbit theorem and the existing surjectivity
 of the quotient stabilizer action. The ring and group maps remain literal.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelFieldAlgebra
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteGaloisRestrictionGroupMap
-import Nyll.SchemeTheory.Normalization.NormalizationAutomorphismGroupMap
-import Nyll.SchemeTheory.Normalization.ScalarRestrictionGroupMap
-import Mathlib.Algebra.Category.Grp.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelFieldAlgebra
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteGaloisRestrictionGroupMap
+public import Nyll.SchemeTheory.Normalization.NormalizationAutomorphismGroupMap
+public import Nyll.SchemeTheory.Normalization.ScalarRestrictionGroupMap
+public import Mathlib.Algebra.Category.Grp.Basic
 
 /-!
 # Galois restriction on finite normalizations
@@ -17,6 +19,8 @@ import Mathlib.Algebra.Category.Grp.Basic
 Constructs the finite Galois action on its normalization and the homomorphism restricting
 ambient Galois automorphisms to those coefficient automorphisms.
 -/
+
+@[expose] public section
 
 noncomputable section
 

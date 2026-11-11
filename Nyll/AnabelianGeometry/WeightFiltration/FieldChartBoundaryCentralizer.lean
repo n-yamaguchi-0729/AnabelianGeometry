@@ -10,12 +10,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
-import Nyll.AlgebraicCurves.Models.FunctionFields.FieldReparametrization
-import Nyll.AlgebraicCurves.Places.Rational.Basic
-import Nyll.AnabelianGeometry.WeightFiltration.GenericPlaceInertiaRingEquiv
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaEmbedding
-import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryInertiaCentralizer
+module
+
+public import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
+public import Nyll.AlgebraicCurves.Models.FunctionFields.FieldReparametrization
+public import Nyll.AlgebraicCurves.Places.Rational.Basic
+public import Nyll.AnabelianGeometry.WeightFiltration.GenericPlaceInertiaRingEquiv
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaEmbedding
+public import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryInertiaCentralizer
+public import Nyll.AlgebraicCurves.Models.Construction.CurveIsIntegral
 
 /-! # The original roots centralizer in a field chart
 
@@ -23,6 +26,8 @@ The same-C constructor is provided by the upstream curve-model owner
 AlgebraicCurves.Models.FieldReparametrization. All inertia comparison uses the
 same ambient field and Q.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve

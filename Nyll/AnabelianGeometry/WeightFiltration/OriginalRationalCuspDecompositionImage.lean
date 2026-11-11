@@ -3,15 +3,19 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.Inertia.RationalGeometricCuspNormalizer
-import Nyll.AnabelianGeometry.WeightFiltration.GenericPlaceInertiaChartImage
-import Nyll.EtaleFundamentalGroups.Inertia.RationalCuspArithmeticDecomposition
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.RationalGeometricCuspNormalizer
+public import Nyll.AnabelianGeometry.WeightFiltration.GenericPlaceInertiaChartImage
+public import Nyll.EtaleFundamentalGroups.Inertia.RationalCuspArithmeticDecomposition
 
 /-! # Actual decomposition data for the original geometric cusp prime
 
 The arithmetic prime is the literal normalization comap of the prescribed
 geometric prime. Both the point square and the original ambient field are kept.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicCurve AlgebraicGeometry CategoryTheory SchemeTheory

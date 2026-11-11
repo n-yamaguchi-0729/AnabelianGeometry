@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Homology.DerivedCategory.Ext.ExactSequences
-import Mathlib.Algebra.Homology.ShortComplex.ShortExact
-import Mathlib.CategoryTheory.Abelian.Basic
+module
+
+public import Mathlib.Algebra.Homology.DerivedCategory.Ext.ExactSequences
+public import Mathlib.Algebra.Homology.ShortComplex.ShortExact
+public import Mathlib.CategoryTheory.Abelian.Basic
 
 /-!
 # Comparing representatives of a degree-one extension class
@@ -17,6 +19,8 @@ constructed using the two Ext exact sequences: first extend the kernel map,
 then correct the induced quotient endomorphism. Thus independence of a chosen
 extension representative does not require an additional comparison assumption.
 -/
+
+@[expose] public section
 
 noncomputable section
 

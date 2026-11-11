@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationResidueMap
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTamePrimitiveRoots
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationAutomorphisms
-import Mathlib.RingTheory.RootsOfUnity.PrimitiveRoots
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationResidueMap
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTamePrimitiveRoots
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationAutomorphisms
+public import Mathlib.RingTheory.RootsOfUnity.PrimitiveRoots
 
 /-!
 # Primitive roots of actual finite tame degrees
@@ -17,6 +19,8 @@ The literal finite normalization supplies a primitive root in its own
 residue field. The existing residue embedding transports it into the
 original ambient residue field.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

@@ -10,22 +10,26 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Algebra.Exact.Basic
-import Mathlib.Algebra.Module.Equiv.Basic
-import Mathlib.Algebra.Module.SnakeLemma
-import Mathlib.Algebra.Module.Submodule.Ker
-import Mathlib.Algebra.Module.Submodule.Range
-import Mathlib.LinearAlgebra.Finsupp.LinearCombination
-import Mathlib.LinearAlgebra.Finsupp.VectorSpace
-import Mathlib.LinearAlgebra.TensorProduct.Map
-import Mathlib.LinearAlgebra.TensorProduct.RightExactness
-import Mathlib.LinearAlgebra.TensorProduct.Tower
-import Mathlib.RingTheory.Flat.Basic
-import Nyll.SchemeTheory.Cohomology.Cech.TwoChartCech
+module
+
+public import Mathlib.Algebra.Exact.Basic
+public import Mathlib.Algebra.Module.Equiv.Basic
+public import Mathlib.Algebra.Module.SnakeLemma
+public import Mathlib.Algebra.Module.Submodule.Ker
+public import Mathlib.Algebra.Module.Submodule.Range
+public import Mathlib.LinearAlgebra.Finsupp.LinearCombination
+public import Mathlib.LinearAlgebra.Finsupp.VectorSpace
+public import Mathlib.LinearAlgebra.TensorProduct.Map
+public import Mathlib.LinearAlgebra.TensorProduct.RightExactness
+public import Mathlib.LinearAlgebra.TensorProduct.Tower
+public import Mathlib.RingTheory.Flat.Basic
+public import Nyll.SchemeTheory.Cohomology.Cech.TwoChartCech
 
 /-!
 # Module Flat flat ker and bijective ker Base Change Hom of forall ker le range
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -212,7 +216,7 @@ theorem _root_.Module.Flat.flat_ker_and_bijective_kerBaseChangeHom_of_forall_ker
   have hbc : ∀ {M M' : Type u} [AddCommGroup M] [Module R M] [AddCommGroup M'] [Module R M']
       (f : M →ₗ[R] M') (A : Type u) [CommRing A] [Algebra R A] (z : A ⊗[R] M),
       f.baseChange A z = f.lTensor A z := fun f A _ _ z =>
-    congrFun (LinearMap.baseChange_eq_ltensor (A := A) (f := f)) z
+    congrFun (LinearMap.baseChange_eq_lTensor (A := A) (f := f)) z
   refine ⟨(hinv 0).1, fun A _ _ => ⟨?_, ?_⟩, fun A _ _ i => ?_⟩
   · refine (injective_iff_map_eq_zero _).mpr fun x hx => ?_
     have hx' : ((LinearMap.ker (d 0)).subtype.baseChange A) x = 0 := by

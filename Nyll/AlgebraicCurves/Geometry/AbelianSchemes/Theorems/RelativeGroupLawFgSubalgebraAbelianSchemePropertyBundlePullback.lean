@@ -10,29 +10,34 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.Geometrically.Connected
-import Mathlib.AlgebraicGeometry.Morphisms.Proper
-import Mathlib.AlgebraicGeometry.Morphisms.Smooth
-import Mathlib.AlgebraicGeometry.Pullbacks
-import Mathlib.AlgebraicGeometry.Fiber
-import Mathlib.CategoryTheory.MorphismProperty.Limits
-import Mathlib.RingTheory.FiniteType
-import Mathlib.Algebra.Algebra.Subalgebra.Tower
-import Mathlib.Topology.Connected.Basic
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.AbelianSchemePropertyBundle
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.BaseChange
-import Nyll.AlgebraicCurves.Geometry.Schemes.Limits.FgSubalgebraPullbackFinitePresentation
-import Nyll.AlgebraicCurves.Geometry.Schemes.Limits.SmoothFgSubalgebraSmoothPullbackSnd
-import Nyll.AlgebraicCurves.Geometry.Schemes.Limits.IsSeparatedFgSubalgebra
-import Nyll.AlgebraicCurves.Geometry.Schemes.Limits.IsProperFgSubalgebraProperPullbackSnd
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyConnectedFgSubalgebra
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawFgSubalgebraRelativeGroupLawPullbackSnd
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.GeometricallyConnectedIdentityComponent
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyConnectedComp
+module
+
+public import Mathlib.AlgebraicGeometry.Geometrically.Connected
+public import Mathlib.AlgebraicGeometry.Morphisms.Proper
+public import Mathlib.AlgebraicGeometry.Morphisms.Smooth
+public import Mathlib.AlgebraicGeometry.Pullbacks
+public import Mathlib.AlgebraicGeometry.Fiber
+public import Mathlib.CategoryTheory.MorphismProperty.Limits
+public import Mathlib.RingTheory.FiniteType
+public import Mathlib.Algebra.Algebra.Subalgebra.Tower
+public import Mathlib.Topology.Connected.Basic
+public import Nyll.AbelianVarieties.Basic
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.BaseChange
+public import Nyll.SchemeTheory.Descent.FgSubalgebraPullbackFinitePresentation
+public import Nyll.SchemeTheory.Descent.SmoothFgSubalgebraSmoothPullbackSnd
+public import Nyll.SchemeTheory.Descent.IsSeparatedFgSubalgebra
+public import Nyll.SchemeTheory.Descent.IsProperFgSubalgebraProperPullbackSnd
+public import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyConnectedFgSubalgebra
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawFgSubalgebraRelativeGroupLawPullbackSnd
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.GeometricallyConnectedIdentityComponent
+public import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyConnectedComp
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
 
 /-!
 # Descending abelian scheme data to a finitely generated base algebra
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.RootsOfUnity.Basic
+module
+
+public import Mathlib.RingTheory.RootsOfUnity.Basic
 
 /-!
 # Transport of root groups along equality of their degrees
@@ -12,6 +14,8 @@ import Mathlib.RingTheory.RootsOfUnity.Basic
 The transport keeps the actual unit. Its scalar computation, inverse, and
 homomorphism structure are built together, before any field tower appears.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

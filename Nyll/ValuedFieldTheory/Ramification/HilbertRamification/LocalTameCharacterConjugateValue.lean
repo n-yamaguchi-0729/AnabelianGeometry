@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.LocalTameCharacterGroupMap
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingTameCharacterProperties
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.LocalTameCharacterGroupMap
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingTameCharacterProperties
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
 
 /-!
 # Conjugation values of the local tame character
@@ -14,6 +16,8 @@ import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityField
 Computes powers of the local tame character on conjugate inertia elements using the root-group
 map induced by the residue-field action.
 -/
+
+@[expose] public section
 
 noncomputable section
 

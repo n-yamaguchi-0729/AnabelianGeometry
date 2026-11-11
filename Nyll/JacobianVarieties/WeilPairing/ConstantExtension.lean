@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.WeilPairing.Divisorial
-import Nyll.JacobianVarieties.Pic0.InjectiveConormConstantExtension
-import Nyll.AlgebraicCurves.Divisors.ConstantExtension.ConstantExtensionEvaluation
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+module
+
+public import Nyll.JacobianVarieties.WeilPairing.Divisorial
+public import Nyll.JacobianVarieties.Pic0.InjectiveConormConstantExtension
+public import Nyll.AlgebraicCurves.Divisors.ConstantExtension.ConstantExtensionEvaluation
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
 
 /-!
 # Divisorial Weil pairing under algebraically closed constant extension
@@ -18,6 +20,8 @@ through the coefficient embedding. Hence the constructed divisorial Weil
 pairings commute with this actual conorm, without an assumed pairing
 comparison.
 -/
+
+@[expose] public section
 
 noncomputable section
 

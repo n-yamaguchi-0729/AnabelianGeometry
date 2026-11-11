@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineBoundary
-import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineRatFuncModel
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineDensity
-import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineBoundary
+public import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineRatFuncModel
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineDensity
+public import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
 
 /-! # The original finite labels are exactly the actual boundary places
 
@@ -17,6 +19,10 @@ boundary cardinality and the three-puncture condition are derived from the
 bare configuration, without a supplied boundary bijection.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 
 open CategoryTheory AlgebraicGeometry AlgebraicCurve TopologicalSpace
@@ -25,7 +31,7 @@ namespace AlgebraicGeometry.ProjSpace
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
-variable (k κ : Type) [Field k] [Field κ] [Algebra k κ]
+variable (k κ : Type u) [Field k] [Field κ] [Algebra k κ]
 
 /-- The place of the actual geometric point of an original puncture label. -/
 def rationalConfigurationBoundaryPlace

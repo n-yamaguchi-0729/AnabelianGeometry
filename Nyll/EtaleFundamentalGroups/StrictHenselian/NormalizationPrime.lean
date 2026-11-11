@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.StrictHenselian.SeparablyClosedFractionHenselian
-import Nyll.SchemeTheory.RingTheory.Localization.Fraction.FieldLocalization
-import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
-import Mathlib.RingTheory.Localization.AtPrime.Basic
-import Mathlib.RingTheory.Localization.Integral
+module
+
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.SeparablyClosedFractionHenselian
+public import Nyll.SchemeTheory.RingTheory.Localization.Fraction.FieldLocalization
+public import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
+public import Mathlib.RingTheory.Localization.Integral
 
 
 /-!
@@ -21,6 +23,8 @@ field through the existing prescribed localization map. The established
 separably closed fraction-field theorem therefore proves strict Henselianity.
 No finite extension, Noetherianity, or separately chosen local model is used.
 -/
+
+@[expose] public section
 
 noncomputable section
 

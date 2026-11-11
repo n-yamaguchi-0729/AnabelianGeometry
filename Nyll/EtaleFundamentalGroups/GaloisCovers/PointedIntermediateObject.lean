@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCategories.PointStabilizerMorphism
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenSubgroupFundamentalGroup
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.PointStabilizerMorphism
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenSubgroupFundamentalGroup
 
 /-!
 # Pointed intermediate covers and their actual deck transformations
@@ -16,6 +18,8 @@ deck transformation lies over this intermediate object exactly when its
 fiber value is represented by an element of the chosen open subgroup.
 This is the geometric comparison needed when choosing a cyclic quotient.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -37,8 +41,8 @@ theorem exists_pointedIntermediateObject
       F.map f x = y ∧
       MulAction.stabilizer (Aut F) y = U.toSubgroup ∧
       ∀ (σ : Aut A) (g : Aut F),
-        F.map σ.hom x = g • x →
-          (σ.hom ≫ f = f ↔ g ∈ U) := by
+        F.map σ.asIso.hom x = g • x →
+          (σ.asIso.hom ≫ f = f ↔ g ∈ U) := by
   obtain ⟨B, hB, y, hy⟩ :=
     exists_connected_object_point_stabilizer_eq_any_universe F U
   have hxy : MulAction.stabilizer (Aut F) x ≤ MulAction.stabilizer (Aut F) y := by
@@ -47,7 +51,7 @@ theorem exists_pointedIntermediateObject
   obtain ⟨f, hf⟩ := exists_hom_of_pointStabilizer_le F A B x y hxy
   refine ⟨B, hB, y, f, hf, hy, ?_⟩
   intro σ g hσ
-  have heval : F.map (σ.hom ≫ f) x = g • y := by
+  have heval : F.map (σ.asIso.hom ≫ f) x = g • y := by
     rw [F.map_comp, FintypeCat.comp_apply, hσ]
     exact (mulAction_naturality F g f x).symm.trans (congrArg (g • ·) hf)
   constructor

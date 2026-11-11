@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.FiniteNormalSource
-import Nyll.SchemeTheory.FunctionFields.GenericFieldSource
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationSourceIso
+module
+
+public import Nyll.SchemeTheory.Normalization.FiniteNormalSource
+public import Nyll.SchemeTheory.FunctionFields.GenericFieldSource
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationSourceIso
 
 /-! # Actual finite normal models from a specified generic field source -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -24,7 +28,8 @@ variable {X Y : Scheme.{u}} [IsIntegral Y] [IsNormalIntegral Y]
   [IsDominant p] [IsPreimmersion p] [QuasiCompact p] [QuasiSeparated p]
 
 omit [IsNormalIntegral Y] [IsFinite f] [QuasiCompact p] [QuasiSeparated p] in
-private theorem genericFieldSourceIso_hom_genericComposite :
+/-- The generic field-source comparison retains the original composite morphism. -/
+theorem genericFieldSourceIso_hom_genericComposite :
     (genericFieldSourceIso p).hom ≫
       (Y.genericExtensionMorphism Y.functionField ≫ f) = p ≫ f := by
   have hid : CommRingCat.ofHom (algebraMap Y.functionField Y.functionField) = 𝟙 _ := rfl

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.Dedekind.Basic
-import Mathlib.FieldTheory.PurelyInseparable.Basic
-import Mathlib.FieldTheory.SeparableDegree
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.Dedekind.Basic
+public import Mathlib.FieldTheory.PurelyInseparable.Basic
+public import Mathlib.FieldTheory.SeparableDegree
 
 /-!
 # Finite inertia cardinality with inseparable residue degree
@@ -15,6 +17,8 @@ The residue extension need not be separable. Its automorphism group has order
 its separable degree. Cancelling this factor from the actual decomposition
 identity gives `|I| = e * f_insep`, which is the cardinal input for Stacks 0BUA.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -12,6 +12,9 @@ import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverSquareBoundary
 import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverInvariants
 import Nyll.AlgebraicCurves.Models.Points.RationalPointExistence
 import Nyll.ProCGroups.FiniteStepSolvableQuotients.SlimnessAndTorsion
+import Nyll.ProCGroups.Abelian.TopologicalAbelianization
+import Nyll.ProCGroups.ProC.Quotients.ClosedNormal
+import Nyll.ProCGroups.Topologies.TopologicallyCharacteristicSubgroups
 
 /-!
 # Torsion-freeness of actual open-curve fundamental groups

@@ -4,10 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.ProjectiveSpace.PunctureForms
-import Mathlib.Tactic.FinCases
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.PunctureForms
+public import Mathlib.Tactic.FinCases
 
 /-! # A projective puncture zero lies in a nonvanishing coordinate chart -/
+
+@[expose] public section
 
 noncomputable section
 

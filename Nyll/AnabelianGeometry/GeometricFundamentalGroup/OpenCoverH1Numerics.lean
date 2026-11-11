@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenCurveH1Deck
-import Nyll.EtaleFundamentalGroups.GaloisCovers.FunctionFieldAutomorphisms
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverDegree
-import Mathlib.AlgebraicGeometry.Morphisms.IsIso
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenCurveH1Deck
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.FunctionFieldAutomorphisms
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverDegree
+public import Mathlib.AlgebraicGeometry.Morphisms.IsIso
 
 /-! # The actual H¹ exponent of a finite cover of a punctured curve
 
@@ -16,6 +18,10 @@ expresses its finite-coefficient H¹ exponent in terms of its actual fibre
 degree. In particular, the exponent uses the open curve's Euler
 characteristic, rather than that of a hypothetical proper cover.
 -/
+
+@[expose] public section
+
+universe uGeom uField₁ uField₂
 
 noncomputable section
 
@@ -32,8 +38,8 @@ attribute [local instance] CurveModel.isIntegral CurveModel.isProper CurveModel.
 points is an isomorphism. The generic point already belongs to every
 nonempty open, so it supplies no additional boundary point. -/
 theorem isIso_of_openBoundary_card_eq_zero
-    {K F : Type} [Field K] [Field F] [Algebra K F]
-    (M : CurveModel K F) {X : Scheme} [Nonempty X]
+    {K : Type uGeom} {F : Type uField₁} [Field K] [Field F] [Algebra K F]
+    (M : CurveModel K F) {X : Scheme.{uGeom}} [Nonempty X]
     (j : X ⟶ M.C) [IsOpenImmersion j]
     (hzero : Nat.card (M.openBoundaryPlaces j) = 0) : IsIso j := by
   classical
@@ -63,25 +69,25 @@ theorem isIso_of_openBoundary_card_eq_zero
 nonproper smooth curve is n^q, where q - 1 is its fibre degree times
 2g + r - 2. The compactification and its boundary are constructed internally. -/
 theorem exists_openCover_finiteH1_exponent
-    {K F : Type} [Field K] [IsAlgClosed K] [CharZero K]
+    {K : Type uGeom} {F : Type uField₁} [Field K] [IsAlgClosed K] [CharZero K]
     [Field F] [Algebra K F]
-    (M : CurveModel K F) {X : Scheme}
+    (M : CurveModel K F) {X : Scheme.{uGeom}}
     [IsIntegral X] [IsNormalIntegral X] [IsLocallyNoetherian X] [CompactSpace X]
     (j : X ⟶ M.C) [IsOpenImmersion j] [QuasiCompact j] [QuasiSeparated j]
     (hboundary : (M.openBoundaryPlaces j).Nonempty)
     (W : FiniteEtale X) [IsGalois W]
-    (n : ℕ+) {Ω : Type} [Field Ω] [IsSepClosed Ω]
+    (n : ℕ+) {Ω : Type uGeom} [Field Ω] [IsSepClosed Ω]
     (xi : Spec (.of Ω) ⟶ X) (geom : Spec (.of Ω) ⟶ W.left)
     (hgeom : geom ≫ W.hom = xi) :
     ∃ q : ℕ,
-      Nat.card (Sheaf.H.{0}
-        ((constantSheaf W.left.smallEtaleTopology AddCommGrpCat.{0}).obj
+      Nat.card (Sheaf.H.{uGeom}
+        ((constantSheaf W.left.smallEtaleTopology AddCommGrpCat.{uGeom}).obj
           (AddCommGrpCat.of (Additive (rootsOfUnity (n : ℕ) K)))) 1) = (n : ℕ) ^ q ∧
       (q : ℤ) - 1 = (Nat.card ((fiber xi).obj W) : ℤ) *
         (2 * (genusFF K F : ℤ) + Nat.card (M.openBoundaryPlaces j) - 2) := by
   classical
   have : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
-  have : IsIntegral ((Functor.id Scheme).obj W.left) :=
+  have : IsIntegral ((Functor.id Scheme.{uGeom}).obj W.left) :=
     inferInstanceAs (IsIntegral W.left)
   have : IsIntegral ((Functor.fromPUnit X).obj W.right) :=
     inferInstanceAs (IsIntegral X)

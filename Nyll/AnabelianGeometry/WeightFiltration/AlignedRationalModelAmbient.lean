@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.AlignedConstantGenericAmbient
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralBaseTransport
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.AlignedConstantGenericAmbient
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralBaseTransport
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
 
 /-! # A rational model retaining the original aligned generic point
 
@@ -17,6 +19,8 @@ ambient field. The canonical arithmetic point of the rational configuration
 is exactly the image of the native finite-cover point, not merely an unrelated
 point connected by an unspecified path.
 -/
+
+@[expose] public section
 
 noncomputable section
 

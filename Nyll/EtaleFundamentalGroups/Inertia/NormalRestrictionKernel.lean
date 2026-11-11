@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.FieldTheory.Normal.Basic
+module
+
+public import Mathlib.FieldTheory.Normal.Basic
 
 /-!
 # The exact field subgroup of a normal restriction kernel
@@ -12,6 +14,8 @@ import Mathlib.FieldTheory.Normal.Basic
 Restriction to the prescribed normal field has kernel equal to the image
 of its absolute automorphisms under restriction of scalars.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

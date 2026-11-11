@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.NativeNormalizationRingMap
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.Algebra.Algebra.Subalgebra.Basic
-import Mathlib.Algebra.Ring.Hom.Defs
+module
+
+public import Nyll.SchemeTheory.Normalization.NativeNormalizationRingMap
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.Algebra.Algebra.Subalgebra.Basic
+public import Mathlib.Algebra.Ring.Hom.Defs
 
 /-!
 # Maps in subalgebra normalization towers
@@ -15,6 +17,8 @@ import Mathlib.Algebra.Ring.Hom.Defs
 Constructs the ring map between normalizations of nested subalgebras. It proves compatibility
 with the ambient inclusion and injectivity of the tower map.
 -/
+
+@[expose] public section
 
 noncomputable section
 

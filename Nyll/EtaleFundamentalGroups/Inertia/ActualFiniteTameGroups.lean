@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
-import Mathlib.Algebra.Category.Grp.Basic
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
+public import Mathlib.Algebra.Category.Grp.Basic
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
 
 /-!
 # Inertia and tame roots at finite stages
@@ -16,6 +18,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
 Defines the intrinsic finite normalization inertia group and the full residue-root group of its
 tame degree.
 -/
+
+@[expose] public section
 
 noncomputable section
 

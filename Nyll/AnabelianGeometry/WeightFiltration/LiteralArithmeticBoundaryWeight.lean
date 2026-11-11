@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.IntrinsicBoundaryWeight
-import Nyll.AlgebraicCurves.Models.Construction.LiteralArithmeticCurveModel
-import Nyll.AlgebraicCurves.Geometry.Picard.Representability.Existence
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.CoefficientPullback
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
-import Nyll.SchemeTheory.FunctionFields.OpenImmersion
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.IntrinsicBoundaryWeight
+public import Nyll.AlgebraicCurves.Models.Construction.LiteralArithmeticCurveModel
+public import Nyll.AlgebraicCurves.Geometry.Picard.Representability.Existence
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.CoefficientPullback
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
+public import Nyll.SchemeTheory.FunctionFields.OpenImmersion
 
 /-!
 # Applying the existing weight theorem to the literal arithmetic curve
@@ -19,6 +21,8 @@ constructed here. The input is the actual arithmetic compactification and
 its section. The geometric open, its function-field embedding into the
 original Omega and its generic point are unchanged.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -45,7 +49,7 @@ private theorem coefficientModelMap_isOpenImmersion
 /-- The existing intrinsic weight theorem, with all its auxiliary geometry
 supplied by the actual arithmetic curve and its literal compactification. -/
 theorem literalArithmetic_compactification_kernel_eq_openCyclotomicSpan
-    (E kappa : Type) [Field E] [NumberField E]
+    (E kappa : Type) [Field E] [CharZero E] [Field.FG E]
     [Field kappa] [CharZero kappa] [IsAlgClosed kappa]
     [Algebra E kappa] [IsSepClosure E kappa]
     {C U : Scheme} [CompactSpace U] [QuasiSeparatedSpace U]

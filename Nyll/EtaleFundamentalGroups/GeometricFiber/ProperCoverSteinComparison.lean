@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperNormalization
-import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricallyConnectedSectionDescent
-import Nyll.SchemeTheory.Morphisms.FiniteEtaleGeometricallyReduced
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Geometry
-import Mathlib.AlgebraicGeometry.Morphisms.IsIso
-import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperNormalization
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricallyConnectedSectionDescent
+public import Nyll.SchemeTheory.Morphisms.FiniteEtaleGeometricallyReduced
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Geometry
+public import Mathlib.AlgebraicGeometry.Morphisms.IsIso
+public import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
 
 /-!
 # A connected finite etale cover with a fibre section
@@ -19,6 +21,8 @@ cover with the pullback of its native Stein factor. The section determines
 a point of the Stein factor by actual section descent. The connected Stein
 fibre over that point makes the comparison have degree one.
 -/
+
+@[expose] public section
 
 noncomputable section
 

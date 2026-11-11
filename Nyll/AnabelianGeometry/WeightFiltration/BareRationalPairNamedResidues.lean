@@ -3,10 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationPunctureEquiv
-import Nyll.JacobianVarieties.Kummer.RationalConfigurationPairKummerUnits
-import Nyll.AnabelianGeometry.WeightFiltration.NamedKummerFiniteResidue
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationPunctureEquiv
+public import Nyll.JacobianVarieties.Kummer.RationalConfigurationPairKummerUnits
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedKummerFiniteResidue
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
 
 /-! # Actual named residues with the same reconstructed geometric equivalence
 
@@ -16,6 +18,8 @@ one pair of functions over the original k then supplies every exponent.
 The finite residues are those of the actual named Kummer classes at the same
 ambient generic points. No residue, function, or inertia-preservation premise is added.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve AlgebraicGeometry.FiniteEtale
@@ -76,7 +80,7 @@ theorem rationalConfigurationNamedResidue_eq
     ((rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω) w
 
 theorem bare_rationalConfiguration_pair_namedResidues
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]

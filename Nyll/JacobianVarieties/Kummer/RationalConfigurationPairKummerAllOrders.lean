@@ -4,9 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.RationalConfigurationArithmeticPairKummerUnits
+module
+
+public import Nyll.JacobianVarieties.Kummer.RationalConfigurationArithmeticPairKummerUnits
 
 /-! # Keeping all orders of the same arithmetic pair function -/
+@[expose] public section
+
 noncomputable section
 attribute [local instance] Classical.propDecidable
 open AlgebraicGeometry AlgebraicCurve

@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueCoefficient
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeMaximalResidue
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueCoefficient
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeMaximalResidue
 
 /-!
 # Coefficients of the native residue ring action
@@ -13,6 +15,8 @@ import Nyll.SchemeTheory.RingTheory.Ramification.NativeMaximalResidue
 Forgetting coefficient linearity is a homomorphism. Transport through the
 fixed maximal-quotient equivalence preserves the literal coefficient equation.
 -/
+
+@[expose] public section
 
 noncomputable section
 

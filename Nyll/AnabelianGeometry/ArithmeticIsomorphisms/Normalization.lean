@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
 import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.Basic
+import Nyll.ProCGroups.Topologies.ArithmeticInnerCorrectionFiberTransport
 
 /-! # Independence of the lift used for arithmetic normalization
 

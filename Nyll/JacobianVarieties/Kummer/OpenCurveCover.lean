@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenLocalUnits
-import Nyll.AlgebraicCurves.Geometry.Schemes.Kummer.FiniteEtaleFromNormalizationKummer
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
-import Mathlib.Topology.Compactness.Compact
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenLocalUnits
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Kummer.FiniteEtaleFromNormalizationKummer
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+public import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
+public import Mathlib.Topology.Compactness.Compact
 
 /-!
 # Actual Kummer covers of open curves
@@ -17,6 +19,8 @@ The normalization construction is applied to the actual open curve, using
 local unit equations proved from its interior valuation orders. The cover
 is not required to extend étale across the removed boundary.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,11 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.KernelTorsorIsom
-import Nyll.EtaleFundamentalGroups.Cohomology.SemilinearTorsorDescent
-import Nyll.GaloisCohomology.Kummer.Concrete.ContinuousKummerScalar
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticExactSequence
-import Mathlib.Topology.Separation.Hausdorff
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.KernelTorsorIsom
+public import Nyll.EtaleFundamentalGroups.Cohomology.SemilinearTorsorDescent
+public import Nyll.GaloisCohomology.Kummer.Concrete.ContinuousKummerScalar
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticExactSequence
+public import Mathlib.Topology.Separation.Hausdorff
+public import Nyll.GaloisCohomology.Kummer.Concrete.RootCharacters
 
 /-! # Scalar radical from an actual arithmetic kernel-torsor isomorphism
 
@@ -17,6 +20,8 @@ actual geometric isomorphism torsor. Its displacement descends through the
 arithmetic exact sequence, and continuous Hilbert 90 supplies a base scalar.
 The pointwise conclusion retains the original conjugation displacement.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory CategoryTheory.PreGaloisCategory

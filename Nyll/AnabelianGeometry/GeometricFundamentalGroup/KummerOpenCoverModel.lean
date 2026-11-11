@@ -4,18 +4,21 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.Extensions.FiniteSimpleExtensions
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveSeparatingTranscendental
-import Nyll.JacobianVarieties.Kummer.OpenCurveCover
-import Nyll.EtaleFundamentalGroups.Normalization.OpenNormalizationFiniteModel
-import Nyll.AlgebraicCurves.Models.FunctionFields.FiniteFlatHomAlgHom
-import Nyll.AlgebraicCurves.Models.Construction.BasicPerfectField
-import Nyll.AlgebraicCurves.Models.Construction.CurveIsIntegral
-import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
-import Nyll.SchemeTheory.FunctionFields.OpenChartGenericPoints
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
-import Mathlib.RingTheory.AdjoinRoot
-import Mathlib.AlgebraicGeometry.Noetherian
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Extensions.FiniteSimpleExtensions
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveSeparatingTranscendental
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCover
+public import Nyll.EtaleFundamentalGroups.Normalization.OpenNormalizationFiniteModel
+public import Nyll.AlgebraicCurves.Models.FunctionFields.FiniteFlatHomAlgHom
+public import Nyll.AlgebraicCurves.Models.Construction.BasicPerfectField
+public import Nyll.AlgebraicCurves.Models.Construction.CurveIsIntegral
+public import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
+public import Nyll.SchemeTheory.FunctionFields.OpenChartGenericPoints
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
+public import Mathlib.RingTheory.AdjoinRoot
+public import Mathlib.AlgebraicGeometry.Noetherian
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationSourceIso
 
 /-! # The actual proper model of an irreducible open Kummer cover
 
@@ -23,6 +26,8 @@ The normalized cover and its proper compactification use the same root field.
 The polynomial's irreducibility supplies the field, while the interior-order
 condition defining openKummerUnits supplies étaleness on the original open.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -32,11 +37,6 @@ open scoped Polynomial
 namespace AnabelianGeometry.GeometricFundamentalGroup
 
 attribute [local instance] CurveModel.isIntegral CurveModel.isProper CurveModel.smooth
-
-private local instance fieldSpecQuasiCompact
-    {L : Type} [Field L] {S : Scheme} (g : Spec (.of L) ⟶ S) :
-    QuasiCompact g where
-  isCompact_preimage U _ _ := (Set.toFinite (g ⁻¹' U)).isCompact
 
 /-- The actual irreducible root field gives a finite map of proper models
 whose restriction is the original finite étale Kummer cover. -/

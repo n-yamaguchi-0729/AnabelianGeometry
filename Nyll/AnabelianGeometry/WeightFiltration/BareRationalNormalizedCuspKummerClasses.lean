@@ -3,7 +3,9 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalArithmeticCuspKummerClasses
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalArithmeticCuspKummerClasses
 
 /-! # Cancelling the same cusp scalar by one reference cusp
 
@@ -11,6 +13,8 @@ The arithmetic class caller is invoked once. Its exponent, coefficient units,
 scalar radical and all cusp equations are retained. Dividing two equations
 cancels the same scalar; it never assigns a new scalar to the reference cusp.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve
 open AlgebraicGeometry.FiniteEtale AlgebraicGeometry.ProjSpace
@@ -22,7 +26,7 @@ attribute [local instance] Classical.propDecidable
 /-- Normalized values of the same pair functions have the same Kummer class,
 up to the two common invertible coefficient powers. -/
 theorem rationalConfiguration_scalarRoots_normalized_cusp_classes
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]

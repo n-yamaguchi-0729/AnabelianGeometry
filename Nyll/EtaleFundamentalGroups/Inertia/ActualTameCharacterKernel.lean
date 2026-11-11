@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacterKernelEvaluation
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacter
-import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationWildSubgroup
-import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationWildCharacter
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.Algebra.Group.Subgroup.Ker
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacterKernelEvaluation
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacter
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationWildSubgroup
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationWildCharacter
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.Algebra.Group.Subgroup.Ker
 
 /-!
 # The SAME canonical global tame character has the independent wild kernel
@@ -17,6 +19,8 @@ import Mathlib.Algebra.Group.Subgroup.Ker
 Both sides are evaluated through their already proved actual finite
 coordinates. No kernel or comparison assertion is an input.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

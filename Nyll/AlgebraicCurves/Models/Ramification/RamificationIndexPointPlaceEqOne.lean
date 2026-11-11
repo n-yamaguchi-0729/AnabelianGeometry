@@ -10,16 +10,20 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.Morphisms.UniversallyOpen
-import Mathlib.AlgebraicGeometry.Morphisms.FormallyUnramified
-import Mathlib.RingTheory.Unramified.LocalRing
-import Nyll.AlgebraicCurves.Models.Construction.Basic
-import Nyll.AlgebraicCurves.Divisors.Correspondences.Correspondences
-import Nyll.AlgebraicCurves.Places.Ramification.LocalUnramifiedRamification
+module
+
+public import Mathlib.AlgebraicGeometry.Morphisms.UniversallyOpen
+public import Mathlib.AlgebraicGeometry.Morphisms.FormallyUnramified
+public import Mathlib.RingTheory.Unramified.LocalRing
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
+public import Nyll.AlgebraicCurves.Divisors.Correspondences.Correspondences
+public import Nyll.AlgebraicCurves.Places.Ramification.LocalUnramifiedRamification
 
 /-!
 # Curve Model ramification Index Along point Equiv Place eq one of formally Unramified
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -139,7 +143,7 @@ namespace AlgebraicCurve
 
 noncomputable section
 
-universe u
+universe u v w
 
 open _root_.CategoryTheory _root_.CategoryTheory.Limits _root_.AlgebraicGeometry
 open _root_.AlgebraicCurve _root_.Topology
@@ -149,7 +153,7 @@ open CurveModel_ramificationIndexAlong_pointEquivPlace_eq_one_of_formallyUnramif
 open E1bSol in
 theorem CurveModel.ramificationIndexAlong_pointEquivPlace_eq_one_of_formallyUnramified
     {K : Type u} [Field K] [IsAlgClosed K]
-    {L : Type u} [Field L] [Algebra K L] {L' : Type u} [Field L'] [Algebra K L']
+    {L : Type v} [Field L] [Algebra K L] {L' : Type w} [Field L'] [Algebra K L']
     (M : CurveModel K L) (M' : CurveModel K L')
     (φ : L' →ₐ[K] L) (hφ : φ.toRingHom.IsIntegral)
     (πM : M.C ⟶ M'.C) (hπM : πM ≫ M'.toBase = M.toBase)

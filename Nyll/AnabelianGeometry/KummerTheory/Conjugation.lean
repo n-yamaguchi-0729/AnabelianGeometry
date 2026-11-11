@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.KummerTheory.RootCocycle
-import Mathlib.Tactic.Ring
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.RootCocycle
+public import Mathlib.Tactic.Ring
 
 /-!
 # Cyclotomic conjugation of radical automorphisms
@@ -15,6 +17,8 @@ Only the automorphism being conjugated is required to fix those roots;
 the conjugating automorphism may act nontrivially on them. This is the
 finite-level Kummer calculation behind the cyclotomic action on inertia.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.KummerTheory
 

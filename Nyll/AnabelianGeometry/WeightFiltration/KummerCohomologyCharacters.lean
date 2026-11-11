@@ -4,10 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.CurveCoverCharacter
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverCharacter
+module
+
+public import Nyll.AlgebraicCurves.Models.Kummer.CurveCoverCharacter
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverCharacter
 
 /-! # Characters of the actual proper and open Kummer cohomology classes -/
+
+@[expose] public section
+
+universe u v
 
 noncomputable section
 
@@ -16,9 +22,9 @@ open EtaleFundamentalGroups.Cohomology
 
 namespace AnabelianGeometry.WeightFiltration
 
-variable {K F : Type} [Field K] [IsSepClosed K] [Field F] [Algebra K F]
+variable {K : Type u} {F : Type v} [Field K] [IsSepClosed K] [Field F] [Algebra K F]
   (M : CurveModel K F) (n : ℕ+) (hn : IsUnit ((n : ℕ) : K))
-  {Ω : Type} [Field Ω] [IsSepClosed Ω]
+  {Ω : Type u} [Field Ω] [IsSepClosed Ω]
 
 /-- The comparison character of the proper Kummer class is the original
 root-scaling monodromy character. -/
@@ -43,7 +49,7 @@ theorem h1Character_properKummer (u : Pic0.kummerUnits K F n)
 root-scaling monodromy character on the open curve. -/
 theorem h1Character_openKummer (S : Set (Place K F))
     (u : Pic0.openKummerUnits K F S n)
-    {X : Scheme} [IsIntegral X] [CompactSpace X]
+    {X : Scheme.{u}} [IsIntegral X] [CompactSpace X]
     (j : X ⟶ M.C) [IsOpenImmersion j] (hj : DenseRange j)
     (hinterior : ∀ (y : X) (x : closedPoints M.C),
       x.val = j y → M.placeOfPoint x ∉ S)

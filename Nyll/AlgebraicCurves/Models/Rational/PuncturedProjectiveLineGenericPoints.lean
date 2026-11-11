@@ -3,10 +3,13 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.SchemeTheory.FunctionFields.OpenChartGenericPoints
-import Nyll.AlgebraicCurves.Models.Charts.OpenChartGenericPoints
-import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLineRatFuncBaseChange
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
+module
+
+public import Nyll.SchemeTheory.FunctionFields.OpenChartGenericPoints
+public import Nyll.AlgebraicCurves.Models.Charts.OpenChartGenericPoints
+public import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLineRatFuncBaseChange
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
 
 /-! # The actual arithmetic and geometric generic points of punctured P1
 
@@ -16,47 +19,24 @@ are constructed from the actual function-field coordinates. No point equality
 or new field-map naturality equation is an input.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve TopologicalSpace
 open scoped RatFunc
 
 namespace AlgebraicGeometry.ProjSpace
 
-attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
+attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra projectiveSpace_isIntegral
 
 local instance (priority := 2000) genericPointsSMulRatFunc
     {A E : Type*} [CommSemiring A] [Field E]
     [Algebra A (RatFunc E)] : SMul A (RatFunc E) :=
   (inferInstance : Algebra A (RatFunc E)).toSMul
 
-local instance genericPoints_projectiveLine_integral (F : Type) [Field F] :
-    IsIntegral (projectiveLineScheme F) := projectiveSpace_isIntegral F 1
-
-local instance genericPoints_configurationOpen_nonempty (k : Type) [Field k] [Infinite k]
-    (s : Finset (Projectivization k (k × k))) :
-    Nonempty (rationalConfigurationOpen s : Scheme) :=
-  rationalConfigurationOpen_nonempty k s
-
-local instance genericPoints_configurationOpen_integral (k : Type) [Field k] [Infinite k]
-    (s : Finset (Projectivization k (k × k))) :
-    IsIntegral (rationalConfigurationOpen s : Scheme) :=
-  isIntegral_of_isOpenImmersion (rationalConfigurationOpen s).ι
-
-local instance genericPoints_configurationBaseChange_nonempty (k κ : Type)
-    [Field k] [Field κ] [Algebra k κ] [Infinite k]
-    (s : Finset (Projectivization k (k × k))) :
-    Nonempty (Limits.pullback (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
-      ((rationalConfigurationOpen s).ι ≫ π k 1) : Scheme) :=
-  rationalConfigurationBaseChange_nonempty k κ s
-
-local instance genericPoints_configurationBaseChange_integral (k κ : Type)
-    [Field k] [Field κ] [Algebra k κ] [Infinite k]
-    (s : Finset (Projectivization k (k × k))) :
-    IsIntegral (Limits.pullback (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
-      ((rationalConfigurationOpen s).ι ≫ π k 1) : Scheme) :=
-  isIntegral_of_isOpenImmersion (rationalConfigurationBaseChangeChart k κ s)
-
-variable (k κ : Type) [Field k] [Field κ] [Algebra k κ] [Infinite k]
+variable (k κ : Type u) [Field k] [Field κ] [Algebra k κ]
 
 /-- The arithmetic coordinate of the actual finite-configuration open. -/
 def rationalConfigurationArithmeticFunctionFieldEquiv
@@ -106,7 +86,7 @@ theorem rationalConfigurationGeometricFunctionFieldEquiv_hfield
 constructed by transport through the actual open-chart coordinate. -/
 theorem rationalConfigurationGenericPoint_hchartpoint
     (s : Finset (Projectivization k (k × k)))
-    {Ω : Type} [Field Ω]
+    {Ω : Type u} [Field Ω]
     [Algebra (Limits.pullback (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
       ((rationalConfigurationOpen s).ι ≫ π k 1) : Scheme).functionField Ω] :
     let U := (Limits.pullback (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
@@ -125,7 +105,7 @@ theorem rationalConfigurationGenericPoint_hchartpoint
 algebras, retaining only the same hfield used by the recognition theorem. -/
 theorem rationalConfigurationGenericPoint_hchartpoint_of_hfield
     (s : Finset (Projectivization k (k × k)))
-    {Ω : Type} [Field Ω]
+    {Ω : Type u} [Field Ω]
     [Algebra (RatFunc κ)
       (Limits.pullback (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
         ((rationalConfigurationOpen s).ι ≫ π k 1) : Scheme).functionField]
@@ -154,7 +134,7 @@ theorem rationalConfigurationGenericPoint_hchartpoint_of_hfield
 and the actual base-changed open square. -/
 theorem rationalConfigurationGenericPoint_hpoint
     (s : Finset (Projectivization k (k × k)))
-    {Ω : Type} [Field Ω] [Algebra (RatFunc κ) Ω] [Algebra (RatFunc k) Ω]
+    {Ω : Type u} [Field Ω] [Algebra (RatFunc κ) Ω] [Algebra (RatFunc k) Ω]
     [IsScalarTower (RatFunc k) (RatFunc κ) Ω] :
     (Spec.map (CommRingCat.ofHom (algebraMap (RatFunc κ) Ω)) ≫
         rationalConfigurationGeometricGenericPoint k κ s) ≫
@@ -184,7 +164,7 @@ theorem rationalConfigurationGenericPoint_hpoint
 coefficient compatibility. -/
 theorem rationalConfigurationGenericPoint_hbasearith
     (s : Finset (Projectivization k (k × k)))
-    {Ω : Type} [Field Ω] [Algebra (RatFunc k) Ω] [Algebra k Ω]
+    {Ω : Type u} [Field Ω] [Algebra (RatFunc k) Ω] [Algebra k Ω]
     [IsScalarTower k (RatFunc k) Ω] :
     (Spec.map (CommRingCat.ofHom (algebraMap (RatFunc k) Ω)) ≫
         rationalConfigurationArithmeticGenericPoint k s) ≫

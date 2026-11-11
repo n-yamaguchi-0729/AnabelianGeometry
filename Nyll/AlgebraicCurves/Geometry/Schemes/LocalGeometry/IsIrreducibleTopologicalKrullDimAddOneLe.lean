@@ -10,11 +10,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Topology.KrullDimension
+module
+
+public import Mathlib.Topology.KrullDimension
 
 /-!
 # Is Irreducible topological Krull Dim add one le of is Closed of ne
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

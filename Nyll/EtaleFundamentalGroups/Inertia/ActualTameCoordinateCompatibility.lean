@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinate
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameValueTower
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinate
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameValueTower
 
 /-!
 # Compatibility over the actual tame-degree set
@@ -14,6 +16,8 @@ An arbitrary divisibility relation between actual tame degrees need not come
 from an inclusion of the selected finite stages. A common upper finite
 Galois stage proves the required power equation without such an assumption.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

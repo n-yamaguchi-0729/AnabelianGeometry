@@ -3,11 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.SchemeTheory.ProjectiveSpace.MatchTriplesSchemeIso
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineBaseChange
-import Nyll.AnabelianGeometry.ProjectiveLine.SchemeOpenRestriction
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.MatchTriplesSchemeIso
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineBaseChange
+public import Nyll.AnabelianGeometry.ProjectiveLine.SchemeOpenRestriction
 
 /-! # Rational Configuration Match Iso -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicGeometry.ProjSpace

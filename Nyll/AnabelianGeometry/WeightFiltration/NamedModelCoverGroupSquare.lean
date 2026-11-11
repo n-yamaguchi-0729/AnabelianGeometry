@@ -3,9 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.GeometricFiber.MatchedFiberArithmeticCoverTransport
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
-import Nyll.ProCGroups.Topologies.ContinuousMulEquiv
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.MatchedFiberArithmeticCoverTransport
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedBaseIsomorphism
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+public import Nyll.ProCGroups.Topologies.ContinuousMulEquiv
 
 /-! # Actual named-model covering-group square at the original matched points
 
@@ -17,6 +20,8 @@ The named scheme isomorphisms and their actual cover-projection equations are
 outputs of NamedRationalSquareCoverConfiguration. No projective equivalence
 between the two different configurations is assumed or constructed here.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory CategoryTheory.PreGaloisCategory
 open scoped FintypeCatDiscrete
@@ -29,41 +34,6 @@ universe u
 local instance namedModel_connectedSpace_left
     {B : Scheme.{u}} [ConnectedSpace B] (A : FiniteEtale B) [IsConnected A] :
     ConnectedSpace A.left := connectedSpace_left_of_isConnected A
-
-/-- An isomorphism from a connected scheme gives the explicit pointed group
- equivalence; its inverse uses the same geometric points and inverse morphism. -/
-def namedModelPointedGroupEquiv
-    {X Y : Scheme.{u}} [ConnectedSpace X]
-    {Ω : Type u} [Field Ω] [IsSepClosed Ω]
-    (J : X ≅ Y) (x : Spec (.of Ω) ⟶ X) (y : Spec (.of Ω) ⟶ Y)
-    (h : x ≫ J.hom = y) : π₁ᵉᵗ(x) ≃ₜ* π₁ᵉᵗ(y) := by
-  let : ConnectedSpace Y := J.hom.homeomorph.connectedSpace_iff.mp
-    (inferInstance : ConnectedSpace X)
-  have hback : y ≫ J.inv = x := by
-    rw [← h, Category.assoc, Iso.hom_inv_id, Category.comp_id]
-  let f := pointedFundamentalGroupHom J.hom x y h
-  let g := pointedFundamentalGroupHom J.inv y x hback
-  have hleft : g.comp f = ContinuousMonoidHom.id π₁ᵉᵗ(x) := by
-    change (pointedFundamentalGroupHom J.inv y x hback).comp
-      (pointedFundamentalGroupHom J.hom x y h) = _
-    rw [pointedFundamentalGroupHom_comp]
-    simpa only [Iso.hom_inv_id] using pointedFundamentalGroupHom_id x
-  have hright : f.comp g = ContinuousMonoidHom.id π₁ᵉᵗ(y) := by
-    change (pointedFundamentalGroupHom J.hom x y h).comp
-      (pointedFundamentalGroupHom J.inv y x hback) = _
-    rw [pointedFundamentalGroupHom_comp]
-    simpa only [Iso.inv_hom_id] using pointedFundamentalGroupHom_id y
-  exact ProCGroups.ContinuousMulEquiv.ofHomInv f g
-    (fun z => DFunLike.congr_fun hleft z)
-    (fun z => DFunLike.congr_fun hright z)
-
-@[simp] theorem namedModelPointedGroupEquiv_apply
-    {X Y : Scheme.{u}} [ConnectedSpace X]
-    {Ω : Type u} [Field Ω] [IsSepClosed Ω]
-    (J : X ≅ Y) (x : Spec (.of Ω) ⟶ X) (y : Spec (.of Ω) ⟶ Y)
-    (h : x ≫ J.hom = y) (g : π₁ᵉᵗ(x)) :
-    namedModelPointedGroupEquiv J x y h g =
-      pointedFundamentalGroupHom J.hom x y h g := rfl
 
 /-- The named-model point is the image of the original selected cover point. -/
 def namedModelPoint

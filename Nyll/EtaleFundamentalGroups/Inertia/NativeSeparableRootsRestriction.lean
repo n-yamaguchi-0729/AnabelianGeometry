@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.NativeSeparableRoots
-import Nyll.ProCGroups.InverseSystems.CofinalGroups
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeSeparableRoots
+public import Nyll.ProCGroups.InverseSystems.CofinalGroups
 
 /-!
 # Separable roots compared with a cofinal set of actual degrees
@@ -13,6 +15,8 @@ import Nyll.ProCGroups.InverseSystems.CofinalGroups
 The two constructed equivalences are composed only after the coefficient
 field and cofinal restriction owners have proved their own coordinate laws.
 -/
+
+@[expose] public section
 
 noncomputable section
 

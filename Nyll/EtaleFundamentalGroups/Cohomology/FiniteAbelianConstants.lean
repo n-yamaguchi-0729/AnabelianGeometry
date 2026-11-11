@@ -4,12 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteAbelianStalk
-import Nyll.EtaleFundamentalGroups.Cohomology.ConstantStalk
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteLocallyConstantDetection
-import Nyll.EtaleFundamentalGroups.Cohomology.LocalTrivialization
-import Mathlib.CategoryTheory.Sites.ConstantSheaf
-import Mathlib.CategoryTheory.Monoidal.Cartesian.CommGrp_
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteAbelianStalk
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteAbelianSheaf
+public import Nyll.EtaleFundamentalGroups.Cohomology.ConstantStalk
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteLocallyConstantDetection
+public import Nyll.EtaleFundamentalGroups.Cohomology.LocalTrivialization
+public import Mathlib.CategoryTheory.Sites.ConstantSheaf
+public import Mathlib.CategoryTheory.Monoidal.Cartesian.CommGrp_
 
 /-!
 # Constant coefficients in finite abelian monodromy descent
@@ -18,6 +21,8 @@ For a trivial finite abelian representation, constant equivariant functions
 give sections of the descended finite étale group. These sections respect
 addition and define a map from the actual constant abelian sheaf.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -28,6 +33,9 @@ universe u
 
 namespace EtaleFundamentalGroups.Cohomology
 
+attribute [local instance] finiteEtaleCartesian finiteEtaleBraided etaleCartesian etaleBraided
+  finiteEtaleToEtalePreservesFiniteLimits finiteEtaleToEtaleBraided
+
 variable {X : Scheme.{u}} [ConnectedSpace X]
   {Ω : Type u} [Field Ω] [IsSepClosed Ω] (ξ : Spec (.of Ω) ⟶ X)
   (M : Type u) [AddCommGroup M] [Fintype M]
@@ -36,10 +44,12 @@ variable {X : Scheme.{u}} [ConnectedSpace X]
   [ContinuousSMul (Aut (FiniteEtale.fiber ξ)) M]
   (hM : ∀ (g : Aut (FiniteEtale.fiber ξ)) (m : M), g • m = m)
 
-private abbrev baseCover : FiniteEtale X :=
+/-- The identity finite étale cover of the base scheme. -/
+abbrev baseCover : FiniteEtale X :=
   MorphismProperty.Over.mk ⊤ (𝟙 X) (show IsFiniteEtale (𝟙 X) from ⟨⟩)
 
-private def constantEquivariant (m : M) :
+/-- A coefficient fixed by monodromy defines a constant equivariant function. -/
+def constantEquivariant (m : M) :
     MulActionHom (id : Aut (FiniteEtale.fiber ξ) → _)
       ((FiniteEtale.fiber ξ).obj (baseCover (X := X))) M where
   toFun := fun _ => m
@@ -61,15 +71,14 @@ theorem finiteAbelianConstantSection_fiber (m : M)
     ((finiteAbelianRepresentableBy ξ M).homEquiv.apply_symm_apply
       (constantEquivariant ξ M hM m))
 
-private theorem constantSection_add (m n : M) :
+/-- Constant equivariant sections respect addition of coefficients. -/
+theorem constantSection_add (m n : M) :
     let : CartesianMonoidalCategory (FiniteEtale X) := .ofHasFiniteProducts
     let : BraidedCategory (FiniteEtale X) := .ofCartesianMonoidalCategory
     let : CommGrpObj (finiteAbelianCover ξ M) := finiteAbelianCoverGroup ξ M
     finiteAbelianConstantSection ξ M hM (m + n) =
       finiteAbelianConstantSection ξ M hM m * finiteAbelianConstantSection ξ M hM n := by
-  let : CartesianMonoidalCategory (FiniteEtale X) := .ofHasFiniteProducts
-  let : BraidedCategory (FiniteEtale X) := .ofCartesianMonoidalCategory
-  let : CommGrpObj (finiteAbelianCover ξ M) := finiteAbelianCoverGroup ξ M
+  intro sharedOwner1 sharedOwner2 sharedOwner3
   let r := finiteAbelianRepresentableBy ξ M
   let e := yonedaGrpObjIsoOfRepresentableBy _
     (finiteAbelianEquivariantPresheaf ξ M ⋙ forget₂ CommGrpCat GrpCat) r
@@ -83,11 +92,13 @@ private theorem constantSection_add (m n : M) :
     (r.homEquiv.apply_symm_apply (constantEquivariant ξ M hM n))
   exact hs.trans (hmn.symm.trans hm.symm)
 
-private def toBaseCover (U : X.Etale) :
+/-- Every object of the small étale site maps to the identity cover. -/
+def toBaseCover (U : X.Etale) :
     U ⟶ (finiteEtaleToEtale X).obj (baseCover (X := X)) :=
   MorphismProperty.Over.homMk U.hom (Category.comp_id U.hom)
 
-private def constantSectionsPresheaf :
+/-- Constant equivariant sections define a morphism of abelian presheaves. -/
+def constantSectionsPresheaf :
     (Functor.const X.Etaleᵒᵖ).obj (AddCommGrpCat.of M) ⟶
       (finiteAbelianMonodromySheaf ξ M).obj where
   app U := AddCommGrpCat.ofHom

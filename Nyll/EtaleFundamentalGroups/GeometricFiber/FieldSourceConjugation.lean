@@ -4,11 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisPoint
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ExtendedFiberGaloisAction
-import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricAbelianGaloisAction
-import Nyll.EtaleFundamentalGroups.GeometricFiber.SourceIso
-import Nyll.GaloisCohomology.Kummer.Concrete.SemilinearConjugation
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisPoint
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ExtendedFiberGaloisAction
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricAbelianGaloisAction
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.SourceIso
+public import Nyll.GaloisCohomology.Kummer.Concrete.SemilinearConjugation
+public import Nyll.ProCGroups.Abelian.TopologicalAbelianization
 
 /-!
 # Positive semilinear conjugation on the actual field-source image
@@ -16,6 +19,8 @@ import Nyll.GaloisCohomology.Kummer.Concrete.SemilinearConjugation
 The existing point formulas identify both sides by precomposition. No
 arbitrary finite-deck comparison or new fundamental-group action is used.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -31,13 +36,13 @@ theorem conjugate_of_point_actions
     (xi : Spec (.of Ω) ⟶ X) (b g d : Aut (fiber xi))
     (r a t : Ω →+* Ω)
     (hb : ∀ (Z : FiniteEtale X) (z : (fiber xi).obj Z),
-      (fiberObjEquivHom xi Z (b.hom.app Z z)).left =
+      (fiberObjEquivHom xi Z (b.asIso.hom.app Z z)).left =
         Spec.map (CommRingCat.ofHom r) ≫ (fiberObjEquivHom xi Z z).left)
     (hg : ∀ (Z : FiniteEtale X) (z : (fiber xi).obj Z),
-      (fiberObjEquivHom xi Z (g.hom.app Z z)).left =
+      (fiberObjEquivHom xi Z (g.asIso.hom.app Z z)).left =
         Spec.map (CommRingCat.ofHom a) ≫ (fiberObjEquivHom xi Z z).left)
     (hd : ∀ (Z : FiniteEtale X) (z : (fiber xi).obj Z),
-      (fiberObjEquivHom xi Z (d.hom.app Z z)).left =
+      (fiberObjEquivHom xi Z (d.asIso.hom.app Z z)).left =
         Spec.map (CommRingCat.ofHom t) ≫ (fiberObjEquivHom xi Z z).left)
     (hr : r.comp a = a.comp t) : b = g * d * g⁻¹ := by
   have hs : Spec.map (CommRingCat.ofHom r) ≫ Spec.map (CommRingCat.ofHom a) =
@@ -49,8 +54,8 @@ theorem conjugate_of_point_actions
   ext Z z
   apply (fiberObjEquivHom xi Z).injective
   ext1
-  change (fiberObjEquivHom xi Z (b.hom.app Z (g.hom.app Z z))).left =
-    (fiberObjEquivHom xi Z (g.hom.app Z (d.hom.app Z z))).left
+  change (fiberObjEquivHom xi Z (b.asIso.hom.app Z (g.asIso.hom.app Z z))).left =
+    (fiberObjEquivHom xi Z (g.asIso.hom.app Z (d.asIso.hom.app Z z))).left
   rw [hb, hg, hg, hd, ← Category.assoc, hs, Category.assoc]
 
 /-- Positive conjugation by a source automorphism agrees with the actual
@@ -67,7 +72,8 @@ theorem fundamentalGroupHom_semilinear_conjugate
     (ρ : Ω ≃ₐ[F] Ω) :
     let e := Scheme.Spec.mapIso a.toCommRingCatIso.op
     let g : Aut (fiber ((ξ F Ω ≫ q) ≫ f)) :=
-      fiberSourceIso ((ξ F Ω ≫ q) ≫ f) e ≪≫ eqToIso (congrArg fiber hsource)
+      Aut.of (fiberSourceIso ((ξ F Ω ≫ q) ≫ f) e ≪≫
+        eqToIso (congrArg fiber hsource))
     let j := fun τ : Ω ≃ₐ[F] Ω =>
       fundamentalGroupHom f (ξ F Ω ≫ q)
         (fundamentalGroupHom q (ξ F Ω)
@@ -77,7 +83,7 @@ theorem fundamentalGroupHom_semilinear_conjugate
   let ρ' := KummerTheory.semilinearGaloisConjugate φ a ha ρ
   have hj (τ : Ω ≃ₐ[F] Ω) (Z : FiniteEtale Y)
       (z : (fiber ((ξ F Ω ≫ q) ≫ f)).obj Z) :
-      (fiberObjEquivHom ((ξ F Ω ≫ q) ≫ f) Z ((j τ).hom.app Z z)).left =
+      (fiberObjEquivHom ((ξ F Ω ≫ q) ≫ f) Z ((j τ).asIso.hom.app Z z)).left =
         Spec.map (CommRingCat.ofHom τ.toRingHom) ≫
           (fiberObjEquivHom ((ξ F Ω ≫ q) ≫ f) Z z).left :=
     fundamentalGroupHom_point_of_point_action f (ξ F Ω ≫ q)
@@ -88,7 +94,7 @@ theorem fundamentalGroupHom_semilinear_conjugate
         (suppliedGaloisEquivFundamentalGroup F Ω τ) τ.toRingHom
         (suppliedGaloisEquivFundamentalGroup_point F Ω τ)) Z z
   have hg (Z : FiniteEtale Y) (z : (fiber ((ξ F Ω ≫ q) ≫ f)).obj Z) :
-      (fiberObjEquivHom ((ξ F Ω ≫ q) ≫ f) Z (g.hom.app Z z)).left =
+      (fiberObjEquivHom ((ξ F Ω ≫ q) ≫ f) Z (g.asIso.hom.app Z z)).left =
         Spec.map (CommRingCat.ofHom a.toRingHom) ≫
           (fiberObjEquivHom ((ξ F Ω ≫ q) ≫ f) Z z).left :=
     fiberSourceIso_aut_point ((ξ F Ω ≫ q) ≫ f) e hsource Z z
@@ -119,7 +125,8 @@ theorem geometricAbelianGaloisAction_fieldSource_conjugate
     let e := Scheme.Spec.mapIso a.toCommRingCatIso.op
     let xi := ξ F Ω ≫ q
     let g : Aut (fiber (xi ≫ Limits.pullback.snd _ f)) :=
-      fiberSourceIso (xi ≫ Limits.pullback.snd _ f) e ≪≫ eqToIso (congrArg fiber hsource)
+      Aut.of (fiberSourceIso (xi ≫ Limits.pullback.snd _ f) e ≪≫
+        eqToIso (congrArg fiber hsource))
     let j := fun τ : Ω ≃ₐ[F] Ω =>
       fundamentalGroupHom q (ξ F Ω) (suppliedGaloisEquivFundamentalGroup F Ω τ)
     geometricAbelianGaloisAction k L X f xi

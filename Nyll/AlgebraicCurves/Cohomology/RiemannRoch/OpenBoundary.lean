@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.TwoMulGenusFFSubTwoEqSeparable
-import Nyll.AlgebraicCurves.Places.Ramification.SumRamificationIndexMulInertiaDegAlong
-import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegAlongEqOneAlgClosed
-import Mathlib.Algebra.BigOperators.Finprod
+module
+
+public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.TwoMulGenusFFSubTwoEqSeparable
+public import Nyll.AlgebraicCurves.Places.Ramification.SumRamificationIndexMulInertiaDegAlong
+public import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegAlongEqOneAlgClosed
+public import Mathlib.Algebra.BigOperators.Finprod
 
 /-!
 # Boundary terms in Riemann--Hurwitz
@@ -18,13 +20,17 @@ boundary correction cancels the ramification term for an extension that is
 unramified off this boundary.
 -/
 
+@[expose] public section
+
+universe uGeom uField₁ uField₂
+
 noncomputable section
 
 open scoped BigOperators
 
 namespace AlgebraicCurve
 
-variable {K F E : Type} [Field K] [IsAlgClosed K]
+variable {K : Type uGeom} {F : Type uField₁} {E : Type uField₂} [Field K] [IsAlgClosed K]
   [Field F] [Field E] [Algebra K F] [Algebra K E]
   [IsCurveOver K F] [Algebra.EssFiniteType K F]
   [IsCurveOver K E] [Algebra.EssFiniteType K E]

@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Points.FieldEquivSymmMemEvalAtPointPlaceEqStalkClosedPointTo
-import Mathlib.AlgebraicGeometry.Stalk
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Nyll.AlgebraicCurves.Models.Points.IsRationalPointPlace
+module
+
+public import Nyll.AlgebraicCurves.Models.Points.FieldEquivSymmMemEvalAtPointPlaceEqStalkClosedPointTo
+public import Mathlib.AlgebraicGeometry.Stalk
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.AlgebraicCurves.Models.Points.IsRationalPointPlace
 
 /-!
 # Evaluation at the actual geometric generic point
@@ -16,6 +18,10 @@ The value of a pulled-back rational function at the geometric generic
 point is its image in the geometric-point field. The proof compares
 actual scheme stalk maps and the existing place-evaluation map.
 -/
+
+@[expose] public section
+
+universe u
 
 noncomputable section
 
@@ -26,8 +32,8 @@ namespace AlgebraicCurve.CurveModel
 /-- Actual place evaluation at a lifted generic point agrees with the
 specified embedding of the original function field. -/
 theorem evalAt_geometricGenericPoint
-    {K F : Type} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
-    (M : CurveModel K F) {X : Scheme} [IsIntegral X]
+    {K F : Type u} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
+    (M : CurveModel K F) {X : Scheme.{u}} [IsIntegral X]
     (p : M.C ⟶ X) (φ : X.functionField →+* F)
     (hφ : ∀ (U : X.Opens) [Nonempty U] [Nonempty (p ⁻¹ᵁ U)] (s : Γ(X, U)),
       φ (X.germToFunctionField U s) =
@@ -87,8 +93,8 @@ theorem evalAt_geometricGenericPoint
 original rational function. This supplies support avoidance for the
 actual base-changed Kummer divisor. -/
 theorem ord_geometricGenericPoint
-    {K F : Type} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
-    (M : CurveModel K F) {X : Scheme} [IsIntegral X]
+    {K F : Type u} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
+    (M : CurveModel K F) {X : Scheme.{u}} [IsIntegral X]
     (p : M.C ⟶ X) (φ : X.functionField →+* F)
     (hφ : ∀ (U : X.Opens) [Nonempty U] [Nonempty (p ⁻¹ᵁ U)] (s : Γ(X, U)),
       φ (X.germToFunctionField U s) =

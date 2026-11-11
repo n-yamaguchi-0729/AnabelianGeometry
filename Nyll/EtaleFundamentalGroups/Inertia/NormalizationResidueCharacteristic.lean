@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.NativeNormalizationPrime
-import Mathlib.Algebra.CharP.Algebra
-import Mathlib.RingTheory.Ideal.Quotient.Defs
-import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
+module
+
+public import Nyll.SchemeTheory.Normalization.NativeNormalizationPrime
+public import Mathlib.Algebra.CharP.Algebra
+public import Mathlib.RingTheory.Ideal.Quotient.Defs
+public import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
 
 /-!
 # Base and normalization residue characteristic
@@ -16,6 +18,8 @@ The actual coefficient map descends from the base local ring to its residue
 field at every prime lying over its maximal ideal. Its field-domain injectivity
 identifies the two residue characteristics, including mixed-characteristic bases.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
-import Nyll.ProCGroups.InverseSystems.StagewiseIso
-import Mathlib.Topology.Order
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
+public import Nyll.ProCGroups.InverseSystems.StagewiseIso
+public import Mathlib.Topology.Order
 
 /-!
 # Ordinary coefficient comparison of roots systems
@@ -16,6 +18,8 @@ stages is used once to construct the stage equivalences. Their transition
 square is proved from the actual power-map naturality theorem. No inverse
 limit comparison or action square is assumed.
 -/
+
+@[expose] public section
 
 noncomputable section
 

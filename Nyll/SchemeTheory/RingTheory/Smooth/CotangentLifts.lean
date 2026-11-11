@@ -22,12 +22,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.RingTheory.Ideal.Cotangent
-import Mathlib.Algebra.TrivSqZeroExt.Basic
+module
+
+public import Mathlib.RingTheory.Ideal.Cotangent
+public import Mathlib.Algebra.TrivSqZeroExt.Basic
 
 /-!
 # Alg Hom exists Unique lift triv Sq Zero Ext of cotangent linear Map
 -/
+
+@[expose] public section
 
 section AlgHom_existsUnique_lift_trivSqZeroExt_of_cotangent_linearMap
 

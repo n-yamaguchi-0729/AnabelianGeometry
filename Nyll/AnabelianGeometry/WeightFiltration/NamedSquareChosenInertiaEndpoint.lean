@@ -3,21 +3,26 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareModelInertiaCaller
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareCoherentBaseChangeCaller
-import Nyll.AlgebraicCurves.Places.Restriction.PlaceChartRestrictionSquare
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineFunctionFields
-import Nyll.AlgebraicCurves.Models.Ramification.BoundaryNormalizationPrimes
-import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverGenericPoint
-import Nyll.AnabelianGeometry.WeightFiltration.NamedModelPointedInertia
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareModelInertiaCaller
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareCoherentBaseChangeCaller
+public import Nyll.AlgebraicCurves.Places.Restriction.PlaceChartRestrictionSquare
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineFunctionFields
+public import Nyll.AlgebraicCurves.Models.Ramification.BoundaryNormalizationPrimes
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverGenericPoint
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedModelPointedInertia
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairSquareMap
 
 /-! # Chosen inertia at the endpoint of a named square
 
 The existing field square and geometric cover comparison transport the chosen
 normalization-prime inertia to its corresponding base place.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve
@@ -106,7 +111,7 @@ theorem namedSquareChosenInertiaProjection_of_fieldSquare
             (AnabelianGeometry.KummerTheory.ratFuncPairSquareHom eκ z)) =
           algebraMap U.functionField W.left.functionField (cU z)) :
     namedSquareChosenInertiaProjection E κ t cU Ω W w J qN eκ := by
-  unfold namedSquareChosenInertiaProjection
+  delta namedSquareChosenInertiaProjection
   intro N K AκK hcharK hSepK hWIntegral L AKL lift emb eR ANΩ
   let : FiniteDimensional K L := finiteDimensional_functionField_of_finiteEtale_isConnected W
   let : Algebra.IsSeparable K L := isSeparable_functionField_of_finiteEtale_isConnected W

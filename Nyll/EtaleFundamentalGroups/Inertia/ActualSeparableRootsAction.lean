@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationSeparableRoots
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationAbsoluteResidueAction
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsAction
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationSeparableRoots
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationAbsoluteResidueAction
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsAction
 
 /-!
 # The original decomposition action on the full separable roots target
@@ -15,6 +17,8 @@ This is the coefficient action of the SAME original absolute residue
 morphism. Its scalar square is obtained from the concrete residue square
 and the coordinate formula of the full roots action.
 -/
+
+@[expose] public section
 
 noncomputable section
 

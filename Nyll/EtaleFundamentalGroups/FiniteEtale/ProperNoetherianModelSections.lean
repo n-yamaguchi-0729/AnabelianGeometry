@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ClosedFiberEtaleDescent
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperLocalSectionAlgebra
-import Nyll.SchemeTheory.Affine.SpecFlatBaseChangeSections
-import Mathlib.RingTheory.Localization.AtPrime.Basic
-import Mathlib.RingTheory.LocalProperties.Exactness
-import Mathlib.RingTheory.Localization.BaseChange
-import Mathlib.RingTheory.TensorProduct.Maps
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ClosedFiberEtaleDescent
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperLocalSectionAlgebra
+public import Nyll.SchemeTheory.Affine.SpecFlatBaseChangeSections
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
+public import Mathlib.RingTheory.LocalProperties.Exactness
+public import Mathlib.RingTheory.Localization.BaseChange
+public import Mathlib.RingTheory.TensorProduct.Maps
 
 /-!
 # Section comparisons for an actual Noetherian model
@@ -19,6 +21,8 @@ The closed-fibre comparison yields a pushout of the actual section maps.
 This form retains the maps needed to compare a Noetherian model with an
 arbitrary base and its localizations.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -10,11 +10,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.RingTheory.LocalRing.Module
+module
+
+public import Mathlib.RingTheory.LocalRing.Module
 
 /-!
 # Module free quotient range of ker base Change residue Field le
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

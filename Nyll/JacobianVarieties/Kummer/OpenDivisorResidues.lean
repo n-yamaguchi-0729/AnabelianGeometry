@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.DivisorClasses
-import Mathlib.Data.ZMod.Basic
+module
+
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.KummerClasses
+public import Mathlib.Data.ZMod.Basic
 
 /-!
 # Boundary residues of divisorial Kummer classes
@@ -20,6 +22,8 @@ This file is divisor theory. The comparison with actual derived H¹ of an
 open curve, and the image description by the degree-zero residue relation,
 are separate results and are not assumed here.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,8 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.KummerTheory.PrimePowerSeparation
-import Nyll.AnabelianGeometry.KummerTheory.NumberFieldPowerSeparation
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.PrimePowerSeparation
+public import Nyll.AnabelianGeometry.KummerTheory.NumberFieldPowerSeparation
+public import Nyll.ClassFieldTheory.AlgebraicNumberTheory.SUnit.Rank
 
 /-!
 # Prime-power separation over number fields
@@ -13,6 +16,8 @@ import Nyll.AnabelianGeometry.KummerTheory.NumberFieldPowerSeparation
 It suffices to compare cyclic subgroups modulo prime powers. The proof
 uses one saturated finitely generated S-unit group for both generators.
 -/
+
+@[expose] public section
 
 noncomputable section
 

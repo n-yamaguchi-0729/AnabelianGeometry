@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Picard.AlgebraicPointsEquivariance
-import Nyll.JacobianVarieties.Pic0.InjectiveConormConstantExtension
-import Nyll.AlgebraicCurves.Models.Points.UniquePointOrdEqOrdEqZero
-import Nyll.JacobianVarieties.Pic0.MemClosureMkSingleSubSingle
+module
+
+public import Nyll.AlgebraicCurves.Geometry.Picard.AlgebraicPointsEquivariance
+public import Nyll.JacobianVarieties.Pic0.InjectiveConormConstantExtension
+public import Nyll.AlgebraicCurves.Models.Points.UniquePointOrdEqOrdEqZero
+public import Nyll.JacobianVarieties.Pic0.MemClosureMkSingleSubSingle
 
 /-!
 # Actual Picard conorm and coefficient extension of points
@@ -18,6 +20,10 @@ the actual lifted point with the unique valuation lift used by conorm.
 The germ square is the compatibility of the chosen function-field
 coordinates with the actual projection of the base-changed curve.
 -/
+
+@[expose] public section
+
+universe u
 
 noncomputable section
 
@@ -33,7 +39,7 @@ attribute [local instance] IsCurveOver.toHasPrincipalDivisors
 /-- The Picard point comparisons supplied by the Abel--Jacobi construction
 intertwine actual conorm with extension of coefficients on algebraic points. -/
 theorem conorm_algPoints_of_point_formulas
-    {K F K' F' : Type} [Field K] [Field F] [Field K'] [Field F']
+    {K F K' F' : Type u} [Field K] [Field F] [Field K'] [Field F']
     [Algebra K F] [Algebra K' F'] [Algebra K K'] [Algebra F F'] [Algebra K F']
     [IsScalarTower K K' F'] [IsScalarTower K F F']
     [IsAlgClosed K] [IsAlgClosed K'] [IsCurveOver K F] [IsCurveOver K' F']
@@ -54,7 +60,7 @@ theorem conorm_algPoints_of_point_formulas
         (((eC.hom ≫ pullback.fst M₀.toBase (specMap K K')).app U).hom s)) =
       algebraMap F F' (M₀.ffEquiv.symm (M₀.C.germToFunctionField U s)))
     (ε : SchemeHomOver (𝟙 (Spec (.of K))) M₀.toBase)
-    {J : Scheme} {b : J ⟶ Spec (.of K)}
+    {J : Scheme.{u}} {b : J ⟶ Spec (.of K)}
     (G : RelativeGroupLaw K b) (hc : G.IsCommutative)
     (aj : SchemeHomOver M₀.toBase b)
     (e₀ : Pic0 K F ≃+ G.AlgPoints hc K)

@@ -4,12 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Construction.CurveIsIntegral
-import Nyll.AlgebraicCurves.Models.Ramification.FiniteCurveBoundaryMap
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.OpenBoundary
-import Nyll.AlgebraicCurves.FunctionFields.Extensions.CurveIffTranscendentalFiniteDimensional
+module
+
+public import Nyll.AlgebraicCurves.Models.Construction.CurveIsIntegral
+public import Nyll.AlgebraicCurves.Models.Ramification.FiniteCurveBoundaryMap
+public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.OpenBoundary
+public import Nyll.AlgebraicCurves.FunctionFields.Extensions.CurveIffTranscendentalFiniteDimensional
 
 /-! # Riemann--Hurwitz for an actual open-cover square -/
+
+@[expose] public section
+
+universe uGeom uField₁ uField₂
 
 noncomputable section
 
@@ -25,12 +31,12 @@ attribute [local instance] CurveModel.isIntegral CurveModel.isProper CurveModel.
 formula. Unramifiedness is proved from the open restriction, and the
 boundary preimage is translated through the actual map on local rings. -/
 theorem two_mul_genus_add_openBoundary_sub_two_eq
-    {K F E : Type} [Field K] [IsAlgClosed K] [CharZero K]
+    {K : Type uGeom} {F : Type uField₁} {E : Type uField₂} [Field K] [IsAlgClosed K] [CharZero K]
     [Field F] [Field E] [Algebra K F] [Algebra K E]
     (M : CurveModel K F) (N : CurveModel K E)
     (d : N.C ⟶ M.C) (hd : d ≫ M.toBase = N.toBase)
     [IsFinite d] (hsurj : Function.Surjective d)
-    {X Y : Scheme} [Nonempty X] [Nonempty Y]
+    {X Y : Scheme.{uGeom}} [Nonempty X] [Nonempty Y]
     (j : X ⟶ M.C) [IsOpenImmersion j]
     (k : Y ⟶ N.C) [IsOpenImmersion k] [FormallyUnramified (k ≫ d)]
     (hboundary : ∀ y : N.C, y ∉ Set.range k ↔ d y ∉ Set.range j) :

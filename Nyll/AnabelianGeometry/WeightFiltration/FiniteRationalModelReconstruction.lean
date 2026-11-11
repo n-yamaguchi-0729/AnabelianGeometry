@@ -3,12 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
+module
 
-import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.SchemeIsomorphism
-import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationBasePoint
-import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationNakamura
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConstantFieldStrictTransport
-import Nyll.ProCGroups.Topologies.ArithmeticInnerCorrectionFiberTransport
+public import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.SchemeIsomorphism
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationBasePoint
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationNakamura
+public import Nyll.GaloisCohomology.FieldTheory.NumberFieldFiniteGeneration
+public import Mathlib.Algebra.Field.Subfield.Basic
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConstantFieldStrictTransport
+public import Nyll.ProCGroups.Topologies.ArithmeticInnerCorrectionFiberTransport
 
 /-! # Reconstruction at actual finite rational models
 
@@ -18,6 +21,8 @@ along the actual model isomorphisms are retained. In particular the resulting
 rational-configuration isomorphism is not an independently chosen weak
 isomorphism. This file does not assert Galois descent of the resulting map.
 -/
+
+public section
 
 noncomputable section
 
@@ -31,7 +36,7 @@ namespace AnabelianGeometry.WeightFiltration
 of two actual rational models over a finite constant field. Both fibre
 comparisons and the exact finite-cover correction are part of the conclusion. -/
 theorem exists_rationalModel_arithmetic_transport
-    (k E κ : Type) [Field k] [Field E] [NumberField E]
+    (k E κ : Type) [Field k] [Field E] [CharZero E]
     [Field κ] [CharZero κ] [IsAlgClosed κ]
     [Algebra k E] [Algebra E κ] [Algebra k κ] [IsScalarTower k E κ]
     [IsSepClosure k κ] [IsAlgClosure E κ]
@@ -111,7 +116,7 @@ geometric inertia groups of the transported isomorphism. This retains the
 information needed to compare its Galois translates; no descent assertion is
 made here. -/
 theorem exists_projectiveTransformation_of_constantCover_models
-    (k E κ : Type) [Field k] [Field E] [NumberField E]
+    (k E κ : Type) [Field k] [Field E] [CharZero E] [Field.FG E]
     [Field κ] [CharZero κ] [IsAlgClosed κ]
     [Algebra k E] [Algebra E κ] [Algebra k κ] [IsScalarTower k E κ]
     [IsSepClosure k κ] [IsAlgClosure E κ]

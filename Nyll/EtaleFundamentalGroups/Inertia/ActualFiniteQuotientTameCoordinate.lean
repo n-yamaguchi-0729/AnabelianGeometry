@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationQuotientRoots
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationQuotientRoots
 
 /-!
 # The original finite coordinate in the literal quotient
@@ -13,6 +15,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.NormalizationQuotientRoots
 This single-stage owner applies the SAME canonical maximal quotient/residue
 comparison before a second degree or a finite-stage ordering is introduced.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -3,12 +3,16 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsCharacters
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsSurjectivity
-import Nyll.GaloisCohomology.Kummer.Concrete.PrimitiveRootCoordinates
-import Mathlib.Data.ZMod.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsCharacters
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsSurjectivity
+public import Nyll.GaloisCohomology.Kummer.Concrete.PrimitiveRootCoordinates
+public import Mathlib.Data.ZMod.Basic
 
 /-! # Common finite unit powers of the actual inertia parameters -/
+
+@[expose] public section
 
 noncomputable section
 namespace EtaleFundamentalGroups.Inertia
@@ -155,7 +159,7 @@ theorem exists_unit_power_of_primeToRoots_equiv
       (primeToRootsSystem k E).projection n (β t) =
         ((primeToRootsSystem k E).projection n t) ^ (u : ZMod n.val).val := by
   let : NeZero n.val := ⟨(InvertibleExponent.pos k n).ne'⟩
-  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_primitiveRoot E n.val
+  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_isPrimitiveRoot E n.val
   let z : Eˣ := hζ.isUnit (NeZero.ne n.val) |>.unit'
   have hz : IsPrimitiveRoot z n.val := hζ.isUnit_unit' (NeZero.ne _)
   obtain ⟨e, he⟩ := exists_primeToRoots_projection_equiv k E n β

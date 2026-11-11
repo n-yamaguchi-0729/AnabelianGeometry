@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationTower
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
-import Nyll.SchemeTheory.RingTheory.Localization.PrimeLocalizationInjection
-import Mathlib.RingTheory.Localization.AtPrime.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationTower
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
+public import Nyll.SchemeTheory.RingTheory.Localization.PrimeLocalizationInjection
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
 
 /-!
 # Local maps in finite normalization towers
@@ -15,6 +17,8 @@ import Mathlib.RingTheory.Localization.AtPrime.Basic
 Constructs the local ring map at nested finite normalization primes and establishes its
 injectivity under the DVR and Galois hypotheses.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -32,12 +36,11 @@ variable (A : Type u) (K : Type v) (L : Type w)
 /-- The literal local ring map at two nested actual finite primes. -/
 def actualFiniteNormalizationTowerLocalRingMap
     (E F : FiniteGaloisIntermediateField K L) (h : E ≤ F) :
-    letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
-    letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q F
+    let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+    let := finiteAbsoluteNormalizationPrime_isPrime A K L Q F
     Localization.AtPrime (finiteAbsoluteNormalizationPrime A K L Q E) →+*
       Localization.AtPrime (finiteAbsoluteNormalizationPrime A K L Q F) := by
-  letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
-  letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q F
+  intro sharedDefinitionOwner1 sharedDefinitionOwner2
   exact Localization.localRingHom
     (finiteAbsoluteNormalizationPrime A K L Q E)
     (finiteAbsoluteNormalizationPrime A K L Q F)

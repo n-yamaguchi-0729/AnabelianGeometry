@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationIntegralBaseInertia
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteNormalizationPrime
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationIntegralBaseInertia
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteNormalizationPrime
 
 /-!
 # The same contracted prime after integral base comparison
@@ -14,6 +16,8 @@ For the finite normalization base B, the prime obtained by the canonical
 integral-base equivalence contracts to the same literal prime used by the
 pointed finite-cover inertia image theorem.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairFunction
-import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncRationalPairConstantExtension
-import Nyll.AlgebraicCurves.Places.Basic
+module
+
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairFunction
+public import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncRationalPairConstantExtension
+public import Nyll.AlgebraicCurves.Places.Basic
 
 /-! # Arithmetic and geometric Kummer units of the same pair function
 
@@ -15,6 +17,8 @@ are identified with actual omitted arithmetic closed points, and both
 order formulas returned by the pair-function construction are retained.
 One function is chosen before all exponents; no later function is selected.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.Localization.AtPrime.Basic
-import Mathlib.RingTheory.Localization.Basic
+module
+
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
+public import Mathlib.RingTheory.Localization.Basic
 
 /-!
 # Injectivity of prime localization maps
@@ -13,6 +15,8 @@ import Mathlib.RingTheory.Localization.Basic
 Proves that an injective ring map into a domain induces an injective map on localizations at a
 prime and its contraction.
 -/
+
+@[expose] public section
 
 namespace SchemeTheory
 

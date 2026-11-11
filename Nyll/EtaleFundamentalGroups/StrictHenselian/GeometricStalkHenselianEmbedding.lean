@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkHenselianMap
-import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkNormalDomain
-import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkGenericIntegral
-import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkFractionTensor
-import Mathlib.RingTheory.Algebraic.Basic
-import Mathlib.RingTheory.Algebraic.Integral
-import Mathlib.RingTheory.Localization.Integral
-import Mathlib.RingTheory.TensorProduct.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkHenselianMap
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkNormalDomain
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkGenericIntegral
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkFractionTensor
+public import Mathlib.RingTheory.Algebraic.Basic
+public import Mathlib.RingTheory.Algebraic.Integral
+public import Mathlib.RingTheory.Localization.Integral
+public import Mathlib.RingTheory.TensorProduct.Basic
 
 
 /-!
@@ -24,6 +26,8 @@ algebraic-domain injection theorem then uses the already proved literal
 base square to lift injectivity of the base map to the constructed stalk map.
 No tensor equivalence or comparison injection is assumed or reconstructed.
 -/
+
+@[expose] public section
 
 noncomputable section
 

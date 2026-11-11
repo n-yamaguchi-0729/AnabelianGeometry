@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinateEquivariance
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsGroup
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsAction
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinateEquivariance
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsGroup
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsAction
 
 /-!
 # The SAME canonical global tame character is D-equivariant
@@ -15,6 +17,8 @@ The existing character and root limit retain their native group owners.
 Their proved scalar evaluation and action laws reduce this equality to the
 actual canonical finite coordinate equivariance, with no comparison premise.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

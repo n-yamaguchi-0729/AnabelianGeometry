@@ -4,14 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
 
 /-! # Actual Galois covers over intermediate finite étale schemes
 
 The relative deck transformations are constructed from the original ones.
 Their transitivity on each actual geometric fiber proves the Galois property.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -55,7 +59,7 @@ theorem isGalois_over_intermediate
   have : MulAction.IsPretransitive (Aut A) ((fiber geomBase).obj A) :=
     (isGalois_iff_pretransitive (fiber geomBase) A).1 inferInstance
   obtain ⟨σ, hσ⟩ := MulAction.exists_smul_eq (Aut A) xa xb
-  change (fiber geomBase).map σ.hom xa = xb at hσ
+  change (fiber geomBase).map σ.asIso.hom xa = xb at hσ
   have hfab : (fiber geomBase).map f xa = (fiber geomBase).map f xb := by
     change (fiber geomBase).map f ((fiberObjEquivHom geomBase A).symm qa) =
       (fiber geomBase).map f ((fiberObjEquivHom geomBase A).symm qb)
@@ -63,24 +67,24 @@ theorem isGalois_over_intermediate
     apply congrArg (fiberObjEquivHom geomBase B).symm
     apply Over.OverMorphism.ext
     exact za.w.trans zb.w.symm
-  have hf : σ.hom ≫ f = f := by
+  have hf : σ.asIso.hom ≫ f = f := by
     apply evaluation_injective_of_isConnected (fiber geomBase) A B xa
-    change (fiber geomBase).map (σ.hom ≫ f) xa = (fiber geomBase).map f xa
+    change (fiber geomBase).map (σ.asIso.hom ≫ f) xa = (fiber geomBase).map f xa
     rw [Functor.map_comp, FintypeCat.comp_apply, hσ]
     exact hfab.symm
   let eσ : A.left ≅ A.left :=
-    (FiniteEtale.forget S ⋙ Over.forget S).mapIso σ
+    (FiniteEtale.forget S ⋙ Over.forget S).mapIso σ.asIso
   have hσd : eσ.hom ≫ f.left = f.left :=
     congrArg (fun k : A ⟶ B => k.left) hf
-  let τ : Aut W := MorphismProperty.Over.isoMk eσ hσd
+  let τ : Aut W := Aut.of (MorphismProperty.Over.isoMk eσ hσd)
   refine ⟨τ, ?_⟩
-  change (fiber geomIntermediate).map τ.hom a = b
+  change (fiber geomIntermediate).map τ.asIso.hom a = b
   apply (fiberObjEquivHom geomIntermediate W).injective
-  refine (fiberObjEquivHom_naturality geomIntermediate τ.hom a).symm.trans ?_
+  refine (fiberObjEquivHom_naturality geomIntermediate τ.asIso.hom a).symm.trans ?_
   apply Over.OverMorphism.ext
-  have hσ' : (fiberObjEquivHom geomBase A).symm (qa ≫ σ.hom.hom) =
+  have hσ' : (fiberObjEquivHom geomBase A).symm (qa ≫ σ.asIso.hom.hom) =
       (fiberObjEquivHom geomBase A).symm qb := by
-    exact (fiberObjEquivHom_symm_naturality geomBase σ.hom qa).symm.trans hσ
+    exact (fiberObjEquivHom_symm_naturality geomBase σ.asIso.hom qa).symm.trans hσ
   have hpoints := congrArg
     (fun q : Over.mk geomBase ⟶ A.toComma => q.left)
     ((fiberObjEquivHom geomBase A).symm.injective hσ')

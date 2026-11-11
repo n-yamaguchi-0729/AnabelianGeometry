@@ -4,11 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Etale.AdjoinRootEtaleFiniteXPowSubC
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Geometry
-import Mathlib.RingTheory.Ideal.GoingUp
-import Mathlib.AlgebraicGeometry.Morphisms.FlatRank
-import Mathlib.RingTheory.Spectrum.Prime.FreeLocus
+module
+
+public import Nyll.SchemeTheory.RingTheory.Etale.AdjoinRootEtaleFiniteXPowSubC
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Geometry
+public import Mathlib.RingTheory.Ideal.GoingUp
+public import Mathlib.AlgebraicGeometry.Morphisms.FlatRank
+public import Mathlib.RingTheory.Spectrum.Prime.FreeLocus
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
 
 /-!
 # Actual finite étale covers extracting roots of units
@@ -20,6 +23,8 @@ geometric local inputs to the Kummer sequence; no cohomology comparison
 or local lifting assumption is used.
 -/
 
+@[expose] public section
+
 noncomputable section
 universe u
 open AlgebraicGeometry CategoryTheory Polynomial
@@ -27,7 +32,7 @@ open AlgebraicGeometry CategoryTheory Polynomial
 namespace EtaleCohomology
 
 /-- The actual algebra used to extract an nth root of a unit. -/
-abbrev kummerRootAlgebra {R : Type u} [CommRing R] (n : ℕ) (a : Rˣ) :=
+abbrev kummerRootAlgebra {R : Type u} [CommRing R] (n : ℕ) (a : Rˣ) : Type u :=
   AdjoinRoot (X ^ n - C (a : R))
 
 /-- The defining relation in the actual root algebra. -/

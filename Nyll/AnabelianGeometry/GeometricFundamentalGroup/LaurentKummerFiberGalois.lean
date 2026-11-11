@@ -4,9 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerFiber
-import Nyll.AnabelianGeometry.KummerTheory.RootCharacter
-import Mathlib.GroupTheory.GroupAction.Defs
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerFiber
+public import Nyll.AnabelianGeometry.KummerTheory.RootCharacter
+public import Mathlib.GroupTheory.GroupAction.Defs
+public import Nyll.AnabelianGeometry.KummerTheory.RootCocycle
 
 /-!
 # Galois stabilizers of Laurent Kummer fibre points
@@ -15,6 +18,8 @@ Postcomposition gives the actual Galois action on the algebra points of a
 Laurent Kummer fibre. Its point stabilizer fixes exactly the radical field.
 This identifies the arithmetic point data without a roots-of-unity assumption.
 -/
+
+@[expose] public section
 
 noncomputable section
 

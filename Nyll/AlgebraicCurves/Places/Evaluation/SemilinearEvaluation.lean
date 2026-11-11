@@ -13,10 +13,14 @@ Local adaptation and maintenance: Naganori Yamaguchi
 (https://github.com/n-yamaguchi-0729), assisted by OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+module
+
+public import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
 
 /-! # Semilinear compatibility of residue and divisor evaluation -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -44,6 +48,17 @@ private theorem isRational_smul (hv : v.IsRational) : (g • v).IsRational := by
   obtain ⟨a, ha⟩ := hv ((smulResidueRingEquiv g v).symm x)
   exact ⟨baseAut g a, by
     rw [← smulResidueRingEquiv_algebraMap g v a, ha, RingEquiv.apply_symm_apply]⟩
+
+/-- Rationality on the support of a divisor is preserved by the same semilinear action. -/
+theorem isRational_support_smul (D : Divisor K F)
+    (hrat : ∀ w ∈ D.support, w.IsRational) :
+    ∀ w ∈ (g • D).support, w.IsRational := by
+  intro w hw
+  have hv : g⁻¹ • w ∈ D.support := by
+    apply Finsupp.mem_support_iff.mpr
+    rw [← divisor_smul_apply g D w]
+    exact Finsupp.mem_support_iff.mp hw
+  simpa only [smul_inv_smul] using isRational_smul g (g⁻¹ • w) (hrat _ hv)
 
 private theorem residue_smul {f : F} (hf : f ∈ v.toValuationSubring) :
     residue (g • v).toValuationSubring

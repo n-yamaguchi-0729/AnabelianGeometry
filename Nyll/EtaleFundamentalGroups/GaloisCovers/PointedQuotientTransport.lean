@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCategories.GaloisObjectQuotient
-import Nyll.EtaleFundamentalGroups.GaloisCovers.FiberQuotient
-import Mathlib.CategoryTheory.Conj
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.GaloisObjectQuotient
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.FiberQuotient
+public import Mathlib.CategoryTheory.Conj
 
 /-!
 # Transport of pointed Galois quotients
@@ -15,6 +17,8 @@ The quotient attached to a Galois object is natural under an isomorphism
 between fiber functors, provided that the chosen point is transported along
 the same isomorphism.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -42,19 +46,19 @@ theorem galoisObjectQuotientMonoidHom_transport
     (galoisObjectQuotientMonoidHom Phi (Aut Phi) A (p.inv.app A y) a).unop
   have hPhi := galoisObjectQuotientMonoidHom_evaluation
     Phi (Aut Phi) A (p.inv.app A y) a
-  have hnat := ConcreteCategory.congr_hom (p.hom.naturality theta.hom)
+  have hnat := ConcreteCategory.congr_hom (p.hom.naturality theta.asIso.hom)
     (p.inv.app A y)
-  change Psi.map theta.hom y = (p.conjAut a).hom.app A y
+  change Psi.map theta.asIso.hom y = (p.conjAut a).asIso.hom.app A y
   have hy : p.hom.app A (p.inv.app A y) = y :=
     FintypeCat.inv_hom_id_apply (p.app A) y
   calc
-    Psi.map theta.hom y =
-        Psi.map theta.hom (p.hom.app A (p.inv.app A y)) :=
-      congrArg (Psi.map theta.hom) hy.symm
-    _ = p.hom.app A (Phi.map theta.hom (p.inv.app A y)) := hnat.symm
+    Psi.map theta.asIso.hom y =
+        Psi.map theta.asIso.hom (p.hom.app A (p.inv.app A y)) :=
+      congrArg (Psi.map theta.asIso.hom) hy.symm
+    _ = p.hom.app A (Phi.map theta.asIso.hom (p.inv.app A y)) := hnat.symm
     _ = p.hom.app A (a • p.inv.app A y) := congrArg (p.hom.app A) hPhi
-    _ = (p.conjAut a).hom.app A y := by
-      change p.hom.app A (a.hom.app A (p.inv.app A y)) = _
+    _ = (p.conjAut a).asIso.hom.app A y := by
+      change p.hom.app A (a.asIso.hom.app A (p.inv.app A y)) = _
       rfl
 
 /-- Naturality of pointed Galois-object quotients after precomposition by an

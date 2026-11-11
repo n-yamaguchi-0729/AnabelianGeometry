@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCovers.FunctionField
-import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.FunctionField
+public import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
 
 /-!
 # The literal generic point of the actual recovered cover
@@ -14,6 +16,8 @@ The original generic lift selects the cover-field embedding into Ω. Pulling
 that embedding across the inverse of the actual recovery isomorphism gives
 exactly the recovered point. No fiber path or conjugating element is chosen.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -36,23 +40,16 @@ theorem recoveredCover_genericExtensionMorphism_eq
     (R : Y ≅ W.left) (x : Spec (.of Ω) ⟶ Y)
     (hxR : x ≫ R.hom =
       (fiberObjEquivHom (U.genericExtensionMorphism Ω) W w).left) :
-    letI : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
-    letI : Algebra U.functionField W.left.functionField := finiteEtaleFunctionFieldAlgebra W
+    let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
+    let : Algebra U.functionField W.left.functionField := finiteEtaleFunctionFieldAlgebra W
     let g := fiberObjEquivHom (U.genericExtensionMorphism Ω) W w
     let β := finiteEtaleGenericHomFunctionFieldAlgHom W g
     let hRinv : DenseRange R.inv := R.inv.homeomorph.surjective.denseRange
     let α : Y.functionField →+* Ω :=
       β.toRingHom.comp (R.inv.functionFieldMap hRinv)
-    letI : Algebra Y.functionField Ω := α.toAlgebra
+    let : Algebra Y.functionField Ω := α.toAlgebra
     Y.genericExtensionMorphism Ω = x := by
-  let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
-  let : Algebra U.functionField W.left.functionField := finiteEtaleFunctionFieldAlgebra W
-  let g := fiberObjEquivHom (U.genericExtensionMorphism Ω) W w
-  let β := finiteEtaleGenericHomFunctionFieldAlgHom W g
-  let hRinv : DenseRange R.inv := R.inv.homeomorph.surjective.denseRange
-  let α : Y.functionField →+* Ω :=
-    β.toRingHom.comp (R.inv.functionFieldMap hRinv)
-  let : Algebra Y.functionField Ω := α.toAlgebra
+  intro sharedOwner1 sharedOwner2 g β hRinv α sharedOwner7
   have hβ : Spec.map (CommRingCat.ofHom β.toRingHom) ≫
       W.left.fromSpecStalk (genericPoint W.left) = g.left :=
     finiteEtaleGenericHomFunctionFieldAlgHom_spec W g

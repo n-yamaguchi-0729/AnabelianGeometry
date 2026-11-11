@@ -3,11 +3,13 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairSquareMap
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncSquareFibers
-import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineRatFuncModel
-import Nyll.AlgebraicCurves.Places.Evaluation.PlaceValueRestrictAlong
-import Mathlib.AlgebraicGeometry.OpenImmersion
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairSquareMap
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncSquareFibers
+public import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineRatFuncModel
+public import Nyll.AlgebraicCurves.Places.Evaluation.PlaceValueRestrictAlong
+public import Mathlib.AlgebraicGeometry.OpenImmersion
 
 /-! # Actual omitted-place labels on the rational square model
 
@@ -16,6 +18,8 @@ omitted target place. The retained model-map place clause transfers the given
 pair function's values and poles to X squared. The selected root labels then
 exhaust the actual source boundary and prove its rationality.
 -/
+@[expose] public section
+
 noncomputable section
 attribute [local instance] Classical.propDecidable
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve

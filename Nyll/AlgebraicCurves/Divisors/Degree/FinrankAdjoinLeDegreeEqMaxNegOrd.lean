@@ -10,20 +10,24 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Algebra.Polynomial.Basis
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
-import Nyll.AlgebraicCurves.Cohomology.Adelic.Repartitions
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
-import Nyll.AlgebraicCurves.Cohomology.Adelic.Index
-import Nyll.AlgebraicCurves.Places.ValuationRings.MemToValuationSubringIsIntegralAdjoin
-import Nyll.AlgebraicCurves.Places.Basic
-import Nyll.AlgebraicCurves.FunctionFields.LinearAlgebra.LinearIndependentPowMul
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.SectionBounds
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Genus.AdelicGenus
+module
+
+public import Mathlib.Algebra.Polynomial.Basis
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+public import Nyll.AlgebraicCurves.Cohomology.Adelic.Repartitions
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
+public import Nyll.AlgebraicCurves.Cohomology.Adelic.Index
+public import Nyll.AlgebraicCurves.Places.ValuationRings.MemToValuationSubringIsIntegralAdjoin
+public import Nyll.AlgebraicCurves.Places.Basic
+public import Nyll.AlgebraicCurves.FunctionFields.LinearAlgebra.LinearIndependentPowMul
+public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.SectionBounds
+public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Genus.AdelicGenus
 
 /-!
 # Divisor finrank adjoin le degree of eq max neg ord
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -181,7 +185,7 @@ theorem _root_.AlgebraicCurve.Divisor.finrank_adjoin_le_degree_of_eq_max_neg_ord
       refine LinearIndependent.of_comp (LSpace (m • D)).subtype ?_
       exact hcomp
     have hcard : Fintype.card ι = (m - c + 1) * n := by
-      simp [ι, Fintype.card_prod, Fintype.card_fin]
+      simp only [ι, Fintype.card_prod, Fintype.card_fin]
     calc (n : ℤ) * (m - c + 1)
         = ((m - c + 1) * n : ℕ) := by push_cast [Nat.cast_sub hm]; ring
       _ = (Fintype.card ι : ℤ) := by rw [hcard]

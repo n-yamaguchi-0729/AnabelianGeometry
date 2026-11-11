@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualAbsoluteTameCharacter
-import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationWildCharZero
-import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationInertiaCompact
-import Nyll.ProCGroups.Topologies.ContinuousMulEquiv
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualAbsoluteTameCharacter
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationWildCharZero
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationInertiaCompact
+public import Nyll.ProCGroups.Topologies.ContinuousMulEquiv
 
 /-!
 # The actual inertia character in residue characteristic zero
@@ -15,6 +17,8 @@ import Nyll.ProCGroups.Topologies.ContinuousMulEquiv
 Triviality of the original wild subgroup makes the existing absolute tame
 character a continuous equivalence, with its original forward map.
 -/
+
+@[expose] public section
 
 noncomputable section
 

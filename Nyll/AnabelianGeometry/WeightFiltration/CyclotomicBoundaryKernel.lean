@@ -4,8 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticBoundaryGaloisSequence
-import Nyll.AnabelianGeometry.WeightFiltration.OpenCyclotomicHomVanishing
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticBoundaryGaloisSequence
+public import Nyll.AnabelianGeometry.WeightFiltration.OpenCyclotomicHomVanishing
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
 
 /-!
 # Cyclotomic images lie in the actual boundary kernel
@@ -15,6 +18,8 @@ compactification Tate map. Number-field Hom vanishing annihilates this
 composite. This is the containment direction of intrinsic weight recognition;
 no rationality or pointwise fixedness of the boundary is assumed here.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -27,7 +32,7 @@ open ProCGroups.Abelian
 namespace AnabelianGeometry.WeightFiltration
 
 variable
-    (k K : Type) [Field k] [NumberField k] [Field K] [CharZero K] [IsAlgClosed K]
+    (k K : Type) [Field k] [CharZero k] [Field.FG k] [Field K] [CharZero K] [IsAlgClosed K]
     [Algebra k K] [IsSepClosure k K]
     {C U : Scheme} [CompactSpace U] [QuasiSeparatedSpace U]
     (c : C ⟶ Spec (.of k)) (i : U ⟶ C)

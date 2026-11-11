@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverImage
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverInjectivity
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverImage
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverInjectivity
 
 /-! # Actual pointed-cover group transport from the same finite-fibre map
 
@@ -14,6 +16,8 @@ The pointed-cover stabilizer comparison then gives a topological
 isomorphism of the actual covering fundamental groups. Its inclusion square is
 literal, so every original compatible arithmetic quotient remains compatible.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory
 open scoped FintypeCatDiscrete

@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.EtaleFundamentalGroups.GaloisCategories.Surjectivity
-import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberIso
-import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
-import Nyll.EtaleFundamentalGroups.GeometricFiber.OpenImmersionSurjective
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
-import Nyll.EtaleFundamentalGroups.GeometricFiber.BasePoint
-import Mathlib.AlgebraicGeometry.Geometrically.Connected
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.Surjectivity
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberIso
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.OpenImmersionSurjective
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.BasePoint
+public import Mathlib.AlgebraicGeometry.Geometrically.Connected
 
 /-!
 # Arithmetic Surjective
@@ -19,6 +21,8 @@ import Mathlib.AlgebraicGeometry.Geometrically.Connected
 A geometrically connected scheme over a field induces a surjection on
 the fundamental group of that field.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCovers.FiberQuotient
-import Nyll.EtaleFundamentalGroups.GaloisCovers.PointedQuotientTransport
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldFunctoriality
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackFiberPoint
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteNormalizationPrime
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.FiberQuotient
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.PointedQuotientTransport
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldFunctoriality
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackFiberPoint
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteNormalizationPrime
 
 /-!
 # Absolute generic inertia and finite function-field quotients
@@ -18,6 +20,8 @@ the fundamental group at the generic geometric point.  This file compares
 its image on every pointed connected finite Galois cover with restriction to
 the cover's function field, using the embedding selected by the fiber point.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -29,7 +33,8 @@ namespace EtaleFundamentalGroups.Inertia
 
 universe u
 
-private theorem fieldGeometricPoint_comp_genericExtensionMorphism
+/-- The composite field point agrees with the generic geometric point. -/
+theorem fieldGeometricPoint_comp_genericExtensionMorphism
     (U : Scheme.{u}) [IsIntegral U]
     (Omega : Type u) [Field Omega] [Algebra U.functionField Omega] :
     ξ U.functionField Omega ≫
@@ -126,15 +131,12 @@ noncomputable def finiteEtaleFiberPointFunctionFieldAlgHom
     [IsSepClosed Omega]
     (W : FiniteEtale U) [IsConnected W]
     (w : (fiber (U.genericExtensionMorphism Omega)).obj W) :
-    letI : IsIntegral W.left :=
+    let : IsIntegral W.left :=
       isIntegral_left_of_isConnected_finiteEtale W
-    letI : Algebra U.functionField W.left.functionField :=
+    let : Algebra U.functionField W.left.functionField :=
       finiteEtaleFunctionFieldAlgebra W
     W.left.functionField →ₐ[U.functionField] Omega := by
-  letI : IsIntegral W.left :=
-    isIntegral_left_of_isConnected_finiteEtale W
-  letI : Algebra U.functionField W.left.functionField :=
-    finiteEtaleFunctionFieldAlgebra W
+  intro sharedDefinitionOwner1 sharedDefinitionOwner2
   exact finiteEtaleGenericHomFunctionFieldAlgHom W
     (fiberObjEquivHom (U.genericExtensionMorphism Omega) W w)
 
@@ -148,15 +150,12 @@ fiber points generally select different embeddings. -/
     [IsSepClosed Omega]
     (W : FiniteEtale U) [IsConnected W]
     (w : (fiber (U.genericExtensionMorphism Omega)).obj W) :
-    letI : IsIntegral W.left :=
+    let : IsIntegral W.left :=
       isIntegral_left_of_isConnected_finiteEtale W
-    letI : Algebra U.functionField W.left.functionField :=
+    let : Algebra U.functionField W.left.functionField :=
       finiteEtaleFunctionFieldAlgebra W
     Algebra W.left.functionField Omega := by
-  letI : IsIntegral W.left :=
-    isIntegral_left_of_isConnected_finiteEtale W
-  letI : Algebra U.functionField W.left.functionField :=
-    finiteEtaleFunctionFieldAlgebra W
+  intro sharedDefinitionOwner1 sharedDefinitionOwner2
   exact (finiteEtaleFiberPointFunctionFieldAlgHom W w).toRingHom.toAlgebra
 
 /-- The point-selected function-field embedding extends the fixed embedding
@@ -168,17 +167,14 @@ theorem finiteEtaleFiberPointFunctionFieldIsScalarTower
     [IsSepClosed Omega]
     (W : FiniteEtale U) [IsConnected W]
     (w : (fiber (U.genericExtensionMorphism Omega)).obj W) :
-    letI : IsIntegral W.left :=
+    let : IsIntegral W.left :=
       isIntegral_left_of_isConnected_finiteEtale W
-    letI : Algebra U.functionField W.left.functionField :=
+    let : Algebra U.functionField W.left.functionField :=
       finiteEtaleFunctionFieldAlgebra W
     letI : Algebra W.left.functionField Omega :=
       finiteEtaleFiberPointFunctionFieldAlgebra W w
     IsScalarTower U.functionField W.left.functionField Omega := by
-  let : IsIntegral W.left :=
-    isIntegral_left_of_isConnected_finiteEtale W
-  let : Algebra U.functionField W.left.functionField :=
-    finiteEtaleFunctionFieldAlgebra W
+  intro sharedOwner1 sharedOwner2
   let j := finiteEtaleFiberPointFunctionFieldAlgHom W w
   let : Algebra W.left.functionField Omega :=
     finiteEtaleFiberPointFunctionFieldAlgebra W w
@@ -263,12 +259,11 @@ private theorem genericPointLiftSchemeHom_genericPoint
     {Omega : Type u} [Field Omega] [Algebra U.functionField Omega]
     (W : FiniteEtale U) [IsConnected W]
     (g : Over.mk (U.genericExtensionMorphism Omega) ⟶ W.toComma) :
-    letI : IsIntegral W.left :=
+    let : IsIntegral W.left :=
       isIntegral_left_of_isConnected_finiteEtale W
     genericPointLiftSchemeHom W g (IsLocalRing.closedPoint Omega) =
       genericPoint W.left := by
-  let : IsIntegral W.left :=
-    isIntegral_left_of_isConnected_finiteEtale W
+  intro sharedOwner1
   let f : W.left ⟶ U := W.hom
   let : IsFiniteEtale f := W.2
   have hg :
@@ -322,10 +317,7 @@ private theorem stalkClosedPointTo_specMap_algEquiv
           (.of_eq hclosed)).hom ≫
         (stalkClosedPointIso (CommRingCat.of Omega)).hom ≫
           CommRingCat.ofHom sigma.toRingEquiv.toRingHom := by
-  let s := Spec.map (CommRingCat.ofHom sigma.toRingEquiv.toRingHom)
-  let x : Spec (.of Omega) := IsLocalRing.closedPoint Omega
-  let hclosed : s x = x :=
-    IsLocalRing.comap_closedPoint sigma.toRingEquiv.toRingHom
+  intro s x hclosed
   dsimp only
   let e := (Spec (.of Omega)).presheaf.stalkCongr (.of_eq hclosed)
   have he :
@@ -374,17 +366,14 @@ theorem finiteEtaleGenericHomFunctionFieldAlgHom_precomp
     (W : FiniteEtale U) [IsConnected W]
     (g : Over.mk (U.genericExtensionMorphism Omega) ⟶ W.toComma)
     (sigma : Gal(Omega/U.functionField)) :
-    letI : IsIntegral W.left :=
+    let : IsIntegral W.left :=
       isIntegral_left_of_isConnected_finiteEtale W
-    letI : Algebra U.functionField W.left.functionField :=
+    let : Algebra U.functionField W.left.functionField :=
       finiteEtaleFunctionFieldAlgebra W
     finiteEtaleGenericHomFunctionFieldAlgHom W
         (genericPointLiftPrecomp W g sigma) =
       sigma.toAlgHom.comp (finiteEtaleGenericHomFunctionFieldAlgHom W g) := by
-  let : IsIntegral W.left :=
-    isIntegral_left_of_isConnected_finiteEtale W
-  let : Algebra U.functionField W.left.functionField :=
-    finiteEtaleFunctionFieldAlgebra W
+  intro sharedOwner1 sharedOwner2
   let q := genericPointLiftSchemeHom W g
   let qSigma := genericPointLiftSchemeHom W
     (genericPointLiftPrecomp W g sigma)
@@ -455,7 +444,7 @@ theorem mem_absoluteNormalizationPrimeInertiaSource_iff
     [Algebra A Omega] [IsScalarTower A U.functionField Omega]
     (Q : Ideal (integralClosure A Omega))
     (gamma : π₁ᵉᵗ(U.genericExtensionMorphism Omega)) :
-    letI : MulSemiringAction Gal(Omega/U.functionField)
+    let : MulSemiringAction Gal(Omega/U.functionField)
         (integralClosure A Omega) :=
       IsIntegralClosure.MulSemiringAction A U.functionField Omega
         (integralClosure A Omega)
@@ -463,10 +452,7 @@ theorem mem_absoluteNormalizationPrimeInertiaSource_iff
       ∃ sigma : Gal(Omega/U.functionField),
         sigma ∈ Q.toAddSubgroup.inertia Gal(Omega/U.functionField) ∧
           absoluteGenericGaloisToFundamentalGroup U Omega sigma = gamma := by
-  let : MulSemiringAction Gal(Omega/U.functionField)
-      (integralClosure A Omega) :=
-    IsIntegralClosure.MulSemiringAction A U.functionField Omega
-      (integralClosure A Omega)
+  intro sharedOwner1
   change gamma ∈ Subgroup.map
       (absoluteGenericGaloisToFundamentalGroup U Omega)
       (Q.toAddSubgroup.inertia Gal(Omega/U.functionField)) ↔ _
@@ -515,11 +501,11 @@ theorem exists_absolute_inertia_restriction_of_mem_source
     (Q : Ideal (integralClosure A Omega)) [Q.IsPrime]
     (gamma : π₁ᵉᵗ(U.genericExtensionMorphism Omega))
     (hgamma : gamma ∈ absoluteNormalizationPrimeInertiaSource Omega Q) :
-    letI : MulSemiringAction Gal(Omega/U.functionField)
+    let : MulSemiringAction Gal(Omega/U.functionField)
         (integralClosure A Omega) :=
       IsIntegralClosure.MulSemiringAction A U.functionField Omega
         (integralClosure A Omega)
-    letI : MulSemiringAction Gal(L/U.functionField)
+    let : MulSemiringAction Gal(L/U.functionField)
         (integralClosure A L) :=
       IsIntegralClosure.MulSemiringAction A U.functionField L
         (integralClosure A L)
@@ -531,14 +517,7 @@ theorem exists_absolute_inertia_restriction_of_mem_source
             (absoluteNormalizationPrimeContraction
               (A := A) (L := L) (Omega := Omega) Q).toAddSubgroup.inertia
                 Gal(L/U.functionField) := by
-  let : MulSemiringAction Gal(Omega/U.functionField)
-      (integralClosure A Omega) :=
-    IsIntegralClosure.MulSemiringAction A U.functionField Omega
-      (integralClosure A Omega)
-  let : MulSemiringAction Gal(L/U.functionField)
-      (integralClosure A L) :=
-    IsIntegralClosure.MulSemiringAction A U.functionField L
-      (integralClosure A L)
+  intro sharedOwner1 sharedOwner2
   rcases (mem_absoluteNormalizationPrimeInertiaSource_iff
     Omega Q gamma).mp hgamma with ⟨sigma, hsigma, hmap⟩
   refine ⟨sigma, hsigma, hmap, ?_⟩

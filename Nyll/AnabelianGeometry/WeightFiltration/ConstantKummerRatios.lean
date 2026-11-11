@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
 
 /-!
 # Constant coefficients for actual Kummer ratios
@@ -12,6 +14,8 @@ import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityField
 If a constant field contains a primitive nth root, every ratio of a root and
 its image under an action fixing its nth power is an actual constant nth root.
 -/
+
+@[expose] public section
 
 noncomputable section
 

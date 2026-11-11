@@ -10,11 +10,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.RingTheory.Dimension.AlgebraTrdegQuotientLt
+module
+
+public import Nyll.SchemeTheory.RingTheory.Dimension.AlgebraTrdegQuotientLt
 
 /-!
 # Alg Hom injective of finite of is Fraction Ring
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

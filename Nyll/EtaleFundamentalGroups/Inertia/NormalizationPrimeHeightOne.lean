@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteNormalizationPrime
-import Mathlib.RingTheory.Ideal.GoingUp
+module
+
+public import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteNormalizationPrime
+public import Mathlib.RingTheory.Ideal.GoingUp
 
 /-! # The actual finite height-one prime under a maximal absolute prime -/
+
+@[expose] public section
 
 noncomputable section
 

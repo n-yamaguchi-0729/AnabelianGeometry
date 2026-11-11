@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteTameRootsSystem
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
-import Nyll.EtaleFundamentalGroups.Inertia.RestrictedPrimeToRootsGroupSystem
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteTameRootsSystem
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
+public import Nyll.EtaleFundamentalGroups.Inertia.RestrictedPrimeToRootsGroupSystem
 
 /-!
 # The existing actual roots system as a group system
@@ -15,6 +17,8 @@ Supplies the exact stage-group family and group-system class on the existing
 actual roots system. Both are the original prime-to-roots groups and their
 literal restriction; no group operation or inverse system is replaced.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

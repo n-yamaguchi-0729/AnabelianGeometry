@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueEpi
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeResidueAction
-import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
-import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
-import Mathlib.RingTheory.Ideal.Quotient.Defs
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueEpi
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeResidueAction
+public import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
+public import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
+public import Mathlib.RingTheory.Ideal.Quotient.Defs
 
 /-!
 # Coefficient descriptions of algebra residue automorphisms
@@ -17,6 +19,8 @@ Defines ring equivalences and coefficient maps underlying algebra residue automo
 proves that these coefficient maps determine the automorphisms and computes the residue morphism
 on coefficients.
 -/
+
+@[expose] public section
 
 noncomputable section
 

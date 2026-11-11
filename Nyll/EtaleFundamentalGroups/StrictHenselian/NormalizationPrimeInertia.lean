@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeEmbedding
-import Nyll.SchemeTheory.RingTheory.Ramification.InertiaLocalization
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaDiagram
-import Mathlib.Algebra.Algebra.Equiv
+module
+
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeEmbedding
+public import Nyll.SchemeTheory.RingTheory.Ramification.InertiaLocalization
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaDiagram
+public import Mathlib.Algebra.Algebra.Equiv
 
 /-!
 # Original normalization inertia on the literal prime localization
@@ -19,6 +21,8 @@ the individual native localization automorphism, with the literal base and
 residue squares. No alternate action on the localization is installed.
 These are the actual inputs for the separately proved stalk rigidity result.
 -/
+
+@[expose] public section
 
 noncomputable section
 

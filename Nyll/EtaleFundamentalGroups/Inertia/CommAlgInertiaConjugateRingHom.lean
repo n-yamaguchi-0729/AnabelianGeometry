@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgInertiaRingMaps
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealInertiaConjugate
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgDecompositionGroup
-import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgInertiaRingMaps
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealInertiaConjugate
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgDecompositionGroup
+public import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
 
 /-!
 # The coefficient ring map of intrinsic inertia conjugation
@@ -15,6 +17,8 @@ import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
 Intrinsic algebra-automorphism operations are closed in this native owner.
 The output uses only composition of the actual coefficient ring maps.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

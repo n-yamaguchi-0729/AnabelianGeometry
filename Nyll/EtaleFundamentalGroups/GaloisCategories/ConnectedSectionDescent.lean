@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCategories.TrivialComposite
-import Mathlib.CategoryTheory.Galois.Decomposition
-import Mathlib.CategoryTheory.Functor.EpiMono
-import Mathlib.CategoryTheory.Limits.Preserves.Shapes.Products
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.TrivialComposite
+public import Mathlib.CategoryTheory.Galois.Decomposition
+public import Mathlib.CategoryTheory.Functor.EpiMono
+public import Mathlib.CategoryTheory.Limits.Preserves.Shapes.Products
 
 /-!
 # Assembling descent of connected objects
@@ -16,6 +18,8 @@ A trivial restriction has trivial restrictions on each connected component.
 Fixed points give actual terminal sections, so descent of the connected
 components assembles by finite coproducts to descent of the whole object.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory Limits

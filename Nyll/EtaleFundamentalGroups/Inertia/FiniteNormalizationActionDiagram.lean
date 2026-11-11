@@ -4,20 +4,22 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.ProfiniteRingActionRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteGaloisRestrictionGroupMap
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationInclusionSquare
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.EtaleFundamentalGroups.Inertia.NativeNormalizationOriginalAction
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.FieldTheory.Galois.Basic
-import Mathlib.FieldTheory.Galois.Infinite
-import Mathlib.FieldTheory.Galois.Profinite
-import Mathlib.FieldTheory.KrullTopology
-import Mathlib.RingTheory.IntegralClosure.IsIntegral.Basic
-import Mathlib.Topology.Compactness.Compact
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.ProfiniteRingActionRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteGaloisRestrictionGroupMap
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationInclusionSquare
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeNormalizationOriginalAction
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.FieldTheory.Galois.Basic
+public import Mathlib.FieldTheory.Galois.Infinite
+public import Mathlib.FieldTheory.Galois.Profinite
+public import Mathlib.FieldTheory.KrullTopology
+public import Mathlib.RingTheory.IntegralClosure.IsIntegral.Basic
+public import Mathlib.Topology.Compactness.Compact
 
 /-!
 # Actual finite-normalization ring-action diagrams
@@ -27,6 +29,8 @@ argument. All groups, rings, actions, maps, and primes are the existing
 literal objects. Every non-data input to the ordinary image theorem is
 proved below; no inertia-image theorem is used as a supplier.
 -/
+
+@[expose] public section
 
 noncomputable section
 

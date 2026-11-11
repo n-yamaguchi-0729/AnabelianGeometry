@@ -3,18 +3,20 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
-import Mathlib.AlgebraicGeometry.Morphisms.Affine
-import Mathlib.AlgebraicGeometry.Morphisms.QuasiCompact
-import Mathlib.AlgebraicGeometry.Morphisms.QuasiSeparated
-import Mathlib.AlgebraicGeometry.Morphisms.Separated
-import Mathlib.AlgebraicGeometry.Pullbacks
-import Mathlib.CategoryTheory.Adjunction.Limits
-import Mathlib.CategoryTheory.Comma.Over.Basic
-import Mathlib.CategoryTheory.Comma.Over.Pullback
-import Mathlib.CategoryTheory.Limits.Constructions.Over.Connected
-import Mathlib.CategoryTheory.Limits.Opposites
-import Nyll.EtaleFundamentalGroups.GenericTensor.FilteredColimit.IntermediateFieldDiagram
+module
+
+public import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
+public import Mathlib.AlgebraicGeometry.Morphisms.Affine
+public import Mathlib.AlgebraicGeometry.Morphisms.QuasiCompact
+public import Mathlib.AlgebraicGeometry.Morphisms.QuasiSeparated
+public import Mathlib.AlgebraicGeometry.Morphisms.Separated
+public import Mathlib.AlgebraicGeometry.Pullbacks
+public import Mathlib.CategoryTheory.Adjunction.Limits
+public import Mathlib.CategoryTheory.Comma.Over.Basic
+public import Mathlib.CategoryTheory.Comma.Over.Pullback
+public import Mathlib.CategoryTheory.Limits.Constructions.Over.Connected
+public import Mathlib.CategoryTheory.Limits.Opposites
+public import Nyll.EtaleFundamentalGroups.GenericTensor.FilteredColimit.IntermediateFieldDiagram
 
 /-!
 # Constant-field base changes as an inverse limit
@@ -26,13 +28,16 @@ and quasi-separatedness from the original scheme. For algebraic extensions,
 these intermediate fields are finite-dimensional.
 -/
 
+@[expose] public section
+
 noncomputable section
 universe u
 open CategoryTheory Limits Opposite AlgebraicGeometry
 namespace EtaleFundamentalGroups
 variable (k L : Type u) [Field k] [Field L] [Algebra k L]
 
-private def coefficientSpecFunctor :
+/-- The spectrum functor sends coefficient algebras to schemes over the base field. -/
+def coefficientSpecFunctor :
     (Under (CommRingCat.of k))ᵒᵖ ⥤ Over (Spec (CommRingCat.of k)) :=
   (Over.opEquivOpUnder (CommRingCat.of k)).inverse ⋙ Over.post Scheme.Spec
 

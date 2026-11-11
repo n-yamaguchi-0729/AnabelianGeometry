@@ -4,13 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.KummerTheory.CyclicRadicalDescent
-import Nyll.AnabelianGeometry.KummerTheory.GoodPrimePowerNormKernel
-import Nyll.AnabelianGeometry.KummerTheory.TwoPowerCyclotomicCyclicity
-import Mathlib.NumberTheory.Cyclotomic.Gal
-import Mathlib.Tactic
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.CyclicRadicalDescent
+public import Nyll.AnabelianGeometry.KummerTheory.GoodPrimePowerNormKernel
+public import Nyll.AnabelianGeometry.KummerTheory.TwoPowerCyclotomicCyclicity
+public import Mathlib.NumberTheory.Cyclotomic.Gal
+public import Mathlib.Tactic
 
 /-! # Exact prime-power radical descent in the actual cyclotomic extension -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -65,7 +69,7 @@ theorem twoPower_autToPow_mod_four
   let ξ : E := ζ ^ (2 ^ s)
   have hξ : IsPrimitiveRoot ξ 4 := by
     apply IsPrimitiveRoot.pow (pow_pos (by decide : 0 < (2 : ℕ)) (s + 2)) hζ
-    simp [pow_add]
+    exact pow_add 2 s 2
   let v : ℕ := (hζ.autToPow F σ : ZMod (2 ^ (s + 2))).val
   have hfix : ξ ^ v = ξ := by
     calc
@@ -121,7 +125,8 @@ theorem goodPrimePower_cyclotomic_character
             have hvlt : (u : ZMod 2).val < 2 := ZMod.val_lt (u : ZMod 2)
             have hv : (u : ZMod 2).val = 1 := by omega
             change (4 : ℤ) ∣ (((u : ZMod 2).val : ℤ) - 1)
-            simp [hv]
+            rw [hv, Nat.cast_one, sub_self]
+            exact dvd_zero _
         | succ s =>
             obtain ⟨η, hη⟩ := hfour rfl (by omega)
             have hfixed : ∀ (τ : Gal(E/F)) (x : E), x ^ 4 = 1 → τ x = x :=
@@ -131,7 +136,7 @@ theorem goodPrimePower_cyclotomic_character
               twoPower_autToPow_mod_four s hζ hfixed σ
             have h4 : 4 ∣ 2 ^ (s + 2) := by
               refine ⟨2 ^ s, ?_⟩
-              simp [pow_add, Nat.mul_comm]
+              exact (pow_add 2 s 2).trans (Nat.mul_comm _ _)
             have hmap (σ : Gal(E/F)) : ZMod.unitsMap h4 (hζ.autToPow F σ) = 1 := by
               apply Units.ext
               change (ZMod.castHom h4 (ZMod 4))

@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
-import Nyll.ProCGroups.InverseSystems.CofinalityAndDensity
-import Mathlib.FieldTheory.IsAlgClosed.Basic
-import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
+public import Nyll.ProCGroups.InverseSystems.CofinalityAndDensity
+public import Mathlib.FieldTheory.IsAlgClosed.Basic
+public import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
 
 /-!
 # Surjectivity of actual roots coordinates
@@ -15,6 +17,8 @@ import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
 Over an algebraically closed target field, each power transition and each
 projection from the actual roots inverse limit is surjective.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 
@@ -68,7 +72,7 @@ instance primeToRoots_inverseLimit_commGroup
 theorem exists_third_root_ne_one
     (E : Type*) [Field E] [CharZero E] [IsAlgClosed E] :
     ∃ η : rootsOfUnity 3 E, η ^ 3 = 1 ∧ η ≠ 1 ∧ η ^ 2 ≠ 1 := by
-  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_primitiveRoot E 3
+  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_isPrimitiveRoot E 3
   let η : rootsOfUnity 3 E := hζ.toRootsOfUnity
   have hη : IsPrimitiveRoot η 3 := by
     apply IsPrimitiveRoot.coe_submonoidClass_iff.mp

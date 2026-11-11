@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCategories.CoverTransportFiber
-import Nyll.EtaleFundamentalGroups.Cohomology.TransportedFiberTorsor
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticMap
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.CoverTransportFiber
+public import Nyll.EtaleFundamentalGroups.Cohomology.TransportedFiberTorsor
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticMap
 
 /-!
 # Original arithmetic transport from the actual geometric comparison
@@ -16,6 +18,8 @@ comparison, the two proved restriction comparisons, and the actual geometric
 cover-transport equivalence. Only the coefficient action is transported;
 the arithmetic finite-cover actions remain unchanged.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry AlgebraicGeometry.FiniteEtale CategoryTheory

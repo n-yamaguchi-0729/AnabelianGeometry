@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.LocalRing.RingHom.Basic
-import Mathlib.Algebra.Group.Units.Hom
-import Mathlib.Algebra.Ring.Equiv
+module
+
+public import Mathlib.RingTheory.LocalRing.RingHom.Basic
+public import Mathlib.Algebra.Group.Units.Hom
+public import Mathlib.Algebra.Ring.Equiv
 
 /-!
 # Transport of principal-unit multipliers
@@ -14,6 +16,8 @@ import Mathlib.Algebra.Ring.Equiv
 Proves that the principal-unit multiplier condition is preserved, in both directions, by a
 local-ring equivalence intertwining the ring maps.
 -/
+
+@[expose] public section
 
 namespace RamificationTheory.HilbertRamification.LocalRing
 

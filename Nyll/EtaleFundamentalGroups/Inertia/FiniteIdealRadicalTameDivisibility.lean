@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameFactorization
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealWildPrimary
-import Nyll.EtaleFundamentalGroups.Inertia.TameOrderDivisibility
-import Nyll.EtaleFundamentalGroups.Inertia.UniformizerRadicalRamification
-import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
-import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameFactorization
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealWildPrimary
+public import Nyll.EtaleFundamentalGroups.Inertia.TameOrderDivisibility
+public import Nyll.EtaleFundamentalGroups.Inertia.UniformizerRadicalRamification
+public import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
+public import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
 
 /-!
 # Actual uniformizer radicals divide the actual finite tame order
@@ -21,6 +23,8 @@ inertia cardinality factorization, including inseparable residue extensions.
 
 Reference: https://stacks.math.columbia.edu/tag/0BUB
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

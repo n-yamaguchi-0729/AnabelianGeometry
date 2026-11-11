@@ -10,18 +10,22 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.RingTheory.Ideal.AssociatedPrime.Basic
-import Mathlib.RingTheory.DiscreteValuationRing.TFAE
-import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
-import Mathlib.RingTheory.Localization.Submodule
-import Mathlib.RingTheory.Finiteness.Ideal
-import Mathlib.Tactic.Ring
-import Mathlib.Tactic.Push
-import Mathlib.Tactic.Choose
+module
+
+public import Mathlib.RingTheory.Ideal.AssociatedPrime.Basic
+public import Mathlib.RingTheory.DiscreteValuationRing.TFAE
+public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
+public import Mathlib.RingTheory.Localization.Submodule
+public import Mathlib.RingTheory.Finiteness.Ideal
+public import Mathlib.Tactic.Ring
+public import Mathlib.Tactic.Push
+public import Mathlib.Tactic.Choose
 
 /-!
 # Is Integrally Closed is Discrete Valuation Ring of maximal Ideal mem associated Primes
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

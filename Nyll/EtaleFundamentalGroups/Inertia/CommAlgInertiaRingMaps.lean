@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
-import Mathlib.Algebra.Algebra.Equiv
-import Mathlib.Algebra.Category.CommAlgCat.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
+public import Mathlib.Algebra.Algebra.Equiv
+public import Mathlib.Algebra.Category.CommAlgCat.Basic
 
 /-!
 # Ring maps underlying intrinsic inertia
@@ -14,6 +16,8 @@ import Mathlib.Algebra.Category.CommAlgCat.Basic
 Extracts the coefficient ring map of an intrinsic inertia element and proves that this ring map
 determines the element.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

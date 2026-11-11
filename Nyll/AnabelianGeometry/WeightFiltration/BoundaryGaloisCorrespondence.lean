@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryGeometricGaloisAction
-import Nyll.AnabelianGeometry.WeightFiltration.AlignedBoundaryGeometricGaloisAction
+module
+
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryGeometricGaloisAction
+public import Nyll.AnabelianGeometry.WeightFiltration.AlignedBoundaryGeometricGaloisAction
 
 /-! # Equivariance of the actual geometric cusp correspondence
 
@@ -15,6 +17,8 @@ Both source corrections are retained. The target correction is the ratio
 label equality is proved from actual inertia ranges and their separation;
 it is not an additional assumption on the boundary correspondence.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory CategoryTheory.Limits AlgebraicCurve

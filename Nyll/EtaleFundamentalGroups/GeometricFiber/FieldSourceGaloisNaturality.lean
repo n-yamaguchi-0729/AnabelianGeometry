@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisPoint
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ExtendedFiberGaloisAction
-import Nyll.EtaleFundamentalGroups.GeometricFiber.HenselianSpecializationConjugacy
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisPoint
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ExtendedFiberGaloisAction
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.HenselianSpecializationConjugacy
 
 /-!
 # Naturality of the actual field-source Galois homomorphism
@@ -14,6 +16,8 @@ import Nyll.EtaleFundamentalGroups.GeometricFiber.HenselianSpecializationConjuga
 The same ambient field automorphism acts on every geometric point by its
 literal spectrum map. Equality transport therefore gives the exact square.
 -/
+
+@[expose] public section
 
 noncomputable section
 

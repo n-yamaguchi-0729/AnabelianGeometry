@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverInvariants
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverInvariants
 
 /-!
 # Boundary restriction in an actual finite compactification square
@@ -13,6 +15,8 @@ The literal restriction of places is surjective on the boundary. In
 particular a base with at least three punctures retains at least three
 boundary points in every finite open cover realizing such a square.
 -/
+
+@[expose] public section
 
 noncomputable section
 

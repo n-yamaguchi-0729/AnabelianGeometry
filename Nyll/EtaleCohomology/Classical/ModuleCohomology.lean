@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Category.ModuleCat.Basic
-import Mathlib.CategoryTheory.Sites.Whiskering
-import Mathlib.CategoryTheory.Sites.SheafCohomology.Basic
+module
+
+public import Mathlib.Algebra.Category.ModuleCat.Basic
+public import Mathlib.CategoryTheory.Sites.Whiskering
+public import Mathlib.CategoryTheory.Sites.SheafCohomology.Basic
 
 /-!
 # Coefficient modules on classical sheaf cohomology
@@ -17,6 +19,8 @@ The module structures are bundled in `ModuleCat`, avoiding competing global
 module instances on the underlying Ext groups.
 -/
 
+
+@[expose] public section
 
 noncomputable section
 

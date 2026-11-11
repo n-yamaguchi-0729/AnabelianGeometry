@@ -10,11 +10,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Models.Construction.Basic
+module
+
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
 
 /-!
 # Transport
 -/
+
+@[expose] public section
 
 universe u v
 
@@ -125,7 +129,8 @@ section ClosedPoints
 
 variable {X Y : Scheme.{u}}
 
-private theorem mem_closedPoints_of_iso {Z W : Scheme.{u}} (f : Z ⟶ W) [IsIso f] {z : Z} (hz : z ∈
+/-- A scheme isomorphism sends closed points to closed points. -/
+theorem mem_closedPoints_of_iso {Z W : Scheme.{u}} (f : Z ⟶ W) [IsIso f] {z : Z} (hz : z ∈
   closedPoints Z) :
     f.base z ∈ closedPoints W := by
   have h : IsClosed (f.base '' {z}) := f.isClosedEmbedding.isClosedMap _ hz
@@ -155,21 +160,25 @@ variable (Mdl : CurveModel K L) {C : Scheme.{u}} (c : C ⟶ Spec (CommRingCat.of
 include he in
 private theorem toBase_eq : c = e.inv ≫ Mdl.toBase := by rw [← he, e.inv_hom_id_assoc]
 include Mdl e in
-private theorem isIntegral_of_iso : IsIntegral C := IsIntegral.of_isIso e.hom
+/-- Integrality transports along the given scheme isomorphism. -/
+theorem isIntegral_of_iso : IsIntegral C := IsIntegral.of_isIso e.hom
 include he in
-private theorem isProper_of_iso : IsProper c := by
+/-- Properness transports along the compatible scheme isomorphism. -/
+theorem isProper_of_iso : IsProper c := by
   rw [toBase_eq Mdl c e he]; infer_instance
 include he in
-private theorem smooth_of_iso : SmoothOfRelativeDimension 1 c := by
+/-- Relative smoothness transports along the compatible scheme isomorphism. -/
+theorem smooth_of_iso : SmoothOfRelativeDimension 1 c := by
   rw [toBase_eq Mdl c e he]
   exact inferInstanceAs (SmoothOfRelativeDimension (0 + 1) (e.inv ≫ Mdl.toBase))
 
-private theorem range_stalk_eq_of_iso (x : closedPoints C) :
-    letI := isIntegral_of_iso Mdl e
+/-- The transported function-field equivalence identifies the corresponding local rings. -/
+theorem range_stalk_eq_of_iso (x : closedPoints C) :
+    let := isIntegral_of_iso Mdl e
     (((Mdl.ffEquiv.trans (functionFieldIsoOfIso e)).symm : C.functionField ≃+* L).toRingHom.comp
         (algebraMap (C.presheaf.stalk x.1) C.functionField)).range =
       (Mdl.placeOfPoint (closedPointsEquivOfIso e x)).toValuationSubring.toSubring := by
-  let := isIntegral_of_iso Mdl e
+  intro sharedOwner1
   rw [← Mdl.range_stalk_eq (closedPointsEquivOfIso e x)]
   change _ = ((Mdl.ffEquiv.symm : Mdl.C.functionField ≃+* L).toRingHom.comp
     (algebraMap (Mdl.C.presheaf.stalk (e.inv.base x.1)) Mdl.C.functionField)).range

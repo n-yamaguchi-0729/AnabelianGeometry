@@ -4,10 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroKummerCover
-import Nyll.EtaleFundamentalGroups.Inertia.RationalCuspDecompositionConstants
-import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeEmbedding
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeMaximalResidue
+module
+
+public import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroKummerCover
+public import Nyll.EtaleFundamentalGroups.Inertia.RationalCuspDecompositionConstants
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeEmbedding
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeMaximalResidue
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
 
 /-!
 # The unchanged rational value in the original normalization residue field
@@ -18,13 +21,17 @@ Rationality supplies the residue retraction internally. Thus the specialized
 local Kummer coefficient is the image of the actual value of the same function.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 
 open EtaleFundamentalGroups.Inertia EtaleFundamentalGroups.StrictHenselian
 
 namespace AlgebraicCurve.Place
 
-variable {k F : Type} [Field k] [Field F] [Algebra k F]
+variable {k F : Type u} [Field k] [Field F] [Algebra k F]
 
 /-- The canonical constant map into the literal normalization localization's
 residue field is bijective and carries the actual rational value to the
@@ -32,7 +39,7 @@ specialized unchanged local coefficient. All coefficient identifications are
 derived from the prescribed constant embedding and the original place. -/
 theorem ordZero_normalizationResidue_constants
     (v : Place k F) (hv : v.IsRational) (u : Fˣ) (hu : v.ord (u : F) = 0)
-    (κ Ω : Type) [Field κ] [Field Ω]
+    (κ Ω : Type u) [Field κ] [Field Ω]
     [Algebra k κ] [Algebra k Ω] [Algebra v.toValuationSubring Ω] [Algebra κ Ω]
     [IsScalarTower k v.toValuationSubring Ω] [IsScalarTower k κ Ω]
     [Algebra.IsAlgebraic k κ] [IsAlgClosed κ]

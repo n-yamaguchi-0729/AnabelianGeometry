@@ -10,4 +10,6 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.PicardZero
+module
+
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.PicardZero

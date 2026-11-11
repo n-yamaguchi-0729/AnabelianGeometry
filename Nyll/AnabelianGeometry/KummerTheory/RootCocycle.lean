@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.FieldTheory.Galois.Basic
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
-import Mathlib.Tactic.FieldSimp
+module
+
+public import Mathlib.FieldTheory.Galois.Basic
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+public import Mathlib.Tactic.FieldSimp
 
 /-!
 # Galois cocycles of radicals
@@ -16,6 +18,8 @@ crossed-homomorphism law. Its values are roots of unity when the radical has
 a power in the base field. When those roots of unity are in the base, the
 crossed law becomes an ordinary multiplicative character law.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.KummerTheory
 

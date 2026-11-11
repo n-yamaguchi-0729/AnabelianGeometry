@@ -4,17 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.CoverCohomologyTransport
-import Nyll.JacobianVarieties.Kummer.FiniteH1Cardinality
-import Nyll.AlgebraicCurves.Models.Points.RationalPointExistence
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyIntegralAlgClosed
-import Nyll.AlgebraicCurves.Models.Ramification.FiniteEtaleRiemannHurwitz
-import Nyll.EtaleFundamentalGroups.GaloisCovers.ConnectedCurveModel
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverDegree
-import Nyll.EtaleFundamentalGroups.GaloisCovers.FunctionFieldAutomorphisms
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
-import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.CoverCohomologyTransport
+public import Nyll.JacobianVarieties.Kummer.FiniteH1Cardinality
+public import Nyll.AlgebraicCurves.Models.Points.RationalPointExistence
+public import Nyll.SchemeTheory.Morphisms.GeometricallyIntegralAlgClosed
+public import Nyll.AlgebraicCurves.Models.Ramification.FiniteEtaleRiemannHurwitz
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.ConnectedCurveModel
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverDegree
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.FunctionFieldAutomorphisms
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
+public import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
 
 /-!
 # First cohomology and degree of an actual proper-curve cover
@@ -23,6 +25,8 @@ The actual connected covering scheme is realized as a smooth proper curve.
 Its H¹ cardinality and Riemann--Hurwitz formula give an exponent whose Euler
 characteristic is multiplied by the original geometric fiber degree.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -93,13 +97,7 @@ theorem exists_finiteH1_exponent_proper_cover
     (Nat.card_congr
       (finiteH1EquivOfFundamentalGroupEquiv ξW (ξW ≫ i.inv) eG C).toEquiv).trans
         (N.natCard_finiteH1_eq_pow_genus εN n (ξW ≫ i.inv))
-  have : Algebra.EssFiniteType K F := by
-    let : Algebra K M.C.functionField := M.functionFieldAlgebra
-    exact (Algebra.EssFiniteType.iff_of_algEquiv M.ffAlgEquiv).mpr
-      (essFiniteType_functionField M.toBase)
-  obtain ⟨t, ht, hf, _⟩ :=
-    IsCurveOver.exists_separating_transcendental (K := K) (F := F)
-  have hRH := M.two_mul_genus_sub_two_eq_finiteEtale N d hd ⟨t, ht, hf⟩
+  have hRH := M.two_mul_genus_sub_two_eq_finiteEtale N d hd
   rw [hdegree] at hRH
   refine ⟨2 * genusFF K W.left.functionField, hH, ?_⟩
   simpa only [Nat.cast_mul, Nat.cast_ofNat] using hRH

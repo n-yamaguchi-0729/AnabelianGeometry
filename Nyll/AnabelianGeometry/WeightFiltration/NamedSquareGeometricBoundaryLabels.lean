@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairCrossRatio
-import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairSquareMap
+module
+
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairCrossRatio
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairSquareMap
 
 /-! # One-sided geometric projection of the retained arithmetic labels
 
@@ -14,6 +16,8 @@ formula of the actual square map and its omitted-boundary equality put the
 restricted place in the original downstairs boundary. Source and target covers
 can use this construction independently, before comparing their label maps.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve
 open AlgebraicGeometry.ProjSpace AnabelianGeometry.KummerTheory

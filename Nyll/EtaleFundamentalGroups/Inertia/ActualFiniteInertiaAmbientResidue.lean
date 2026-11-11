@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaLocalization
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaResidue
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteLocalResidue
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationResidueMap
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaLocalization
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaResidue
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteLocalResidue
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationResidueMap
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
 
 /-!
 # Finite inertia and ambient residue coefficients
@@ -18,6 +20,8 @@ import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
 Proves that the localized finite inertia action fixes the coefficient map into the original
 ambient residue field.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -38,11 +42,11 @@ theorem actualFiniteLocalResidueMap_comp_inertia
     (Q : Ideal (normalizationCommAlgCat A L)) [Q.IsPrime]
     (E : FiniteGaloisIntermediateField K L)
     (σ : actualNormalizationInertiaGroup A K L Q) :
-    letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+    let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
     (actualFiniteLocalResidueMap A K L Q E).comp
         (actualFiniteInertiaLocalRingHom A K L Q E σ) =
       actualFiniteLocalResidueMap A K L Q E := by
-  let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+  intro sharedOwner1
   have hi := actualFiniteLocalResidueMap_eq_residueMap_comp A K L Q E
   have hs := actualFiniteInertiaLocalRingHom_comp_residue A K L Q E σ
   calc

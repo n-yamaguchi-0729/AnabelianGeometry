@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaContinuity
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteCanonicalTameMorphism
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteRootsGroupMap
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationRootsGroup
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.Topology.LocallyConstant.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaContinuity
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteCanonicalTameMorphism
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteRootsGroupMap
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationRootsGroup
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.Topology.LocallyConstant.Basic
 
 /-!
 # Continuity of the existing canonical tame coordinates
@@ -20,6 +22,8 @@ The SAME constructed canonical coordinate is the composite of the locally
 constant actual finite inertia restriction with its finite character and
 residue-root inclusion. Its source keeps the original Krull subgroup topology.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

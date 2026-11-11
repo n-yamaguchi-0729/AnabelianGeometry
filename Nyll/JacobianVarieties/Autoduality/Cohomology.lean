@@ -10,10 +10,12 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.PicardDegree
-import Mathlib.GroupTheory.QuotientGroup.Defs
-import Mathlib.Algebra.Group.AddChar
+module
+
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.PicardDegree
+public import Mathlib.GroupTheory.QuotientGroup.Defs
+public import Mathlib.Algebra.Group.AddChar
 
 /-!
 # Picard cohomology and pairing data
@@ -21,6 +23,8 @@ import Mathlib.Algebra.Group.AddChar
 Picard groups, degree-zero classes, torsion characters, and transport of supplied perfect
 pairings.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -219,7 +223,8 @@ theorem evalAddChar_add (y y' : Pic0.torsion K F n) :
 theorem evalAddChar_zero : e.evalAddChar 0 = 1 := by
   ext x; exact e.eval_zero_right x
 
-private def congrHom {F' : Type*} [Field F'] [Algebra K F']
+/-- Pull back both arguments of the pairing along the inverse torsion equivalence. -/
+def congrHom {F' : Type*} [Field F'] [Algebra K F']
     (φ : Pic0.torsion K F n ≃+ Pic0.torsion K F' n) :
     Pic0.torsion K F' n →+ Additive (HomPic0Gm K F' n) where
   toFun x' := Additive.ofMul ((Additive.toMul (e.toHom (φ.symm x'))).compAddMonoidHom

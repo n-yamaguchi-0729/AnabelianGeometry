@@ -15,13 +15,17 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Algebra.Colimit.Module
-import Mathlib.Tactic.ApplyFun
-import Mathlib.Tactic.MkIffOfInductiveProp
-import Mathlib.Tactic.SimpRw
+module
+
+public import Mathlib.Algebra.Colimit.Module
+public import Mathlib.Tactic.ApplyFun
+public import Mathlib.Tactic.MkIffOfInductiveProp
+public import Mathlib.Tactic.SimpRw
 /-!
 # Mathlib Algebra Is Direct Limit
 -/
+
+@[expose] public section
 
 section
 
@@ -148,7 +152,6 @@ noncomputable def lift
 @[simp]
 theorem lift_of (Hg : ∀ i j hij x, g₂ j (f i j hij x) = g₂ i x) {i} (x) :
     (Module.lift f g₁ g₂ Hg) (g₁ i x) = g₂ i x := by
-  dsimp [lift, IsDirectLimit.lift_of]
   exact IsDirectLimit.lift_of (f · · ·) (g₁ · ·) (g₂ · ·) Hg x
 
 theorem lift_unique (F : P₁ →ₗ[R] P₂) (x) : F x = (Module.lift f g₁ (fun i ↦ F.comp <| g₁ i)
@@ -156,8 +159,8 @@ theorem lift_unique (F : P₁ →ₗ[R] P₂) (x) : F x = (Module.lift f g₁ (f
       simp only [LinearMap.coe_comp, Function.comp_apply]
       exact LinearMap.congr_arg (IsDirectLimit.compatibility (f := (f · · ·))
       (g := (g₁ · ·)) i j hij x))) x := by
-  simp only [lift, IsDirectLimit.lift,
-    LinearMap.coe_comp, Function.comp_apply, LinearMap.coe_mk, AddHom.coe_mk, image_preimage]
+  obtain ⟨i, y, rfl⟩ := h₁.surj x
+  rw [Module.lift_of, LinearMap.comp_apply]
 
 variable [h₂ : IsDirectLimit (f · · ·) (g₂ · ·)]
 

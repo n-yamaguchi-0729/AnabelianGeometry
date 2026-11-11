@@ -3,7 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.QuadraticScalarFiniteBase
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.QuadraticScalarFiniteBase
+public import Nyll.GaloisCohomology.Kummer.Concrete.RootCharacters
 
 /-! # The original quadratic Isom witness over its actual finite scalar field
 
@@ -12,6 +15,8 @@ The actual pointed base-change map fixes that radical, so the original fiber
 map is equivariant on its image. No replacement of the geometric comparison,
 no new choice of scalar, and no identification of lifted cusps is made here.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicGeometry.FiniteEtale
 open CategoryTheory.PreGaloisCategory EtaleFundamentalGroups
@@ -21,7 +26,7 @@ namespace AnabelianGeometry.WeightFiltration
 
 /-- Only semilinearity at the arithmetic element and the original torsor map
 are needed to propagate trivial displacement from one point to every point. -/
-private theorem equivariant_of_semilinear_displacement_eq_one
+theorem equivariant_of_semilinear_displacement_eq_one
     {P A X Y : Type*} [Group P] [Group A]
     [Torsor A X] [Torsor A Y] [MulAction P X] [MulAction P Y]
     (p : P) (φ : A → A)
@@ -53,7 +58,7 @@ private theorem equivariant_of_semilinear_displacement_eq_one
 /-- The original arithmetic fiber equivalence is equivariant under the actual
 finite-base image, for the same scalar radical already chosen by descent. -/
 theorem quadraticScalar_originalEquiv_actual_finiteBase
-    (k κ : Type) [Field k] [NumberField k] [Field κ] [Algebra k κ]
+    (k κ : Type) [Field k] [CharZero k] [Field κ] [Algebra k κ]
     [IsAlgClosure k κ]
     (X : Scheme) (f : X ⟶ Spec (.of k))
     {Ω : Type} [Field Ω] [IsSepClosed Ω]

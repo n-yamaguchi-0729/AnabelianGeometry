@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.Etale.Field
-import Mathlib.RingTheory.Etale.Descent
-import Mathlib.RingTheory.Nilpotent.GeometricallyReduced
+module
+
+public import Mathlib.RingTheory.Etale.Field
+public import Mathlib.RingTheory.Etale.Descent
+public import Mathlib.RingTheory.Nilpotent.GeometricallyReduced
 
 /-!
 # Finite geometrically reduced algebras over fields
@@ -15,6 +17,8 @@ The geometric-fibre algebra in the proper-family argument is finite étale:
 after extending the field to an algebraic closure it is a finite product of
 fields, and étaleness descends along the field extension.
 -/
+
+@[expose] public section
 
 noncomputable section
 

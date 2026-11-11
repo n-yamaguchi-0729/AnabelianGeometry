@@ -4,8 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.H1Character
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroupComposition
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1Character
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1CharacterPullback
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroupComposition
 
 /-!
 # H¹ characters and successive geometric fundamental-group maps
@@ -13,6 +16,10 @@ import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroupComposition
 The actual comparison character removes the choice of pullback comparison.
 The proof uses the existing geometric base-point naturality.
 -/
+
+@[expose] public section
+
+universe u
 
 noncomputable section
 
@@ -23,11 +30,11 @@ namespace EtaleFundamentalGroups.Cohomology
 /-- Evaluation of a genuine H¹ class agrees for successive scheme maps and
 their composite, including the canonical fibre-comparison isomorphisms. -/
 theorem h1Character_fundamentalGroupHom_comp
-    {X Y Z : Scheme} [ConnectedSpace Z]
+    {X Y Z : Scheme.{u}} [ConnectedSpace Z]
     (f : X ⟶ Y) (g : Y ⟶ Z)
-    {Ω : Type} [Field Ω] [IsSepClosed Ω]
-    (ξ : Spec (.of Ω) ⟶ X) (A : AddCommGrpCat.{0}) [Finite A]
-    (a : Sheaf.H.{0} ((constantSheaf Z.smallEtaleTopology AddCommGrpCat.{0}).obj A) 1)
+    {Ω : Type u} [Field Ω] [IsSepClosed Ω]
+    (ξ : Spec (.of Ω) ⟶ X) (A : AddCommGrpCat.{u}) [Finite A]
+    (a : Sheaf.H.{u} ((constantSheaf Z.smallEtaleTopology AddCommGrpCat.{u}).obj A) 1)
     (σ : Aut (FiniteEtale.fiber ξ)) :
     let : TopologicalSpace (Multiplicative A) := ⊥
     h1Character A ((ξ ≫ f) ≫ g) a
@@ -58,5 +65,31 @@ theorem h1Character_fundamentalGroupHom_comp
   rw [hmap] at h
   rw [FiniteEtale.fundamentalGroupHom_comp_eq_autHomOfCompIso]
   exact h
+
+/-- Pullback, composition of geometric maps and a specified change of
+base point preserve the evaluation of the original H¹ character. -/
+theorem h1Character_pullback_fundamentalGroupHom_conj
+    {X Y Z : Scheme.{u}} [ConnectedSpace Y] [ConnectedSpace Z]
+    (f : X ⟶ Y) (g : Y ⟶ Z)
+    {Ω Ω' : Type u} [Field Ω] [Field Ω'] [IsSepClosed Ω] [IsSepClosed Ω']
+    (ξ : Spec (.of Ω) ⟶ X) (ζ : Spec (.of Ω') ⟶ Z)
+    (τ : FiniteEtale.fiber (ξ ≫ f ≫ g) ≅ FiniteEtale.fiber ζ)
+    (A : AddCommGrpCat.{u}) [Finite A]
+    (a : Sheaf.H.{u} ((constantSheaf Z.smallEtaleTopology AddCommGrpCat.{u}).obj A) 1)
+    (σ : Aut (FiniteEtale.fiber ξ)) :
+    let : TopologicalSpace (Multiplicative A) := ⊥
+    h1Character A (ξ ≫ f) (constantCohomologyPullback g A 1 a)
+        (FiniteEtale.fundamentalGroupHom f ξ σ) =
+      h1Character A ζ a
+        (continuousConjAut τ (FiniteEtale.fundamentalGroupHom (f ≫ g) ξ σ)) := by
+  intro htop
+  have hp := congrArg (fun χ => χ (FiniteEtale.fundamentalGroupHom f ξ σ))
+    (h1Character_schemePullback g A (ξ ≫ f) a)
+  have hc := h1Character_fundamentalGroupHom_comp f g ξ A a σ
+  have hb := congrArg
+    (fun χ : Aut (FiniteEtale.fiber (ξ ≫ f ≫ g)) →ₜ* Multiplicative A =>
+      χ (FiniteEtale.fundamentalGroupHom (f ≫ g) ξ σ))
+    (h1Character_basePoint A (ξ ≫ f ≫ g) ζ τ a)
+  exact hp.symm.trans (hc.trans hb.symm)
 
 end EtaleFundamentalGroups.Cohomology

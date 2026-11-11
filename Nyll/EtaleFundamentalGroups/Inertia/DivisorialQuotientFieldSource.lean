@@ -4,7 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.Normalization.Field
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.Normalization.Field
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.Dedekind.FixedFields
 
 /-!
 # Field sources for divisorial inertia in finite Galois quotients
@@ -18,6 +21,8 @@ This is the finite field-local source needed before comparing with the
 fundamental group of the spectrum of that fixed field.  No strict
 henselization, Nagata, finite-type, height, or regularity hypothesis is used.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -51,7 +56,7 @@ noncomputable def localizedNormalizationInertiaFieldGalMulEquiv
     let F := localizedNormalizationInertiaField (K := K) (L := L) P Q
     Gal(L/F) ≃*
       localizedNormalizationInertia (K := K) (L := L) P Q := by
-  let F := localizedNormalizationInertiaField (K := K) (L := L) P Q
+  intro F
   exact F.fixingSubgroupEquiv.symm.trans
     (MulEquiv.subgroupCongr
       (localizedNormalizationInertiaField_fixingSubgroup_eq
@@ -64,7 +69,7 @@ noncomputable def localizedNormalizationInertiaFieldRestrictionHom
     (Q : Ideal (integralClosure A L)) :
     let F := localizedNormalizationInertiaField (K := K) (L := L) P Q
     Gal(L/F) →* Gal(L/K) := by
-  let F := localizedNormalizationInertiaField (K := K) (L := L) P Q
+  intro F
   exact
     (localizedNormalizationInertia (K := K) (L := L) P Q).subtype.comp
       (localizedNormalizationInertiaFieldGalMulEquiv
@@ -202,14 +207,10 @@ noncomputable def
     (Q : Ideal (integralClosure A L)) :
     let F := localizedNormalizationInertiaField (K := K) (L := L) P Q
     let Omega := SeparableClosure L
-    letI : Algebra F Omega :=
+    let : Algebra F Omega :=
       ((algebraMap L Omega).comp (algebraMap F L)).toAlgebra
     Gal(Omega/F) →* Gal(L/K) := by
-  dsimp only
-  let F := localizedNormalizationInertiaField (K := K) (L := L) P Q
-  let Omega := SeparableClosure L
-  letI : Algebra F Omega :=
-    ((algebraMap L Omega).comp (algebraMap F L)).toAlgebra
+  intro F Omega sharedOwner1
   exact localizedNormalizationInertiaFieldAbsoluteRestrictionHom
     (K := K) (L := L) P Q Omega rfl
 
@@ -221,16 +222,12 @@ theorem
     (Q : Ideal (integralClosure A L)) :
     let F := localizedNormalizationInertiaField (K := K) (L := L) P Q
     let Omega := SeparableClosure L
-    letI : Algebra F Omega :=
+    let : Algebra F Omega :=
       ((algebraMap L Omega).comp (algebraMap F L)).toAlgebra
     (localizedNormalizationInertiaFieldSeparableClosureRestrictionHom
       (K := K) (L := L) P Q).range =
         localizedNormalizationInertia (K := K) (L := L) P Q := by
-  dsimp only
-  let F := localizedNormalizationInertiaField (K := K) (L := L) P Q
-  let Omega := SeparableClosure L
-  let hFOmega : Algebra F Omega :=
-    ((algebraMap L Omega).comp (algebraMap F L)).toAlgebra
+  intro F Omega hFOmega
   let : SMul F Omega := hFOmega.toSMul
   let : IsScalarTower F L Omega :=
     IsScalarTower.of_algebraMap_eq' rfl

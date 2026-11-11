@@ -3,11 +3,13 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairSquareMap
-import Mathlib.Algebra.Polynomial.SpecificDegree
-import Mathlib.RingTheory.AdjoinRoot
-import Mathlib.FieldTheory.IntermediateField.Basic
-import Lean.Elab.Tactic.Omega
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairSquareMap
+public import Mathlib.Algebra.Polynomial.SpecificDegree
+public import Mathlib.RingTheory.AdjoinRoot
+public import Mathlib.FieldTheory.IntermediateField.Basic
+public import Lean.Elab.Tactic.Omega
 
 /-! # The original quadratic root algebra in the rational root coordinate
 
@@ -16,6 +18,8 @@ The quotient map sends its actual root to the standard rational coordinate and
 its coefficients through the already selected square homomorphism. Its image
 contains X and all constants, so it is the entire rational function field.
 -/
+@[expose] public section
+
 noncomputable section
 open AlgebraicCurve Polynomial
 open scoped RatFunc

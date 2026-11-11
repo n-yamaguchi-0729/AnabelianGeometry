@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.CharP.Invertible
-import Mathlib.GroupTheory.Coset.Card
-import Mathlib.GroupTheory.PGroup
+module
+
+public import Mathlib.Algebra.CharP.Invertible
+public import Mathlib.GroupTheory.Coset.Card
+public import Mathlib.GroupTheory.PGroup
 
 /-!
 # Prime-to-characteristic divisors survive the wild quotient
@@ -16,6 +18,8 @@ the inertia order coprime to p divides the index of wild inertia. This
 converts the actual radical ramification divisibility into finite tame-order
 divisibility once the finite inertia cardinality has been supplied.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Classical.AbelianSheafFunctors
-import Mathlib.Algebra.Homology.DerivedCategory.Ext.Map
-import Mathlib.CategoryTheory.Sites.SheafCohomology.Basic
-import Mathlib.CategoryTheory.Abelian.GrothendieckCategory.HasExt
-import Mathlib.AlgebraicGeometry.Sites.AffineEtale
+module
+
+public import Nyll.EtaleCohomology.Classical.AbelianSheafFunctors
+public import Mathlib.Algebra.Homology.DerivedCategory.Ext.Map
+public import Mathlib.CategoryTheory.Sites.SheafCohomology.Basic
+public import Mathlib.CategoryTheory.Abelian.GrothendieckCategory.HasExt
+public import Mathlib.AlgebraicGeometry.Sites.AffineEtale
 
 /-!
 # Actual pullback of constant-coefficient etale cohomology
@@ -18,6 +20,8 @@ constant sheaves. In degree one, the resulting map sends an extension class
 to the class of its inverse-image extension, with the original coefficient
 and integer sheaves. This construction does not define cohomology by characters.
 -/
+
+@[expose] public section
 
 noncomputable section
 

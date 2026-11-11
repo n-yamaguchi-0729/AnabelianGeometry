@@ -46,22 +46,22 @@ theorem connectedCover_namedModel_actualPlaceInertia_projection
     (w : (fiber (U.genericExtensionMorphism Ω)).obj W)
     {N : Scheme} (J : W.left ≅ N) (qN : N ⟶ U)
     (hJ : J.hom ≫ qN = W.hom) :
-    letI : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
+    let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
     let K := U.functionField
     let L := W.left.functionField
-    letI : Algebra K L := finiteEtaleFunctionFieldAlgebra W
-    letI : FiniteDimensional K L :=
+    let : Algebra K L := finiteEtaleFunctionFieldAlgebra W
+    let : FiniteDimensional K L :=
       finiteDimensional_functionField_of_finiteEtale_isConnected W
-    letI : Algebra.IsSeparable K L :=
+    let : Algebra.IsSeparable K L :=
       isSeparable_functionField_of_finiteEtale_isConnected W
     let g := fiberObjEquivHom (U.genericExtensionMorphism Ω) W w
     let j := finiteEtaleGenericHomFunctionFieldAlgHom W g
-    letI : Algebra L Ω := j.toRingHom.toAlgebra
-    letI : IsScalarTower K L Ω := by
+    let : Algebra L Ω := j.toRingHom.toAlgebra
+    let : IsScalarTower K L Ω := by
       apply IsScalarTower.of_algebraMap_eq'
       ext z
       exact (j.commutes z).symm
-    letI : IsSepClosure L Ω :=
+    let : IsSepClosure L Ω :=
       ⟨IsSepClosure.sep_closed K,
         Algebra.isSeparable_tower_top_of_isSeparable K L Ω⟩
     let jL := W.left.fromSpecStalk (genericPoint W.left)
@@ -75,8 +75,8 @@ theorem connectedCover_namedModel_actualPlaceInertia_projection
     let jN := (pointedFundamentalGroupHom J.hom (ξ L Ω ≫ jL) yN rfl).toMonoidHom
     let pN := (pointedFundamentalGroupHom qN yN
       (U.genericExtensionMorphism Ω) hN).toMonoidHom
-    letI : Algebra k L := ((algebraMap K L).comp (algebraMap k K)).toAlgebra
-    letI : IsScalarTower k K L := IsScalarTower.of_algebraMap_eq' rfl
+    let : Algebra k L := ((algebraMap K L).comp (algebraMap k K)).toAlgebra
+    let : IsScalarTower k K L := IsScalarTower.of_algebraMap_eq' rfl
     ∀ (P : HeightOneSpectrum (Place.integralClosureAt L v)),
       P.asIdeal = absoluteNormalizationPrimeContraction
         (A := v.toValuationSubring) (L := L) (Omega := Ω) Q →
@@ -88,46 +88,9 @@ theorem connectedCover_namedModel_actualPlaceInertia_projection
       q.IsMaximal ∧
         ((genericPlaceInertia W.left (Place.placeOfPrime P) q).map jN).map pN =
           genericPlaceInertia U v Q ⊓ i.range := by
-  let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
-  let K := U.functionField
-  let L := W.left.functionField
-  let : Algebra K L := finiteEtaleFunctionFieldAlgebra W
-  let : FiniteDimensional K L :=
-    finiteDimensional_functionField_of_finiteEtale_isConnected W
-  let : Algebra.IsSeparable K L :=
-    isSeparable_functionField_of_finiteEtale_isConnected W
-  let g := fiberObjEquivHom (U.genericExtensionMorphism Ω) W w
-  let j := finiteEtaleGenericHomFunctionFieldAlgHom W g
-  let : Algebra L Ω := j.toRingHom.toAlgebra
-  let : IsScalarTower K L Ω := by
-    apply IsScalarTower.of_algebraMap_eq'
-    ext z
-    exact (j.commutes z).symm
-  let : IsSepClosure L Ω :=
-    ⟨IsSepClosure.sep_closed K,
-      Algebra.isSeparable_tower_top_of_isSeparable K L Ω⟩
-  let jL := W.left.fromSpecStalk (genericPoint W.left)
-  let hpoint : (ξ L Ω ≫ jL) ≫ W.hom = U.genericExtensionMorphism Ω :=
-    finiteEtaleGenericHomFunctionFieldAlgHom_spec_comp W g
-  let i := (pointedFundamentalGroupHom W.hom (ξ L Ω ≫ jL)
-    (U.genericExtensionMorphism Ω) hpoint).toMonoidHom
-  let yN := (ξ L Ω ≫ jL) ≫ J.hom
-  let hN : yN ≫ qN = U.genericExtensionMorphism Ω := by
-    rw [Category.assoc, hJ, hpoint]
-  let jN := (pointedFundamentalGroupHom J.hom (ξ L Ω ≫ jL) yN rfl).toMonoidHom
-  let pN := (pointedFundamentalGroupHom qN yN
-    (U.genericExtensionMorphism Ω) hN).toMonoidHom
-  let : Algebra k L := ((algebraMap K L).comp (algebraMap k K)).toAlgebra
-  let : IsScalarTower k K L := IsScalarTower.of_algebraMap_eq' rfl
-  change ∀ (P : HeightOneSpectrum (Place.integralClosureAt L v)),
-    P.asIdeal = absoluteNormalizationPrimeContraction
-      (A := v.toValuationSubring) (L := L) (Omega := Ω) Q → _
-  intro P hP
-  let R := (Place.placeOfPrime P).toValuationSubring
-  let QB := Q.comap (normalizationIntegralBaseRingEquiv
-    v.toValuationSubring (Place.integralClosureAt L v) Ω).toRingHom
-  let q := QB.map
-    (normalizationBaseLocalizationRingMap (Place.integralClosureAt L v) R Ω)
+  intro integral K L baseAlgebra finiteExtension separableExtension g j
+    ambientAlgebra ambientTower sepClosure jL hpoint i yN hN jN pN
+    coefficientAlgebra coefficientTower P hP R QB q
   let qL := (fieldSourceAbsoluteGaloisHom L Ω jL).toMonoidHom
   let r : Gal(Ω/L) →* Gal(Ω/K) := AlgEquiv.restrictScalarsHom K
   change q.IsMaximal ∧

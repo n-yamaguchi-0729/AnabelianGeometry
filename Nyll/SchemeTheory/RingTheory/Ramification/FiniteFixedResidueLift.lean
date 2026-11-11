@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteInvariantResidueLift
-import Mathlib.Algebra.Algebra.Subalgebra.Operations
-import Mathlib.Algebra.Category.Ring.Basic
-import Mathlib.Algebra.Category.CommAlgCat.Basic
-import Mathlib.GroupTheory.QuotientGroup.Basic
-import Mathlib.RingTheory.Ideal.Quotient.Basic
-import Mathlib.RingTheory.Invariant.Basic
+module
+
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteInvariantResidueLift
+public import Mathlib.Algebra.Algebra.Subalgebra.Operations
+public import Mathlib.Algebra.Category.Ring.Basic
+public import Mathlib.Algebra.Category.CommAlgCat.Basic
+public import Mathlib.GroupTheory.QuotientGroup.Basic
+public import Mathlib.RingTheory.Ideal.Quotient.Basic
+public import Mathlib.RingTheory.Invariant.Basic
 
 /-!
 # Finite quotient lifts expressed in the original residue ring
@@ -22,6 +24,8 @@ fixed subalgebra over the original base. The finite uniform-lift theorem
 produces equations directly in the original quotient B/q on N-fixed elements
 of B. No fixed-ring quotient or residue algebra over such a quotient is used.
 -/
+
+@[expose] public section
 
 noncomputable section
 

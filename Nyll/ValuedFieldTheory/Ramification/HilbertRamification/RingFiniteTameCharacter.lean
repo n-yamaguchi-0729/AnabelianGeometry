@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacter
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacterKernel
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.FiniteSubgroupRootsOfUnity
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacter
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacterKernel
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.FiniteSubgroupRootsOfUnity
 
 /-!
 # Finite tame characters of discrete valuation rings
@@ -15,6 +17,8 @@ Defines the tame order as the size of the inertia-character image and constructs
 character onto all roots of unity of that order. It identifies the principal-unit kernel and
 produces a primitive root in the residue field.
 -/
+
+@[expose] public section
 
 noncomputable section
 

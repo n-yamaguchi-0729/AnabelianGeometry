@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Affine.ConnectedOfGlobalSections
-import Nyll.SchemeTheory.Affine.FlatBaseChangeAffinization
-import Mathlib.AlgebraicGeometry.Geometrically.Connected
+module
+
+public import Nyll.SchemeTheory.Affine.ConnectedOfGlobalSections
+public import Nyll.SchemeTheory.Affine.FlatBaseChangeAffinization
+public import Mathlib.AlgebraicGeometry.Geometrically.Connected
 
 /-!
 # Geometric connectedness from scalar global sections
@@ -18,6 +20,8 @@ the sections isomorphism and the idempotent argument applies after each
 field extension. This supplies the geometric step for normalization fibres
 once their actual section maps have been computed.
 -/
+
+@[expose] public section
 
 noncomputable section
 

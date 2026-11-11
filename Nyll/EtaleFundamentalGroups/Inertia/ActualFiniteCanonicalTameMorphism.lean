@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameGroups
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameMorphism
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationAutomorphisms
-import Mathlib.Algebra.Category.Grp.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameGroups
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameMorphism
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationAutomorphisms
+public import Mathlib.Algebra.Category.Grp.Basic
 
 /-!
 # Canonical tame morphisms at finite stages
@@ -18,6 +20,8 @@ import Mathlib.Algebra.Category.Grp.Basic
 Constructs the canonical tame morphism from finite normalization inertia to its residue-root
 group using the original DVR, Galois extension, and chosen prime.
 -/
+
+@[expose] public section
 
 noncomputable section
 

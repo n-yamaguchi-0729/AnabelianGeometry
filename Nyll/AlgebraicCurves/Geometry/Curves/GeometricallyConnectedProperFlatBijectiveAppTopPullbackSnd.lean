@@ -10,17 +10,21 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.Geometrically.Connected
-import Mathlib.AlgebraicGeometry.Morphisms.Proper
-import Mathlib.AlgebraicGeometry.Morphisms.SchemeTheoreticallyDominant
-import Mathlib.AlgebraicGeometry.Pullbacks
-import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
-import Mathlib.RingTheory.Localization.FractionRing
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyConnectedProperBijectiveAppTop
+module
+
+public import Mathlib.AlgebraicGeometry.Geometrically.Connected
+public import Mathlib.AlgebraicGeometry.Morphisms.Proper
+public import Mathlib.AlgebraicGeometry.Morphisms.SchemeTheoreticallyDominant
+public import Mathlib.AlgebraicGeometry.Pullbacks
+public import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
+public import Mathlib.RingTheory.Localization.FractionRing
+public import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyConnectedProperBijectiveAppTop
 
 /-!
 # Geometric connectedness from global sections on the generic fibre
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -178,7 +182,8 @@ scoped instance isDominant_ι : IsDominant (ι (R := R) K) := by
   have : x = 0 := by
     have := IsFractionRing.injective R K
     exact this (by simpa using hx)
-  simp [this]
+  rw [this]
+  exact Ideal.zero_mem _
 
 scoped instance isSchemeTheoreticallyDominant_ι : IsSchemeTheoreticallyDominant (ι (R := R) K) :=
   .of_isDominant _

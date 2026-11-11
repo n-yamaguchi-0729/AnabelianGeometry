@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.FiberPullbackTranslation
-import Nyll.EtaleFundamentalGroups.Cohomology.RepresenterPullback
-import Nyll.EtaleFundamentalGroups.Cohomology.H1Character
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiberPullbackTranslation
+public import Nyll.EtaleFundamentalGroups.Cohomology.RepresenterPullback
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1Character
 
 /-!
 # Geometric naturality of the actual étale H¹ character
@@ -16,6 +18,8 @@ pullback of the original cover. Its comparison preserves original coefficient
 translations. Naturality of finite-cover monodromy therefore identifies the
 derived H¹ pullback with precomposition by the actual fundamental-group map.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -45,7 +49,7 @@ theorem extensionMonodromyCharacter_schemePullback :
         (schemePullbackH1Extension f A i p h).zero
         (schemePullbackH1Extension_shortExact f A i p h hs)
         (integerUnitSection X) ξ := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
+  intro sharedOwner1
   let S' := schemePullbackH1Extension f A i p h
   let hs' := schemePullbackH1Extension_shortExact f A i p h hs
   let SY : EtaleFiniteLocallyConstantSetSheaf Y :=
@@ -139,7 +143,7 @@ theorem h1Character_schemePullback
     let : TopologicalSpace (Multiplicative A) := ⊥
     (h1Character A (ξ ≫ f) a).comp (FiniteEtale.fundamentalGroupHom f ξ) =
       h1Character A ξ (constantCohomologyPullback f A 1 a) := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
+  intro sharedOwner1
   obtain ⟨E, i, p, h, hs, ha⟩ := exists_h1_extension Y _ a
   let S' := schemePullbackH1Extension f A i p h
   let hs' := schemePullbackH1Extension_shortExact f A i p h hs

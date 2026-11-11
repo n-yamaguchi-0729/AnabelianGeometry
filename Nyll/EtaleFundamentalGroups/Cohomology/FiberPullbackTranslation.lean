@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.H1FiberPullback
-import Nyll.EtaleFundamentalGroups.Cohomology.IntegerExtensionShear
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1FiberPullback
+public import Nyll.EtaleFundamentalGroups.Cohomology.IntegerExtensionShear
 
 /-!
 # Coefficient equivariance of geometric pullback of H¹ lift sheaves
@@ -14,6 +16,8 @@ Translations on the fiber over one are restrictions of additive shears.
 Their compatibility with inverse image therefore follows from the genuine
 abelian inverse-image functor and its constant-coefficient comparison.
 -/
+
+@[expose] public section
 
 noncomputable section
 

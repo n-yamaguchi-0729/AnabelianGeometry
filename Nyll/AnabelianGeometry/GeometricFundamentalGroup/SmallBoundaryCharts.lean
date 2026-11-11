@@ -4,12 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroPunctured
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroTwoPunctures
-import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
-import Nyll.AlgebraicCurves.Geometry.IsClosedSingletonNeGenericPoint
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroPunctured
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroTwoPunctures
+public import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
+public import Nyll.AlgebraicCurves.Geometry.IsClosedSingletonNeGenericPoint
 
 /-! # Actual complements from one or two omitted places -/
+
+@[expose] public section
 
 noncomputable section
 

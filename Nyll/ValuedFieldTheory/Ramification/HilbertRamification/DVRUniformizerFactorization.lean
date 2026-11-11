@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.DiscreteValuationRing.Basic
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.DVRRamificationOrder
+module
+
+public import Mathlib.RingTheory.DiscreteValuationRing.Basic
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.DVRRamificationOrder
 
 /-!
 # Factorization of mapped uniformizers
@@ -13,6 +15,8 @@ import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.DVRRamificationOr
 Factors a mapped uniformizer into a target uniformizer power and a unit, with exponent given by
 its additive valuation. For a local DVR algebra, the exponent is the ramification index.
 -/
+
+@[expose] public section
 
 namespace RamificationTheory.HilbertRamification.DiscreteValuationRing
 

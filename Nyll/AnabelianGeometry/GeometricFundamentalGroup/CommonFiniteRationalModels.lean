@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteRationalModelBaseChange
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteRationalModelBoundaryCard
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteRationalModelBaseChange
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteRationalModelBoundaryCard
 
 /-! # Two genus-zero opens over one finite Galois field
 
@@ -14,6 +16,8 @@ The first model is extended to the splitting field of the second, so the
 output uses one actual finite constant extension rather than two unrelated
 fields or an assumed simultaneous splitting datum.
 -/
+
+@[expose] public section
 
 noncomputable section
 

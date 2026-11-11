@@ -3,12 +3,14 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineStandardPlace
-import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineRatFuncBaseChange
-import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLineRatFuncBaseChange
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
-import Nyll.AlgebraicCurves.Models.Sections.RationalSectionBoundaryPlace
-import Nyll.AlgebraicCurves.Places.Evaluation.PlaceValueAlongOrders
+module
+
+public import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineStandardPlace
+public import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineRatFuncBaseChange
+public import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLineRatFuncBaseChange
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineBoundaryPlaces
+public import Nyll.AlgebraicCurves.Models.Sections.RationalSectionBoundaryPlace
+public import Nyll.AlgebraicCurves.Places.Evaluation.PlaceValueAlongOrders
 
 /-! # The original rational values over an algebraic separable constant extension
 
@@ -18,6 +20,8 @@ valuation-ring inclusion. Unramified constant extension then supplies all
 normalized orders and the unchanged residue value. The extension need not be
 algebraically closed, so this applies directly to the selected finite field.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve

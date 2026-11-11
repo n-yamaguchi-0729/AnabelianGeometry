@@ -10,12 +10,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.RingTheory.Reduced.AlgebraTensorNilradicalIsPrime
+module
+
+public import Nyll.SchemeTheory.RingTheory.Reduced.AlgebraTensorNilradicalIsPrime
 
 /-!
 # Polynomial irreducible map map algebraic Closure of separable of forall is Separable mem
 range
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

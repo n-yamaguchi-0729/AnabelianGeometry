@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.H1CharacterPullback
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
-import Nyll.EtaleFundamentalGroups.GeometricFiber.OpenImmersionSurjective
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1CharacterPullback
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.OpenImmersionSurjective
 
 /-!
 # Injectivity of finite cohomology under dominant open restriction
@@ -15,6 +17,10 @@ The actual cohomological pullback is injective whenever the induced map on
 fundamental groups is surjective. In particular this applies to nonempty
 open subschemes of normal integral locally Noetherian schemes.
 -/
+
+@[expose] public section
+
+universe uGeom uField₁ uField₂
 
 noncomputable section
 
@@ -26,9 +32,9 @@ namespace AnabelianGeometry.WeightFiltration
 /-- Surjectivity on fundamental groups implies injectivity of the actual
 finite constant-coefficient H¹ pullback. -/
 theorem finiteH1Pullback_injective_of_fundamentalGroupHom_surjective
-    {X Y : Scheme} [ConnectedSpace X] [ConnectedSpace Y]
-    (f : X ⟶ Y) {Ω : Type} [Field Ω] [IsSepClosed Ω]
-    (ξ : Spec (.of Ω) ⟶ X) (A : AddCommGrpCat.{0}) [Finite A]
+    {X Y : Scheme.{uGeom}} [ConnectedSpace X] [ConnectedSpace Y]
+    (f : X ⟶ Y) {Ω : Type uGeom} [Field Ω] [IsSepClosed Ω]
+    (ξ : Spec (.of Ω) ⟶ X) (A : AddCommGrpCat.{uGeom}) [Finite A]
     (hf : Function.Surjective (FiniteEtale.fundamentalGroupHom f ξ)) :
     Function.Injective (constantCohomologyPullback f A 1) := by
   let : TopologicalSpace (Multiplicative A) := ⊥
@@ -45,10 +51,10 @@ theorem finiteH1Pullback_injective_of_fundamentalGroupHom_surjective
 /-- Restriction to a nonempty open of a normal integral locally Noetherian
 scheme is injective on actual finite constant-coefficient H¹. -/
 theorem finiteH1Pullback_injective_of_isOpenImmersion
-    {X Y : Scheme} [IsIntegral Y] [IsNormalIntegral Y] [IsLocallyNoetherian Y]
+    {X Y : Scheme.{uGeom}} [IsIntegral Y] [IsNormalIntegral Y] [IsLocallyNoetherian Y]
     (j : X ⟶ Y) [IsOpenImmersion j] [Nonempty X]
-    {Ω : Type} [Field Ω] [IsSepClosed Ω]
-    (ξ : Spec (.of Ω) ⟶ X) (A : AddCommGrpCat.{0}) [Finite A] :
+    {Ω : Type uGeom} [Field Ω] [IsSepClosed Ω]
+    (ξ : Spec (.of Ω) ⟶ X) (A : AddCommGrpCat.{uGeom}) [Finite A] :
     Function.Injective (constantCohomologyPullback j A 1) := by
   have : IsIntegral X := isIntegral_of_isOpenImmersion j
   exact finiteH1Pullback_injective_of_fundamentalGroupHom_surjective j ξ A

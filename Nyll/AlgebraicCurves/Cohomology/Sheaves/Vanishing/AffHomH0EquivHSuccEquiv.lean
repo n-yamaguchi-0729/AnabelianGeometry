@@ -10,11 +10,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafHom
+module
+
+public import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafHom
 
 /-!
 # OModule Presheaf Aff Hom nonempty H0 equiv and HSucc equiv of bijective
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

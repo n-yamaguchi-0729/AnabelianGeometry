@@ -4,16 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.WeilRestriction.CoverHypercover
-import Mathlib.AlgebraicGeometry.Cover.Directed
-import Mathlib.AlgebraicGeometry.Cover.Open
-import Mathlib.AlgebraicGeometry.Morphisms.Etale
-import Mathlib.AlgebraicGeometry.Sites.Etale
-import Mathlib.AlgebraicGeometry.Sites.Pretopology
-import Mathlib.AlgebraicGeometry.Sites.Small
-import Mathlib.CategoryTheory.Sites.Hypercover.One
-import Mathlib.CategoryTheory.MorphismProperty.Comma
-import Mathlib.CategoryTheory.Sites.Sieves.Presieve
+module
+
+public import Nyll.SchemeTheory.WeilRestriction.CoverHypercover
+public import Mathlib.AlgebraicGeometry.Cover.Directed
+public import Mathlib.AlgebraicGeometry.Cover.Open
+public import Mathlib.AlgebraicGeometry.Morphisms.Etale
+public import Mathlib.AlgebraicGeometry.Sites.Etale
+public import Mathlib.AlgebraicGeometry.Sites.Pretopology
+public import Mathlib.AlgebraicGeometry.Sites.Small
+public import Mathlib.CategoryTheory.Sites.Hypercover.One
+public import Mathlib.CategoryTheory.MorphismProperty.Comma
+public import Mathlib.CategoryTheory.Sites.Sieves.Presieve
 
 /-!
 # Locally directed open covers in the small étale site
@@ -29,6 +31,8 @@ local representers. This adapts the relative construction in
 `SchemeTheory.WeilRestriction.CoverHypercover`; no bound on the index universe
 and no separation or quasi-compactness condition on the base are needed.
 -/
+
+@[expose] public section
 
 noncomputable section
 

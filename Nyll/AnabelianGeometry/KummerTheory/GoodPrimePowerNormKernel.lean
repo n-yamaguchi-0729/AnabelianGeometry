@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.KummerTheory.GoodPrimePowerUnitNormalForm
-import Nyll.AnabelianGeometry.KummerTheory.PrimePowerNormKernel
-import Nyll.AnabelianGeometry.KummerTheory.CyclotomicNormKernelUnit
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.GoodPrimePowerUnitNormalForm
+public import Nyll.AnabelianGeometry.KummerTheory.PrimePowerNormKernel
+public import Nyll.AnabelianGeometry.KummerTheory.CyclotomicNormKernelUnit
 
 /-! # The full norm kernel for every good prime-power unit -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.KummerTheory
 
@@ -32,7 +36,14 @@ theorem geomSum_orderOf_goodPrimePowerUnit_mul_eq_zero_iff
   have hr : 0 < r := Nat.pos_of_ne_zero hr0
   rcases goodPrimePowerUnit_normalForm hp hr u hgood with huone | hunit | hprincipal
   · subst u
-    simp [eq_comm]
+    rw [orderOf_one, Finset.sum_range_one, pow_zero, one_mul]
+    constructor
+    · intro ht
+      refine ⟨0, ?_⟩
+      rw [mul_zero, ht]
+    · rintro ⟨y, hy⟩
+      rw [Units.val_one, sub_self, zero_mul] at hy
+      exact hy.symm
   · have hupow : (u : ZMod (p ^ r)) ^ orderOf u = 1 := by
       calc
         (u : ZMod (p ^ r)) ^ orderOf u =

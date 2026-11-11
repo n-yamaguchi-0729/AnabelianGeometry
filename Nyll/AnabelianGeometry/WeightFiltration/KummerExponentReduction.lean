@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenDivisorResidues
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenDivisorResidues
 
 /-!
 # Reduction of divisorial Kummer classes and boundary residues
@@ -13,6 +15,8 @@ When one exponent divides another, the same function defines a class for the
 smaller exponent. These transition maps compose and reduce boundary orders
 by the usual map between the coefficient rings.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineOriginalFields
-import Nyll.JacobianVarieties.Kummer.NamedKummerGeometricRestriction
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
+module
+
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineOriginalFields
+public import Nyll.JacobianVarieties.Kummer.NamedKummerGeometricRestriction
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
 
 /-! # Named Kummer restriction at the original bare arithmetic point
 
@@ -15,6 +17,8 @@ All field algebras and point squares are supplied by the canonical charts.
 The returned arithmetic fiber is at the original composite geometric point,
 and its geometric action uses the original, unpointed inclusion map.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry AlgebraicGeometry.FiniteEtale AlgebraicCurve
@@ -110,7 +114,7 @@ theorem rationalConfiguration_namedKummer_geometricRestriction
       (MG.place_not_mem_openBoundaryPlaces jG)
     let q := arithmeticFundamentalGroupHom k κ (jA ≫ MA.toBase) ξA
     let inc := rationalConfigurationGeometricInclusion k κ s Ω
-    letI := CurveModel.OpenKummer.kummerGeometricRootAction MG (MG.openBoundaryPlaces jG)
+    let := CurveModel.OpenKummer.kummerGeometricRootAction MG (MG.openBoundaryPlaces jG)
       n w jG hjG (MG.place_not_mem_openBoundaryPlaces jG) hnκ ξG
     ∃ tA : Torsor (rootsOfUnity (n : ℕ) κ) ((fiber ξA).obj WA),
       ∃ E : (fiber ξG).obj WG ≃ (fiber ξA).obj WA,
@@ -121,9 +125,7 @@ theorem rationalConfiguration_namedKummer_geometricRestriction
           p • (tA.toMulAction.toSMul.smul ζ x) =
             tA.toMulAction.toSMul.smul
               (restrictRootsOfUnity (q p).toRingHom (n : ℕ) ζ) (p • x) := by
-  intro hn hnκ ξG ξA jA jG MA MG hjA hjG WA WG q inc
-  let := CurveModel.OpenKummer.kummerGeometricRootAction MG (MG.openBoundaryPlaces jG)
-    n w jG hjG (MG.place_not_mem_openBoundaryPlaces jG) hnκ ξG
+  intro hn hnκ ξG ξA jA jG MA MG hjA hjG WA WG q inc rootAction
   let X := (rationalConfigurationOpen s : Scheme)
   let Y := rationalConfigurationGeometricScheme k κ s
   let : Algebra X.functionField Ω := rationalConfigurationOriginalAmbientAlgebra k κ s Ω

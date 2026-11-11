@@ -4,10 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCovers.Basic
-import Mathlib.CategoryTheory.Limits.Preserves.Shapes.Products
-import Mathlib.CategoryTheory.Limits.ConcreteCategory.Basic
-import Mathlib.CategoryTheory.Limits.Types.Colimits
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.Basic
+public import Nyll.SchemeTheory.CategoryTheory.FiniteActionGraphs
+public import Mathlib.CategoryTheory.Limits.Preserves.Shapes.Products
+public import Mathlib.CategoryTheory.Limits.ConcreteCategory.Basic
+public import Mathlib.CategoryTheory.Limits.Types.Colimits
 
 /-!
 # The self-product of an actual Galois cover
@@ -21,6 +24,8 @@ The proof uses the established fiber functor and its actual simply
 transitive deck action; no splitting or comparison is assumed.
 -/
 
+@[expose] public section
+
 noncomputable section
 universe u v w
 open CategoryTheory Limits
@@ -32,7 +37,7 @@ variable {C : Type u} [Category.{v} C] [GaloisCategory C]
 /-- The union of the actual graphs of all deck transformations. -/
 def galoisSelfProductMap (X : C) [IsGalois X] :
     (∐ fun _ : Aut X => X) ⟶ X ⨯ X :=
-  Sigma.desc (fun σ : Aut X => prod.lift (𝟙 X) σ.hom)
+  graphFamilyMap (fun σ : Aut X => σ.asIso.hom)
 
 /-- Graphs of deck transformations give the self-product decomposition of
 a Galois object. -/
@@ -49,13 +54,13 @@ theorem galoisSelfProductMap_isIso (F : C ⥤ FintypeCat.{w}) [FiberFunctor F]
       F.map prod.fst
         (F.map (galoisSelfProductMap X) (F.map (Sigma.ι (fun _ : Aut X => X) σ) x)) =
           x := by
-    simp only [galoisSelfProductMap, ← FintypeCat.comp_apply, ← Functor.map_comp,
+    simp only [galoisSelfProductMap, graphFamilyMap, ← FintypeCat.comp_apply, ← Functor.map_comp,
       Sigma.ι_comp_desc, prod.lift_fst, Functor.map_id, FintypeCat.id_apply]
   have hsnd (σ : Aut X) (x : F.obj X) :
       F.map prod.snd
         (F.map (galoisSelfProductMap X) (F.map (Sigma.ι (fun _ : Aut X => X) σ) x)) =
-          F.map σ.hom x := by
-    simp only [galoisSelfProductMap, ← FintypeCat.comp_apply, ← Functor.map_comp,
+          F.map σ.asIso.hom x := by
+    simp only [galoisSelfProductMap, graphFamilyMap, ← FintypeCat.comp_apply, ← Functor.map_comp,
       Sigma.ι_comp_desc, prod.lift_snd]
   have hbij : Function.Bijective (F.map (galoisSelfProductMap X)) := by
     constructor
@@ -94,7 +99,7 @@ def galoisSelfProductIso (X : C) [IsGalois X] :
 
 theorem galoisSelfProductIso_ι (X : C) [IsGalois X] (σ : Aut X) :
     Sigma.ι (fun _ : Aut X => X) σ ≫ (galoisSelfProductIso X).hom =
-      prod.lift (𝟙 X) σ.hom := by
+      prod.lift (𝟙 X) σ.asIso.hom := by
   change Sigma.ι (fun _ : Aut X => X) σ ≫ galoisSelfProductMap X = _
   exact Sigma.ι_comp_desc _ σ
 

@@ -10,12 +10,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.Birational.RationalMap
-import Mathlib.AlgebraicGeometry.ValuativeCriterion
+module
+
+public import Mathlib.AlgebraicGeometry.Birational.RationalMap
+public import Mathlib.AlgebraicGeometry.ValuativeCriterion
 
 /-!
 # Scheme Partial Map mem domain to Rational Map of valuation Ring stalk
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

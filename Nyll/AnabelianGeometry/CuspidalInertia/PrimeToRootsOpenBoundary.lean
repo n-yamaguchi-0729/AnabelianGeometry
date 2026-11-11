@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryCoordinateOpenEquivariance
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsSurjectivity
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsCharacters
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsResidueAction
-import Mathlib.FieldTheory.KrullTopology
+module
+
+public import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryCoordinateOpenEquivariance
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsSurjectivity
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsCharacters
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsResidueAction
+public import Mathlib.FieldTheory.KrullTopology
 
 /-!
 # Open boundary equivariance for the actual roots limit
@@ -17,6 +19,8 @@ Use the actual third-root projection and its field-element stabilizer.
 The finite-character argument then upgrades the original twisted boundary
 formula to coordinatewise equivariance on an open Galois subgroup.
 -/
+
+@[expose] public section
 
 noncomputable section
 

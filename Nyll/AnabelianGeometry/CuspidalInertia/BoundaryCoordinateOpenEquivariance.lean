@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryFiniteQuotient
-import Nyll.ProCGroups.Topologies.OpenActionKernel
+module
+
+public import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryFiniteQuotient
+public import Nyll.ProCGroups.Topologies.OpenActionKernel
 
 /-!
 # Open equivariance of boundary coordinates
@@ -15,6 +17,8 @@ coordinatewise cyclotomic on an open subgroup. A single nonquadratic finite
 character detects the same permutation witness as in the original formula;
 no coherent choice of witnesses is assumed.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.CuspidalInertia
 

@@ -11,14 +11,18 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.AbelianSchemePropertyBundle
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
-import Nyll.AlgebraicCurves.Geometry.Schemes.LocalGeometry.IsIntegralIsLocallyNoetherian
-import Nyll.SchemeTheory.RingTheory.RegularLocal.RegularLocalDomain
+module
+
+public import Nyll.AbelianVarieties.Basic
+public import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
+public import Nyll.SchemeTheory.LocalGeometry.IntegralNoetherian
+public import Nyll.SchemeTheory.RingTheory.RegularLocal.RegularLocalDomain
 
 /-!
 # Abelian Scheme Property Bundle is Integral of field
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

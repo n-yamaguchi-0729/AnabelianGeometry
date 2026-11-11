@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairFunctionCoordinate
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationBoundaryPlaceOrders
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairFunctionCoordinate
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationBoundaryPlaceOrders
 
 /-! # A coordinate for the already chosen configuration pair function
 
@@ -13,6 +15,8 @@ or distinctness of its two arithmetic boundary witnesses. The geometric order
 formula at the labelled pole, and the existing rational-place supplier for
 that same label, recover both facts for the given function.
 -/
+
+@[expose] public section
 
 noncomputable section
 attribute [local instance] Classical.propDecidable

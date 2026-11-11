@@ -10,13 +10,17 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
-import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
-import Mathlib.Tactic.Nontriviality
+module
+
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
+public import Mathlib.Tactic.Nontriviality
 
 /-!
 # Ring Hom finite Dimensional adjoin range of finite of forall mem range
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

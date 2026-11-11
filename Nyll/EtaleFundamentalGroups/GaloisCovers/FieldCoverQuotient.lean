@@ -4,11 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCovers.Basic
-import Nyll.EtaleFundamentalGroups.GaloisCovers.FiberQuotient
-import Nyll.EtaleFundamentalGroups.GaloisCovers.PointedQuotientTransport
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldFundamentalGroupConjugacy
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.Basic
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.FiberQuotient
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.PointedQuotientTransport
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldFundamentalGroupConjugacy
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
 
 /-!
 # Pointed finite quotients associated to finite Galois field extensions
@@ -18,6 +21,8 @@ the base field spectrum.  This file identifies its deck group and its pointed
 fiber-functor quotient with the usual restriction homomorphism on Galois
 groups.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -43,7 +48,8 @@ instance fieldSpecMap_isFiniteEtale : IsFiniteEtale (ξ K L) := by
       Algebra.FinitePresentation.of_finiteType.mp inferInstance⟩
   constructor
 
-private noncomputable def fieldAlgEquivSchemeIso
+/-- A field automorphism induces an isomorphism of its spectrum. -/
+noncomputable def fieldAlgEquivSchemeIso
     (sigma : Gal(L/K)) : Spec (.of L) ≅ Spec (.of L) where
   hom := Spec.map (CommRingCat.ofHom sigma.toRingEquiv.toRingHom)
   inv := Spec.map (CommRingCat.ofHom sigma.symm.toRingEquiv.toRingHom)
@@ -58,11 +64,12 @@ private noncomputable def fieldAlgEquivSchemeIso
     ext z
     exact sigma.symm_apply_apply z
 
-private noncomputable def fieldAlgEquivToFiniteEtaleAut
+/-- A field automorphism induces an automorphism of its finite étale cover. -/
+noncomputable def fieldAlgEquivToFiniteEtaleAut
     (sigma : Gal(L/K)) : Aut (FiniteEtale.mk (ξ K L)) := by
   let Y : FiniteEtale (Spec (.of K)) := FiniteEtale.mk (ξ K L)
   let e : Y.left ≅ Y.left := fieldAlgEquivSchemeIso K L sigma
-  exact MorphismProperty.Over.isoMk e (by
+  exact Aut.of <| MorphismProperty.Over.isoMk e (by
     change e.hom ≫ ξ K L = ξ K L
     dsimp only [e, fieldAlgEquivSchemeIso]
     have hmap : CommRingCat.ofHom (algebraMap K L) ≫
@@ -78,7 +85,7 @@ private theorem fieldAlgEquivToFiniteEtaleAut_injective :
     Function.Injective (fieldAlgEquivToFiniteEtaleAut K L) := by
   intro sigma tau h
   have hleft := congrArg
-    (fun a : Aut (FiniteEtale.mk (ξ K L)) ↦ a.hom.left) h
+    (fun a : Aut (FiniteEtale.mk (ξ K L)) ↦ a.asIso.hom.left) h
   change Spec.map (CommRingCat.ofHom sigma.toRingEquiv.toRingHom) =
     Spec.map (CommRingCat.ofHom tau.toRingEquiv.toRingHom) at hleft
   have hring := Spec.map_injective hleft
@@ -125,12 +132,14 @@ theorem fieldFiniteEtaleCover_isGalois :
           (fieldAlgEquivToFiniteEtaleAut K L)
           (fieldAlgEquivToFiniteEtaleAut_injective K L)
 
-private noncomputable def fieldGaloisToFiniteEtaleAutOpHom :
+/-- The Galois action maps contravariantly to automorphisms of the field cover. -/
+noncomputable def fieldGaloisToFiniteEtaleAutOpHom :
     Gal(L/K) →* (Aut (FiniteEtale.mk (ξ K L)))ᵐᵒᵖ where
   toFun sigma := MulOpposite.op (fieldAlgEquivToFiniteEtaleAut K L sigma)
   map_one' := by
     apply MulOpposite.unop_injective
     apply Aut.ext
+    apply Iso.ext
     apply MorphismProperty.Over.Hom.ext
     change Spec.map (CommRingCat.ofHom ((1 : Gal(L/K)).toRingHom)) = 𝟙 _
     rw [← Spec.map_id]
@@ -138,18 +147,19 @@ private noncomputable def fieldGaloisToFiniteEtaleAutOpHom :
   map_mul' sigma tau := by
     apply MulOpposite.unop_injective
     apply Aut.ext
+    apply Iso.ext
     apply MorphismProperty.Over.Hom.ext
     change Spec.map (CommRingCat.ofHom ((sigma * tau).toRingHom)) =
       (MulOpposite.unop
         (MulOpposite.op (fieldAlgEquivToFiniteEtaleAut K L sigma) *
-          MulOpposite.op (fieldAlgEquivToFiniteEtaleAut K L tau))).hom.left
+          MulOpposite.op (fieldAlgEquivToFiniteEtaleAut K L tau))).asIso.hom.left
     change Spec.map (CommRingCat.ofHom ((sigma * tau).toRingHom)) =
       Spec.map (CommRingCat.ofHom sigma.toRingHom) ≫
         Spec.map (CommRingCat.ofHom tau.toRingHom)
     rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
     congr 1
 
-private theorem fieldGaloisToFiniteEtaleAutOpHom_bijective :
+theorem fieldGaloisToFiniteEtaleAutOpHom_bijective :
     Function.Bijective (fieldGaloisToFiniteEtaleAutOpHom K L) := by
   let : IsGalois (FiniteEtale.mk (ξ K L)) :=
     fieldFiniteEtaleCover_isGalois K L
@@ -206,17 +216,14 @@ theorem fieldFiniteEtaleCoverQuotient_apply
     [IsSepClosure K Omega] (sigma : Gal(Omega/K)) :
     let Y : FiniteEtale (Spec (.of K)) := FiniteEtale.mk (ξ K L)
     let hY : IsGalois Y := fieldFiniteEtaleCover_isGalois K L
-    letI : IsGalois Y := hY
+    let : IsGalois Y := hY
     let y := fieldFiniteEtaleCoverCanonicalPoint K L Omega
     (fieldGaloisToFiniteEtaleAutOpMulEquiv K L).symm
         (finiteEtaleGaloisCoverQuotientMonoidHom
           (ξ K Omega) Y hY y
           (absoluteGaloisToFiberAutMulEquiv K Omega inferInstance sigma)) =
       AlgEquiv.restrictNormalHom (F := K) (K₁ := Omega) L sigma := by
-  let Y : FiniteEtale (Spec (.of K)) := FiniteEtale.mk (ξ K L)
-  let hY : IsGalois Y := fieldFiniteEtaleCover_isGalois K L
-  let : IsGalois Y := hY
-  let y := fieldFiniteEtaleCoverCanonicalPoint K L Omega
+  intro Y hY sharedOwner3 y
   let E := fieldGaloisToFiniteEtaleAutOpMulEquiv K L
   apply E.injective
   rw [E.apply_symm_apply]
@@ -225,10 +232,10 @@ theorem fieldFiniteEtaleCoverQuotient_apply
   simp only [evaluationEquivOfIsGalois_apply]
   rw [finiteEtaleGaloisCoverQuotientMonoidHom_evaluation]
   change
-    (absoluteGaloisToFiberAutMulEquiv K Omega inferInstance sigma).hom.app Y y =
+    (absoluteGaloisToFiberAutMulEquiv K Omega inferInstance sigma).asIso.hom.app Y y =
       (fib K Omega).map
         (fieldAlgEquivToFiniteEtaleAut K L
-          (AlgEquiv.restrictNormalHom (F := K) (K₁ := Omega) L sigma)).hom y
+          (AlgEquiv.restrictNormalHom (F := K) (K₁ := Omega) L sigma)).asIso.hom y
   rw [absoluteGaloisToFiberAutMulEquiv,
     CategoryTheory.PreGaloisCategory.toAutMulEquiv_apply,
     CategoryTheory.PreGaloisCategory.toAut_hom_app_apply]

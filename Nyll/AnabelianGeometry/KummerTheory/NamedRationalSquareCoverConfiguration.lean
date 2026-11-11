@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.KummerTheory.NamedRationalSquareCoverModel
-import Nyll.AnabelianGeometry.KummerTheory.NamedCoverRationalConfigurationComposition
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationSquareBoundaryLabels
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.NamedRationalSquareCoverModel
+public import Nyll.AnabelianGeometry.KummerTheory.NamedCoverRationalConfigurationComposition
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationSquareBoundaryLabels
 
 /-! # The original named square cover as an actual rational configuration
 
@@ -14,6 +16,8 @@ comparison constructs the model-open isomorphism; the endpoint does not assume
 a new cover isomorphism. The quotient root, coefficient map, cover projection,
 finite model map, and generic triangle are retained in the conclusion.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve TopologicalSpace
 open AlgebraicGeometry.ProjSpace

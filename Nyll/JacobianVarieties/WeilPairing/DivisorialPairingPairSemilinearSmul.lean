@@ -10,8 +10,10 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.JacobianVarieties.WeilPairing.Divisorial
-import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
+module
+
+public import Nyll.JacobianVarieties.WeilPairing.Divisorial
+public import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
 
 /-!
 # Semilinear equivariance of the divisorial Weil pairing
@@ -19,6 +21,8 @@ import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
 Transport rational places, residue evaluations, and divisor witnesses along a
 semilinear automorphism to compare the resulting Weil pairing values.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

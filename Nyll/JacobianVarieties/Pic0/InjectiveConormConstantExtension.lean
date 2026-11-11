@@ -10,13 +10,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
-import Nyll.AlgebraicCurves.Cohomology.Adelic.Repartitions
-import Nyll.AlgebraicCurves.Cohomology.Adelic.Index
-import Nyll.AlgebraicCurves.Places.ConstantExtension.ComapAlgebraMapEqConstantExtensionAlgClosed
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.BaseChange.LSpaceMapDomainSubsetSpanImageLSpace
-import Nyll.ValuedFieldTheory.Valuation.Subring.Discrete.IsPrincipalIdealRing
+module
+
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
+public import Nyll.AlgebraicCurves.Cohomology.Adelic.Repartitions
+public import Nyll.AlgebraicCurves.Cohomology.Adelic.Index
+public import Nyll.AlgebraicCurves.Places.ConstantExtension.ComapAlgebraMapEqConstantExtensionAlgClosed
+public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.BaseChange.LSpaceMapDomainSubsetSpanImageLSpace
+public import Nyll.ValuedFieldTheory.Valuation.Subring.Discrete.IsPrincipalIdealRing
 
 /-!
 # Injectivity of conorm under algebraically closed constant extension
@@ -24,6 +26,8 @@ import Nyll.ValuedFieldTheory.Valuation.Subring.Discrete.IsPrincipalIdealRing
 Lifts places uniquely, extends divisors, and descends principal divisors through the
 corresponding spaces of rational functions to obtain an injective map on Picard groups.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Category.Ring.Basic
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Basic
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.PullbackCone
-import Mathlib.RingTheory.Ideal.Maps
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+module
+
+public import Mathlib.Algebra.Category.Ring.Basic
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Basic
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.PullbackCone
+public import Mathlib.RingTheory.Ideal.Maps
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
 
 /-!
 # The residue-field pushout of a local ring map
@@ -18,6 +20,8 @@ the actual square of the ring map and the two residue maps is a pushout.
 The universal factorization is the quotient lift of the given map from
 the target ring; its kernel containment follows from the supplied cocone.
 -/
+
+@[expose] public section
 
 noncomputable section
 

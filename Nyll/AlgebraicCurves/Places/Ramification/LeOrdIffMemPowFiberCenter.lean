@@ -10,12 +10,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
-import Nyll.AlgebraicCurves.Places.Ramification.NegLogValuationFiberCenterEqOrd
+module
+
+public import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
+public import Nyll.AlgebraicCurves.Places.Ramification.NegLogValuationFiberCenterEqOrd
 
 /-!
 # Place le ord iff mem pow fiber Center
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

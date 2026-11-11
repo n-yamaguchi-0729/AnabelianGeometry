@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteDivisorialFiniteQuotientNaturality
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteDivisorialFiniteQuotientNaturality
 
 /-!
 # The rebased generic lift is the original pointed fibre element
@@ -12,6 +14,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteDivisorialFiniteQuotientNatur
 Equality transport preserves the literal geometric lift used in the
 pointed quotient and in its function-field embedding.
 -/
+
+@[expose] public section
 
 noncomputable section
 

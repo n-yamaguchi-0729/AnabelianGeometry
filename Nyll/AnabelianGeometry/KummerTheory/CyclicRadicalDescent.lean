@@ -4,14 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.FieldTheory.Galois.Basic
-import Mathlib.RingTheory.RootsOfUnity.PrimitiveRoots
-import Mathlib.GroupTheory.SpecificGroups.Cyclic.Basic
-import Mathlib.Algebra.Ring.GeomSum
-import Mathlib.Tactic.FieldSimp
-import Mathlib.Tactic.Ring
+module
+
+public import Mathlib.FieldTheory.Galois.Basic
+public import Mathlib.RingTheory.RootsOfUnity.PrimitiveRoots
+public import Mathlib.GroupTheory.SpecificGroups.Cyclic.Basic
+public import Mathlib.Algebra.Ring.GeomSum
+public import Mathlib.Tactic.FieldSimp
+public import Mathlib.Tactic.Ring
 
 /-! # Cyclic radical descent from the exact arithmetic norm kernel -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -123,7 +127,7 @@ theorem cyclic_radical_descent_of_norm_kernel
     ∃ y : ZMod N, ∃ a : F, algebraMap F E a = z / ζ ^ y.val := by
   by_cases hz : z = 0
   · refine ⟨0, 0, ?_⟩
-    simp [hz]
+    rw [map_zero, hz, zero_div]
   obtain ⟨t, _, ht⟩ := exists_root_ratio_exponent hζ σ hz hzN
   have hzσ : σ z = ζ ^ t * z := (div_eq_iff hz).mp ht
   have hnorm :

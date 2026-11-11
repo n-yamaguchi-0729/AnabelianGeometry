@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.RationalBoundaryCyclotomicFixedPlace
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsSurjectivity
-import Nyll.EtaleFundamentalGroups.Inertia.RationalCuspArithmeticNormalizer
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalBoundaryCyclotomicFixedPlace
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsSurjectivity
+public import Nyll.EtaleFundamentalGroups.Inertia.RationalCuspArithmeticNormalizer
 
 /-!
 # The actual arithmetic projection on finite coefficient roots
@@ -15,6 +17,8 @@ The single inner correction in the original arithmetic projection disappears
 on finite roots of unity. The fixed embedding of the coefficient closure in
 the original ambient field is retained throughout.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory

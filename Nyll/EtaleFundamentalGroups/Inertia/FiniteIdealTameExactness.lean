@@ -4,11 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameCharacter
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.LocalTameCharacterExactness
-import Mathlib.Algebra.Group.Subgroup.Ker
-import Mathlib.Algebra.Group.Subgroup.Finite
+module
+
+public import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameCharacter
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.LocalTameCharacterExactness
+public import Mathlib.Algebra.Group.Subgroup.Ker
+public import Mathlib.Algebra.Group.Subgroup.Finite
+public import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationInertiaEquivalence
 
 /-!
 # Wild kernels of finite ideal tame characters
@@ -16,6 +19,8 @@ import Mathlib.Algebra.Group.Subgroup.Finite
 Transports the principal-unit wild subgroup to original ideal inertia and computes its
 cardinality. Proves surjectivity and the kernel formula for the finite tame character.
 -/
+
+@[expose] public section
 
 noncomputable section
 

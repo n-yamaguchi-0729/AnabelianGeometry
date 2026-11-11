@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Places.Evaluation.EvalAtMapEqComapEq
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+module
+
+public import Nyll.AlgebraicCurves.Places.Evaluation.EvalAtMapEqComapEq
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
 
 /-!
 # Evaluation after extension of constants
@@ -14,6 +16,8 @@ Sending places to their actual valuation extensions transports divisor
 evaluation through the coefficient embedding. The comparison follows from
 residue evaluation, including the negative multiplicities in divisors.
 -/
+
+@[expose] public section
 
 open scoped BigOperators
 

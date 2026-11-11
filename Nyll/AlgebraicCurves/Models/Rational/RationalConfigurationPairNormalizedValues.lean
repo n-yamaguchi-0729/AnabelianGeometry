@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairEvaluation
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairCoordinate
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairEvaluation
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairCoordinate
 
 /-! # The same pair coordinate at the original chosen arithmetic cusp places
 
@@ -14,6 +16,8 @@ orders of the unchanged arithmetic function give the zero, pole, and all third
 values. Its coordinate is normalized by the actual value at one fixed third
 cusp; all other regular cusp values are the corresponding ratios.
 -/
+
+@[expose] public section
 
 noncomputable section
 attribute [local instance] Classical.propDecidable

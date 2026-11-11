@@ -3,11 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationBoundaryPlaceOrders
-import Nyll.AlgebraicCurves.Models.Ramification.BoundaryNormalizationPrimes
-import Nyll.AnabelianGeometry.WeightFiltration.FieldChartBoundaryPrimeFamily
-import Nyll.AnabelianGeometry.WeightFiltration.FixedArithmeticRationalCuspRecognition
+module
+
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationBoundaryPlaceOrders
+public import Nyll.AlgebraicCurves.Models.Ramification.BoundaryNormalizationPrimes
+public import Nyll.AnabelianGeometry.WeightFiltration.FieldChartBoundaryPrimeFamily
+public import Nyll.AnabelianGeometry.WeightFiltration.FixedArithmeticRationalCuspRecognition
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
+public import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertia
 
 /-! # All original cusps of bare finite rational configurations
 
@@ -20,6 +24,8 @@ before quantification over all source cusps.
 
 This is an inertia-recognition statement, not yet projective reconstruction.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve AlgebraicGeometry.FiniteEtale
@@ -109,7 +115,7 @@ def rationalConfigurationChosenInertia
 
 /-- A canonical ambient algebraic closure for the actual geometric open. -/
 abbrev rationalConfigurationCanonicalAmbient
-    (k : Type) [Field k] [NumberField k]
+    (k : Type) [Field k] [CharZero k] [Field.FG k]
     (s : Finset (Projectivization k (k × k))) :=
   AlgebraicClosure
     (rationalConfigurationGeometricScheme k (AlgebraicClosure k) s).functionField
@@ -133,7 +139,7 @@ local instance (priority := 2000) bareRecognitionSMulRatFunc
 above the given arithmetic isomorphism. All finite cardinalities at least three
 are retained; the target is displayed in its original RatFunc chart and original Q. -/
 theorem bare_rationalConfiguration_allCusps_recognition
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
@@ -292,7 +298,7 @@ theorem bare_rationalConfiguration_allCusps_recognition
 number field, the two finite rational configurations, cardinality bounds and
 the arithmetic isomorphism over G_k. -/
 theorem bare_rationalConfiguration_allCusps_recognition_canonical
-    (k : Type) [Field k] [NumberField k]
+    (k : Type) [Field k] [CharZero k] [Field.FG k]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (eP : rationalConfigurationArithmeticGroup k (AlgebraicClosure k) s
         (rationalConfigurationCanonicalAmbient k s) ≃ₜ*

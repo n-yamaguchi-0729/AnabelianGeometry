@@ -5,11 +5,13 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverTorsor
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverAction
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FixedPointSections
-import Nyll.EtaleFundamentalGroups.Cohomology.TorsorCharacter
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverTorsor
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverAction
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FixedPointSections
+public import Nyll.EtaleFundamentalGroups.Cohomology.TorsorCharacter
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
 
 /-!
 # The actual monodromy character and cohomology class of a Kummer cover
@@ -19,6 +21,8 @@ original finite etale cover. The actual derived H¹ comparison then constructs
 a degree-one etale cohomology class. Its vanishing is equivalent to splitting
 of that cover, and hence to vanishing of the actual divided divisor class.
 -/
+
+@[expose] public section
 
 noncomputable section
 

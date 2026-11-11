@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticNaturality
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackFiberPoint
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticNaturality
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackFiberPoint
 
 /-! # Constant fibres compared by the original arithmetic comparison
 
@@ -14,6 +16,8 @@ the original arithmetic group equivalence. A specified point in the common
 constant fibre gives the two matched lifts, without choosing an unrelated
 comparison or assuming preservation of an embedding of the finite field.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory CategoryTheory.PreGaloisCategory
 open scoped FintypeCatDiscrete
@@ -61,13 +65,13 @@ theorem arithmeticConstantFiberEquiv_smul
   let t : fiber (xi ≫ f) ≅ fib k κ :=
     (nonempty_fiber_iso (xi ≫ f) (ξ k κ)).some
   have ht (a : π₁ᵉᵗ(xi ≫ f)) (y : (fiber (xi ≫ f)).obj A) :
-      t.hom.app A (a.hom.app A y) =
-        (t.conjAut a).hom.app A (t.hom.app A y) := by
-    change t.hom.app A (a.hom.app A y) =
-      t.hom.app A (a.hom.app A (t.inv.app A (t.hom.app A y)))
-    exact congrArg (fun z => t.hom.app A (a.hom.app A z))
+      t.hom.app A (a.asIso.hom.app A y) =
+        (t.conjAut a).asIso.hom.app A (t.hom.app A y) := by
+    change t.hom.app A (a.asIso.hom.app A y) =
+      t.hom.app A (a.asIso.hom.app A (t.inv.app A (t.hom.app A y)))
+    exact congrArg (fun z => t.hom.app A (a.asIso.hom.app A z))
       (FintypeCat.hom_inv_id_apply (t.app A) y).symm
-  change t.hom.app A ((pullbackFiberIso f xi).hom.app A (g.hom.app _ x)) =
+  change t.hom.app A ((pullbackFiberIso f xi).hom.app A (g.asIso.hom.app _ x)) =
     arithmeticFundamentalGroupHom k κ f xi g •
       t.hom.app A ((pullbackFiberIso f xi).hom.app A x)
   rw [pullbackFiberIso_hom_fundamentalGroupHom_apply]

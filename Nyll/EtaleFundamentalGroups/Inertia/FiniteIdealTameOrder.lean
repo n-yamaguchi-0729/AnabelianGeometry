@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
-import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationInertiaCardinality
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingFiniteTameCharacter
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCardinality
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingTameOrderRamification
-import Mathlib.RingTheory.DedekindDomain.Dvr
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
+public import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationInertiaCardinality
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingFiniteTameCharacter
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCardinality
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingTameOrderRamification
+public import Mathlib.RingTheory.DedekindDomain.Dvr
 
 /-!
 # Tame and wild orders at an original prime
@@ -17,6 +19,8 @@ import Mathlib.RingTheory.DedekindDomain.Dvr
 Defines the finite tame and principal-unit kernel orders and factors the inertia cardinality.
 Establishes positivity and residue-field invertibility of the tame order.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenDeckFaithfulness
-import Nyll.EtaleFundamentalGroups.Cohomology.DeckH1Centralizer
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenSubgroupFundamentalGroup
-import Nyll.ProCGroups.FiniteStepSolvableQuotients.SlimnessAndTorsion
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenDeckFaithfulness
+public import Nyll.EtaleFundamentalGroups.Cohomology.DeckH1Centralizer
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenSubgroupFundamentalGroup
+public import Nyll.ProCGroups.FiniteStepSolvableQuotients.SlimnessAndTorsion
 
 /-! # Slimness of actual hyperbolic open-curve fundamental groups
 
@@ -16,6 +18,8 @@ connected finite étale covers. Their actual compactifications and boundary
 Riemann--Hurwitz prove hyperbolicity. The geometric H¹ argument then kills
 their centers, giving the existing full IsSlim predicate.
 -/
+
+@[expose] public section
 
 noncomputable section
 

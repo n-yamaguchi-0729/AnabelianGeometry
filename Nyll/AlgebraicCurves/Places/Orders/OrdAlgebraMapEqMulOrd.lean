@@ -10,11 +10,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Places.Basic
+module
+
+public import Nyll.AlgebraicCurves.Places.Basic
 
 /-!
 # Place exists ord algebra Map eq mul ord
 -/
+
+@[expose] public section
 
 open IsDedekindDomain WithZero IsLocalRing AlgebraicCurve
 

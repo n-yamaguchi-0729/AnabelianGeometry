@@ -3,16 +3,20 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineBaseChange
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareBoundaryProjection
-import Nyll.AlgebraicCurves.Models.Rational.RationalBoundaryConfigurationIso
-import Nyll.AlgebraicCurves.Places.Restriction.RestrictAlongSurjective
-import Nyll.AlgebraicCurves.Places.Evaluation.PlaceValueRestrictAlong
-import Nyll.AnabelianGeometry.KummerTheory.RatFuncCoordinatePlaceUniqueness
-import Nyll.AnabelianGeometry.KummerTheory.RationalSquareBoundaryLabelConverse
-import Nyll.AnabelianGeometry.WeightFiltration.QuadraticBoundaryFiniteLabels
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineBaseChange
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareBoundaryProjection
+public import Nyll.AlgebraicCurves.Models.Rational.RationalBoundaryConfigurationIso
+public import Nyll.AlgebraicCurves.Places.Restriction.RestrictAlongSurjective
+public import Nyll.AlgebraicCurves.Places.Evaluation.PlaceValueRestrictAlong
+public import Nyll.AnabelianGeometry.KummerTheory.RatFuncCoordinatePlaceUniqueness
+public import Nyll.AnabelianGeometry.KummerTheory.RationalSquareBoundaryLabelConverse
+public import Nyll.AnabelianGeometry.WeightFiltration.QuadraticBoundaryFiniteLabels
 
 /-! # Named Square Selected Labels -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve

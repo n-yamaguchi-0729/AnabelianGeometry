@@ -3,11 +3,13 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncAlgebraMapOrdEqZero
-import Nyll.AlgebraicCurves.Places.Evaluation.EvalAtCongr
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Nyll.SchemeTheory.FunctionFields.RatFuncAlgEquivApplyXEqMoebius
-import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairFunctionCoordinate
+module
+
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncAlgebraMapOrdEqZero
+public import Nyll.AlgebraicCurves.Places.Evaluation.EvalAtCongr
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.SchemeTheory.FunctionFields.RatFuncAlgEquivApplyXEqMoebius
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairFunctionCoordinate
 
 /-! # Evaluation of the unchanged pair function in its normalized coordinate
 
@@ -17,6 +19,8 @@ the existing coordinate for a specified function can be normalized by its own
 actual nonzero value at a third rational place; the resulting formula is the
 literal quotient of that original function, rather than another divisor choice.
 -/
+
+@[expose] public section
 
 noncomputable section
 attribute [local instance] Classical.propDecidable

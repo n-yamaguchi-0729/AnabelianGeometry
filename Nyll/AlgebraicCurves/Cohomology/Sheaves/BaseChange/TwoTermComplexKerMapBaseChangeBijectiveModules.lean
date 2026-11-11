@@ -10,17 +10,22 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.Cohomology.Cech.OrderedAffineCoverCech
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
-import Nyll.SchemeTheory.Cohomology.Cech.TwoChartCech
-import Nyll.SchemeTheory.HomologicalAlgebra.ModuleTwoTermComplexKerMapBaseChangeBijective
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.FlatCochainModules
-import Nyll.SchemeTheory.Cohomology.Sheaves.ModulePresheafDCompD
-import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.FiniteModules
+module
+
+public import Nyll.SchemeTheory.Cohomology.Cech.OrderedAffineCoverCech
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
+public import Nyll.SchemeTheory.Cohomology.Cech.TwoChartCech
+public import Nyll.SchemeTheory.HomologicalAlgebra.ModuleTwoTermComplexKerMapBaseChangeBijective
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.FlatCochainModules
+public import Nyll.SchemeTheory.Cohomology.Sheaves.ModulePresheafDCompD
+public import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.FiniteModules
+public import Nyll.SchemeTheory.Cohomology.Sheaves.CoherentBaseChange
 
 /-!
 # OModule Presheaf exists two Term Complex ker Map Base Change bijective of Modules
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

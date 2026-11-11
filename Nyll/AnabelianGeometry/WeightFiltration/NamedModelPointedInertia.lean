@@ -3,16 +3,20 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertiaHom
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisNaturality
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
-import Nyll.SchemeTheory.FunctionFields.OpenChartGenericPoints
-import Nyll.EtaleFundamentalGroups.GeometricFiber.MatchedFiberCoverGroupTransport
-import Nyll.EtaleFundamentalGroups.Inertia.ConnectedCoverActualInertia
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertiaHom
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisNaturality
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+public import Nyll.SchemeTheory.FunctionFields.OpenChartGenericPoints
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.MatchedFiberCoverGroupTransport
+public import Nyll.EtaleFundamentalGroups.Inertia.ConnectedCoverActualInertia
 
 /-! # Actual named-model generic points and their pointed inertia images
 
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory CategoryTheory.PreGaloisCategory AlgebraicCurve
@@ -185,18 +189,14 @@ theorem actualFiberPointLift_eq_genericExtension_of_embedding
     (Ω : Type) [Field Ω] [IsSepClosed Ω] [Algebra U.functionField Ω]
     (W : FiniteEtale U) [IsConnected W]
     (w : (fiber (U.genericExtensionMorphism Ω)).obj W) :
-    letI : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
-    letI : Algebra U.functionField W.left.functionField := finiteEtaleFunctionFieldAlgebra W
+    let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
+    let : Algebra U.functionField W.left.functionField := finiteEtaleFunctionFieldAlgebra W
     let g := fiberObjEquivHom (U.genericExtensionMorphism Ω) W w
     let emb := finiteEtaleGenericHomFunctionFieldAlgHom W g
-    letI : Algebra W.left.functionField Ω := emb.toRingHom.toAlgebra
+    let : Algebra W.left.functionField Ω := emb.toRingHom.toAlgebra
     W.left.genericExtensionMorphism Ω =
       actualFiberPointLift (U.genericExtensionMorphism Ω) W w := by
-  let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
-  let : Algebra U.functionField W.left.functionField := finiteEtaleFunctionFieldAlgebra W
-  let g := fiberObjEquivHom (U.genericExtensionMorphism Ω) W w
-  let emb := finiteEtaleGenericHomFunctionFieldAlgHom W g
-  let : Algebra W.left.functionField Ω := emb.toRingHom.toAlgebra
+  intro integral fieldAlgebra g emb ambientAlgebra
   change Spec.map (CommRingCat.ofHom emb.toRingHom) ≫
     W.left.fromSpecStalk (genericPoint W.left) = g.left
   exact finiteEtaleGenericHomFunctionFieldAlgHom_spec W g

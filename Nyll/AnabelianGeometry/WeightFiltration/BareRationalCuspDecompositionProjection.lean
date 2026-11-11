@@ -3,9 +3,13 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalCuspDecomposition
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalCuspDecomposition
 
 /-! # Public projection and raw membership suppliers for the chosen decomposition image -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.PreGaloisCategory AlgebraicGeometry AlgebraicCurve
@@ -55,7 +59,7 @@ private theorem projection_decomposition_data_at_canonical_point
 /-- The original arithmetic quotient is surjective on the SAME chosen
 normalization-prime decomposition image. No preservation hypothesis is used. -/
 theorem rationalConfigurationChosenDecomposition_arithmetic_surjective
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
@@ -173,7 +177,7 @@ lift in the SAME raw normalization-prime decomposition group. The original
 field-source point equality is constructed internally, and its equality-induced
 fiber conjugation is retained explicitly. -/
 theorem rationalConfigurationChosenDecomposition_mem_iff_exists_raw
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
@@ -184,21 +188,21 @@ theorem rationalConfigurationChosenDecomposition_mem_iff_exists_raw
     let U := rationalConfigurationGeometricScheme k κ s
     let M := projectiveLineRatFuncModel κ
     let j : U ⟶ M.C := rationalConfigurationBaseChangeChart k κ s
-    letI : Algebra (RatFunc κ) Ω := rationalConfigurationGeometricAmbientAlgebra k κ s Ω
-    letI : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
-    letI : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
-    letI : Algebra k Ω := rationalConfigurationBaseAmbientAlgebra k κ s Ω
+    let : Algebra (RatFunc κ) Ω := rationalConfigurationGeometricAmbientAlgebra k κ s Ω
+    let : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
+    let : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
+    let : Algebra k Ω := rationalConfigurationBaseAmbientAlgebra k κ s Ω
     let ambient := rationalConfigurationAmbient_scalarTowers k κ s Ω
-    letI : IsScalarTower (RatFunc κ) U.functionField Ω := ambient.1
-    letI : IsScalarTower κ (RatFunc κ) Ω := ambient.2.1
-    letI : IsScalarTower κ U.functionField Ω := ambient.2.2.1
-    letI : IsScalarTower (RatFunc k) (RatFunc κ) Ω := ambient.2.2.2.1
-    letI : IsScalarTower k κ Ω := ambient.2.2.2.2.1
-    letI : IsScalarTower k (RatFunc k) Ω := ambient.2.2.2.2.2
-    letI : IsAlgClosure (RatFunc k) Ω :=
+    let : IsScalarTower (RatFunc κ) U.functionField Ω := ambient.1
+    let : IsScalarTower κ (RatFunc κ) Ω := ambient.2.1
+    let : IsScalarTower κ U.functionField Ω := ambient.2.2.1
+    let : IsScalarTower (RatFunc k) (RatFunc κ) Ω := ambient.2.2.2.1
+    let : IsScalarTower k κ Ω := ambient.2.2.2.2.1
+    let : IsScalarTower k (RatFunc k) Ω := ambient.2.2.2.2.2
+    let : IsAlgClosure (RatFunc k) Ω :=
       rationalConfigurationAmbient_isAlgClosure_arithmetic k κ s Ω
-    letI : IsSepClosure (RatFunc k) Ω := inferInstance
-    letI : IsGalois (RatFunc k) Ω := inferInstance
+    let : IsSepClosure (RatFunc k) Ω := inferInstance
+    let : IsGalois (RatFunc k) Ω := inferInstance
     let V := (rationalConfiguration_every_boundaryPlace_exists_rationalPlace k κ s p).choose
     let hV : V.IsRational :=
       (rationalConfiguration_every_boundaryPlace_exists_rationalPlace k κ s p).choose_spec.1
@@ -217,23 +221,10 @@ theorem rationalConfigurationChosenDecomposition_mem_iff_exists_raw
           ∃ δ : normalizationDecompositionGroup V.toValuationSubring (RatFunc k) Ω Qa,
             continuousConjAut (eqToIso (congrArg fiber hpoint.symm))
               (fieldSourceAbsoluteGaloisHom (RatFunc k) Ω jarith δ.val) = γ := by
-  intro U M j
-  let : Algebra (RatFunc κ) Ω := rationalConfigurationGeometricAmbientAlgebra k κ s Ω
-  let : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
-  let : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
-  let : Algebra k Ω := rationalConfigurationBaseAmbientAlgebra k κ s Ω
-  intro ambient
-  let : IsScalarTower (RatFunc κ) U.functionField Ω := ambient.1
-  let : IsScalarTower κ (RatFunc κ) Ω := ambient.2.1
-  let : IsScalarTower κ U.functionField Ω := ambient.2.2.1
-  let : IsScalarTower (RatFunc k) (RatFunc κ) Ω := ambient.2.2.2.1
-  let : IsScalarTower k κ Ω := ambient.2.2.2.2.1
-  let : IsScalarTower k (RatFunc k) Ω := ambient.2.2.2.2.2
-  let : IsAlgClosure (RatFunc k) Ω :=
-    rationalConfigurationAmbient_isAlgClosure_arithmetic k κ s Ω
-  let : IsSepClosure (RatFunc k) Ω := inferInstance
-  let : IsGalois (RatFunc k) Ω := inferInstance
-  intro V hV hord Q e Qa jarith z
+  intro U M j geometricAlgebra constantAlgebra arithmeticAlgebra baseAlgebra ambient
+    geometricTower constantGeometricTower constantOriginalTower arithmeticGeometricTower
+    baseConstantTower baseArithmeticTower arithmeticAlgClosure arithmeticSepClosure
+    arithmeticGalois V hV hord Q e Qa jarith z
   let u : U ⟶ (rationalConfigurationOpen s : Scheme) :=
     Limits.pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
       ((rationalConfigurationOpen s).ι ≫ π k 1)

@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.Normalization.FiniteNormalFieldSourceGeneric
-import Mathlib.AlgebraicGeometry.Normalization
+module
+
+public import Nyll.EtaleFundamentalGroups.Normalization.FiniteNormalFieldSourceGeneric
+public import Mathlib.AlgebraicGeometry.Normalization
 
 /-! # The same open normalization inside its actual finite normal model
 
@@ -12,6 +14,8 @@ Smooth base change of relative normalization identifies the original open
 normalization with the literal inverse image of the original open in a finite
 normal model. The comparison retains the generic source, as well as projection.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
 

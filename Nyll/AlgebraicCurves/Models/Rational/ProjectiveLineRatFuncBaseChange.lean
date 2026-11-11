@@ -3,19 +3,22 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLineRatFuncBaseChange
-import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineRatFuncModel
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLineRatFuncBaseChange
+public import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineRatFuncModel
 
 /-! # Coefficient-extension comparison for the literal rational CurveModels -/
+@[expose] public section
+
+universe u
+
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve TopologicalSpace
 open scoped RatFunc
 namespace AlgebraicGeometry.ProjSpace
-attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
-variable (k κ : Type) [Field k] [Field κ] [Algebra k κ]
-local instance literalBaseChange_projectiveLine_integral (F : Type) [Field F] :
-    IsIntegral (Proj (MvPolynomial.homogeneousSubmodule (Fin (1 + 1)) F)) :=
-  projectiveSpace_isIntegral F 1
+attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra projectiveSpace_isIntegral
+variable (k κ : Type u) [Field k] [Field κ] [Algebra k κ]
 
 /-- The field comparison used by the literal arithmetic/geometric models. -/
 theorem projectiveLineRatFuncModel_coefficientMap :

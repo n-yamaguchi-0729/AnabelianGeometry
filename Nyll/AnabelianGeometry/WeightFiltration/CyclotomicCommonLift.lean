@@ -4,12 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.IntrinsicBoundaryWeight
-import Mathlib.Topology.Baire.LocallyCompactRegular
-import Mathlib.Topology.Algebra.Group.OpenMapping
-import Mathlib.Topology.Algebra.OpenSubgroup
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.IntrinsicBoundaryWeight
+public import Mathlib.Topology.Baire.LocallyCompactRegular
+public import Mathlib.Topology.Algebra.Group.OpenMapping
+public import Mathlib.Topology.Algebra.OpenSubgroup
 
 /-! # Common arithmetic lifts for intrinsic cyclotomic spans -/
+
+@[expose] public section
 
 noncomputable section
 

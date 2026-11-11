@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Points.AlgHomFiniteAlongPointPlaceRestrictAlong
-import Nyll.AlgebraicCurves.Models.Ramification.Ramification
-import Nyll.AlgebraicCurves.Geometry.Schemes.Smooth.SmoothOfRelativeDimensionDVRStalkIsClosed
-import Mathlib.AlgebraicGeometry.Morphisms.Etale
-import Mathlib.RingTheory.Unramified.LocalRing
+module
+
+public import Nyll.AlgebraicCurves.Models.Points.AlgHomFiniteAlongPointPlaceRestrictAlong
+public import Nyll.AlgebraicCurves.Models.Ramification.Ramification
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Smooth.SmoothOfRelativeDimensionDVRStalkIsClosed
+public import Mathlib.AlgebraicGeometry.Morphisms.Etale
+public import Mathlib.RingTheory.Unramified.LocalRing
 
 /-!
 # Ramification of actual curve covers
@@ -18,6 +20,8 @@ homomorphism and place correspondence. At a point where its actual stalk map is 
 unramified, the associated place has ramification index one. The comparison follows from the
 image of the maximal ideal and the discrete valuation of the target stalk.
 -/
+
+@[expose] public section
 
 noncomputable section
 

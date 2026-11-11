@@ -10,17 +10,21 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Order.DirectedInverseSystem
-import Mathlib.RingTheory.FinitePresentation
-import Mathlib.RingTheory.TensorProduct.Maps
-import Mathlib.Tactic.Ext
-import Nyll.SchemeTheory.Descent.AlgebraAlgHomTensorMapEq
-import Nyll.SchemeTheory.Descent.AlgebraTensorMapApplyEq
-import Nyll.SchemeTheory.Descent.AlgebraDirectLimit
+module
+
+public import Mathlib.Order.DirectedInverseSystem
+public import Mathlib.RingTheory.FinitePresentation
+public import Mathlib.RingTheory.TensorProduct.Maps
+public import Mathlib.Tactic.Ext
+public import Nyll.SchemeTheory.Descent.AlgebraAlgHomTensorMapEq
+public import Nyll.SchemeTheory.Descent.AlgebraTensorMapApplyEq
+public import Nyll.SchemeTheory.Descent.AlgebraDirectLimit
 
 /-!
 # Algebra exists alg Equiv tensor Product map eq of finite Presentation of is Direct Limit
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

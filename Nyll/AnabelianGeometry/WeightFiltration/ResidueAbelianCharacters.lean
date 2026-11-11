@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.ResidueKernelCharacters
-import Nyll.AnabelianGeometry.WeightFiltration.CompactificationAbelianization
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.ResidueKernelCharacters
+public import Nyll.AnabelianGeometry.WeightFiltration.CompactificationAbelianization
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
 
 /-!
 # Finite residues as annihilators of the actual boundary kernel
@@ -16,6 +18,8 @@ character of the geometric abelianization annihilates the compactification
 kernel. This connects intrinsic boundary preservation with finite numerical
 invariants without choosing a correspondence of individual boundary points.
 -/
+
+@[expose] public section
 
 noncomputable section
 

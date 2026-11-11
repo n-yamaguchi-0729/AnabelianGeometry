@@ -4,18 +4,20 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.MultiplicationMorphisms
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationCover
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
-import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ProperGroupScheme
-import Nyll.EtaleFundamentalGroups.FiniteEtale.TrivialBaseChangeAlgebra
-import Mathlib.AlgebraicGeometry.Geometrically.Connected
-import Mathlib.CategoryTheory.Galois.Full
-import Mathlib.CategoryTheory.Galois.Topology
-import Mathlib.GroupTheory.OrderOfElement
+module
+
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.MultiplicationMorphisms
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationCover
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ProperGroupScheme
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.TrivialBaseChangeAlgebra
+public import Mathlib.AlgebraicGeometry.Geometrically.Connected
+public import Mathlib.CategoryTheory.Galois.Full
+public import Mathlib.CategoryTheory.Galois.Topology
+public import Mathlib.GroupTheory.OrderOfElement
 
 /-!
 # Cofinality of multiplication covers
@@ -27,7 +29,11 @@ actual morphism from a multiplication cover to every connected finite
 étale cover of the proper smooth group scheme.
 -/
 
+@[expose] public section
+
 noncomputable section
+
+universe u
 
 open CategoryTheory CategoryTheory.Limits CategoryTheory.PreGaloisCategory
 open AlgebraicGeometry AlgebraicGeometry.FiniteEtale
@@ -35,7 +41,7 @@ open AlgebraicGeometry AlgebraicGeometry.FiniteEtale
 namespace GoodReductionJacobian.RelativeGroupLaw
 
 private theorem pullback_fixed_of_pointed_fixed
-    {X Y : Scheme} {K : Type} [Field K] [IsSepClosed K]
+    {X Y : Scheme.{u}} {K : Type u} [Field K] [IsSepClosed K]
     (f : X ⟶ Y) (x : Spec (.of K) ⟶ X) (y : Spec (.of K) ⟶ Y)
     (h : x ≫ f = y) (W : FiniteEtale Y)
     (hf : ∀ (g : π₁ᵉᵗ(x)) (w : (fiber y).obj W),
@@ -45,8 +51,8 @@ private theorem pullback_fixed_of_pointed_fixed
   subst y
   exact pullback_fiber_fixed_of_image_fixed f x W hf
 
-variable {K : Type} [Field K] [IsAlgClosed K] [CharZero K]
-  {A : Scheme} {f : A ⟶ Spec (.of K)}
+variable {K : Type u} [Field K] [IsAlgClosed K] [CharZero K]
+  {A : Scheme.{u}} {f : A ⟶ Spec (.of K)}
   [IsProper f] [Smooth f] [GeometricallyConnected f]
   (G : RelativeGroupLaw K f) (hc : G.IsCommutative)
 
@@ -69,7 +75,7 @@ theorem exists_multiplicationCover_hom (W : FiniteEtale A) [IsConnected W] :
     have hv : ev (g ^ (n : ℕ)) = 1 := by
       rw [map_pow]
       exact pow_card_eq_one'
-    change (ev (g ^ (n : ℕ))).hom w = w
+    change (ev (g ^ (n : ℕ))).asIso.hom w = w
     rw [hv]
     rfl
   let P : FiniteEtale A := (FiniteEtale.pullback (G.schemeNsmul (n : ℕ))).obj W

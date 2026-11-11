@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationKummerEvaluation
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationBaseCoefficients
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationKummerEvaluation
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationBaseCoefficients
 
 /-!
 # Base-ring Kummer coefficients and actual tame coordinates
@@ -14,6 +16,8 @@ The field-theoretic Kummer ratio, when represented in the original base ring,
 is evaluated in the original residue field by the actual finite tame coordinate.
 The exponent is constrained by the base valuation and literal ramification index.
 -/
+
+@[expose] public section
 
 noncomputable section
 

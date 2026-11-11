@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.LocalTameCharacterGroupMap
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.FiniteResidueCharacterScaling
-import Mathlib.Algebra.Category.Grp.Basic
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.LocalTameCharacterGroupMap
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.FiniteResidueCharacterScaling
+public import Mathlib.Algebra.Category.Grp.Basic
 
 /-!
 # Power maps on local tame root groups
@@ -14,6 +16,8 @@ import Mathlib.Algebra.Category.Grp.Basic
 Defines power homomorphisms on the local tame root group and proves injectivity for exponential-
 characteristic powers. These maps are surjective when the acting group is finite.
 -/
+
+@[expose] public section
 
 noncomputable section
 

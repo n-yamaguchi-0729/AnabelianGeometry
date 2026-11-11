@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.Invariant.Galois
-import Mathlib.RingTheory.IsGaloisGroup.Defs
-import Mathlib.RingTheory.DedekindDomain.IntegralClosure
+module
+
+public import Mathlib.RingTheory.Invariant.Galois
+public import Mathlib.RingTheory.IsGaloisGroup.Defs
+public import Mathlib.RingTheory.DedekindDomain.IntegralClosure
 
 /-!
 # Automorphisms of finite Galois integral closures
@@ -14,6 +16,8 @@ import Mathlib.RingTheory.DedekindDomain.IntegralClosure
 Proves that the algebra automorphism group of the integral closure in a finite Galois extension
 forms a Galois group over the integrally closed base domain.
 -/
+
+@[expose] public section
 
 namespace SchemeTheory
 

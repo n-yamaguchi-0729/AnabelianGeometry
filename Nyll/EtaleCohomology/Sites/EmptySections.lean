@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.AlgebraicGeometry.Sites.Small
-import Mathlib.AlgebraicGeometry.Sites.Etale
-import Mathlib.CategoryTheory.Sites.Sheaf
-import Mathlib.CategoryTheory.Limits.Shapes.ZeroMorphisms
-import Mathlib.CategoryTheory.Limits.Shapes.ZeroObjects
+module
+
+public import Mathlib.AlgebraicGeometry.Sites.Small
+public import Mathlib.AlgebraicGeometry.Sites.Etale
+public import Mathlib.CategoryTheory.Sites.Sheaf
+public import Mathlib.CategoryTheory.Limits.Shapes.ZeroMorphisms
+public import Mathlib.CategoryTheory.Limits.Shapes.ZeroObjects
 
 /-!
 # Sections on the empty étale scheme
@@ -16,6 +18,8 @@ import Mathlib.CategoryTheory.Limits.Shapes.ZeroObjects
 The empty sieve covers an empty étale object. Its sheaf sections are terminal,
 and hence zero in any coefficient category with zero morphisms.
 -/
+
+@[expose] public section
 
 universe u v w
 

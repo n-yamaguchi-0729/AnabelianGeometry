@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.CurveCoverGenericCharacter
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverGenericCharacter
-import Nyll.SchemeTheory.FunctionFields.ScalarFunctoriality
+module
+
+public import Nyll.AlgebraicCurves.Models.Kummer.CurveCoverGenericCharacter
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverGenericCharacter
+public import Nyll.SchemeTheory.FunctionFields.ScalarFunctoriality
 
 /-!
 # Restriction of actual generic Kummer characters to an open curve
@@ -15,6 +17,10 @@ The proper and open normalization covers give the same root quotient under
 restriction of field automorphisms. The proof computes both actual
 monodromy characters on one common root.
 -/
+
+@[expose] public section
+
+universe uGeom uField₁ uField₂
 
 noncomputable section
 
@@ -25,16 +31,16 @@ namespace AnabelianGeometry.WeightFiltration
 /-- The actual proper and open Kummer monodromy characters agree at the
 common geometric generic point after scalar restriction. -/
 theorem proper_open_genericKummerCharacter
-    {K F : Type} [Field K] [IsSepClosed K] [Field F] [Algebra K F]
+    {K : Type uGeom} {F : Type uField₁} [Field K] [IsSepClosed K] [Field F] [Algebra K F]
     (M : CurveModel K F) (S : Set (Place K F)) (n : ℕ+)
     (u : Pic0.kummerUnits K F n)
-    {X : Scheme} [IsIntegral X] [CompactSpace X]
+    {X : Scheme.{uGeom}} [IsIntegral X] [CompactSpace X]
     (j : X ⟶ M.C) [IsOpenImmersion j] (hj : DenseRange j)
     (hinterior : ∀ (y : X) (x : closedPoints M.C),
       x.val = j y → M.placeOfPoint x ∉ S)
     [Algebra M.C.functionField X.functionField]
     (hfield : algebraMap M.C.functionField X.functionField = j.functionFieldMap hj)
-    {Ω : Type} [Field Ω] [Algebra X.functionField Ω] [Algebra M.C.functionField Ω]
+    {Ω : Type uGeom} [Field Ω] [Algebra X.functionField Ω] [Algebra M.C.functionField Ω]
     [IsScalarTower M.C.functionField X.functionField Ω]
     [IsSepClosed Ω] [IsSepClosure M.C.functionField Ω] [IsSepClosure X.functionField Ω]
     (β : Ω) (hβ : β ^ (n : ℕ) =

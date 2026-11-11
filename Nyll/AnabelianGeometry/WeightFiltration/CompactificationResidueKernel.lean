@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveCohomologyExactness
-import Mathlib.Algebra.Group.Subgroup.Ker
-import Mathlib.Algebra.Group.Subgroup.Map
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveCohomologyExactness
+public import Mathlib.Algebra.Group.Subgroup.Ker
+public import Mathlib.Algebra.Group.Subgroup.Map
 
 /-!
 # The residue kernel is proper-curve cohomology
@@ -14,6 +16,8 @@ import Mathlib.Algebra.Group.Subgroup.Map
 This identifies the kernel by the actual derived compactification pullback,
 rather than only by a divisorial model of the proper term.
 -/
+
+@[expose] public section
 
 noncomputable section
 

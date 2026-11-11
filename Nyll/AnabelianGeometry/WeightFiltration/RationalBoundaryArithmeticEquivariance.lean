@@ -4,15 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.CoefficientProjectionFunctionFieldFixed
-import Nyll.AnabelianGeometry.WeightFiltration.RationalBoundaryCyclotomicFixedPlace
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaSemilinear
-import Nyll.AnabelianGeometry.WeightFiltration.OpenBoundarySemilinear
-import Nyll.AnabelianGeometry.WeightFiltration.GenericCoefficientDuality
-import Nyll.AlgebraicCurves.Models.ConstantExtension.BaseChangeSemilinearAction
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.CoefficientProjectionFunctionFieldFixed
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalBoundaryCyclotomicFixedPlace
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaSemilinear
+public import Nyll.AnabelianGeometry.WeightFiltration.OpenBoundarySemilinear
+public import Nyll.AnabelianGeometry.WeightFiltration.GenericCoefficientDuality
+public import Nyll.AlgebraicCurves.Models.ConstantExtension.BaseChangeSemilinearAction
 
 /-! # Original rational boundary inertia and arithmetic cyclotomic action
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -118,7 +122,7 @@ theorem rational_boundaryPlaceInertiaHom_arithmetic_equivariance
     have hsource : e.hom ≫ (xi ≫ p₀) = xi ≫ p₀ := by
       rw [← Category.assoc, hp, Category.assoc, coefficientBaseChangeIso_hom_snd]
     let gA : Aut (fiber (xi ≫ p₀)) :=
-      fiberSourceIso (xi ≫ p₀) e ≪≫ eqToIso (congrArg fiber hsource)
+      Aut.of (fiberSourceIso (xi ≫ p₀) e ≪≫ eqToIso (congrArg fiber hsource))
     change arithmeticFundamentalGroupHom k K (i ≫ c) (xi ≫ p₀) gA = α * σ * α⁻¹ at hlabel
     have hfixed (x : RatFunc k) :
         SemilinearAut.toRingAut g (algebraMap (RatFunc k) (RatFunc K) x) =
@@ -143,7 +147,7 @@ theorem rational_boundaryPlaceInertiaHom_arithmetic_equivariance
   intro σ t
   have hb := hraw (α⁻¹ * σ * α) t
   have hcancel : α * (α⁻¹ * σ * α) * α⁻¹ = σ := by
-    simp [mul_assoc]
+    rw [mul_assoc α⁻¹ σ α, mul_inv_cancel_left, mul_inv_cancel_right]
   rw [hcancel] at hb
   have hroot :
       primeToRootsCoefficientMap K K (α⁻¹ * σ * α).toRingHom t =

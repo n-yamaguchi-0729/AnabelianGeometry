@@ -13,12 +13,14 @@ Naganori Yamaguchi (assisted by OpenAI Codex).
 https://github.com/n-yamaguchi-0729
 -/
 
-import Mathlib.Algebra.BigOperators.GroupWithZero.Finset
-import Mathlib.Algebra.Polynomial.Eval.Defs
-import Mathlib.Algebra.Polynomial.Eval.Coeff
-import Mathlib.Algebra.Polynomial.Lifts
-import Mathlib.Algebra.Ring.Hom.Defs
-import Mathlib.RingTheory.Invariant.Basic
+module
+
+public import Mathlib.Algebra.BigOperators.GroupWithZero.Finset
+public import Mathlib.Algebra.Polynomial.Eval.Defs
+public import Mathlib.Algebra.Polynomial.Eval.Coeff
+public import Mathlib.Algebra.Polynomial.Lifts
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.RingTheory.Invariant.Basic
 
 /-!
 # Finite invariant ring images
@@ -31,6 +33,8 @@ an algebra structure on the target domain.
 The polynomial evaluation and root extraction are separate proofs so that the
 coefficient-algebra scope does not also instantiate the polynomial constant map.
 -/
+
+@[expose] public section
 
 open scoped BigOperators
 

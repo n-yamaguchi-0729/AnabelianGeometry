@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.FiniteEtale.Algebra.HenselianEtaleMapLift
-import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
-import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
-import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
-import Mathlib.RingTheory.LocalRing.RingHom.Basic
-import Mathlib.RingTheory.Etale.Basic
+module
+
+public import Nyll.SchemeTheory.FiniteEtale.Algebra.HenselianEtaleMapLift
+public import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
+public import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
+public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+public import Mathlib.RingTheory.LocalRing.RingHom.Basic
+public import Mathlib.RingTheory.Etale.Basic
 
 /-!
 # Specializing finite étale points through a normal Henselian local ring
@@ -23,6 +25,8 @@ identifies local-ring points with residue-field points through its actual target
 bijection. Their composite is the actual specialization equivalence, natural
 in the finite étale algebra and equivariant for compatible actual actions.
 -/
+
+@[expose] public section
 
 noncomputable section
 

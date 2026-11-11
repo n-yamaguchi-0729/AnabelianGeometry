@@ -4,10 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenPlaceTransport
-import Nyll.EtaleFundamentalGroups.GaloisCovers.FunctionField
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenPlaceTransport
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.FunctionField
 
 /-! # The same constant-field algebra on an actual finite cover -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -27,14 +31,12 @@ theorem finiteEtaleFunctionField_constants_eq_structural
     (hbase : algebraMap X.functionField X.functionField =
       (j.functionFieldMap hj).comp M.ffEquiv.toRingHom)
     (W : FiniteEtale X) [IsConnected W] :
-    letI : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
-    letI : Algebra X.functionField W.left.functionField := finiteEtaleFunctionFieldAlgebra W
+    let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
+    let : Algebra X.functionField W.left.functionField := finiteEtaleFunctionFieldAlgebra W
     ∀ a : κ, algebraMap X.functionField W.left.functionField
         (algebraMap κ X.functionField a) =
       baseToFunctionField ((show W.left ⟶ X from W.hom) ≫ j ≫ M.toBase) a := by
-  let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
-  let : Algebra X.functionField W.left.functionField := finiteEtaleFunctionFieldAlgebra W
-  intro a
+  intro sharedOwner1 sharedOwner2 a
   have hbaseScalar : algebraMap κ X.functionField a =
       baseToFunctionField (j ≫ M.toBase) a := by
     calc
@@ -60,13 +62,12 @@ theorem finiteEtaleFunctionField_constantAlgebra_eq
     (hbase : algebraMap X.functionField X.functionField =
       (j.functionFieldMap hj).comp M.ffEquiv.toRingHom)
     (W : FiniteEtale X) [IsConnected W] :
-    letI : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
-    letI : Algebra X.functionField W.left.functionField := finiteEtaleFunctionFieldAlgebra W
+    let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
+    let : Algebra X.functionField W.left.functionField := finiteEtaleFunctionFieldAlgebra W
     ((algebraMap X.functionField W.left.functionField).comp
       (algebraMap κ X.functionField)).toAlgebra =
         (baseToFunctionField ((show W.left ⟶ X from W.hom) ≫ j ≫ M.toBase)).toAlgebra := by
-  let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
-  let : Algebra X.functionField W.left.functionField := finiteEtaleFunctionFieldAlgebra W
+  intro sharedOwner1 sharedOwner2
   apply Algebra.algebra_ext
   exact finiteEtaleFunctionField_constants_eq_structural M j hj hbase W
 

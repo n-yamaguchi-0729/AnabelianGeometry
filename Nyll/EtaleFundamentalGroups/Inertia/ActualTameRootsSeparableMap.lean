@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsSeparableEquiv
-import Nyll.EtaleFundamentalGroups.Inertia.ActualSeparableRootsAction
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsAction
-import Mathlib.Algebra.Category.Grp.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsSeparableEquiv
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualSeparableRootsAction
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsAction
+public import Mathlib.Algebra.Category.Grp.Basic
 
 /-!
 # The actual separable roots comparison as a shared group morphism
@@ -17,6 +19,8 @@ function is the SAME continuous comparison; injectivity and surjectivity
 are proved before introducing topologies. The character consumes this
 actual map, so its kernel calculation does not reopen root topologies.
 -/
+
+@[expose] public section
 
 noncomputable section
 

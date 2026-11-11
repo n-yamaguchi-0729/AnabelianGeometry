@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalPairNamedTransport
-import Lean.Elab.Tactic.Omega
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalPairNamedTransport
+public import Lean.Elab.Tactic.Omega
 
 /-! # The actual degree-two transported cover has no exponent ambiguity
 
@@ -12,6 +14,8 @@ This is a consequence of the existing actual named transport. It retains its
 fiber, roots action and geometric action. No square-root matching or equality
 of root fields is introduced as a hypothesis.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve AlgebraicGeometry.FiniteEtale
@@ -70,7 +74,7 @@ def RationalConfigurationSquareNamedTransport
       rationalConfigurationGeometricGroup k κ t Ω₂) : Prop :=
   let : NeZero (2 : ℕ) := ⟨by decide⟩
   let : TopologicalSpace (rootsOfUnity (2 : ℕ) κ) := ⊥
-  letI : DiscreteTopology (rootsOfUnity (2 : ℕ) κ) := ⟨rfl⟩
+  let : DiscreteTopology (rootsOfUnity (2 : ℕ) κ) := ⟨rfl⟩
   let M := projectiveLineRatFuncModel κ
   let js := rationalConfigurationBaseChangeChart k κ s
   let jt := rationalConfigurationBaseChangeChart k κ t
@@ -81,28 +85,28 @@ def RationalConfigurationSquareNamedTransport
   let U := M.openKummerCover (M.openBoundaryPlaces js) (2 : ℕ+) hn ws js
     (rationalConfigurationBaseChangeChart_denseRange k κ s)
     (M.place_not_mem_openBoundaryPlaces js)
-  letI : Torsor (rootsOfUnity (2 : ℕ) κ) (Fs.obj U) :=
+  let : Torsor (rootsOfUnity (2 : ℕ) κ) (Fs.obj U) :=
     CurveModel.OpenKummer.kummerGeometricRootTorsor M (M.openBoundaryPlaces js)
     (2 : ℕ+) ws js (rationalConfigurationBaseChangeChart_denseRange k κ s)
     (M.place_not_mem_openBoundaryPlaces js) hn ξs
-  letI : SMulCommClass (Aut Fs) (rootsOfUnity (2 : ℕ) κ) (Fs.obj U) :=
+  let : SMulCommClass (Aut Fs) (rootsOfUnity (2 : ℕ) κ) (Fs.obj U) :=
     CurveModel.OpenKummer.kummerGeometricRootAction_commutes M
     (M.openBoundaryPlaces js) (2 : ℕ+) ws js
     (rationalConfigurationBaseChangeChart_denseRange k κ s)
     (M.place_not_mem_openBoundaryPlaces js) hn ξs
   let et := coverTransportFiberEquiv Fs Ft eΔ U
   let het := coverTransportFiberEquiv_smul Fs Ft eΔ U
-  letI : Torsor (rootsOfUnity (2 : ℕ) κ)
+  let : Torsor (rootsOfUnity (2 : ℕ) κ)
       (Ft.obj ((coverTransportOfAutEquiv Fs Ft eΔ).functor.obj U)) :=
     transportedFiberTorsor et
-  letI : SMulCommClass (Aut Ft) (rootsOfUnity (2 : ℕ) κ)
+  let : SMulCommClass (Aut Ft) (rootsOfUnity (2 : ℕ) κ)
       (Ft.obj ((coverTransportOfAutEquiv Fs Ft eΔ).functor.obj U)) :=
     transportedFiberSMulCommClass eΔ.toMulEquiv et het
   let W := M.openKummerCover (M.openBoundaryPlaces jt) (2 : ℕ+) hn
     wt jt
     (rationalConfigurationBaseChangeChart_denseRange k κ t)
     (M.place_not_mem_openBoundaryPlaces jt)
-  letI : Torsor (rootsOfUnity (2 : ℕ) κ) (Ft.obj W) :=
+  let : Torsor (rootsOfUnity (2 : ℕ) κ) (Ft.obj W) :=
     CurveModel.OpenKummer.kummerGeometricRootTorsor M (M.openBoundaryPlaces jt)
     (2 : ℕ+) wt jt
     (rationalConfigurationBaseChangeChart_denseRange k κ t)
@@ -140,7 +144,9 @@ theorem rationalConfiguration_namedTransport_two
     rw [he, pow_one]
   rw [hpow] at hu
   obtain ⟨f, hμ, hG⟩ := hu
-  dsimp only [RationalConfigurationSquareNamedTransport]
+  delta RationalConfigurationSquareNamedTransport
+  intro hNeZero rootsTopology rootsDiscrete M js jt ξs ξt Fs Ft U torsorS smulS
+    et het transportedTorsor transportedSmul W torsorT
   refine ⟨f, ?_, ?_⟩
   · intro z x
     exact hμ z x

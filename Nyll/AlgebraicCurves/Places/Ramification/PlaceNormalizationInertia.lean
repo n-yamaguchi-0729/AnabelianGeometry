@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Places.Ramification.PlaceFiberCenterEquivariance
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
-import Nyll.EtaleFundamentalGroups.Inertia.HenselianIntegralFiberAction
+module
+
+public import Nyll.AlgebraicCurves.Places.Ramification.PlaceFiberCenterEquivariance
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
+public import Nyll.EtaleFundamentalGroups.Inertia.HenselianIntegralFiberAction
 
 /-!
 # Actual finite place stabilizers are normalization inertia
@@ -15,6 +17,8 @@ Finite residue fields over the algebraically closed constant field are
 separably closed. The existing inertia–prime-stabilizer theorem and the
 actual place–prime equivariance therefore identify the place stabilizer.
 -/
+
+@[expose] public section
 
 noncomputable section
 

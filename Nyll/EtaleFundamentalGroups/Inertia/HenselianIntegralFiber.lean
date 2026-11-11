@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Henselian.HenselianIdempotents
-import Mathlib.RingTheory.Ideal.GoingUp
-import Mathlib.RingTheory.Ideal.Quotient.Operations
-import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
-import Mathlib.RingTheory.Localization.Away.Basic
-import Mathlib.RingTheory.LocalRing.Basic
-import Mathlib.RingTheory.Spectrum.Prime.Topology
+module
+
+public import Nyll.SchemeTheory.RingTheory.Henselian.HenselianIdempotents
+public import Mathlib.RingTheory.Ideal.GoingUp
+public import Mathlib.RingTheory.Ideal.Quotient.Operations
+public import Mathlib.RingTheory.IntegralClosure.Algebra.Basic
+public import Mathlib.RingTheory.Localization.Away.Basic
+public import Mathlib.RingTheory.LocalRing.Basic
+public import Mathlib.RingTheory.Spectrum.Prime.Topology
 
 /-!
 # Idempotents separating finite integral fibers over Henselian local rings
@@ -20,6 +22,8 @@ primes is finite, its spectrum is discrete. Its singleton idempotents lift
 uniquely along the Henselian pair, giving actual idempotents in the integral
 algebra without a finite-type or finite-presentation hypothesis.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

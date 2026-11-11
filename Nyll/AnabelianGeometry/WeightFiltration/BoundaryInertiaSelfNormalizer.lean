@@ -3,10 +3,14 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.FieldChartBoundaryCentralizer
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsProcyclic
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.FieldChartBoundaryCentralizer
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsProcyclic
 
 /-! # Geometric self-normalization of actual boundary inertia -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve

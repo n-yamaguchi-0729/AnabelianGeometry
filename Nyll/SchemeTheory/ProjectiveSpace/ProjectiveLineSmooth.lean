@@ -3,11 +3,13 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.SchemeTheory.ProjectiveSpace.BaseChange
-import Mathlib.AlgebraicGeometry.Morphisms.Smooth
-import Mathlib.RingTheory.Smooth.StandardSmooth
-import Mathlib.RingTheory.RingHom.LocallyStandardSmooth
-import Mathlib.Tactic.FinCases
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.BaseChange
+public import Mathlib.AlgebraicGeometry.Morphisms.Smooth
+public import Mathlib.RingTheory.Smooth.StandardSmooth
+public import Mathlib.RingTheory.RingHom.LocallyStandardSmooth
+public import Mathlib.Tactic.FinCases
 
 /-! # Smoothness of the actual projective line
 
@@ -16,6 +18,8 @@ and Mathlib's polynomial standard-smooth theorem supply every chart. Source
 locality then proves relative dimension one for the original Proj structure map.
 No smoothness assumption, GAGA, or Weil-conjecture input is introduced.
 -/
+
+@[expose] public section
 
 noncomputable section
 universe u

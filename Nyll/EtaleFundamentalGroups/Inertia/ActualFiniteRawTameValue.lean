@@ -4,18 +4,20 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoefficientEvaluation
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteLocalResidue
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaLocalization
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
-import Mathlib.RingTheory.DiscreteValuationRing.Basic
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingHomUniformizerCoefficient
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoefficientEvaluation
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteLocalResidue
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaLocalization
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
+public import Mathlib.RingTheory.DiscreteValuationRing.Basic
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingHomUniformizerCoefficient
 
 /-!
 # Raw coefficient-ratio values of finite inertia
@@ -23,6 +25,8 @@ import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingHomUniformize
 Constructs the ambient residue of a finite local uniformizer ratio and supplies its unit
 coefficient witness. Expresses the canonical tame coordinate as its normalization power.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -64,13 +68,13 @@ in this interface, so two raw stages may be compared before normalization. -/
 theorem actualFiniteRawTameValue_exists_coefficient
     (E : FiniteGaloisIntermediateField K L)
     (σ : actualNormalizationInertiaGroup A K L Q) :
-    letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+    let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
     ∃ π c : Localization.AtPrime (finiteAbsoluteNormalizationPrime A K L Q E),
       Irreducible π ∧ IsUnit c ∧
       π * c = (actualFiniteInertiaLocalRingHom A K L Q E σ).toFun π ∧
       actualFiniteRawTameValue A K L Q E σ =
         (actualFiniteLocalResidueMap A K L Q E).toFun c := by
-  let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+  intro sharedOwner1
   let := finiteAbsoluteNormalizationAlgebra_isDedekindDomain A K L E
   let : IsDiscreteValuationRing
       (Localization.AtPrime (finiteAbsoluteNormalizationPrime A K L Q E)) :=

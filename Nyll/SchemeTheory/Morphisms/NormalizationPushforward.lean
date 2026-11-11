@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Morphisms.AffineNormalizationPushforward
+module
+
+public import Nyll.SchemeTheory.Morphisms.AffineNormalizationPushforward
 
 /-!
 # The structure-sheaf pushforward of relative normalization
@@ -13,6 +15,8 @@ The section isomorphisms above affine opens of the original base imply
 the full structure-sheaf pushforward assertion for the native relative
 normalization, with no affine or Noetherian hypothesis on the base.
 -/
+
+@[expose] public section
 
 noncomputable section
 

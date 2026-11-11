@@ -10,10 +10,12 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.RingTheory.Extension.Presentation.Basic
-import Mathlib.RingTheory.Extension.Presentation.Core
-import Nyll.SchemeTheory.RingTheory.Flat.OpenLocus
-import Nyll.SchemeTheory.RingTheory.Flat.FiniteSubalgebraLocalization
+module
+
+public import Mathlib.RingTheory.Extension.Presentation.Basic
+public import Mathlib.RingTheory.Extension.Presentation.Core
+public import Nyll.SchemeTheory.RingTheory.Flat.OpenLocus
+public import Nyll.SchemeTheory.RingTheory.Flat.FiniteSubalgebraLocalization
 
 /-!
 # Finite subalgebras with flat base change
@@ -21,6 +23,8 @@ import Nyll.SchemeTheory.RingTheory.Flat.FiniteSubalgebraLocalization
 Flatness descends to a finitely generated subalgebra containing any chosen finite set.
 The proof first treats the noetherian case and then descends a finite presentation model.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -38,7 +42,8 @@ variable {R₀ E E' B₀ : Type*} [CommRing R₀] [CommRing E] [CommRing E'] [Co
   [Algebra R₀ E] [Algebra R₀ E'] [Algebra R₀ B₀] [Algebra E E'] [IsScalarTower R₀ E E']
 
 variable (R₀ E E' B₀) in
-private noncomputable def _root_.FlatDescentGlobal.trans : E ⊗[R₀] B₀ →ₐ[R₀] E' ⊗[R₀] B₀ :=
+/-- Extend the first scalar factor of a tensor product along the given algebra map. -/
+noncomputable def _root_.FlatDescentGlobal.trans : E ⊗[R₀] B₀ →ₐ[R₀] E' ⊗[R₀] B₀ :=
   Algebra.TensorProduct.map (IsScalarTower.toAlgHom R₀ E E') (AlgHom.id R₀ B₀)
 
 

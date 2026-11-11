@@ -3,9 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationPunctureEquiv
-import Nyll.EtaleFundamentalGroups.GeometricFiber.MatchedFiberCoverGroupTransport
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverInjectivity
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationPunctureEquiv
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.MatchedFiberCoverGroupTransport
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverInjectivity
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
 
 /-! # Lifted puncture labels commute with the original cover projections
 
@@ -20,6 +23,8 @@ this containment at the actual localized prime, including ramified cusps.
 The final specialization uses the actual matched-fibre group equivalence and
 its original inclusion square; the selected fibre map e is never replaced.
 -/
+@[expose] public section
+
 noncomputable section
 open AlgebraicGeometry CategoryTheory AlgebraicCurve
 open SchemeTheory EtaleFundamentalGroups.Inertia ProCGroups.Abelian

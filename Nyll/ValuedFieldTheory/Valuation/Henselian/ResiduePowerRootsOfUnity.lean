@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Valuation.Henselian.RootsOfUnity
+module
+
+public import Nyll.ValuedFieldTheory.Valuation.Henselian.RootsOfUnity
 
 /-!
 # Residue powers determine the prime-to-residue cyclotomic action
@@ -14,6 +16,8 @@ Injectivity of reduction on prime-to-residue roots identifies its field
 values with the corresponding powers. Discreteness and Henselianity of the
 upstairs valuation are not required.
 -/
+
+@[expose] public section
 
 namespace ValuationSubring
 

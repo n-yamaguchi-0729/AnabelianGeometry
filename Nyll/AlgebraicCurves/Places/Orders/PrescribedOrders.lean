@@ -10,11 +10,15 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+module
+
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
 
 /-!
 # Place exists forall ord eq
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -103,9 +107,9 @@ theorem ord_coe_unit_eq_zero_of_le {v w : Place K F}
     (h : v.toValuationSubring ≤ w.toValuationSubring) (u : v.toValuationSubringˣ) :
     w.ord ((u : v.toValuationSubring) : F) = 0 := by
   have hu0 : ((u : v.toValuationSubring) : F) ≠ 0 := by
-    simp [ne_eq, ZeroMemClass.coe_eq_zero]
+    simp only [ne_eq, ZeroMemClass.coe_eq_zero, Units.ne_zero, not_false_eq_true]
   have hui0 : (((u⁻¹ : v.toValuationSubringˣ) : v.toValuationSubring) : F) ≠ 0 := by
-    simp [ne_eq, ZeroMemClass.coe_eq_zero]
+    simp only [ne_eq, ZeroMemClass.coe_eq_zero, Units.ne_zero, not_false_eq_true]
   have h1 : 0 ≤ w.ord ((u : v.toValuationSubring) : F) :=
     (w.mem_iff_ord_nonneg' hu0).mp (h (u : v.toValuationSubring).2)
   have h2 : 0 ≤ w.ord (((u⁻¹ : v.toValuationSubringˣ) : v.toValuationSubring) : F) :=
@@ -133,7 +137,7 @@ theorem exists_mem_and_not_mem {v w : Place K F} (hvw : v ≠ w) :
     intro x hx
     obtain ⟨u, hux⟩ := v.exists_unit_mul_zpow hx hπ
     have hu0 : ((u : v.toValuationSubring) : F) ≠ 0 := by
-      simp [ne_eq, ZeroMemClass.coe_eq_zero]
+      simp only [ne_eq, ZeroMemClass.coe_eq_zero, Units.ne_zero, not_false_eq_true]
     conv_lhs => rw [hux]
     rw [w.ord_mul hu0 (zpow_ne_zero _ hπ0), ord_coe_unit_eq_zero_of_le hle u, zero_add, w.ord_zpow]
   rcases eq_or_ne (w.ord (π : F)) 0 with he | he
@@ -229,8 +233,8 @@ theorem exists_ord_neg_forall_ord_pos (T : Finset (Place K F)) {v : Place K F}
       have hvs : v ∉ s := fun h => hv (Finset.mem_insert_of_mem h)
       obtain ⟨z, hzv, hzs⟩ := ih hvs
       obtain ⟨u, huv, huw₀⟩ := exists_ord_neg_and_ord_pos hvw₀
-      have hz0 : z ≠ 0 := fun h => by simp [h] at hzv
-      have hu0 : u ≠ 0 := fun h => by simp [h] at huv
+      have hz0 : z ≠ 0 := fun h => by simp only [h, ord_zero, lt_self_iff_false] at hzv
+      have hu0 : u ≠ 0 := fun h => by simp only [h, ord_zero, lt_self_iff_false] at huv
       set m : ℕ := (s.sup fun w => (1 - w.ord u).toNat) + 1 with hmdef
       have hm1 : 1 ≤ m := Nat.le_add_left 1 _
       have hmw : ∀ w ∈ s, 1 ≤ (m : ℤ) + w.ord u := by

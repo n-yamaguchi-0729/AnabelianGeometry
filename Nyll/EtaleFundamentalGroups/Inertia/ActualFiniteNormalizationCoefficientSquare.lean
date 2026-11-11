@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteRestrictionCoefficientSquare
-import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteRestrictionCoefficientSquare
+public import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
 
 /-!
 # Coefficient squares for finite normalization restriction
@@ -14,6 +16,8 @@ import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
 Defines the ring maps underlying finite normalization restriction and ambient inclusion, and
 proves that their Galois action square commutes.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -10,17 +10,21 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.RingTheory.Localization.Away.Basic
-import Mathlib.Algebra.Prime.Lemmas
-import Mathlib.RingTheory.Localization.Ideal
-import Mathlib.RingTheory.Noetherian.Defs
-import Mathlib.RingTheory.Noetherian.UniqueFactorizationDomain
-import Mathlib.RingTheory.UniqueFactorizationDomain.Kaplansky
-import Mathlib.Tactic.Ring.RingNF
+module
+
+public import Mathlib.RingTheory.Localization.Away.Basic
+public import Mathlib.Algebra.Prime.Lemmas
+public import Mathlib.RingTheory.Localization.Ideal
+public import Mathlib.RingTheory.Noetherian.Defs
+public import Mathlib.RingTheory.Noetherian.UniqueFactorizationDomain
+public import Mathlib.RingTheory.UniqueFactorizationDomain.Kaplansky
+public import Mathlib.Tactic.Ring.RingNF
 
 /-!
 # Unique Factorization Monoid of is Localization away of prime
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

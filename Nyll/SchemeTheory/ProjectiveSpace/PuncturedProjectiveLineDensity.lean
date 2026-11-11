@@ -3,50 +3,64 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineBoundary
-import Nyll.SchemeTheory.ProjectiveSpace.Normalization
-import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveSpaceIntegral
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineBoundary
+public import Nyll.SchemeTheory.ProjectiveSpace.Normalization
+public import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveSpaceIntegral
+public import Nyll.SchemeTheory.ProjectiveSpace.PunctureForms
+public import Nyll.SchemeTheory.ProjectiveSpace.RationalPuncturePoint
 
 /-! # Nonemptiness and density of the literal punctured projective-line opens -/
+@[expose] public section
+
+universe u
+
 noncomputable section
 open CategoryTheory AlgebraicGeometry TopologicalSpace
 namespace AlgebraicGeometry.ProjSpace
 attribute [local instance] MvPolynomial.gradedAlgebra
-variable (k κ : Type) [Field k] [Field κ] [Algebra k κ]
+variable (k κ : Type u) [Field k] [Field κ] [Algebra k κ]
 
-/-- A finite configuration never exhausts the actual open over an infinite field. -/
-theorem rationalConfigurationOpen_nonempty [Infinite k]
+private theorem zeroHomogeneousPoint_ne_rationalPuncturePoint
+    {F : Type u} [Field F] (v : F × F) (hv : v ≠ 0) :
+    zeroHomogeneousPoint F 1 ≠ rationalPuncturePoint v hv := by
+  intro hpoint
+  have hmem := punctureForm_mem_rationalPuncturePoint v hv
+  rw [← hpoint] at hmem
+  change punctureForm v ∈ (⊥ : Ideal (MvPolynomial (Fin 2) F)) at hmem
+  have hform : punctureForm v = 0 := Ideal.mem_bot.mp hmem
+  apply hv
+  apply Prod.ext
+  · have h := congrArg (MvPolynomial.eval (![0, 1] : Fin 2 → F)) hform
+    simpa [punctureForm] using h
+  · have h := congrArg (MvPolynomial.eval (![1, 0] : Fin 2 → F)) hform
+    simpa [punctureForm] using h
+
+/-- The generic point survives every finite configuration over any field. -/
+theorem rationalConfigurationOpen_nonempty
     (s : Finset (Projectivization k (k × k))) :
     Nonempty (rationalConfigurationOpen s : Scheme) := by
-  classical
-  let : Infinite (Projectivization k (k × k)) := Infinite.of_injective
-    AnabelianGeometry.ProjectiveLine.affinePoint
-    AnabelianGeometry.ProjectiveLine.affinePoint_injective
-  obtain ⟨p, hp⟩ := s.exists_notMem
-  refine ⟨⟨projectiveRationalPoint p, ?_⟩⟩
+  refine ⟨⟨zeroHomogeneousPoint k 1, ?_⟩⟩
   apply (mem_rationalConfigurationOpen_iff s _).mpr
-  intro q hq heq
-  exact hp ((projectiveRationalPoint_injective heq).symm ▸ hq)
+  intro p _
+  exact zeroHomogeneousPoint_ne_rationalPuncturePoint p.rep p.rep_nonzero
 
-/-- The geometric open remains nonempty for the same finite configuration. -/
-theorem rationalConfigurationBaseChange_nonempty [Infinite k]
+/-- The same generic-point argument gives a point of the literal coefficient pullback. -/
+theorem rationalConfigurationBaseChange_nonempty
     (s : Finset (Projectivization k (k × k))) :
     Nonempty (Limits.pullback (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
       ((rationalConfigurationOpen s).ι ≫ π k 1) : Scheme) := by
-  classical
-  let : Infinite (Projectivization k (k × k)) := Infinite.of_injective
-    AnabelianGeometry.ProjectiveLine.affinePoint
-    AnabelianGeometry.ProjectiveLine.affinePoint_injective
-  obtain ⟨p, hp⟩ := s.exists_notMem
-  have hmem : rationalConfigurationGeometricPoint k κ p ∈
+  have hmem : zeroHomogeneousPoint κ 1 ∈
       Set.range (rationalConfigurationBaseChangeChart k κ s) := by
     apply (mem_range_rationalConfigurationBaseChangeChart_iff k κ s _).mpr
-    intro q hq heq
-    exact hp ((rationalConfigurationGeometricPoint_injective k κ heq).symm ▸ hq)
+    intro p _
+    exact zeroHomogeneousPoint_ne_rationalPuncturePoint
+      (extendedPunctureCoordinates k κ p) (extendedPunctureCoordinates_ne_zero k κ p)
   obtain ⟨x, _⟩ := hmem
   exact ⟨x⟩
 
-theorem rationalConfigurationOpen_denseRange [Infinite k]
+theorem rationalConfigurationOpen_denseRange
     (s : Finset (Projectivization k (k × k))) :
     DenseRange (rationalConfigurationOpen s).ι := by
   let : IsIntegral (projectiveLineScheme k) := projectiveSpace_isIntegral k 1
@@ -55,7 +69,7 @@ theorem rationalConfigurationOpen_denseRange [Infinite k]
   have hopen := (rationalConfigurationOpen s).ι.isOpenEmbedding.isOpenMap
   exact hopen.denseRange_of_isPreirreducibleSpace (rationalConfigurationOpen s).ι
 
-theorem rationalConfigurationBaseChangeChart_denseRange [Infinite k]
+theorem rationalConfigurationBaseChangeChart_denseRange
     (s : Finset (Projectivization k (k × k))) :
     DenseRange (rationalConfigurationBaseChangeChart k κ s) := by
   let : IsIntegral (projectiveLineScheme κ) := projectiveSpace_isIntegral κ 1

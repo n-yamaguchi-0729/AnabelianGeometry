@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteTameCofinality
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsAction
-import Nyll.EtaleFundamentalGroups.Inertia.ActualSeparableRootsAction
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteTameCofinality
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsAction
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualSeparableRootsAction
 
 /-!
 # The actual equivariant separable tame-roots comparison
@@ -17,6 +19,8 @@ continuous group equivalence from the SAME actual roots group to the full
 separable roots limit. The coordinate square identifies both original
 decomposition actions, rather than defining one by transport.
 -/
+
+@[expose] public section
 
 noncomputable section
 

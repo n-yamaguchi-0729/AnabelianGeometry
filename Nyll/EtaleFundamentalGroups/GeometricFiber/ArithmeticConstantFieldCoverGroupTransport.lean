@@ -3,10 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ConstantFieldInclusionFiberPoint
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverGroupTransport
-import Nyll.EtaleFundamentalGroups.GeometricFiber.MatchedFiberArithmeticCoverTransport
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConstantFieldComparisonAlignment
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ConstantFieldInclusionFiberPoint
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverGroupTransport
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.MatchedFiberArithmeticCoverTransport
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConstantFieldComparisonAlignment
 
 /-! # Actual constant-field covering groups at the original compatible points
 
@@ -16,6 +18,8 @@ Its inclusion square and intrinsic arithmetic compatibility over k are exact.
 Over E, only the proved formulas for the existing discrepancy conjugators are
 asserted; no strict compatibility over E or correcting lift is assumed.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory
 open scoped FintypeCatDiscrete
@@ -181,5 +185,59 @@ theorem arithmeticConstantFieldCoverGroupTransport_qE_comparison
     (arithmeticConstantFieldCoverGroupTransport k E κ fs ft xis xit α hα g)
   rw [arithmeticConstantFieldCoverGroupTransport_arithmetic] at h
   exact ⟨h, hfix⟩
+
+/-- A geometric inner conjugacy of the original arithmetic groups restricts
+inside every actual finite constant cover. The lifted conjugator is itself
+geometric for the cover's original arithmetic marking over the finite field. -/
+theorem exists_arithmeticConstantFieldCoverGroupTransport_inner
+    [IsSepClosure E κ]
+    (β : π₁ᵉᵗ(xis) ≃ₜ* π₁ᵉᵗ(xit))
+    (hβ : ∀ g, arithmeticFundamentalGroupHom k κ ft xit (β g) =
+      arithmeticFundamentalGroupHom k κ fs xis g)
+    (δ : π₁ᵉᵗ(xit)) (hδ : arithmeticFundamentalGroupHom k κ ft xit δ = 1)
+    (hinner : ∀ g, β g = δ * α g * δ⁻¹) :
+    ∃ δE : π₁ᵉᵗ(arithmeticConstantFieldLift k E κ ft xit),
+      pointedFundamentalGroupHom
+        ((pullback ft).obj (originalConstantFieldCover k E)).hom
+        (arithmeticConstantFieldLift k E κ ft xit) xit
+        (arithmeticConstantFieldLift_comp k E κ ft xit) δE = δ ∧
+      arithmeticFundamentalGroupHom E κ
+        (Limits.pullback.fst (originalConstantFieldCover k E).hom ft)
+        (arithmeticConstantFieldLift k E κ ft xit) δE = 1 ∧
+      ∀ g : π₁ᵉᵗ(arithmeticConstantFieldLift k E κ fs xis),
+        arithmeticConstantFieldCoverGroupTransport k E κ fs ft xis xit β hβ g =
+          δE * arithmeticConstantFieldCoverGroupTransport k E κ fs ft xis xit α hα g *
+            δE⁻¹ := by
+  obtain ⟨δE, hδE⟩ :=
+    (arithmeticConstantFieldLift_mem_range_iff k E κ ft xit δ).mpr
+      (fun x => by rw [hδ]; rfl)
+  have hδE' : pointedFundamentalGroupHom
+      ((pullback ft).obj (originalConstantFieldCover k E)).hom
+      (arithmeticConstantFieldLift k E κ ft xit) xit
+      (arithmeticConstantFieldLift_comp k E κ ft xit) δE = δ := hδE
+  have hk : arithmeticFundamentalGroupHom k κ
+      (((pullback ft).obj (originalConstantFieldCover k E)).hom ≫ ft)
+      (arithmeticConstantFieldLift k E κ ft xit) δE = 1 := by
+    rw [← arithmeticFundamentalGroupHom_pointed_comp k κ
+      ((pullback ft).obj (originalConstantFieldCover k E)).hom ft
+      (arithmeticConstantFieldLift k E κ ft xit) xit
+      (arithmeticConstantFieldLift_comp k E κ ft xit), hδE', hδ]
+  have hE : arithmeticFundamentalGroupHom E κ
+      (Limits.pullback.fst (originalConstantFieldCover k E).hom ft)
+      (arithmeticConstantFieldLift k E κ ft xit) δE = 1 := by
+    have h := (arithmeticConstantFieldLift_qE_comparison k E κ ft xit δE).1
+    rw [hk, mul_one, mul_inv_cancel] at h
+    apply AlgEquiv.ext
+    intro z
+    exact congrArg (fun σ : Gal(κ/k) => σ z) h
+  refine ⟨δE, hδE, hE, ?_⟩
+  intro g
+  apply pointedFundamentalGroupHom_injective
+    ((pullback ft).obj (originalConstantFieldCover k E))
+    (arithmeticConstantFieldLift k E κ ft xit) xit
+    (arithmeticConstantFieldLift_comp k E κ ft xit)
+  rw [arithmeticConstantFieldCoverGroupTransport_inclusion,
+    map_mul, map_mul, map_inv, hδE',
+    arithmeticConstantFieldCoverGroupTransport_inclusion, hinner]
 
 end AlgebraicGeometry.FiniteEtale

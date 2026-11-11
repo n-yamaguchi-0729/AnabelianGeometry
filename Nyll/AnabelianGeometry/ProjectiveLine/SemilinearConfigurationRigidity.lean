@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.ProjectiveLine.ProjectiveRigidity
+module
+
+public import Nyll.AnabelianGeometry.ProjectiveLine.ProjectiveRigidity
 
 /-! # Matching configurations with semilinear actions
 
@@ -12,6 +14,8 @@ The two actions need not be coordinatewise field automorphisms. In
 particular the statement accommodates the twisted actions obtained after
 choosing coordinates on a genus-zero curve over an extension field.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.ProjectiveLine
 

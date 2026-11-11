@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.HasPullback
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.HasPullback
 
 /-!
 # The literal coefficient automorphism of a base-changed scheme
@@ -13,6 +15,8 @@ import Mathlib.CategoryTheory.Limits.Shapes.Pullback.HasPullback
 The existing pullback map and its isomorphism instance supply the scheme
 automorphism. Both projections retain their actual coefficient maps.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalEtaleIsomorphism
-import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveCurveModelIsoFunctionFieldGermEq
-import Nyll.SchemeTheory.LocalGeometry.ConnectedDomainStalks
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
-import Mathlib.AlgebraicGeometry.Morphisms.Smooth
-import Mathlib.AlgebraicGeometry.Noetherian
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalEtaleIsomorphism
+public import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveCurveModelIsoFunctionFieldGermEq
+public import Nyll.SchemeTheory.LocalGeometry.ConnectedDomainStalks
+public import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+public import Mathlib.AlgebraicGeometry.Morphisms.Smooth
+public import Mathlib.AlgebraicGeometry.Noetherian
 
 /-!
 # Connected finite etale covers of a proper rational curve
@@ -21,6 +23,8 @@ of the cover is assumed. Smoothness gives domain stalks and local Noetherianity;
 connectedness then gives integrality. The actual curve-model construction supplies
 the input for the rational-cover theorem.
 -/
+
+@[expose] public section
 
 noncomputable section
 

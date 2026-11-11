@@ -3,12 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.KummerTheory.RatFuncPairSquareRootChart
-import Nyll.EtaleFundamentalGroups.Normalization.OpenNormalizationFiniteModel
-import Nyll.JacobianVarieties.Kummer.OpenCurveCover
-import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineRatFuncModel
-import Nyll.SchemeTheory.FunctionFields.OpenChartGenericPoints
-import Nyll.AlgebraicCurves.Models.FunctionFields.FiniteFlatHomAlgHom
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.RatFuncPairSquareRootChart
+public import Nyll.EtaleFundamentalGroups.Normalization.OpenNormalizationFiniteModel
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCover
+public import Nyll.AlgebraicCurves.Models.Rational.ProjectiveLineRatFuncModel
+public import Nyll.SchemeTheory.FunctionFields.OpenChartGenericPoints
+public import Nyll.AlgebraicCurves.Models.FunctionFields.FiniteFlatHomAlgHom
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationSourceIso
 
 /-! # The named rational square cover is the actual square-model open
 
@@ -17,6 +20,8 @@ inverse image of the original open under a finite map between literal P1 models.
 The generic comparison retains the original quotient root as X, so future cusp
 labels refer to this same cover and this same rational coordinate.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve TopologicalSpace
 open AlgebraicGeometry.ProjSpace
@@ -25,11 +30,6 @@ attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
 attribute [local instance] CurveModel.isIntegral CurveModel.smooth
 
 namespace AnabelianGeometry.KummerTheory
-
-private local instance fieldSpecQuasiCompact
-    {L : Type} [Field L] {S : Scheme} (g : Spec (.of L) ⟶ S) :
-    QuasiCompact g where
-  isCompact_preimage U _ _ := (Set.toFinite (g ⁻¹' U)).isCompact
 
 /-- Identify the given named square cover, preserving its actual generic root.
 The coordinate eF and the function u are supplied unchanged by the caller. -/

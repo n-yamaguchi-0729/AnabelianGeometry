@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.CategoryTheory.Galois.Full
+module
+
+public import Mathlib.CategoryTheory.Galois.Full
 
 /-!
 # Realizing inclusion of actual point stabilizers
@@ -15,6 +17,8 @@ constructed as an equivariant map and lifted by the full fiber-action functor.
 No equality between a proposed geometric morphism and subgroup inclusion is
 assumed. The fiber and category universes may differ.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -63,5 +67,20 @@ theorem exists_hom_of_pointStabilizer_le
   refine ⟨f, ?_⟩
   exact (congrArg (fun q : (functorToAction F).obj A ⟶
     (functorToAction F).obj B => q.hom x) hp).trans hm
+
+/-- Every point of a Galois object's fibre has the same stabilizer in the
+original fundamental group, because actual deck transformations are transitive. -/
+theorem stabilizer_eq_of_isGalois
+    {C : Type u} [Category.{v} C] [GaloisCategory C]
+    (F : C ⥤ FintypeCat.{w}) [FiberFunctor F]
+    (A : C) [IsGalois A] (x y : F.obj A) :
+    MulAction.stabilizer (Aut F) x = MulAction.stabilizer (Aut F) y := by
+  have hle (p q : F.obj A) :
+      MulAction.stabilizer (Aut F) p ≤ MulAction.stabilizer (Aut F) q := by
+    obtain ⟨σ, hσ⟩ := evaluation_aut_surjective_of_isGalois F A p q
+    intro g hg
+    change g • q = q
+    rw [← hσ, mulAction_naturality, hg]
+  exact le_antisymm (hle x y) (hle y x)
 
 end CategoryTheory.PreGaloisCategory

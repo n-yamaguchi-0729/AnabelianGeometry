@@ -5,11 +5,13 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenCurveCover
-import Nyll.EtaleFundamentalGroups.Kummer.AdjoinRoot.RootScaling
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationSourceIso
-import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
-import Mathlib.AlgebraicGeometry.Normalization
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCover
+public import Nyll.EtaleFundamentalGroups.Kummer.AdjoinRoot.RootScaling
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationSourceIso
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
+public import Mathlib.AlgebraicGeometry.Normalization
 
 /-!
 # Root-of-unity automorphisms of the actual normalized Kummer cover
@@ -18,6 +20,8 @@ The explicit scaling automorphism of the generic root algebra extends through
 the universal property of relative normalization. The construction uses the
 original normalized finite étale cover, without assuming its connectedness.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -34,7 +38,8 @@ variable {K : Type u} [Field K] {F : Type v} [Field F] [Algebra K F]
   {U : Scheme.{u}} [IsIntegral U] (j : U ⟶ M.C) [IsOpenImmersion j]
   (hj : DenseRange j)
 
-private def scalarRoot (ζ : rootsOfUnity (n : ℕ) K) :
+/-- Restrict a base-field root of unity to the actual open curve's function field. -/
+def scalarRoot (ζ : rootsOfUnity (n : ℕ) K) :
     rootsOfUnity (n : ℕ) U.functionField :=
   restrictRootsOfUnity (baseToFunctionField (j ≫ M.toBase)) (n : ℕ) ζ
 
@@ -160,8 +165,8 @@ variable [CompactSpace U]
 Kummer cover, including when the cover is disconnected. -/
 def kummerCoverRootScale (hn : IsUnit ((n : ℕ) : K)) (ζ : rootsOfUnity (n : ℕ) K) :
     Aut (M.openKummerCover S n hn a j hj hinterior) :=
-  MorphismProperty.Over.isoMk (kummerNormalizationRootScale M S n a j hj ζ)
-    (normalizationSourceIso_hom_fromNormalization _ _ _ _)
+  Aut.of (MorphismProperty.Over.isoMk (kummerNormalizationRootScale M S n a j hj ζ)
+    (normalizationSourceIso_hom_fromNormalization _ _ _ _))
 
 /-- The actual roots of unity in the base field act by automorphisms of the
 original normalized Kummer cover. -/
@@ -169,11 +174,13 @@ def kummerCoverRootScaleHom (hn : IsUnit ((n : ℕ) : K)) :
     rootsOfUnity (n : ℕ) K →* Aut (M.openKummerCover S n hn a j hj hinterior) where
   toFun := kummerCoverRootScale M S n a j hj hinterior hn
   map_one' := by
+    apply Aut.ext
     apply Iso.ext
     apply MorphismProperty.Comma.Hom.ext'
     apply Over.OverMorphism.ext
     exact kummerNormalizationRootScale_one M S n a j hj
   map_mul' ζ η := by
+    apply Aut.ext
     apply Iso.ext
     apply MorphismProperty.Comma.Hom.ext'
     apply Over.OverMorphism.ext
@@ -199,11 +206,11 @@ theorem kummerGeometricRootAction_commutes :
   let := kummerGeometricRootAction M S n a j hj hinterior hn ξ
   constructor
   intro g ζ x
-  change g.hom.app (M.openKummerCover S n hn a j hj hinterior)
-      ((FiniteEtale.fiber ξ).map (kummerCoverRootScale M S n a j hj hinterior hn ζ).hom x) =
-    (FiniteEtale.fiber ξ).map (kummerCoverRootScale M S n a j hj hinterior hn ζ).hom
-      (g.hom.app (M.openKummerCover S n hn a j hj hinterior) x)
+  change g.asIso.hom.app (M.openKummerCover S n hn a j hj hinterior)
+      ((FiniteEtale.fiber ξ).map (kummerCoverRootScale M S n a j hj hinterior hn ζ).asIso.hom x) =
+    (FiniteEtale.fiber ξ).map (kummerCoverRootScale M S n a j hj hinterior hn ζ).asIso.hom
+      (g.asIso.hom.app (M.openKummerCover S n hn a j hj hinterior) x)
   exact ConcreteCategory.congr_hom
-    (g.hom.naturality (kummerCoverRootScale M S n a j hj hinterior hn ζ).hom) x
+    (g.asIso.hom.naturality (kummerCoverRootScale M S n a j hj hinterior hn ζ).asIso.hom) x
 
 end AlgebraicCurve.CurveModel.OpenKummer

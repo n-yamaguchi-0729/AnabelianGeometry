@@ -3,11 +3,16 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationMatchedGenericAmbient
-import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticMatchedConstantStrictTransport
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationMatchedGenericAmbient
+public import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticMatchedConstantStrictTransport
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineGeometry
+public import Nyll.ProCGroups.Topologies.ArithmeticInnerCorrectionFiberTransport
 
 /-! Matched generic points and strict transport after a finite extension of constants. -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
@@ -16,7 +21,7 @@ namespace AnabelianGeometry.WeightFiltration
 attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
 
 theorem bare_rationalConfiguration_exists_matched_finiteBase_strict_transport
-    (k E κ : Type) [Field k] [NumberField k] [Field E] [Field κ]
+    (k E κ : Type) [Field k] [CharZero k] [Field.FG k] [Field E] [Field κ]
     [Algebra k E] [Algebra E κ] [Algebra k κ] [IsScalarTower k E κ]
     [IsAlgClosure k κ] [IsAlgClosed κ] [CharZero κ]
     [Algebra.IsAlgebraic E κ] [IsSepClosure E κ]

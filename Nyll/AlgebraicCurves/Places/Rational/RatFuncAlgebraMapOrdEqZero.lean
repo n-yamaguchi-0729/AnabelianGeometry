@@ -10,13 +10,17 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.FieldTheory.RatFunc.AsPolynomial
-import Nyll.AlgebraicCurves.Places.Rational.Basic
-import Lean.Elab.Tactic.Omega
+module
+
+public import Mathlib.FieldTheory.RatFunc.AsPolynomial
+public import Nyll.AlgebraicCurves.Places.Rational.Basic
+public import Lean.Elab.Tactic.Omega
 
 /-!
 # Rational functions with zero order at every place
 -/
+
+@[expose] public section
 
 open Polynomial AlgebraicCurve AlgebraicCurve.RationalFunctionField
 

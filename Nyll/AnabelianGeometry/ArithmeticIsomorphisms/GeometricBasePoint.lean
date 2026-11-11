@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticSurjective
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldFunctoriality
-import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberIso
-import Nyll.EtaleFundamentalGroups.GaloisCategories.Functoriality
-import Nyll.ProCGroups.Topologies.ArithmeticInnerCorrectionFiberTransport
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticSurjective
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldFunctoriality
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberIso
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.Functoriality
+public import Nyll.ProCGroups.Topologies.ArithmeticInnerCorrectionFiberTransport
 
 /-! # Arithmetic-preserving changes of geometric base point
 
@@ -17,6 +19,8 @@ maps to the absolute Galois group. Its discrepancy is computed from the two
 comparisons on constant covers. Geometric connectedness then supplies an
 actual lift which corrects the fibre comparison itself.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -36,8 +40,9 @@ private theorem autHomOfCompIso_whiskerLeft_trans
     autHomOfCompIso H (Functor.isoWhiskerLeft H t ≪≫ r) g =
       autHomOfCompIso H r (t.conjAut g) := by
   simp only [autHomOfCompIso_apply, Iso.trans_conjAut]
-  exact congrArg r.conjAut
-    (Functor.map_conjAut
+  apply congrArg r.conjAut
+  apply Aut.ext
+  exact (Functor.map_conjAut
       ((Functor.whiskeringLeft C D FintypeCat.{w}).obj H) t g).symm
 
 private theorem arithmeticMap_toFiberAut
@@ -79,7 +84,7 @@ theorem arithmeticFundamentalGroupHom_fiberIso_conjugate
     pullbackFiberIso f y ≪≫ (nonempty_fiber_iso (y ≫ f) (ξ k K)).some
   let txy : pullback f ⋙ fiber x ≅ fib k K :=
     Functor.isoWhiskerLeft (pullback f) t ≪≫ ty
-  let a : Aut (fib k K) := tx.symm ≪≫ txy
+  let a : Aut (fib k K) := Aut.of (tx.symm ≪≫ txy)
   refine ⟨e.symm a, fun g => ?_⟩
   have hx : autHomOfCompIso (pullback f) tx g =
       e (arithmeticFundamentalGroupHom k K f x g) :=
@@ -117,7 +122,7 @@ theorem exists_arithmetic_preserving_fiberIso
     (arithmeticFundamentalGroupHom k K f x).toMonoidHom
     (arithmeticFundamentalGroupHom k K f y).toMonoidHom
     (arithmeticFundamentalGroupHom_surjective k K f y) d hd
-  let cIso : fiber y ≅ fiber y := c
+  let cIso : fiber y ≅ fiber y := c.asIso
   refine ⟨t ≪≫ cIso, fun g => ?_⟩
   have htrans : continuousConjAut (t ≪≫ cIso) g =
       cIso.conjAut (t.conjAut g) := Iso.trans_conjAut t cIso g

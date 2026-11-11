@@ -4,10 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ProCGroups.Abelian.TopologicalAbelianization
-import Mathlib.Algebra.Group.Subgroup.Ker
+module
+
+public import Nyll.ProCGroups.Abelian.TopologicalAbelianization
+public import Mathlib.Algebra.Group.Subgroup.Ker
+public import Nyll.ProCGroups.Topologies.TopologicallyCharacteristicSubgroups
 
 /-! # Relative relations and their actual abelianized images -/
+
+@[expose] public section
 
 noncomputable section
 open ProCGroups.Abelian

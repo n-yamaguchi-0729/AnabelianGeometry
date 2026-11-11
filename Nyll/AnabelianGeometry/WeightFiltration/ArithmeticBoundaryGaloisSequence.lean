@@ -4,9 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticBoundaryTateSequence
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryCoefficientEquivariance
-import Nyll.ProCGroups.Topologies.ContinuousMulEquiv
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticBoundaryTateSequence
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryCoefficientEquivariance
+public import Nyll.ProCGroups.Topologies.ContinuousMulEquiv
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
+public import Nyll.ProCGroups.Abelian.FullTateModule
+public import Nyll.ProCGroups.Abelian.FullTateModuleMap
+public import Nyll.ProCGroups.Topologies.ContinuousMonoidHom
 
 /-!
 # The boundary exact sequence as continuous arithmetic Galois groups
@@ -16,6 +22,8 @@ existing boundary quotient isomorphism. A single source correction yields
 the actual place and root formulas, without imposing a multiplication law
 on independently chosen semilinear lifts.
 -/
+
+@[expose] public section
 
 noncomputable section
 

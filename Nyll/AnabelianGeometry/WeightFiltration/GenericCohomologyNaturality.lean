@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.GenericPointNaturality
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1PullbackComposition
+module
+
+public import Nyll.SchemeTheory.FunctionFields.GenericPointNaturality
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1PullbackComposition
 
 /-!
 # Actual H¹ pullback at the generic point
@@ -15,6 +17,10 @@ Both sides use the existing derived-sheaf maps, rather than a replacement
 cohomology model or an assumed compatibility square.
 -/
 
+@[expose] public section
+
+universe uGeom uField₁ uField₂
+
 open AlgebraicGeometry CategoryTheory EtaleFundamentalGroups.Cohomology
 
 namespace AnabelianGeometry.WeightFiltration
@@ -22,12 +28,12 @@ namespace AnabelianGeometry.WeightFiltration
 /-- The actual generic-point square induces the corresponding commutative
 square on derived finite-coefficient H¹. -/
 theorem finiteH1Pullback_genericPoint
-    {X Y : Scheme} [IsIntegral X] [IsIntegral Y]
+    {X Y : Scheme.{uGeom}} [IsIntegral X] [IsIntegral Y]
     (f : X ⟶ Y) (hf : DenseRange f)
-    {Ω : Type} [Field Ω] [IsSepClosed Ω]
+    {Ω : Type uGeom} [Field Ω] [IsSepClosed Ω]
     (η : Spec (.of Ω) ⟶ Spec (.of X.functionField))
-    (A : AddCommGrpCat.{0}) [Finite A]
-    (a : Sheaf.H.{0} ((constantSheaf Y.smallEtaleTopology AddCommGrpCat.{0}).obj A) 1) :
+    (A : AddCommGrpCat.{uGeom}) [Finite A]
+    (a : Sheaf.H.{uGeom} ((constantSheaf Y.smallEtaleTopology AddCommGrpCat.{uGeom}).obj A) 1) :
     constantCohomologyPullback (X.fromSpecStalk (genericPoint X)) A 1
         (constantCohomologyPullback f A 1 a) =
       constantCohomologyPullback (Spec.map (CommRingCat.ofHom (f.functionFieldMap hf))) A 1

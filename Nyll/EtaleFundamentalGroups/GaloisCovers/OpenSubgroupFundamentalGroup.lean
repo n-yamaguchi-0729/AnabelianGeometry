@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCategories.ConnectedActions
-import Nyll.EtaleFundamentalGroups.GaloisCategories.Functoriality
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCover
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Mathlib.CategoryTheory.Galois.Equivalence
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.ConnectedActions
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.Functoriality
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCover
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Mathlib.CategoryTheory.Galois.Equivalence
 
 /-!
 # Actual finite étale covers for arbitrary open subgroups
@@ -19,6 +21,8 @@ For a scheme this gives a pointed connected finite étale cover whose fundamenta
 group is the specified subgroup. The inclusion is the actual homomorphism
 induced by the covering morphism.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -83,9 +87,9 @@ theorem exists_connected_object_point_stabilizer_eq_any_universe
   change g • eX x' = eX x' ↔ g ∈ (U : Subgroup (Aut F))
   have he : eX ((eF g) • x') = g • eX x' := by
     change (F.obj X).uSwitchEquiv
-        (FintypeCat.uSwitch.map (g.hom.app X) x') =
-      g.hom.app X ((F.obj X).uSwitchEquiv x')
-    exact (FintypeCat.uSwitchEquiv_naturality (g.hom.app X) x').symm
+        (FintypeCat.uSwitch.map (g.asIso.hom.app X) x') =
+      g.asIso.hom.app X ((F.obj X).uSwitchEquiv x')
+    exact (FintypeCat.uSwitchEquiv_naturality (g.asIso.hom.app X) x').symm
   calc
     g • eX x' = eX x' ↔ (eF g) • x' = x' := by
       rw [← he]
@@ -146,5 +150,35 @@ theorem exists_connectedCover_lift_fundamentalGroup_equiv_openSubgroup
     ∀ a : π₁ᵉᵗ(xi'), (e' a : π₁ᵉᵗ(xi)) = hxi ▸ fundamentalGroupHom A.hom xi' a
   rw [← hH]
   exact ⟨e, he⟩
+
+/-- An equivalence identifying the original cover-group inclusion with a
+subgroup identifies that subgroup with the actual lifted-point stabilizer. -/
+theorem liftedFiberPoint_stabilizer_eq_of_groupEquiv
+    (xi : Spec (.of Ω) ⟶ S) (A : FiniteEtale S)
+    (x : Spec (.of Ω) ⟶ A.left) (hx : x ≫ A.hom = xi)
+    (N : Subgroup π₁ᵉᵗ(xi)) (e : π₁ᵉᵗ(x) ≃ₜ* N)
+    (he : ∀ g : π₁ᵉᵗ(x), (e g : π₁ᵉᵗ(xi)) = hx ▸ fundamentalGroupHom A.hom x g) :
+    MulAction.stabilizer π₁ᵉᵗ(xi)
+      ((fiberObjEquivHom xi A).symm (Over.homMk x hx)) = N := by
+  subst xi
+  change MulAction.stabilizer π₁ᵉᵗ(x ≫ A.hom) (liftedFiberPoint A x) = N
+  let s := fundamentalGroupEquivStabilizerOfLift A x
+  have hs (g : π₁ᵉᵗ(x)) : (s g : π₁ᵉᵗ(x ≫ A.hom)) =
+      fundamentalGroupHom A.hom x g := fundamentalGroupEquivStabilizerOfLift_coe A x g
+  apply Subgroup.ext
+  intro g
+  constructor
+  · intro hg
+    let z := s.symm ⟨g, hg⟩
+    have hz : (e z : π₁ᵉᵗ(x ≫ A.hom)) = g :=
+      (he z).trans ((hs z).symm.trans
+        (congrArg Subtype.val (s.apply_symm_apply ⟨g, hg⟩)))
+    exact hz ▸ (e z).property
+  · intro hg
+    let z := e.symm ⟨g, hg⟩
+    have hz : (s z : π₁ᵉᵗ(x ≫ A.hom)) = g :=
+      (hs z).trans ((he z).symm.trans
+        (congrArg Subtype.val (e.apply_symm_apply ⟨g, hg⟩)))
+    exact hz ▸ (s z).property
 
 end AlgebraicGeometry.FiniteEtale

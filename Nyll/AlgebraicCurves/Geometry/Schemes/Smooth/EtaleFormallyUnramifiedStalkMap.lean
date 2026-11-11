@@ -10,22 +10,26 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.Morphisms.Etale
-import Mathlib.AlgebraicGeometry.Morphisms.Smooth
-import Mathlib.AlgebraicGeometry.Stalk
-import Mathlib.RingTheory.Etale.Locus
-import Mathlib.RingTheory.Kaehler.JacobiZariski
-import Mathlib.RingTheory.Smooth.Basic
-import Mathlib.RingTheory.LocalRing.Module
-import Mathlib.RingTheory.LocalRing.ResidueField.Defs
-import Mathlib.RingTheory.OrzechProperty
-import Mathlib.LinearAlgebra.Dimension.Constructions
-import Mathlib.LinearAlgebra.Dimension.Free
-import Mathlib.Tactic.Algebraize
+module
+
+public import Mathlib.AlgebraicGeometry.Morphisms.Etale
+public import Mathlib.AlgebraicGeometry.Morphisms.Smooth
+public import Mathlib.AlgebraicGeometry.Stalk
+public import Mathlib.RingTheory.Etale.Locus
+public import Mathlib.RingTheory.Kaehler.JacobiZariski
+public import Mathlib.RingTheory.Smooth.Basic
+public import Mathlib.RingTheory.LocalRing.Module
+public import Mathlib.RingTheory.LocalRing.ResidueField.Defs
+public import Mathlib.RingTheory.OrzechProperty
+public import Mathlib.LinearAlgebra.Dimension.Constructions
+public import Mathlib.LinearAlgebra.Dimension.Free
+public import Mathlib.Tactic.Algebraize
 
 /-!
 # exists etale of formally Unramified stalk Map
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -137,7 +141,7 @@ theorem formallySmooth_of_formallyUnramified_of_finrank_eq
   have hδ : Function.Injective (Algebra.H1Cotangent.δ R A B) := by
     rw [← LinearMap.ker_eq_bot, (Algebra.H1Cotangent.exact_map_δ R A B).linearMap_ker_eq,
       LinearMap.range_eq_bot]
-    ext x; simp [Subsingleton.elim x 0]
+    exact Subsingleton.elim _ _
   have hH1 : Subsingleton (Algebra.H1Cotangent A B) := by
     refine ⟨fun x y ↦ hδ (huinj ?_)⟩
     rw [(Algebra.H1Cotangent.exact_δ_mapBaseChange R A B).apply_apply_eq_zero,

@@ -10,12 +10,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.FunctionField
-import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
+module
+
+public import Mathlib.AlgebraicGeometry.FunctionField
+public import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
 
 /-!
 # Scheme Modules Is Invertible exists function Field presentation
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

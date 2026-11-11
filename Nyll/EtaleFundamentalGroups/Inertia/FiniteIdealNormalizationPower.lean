@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealCanonicalTameCharacter
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameRamification
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameFactorization
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealWildPrimary
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.TameNormalizationExponent
-import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
-import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
-import Mathlib.Algebra.CharP.Defs
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealCanonicalTameCharacter
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameRamification
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameFactorization
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealWildPrimary
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.TameNormalizationExponent
+public import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
+public import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
+public import Mathlib.Algebra.CharP.Defs
 
 /-!
 # Characteristic powers in tame normalization
@@ -19,6 +21,8 @@ import Mathlib.Algebra.CharP.Defs
 Derives that the finite normalization exponent is a power of the residue exponential
 characteristic using wild-order and inertia-cardinality formulas.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

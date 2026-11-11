@@ -3,14 +3,18 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticSurjective
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroupComposition
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticSurjective
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroupComposition
 
 /-!
 # Arithmetic Composite
 
 The fundamental group of a separably closed field at any geometric point is trivial.
 -/
+
+@[expose] public section
 
 noncomputable section
 universe u

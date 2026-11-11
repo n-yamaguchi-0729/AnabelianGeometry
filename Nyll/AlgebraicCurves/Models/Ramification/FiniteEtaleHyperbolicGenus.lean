@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Ramification.FiniteEtaleRiemannHurwitz
-import Nyll.AlgebraicCurves.Models.Construction.CurveIsIntegral
-import Mathlib.Tactic.Linarith
+module
+
+public import Nyll.AlgebraicCurves.Models.Ramification.FiniteEtaleRiemannHurwitz
+public import Nyll.AlgebraicCurves.Models.Construction.CurveIsIntegral
+public import Mathlib.Tactic.Linarith
 
 /-! # Proper hyperbolicity under actual finite étale covers -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -36,22 +40,13 @@ theorem finrankAlong_finiteEtaleFieldMap_pos
 again proper hyperbolic. This supplies the genus condition for intermediate
 covers in the deck-faithfulness argument. -/
 theorem genus_ge_two_of_finiteEtale
-    {K F E : Type} [Field K] [IsAlgClosed K] [CharZero K]
-    [Field F] [Field E] [Algebra K F] [Algebra K E] [IsCurveOver K F]
+    {K F E : Type} [Field K] [IsAlgClosed K]
+    [Field F] [Field E] [Algebra K F] [Algebra K E]
     (M : CurveModel K F) (N : CurveModel K E)
     (d : N.C ⟶ M.C) (hd : d ≫ M.toBase = N.toBase) [IsFiniteEtale d]
     (hg : 2 ≤ genusFF K F) :
     2 ≤ genusFF K E := by
-  have : Algebra.EssFiniteType K F := by
-    let : Algebra K M.C.functionField := (baseToFunctionField M.toBase).toAlgebra
-    let e : F ≃ₐ[K] M.C.functionField :=
-      AlgEquiv.ofRingEquiv (f := M.ffEquiv) M.ffEquiv_algebraMap
-    exact (Algebra.EssFiniteType.iff_of_algEquiv e).mpr
-      (IsCurveOver_of_isIntegral_of_smoothOfRelativeDimension_one.SmoothModelFunctionField.stageA
-        M.toBase).1
-  obtain ⟨t, ht, hf, _⟩ :=
-    IsCurveOver.exists_separating_transcendental (K := K) (F := F)
-  have hRH := M.two_mul_genus_sub_two_eq_finiteEtale N d hd ⟨t, ht, hf⟩
+  have hRH := M.two_mul_genus_sub_two_eq_finiteEtale N d hd
   have hpos := M.finrankAlong_finiteEtaleFieldMap_pos N d hd
   have hposZ : (0 : ℤ) < finrankAlong K (M.finiteEtaleFieldMap N d hd) := by
     exact_mod_cast hpos

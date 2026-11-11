@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameCharacter
-import Nyll.EtaleFundamentalGroups.Inertia.NativeIdealInertiaConjugate
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacterConjugation
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameCharacter
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeIdealInertiaConjugate
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacterConjugation
 
 /-!
 # Conjugation through inertia localization
@@ -14,6 +16,8 @@ import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharac
 Proves that the ideal-to-local inertia comparison preserves the conjugate induced by an element
 of the original stabilizer.
 -/
+
+@[expose] public section
 
 noncomputable section
 

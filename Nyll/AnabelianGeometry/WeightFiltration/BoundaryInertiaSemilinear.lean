@@ -4,10 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaValues
-import Nyll.JacobianVarieties.Kummer.OpenSemilinearCharacter
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceConjugation
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsResidueAction
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaValues
+public import Nyll.JacobianVarieties.Kummer.OpenSemilinearCharacter
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceConjugation
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsResidueAction
+public import Nyll.GaloisCohomology.Kummer.Concrete.SemilinearConjugation
+public import Nyll.ProCGroups.ProC.Quotients.ClosedNormal
+public import Nyll.ProCGroups.Topologies.TopologicallyCharacteristicSubgroups
 
 /-!
 # Moving boundary inertia under actual semilinear source conjugation
@@ -15,6 +20,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsResidueAction
 Finite characters compare the original boundary inertia maps. The proof
 uses their existing residue formula, without transporting normalization primes.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -91,7 +98,7 @@ theorem boundaryPlaceInertiaHom_source_semilinear
       K))) f) : Type))
     let e := Scheme.Spec.mapIso a.toCommRingCatIso.op
     let gA : Aut (fiber (xi ≫ Limits.pullback.snd _ f)) :=
-      fiberSourceIso (xi ≫ Limits.pullback.snd _ f) e ≪≫ eqToIso (congrArg fiber hsource)
+      Aut.of (fiberSourceIso (xi ≫ Limits.pullback.snd _ f) e ≪≫ eqToIso (congrArg fiber hsource))
     geometricAbelianGaloisAction k K U f xi
         (arithmeticFundamentalGroupHom k K f (xi ≫ Limits.pullback.snd _ f) gA)
         (boundaryPlaceInertiaHom M j hj hfield Q p t) =

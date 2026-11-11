@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Pic0.InjectiveConormConstantExtension
-import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
+module
+
+public import Nyll.JacobianVarieties.Pic0.InjectiveConormConstantExtension
+public import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
 
 /-!
 # Constant-extension divisors are fixed by coefficient actions
@@ -15,6 +17,8 @@ the old function field fixes each lifted old place, and hence its conorm
 divisors. The fixed-function-field input is supplied by the geometric
 projection square in CurveModel.semilinear_fixes_functionField_image.
 -/
+
+@[expose] public section
 
 noncomputable section
 

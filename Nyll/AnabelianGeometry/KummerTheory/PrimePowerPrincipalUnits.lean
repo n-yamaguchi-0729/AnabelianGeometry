@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.ZMod.UnitsCyclic
+module
+
+public import Mathlib.RingTheory.ZMod.UnitsCyclic
 
 /-!
 # Exact prime-power divisibility for principal units
@@ -12,6 +14,8 @@ import Mathlib.RingTheory.ZMod.UnitsCyclic
 The hypotheses uniformly cover odd primes and the 2-primary case with
 principal units congruent to one modulo four. No Weil estimate is used.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.KummerTheory
 

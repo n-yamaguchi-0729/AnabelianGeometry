@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalCuspDecomposition
-import Nyll.JacobianVarieties.Kummer.RationalConfigurationArithmeticPairKummerUnits
-import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroRationalRootAction
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalCuspDecomposition
+public import Nyll.JacobianVarieties.Kummer.RationalConfigurationArithmeticPairKummerUnits
+public import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroRationalRootAction
 
 /-!
 # Root specialization at the same chosen third-cusp decomposition prime
@@ -25,6 +27,8 @@ The action is labelled by literal restriction to the fixed constants. The
 arithmetic fundamental-group projection's fixed inner correction is not
 identified or discarded here.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -51,7 +55,7 @@ prime. Order zero and all ambient-field suppliers are derived internally;
 the same root coordinate retains both full scaling and the actual prime's
 original decomposition action. -/
 theorem rationalConfiguration_pair_thirdChosenPrime_rootSpecialization
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k))) (a b c : s)
     (hca : c ≠ a) (hcb : c ≠ b)
@@ -68,19 +72,19 @@ theorem rationalConfiguration_pair_thirdChosenPrime_rootSpecialization
     let U := rationalConfigurationGeometricScheme k κ s
     let M := projectiveLineRatFuncModel κ
     let j : U ⟶ M.C := rationalConfigurationBaseChangeChart k κ s
-    letI : Algebra (RatFunc κ) Ω := rationalConfigurationGeometricAmbientAlgebra k κ s Ω
-    letI : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
-    letI : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
-    letI : Algebra k Ω := rationalConfigurationBaseAmbientAlgebra k κ s Ω
+    let : Algebra (RatFunc κ) Ω := rationalConfigurationGeometricAmbientAlgebra k κ s Ω
+    let : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
+    let : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
+    let : Algebra k Ω := rationalConfigurationBaseAmbientAlgebra k κ s Ω
     let ambient := rationalConfigurationAmbient_scalarTowers k κ s Ω
-    letI : IsScalarTower κ (RatFunc κ) Ω := ambient.2.1
-    letI : IsScalarTower (RatFunc k) (RatFunc κ) Ω := ambient.2.2.2.1
-    letI : IsScalarTower k κ Ω := ambient.2.2.2.2.1
-    letI : IsScalarTower k (RatFunc k) Ω := ambient.2.2.2.2.2
-    letI : IsAlgClosure (RatFunc k) Ω :=
+    let : IsScalarTower κ (RatFunc κ) Ω := ambient.2.1
+    let : IsScalarTower (RatFunc k) (RatFunc κ) Ω := ambient.2.2.2.1
+    let : IsScalarTower k κ Ω := ambient.2.2.2.2.1
+    let : IsScalarTower k (RatFunc k) Ω := ambient.2.2.2.2.2
+    let : IsAlgClosure (RatFunc k) Ω :=
       rationalConfigurationAmbient_isAlgClosure_arithmetic k κ s Ω
-    letI : IsSepClosure (RatFunc k) Ω := inferInstance
-    letI : IsGalois (RatFunc k) Ω := inferInstance
+    let : IsSepClosure (RatFunc k) Ω := inferInstance
+    let : IsGalois (RatFunc k) Ω := inferInstance
     let p := rationalConfigurationBoundaryPlace k κ s c
     let V := (rationalConfiguration_every_boundaryPlace_exists_rationalPlace k κ s p).choose
     let hV : V.IsRational :=
@@ -93,12 +97,12 @@ theorem rationalConfiguration_pair_thirdChosenPrime_rootSpecialization
     let Qa : Ideal (normalizationCommAlgCat V.toValuationSubring Ω) :=
       (Q p).comap e.symm.toRingHom
     let rawQa : Ideal (integralClosure V.toValuationSubring Ω) := Qa
-    letI : rawQa.IsMaximal := by
+    let : rawQa.IsMaximal := by
       let rawQ : Ideal (integralClosure p.val.toValuationSubring Ω) := Q p
       let : rawQ.IsMaximal := (inferInstance : (Q p).IsMaximal)
       change (rawQ.comap e.symm.toRingHom).IsMaximal
       exact Ideal.comap_isMaximal_of_surjective e.symm.toRingHom e.symm.surjective
-    letI : Qa.IsMaximal := (inferInstance : rawQa.IsMaximal)
+    let : Qa.IsMaximal := (inferInstance : rawQa.IsMaximal)
     let cQa : κ →+* IsLocalRing.ResidueField (Localization.AtPrime rawQa) :=
       (maximalQuotientResidueEquiv rawQa).toRingHom.comp
         (arithmeticConstantResidueMap k V.toValuationSubring κ Ω rawQa)
@@ -119,28 +123,10 @@ theorem rationalConfiguration_pair_thirdChosenPrime_rootSpecialization
         (z : {z : Ω // z ^ (n : ℕ) = algebraMap (RatFunc k) Ω (u.val : RatFunc k)}),
         (E ⟨d.val z.val, by rw [← map_pow, z.property, d.val.commutes]⟩).val =
           ((d.val.restrictScalars k).restrictNormal κ) (E z).val := by
-  intro U M j
-  let : Algebra (RatFunc κ) Ω := rationalConfigurationGeometricAmbientAlgebra k κ s Ω
-  let : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
-  let : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
-  let : Algebra k Ω := rationalConfigurationBaseAmbientAlgebra k κ s Ω
-  intro ambient
-  let : IsScalarTower κ (RatFunc κ) Ω := ambient.2.1
-  let : IsScalarTower (RatFunc k) (RatFunc κ) Ω := ambient.2.2.2.1
-  let : IsScalarTower k κ Ω := ambient.2.2.2.2.1
-  let : IsScalarTower k (RatFunc k) Ω := ambient.2.2.2.2.2
-  let : IsAlgClosure (RatFunc k) Ω :=
-    rationalConfigurationAmbient_isAlgClosure_arithmetic k κ s Ω
-  let : IsSepClosure (RatFunc k) Ω := inferInstance
-  let : IsGalois (RatFunc k) Ω := inferInstance
-  intro p V hV hord Q e Qa rawQa
-  let : rawQa.IsMaximal := by
-    let rawQ : Ideal (integralClosure p.val.toValuationSubring Ω) := Q p
-    let : rawQ.IsMaximal := (inferInstance : (Q p).IsMaximal)
-    change (rawQ.comap e.symm.toRingHom).IsMaximal
-    exact Ideal.comap_isMaximal_of_surjective e.symm.toRingHom e.symm.surjective
-  let : Qa.IsMaximal := (inferInstance : rawQa.IsMaximal)
-  intro cQa
+  intro U M j geometricAlgebra constantAlgebra arithmeticAlgebra baseAlgebra ambient
+    constantGeometricTower arithmeticGeometricTower baseConstantTower baseArithmeticTower
+    arithmeticAlgClosure arithmeticSepClosure arithmeticGalois p V hV hord Q e Qa rawQa
+    rawMaximal maximal cQa
   have hpa : p.val ≠ (rationalConfigurationBoundaryPlace k κ s a).val := by
     intro h
     apply hca

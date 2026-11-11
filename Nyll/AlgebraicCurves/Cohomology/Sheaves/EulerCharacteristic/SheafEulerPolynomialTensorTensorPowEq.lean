@@ -10,23 +10,28 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.OModulePresheafEulerChar
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
-import Nyll.SchemeTheory.Modules.Tensor.Monoidal
-import Nyll.SchemeTheory.Modules.Tensor.TensorPowers
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafTensor
-import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafHom
-import Nyll.SchemeTheory.Modules.Tensor.TensorSections
-import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.SheafEulerPolynomialTwistTensorPowEq
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.BijectiveLiftTensorSectionsBilinQuasicoherent
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Vanishing.AffHomH0EquivHSuccEquiv
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.QuasicoherentModules
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleTensor
+module
+
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafTensorComparison
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.OModulePresheafEulerChar
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
+public import Nyll.SchemeTheory.Modules.Tensor.Monoidal
+public import Nyll.SchemeTheory.Modules.Tensor.TensorPowers
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafTensor
+public import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafHom
+public import Nyll.SchemeTheory.Modules.Tensor.TensorSections
+public import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.SheafEulerPolynomialTwistTensorPowEq
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.BijectiveLiftTensorSectionsBilinQuasicoherent
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Vanishing.AffHomH0EquivHSuccEquiv
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.QuasicoherentModules
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleTensor
 
 /-!
 # OModule Presheaf exists polynomial forall euler Char tensor tensor Pow eq
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -132,10 +137,8 @@ theorem isInvertible_tensorPow (L : V.Modules)
     (hL : ∀ x : V, ∃ (U : V.Opens), x ∈ U ∧
       Nonempty ((Scheme.Modules.pullback U.ι).obj L ≅ SheafOfModules.unit U.toScheme.ringCatSheaf))
         (n : ℕ) :
-    Scheme.Modules.IsInvertible (L.tensorPow n) := by
-  induction n with
-  | zero => exact Scheme.Modules.isInvertible_unit V
-  | succ n ih => exact ih.tensor ⟨hL⟩
+    Scheme.Modules.IsInvertible (L.tensorPow n) :=
+  Scheme.Modules.IsInvertible.tensorPow (L := L) ⟨hL⟩ n
 
 section Compare
 
@@ -143,50 +146,41 @@ variable (M N : V.Modules)
 
 /-- The linear map from the tensor product of sections to sections of the tensor product module. -/
 abbrev cmp (U : V.Opens) : Γ(M, U) ⊗[Γ(V, U)] Γ(N, U) →ₗ[Γ(V, U)] Γ(M ⊗ N, U) :=
-  TensorProduct.lift (Scheme.Modules.tensorSectionsBilin M N U)
+  TensorComparison.cmp M N U
 
 theorem cmp_tmul (U : V.Opens) (s : Γ(M, U)) (t : Γ(N, U)) :
-    cmp M N U (s ⊗ₜ t) = Scheme.Modules.tensorSections s t := by
-  exact TensorProduct.lift.tmul (f' := Scheme.Modules.tensorSectionsBilin M N U) s t
+    cmp M N U (s ⊗ₜ t) = Scheme.Modules.tensorSections s t :=
+  TensorComparison.cmp_tmul M N U s t
 
 /-- The semilinear restriction map on the tensor product of section modules. -/
 def resTw {U U' : V.Opens} (h : U ≤ U') :
     Γ(M, U') ⊗[Γ(V, U')] Γ(N, U') →ₛₗ[(V.presheaf.map (homOfLE h).op).hom] Γ(M, U) ⊗[Γ(V, U)] Γ(N,
       U) :=
-  (ofModules π M).tensorResₛₗ (ofModules π N) h
+  TensorComparison.resTw π M N h
 
 theorem resTw_tmul {U U' : V.Opens} (h : U ≤ U') (x : Γ(M, U')) (y : Γ(N, U')) :
     resTw π M N h (x ⊗ₜ y) = M.presheaf.map (homOfLE h).op x ⊗ₜ N.presheaf.map (homOfLE h).op y :=
-      rfl
+  TensorComparison.resTw_tmul π M N h x y
 
 theorem cmp_resTw {U U' : V.Opens} (h : U ≤ U') (t : Γ(M, U') ⊗[Γ(V, U')] Γ(N, U')) :
-    cmp M N U (resTw π M N h t) = (M ⊗ N).presheaf.map (homOfLE h).op (cmp M N U' t) := by
-  induction t using TensorProduct.inductionOn with
-  | tmul x y =>
-    rw [resTw_tmul, cmp_tmul, cmp_tmul]
-    exact (Scheme.Modules.map_homOfLE_tensorSections h x y).symm
-  | add a b ha hb => simp only [map_add, ha, hb]
+    cmp M N U (resTw π M N h t) = (M ⊗ N).presheaf.map (homOfLE h).op (cmp M N U' t) :=
+  TensorComparison.cmp_resTw π M N h t
 
 theorem cmp_res {U U' : V.Opens} (h : U ≤ U') (t : ((ofModules π M).twist N).obj U') :
     cmp M N U (((ofModules π M).twist N).res h t) = (M ⊗ N).presheaf.map (homOfLE h).op (cmp M N U'
       t) :=
-  cmp_resTw π M N h t
+  TensorComparison.cmp_res π M N h t
 
 /--
 The affine presheaf comparison from the twisted section presheaf to sections of the tensor
 product.
 -/
-def cmpHom : AffHom ((ofModules π M).twist N) (ofModules π (M ⊗ N)) where
-  app U :=
-    { toFun := cmp M N U.1
-      map_add' := fun a b => map_add _ a b
-      map_smul' := fun r t => map_smul (cmp M N U.1)
-        ((Scheme.TwoAffineOpenCover.algebraOfHom π U.1).algebraMap r) t }
-  app_smul U a t := map_smul (cmp M N U.1) a t
-  naturality h := LinearMap.ext fun t => cmp_res π M N h t
+def cmpHom : AffHom ((ofModules π M).twist N) (ofModules π (M ⊗ N)) :=
+  TensorComparison.cmpHom π M N
 
 theorem cmpHom_app (U : V.affineOpens) (t : ((ofModules π M).twist N).obj U.1) :
-    (cmpHom π M N).app U t = cmp M N U.1 t := rfl
+    (cmpHom π M N).app U t = cmp M N U.1 t :=
+  TensorComparison.cmpHom_app π M N U t
 
 theorem cmpHom_bijective (hM : (ofModules π M).IsQuasicoherent) (hN : (ofModules π
   N).IsQuasicoherent)

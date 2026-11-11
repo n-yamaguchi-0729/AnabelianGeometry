@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroNormalizationRootSpecialization
-import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroNormalizationResidueConstants
+module
+
+public import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroNormalizationRootSpecialization
+public import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroNormalizationResidueConstants
 
 /-!
 # Specialization to roots of the actual rational value
@@ -15,19 +17,23 @@ back in the fixed algebraic constants through the canonical residue map.
 The rational coefficient is the existing evalAt of the unchanged function.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 open EtaleFundamentalGroups.Inertia EtaleFundamentalGroups.StrictHenselian
 
 namespace AlgebraicCurve.Place
 
-variable {k F : Type} [Field k] [Field F] [Algebra k F]
+variable {k F : Type u} [Field k] [Field F] [Algebra k F]
 
 /-- Specialization of the unchanged generic roots to the roots of their
 actual rational value, retaining the literal normalization reduction. -/
 theorem exists_ordZero_rationalRootSpecialization
     (v : Place k F) (hv : v.IsRational) (u : Fˣ) (hu : v.ord (u : F) = 0)
     (n : ℕ) (hn : IsUnit (n : k))
-    (κ Ω : Type) [Field κ] [Field Ω]
+    (κ Ω : Type u) [Field κ] [Field Ω]
     [Algebra k κ] [Algebra k Ω] [Algebra F Ω]
     [Algebra v.toValuationSubring Ω] [Algebra κ Ω]
     [IsScalarTower v.toValuationSubring F Ω]

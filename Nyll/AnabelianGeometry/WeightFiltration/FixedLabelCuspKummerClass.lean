@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.GaloisCohomology.Kummer.Concrete.ContinuousKummerScalar
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsCommonUnit
+module
+
+public import Nyll.GaloisCohomology.Kummer.Concrete.ContinuousKummerScalar
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsCommonUnit
 
 /-!
 # Descent of the fixed-label cusp comparison
@@ -19,6 +21,8 @@ that identity from the same arithmetic Isom and the actual decomposition
 specializations is a remaining caller obligation; this is not an assertion
 that the geometric reconstruction has already supplied that identity.
 -/
+
+@[expose] public section
 
 noncomputable section
 namespace KummerTheory
@@ -45,7 +49,7 @@ theorem exists_unit_power_of_fixed_galois_label
       apply Units.ext
       exact α.apply_symm_apply (ζ.val : κ)
     map_mul' := (restrictRootsOfUnity α.toRingHom (n : ℕ)).map_mul }
-  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_primitiveRoot κ (n : ℕ)
+  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_isPrimitiveRoot κ (n : ℕ)
   let z : κˣ := hζ.isUnit n.ne_zero |>.unit'
   have hz : IsPrimitiveRoot z (n : ℕ) := hζ.isUnit_unit' n.ne_zero
   obtain ⟨v, hv⟩ :=

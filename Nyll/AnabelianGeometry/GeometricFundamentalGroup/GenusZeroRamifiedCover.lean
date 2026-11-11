@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.KummerOpenCoverModel
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroParameter
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.TwoMulGenusFFSubOneGeSplittingFieldXPowSubC
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
-import Mathlib.FieldTheory.KummerExtension
-import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
-import Mathlib.Data.Fintype.EquivFin
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.KummerOpenCoverModel
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroParameter
+public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.TwoMulGenusFFSubOneGeSplittingFieldXPowSubC
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
+public import Mathlib.FieldTheory.KummerExtension
+public import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
+public import Mathlib.Data.Fintype.EquivFin
 
 /-! # A higher-genus cover of a punctured genus-zero curve
 
@@ -21,6 +23,8 @@ contributions in the Kummer Riemann--Hurwitz bound give proper genus at least tw
 The root field, its proper model, and the restricted finite étale map are all
 constructed from the compactification and its open.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -111,7 +115,7 @@ theorem exists_finiteEtale_openCover_genus_ge_two_of_genus_zero
       _ = P.natDegree := rfl
       _ = 5 := Polynomial.natDegree_X_pow_sub_C
   have : NeZero (5 : K) := ⟨by norm_num⟩
-  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_primitiveRoot K 5
+  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_isPrimitiveRoot K 5
   have hprimitive : (primitiveRoots 5 F).Nonempty :=
     ⟨algebraMap K F ζ, (mem_primitiveRoots (by decide : 0 < 5)).mpr
       (hζ.map_of_injective (algebraMap K F).injective)⟩

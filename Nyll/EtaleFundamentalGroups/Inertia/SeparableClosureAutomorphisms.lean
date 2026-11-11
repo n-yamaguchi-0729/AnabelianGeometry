@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.FieldTheory.IsSepClosed
-import Mathlib.FieldTheory.PurelyInseparable.Basic
+module
+
+public import Mathlib.FieldTheory.IsSepClosed
+public import Mathlib.FieldTheory.PurelyInseparable.Basic
 
 /-!
 # Automorphisms of a normal extension and its relative separable closure
@@ -17,6 +19,8 @@ Stacks Project, Tag 0BUB.
 
 Reference: https://stacks.math.columbia.edu/tag/0BUB
 -/
+
+@[expose] public section
 
 noncomputable section
 

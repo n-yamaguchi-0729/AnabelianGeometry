@@ -4,10 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.GenericPointCharacterDetection
-import Nyll.JacobianVarieties.Kummer.CohomologyPullbackCharacters
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.GenericPointCharacterDetection
+public import Nyll.JacobianVarieties.Kummer.CohomologyPullbackCharacters
 
 /-! # Injectivity of actual finite H¹ restriction to the function field -/
+
+@[expose] public section
+
+universe uGeom uField₁ uField₂
 
 noncomputable section
 
@@ -19,10 +25,10 @@ namespace AnabelianGeometry.WeightFiltration
 /-- On a normal integral scheme, the actual generic-point pullback on finite
 constant-coefficient H¹ is injective. -/
 theorem finiteH1Pullback_genericPoint_injective
-    (X : Scheme) [IsIntegral X] [IsNormalIntegral X]
-    (Ω : Type) [Field Ω] [Algebra X.functionField Ω]
+    (X : Scheme.{uGeom}) [IsIntegral X] [IsNormalIntegral X]
+    (Ω : Type uGeom) [Field Ω] [Algebra X.functionField Ω]
     [IsSepClosed Ω] [IsSepClosure X.functionField Ω]
-    (A : AddCommGrpCat.{0}) [Finite A] :
+    (A : AddCommGrpCat.{uGeom}) [Finite A] :
     Function.Injective (constantCohomologyPullback
       (X.fromSpecStalk (genericPoint X)) A 1) := by
   intro a b hab

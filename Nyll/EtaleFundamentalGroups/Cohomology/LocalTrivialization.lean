@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionFibers
-import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantSet
-import Nyll.EtaleCohomology.Sites.ConstantPresentation
-import Nyll.EtaleCohomology.Sites.EtaleRestriction
-import Mathlib.Algebra.Category.Grp.FilteredColimits
-import Mathlib.CategoryTheory.Sites.PreservesSheafification
-import Mathlib.CategoryTheory.Types.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionFibers
+public import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantSet
+public import Nyll.EtaleCohomology.Sites.ConstantPresentation
+public import Nyll.EtaleCohomology.Sites.EtaleRestriction
+public import Mathlib.Algebra.Category.Grp.FilteredColimits
+public import Mathlib.CategoryTheory.Sites.PreservesSheafification
+public import Mathlib.CategoryTheory.Types.Basic
 
 /-!
 # Étale local trivializations of extension fibers
@@ -19,6 +21,8 @@ An actual local lift of the quotient section translates the restricted kernel
 onto the extension fiber. Epimorphy supplies a cover with such lifts. In
 particular, a finite constant kernel makes the fiber finite locally constant.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -31,11 +35,13 @@ namespace EtaleFundamentalGroups.Cohomology
 variable {X : Scheme.{u}} (S : ShortComplex (Sheaf X.smallEtaleTopology AddCommGrpCat.{u}))
   (t : (Functor.const X.Etaleᵒᵖ).obj PUnit ⟶ S.X₃.obj ⋙ forget AddCommGrpCat.{u})
 
-private abbrev toEtaleObject (Y : X.Etale) (V : Y.left.Etale) :
+/-- The original étale object receives the structural map of an object over its source. -/
+abbrev toEtaleObject (Y : X.Etale) (V : Y.left.Etale) :
     (etalePostcompose Y.hom).obj V ⟶ Y :=
   MorphismProperty.Over.homMk V.hom rfl
 
-private def restrictedLift (Y : X.Etale)
+/-- Restrict a chosen lift along an étale object over its source. -/
+def restrictedLift (Y : X.Etale)
     (e : {b : S.X₂.obj.obj (op Y) // S.g.hom.app (op Y) b = t.app (op Y) PUnit.unit})
     (V : Y.left.Etaleᵒᵖ) :
     {b : S.X₂.obj.obj ((etalePostcompose Y.hom).op.obj V) //
@@ -48,7 +54,8 @@ private def restrictedLift (Y : X.Etale)
   rw [e.property] at hn
   exact hn.trans (ConcreteCategory.congr_hom (t.naturality k.op) PUnit.unit).symm
 
-private lemma restrictedLift_naturality (Y : X.Etale)
+/-- Restriction of the chosen lift is natural in the étale object. -/
+lemma restrictedLift_naturality (Y : X.Etale)
     (e : {b : S.X₂.obj.obj (op Y) // S.g.hom.app (op Y) b = t.app (op Y) PUnit.unit})
     {V W : Y.left.Etaleᵒᵖ} (k : V ⟶ W) :
     S.X₂.obj.map ((etalePostcompose Y.hom).op.map k) (restrictedLift S t Y e V).val =
@@ -61,7 +68,8 @@ private lemma restrictedLift_naturality (Y : X.Etale)
   apply MorphismProperty.Over.Hom.ext
   exact k.unop.w
 
-private def translationHom (Y : X.Etale)
+/-- Translate the restricted kernel by the chosen lift to obtain a map to the fiber. -/
+def translationHom (Y : X.Etale)
     (e : {b : S.X₂.obj.obj (op Y) // S.g.hom.app (op Y) b = t.app (op Y) PUnit.unit}) :
     (etaleRestriction Y.hom (Type u)).obj
         ((sheafCompose X.smallEtaleTopology (forget AddCommGrpCat.{u})).obj S.X₁) ⟶

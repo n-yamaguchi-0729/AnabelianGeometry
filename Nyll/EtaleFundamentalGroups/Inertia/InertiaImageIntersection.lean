@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Group.Subgroup.Ker
+module
+
+public import Mathlib.Algebra.Group.Subgroup.Ker
 
 /-!
 # Inertia images over the exact preimage of a cover subgroup
@@ -12,6 +14,8 @@ import Mathlib.Algebra.Group.Subgroup.Ker
 An exact preimage statement, rather than mere containment, supplies the
 intersection equality needed to transport normalization inertia to a cover.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 
@@ -45,4 +49,3 @@ theorem inertia_image_eq_intersection
       rw [hb, hqa]
 
 end EtaleFundamentalGroups.Inertia
-

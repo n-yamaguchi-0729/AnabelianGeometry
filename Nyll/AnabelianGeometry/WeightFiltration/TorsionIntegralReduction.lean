@@ -4,7 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.TorsionCoefficientMaps
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.TorsionCoefficientMaps
+public import Nyll.AbelianVarieties.Reduction.ValuationSpecialization
+public import Nyll.ProCGroups.Abelian.FullTateModule
+public import Nyll.SchemeTheory.FiniteEtale.Algebra.PointSpecialization
 
 /-!
 # Integral lifting and reduction of actual torsion groups
@@ -13,6 +18,8 @@ At every invertible index, extension to the fraction field and henselian
 reduction are additive equivalences. Both forward maps are the original
 coefficient maps on algebra-valued points.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -184,5 +191,23 @@ theorem torsionSpecializationAddEquiv_equivariant
       (SchemeTheory.residueAlgEquiv H R τ).toAlgHom)
   rw [hred] at h₁
   exact h₁.symm.trans h₂
+
+/-- The finite-étale torsion comparison is the restriction of the actual
+proper-point specialization through the same valuation ring. -/
+theorem torsionSpecializationAddEquiv_eq_valuationSpecialization
+    {Ω : Type} [Field Ω] (V : ValuationSubring Ω) [HenselianLocalRing V]
+    [Algebra H V] [Algebra H Ω] [IsScalarTower H V Ω]
+    (n : ℕ+) (hn : IsUnit ((n : ℕ) : H))
+    (x : ProCGroups.torsionLevel (G.AlgPoints hc Ω) n) :
+    (G.torsionSpecializationAddEquiv hc V Ω n hn x).val =
+      valuationSpecialization V G hc x.val := by
+  obtain ⟨y, rfl⟩ := (G.torsionGenericEquiv hc V Ω n hn).surjective x
+  change (G.torsionReductionEquiv hc V n hn
+    ((G.torsionGenericEquiv hc V Ω n hn).symm
+      (G.torsionGenericEquiv hc V Ω n hn y))).val = _
+  rw [AddEquiv.symm_apply_apply]
+  change AlgPoints.map (IsScalarTower.toAlgHom H V (IsLocalRing.ResidueField V)) y.val =
+    valuationSpecialization V G hc (AlgPoints.map (IsScalarTower.toAlgHom H V Ω) y.val)
+  exact (valuationSpecialization_map V G hc y.val).symm
 
 end GoodReductionJacobian.RelativeGroupLaw

@@ -4,15 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncConstantExtensionOrders
-import Nyll.AlgebraicCurves.Places.Basic
-import Nyll.AlgebraicCurves.Places.ValuationRings.EqComapToValuationSubringEq
-import Nyll.AlgebraicCurves.Places.ValuationRings.MemIntegralClosureIffPlace
-import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
-import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
-import Mathlib.RingTheory.EssentialFiniteness
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncConstantExtensionOrders
+public import Nyll.AlgebraicCurves.Places.Basic
+public import Nyll.AlgebraicCurves.Places.ValuationRings.EqComapToValuationSubringEq
+public import Nyll.AlgebraicCurves.Places.ValuationRings.MemIntegralClosureIffPlace
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
+public import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
+public import Mathlib.RingTheory.EssentialFiniteness
 
 /-! # Integral constant extension at the same rational place -/
+
+@[expose] public section
 
 noncomputable section
 open Polynomial AlgebraicCurve

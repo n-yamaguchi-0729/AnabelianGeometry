@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteDecompositionRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalFiniteNormalizationInertiaConjugate
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealInertiaConjugate
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgInertiaConjugateRingHom
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationConjugateRingHom
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteDecompositionRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalFiniteNormalizationInertiaConjugate
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealInertiaConjugate
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgInertiaConjugateRingHom
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationConjugateRingHom
 
 /-!
 # Actual finite restriction preserves original conjugation
@@ -18,6 +20,8 @@ Both restrictions project to the same constructed normalization ring map.
 The group calculation is closed in its sparse full-Galois owner before
 the four original and finite D/I groups occur together.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

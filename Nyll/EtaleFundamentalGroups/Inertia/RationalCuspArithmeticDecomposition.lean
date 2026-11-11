@@ -3,7 +3,9 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.Inertia.RationalCuspArithmeticNormalizer
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.RationalCuspArithmeticNormalizer
 
 /-! # The actual rational-cusp decomposition image
 
@@ -11,6 +13,8 @@ The original normalization decomposition group is retained, rather than
 forgetting its lift into a normalizer. Its field-source image contains the
 original inertia image, normalizes it, and surjects onto the same Galois group.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory AlgebraicGeometry.FiniteEtale SchemeTheory

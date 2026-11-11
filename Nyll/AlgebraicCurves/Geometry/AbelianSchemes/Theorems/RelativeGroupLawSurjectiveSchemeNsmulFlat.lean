@@ -10,19 +10,23 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.Kernel
-import Mathlib.AlgebraicGeometry.Morphisms.Flat
-import Mathlib.AlgebraicGeometry.Morphisms.FiniteType
-import Mathlib.AlgebraicGeometry.Morphisms.UniversallyOpen
-import Mathlib.AlgebraicGeometry.ResidueField
-import Mathlib.AlgebraicGeometry.PullbackCarrier
-import Mathlib.AlgebraicGeometry.Noetherian
-import Mathlib.Topology.Connected.Clopen
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.HasPullback
+module
+
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.Kernel
+public import Mathlib.AlgebraicGeometry.Morphisms.Flat
+public import Mathlib.AlgebraicGeometry.Morphisms.FiniteType
+public import Mathlib.AlgebraicGeometry.Morphisms.UniversallyOpen
+public import Mathlib.AlgebraicGeometry.ResidueField
+public import Mathlib.AlgebraicGeometry.PullbackCarrier
+public import Mathlib.AlgebraicGeometry.Noetherian
+public import Mathlib.Topology.Connected.Clopen
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.HasPullback
 
 /-!
 # Relative Group Law surjective scheme Nsmul of flat of field
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -80,7 +84,7 @@ private theorem _root_.GoodReductionJacobian.RelativeGroupLaw.nsmul_coe {T : Sch
     (G.nsmul t n x).1 = x.1 ≫ G.schemeNsmul n := by
   have hx : schemeHomOverComp x.1 x.2 (idPoint (f := f)) = x := by
     apply Subtype.ext
-    simp [schemeHomOverComp]
+    exact Category.comp_id x.1
   have := G.nsmul_natural f t x.1 x.2 n idPoint
   rw [hx] at this
   rw [← this]
@@ -88,7 +92,7 @@ private theorem _root_.GoodReductionJacobian.RelativeGroupLaw.nsmul_coe {T : Sch
 export _root_.GoodReductionJacobian.RelativeGroupLaw (nsmul_coe)
 
 
-private theorem _root_.GoodReductionJacobian.RelativeGroupLaw.nsmul_mul (hc : G.IsCommutative) {T :
+theorem _root_.GoodReductionJacobian.RelativeGroupLaw.nsmul_mul (hc : G.IsCommutative) {T :
   Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of R)) (n : ℕ)
     (x y : SchemeHomOver t f) : G.nsmul t n (G.mul t x y) = G.mul t (G.nsmul t n x) (G.nsmul t n y)
       := by
@@ -126,7 +130,8 @@ noncomputable abbrev ptFst : SchemeHomOver (prBase (f := f)) f := ⟨pullback.fs
 noncomputable abbrev ptSnd : SchemeHomOver (prBase (f := f)) f := ⟨pullback.snd f f,
   pullback.condition.symm⟩
 
-private noncomputable def _root_.GoodReductionJacobian.RelativeGroupLaw.mulHom : pullback f f ⟶ A
+/-- Multiplication of the two universal points over the group base. -/
+noncomputable def _root_.GoodReductionJacobian.RelativeGroupLaw.mulHom : pullback f f ⟶ A
   := (G.mul prBase ptFst ptSnd).1
 export _root_.GoodReductionJacobian.RelativeGroupLaw (mulHom)
 
@@ -135,13 +140,15 @@ private theorem _root_.GoodReductionJacobian.RelativeGroupLaw.mulHom_comp : G.mu
 export _root_.GoodReductionJacobian.RelativeGroupLaw (mulHom_comp)
 
 
-private noncomputable def _root_.GoodReductionJacobian.RelativeGroupLaw.shear : pullback f f ⟶
+/-- The shear map multiplying the first point by the second. -/
+noncomputable def _root_.GoodReductionJacobian.RelativeGroupLaw.shear : pullback f f ⟶
   pullback f f :=
   pullback.lift G.mulHom (pullback.snd f f) (by rw [G.mulHom_comp]; exact pullback.condition)
 export _root_.GoodReductionJacobian.RelativeGroupLaw (shear)
 
 
-private noncomputable def _root_.GoodReductionJacobian.RelativeGroupLaw.shearInv : pullback f f ⟶
+/-- The inverse shear map using the inverse of the second point. -/
+noncomputable def _root_.GoodReductionJacobian.RelativeGroupLaw.shearInv : pullback f f ⟶
   pullback f f :=
   pullback.lift (G.mul prBase ptFst (G.inv prBase ptSnd)).1 (pullback.snd f f)
     (by rw [(G.mul prBase ptFst (G.inv prBase ptSnd)).2]; exact pullback.condition)
@@ -186,23 +193,26 @@ noncomputable abbrev qA : SchemeHomOver (qBase s (f := f)) f :=
 noncomputable abbrev qY : SchemeHomOver (qBase s (f := f)) f :=
   ⟨pullback.snd s f, pullback.condition.symm⟩
 
-private noncomputable def _root_.GoodReductionJacobian.RelativeGroupLaw.translate : pullback s f ⟶
+/-- Translation by the chosen point after base change. -/
+noncomputable def _root_.GoodReductionJacobian.RelativeGroupLaw.translateBaseChange : pullback s f ⟶
   pullback s f :=
   pullback.lift (pullback.fst s f) (G.mul (qBase s) (qA s a) (qY s)).1
     (by rw [(G.mul (qBase s) (qA s a) (qY s)).2])
-export _root_.GoodReductionJacobian.RelativeGroupLaw (translate)
+export _root_.GoodReductionJacobian.RelativeGroupLaw (translateBaseChange)
 
 
-private noncomputable def _root_.GoodReductionJacobian.RelativeGroupLaw.translateInv : pullback s f
+/-- Translation by the inverse of the chosen point after base change. -/
+noncomputable def _root_.GoodReductionJacobian.RelativeGroupLaw.translateInv : pullback s f
   ⟶ pullback s f :=
   pullback.lift (pullback.fst s f) (G.mul (qBase s) (G.inv (qBase s) (qA s a)) (qY s)).1
     (by rw [(G.mul (qBase s) (G.inv (qBase s) (qA s a)) (qY s)).2])
 export _root_.GoodReductionJacobian.RelativeGroupLaw (translateInv)
 
-@[scoped simp] theorem translate_fst : G.translate s a ≫ pullback.fst s f = pullback.fst s f :=
+@[scoped simp] theorem translate_fst :
+    G.translateBaseChange s a ≫ pullback.fst s f = pullback.fst s f :=
   pullback.lift_fst _ _ _
-@[scoped simp] theorem translate_snd : G.translate s a ≫ pullback.snd s f = (G.mul (qBase s) (qA s
-  a) (qY s)).1 :=
+@[scoped simp] theorem translate_snd :
+    G.translateBaseChange s a ≫ pullback.snd s f = (G.mul (qBase s) (qA s a) (qY s)).1 :=
   pullback.lift_snd _ _ _
 @[scoped simp] theorem translateInv_fst : G.translateInv s a ≫ pullback.fst s f = pullback.fst s f
   := pullback.lift_fst _ _ _
@@ -223,23 +233,25 @@ theorem comp_inv_val' {S' : Scheme.{u}} (r : S' ⟶ pullback s f) (t' : S' ⟶ S
     r ≫ (G.inv (qBase s) x).1 = (G.inv t' (schemeHomOverComp r hr x)).1 := by
   simpa only [schemeHomOverComp_coe] using congrArg Subtype.val (G.inv_natural (qBase s) t' r hr x)
 
-private theorem _root_.GoodReductionJacobian.RelativeGroupLaw.translate_base : G.translate s a ≫
+/-- Translation preserves the structural morphism. -/
+theorem _root_.GoodReductionJacobian.RelativeGroupLaw.translate_base : G.translateBaseChange s a ≫
   qBase s = qBase s := by
   rw [← Category.assoc, translate_fst]
 export _root_.GoodReductionJacobian.RelativeGroupLaw (translate_base)
 
-private theorem _root_.GoodReductionJacobian.RelativeGroupLaw.translateInv_base : G.translateInv s
+/-- Inverse translation preserves the structural morphism. -/
+theorem _root_.GoodReductionJacobian.RelativeGroupLaw.translateInv_base : G.translateInv s
   a ≫ qBase s = qBase s := by
   rw [← Category.assoc, translateInv_fst]
 export _root_.GoodReductionJacobian.RelativeGroupLaw (translateInv_base)
 
-theorem translate_qA : schemeHomOverComp (G.translate s a) (G.translate_base s a) (qA s a) = qA s a
-  := by
+theorem translate_qA :
+    schemeHomOverComp (G.translateBaseChange s a) (G.translate_base s a) (qA s a) = qA s a := by
   apply Subtype.ext
   simp only [schemeHomOverComp_coe]
   rw [← Category.assoc, translate_fst]
 
-theorem translate_qY : schemeHomOverComp (G.translate s a) (G.translate_base s a) (qY s) =
+theorem translate_qY : schemeHomOverComp (G.translateBaseChange s a) (G.translate_base s a) (qY s) =
     G.mul (qBase s) (qA s a) (qY s) := by
   apply Subtype.ext
   simp only [schemeHomOverComp_coe, translate_snd]
@@ -255,14 +267,14 @@ theorem translateInv_qY : schemeHomOverComp (G.translateInv s a) (G.translateInv
   apply Subtype.ext
   simp only [schemeHomOverComp_coe, translateInv_snd]
 
-private theorem _root_.GoodReductionJacobian.RelativeGroupLaw.translate_translateInv : G.translate
+theorem _root_.GoodReductionJacobian.RelativeGroupLaw.translate_translateInv : G.translateBaseChange
   s a ≫ G.translateInv s a = 𝟙 _ := by
   apply pullback.hom_ext
   · rw [Category.assoc, translateInv_fst, translate_fst, Category.id_comp]
   · rw [Category.assoc, translateInv_snd, G.comp_mul_val' s _ _ (G.translate_base s a),
       Category.id_comp]
-    have hinv : schemeHomOverComp (G.translate s a) (G.translate_base s a) (G.inv (qBase s) (qA s
-      a)) =
+    have hinv : schemeHomOverComp (G.translateBaseChange s a) (G.translate_base s a)
+        (G.inv (qBase s) (qA s a)) =
         G.inv (qBase s) (qA s a) := by
       rw [G.inv_natural _ _ _ (G.translate_base s a), translate_qA]
     rw [hinv, translate_qY]
@@ -271,8 +283,8 @@ private theorem _root_.GoodReductionJacobian.RelativeGroupLaw.translate_translat
     rw [inv_mul_cancel_left]
 export _root_.GoodReductionJacobian.RelativeGroupLaw (translate_translateInv)
 
-private theorem _root_.GoodReductionJacobian.RelativeGroupLaw.translateInv_translate :
-  G.translateInv s a ≫ G.translate s a = 𝟙 _ := by
+theorem _root_.GoodReductionJacobian.RelativeGroupLaw.translateInv_translate :
+  G.translateInv s a ≫ G.translateBaseChange s a = 𝟙 _ := by
   apply pullback.hom_ext
   · rw [Category.assoc, translate_fst, translateInv_fst, Category.id_comp]
   · rw [Category.assoc, translate_snd, G.comp_mul_val' s _ _ (G.translateInv_base s a),
@@ -284,9 +296,11 @@ private theorem _root_.GoodReductionJacobian.RelativeGroupLaw.translateInv_trans
 export _root_.GoodReductionJacobian.RelativeGroupLaw (translateInv_translate)
 
 
-private noncomputable def _root_.GoodReductionJacobian.RelativeGroupLaw.translateIso : pullback s f
+/-- The translation isomorphism defined by the chosen point. -/
+noncomputable def _root_.GoodReductionJacobian.RelativeGroupLaw.translateIso : pullback s f
   ≅ pullback s f :=
-  ⟨G.translate s a, G.translateInv s a, G.translate_translateInv s a, G.translateInv_translate s a⟩
+  ⟨G.translateBaseChange s a, G.translateInv s a,
+    G.translate_translateInv s a, G.translateInv_translate s a⟩
 export _root_.GoodReductionJacobian.RelativeGroupLaw (translateIso)
 
 end Translate
@@ -296,7 +310,8 @@ section C4
 variable {k : Type u} [Field k] {B : Scheme.{u}} {g : B ⟶ Spec (CommRingCat.of k)} (L :
   RelativeGroupLaw k g)
 
-private noncomputable abbrev _root_.GoodReductionJacobian.RelativeGroupLaw.unitSec : Spec
+/-- The unit section of the relative group law. -/
+noncomputable abbrev _root_.GoodReductionJacobian.RelativeGroupLaw.unitSec : Spec
   (CommRingCat.of k) ⟶ B := (L.one (𝟙 _)).1
 export _root_.GoodReductionJacobian.RelativeGroupLaw (unitSec)
 
@@ -313,7 +328,8 @@ private theorem _root_.GoodReductionJacobian.RelativeGroupLaw.unitSec_schemeNsmu
 export _root_.GoodReductionJacobian.RelativeGroupLaw (unitSec_schemeNsmul)
 
 
-private noncomputable def _root_.GoodReductionJacobian.RelativeGroupLaw.pairUnit : B ⟶ pullback g g
+/-- The pair consisting of a point and the unit section. -/
+noncomputable def _root_.GoodReductionJacobian.RelativeGroupLaw.pairUnit : B ⟶ pullback g g
   :=
   pullback.lift (𝟙 B) (g ≫ L.unitSec) (by
     rw [Category.assoc, L.unitSec_comp, Category.id_comp, Category.comp_id])
@@ -330,10 +346,10 @@ theorem pairUnit_mulHom : L.pairUnit ≫ L.mulHom = 𝟙 B := by
   rw [mulHom, L.comp_mul_val' g L.pairUnit g hpu]
   have h1 : schemeHomOverComp L.pairUnit hpu (ptFst (f := g)) = (⟨𝟙 B, Category.id_comp g⟩ :
     SchemeHomOver g g) := by
-    apply Subtype.ext; simp [schemeHomOverComp]
+    exact Subtype.ext (pairUnit_fst L)
   have h2 : schemeHomOverComp L.pairUnit hpu (ptSnd (f := g)) = L.one g := by
     rw [← L.one_natural (𝟙 _) g g (Category.comp_id g)]
-    apply Subtype.ext; simp [schemeHomOverComp]
+    exact Subtype.ext (pairUnit_snd L)
   rw [h1, h2, L.mul_one]
 
 private theorem _root_.GoodReductionJacobian.RelativeGroupLaw.symmetry_mulHom (hc :
@@ -343,19 +359,20 @@ private theorem _root_.GoodReductionJacobian.RelativeGroupLaw.symmetry_mulHom (h
     rw [← Category.assoc, pullbackSymmetry_hom_comp_fst]; exact pullback.condition.symm
   rw [mulHom, L.comp_mul_val' g _ _ hσ]
   have h1 : schemeHomOverComp (pullbackSymmetry g g).hom hσ (ptFst (f := g)) = ptSnd := by
-    apply Subtype.ext; simp [schemeHomOverComp]
+    exact Subtype.ext (pullbackSymmetry_hom_comp_fst g g)
   have h2 : schemeHomOverComp (pullbackSymmetry g g).hom hσ (ptSnd (f := g)) = ptFst := by
-    apply Subtype.ext; simp [schemeHomOverComp]
+    exact Subtype.ext (pullbackSymmetry_hom_comp_snd g g)
   rw [h1, h2, hc]
 export _root_.GoodReductionJacobian.RelativeGroupLaw (symmetry_mulHom)
 
-private theorem _root_.GoodReductionJacobian.RelativeGroupLaw.nn_cond (n : ℕ) : g ≫ 𝟙 (Spec
+theorem _root_.GoodReductionJacobian.RelativeGroupLaw.nn_cond (n : ℕ) : g ≫ 𝟙 (Spec
   (CommRingCat.of k)) = L.schemeNsmul n ≫ g := by
   rw [Category.comp_id, L.schemeNsmul_over]
 export _root_.GoodReductionJacobian.RelativeGroupLaw (nn_cond)
 
 
-private noncomputable def _root_.GoodReductionJacobian.RelativeGroupLaw.nn (n : ℕ) : pullback g g ⟶
+/-- Multiplication by the same integer on both factors of the fibre product. -/
+noncomputable def _root_.GoodReductionJacobian.RelativeGroupLaw.nn (n : ℕ) : pullback g g ⟶
   pullback g g :=
   pullback.map g g g g (L.schemeNsmul n) (L.schemeNsmul n) (𝟙 _) (L.nn_cond n) (L.nn_cond n)
 export _root_.GoodReductionJacobian.RelativeGroupLaw (nn)
@@ -383,10 +400,14 @@ private theorem _root_.GoodReductionJacobian.RelativeGroupLaw.nn_translateInv (h
     rw [← Category.assoc, nn_fst, Category.assoc, L.schemeNsmul_over]
   have hA : schemeHomOverComp (L.nn n) hb (qA g idPoint) = L.nsmul _ n (qA g (f := g) idPoint) := by
     apply Subtype.ext
-    rw [L.nsmul_coe]; simp [schemeHomOverComp, idPoint]
+    rw [L.nsmul_coe]
+    change L.nn n ≫ (pullback.fst g g ≫ 𝟙 B) =
+      (pullback.fst g g ≫ 𝟙 B) ≫ L.schemeNsmul n
+    simpa only [Category.comp_id] using nn_fst L n
   have hY : schemeHomOverComp (L.nn n) hb (qY g) = L.nsmul _ n (qY g (f := g)) := by
     apply Subtype.ext
-    rw [L.nsmul_coe]; simp [schemeHomOverComp]
+    rw [L.nsmul_coe]
+    exact nn_snd L n
   apply pullback.hom_ext
   · rw [Category.assoc, translateInv_fst, Category.assoc, nn_fst, ← Category.assoc,
       translateInv_fst]
@@ -396,9 +417,9 @@ private theorem _root_.GoodReductionJacobian.RelativeGroupLaw.nn_translateInv (h
 export _root_.GoodReductionJacobian.RelativeGroupLaw (nn_translateInv)
 
 
-theorem translate_id_snd : L.translate g idPoint ≫ pullback.snd g g = L.mulHom := by
+theorem translate_id_snd : L.translateBaseChange g idPoint ≫ pullback.snd g g = L.mulHom := by
   rw [translate_snd, mulHom]
-  have : qA g (f := g) idPoint = ptFst := Subtype.ext (by simp [schemeHomOverComp, idPoint])
+  have : qA g (f := g) idPoint = ptFst := Subtype.ext (Category.comp_id _)
   rw [this]
 
 private theorem
@@ -419,17 +440,17 @@ private theorem
   have hkey : ∀ w : ↑(pullback g g), pullback.fst g g w ∈ U → pullback.snd g g w ∉ U → L.mulHom w ∉
     U := by
     intro w h1 h2 hμ
-    have hτ : L.translate g idPoint w ∈ Set.range (L.nn n) := by
+    have hτ : L.translateBaseChange g idPoint w ∈ Set.range (L.nn n) := by
       rw [L.range_nn]
       refine ⟨?_, ?_⟩
-      · change pullback.fst g g (L.translate g idPoint w) ∈ U
+      · change pullback.fst g g (L.translateBaseChange g idPoint w) ∈ U
         rw [← Scheme.Hom.comp_apply, translate_fst]; exact h1
-      · change pullback.snd g g (L.translate g idPoint w) ∈ U
+      · change pullback.snd g g (L.translateBaseChange g idPoint w) ∈ U
         rw [← Scheme.Hom.comp_apply, translate_id_snd]; exact hμ
     obtain ⟨w', hw'⟩ := hτ
     apply h2
     have hw : w = L.nn n (L.translateInv g idPoint w') := by
-      have h1 : (L.translate g idPoint ≫ L.translateInv g idPoint) w = w := by
+      have h1 : (L.translateBaseChange g idPoint ≫ L.translateInv g idPoint) w = w := by
         rw [L.translate_translateInv]; rfl
       rw [Scheme.Hom.comp_apply, ← hw', ← Scheme.Hom.comp_apply, L.nn_translateInv hc,
         Scheme.Hom.comp_apply] at h1
@@ -452,18 +473,18 @@ private theorem
     have hm1 : m ≫ pullback.fst g g = pullback.fst (ι ≫ g) g ≫ ι := pullback.lift_fst _ _ _
     have hm2 : m ≫ pullback.snd g g = pullback.snd (ι ≫ g) g := by
       rw [pullback.lift_snd, Category.comp_id]
-    have hmμ : m ≫ L.mulHom = L.translate (ι ≫ g) ⟨ι, rfl⟩ ≫ pullback.snd (ι ≫ g) g := by
+    have hmμ : m ≫ L.mulHom = L.translateBaseChange (ι ≫ g) ⟨ι, rfl⟩ ≫ pullback.snd (ι ≫ g) g := by
       rw [translate_snd, mulHom, L.comp_mul_val' g m (qBase (ι ≫ g) (f := g))
         (by rw [← Category.assoc, hm1, Category.assoc])]
-      congr 1
-      all_goals (apply Subtype.ext; simp [schemeHomOverComp, hm1, hm2])
+      exact congrArg Subtype.val (congrArg₂ (L.mul (qBase (ι ≫ g) (f := g)))
+        (Subtype.ext hm1) (Subtype.ext hm2))
     have : UniversallyOpen (ι ≫ g) := inferInstance
     have hsnd : IsOpenMap (pullback.snd (ι ≫ g) g) := (pullback.snd (ι ≫ g) g).isOpenMap
     let τh := Scheme.homeoOfIso (L.translateIso (ι ≫ g) ⟨ι, rfl⟩)
     refine ⟨(m ≫ L.mulHom) '' ((pullback.snd (ι ≫ g) g) ⁻¹' U), ?_, ?_, ?_⟩
     · rw [hmμ, Scheme.Hom.comp_base, TopCat.coe_comp, Set.image_comp]
       refine hsnd _ ?_
-      have : (L.translate (ι ≫ g) ⟨ι, rfl⟩ : Q ⟶ Q) '' (pullback.snd (ι ≫ g) g ⁻¹' U) =
+      have : (L.translateBaseChange (ι ≫ g) ⟨ι, rfl⟩ : Q ⟶ Q) '' (pullback.snd (ι ≫ g) g ⁻¹' U) =
           τh '' (pullback.snd (ι ≫ g) g ⁻¹' U) := rfl
       rw [this]
       exact τh.isOpenMap _ (hUopen.preimage (pullback.snd (ι ≫ g) g).continuous)

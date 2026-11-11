@@ -4,16 +4,21 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.ScalarExtensionCyclotomicHom
-import Mathlib.FieldTheory.KrullTopology
+module
+
+public import Nyll.GaloisCohomology.FieldTheory.FinitelyGeneratedExtensions
+public import Nyll.AnabelianGeometry.WeightFiltration.ScalarExtensionCyclotomicHom
+public import Mathlib.FieldTheory.KrullTopology
 
 /-!
 # Cyclotomic Hom vanishing on every open Galois subgroup
 
 An open subgroup contains the fixing subgroup of a finite intermediate
-number field. Apply scalar-extension vanishing without changing the original
+extension. Apply scalar-extension vanishing without changing the original
 roots limit or the original Jacobian point group.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -23,7 +28,7 @@ open EtaleFundamentalGroups.Inertia
 
 namespace AnabelianGeometry.WeightFiltration
 
-variable (K Ω : Type) [Field K] [NumberField K]
+variable (K Ω : Type) [Field K] [CharZero K] [Field.FG K]
   [Field Ω] [Algebra K Ω] [IsAlgClosure K Ω]
 
 /-- Actual cyclotomic Hom vanishing remains valid after restricting to any
@@ -52,7 +57,10 @@ theorem numberField_cyclotomicHom_eq_one_of_open_subgroup
     (krullTopology_mem_nhds_one_iff K Ω (H : Set (Ω ≃ₐ[K] Ω))).mp
       (H.isOpen.mem_nhds H.one_mem)
   have : FiniteDimensional K L := hLfin
-  have : NumberField L := NumberField.of_module_finite K L
+  have _hcharL : CharZero L :=
+    charZero_of_injective_algebraMap (algebraMap K L).injective
+  have : Field.FG L :=
+    FieldTheory.fg_of_finiteDimensional K L (inferInstance : Field.FG K)
   have : Algebra.IsAlgebraic L Ω := Algebra.IsAlgebraic.tower_top (K := K) L
   have : IsAlgClosure L Ω := ⟨inferInstance, inferInstance⟩
   apply numberField_cyclotomicHom_eq_one_of_scalar_extension K L Ω c ε D hD φ

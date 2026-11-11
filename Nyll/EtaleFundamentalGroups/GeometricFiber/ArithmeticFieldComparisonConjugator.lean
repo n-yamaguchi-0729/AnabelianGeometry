@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticNaturality
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldFunctoriality
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticNaturality
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldFunctoriality
 
 /-!
 # The explicit finite-base fibre comparison and its conjugator
@@ -15,6 +17,8 @@ makes its action on the original constant-cover point available for proving
 that the conjugator fixes the same finite field, rather than postulating it.
 
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -41,9 +45,10 @@ private theorem autHomOfCompIso_whiskerLeft_trans
     autHomOfCompIso H (Functor.isoWhiskerLeft H t ≪≫ r) σ =
       autHomOfCompIso H r (t.conjAut σ) := by
   simp only [autHomOfCompIso_apply, Iso.trans_conjAut]
-  exact congrArg r.conjAut
-    (Functor.map_conjAut
-      ((Functor.whiskeringLeft C D FintypeCat.{w}).obj H) t σ).symm
+  apply congrArg r.conjAut
+  apply Aut.ext
+  exact (Functor.map_conjAut
+    ((Functor.whiskeringLeft C D FintypeCat.{w}).obj H) t σ).symm
 
 namespace AlgebraicGeometry.FiniteEtale
 
@@ -54,10 +59,10 @@ def fieldExtensionFiberComparison
     [IsSepClosed κ]
     {Ω : Type u} [Field Ω] [IsSepClosed Ω]
     (z : Spec (.of Ω) ⟶ Spec (.of E)) : Aut (fib k κ) :=
-  ((pullbackFiberIso (ξ k E) z) ≪≫
+  Aut.of (((pullbackFiberIso (ξ k E) z) ≪≫
     (nonempty_fiber_iso (z ≫ ξ k E) (ξ k κ)).some).symm ≪≫
       (Functor.isoWhiskerLeft (pullback (ξ k E))
-        (nonempty_fiber_iso z (ξ E κ)).some ≪≫ fieldPullbackFiberIso k E κ)
+        (nonempty_fiber_iso z (ξ E κ)).some ≪≫ fieldPullbackFiberIso k E κ))
 
 /-- The corresponding actual automorphism of the fixed common closure. -/
 def fieldExtensionComparisonConjugator
@@ -103,7 +108,7 @@ theorem fieldExtensionComparisonConjugator_smul
   let T₂ := Functor.isoWhiskerLeft (pullback (ξ k E))
     (nonempty_fiber_iso z (ξ E κ)).some ≪≫ fieldPullbackFiberIso k E κ
   change (absoluteGaloisToFiberAutMulEquiv k κ ‹IsSepClosed κ›
-    (fieldExtensionComparisonConjugator k E κ z)).hom.app A (T₁.hom.app A x) =
+    (fieldExtensionComparisonConjugator k E κ z)).asIso.hom.app A (T₁.hom.app A x) =
       T₂.hom.app A x
   rw [fieldExtensionComparisonConjugator_toAut]
   change T₂.hom.app A (T₁.inv.app A (T₁.hom.app A x)) = T₂.hom.app A x
@@ -165,7 +170,7 @@ theorem fieldExtensionComparisonConjugator_arithmetic
   let r : H ⋙ fib E κ ≅ fib k κ := fieldPullbackFiberIso k E κ
   let T₁ : H ⋙ fiber z ≅ fib k κ := pullbackFiberIso b z ≪≫ tK
   let T₂ : H ⋙ fiber z ≅ fib k κ := Functor.isoWhiskerLeft H tE ≪≫ r
-  let β : Aut (fib k κ) := T₁.symm ≪≫ T₂
+  let β : Aut (fib k κ) := Aut.of (T₁.symm ≪≫ T₂)
   let α : Gal(κ/k) := eK.symm β
   have hE (γ : π₁ᵉᵗ(xiY)) :
       eE (arithmeticFundamentalGroupHom E κ c xiY γ) =

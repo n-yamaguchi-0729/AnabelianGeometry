@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.AlgebraicGeometry.Limits
-import Mathlib.AlgebraicGeometry.Scheme
-import Mathlib.Algebra.GroupWithZero.Idempotent
-import Mathlib.Algebra.Ring.Equiv
-import Mathlib.Topology.Connected.Clopen
-import Mathlib.Topology.Sheaves.SheafCondition.Sites
-import Mathlib.Topology.Sheaves.SheafCondition.UniqueGluing
+module
+
+public import Mathlib.AlgebraicGeometry.Limits
+public import Mathlib.AlgebraicGeometry.Scheme
+public import Mathlib.Algebra.GroupWithZero.Idempotent
+public import Mathlib.Algebra.Ring.Equiv
+public import Mathlib.Topology.Connected.Clopen
+public import Mathlib.Topology.Sheaves.SheafCondition.Sites
+public import Mathlib.Topology.Sheaves.SheafCondition.UniqueGluing
 
 /-!
 # Connectedness from integral global sections
@@ -22,6 +24,8 @@ over a field is connected when its actual global-sections map is an
 isomorphism. This is the section-to-connectedness step used for the fibres
 of the canonical relative normalization.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -106,17 +110,40 @@ lemma Scheme.preconnectedSpace_of_globalSections_idempotents (X : Scheme.{u})
     rw [map_one, map_zero] at hStalk
     exact one_ne_zero hStalk
 
-/-- A scheme with an integral domain of global sections is connected. -/
-lemma Scheme.connectedSpace_of_isDomain_globalSections (X : Scheme.{u})
-    [IsDomain Γ(X, ⊤)] : ConnectedSpace X := by
-  have : PreconnectedSpace X := X.preconnectedSpace_of_globalSections_idempotents
-    fun _ he => IsIdempotentElem.iff_eq_zero_or_one.mp he
+/-- Nontrivial global sections with only trivial idempotents make a scheme connected. -/
+lemma Scheme.connectedSpace_of_globalSections_idempotents (X : Scheme.{u})
+    [Nontrivial Γ(X, ⊤)]
+    (h : ∀ e : Γ(X, ⊤), IsIdempotentElem e → e = 0 ∨ e = 1) : ConnectedSpace X := by
+  have : PreconnectedSpace X := X.preconnectedSpace_of_globalSections_idempotents h
   have hNonempty : Nonempty X := by
     rcases isEmpty_or_nonempty X with hX | hX
     · have : Subsingleton Γ(X, ⊤) := inferInstance
       exact (zero_ne_one (Subsingleton.elim (0 : Γ(X, ⊤)) 1)).elim
     · exact hX
   exact { toNonempty := hNonempty }
+
+/-- A bijective map from a field to the actual global sections makes the scheme connected. -/
+lemma Scheme.connectedSpace_of_bijective_globalSections
+    {K : Type u} [Field K] (X : Scheme.{u}) (φ : K →+* Γ(X, ⊤))
+    (hφ : Function.Bijective φ) : ConnectedSpace X := by
+  have : Nontrivial Γ(X, ⊤) := hφ.1.nontrivial
+  refine X.connectedSpace_of_globalSections_idempotents fun e he => ?_
+  obtain ⟨l, rfl⟩ := hφ.2 e
+  have hl : IsIdempotentElem l := by
+    apply hφ.1
+    rw [map_mul]
+    exact he
+  rcases IsIdempotentElem.iff_eq_zero_or_one.mp hl with rfl | rfl
+  · left
+    exact map_zero φ
+  · right
+    exact map_one φ
+
+/-- A scheme with an integral domain of global sections is connected. -/
+lemma Scheme.connectedSpace_of_isDomain_globalSections (X : Scheme.{u})
+    [IsDomain Γ(X, ⊤)] : ConnectedSpace X :=
+  X.connectedSpace_of_globalSections_idempotents
+    fun _ he => IsIdempotentElem.iff_eq_zero_or_one.mp he
 
 /-- If the actual global-sections map of a scheme over a field is an
 isomorphism, the scheme is connected. -/

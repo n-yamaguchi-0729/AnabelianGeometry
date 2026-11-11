@@ -4,10 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Classical.AbelianSheafFunctors
-import Nyll.EtaleCohomology.Sites.ModuleSetComparison
-import Mathlib.CategoryTheory.Sites.Whiskering
-import Mathlib.CategoryTheory.Whiskering
+module
+
+public import Nyll.EtaleCohomology.Classical.AbelianSheafFunctors
+public import Nyll.EtaleCohomology.Sites.ModuleSetComparison
+public import Mathlib.CategoryTheory.Sites.Whiskering
+public import Mathlib.CategoryTheory.Whiskering
+public import Nyll.EtaleCohomology.Sites.MateComparison
 
 /-!
 # Canonical inverse-image comparison for underlying abelian sheaves
@@ -16,6 +19,8 @@ This comparison is the mate of the identity between the actual direct-image
 functors. Its invertibility is detected on geometric stalks. The mate formula
 retains the adjunction compatibility needed to transport constant sections.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -27,13 +32,13 @@ namespace EtaleFundamentalGroups.Cohomology
 variable (X : Scheme.{u})
 
 /-- Forget the abelian group structure of an étale sheaf. -/
-private def abelianUnderlying :
+def abelianUnderlying :
     Sheaf X.smallEtaleTopology (AddCommGrpCat.{u}) ⥤ Sheaf X.smallEtaleTopology (Type u) :=
   sheafCompose X.smallEtaleTopology (forget (AddCommGrpCat.{u}))
 
 variable {X} {Y : Scheme.{u}} (f : X ⟶ Y)
 /-- Direct image commutes with forgetting abelian group structure, by restriction of presheaves. -/
-private def abelianPushforwardUnderlyingIso :
+def abelianPushforwardUnderlyingIso :
     etaleAbelianPushforward f ⋙ abelianUnderlying Y ≅
       abelianUnderlying X ⋙ etaleSetPushforward f := Iso.refl _
 
@@ -43,7 +48,7 @@ def abelianPullbackUnderlyingComparison :
       etaleAbelianPullback f ⋙ abelianUnderlying X :=
   ((mateEquiv (etaleAbelianPullbackPushforwardAdjunction f)
     (etaleSetPullbackPushforwardAdjunction f)).symm
-      ((abelianPushforwardUnderlyingIso f).hom)).natTrans
+      ((abelianPushforwardUnderlyingIso f).hom))
 
 
 /-- The underlying-set comparison respects the actual inverse-image adjunctions. -/
@@ -91,9 +96,9 @@ private def skyscraperAbelianUnderlyingSquare :
     (stalkAbelianUnderlyingSquare Φ)
 
 private lemma skyscraperAbelianUnderlyingSquare_app (M : AddCommGrpCat.{u}) :
-    (skyscraperAbelianUnderlyingSquare Φ).natTrans.app M =
+    (skyscraperAbelianUnderlyingSquare Φ).app M =
       Φ.skyscraperSheafAdjunction.homEquiv _ _
-        ((stalkAbelianUnderlyingSquare Φ).natTrans.app (Φ.skyscraperSheaf M) ≫
+        ((stalkAbelianUnderlyingSquare Φ).app (Φ.skyscraperSheaf M) ≫
           (forget (AddCommGrpCat.{u})).map (Φ.skyscraperSheafAdjunction.counit.app M)) := by
   apply (Φ.skyscraperSheafAdjunction.homEquiv _ _).symm.injective
   dsimp only [Functor.comp_obj, Functor.id_obj]
@@ -103,7 +108,7 @@ private lemma skyscraperAbelianUnderlyingSquare_app (M : AddCommGrpCat.{u}) :
 
 private lemma skyscraperAbelianUnderlyingSquare_app_π
     (M : AddCommGrpCat.{u}) (V : C) (v : Φ.fiber.obj V) :
-    ((skyscraperAbelianUnderlyingSquare Φ).natTrans.app M).hom.app (op V) ≫
+    ((skyscraperAbelianUnderlyingSquare Φ).app M).hom.app (op V) ≫
         Pi.π (fun _ : Φ.fiber.obj V => (forget (AddCommGrpCat.{u})).obj M) v =
       (forget (AddCommGrpCat.{u})).map (Pi.π (fun _ : Φ.fiber.obj V => M) v) := by
   rw [skyscraperAbelianUnderlyingSquare_app]
@@ -140,14 +145,14 @@ private lemma skyscraperAbelianUnderlyingSquare_comap :
           (etaleBaseChange_coverPreserving f)) =
       (Sites.skyscraperAbelianUnderlyingSquare (Scheme.pointSmallEtale s)) ≫ₕ
         (abelianPushforwardUnderlyingIso f).hom := by
-  apply TwoSquare.ext
-  intro M
+  apply NatTrans.ext
+  funext M
   apply Sheaf.hom_ext
   apply NatTrans.ext
   funext V
   apply Pi.hom_ext
   intro v
-  dsimp only [TwoSquare.hComp, TwoSquare.mk, TwoSquare.natTrans,
+  dsimp only [TwoSquare.hComp, TwoSquare.mk,
     NatTrans.comp_app, Functor.associator_hom_app, Functor.associator_inv_app,
     Functor.whiskerLeft_app, Functor.whiskerRight_app,
     abelianPushforwardUnderlyingIso, Iso.refl_hom]
@@ -176,13 +181,13 @@ lemma abelianPullbackUnderlyingComparison_stalk_isIso
       (Φ.sheafFiber (A := Type u)) (forget (AddCommGrpCat.{u})) :=
     Sites.stalkAbelianUnderlyingSquare Φ
   have hc : IsIso (((mateEquiv adjM adjT).symm
-      (Sites.skyscraperAbelianUnderlyingSquare Ψ)).natTrans) := by
+      (Sites.skyscraperAbelianUnderlyingSquare Ψ))) := by
     apply (EtaleCohomology.Sites.isIso_inverseMate_iff adjM adjT
       Ψ.skyscraperSheafAdjunction Ψ.skyscraperSheafAdjunction
         (Sites.skyscraperAbelianUnderlyingSquare Ψ)).mpr
     change IsIso (((mateEquiv Ψ.skyscraperSheafAdjunction Ψ.skyscraperSheafAdjunction).symm
       (mateEquiv Ψ.skyscraperSheafAdjunction Ψ.skyscraperSheafAdjunction
-        (Sites.stalkAbelianUnderlyingSquare Ψ))).natTrans)
+        (Sites.stalkAbelianUnderlyingSquare Ψ))))
     rw [Equiv.symm_apply_apply]
     exact inferInstanceAs (IsIso (Ψ.sheafFiberCompIso (forget (AddCommGrpCat.{u}))).hom)
   have hcomp : (mateEquiv adjM adjT) (α ≫ᵥ β) =
@@ -197,16 +202,16 @@ lemma abelianPullbackUnderlyingComparison_stalk_isIso
               (abelianPushforwardUnderlyingIso f).hom) = _
     erw [Equiv.apply_symm_apply]
     exact (skyscraperAbelianUnderlyingSquare_comap f s).symm
-  have hi : IsIso (α ≫ᵥ β).natTrans := by
+  have hi : IsIso (α ≫ᵥ β) := by
     rw [← (mateEquiv adjM adjT).symm_apply_apply (α ≫ᵥ β), hcomp]
     exact hc
   have hcomponent : IsIso (Φ.sheafFiber.map
       ((abelianPullbackUnderlyingComparison f).app F) ≫
         (Φ.sheafFiberCompIso (forget (AddCommGrpCat.{u}))).hom.app
           ((etaleAbelianPullback f).obj F)) := by
-    have h := NatIso.isIso_app_of_isIso (α ≫ᵥ β).natTrans F
-    change IsIso (Φ.sheafFiber.map (α.natTrans.app F) ≫
-      β.natTrans.app ((etaleAbelianPullback f).obj F)) at h
+    have h := NatIso.isIso_app_of_isIso (α ≫ᵥ β) F
+    change IsIso (Φ.sheafFiber.map (α.app F) ≫
+      β.app ((etaleAbelianPullback f).obj F)) at h
     exact h
   exact (isIso_comp_right_iff _
     ((Φ.sheafFiberCompIso (forget (AddCommGrpCat.{u}))).hom.app

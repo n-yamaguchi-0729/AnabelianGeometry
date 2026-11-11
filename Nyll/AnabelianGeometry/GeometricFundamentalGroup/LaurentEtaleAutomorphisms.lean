@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentEtaleGenericGalois
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentNormalizationRamification
-import Nyll.EtaleFundamentalGroups.FiniteEtale.GenericFiber.Connected
-import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
-import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentEtaleGenericGalois
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentNormalizationRamification
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.GenericFiber.Connected
+public import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
+public import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
 
 /-!
 # Automorphisms of actual connected finite etale Laurent algebras
@@ -18,6 +20,8 @@ Thus the original algebra is its base ring's integral closure in its actual frac
 Restriction of automorphisms identifies its automorphism group with the proved cyclic generic
 Galois group. Normality and a generic-field comparison are not additional assumptions.
 -/
+
+@[expose] public section
 
 noncomputable section
 

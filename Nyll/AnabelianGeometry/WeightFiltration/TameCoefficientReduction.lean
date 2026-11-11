@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteTameCofinality
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinateTower
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteTameCofinality
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinateTower
 
 /-!
 # Tame coefficients at arbitrary invertible exponents
@@ -14,6 +16,8 @@ Finite tame coordinates reduce independently of the chosen finite stage.
 Cofinality therefore gives an original inertia coefficient at every exponent
 invertible in the base DVR.
 -/
+
+@[expose] public section
 
 noncomputable section
 

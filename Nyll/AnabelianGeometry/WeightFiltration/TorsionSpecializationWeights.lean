@@ -4,9 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.TorsionTateSpecialization
-import Nyll.ProCGroups.Abelian.RestrictedTatePairingWeights
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteTorsionCoefficients
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.TorsionTateSpecialization
+public import Nyll.ProCGroups.Abelian.RestrictedTatePairingWeights
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteTorsionCoefficients
+public import Nyll.AnabelianGeometry.WeightFiltration.FrobeniusFixedTate
+public import Nyll.SchemeTheory.FiniteEtale.Algebra.PointSpecialization
 
 /-!
 # Pairing weights from actual equivariant specialization
@@ -15,6 +19,8 @@ The common finite target for all fixed torsion subgroups is constructed from
 the actual residue coefficient action. The remaining pairing inputs are on
 the generic fibre; no residue-field perfect pairing is postulated.
 -/
+
+@[expose] public section
 
 noncomputable section
 

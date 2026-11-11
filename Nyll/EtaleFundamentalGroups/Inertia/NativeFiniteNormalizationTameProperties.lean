@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameProperties
-import Nyll.SchemeTheory.Normalization.IntegralClosureAutomorphisms
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Nyll.SchemeTheory.Normalization.NativeNormalizationPrime
-import Mathlib.RingTheory.DedekindDomain.IntegralClosure
-import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameProperties
+public import Nyll.SchemeTheory.Normalization.IntegralClosureAutomorphisms
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Nyll.SchemeTheory.Normalization.NativeNormalizationPrime
+public import Mathlib.RingTheory.DedekindDomain.IntegralClosure
+public import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
 
 /-!
 # Finite normalization and intrinsic tame orders
@@ -17,6 +19,8 @@ import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
 Establishes module and automorphism finiteness for native finite normalizations, then proves
 positivity and base-ring invertibility of their intrinsic tame orders.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 
@@ -85,13 +89,11 @@ theorem nativeNormalization_aut_finite :
 intrinsic tame order. The original upper prime has not been introduced. -/
 theorem nativeFiniteNormalizationTameOrder_pos
     (Q : Ideal (normalizationCommAlgCat A C)) [Q.IsPrime] (hQ : Q ≠ ⊥) :
-    letI : Field C := hC.toField
+    let : Field C := hC.toField
     let : IsDedekindDomain (normalizationCommAlgCat A C) :=
       integralClosure.isDedekindDomain A K C
     0 < commAlgIdealTameOrder A (normalizationCommAlgCat A C) Q hQ := by
-  let : Field C := hC.toField
-  let : IsDedekindDomain (normalizationCommAlgCat A C) :=
-    integralClosure.isDedekindDomain A K C
+  intro sharedOwner1 sharedOwner2
   have := nativeNormalization_aut_finite A K C hC
   exact commAlgIdealTameOrder_pos A (normalizationCommAlgCat A C) Q hQ
 
@@ -99,13 +101,11 @@ theorem nativeFiniteNormalizationTameOrder_pos
 theorem nativeFiniteNormalizationTameOrder_isUnit [IsLocalRing A]
     (Q : Ideal (normalizationCommAlgCat A C)) [Q.IsPrime]
     (hQ : Q ≠ ⊥) :
-    letI : Field C := hC.toField
+    let : Field C := hC.toField
     let : IsDedekindDomain (normalizationCommAlgCat A C) :=
       integralClosure.isDedekindDomain A K C
     IsUnit (commAlgIdealTameOrder A (normalizationCommAlgCat A C) Q hQ : A) := by
-  let : Field C := hC.toField
-  let : IsDedekindDomain (normalizationCommAlgCat A C) :=
-    integralClosure.isDedekindDomain A K C
+  intro sharedOwner1 sharedOwner2
   have := nativeNormalization_aut_finite A K C hC
   have : Q.IsMaximal := Ideal.IsPrime.isMaximal inferInstance hQ
   have := normalizationCommAlgCat_liesOver_maximalIdeal Q

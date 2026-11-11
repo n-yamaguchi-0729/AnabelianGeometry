@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.AlgebraicGeometry.Scheme
-import Mathlib.Algebra.Ring.Idempotent
-import Mathlib.Topology.Homeomorph.Defs
+module
+
+public import Mathlib.AlgebraicGeometry.Scheme
+public import Mathlib.Algebra.Ring.Idempotent
+public import Mathlib.Topology.Homeomorph.Defs
 
 /-!
 # Lifting idempotent sections through a scheme homeomorphism
@@ -15,6 +17,8 @@ An idempotent section is locally zero or one. Its two open pieces transport
 through a homeomorphism and the constant sections glue there. In particular,
 an idempotent on a closed fibre lifts to every infinitesimal thickening.
 -/
+
+@[expose] public section
 
 noncomputable section
 

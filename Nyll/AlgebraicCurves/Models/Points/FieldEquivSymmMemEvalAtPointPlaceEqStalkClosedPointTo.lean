@@ -10,12 +10,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Models.Construction.Basic
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+module
+
+public import Nyll.AlgebraicCurves.Models.Construction.Basic
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
 
 /-!
 # Curve Model ff Equiv symm mem and eval At point Equiv Place eq stalk Closed Point To
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -76,7 +80,6 @@ theorem
     simp only [CommRingCat.hom_comp, RingHom.coe_comp, Function.comp_apply, Iso.trans_hom,
       Functor.mapIso_hom,
       Iso.op_hom, eqToIso.hom, hsec]
-    try simp only [RingHom.id_apply]
     change ((Scheme.ΓSpecIso (CommRingCat.of K)).inv ≫ (Scheme.ΓSpecIso (CommRingCat.of
       K)).hom).hom a = a
     rw [Iso.inv_hom_id]

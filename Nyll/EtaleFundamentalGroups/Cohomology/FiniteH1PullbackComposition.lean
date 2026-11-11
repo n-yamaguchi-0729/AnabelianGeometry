@@ -4,15 +4,21 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.H1CharacterComposition
-import Nyll.EtaleFundamentalGroups.Cohomology.H1CharacterPullback
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1CharacterComposition
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1CharacterPullback
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
 
 /-! # Composition for actual finite-coefficient H¹ pullback
 
 This is the composition law for the existing derived-sheaf pullback, obtained
 from the faithful character comparison, including its geometric base points.
 -/
+
+@[expose] public section
+
+universe u
 
 noncomputable section
 
@@ -23,11 +29,11 @@ namespace EtaleFundamentalGroups.Cohomology
 /-- Actual derived finite-coefficient H¹ pullback is contravariantly
 compatible with composition of connected scheme morphisms. -/
 theorem constantFiniteH1Pullback_comp
-    {X Y Z : Scheme} [ConnectedSpace X] [ConnectedSpace Y] [ConnectedSpace Z]
+    {X Y Z : Scheme.{u}} [ConnectedSpace X] [ConnectedSpace Y] [ConnectedSpace Z]
     (f : X ⟶ Y) (g : Y ⟶ Z)
-    {Ω : Type} [Field Ω] [IsSepClosed Ω]
-    (geom : Spec (.of Ω) ⟶ X) (A : AddCommGrpCat.{0}) [Finite A]
-    (c : Sheaf.H.{0} ((constantSheaf Z.smallEtaleTopology AddCommGrpCat.{0}).obj A) 1) :
+    {Ω : Type u} [Field Ω] [IsSepClosed Ω]
+    (geom : Spec (.of Ω) ⟶ X) (A : AddCommGrpCat.{u}) [Finite A]
+    (c : Sheaf.H.{u} ((constantSheaf Z.smallEtaleTopology AddCommGrpCat.{u}).obj A) 1) :
     constantCohomologyPullback (f ≫ g) A 1 c =
       constantCohomologyPullback f A 1 (constantCohomologyPullback g A 1 c) := by
   let : TopologicalSpace (Multiplicative A) := ⊥

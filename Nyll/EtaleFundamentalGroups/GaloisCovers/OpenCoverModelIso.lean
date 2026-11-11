@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverFiniteModel
-import Nyll.EtaleFundamentalGroups.GaloisCovers.CompactificationBoundary
-import Nyll.EtaleFundamentalGroups.Normalization.FiniteNormalFieldSourceGeneric
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverFiniteModel
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.CompactificationBoundary
+public import Nyll.EtaleFundamentalGroups.Normalization.FiniteNormalFieldSourceGeneric
+public import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
 
 /-!
 # The actual normalization compactification is a smooth proper curve model
@@ -16,6 +18,10 @@ The comparison is over the original base curve. It identifies the chosen
 smooth proper function-field model with the actual normalization containing
 the original open cover.
 -/
+
+@[expose] public section
+
+universe uGeom uField₁ uField₂
 
 noncomputable section
 
@@ -26,13 +32,8 @@ namespace EtaleFundamentalGroups
 
 attribute [local instance] CurveModel.isIntegral CurveModel.isProper CurveModel.smooth
 
-private local instance fieldSpecQuasiCompact
-    {L : Type} [Field L] {S : Scheme} (f : Spec (.of L) ⟶ S) :
-    QuasiCompact f where
-  isCompact_preimage U _ _ := (Set.toFinite (f ⁻¹' U)).isCompact
-
 private theorem transport_normalization_model
-    {A B N : Scheme} (g q : A ⟶ B)
+    {A B N : Scheme.{uGeom}} (g q : A ⟶ B)
     [QuasiCompact g] [QuasiSeparated g] [QuasiCompact q] [QuasiSeparated q]
     (h : g = q) (d : N ⟶ B) (p : A ⟶ N)
     (e : g.normalization ≅ N)
@@ -46,9 +47,9 @@ private theorem transport_normalization_model
 /-- The actual proper normalization has a smooth proper curve-model
 identification over the original base, not just a function-field equivalence. -/
 theorem exists_curveModel_iso_open_cover_normalization_with_generic
-    {K F : Type} [Field K] [CharZero K]
+    {K : Type uGeom} {F : Type uField₁} [Field K] [CharZero K]
     [Field F] [Algebra K F]
-    (M : CurveModel K F) {X : Scheme}
+    (M : CurveModel K F) {X : Scheme.{uGeom}}
     [IsIntegral X] [IsNormalIntegral X] [IsLocallyNoetherian X]
     (j : X ⟶ M.C) [IsOpenImmersion j] [QuasiCompact j] [QuasiSeparated j]
     (W : FiniteEtale X) [IsConnected W] :
@@ -101,9 +102,9 @@ theorem exists_curveModel_iso_open_cover_normalization_with_generic
 /-- The actual proper normalization has a smooth proper curve-model
 identification over the original base, not just a function-field equivalence. -/
 theorem exists_curveModel_iso_open_cover_normalization
-    {K F : Type} [Field K] [CharZero K]
+    {K : Type uGeom} {F : Type uField₁} [Field K] [CharZero K]
     [Field F] [Algebra K F]
-    (M : CurveModel K F) {X : Scheme}
+    (M : CurveModel K F) {X : Scheme.{uGeom}}
     [IsIntegral X] [IsNormalIntegral X] [IsLocallyNoetherian X]
     (j : X ⟶ M.C) [IsOpenImmersion j] [QuasiCompact j] [QuasiSeparated j]
     (W : FiniteEtale X) [IsConnected W] :

@@ -10,20 +10,24 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
-import Mathlib.FieldTheory.Minpoly.Finite
-import Mathlib.RingTheory.Valuation.Discrete.Basic
-import Mathlib.RingTheory.Valuation.Integral
-import Mathlib.RingTheory.Valuation.LocalSubring
-import Mathlib.RingTheory.UniqueFactorizationDomain.Multiplicity
-import Mathlib.GroupTheory.SpecificGroups.Cyclic.Basic
-import Mathlib.Data.Nat.Factorial.Basic
-import Mathlib.Tactic.Push
-import Mathlib.Tactic.NormNum
+module
+
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+public import Mathlib.FieldTheory.Minpoly.Finite
+public import Mathlib.RingTheory.Valuation.Discrete.Basic
+public import Mathlib.RingTheory.Valuation.Integral
+public import Mathlib.RingTheory.Valuation.LocalSubring
+public import Mathlib.RingTheory.UniqueFactorizationDomain.Multiplicity
+public import Mathlib.GroupTheory.SpecificGroups.Cyclic.Basic
+public import Mathlib.Data.Nat.Factorial.Basic
+public import Mathlib.Tactic.Push
+public import Mathlib.Tactic.NormNum
 
 /-!
 # Valuation Subring is Principal Ideal Ring of finite Dimensional adjoin
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

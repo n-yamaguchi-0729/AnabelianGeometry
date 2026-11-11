@@ -4,9 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.KummerTheory.PowerSeparation
-import Nyll.ClassFieldTheory.AlgebraicNumberTheory.SUnit.Rank
-import Nyll.ClassFieldTheory.AlgebraicNumberTheory.Idele.PrincipalCore
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.PowerSeparation
+public import Nyll.ClassFieldTheory.AlgebraicNumberTheory.SUnit.Rank
+public import Nyll.ClassFieldTheory.AlgebraicNumberTheory.Idele.PrincipalCore
+public import Nyll.ClassFieldTheory.AlgebraicNumberTheory.Idele.Basic
+public import Nyll.ClassFieldTheory.AlgebraicNumberTheory.Idele.SPlaces
 
 /-!
 # Cyclic power separation over number fields
@@ -20,6 +24,8 @@ positive powers in the original number field.
 The power relations here are over the original field. Descending relations
 obtained only after adjoining roots of unity is a separate arithmetic step.
 -/
+
+@[expose] public section
 
 noncomputable section
 

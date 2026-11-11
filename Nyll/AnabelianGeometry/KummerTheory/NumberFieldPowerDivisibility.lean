@@ -4,8 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.KummerTheory.IntegerCharacters
-import Nyll.AnabelianGeometry.KummerTheory.NumberFieldPowerSeparation
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.IntegerCharacters
+public import Nyll.AnabelianGeometry.KummerTheory.NumberFieldPowerSeparation
+public import Nyll.ClassFieldTheory.AlgebraicNumberTheory.SUnit.Rank
 
 /-!
 # A uniform divisibility bound for powers of a number-field element
@@ -14,6 +17,8 @@ For a fixed non-torsion element a, one positive integer M controls all
 relations a^e = d^n in the original number field: n divides eM. A fixed
 S-unit group contains both a and every possible d in these relations.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgDecompositionGroup
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalFiniteNormalizationDecomposition
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationInclusionSquare
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.SchemeTheory.RingTheory.Ramification.NormalizationResidueSequence
-import Nyll.SchemeTheory.Normalization.AmbientNormalizationGroupMap
-import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgDecompositionGroup
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalFiniteNormalizationDecomposition
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationInclusionSquare
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.SchemeTheory.RingTheory.Ramification.NormalizationResidueSequence
+public import Nyll.SchemeTheory.Normalization.AmbientNormalizationGroupMap
+public import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
 
 /-!
 # Actual original-to-finite decomposition restriction
@@ -20,6 +22,8 @@ The existing original coefficient decomposition morphism fixes the upper
 prime. Its literal normalization inclusion square then fixes the contracted
 finite prime. These proved facts construct the actual finite restriction.
 -/
+
+@[expose] public section
 
 noncomputable section
 

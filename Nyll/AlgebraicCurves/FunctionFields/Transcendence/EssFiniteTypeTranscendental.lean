@@ -11,12 +11,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.FieldTheory.RatFunc.AsPolynomial
-import Mathlib.RingTheory.EssentialFiniteness
+module
+
+public import Mathlib.FieldTheory.RatFunc.AsPolynomial
+public import Mathlib.RingTheory.EssentialFiniteness
 
 /-!
 # Ess Finite Type of transcendental of finite Dimensional
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

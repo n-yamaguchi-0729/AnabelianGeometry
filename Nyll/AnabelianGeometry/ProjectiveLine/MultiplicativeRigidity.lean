@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.ProjectiveLine.InversionRigidity
-import Mathlib.GroupTheory.OrderOfElement
+module
+
+public import Nyll.AnabelianGeometry.ProjectiveLine.InversionRigidity
+public import Mathlib.GroupTheory.OrderOfElement
 
 /-!
 # Reconstruction from two cyclic multiplicative subgroups
@@ -14,6 +16,8 @@ For a unit and its complementary unit of infinite order, their cyclic
 subgroups determine the original parameter. This is the algebraic, non-torsion
 step; no reconstruction of these subgroups from Galois data is postulated.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.ProjectiveLine
 

@@ -4,24 +4,26 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
-import Nyll.EtaleCohomology.Sites.EtaleRestriction
-import Nyll.EtaleCohomology.Sites.Subcanonical
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
-import Nyll.SchemeTheory.Morphisms.SigmaPullback
-import Mathlib.AlgebraicGeometry.Cover.MorphismProperty
-import Mathlib.AlgebraicGeometry.Limits
-import Mathlib.AlgebraicGeometry.Morphisms.RingHomProperties
-import Mathlib.AlgebraicGeometry.Sites.Etale
-import Mathlib.CategoryTheory.Limits.Shapes.Products
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Defs
-import Mathlib.CategoryTheory.MorphismProperty.Comma
-import Mathlib.CategoryTheory.MorphismProperty.OverAdjunction
-import Mathlib.CategoryTheory.Opposites
-import Mathlib.CategoryTheory.Sites.LocallyBijective
-import Mathlib.CategoryTheory.Sites.Subcanonical
-import Mathlib.CategoryTheory.Yoneda
-import Mathlib.Logic.Function.Basic
+module
+
+public import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
+public import Nyll.EtaleCohomology.Sites.EtaleRestriction
+public import Nyll.EtaleCohomology.Sites.Subcanonical
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+public import Nyll.SchemeTheory.Morphisms.SigmaPullback
+public import Mathlib.AlgebraicGeometry.Cover.MorphismProperty
+public import Mathlib.AlgebraicGeometry.Limits
+public import Mathlib.AlgebraicGeometry.Morphisms.RingHomProperties
+public import Mathlib.AlgebraicGeometry.Sites.Etale
+public import Mathlib.CategoryTheory.Limits.Shapes.Products
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Defs
+public import Mathlib.CategoryTheory.MorphismProperty.Comma
+public import Mathlib.CategoryTheory.MorphismProperty.OverAdjunction
+public import Mathlib.CategoryTheory.Opposites
+public import Mathlib.CategoryTheory.Sites.LocallyBijective
+public import Mathlib.CategoryTheory.Sites.Subcanonical
+public import Mathlib.CategoryTheory.Yoneda
+public import Mathlib.Logic.Function.Basic
 
 /-!
 # Representers over a disjoint union
@@ -41,6 +43,8 @@ equivalences, proving actual representability on the union of the bases.
 Finite étale local models give a finite étale representer, since finiteness
 of a morphism is local on its target. The index set need not be finite.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -113,14 +117,16 @@ def etaleSigmaInj (i : ι) : U i ⟶ etaleSigma U :=
   MorphismProperty.Over.homMk (Sigma.ι (fun j => (U j).left) i)
     (Sigma.ι_comp_desc (fun j => (U j).hom) i)
 
-private def isInitialEtaleOfEmpty (T : X.Etale) [IsEmpty T.left] : IsInitial T := by
+/-- An empty étale object is initial in the small étale site. -/
+def isInitialEtaleOfEmpty (T : X.Etale) [IsEmpty T.left] : IsInitial T := by
   let hT : IsInitial T.left := isInitialOfIsEmpty
   let : ∀ V : X.Etale, Unique (T ⟶ V) := fun V =>
     { default := MorphismProperty.Over.homMk (hT.to V.left) (hT.hom_ext _ _)
       uniq f := MorphismProperty.Over.Hom.ext (hT.hom_ext _ _) }
   exact IsInitial.ofUnique T
 
-private lemma emptyEtaleCover (T : X.Etale) (hT : IsInitial T) :
+/-- The empty sieve covers an initial object of the small étale site. -/
+lemma emptyEtaleCover (T : X.Etale) (hT : IsInitial T) :
     ⊥ ∈ X.smallEtaleTopology T := by
   let E : X.Etale := MorphismProperty.Over.mk ⊤ (Scheme.emptyTo X) inferInstance
   have : IsEmpty T.left :=

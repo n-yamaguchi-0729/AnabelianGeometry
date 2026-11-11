@@ -3,14 +3,18 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncRationalPlaceIntegralBase
-import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
-import Nyll.AlgebraicCurves.Places.ValuationRings.EqComapToValuationSubringEq
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsResidueAction
-import Mathlib.GroupTheory.SpecificGroups.Cyclic
-import Mathlib.RingTheory.RootsOfUnity.Basic
+module
+
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncRationalPlaceIntegralBase
+public import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
+public import Nyll.AlgebraicCurves.Places.ValuationRings.EqComapToValuationSubringEq
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsResidueAction
+public import Mathlib.GroupTheory.SpecificGroups.Cyclic
+public import Mathlib.RingTheory.RootsOfUnity.Basic
 
 /-! # RationalBoundaryCyclotomicFixedPlace -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicCurve

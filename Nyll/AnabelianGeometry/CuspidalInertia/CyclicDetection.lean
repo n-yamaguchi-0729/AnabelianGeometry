@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.CuspidalInertia.AbelianDetection
+module
+
+public import Nyll.AnabelianGeometry.CuspidalInertia.AbelianDetection
 
 /-!
 # Closed cyclic subgroups and relative abelianization tests
@@ -13,6 +15,8 @@ The closure of the powers of an element is commutative. Compact character
 separation therefore detects that element in an open relative abelianization
 unless its closed cyclic subgroup meets the prescribed family nontrivially.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.CuspidalInertia
 

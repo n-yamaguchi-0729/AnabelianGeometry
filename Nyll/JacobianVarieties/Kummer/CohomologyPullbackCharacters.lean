@@ -5,12 +5,14 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.JacobianVarieties.Kummer.CohomologyPullback
-import Nyll.JacobianVarieties.Kummer.CohomologyPullbackFibers
-import Nyll.EtaleFundamentalGroups.Cohomology.MonodromyPullback
-import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionMonodromy
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
-import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
+module
+
+public import Nyll.JacobianVarieties.Kummer.CohomologyPullback
+public import Nyll.JacobianVarieties.Kummer.CohomologyPullbackFibers
+public import Nyll.EtaleFundamentalGroups.Cohomology.MonodromyPullback
+public import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionMonodromy
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
 
 /-!
 # Scheme-pullback naturality of the actual finite H¹ comparison
@@ -21,6 +23,8 @@ inverse-image extension, the map of its lift sheaf, and the induced map of
 finite étale representers. Both group actions are their original monodromy
 actions; no cohomology comparison is assumed as input.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,32 +4,41 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.GenusZeroFiniteReconstruction
-import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationCorrectionRemoval
-import Nyll.AnabelianGeometry.WeightFiltration.RationalModelOriginalPoint
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralPointModel
-import Nyll.AnabelianGeometry.WeightFiltration.SameModelIsoInertia
-import Nyll.AnabelianGeometry.WeightFiltration.RationalModelOriginalChart
-import Nyll.AnabelianGeometry.WeightFiltration.RationalModelArithmeticSquare
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteRationalReconstructionGeometry
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryGaloisCorrespondence
-import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.ProjectiveModelEquivariance
-import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.GeometricAbelianizationEquivariance
-import Nyll.AnabelianGeometry.ProjectiveLine.ConfigurationScalarExtension
-import Nyll.AnabelianGeometry.ProjectiveLine.LinearFieldMap
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairCrossRatio
-import Nyll.ProCGroups.Abelian.TopologicalAbelianization
-import Nyll.ProCGroups.Topologies.ArithmeticInnerCorrectionFiberTransport
-import Mathlib.AlgebraicGeometry.Noetherian
-import Mathlib.Algebra.Group.Subgroup.Map
+module
 
-/-! # Weak reconstruction of genus-zero opens over number fields
+public import Nyll.GaloisCohomology.FieldTheory.FinitelyGeneratedExtensions
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedBaseIsomorphism
+public import Nyll.AnabelianGeometry.WeightFiltration.GenusZeroFiniteReconstruction
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationCorrectionRemoval
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalModelOriginalPoint
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralPointModel
+public import Nyll.AnabelianGeometry.WeightFiltration.SameModelIsoInertia
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalModelOriginalChart
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalModelArithmeticSquare
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteRationalReconstructionGeometry
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryGaloisCorrespondence
+public import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.ProjectiveModelEquivariance
+public import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.GeometricAbelianizationEquivariance
+public import Nyll.AnabelianGeometry.ProjectiveLine.ConfigurationScalarExtension
+public import Nyll.AnabelianGeometry.ProjectiveLine.LinearFieldMap
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairCrossRatio
+public import Nyll.ProCGroups.Abelian.TopologicalAbelianization
+public import Nyll.ProCGroups.Topologies.ArithmeticInnerCorrectionFiberTransport
+public import Mathlib.AlgebraicGeometry.Noetherian
+public import Mathlib.Algebra.Group.Subgroup.Map
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
+
+/-! # Weak reconstruction of genus-zero opens over finitely generated fields
+
+The base field has characteristic zero and is finitely generated over its prime field.
 
 Finite rational models and aligned generic points are constructed from the
 original curves. The same inertia correspondence recovered over a splitting
 field is equivariant over the original field. Three-point rigidity and
 effective descent then give an actual isomorphism over that field.
 -/
+
+@[expose] public section
 
 noncomputable section
 open scoped RatFunc
@@ -195,8 +204,8 @@ private theorem boundary_labels_reindex_of_equivariance
 same boundary correspondence descend the reconstructed isomorphism. The ambient
 fields remain abstract while the original geometric charts are compared. -/
 private theorem exists_schemeIso_of_geometric_model_comparison
-    (k E κ Ω₁ Ω₂ : Type) [Field k] [NumberField k]
-    [Field E] [NumberField E] [Algebra k E] [FiniteDimensional k E] [_root_.IsGalois k E]
+    (k E κ Ω₁ Ω₂ : Type) [Field k] [CharZero k] [Field.FG k]
+    [Field E] [CharZero E] [Field.FG E] [Algebra k E] [FiniteDimensional k E] [_root_.IsGalois k E]
     [Field κ] [CharZero κ] [IsAlgClosed κ]
     [Algebra k κ] [Algebra E κ] [IsScalarTower k E κ]
     [IsAlgClosure k κ] [IsAlgClosure E κ]
@@ -504,8 +513,8 @@ private theorem exists_schemeIso_of_geometric_model_comparison
 
 /-- The original generic points and arithmetic square come from the same finite models. -/
 private theorem exists_schemeIso_of_corrected_finite_models
-    (k E κ Ω₁ Ω₂ : Type) [Field k] [NumberField k]
-    [Field E] [NumberField E] [Algebra k E] [FiniteDimensional k E] [_root_.IsGalois k E]
+    (k E κ Ω₁ Ω₂ : Type) [Field k] [CharZero k] [Field.FG k]
+    [Field E] [CharZero E] [Field.FG E] [Algebra k E] [FiniteDimensional k E] [_root_.IsGalois k E]
     [Field κ] [CharZero κ] [IsAlgClosed κ]
     [Algebra k κ] [Algebra E κ] [IsScalarTower k E κ]
     [IsAlgClosure k κ] [IsAlgClosure E κ]
@@ -636,7 +645,7 @@ private theorem exists_schemeIso_of_corrected_finite_models
 punctures, including nonsplit compactifications and nonrational punctures.
 Only the original pointed arithmetic isomorphism is supplied. -/
 theorem exists_schemeIso_of_genusZero_arithmeticFundamentalGroupEquiv
-    (k : Type) [Field k] [NumberField k]
+    (k : Type) [Field k] [CharZero k] [Field.FG k]
     {C₁ C₂ : Scheme}
     (c₁ : C₁ ⟶ Spec (.of k)) (c₂ : C₂ ⟶ Spec (.of k))
     [IsProper c₁] [SmoothOfRelativeDimension 1 c₁] [GeometricallyIntegral c₁]
@@ -704,7 +713,10 @@ theorem exists_schemeIso_of_genusZero_arithmeticFundamentalGroupEquiv
   have hbase₁ : xi₁ ≫ fs = ξ k Ω₁ := (Spec.map_preimage (xi₁ ≫ fs)).symm
   have hbase₂ : xi₂ ≫ ft = ξ k Ω₂ := (Spec.map_preimage (xi₂ ≫ ft)).symm
   obtain ⟨halign₁, halign₂, E, H⟩ := H
-  have hE : NumberField E := NumberField.of_module_finite k E
+  have _hcharE : CharZero E :=
+    charZero_of_injective_algebraMap (algebraMap k E).injective
+  have hE : Field.FG E :=
+    FieldTheory.fg_of_finiteDimensional k E (inferInstance : Field.FG k)
   have hEκ : IsAlgClosure E κ :=
     ⟨inferInstance, Algebra.IsAlgebraic.tower_top (K := k) (L := E) (A := κ)⟩
   have hFE : IsFiniteEtale (specMap k E) := constantField_specMap_isFiniteEtale k E

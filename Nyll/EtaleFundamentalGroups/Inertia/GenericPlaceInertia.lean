@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGalois
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Mathlib.Algebra.Algebra.Tower
+module
+
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGalois
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Mathlib.Algebra.Algebra.Tower
 
 /-!
 # Place inertia in the actual geometric fundamental group
@@ -17,6 +19,8 @@ restriction of function-field scalars, and map it through the actual generic
 geometric monodromy homomorphism. This construction uses no character or
 residue condition to define inertia.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -47,6 +51,7 @@ def genericPlaceInertia :
     ((FiniteEtale.fundamentalGroupHom (X.fromSpecStalk (genericPoint X)) η).toMonoidHom.comp
       (toAut (FiniteEtale.fiber η) (Ω ≃ₐ[X.functionField] Ω)))
 
+omit [IsSepClosure X.functionField Ω] in
 /-- Killing this image is exactly killing all original inertia elements under generic monodromy. -/
 theorem genericPlaceInertia_le_ker_iff
     {G : Type} [Group G]

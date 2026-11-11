@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenPlaceTransport
-import Nyll.EtaleFundamentalGroups.Kummer.OpenGenericEtaleDivisibility
-import Nyll.JacobianVarieties.Kummer.OpenDivisorResidues
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenPlaceTransport
+public import Nyll.EtaleFundamentalGroups.Kummer.OpenGenericEtaleDivisibility
+public import Nyll.JacobianVarieties.Kummer.OpenDivisorResidues
 
 /-!
 # Actual finite étale Kummer roots are unramified away from the boundary
@@ -15,7 +17,11 @@ The condition defining the divisorial open Kummer group is proved from the
 actual cover, using the actual local rings of the open curve.
 -/
 
+@[expose] public section
+
 noncomputable section
+
+universe u v
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
 
@@ -23,13 +29,13 @@ namespace AlgebraicCurve.CurveModel
 
 attribute [local instance] CurveModel.isIntegral CurveModel.isProper CurveModel.smooth
 
-variable {K F : Type} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
+variable {K : Type u} {F : Type v} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
 
 theorem mem_openKummerUnits_of_finiteEtale_generic_root
-    (M : CurveModel K F) {X : Scheme} [IsIntegral X]
+    (M : CurveModel K F) {X : Scheme.{u}} [IsIntegral X]
     (j : X ⟶ M.C) [IsOpenImmersion j]
-    (L : Type) [Field L] [Algebra X.functionField L]
-    {Y : Scheme} (f : Y ⟶ X) [IsFinite f] [Etale f]
+    (L : Type u) [Field L] [Algebra X.functionField L]
+    {Y : Scheme.{u}} (f : Y ⟶ X) [IsFinite f] [Etale f]
     (e : pullback f (X.fromSpecStalk (genericPoint X)) ≅ Spec (.of L))
     (he : e.hom ≫ Spec.map (CommRingCat.ofHom (algebraMap X.functionField L)) =
       pullback.snd f (X.fromSpecStalk (genericPoint X)))

@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.LocalRamificationValuation
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.LocalRamificationValuation
 
 /-!
 # Valuations of radicals in a prime localization
@@ -12,6 +14,8 @@ import Nyll.AnabelianGeometry.WeightFiltration.LocalRamificationValuation
 For an actual power equation over a DVR, the normalized order upstairs is
 related to the base order by the literal ramification index.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -10,16 +10,20 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Nyll.AlgebraicCurves.Divisors.Maps.Maps
-import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
-import Nyll.AlgebraicCurves.Divisors.Norm.PushforwardDivSeparable
-import Nyll.AlgebraicCurves.Places.NormTrace.OrdNormEqZeroFiberSeparable
-import Nyll.AlgebraicCurves.Divisors.Maps.EvaluationMaps
+module
+
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.AlgebraicCurves.Divisors.Maps.Maps
+public import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
+public import Nyll.AlgebraicCurves.Divisors.Norm.PushforwardDivSeparable
+public import Nyll.AlgebraicCurves.Places.NormTrace.OrdNormEqZeroFiberSeparable
+public import Nyll.AlgebraicCurves.Divisors.Maps.EvaluationMaps
 
 /-!
 # Weil Reciprocity algebra Map of is Separable
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

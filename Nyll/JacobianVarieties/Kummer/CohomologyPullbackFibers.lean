@@ -5,11 +5,13 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.JacobianVarieties.Kummer.CohomologyPullback
-import Nyll.EtaleCohomology.Classical.AbelianPullbackConstants
-import Nyll.EtaleCohomology.Sites.SetSheafFunctors
-import Nyll.EtaleFundamentalGroups.Cohomology.H1FiniteCover
-import Nyll.EtaleFundamentalGroups.Cohomology.FiberTranslation
+module
+
+public import Nyll.JacobianVarieties.Kummer.CohomologyPullback
+public import Nyll.EtaleCohomology.Classical.AbelianPullbackConstants
+public import Nyll.EtaleCohomology.Sites.SetSheafFunctors
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1FiniteCover
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiberTranslation
 
 /-!
 # Actual extension fibers under scheme pullback
@@ -20,6 +22,8 @@ comes from the unit's naturality and the proved constant-section comparison.
 This constructs the map of actual sheaves used to compare their geometric
 monodromy under a morphism of schemes.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -36,7 +40,8 @@ variable {X Y : Scheme.{u}} (f : X ⟶ Y) (A : AddCommGrpCat.{u})
   (p : E ⟶ (constantSheaf Y.smallEtaleTopology AddCommGrpCat.{u}).obj
     (AddCommGrpCat.of (ULift.{u} ℤ))) (h : i ≫ p = 0)
 
-private theorem pullbackExtension_unit_projection :
+/-- The adjunction unit intertwines the extension quotient with the constant comparison. -/
+theorem pullbackExtension_unit_projection :
     (etaleAbelianPullbackPushforwardAdjunction f).unit.app E ≫
         (etaleAbelianPushforward f).map (pullbackExtension f A i p h).g =
       p ≫ (etaleAbelianPullbackPushforwardAdjunction f).homEquiv _ _
@@ -61,7 +66,8 @@ private theorem pullbackExtension_unit_inclusion :
       rw [R.map_comp, ← Category.assoc]
       rfl
 
-private def fiberMap
+/-- A compatible map of extensions sends lifts of the integer unit to lifts after pullback. -/
+def fiberMap
     {E' : Sheaf X.smallEtaleTopology AddCommGrpCat.{u}}
     (i' : (constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).obj A ⟶ E')
     (p' : E' ⟶ (constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).obj
@@ -141,7 +147,8 @@ private theorem fiberMap_translation
       ((toSheafify Y.smallEtaleTopology ((Functor.const Y.Etaleᵒᵖ).obj A)).app U a)
   exact he.trans (congrArg (i'.hom.app (op ((etaleBaseChange f).obj U.unop))) (hc U a))
 
-private theorem constantUnit_section (B : AddCommGrpCat.{u}) (U : Y.Etaleᵒᵖ) (b : B) :
+/-- The adjunction's constant comparison preserves each original constant section. -/
+theorem constantUnit_section (B : AddCommGrpCat.{u}) (U : Y.Etaleᵒᵖ) (b : B) :
     ((etaleAbelianPullbackPushforwardAdjunction f).homEquiv _ _
       ((etaleAbelianPullbackConstantIso f).hom.app B)).hom.app U
         ((toSheafify Y.smallEtaleTopology ((Functor.const Y.Etaleᵒᵖ).obj B)).app U b) =

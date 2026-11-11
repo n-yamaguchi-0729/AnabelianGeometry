@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacter
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacter
 
 /-!
 # Inertia ratios and orders of vanishing
@@ -14,6 +16,8 @@ residue of that unit is the uniformizer character raised to the order of
 the element. The unit factor in a uniformizer decomposition disappears
 because actual inertia fixes the residue field.
 -/
+
+@[expose] public section
 
 noncomputable section
 

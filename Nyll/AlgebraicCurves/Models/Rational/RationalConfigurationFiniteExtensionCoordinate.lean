@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationFiniteExtensionValues
-import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncConstantExtensionPairOrders
-import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairFunctionCoordinate
+module
+
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationFiniteExtensionValues
+public import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncConstantExtensionPairOrders
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairFunctionCoordinate
 
 /-! # The unchanged pair coordinate over the selected finite constant field
 
@@ -15,6 +17,8 @@ its full pair divisor over every separable algebraic constant extension.
 Its coordinate over that field is constructed, and if an original coordinate
 was already selected, the entire coefficient-extension square commutes.
 -/
+
+@[expose] public section
 
 noncomputable section
 attribute [local instance] Classical.propDecidable

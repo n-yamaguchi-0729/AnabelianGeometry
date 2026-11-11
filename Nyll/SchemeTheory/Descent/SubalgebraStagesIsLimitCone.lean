@@ -10,17 +10,21 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Algebra.Category.Ring.FilteredColimits
-import Mathlib.CategoryTheory.Limits.Types.Filtered
-import Mathlib.CategoryTheory.Limits.Preserves.Basic
-import Mathlib.CategoryTheory.Limits.Opposites
-import Mathlib.CategoryTheory.Adjunction.Limits
-import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
-import Nyll.SchemeTheory.Descent.SubalgebraStages
+module
+
+public import Mathlib.Algebra.Category.Ring.FilteredColimits
+public import Mathlib.CategoryTheory.Limits.Types.Filtered
+public import Mathlib.CategoryTheory.Limits.Preserves.Basic
+public import Mathlib.CategoryTheory.Limits.Opposites
+public import Mathlib.CategoryTheory.Adjunction.Limits
+public import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
+public import Nyll.SchemeTheory.Descent.SubalgebraStages
 
 /-!
 # Subalgebra Stages nonempty is Limit cone
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

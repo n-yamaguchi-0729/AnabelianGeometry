@@ -3,14 +3,16 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Mathlib.AlgebraicGeometry.Scheme
-import Mathlib.CategoryTheory.Functor.FullyFaithful
-import Mathlib.FieldTheory.IntermediateField.Basic
-import Mathlib.LinearAlgebra.FiniteDimensional.Defs
-import Mathlib.RingTheory.TensorProduct.Maps
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
-import Nyll.SchemeTheory.FiniteEtale.AffineEquivalence
-import Nyll.SchemeTheory.FiniteEtale.Algebra.FiniteFieldModel
+module
+
+public import Mathlib.AlgebraicGeometry.Scheme
+public import Mathlib.CategoryTheory.Functor.FullyFaithful
+public import Mathlib.FieldTheory.IntermediateField.Basic
+public import Mathlib.LinearAlgebra.FiniteDimensional.Defs
+public import Mathlib.RingTheory.TensorProduct.Maps
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+public import Nyll.SchemeTheory.FiniteEtale.AffineEquivalence
+public import Nyll.SchemeTheory.FiniteEtale.Algebra.FiniteFieldModel
 
 /-!
 # Affine finite-field models of finite étale schemes
@@ -19,6 +21,8 @@ An actual finite étale cover of `Spec (R ⊗[k] L)` for an algebraic extension
 `L/k` is the pullback of an actual finite étale cover over a finite constant
 extension. The pullback uses the literal tensor map of the field inclusion.
 -/
+
+@[expose] public section
 
 noncomputable section
 

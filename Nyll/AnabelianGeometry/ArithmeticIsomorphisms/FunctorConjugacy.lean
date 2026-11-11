@@ -35,20 +35,20 @@ theorem autHomOfCompIso_transport
   ext X x
   change (t.hom.app X)
       (F'.map (a.hom.app X)
-        ((g.hom.app (H.obj X))
+        ((g.asIso.hom.app (H.obj X))
           (F'.map (a.inv.app X) ((t.inv.app X) x)))) =
-    (t.hom.app X) ((g.hom.app (J.obj X)) ((t.inv.app X) x))
+    (t.hom.app X) ((g.asIso.hom.app (J.obj X)) ((t.inv.app X) x))
   have hcancel : F'.map (a.inv.app X) ≫ F'.map (a.hom.app X) =
       𝟙 (F'.obj (J.obj X)) := by
     rw [← F'.map_comp, a.inv_hom_id_app]
     exact F'.map_id _
   have hx := ConcreteCategory.congr_hom hcancel ((t.inv.app X) x)
-  have hn := ConcreteCategory.congr_hom (g.hom.naturality (a.hom.app X))
+  have hn := ConcreteCategory.congr_hom (g.asIso.hom.naturality (a.hom.app X))
     (F'.map (a.inv.app X) ((t.inv.app X) x))
-  change (g.hom.app (J.obj X))
+  change (g.asIso.hom.app (J.obj X))
       (F'.map (a.hom.app X) (F'.map (a.inv.app X) ((t.inv.app X) x))) =
     F'.map (a.hom.app X)
-      ((g.hom.app (H.obj X)) (F'.map (a.inv.app X) ((t.inv.app X) x))) at hn
+      ((g.asIso.hom.app (H.obj X)) (F'.map (a.inv.app X) ((t.inv.app X) x))) at hn
   change F'.map (a.hom.app X) (F'.map (a.inv.app X) ((t.inv.app X) x)) =
     (t.inv.app X) x at hx
   rw [hx] at hn
@@ -66,17 +66,17 @@ def functorIsoOfConjugator
       functorToContAction F ⋙ ContAction.res FintypeCat β :=
     NatIso.ofComponents
       (fun X => ObjectProperty.isoMk _
-        (Action.mkIso (c.app X) (fun g => by
+        (Action.mkIso (c.asIso.app X) (fun g => by
           apply ConcreteCategory.hom_ext
           intro x
-          change (c.hom.app X) (((α g).hom.app X) x) =
-            ((β g).hom.app X) ((c.hom.app X) x)
-          change ((c * α g).hom.app X) x = ((β g * c).hom.app X) x
+          change (c.asIso.hom.app X) (((α g).asIso.hom.app X) x) =
+            ((β g).asIso.hom.app X) ((c.asIso.hom.app X) x)
+          change ((c * α g).asIso.hom.app X) x = ((β g * c).asIso.hom.app X) x
           rw [h g]
           simp only [mul_assoc, inv_mul_cancel, mul_one])))
       (fun {X Y} f => by
         ext : 2
-        exact c.hom.naturality f)
+        exact c.asIso.hom.naturality f)
   exact
     (Functor.associator (functorToContAction F) (ContAction.res FintypeCat α)
       (functorToContAction F').asEquivalence.inverse).symm ≪≫
@@ -96,7 +96,7 @@ theorem nonempty_functorIso_iff_conjugate
     let tα := comparisonIsoOfContinuousHom F F' α
     let tβ := comparisonIsoOfContinuousHom F F' β
     let t := Functor.isoWhiskerRight a F' ≪≫ tβ
-    refine ⟨tα.symm ≪≫ t, ?_⟩
+    refine ⟨Aut.of (tα.symm ≪≫ t), ?_⟩
     intro g
     have ht : autHomOfCompIso (functorOfContinuousHom F F' α) t g = β g := by
       rw [autHomOfCompIso_transport]

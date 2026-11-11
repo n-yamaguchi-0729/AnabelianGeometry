@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeResidueAction
-import Mathlib.Algebra.Category.Grp.EpiMono
-import Mathlib.Topology.Algebra.MulAction
+module
+
+public import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeResidueAction
+public import Mathlib.Algebra.Category.Grp.EpiMono
+public import Mathlib.Topology.Algebra.MulAction
 
 /-!
 # The native residue epimorphism from an actual algebra object
@@ -17,6 +19,8 @@ object. Coefficient fixedness, fixed-element descent, and open stabilizers
 supply the actual compact residue-lift theorem. Its surjectivity proves a
 categorical epimorphism; none of these conclusions are input data.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -38,7 +42,7 @@ theorem nativeGroupMorphism_surjective_of_epi {D H : GrpCat.{v}}
     Function.Surjective f.hom'.toFun :=
   GrpCat.surjective_of_epi f
 
-private theorem coefficientFixed_smulCommClass
+theorem coefficientFixed_smulCommClass
     {A : Type u} [CommRing A] (R : CommAlgCat.{v} A)
     (G : Type v) [Group G] [MulSemiringAction G R]
     (hbase : ∀ g : G, (MulSemiringAction.toRingHom G R g).comp
@@ -69,7 +73,7 @@ private theorem fixedSet_continuousSMul
 def nativeAlgebraResidueBaseIdeal {A : Type u} [CommRing A]
     (R : CommAlgCat.{v} A) (q : Ideal R) : Ideal A := q.under A
 
-private theorem nativeAlgebraResidueBaseIdeal_liesOver
+theorem nativeAlgebraResidueBaseIdeal_liesOver
     {A : Type u} [CommRing A] (R : CommAlgCat.{v} A) (q : Ideal R) :
     q.LiesOver (nativeAlgebraResidueBaseIdeal R q) := by
   change q.LiesOver (q.under A)

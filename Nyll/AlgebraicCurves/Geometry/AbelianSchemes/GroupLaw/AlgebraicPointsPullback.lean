@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.AlgebraicPointsBaseChange
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.CanonicalModelFactorization
+module
+
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.AlgebraicPointsBaseChange
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.CanonicalModelFactorization
 
 /-!
 # Actual points over further coefficients of a group-model pullback
@@ -15,6 +17,10 @@ coefficient algebra. The forward map is the given projection, and it commutes
 with the original coefficient automorphisms.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry NeronModelInfra
@@ -23,26 +29,36 @@ open RelativeGroupLaw_exists_isPullback_comp_eq_mul_eq_of_isPullback_of_comp_eq.
 
 namespace GoodReductionJacobian.RelativeGroupLaw
 
-variable {R S : Type} [CommRing R] [CommRing S] [Algebra R S]
-  {X Y : Scheme} {f : X ⟶ Spec (.of R)} {g : Y ⟶ Spec (.of S)}
+variable {R S : Type u} [CommRing R] [CommRing S] [Algebra R S]
+  {X Y : Scheme.{u}} {f : X ⟶ Spec (.of R)} {g : Y ⟶ Spec (.of S)}
   (G : RelativeGroupLaw R f) (hc : G.IsCommutative)
   (J : RelativeGroupLaw S g) (hJ : J.IsCommutative)
   (π : Y ⟶ X)
   (hπ : IsPullback π g f (Spec.map (CommRingCat.ofHom (algebraMap R S))))
-  (hmul : ∀ (T : Scheme) (t : T ⟶ Spec (.of S)) (P Q : SchemeHomOver t g),
+
+include hπ in
+/-- Projection through the Cartesian square preserves the coefficient structure map. -/
+theorem pullbackPointProjection_over {T : Scheme.{u}} (t : T ⟶ Spec (.of S))
+    (P : SchemeHomOver t g) :
+    (P.val ≫ π) ≫ f = t ≫ Spec.map (CommRingCat.ofHom (algebraMap R S)) := by
+  rw [Category.assoc, hπ.w, ← Category.assoc, P.property]
+
+variable
+  (hmul : ∀ (T : Scheme.{u}) (t : T ⟶ Spec (.of S)) (P Q : SchemeHomOver t g),
     (J.mul t P Q).val ≫ π =
       (G.mul (t ≫ Spec.map (CommRingCat.ofHom (algebraMap R S)))
-        ⟨P.val ≫ π, by rw [Category.assoc, hπ.w, ← Category.assoc, P.property]⟩
-        ⟨Q.val ≫ π, by rw [Category.assoc, hπ.w, ← Category.assoc, Q.property]⟩).val)
-  (L : Type) [CommRing L] [Algebra S L] [Algebra R L] [IsScalarTower R S L]
+        ⟨P.val ≫ π, pullbackPointProjection_over π hπ t P⟩
+        ⟨Q.val ≫ π, pullbackPointProjection_over π hπ t Q⟩).val)
+  (L : Type u) [CommRing L] [Algebra S L] [Algebra R L] [IsScalarTower R S L]
 
-private theorem coefficient_square :
+theorem coefficient_square :
     Spec.algebraMap S L ≫ Spec.algebraMap R S = Spec.algebraMap R L := by
   change Spec.map (CommRingCat.ofHom (algebraMap S L)) ≫
     Spec.map (CommRingCat.ofHom (algebraMap R S)) = _
   rw [← Spec.map_comp, ← CommRingCat.ofHom_comp, ← IsScalarTower.algebraMap_eq R S L]
 
-private def pullbackPointEquiv :
+/-- The equivalence of coefficient-valued points induced by the given Cartesian square. -/
+def pullbackPointEquiv :
     SchemeHomOver (Spec.algebraMap S L) g ≃ SchemeHomOver (Spec.algebraMap R L) f where
   toFun P := ⟨P.val ≫ π, by
     rw [Category.assoc, hπ.w, ← Category.assoc, P.property, coefficient_square L]⟩

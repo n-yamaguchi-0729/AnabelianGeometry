@@ -10,13 +10,17 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
-import Nyll.AlgebraicCurves.FunctionFields.Extensions.CurveIffTranscendentalFiniteDimensional
-import Nyll.ValuedFieldTheory.Valuation.Subring.Discrete.IsPrincipalIdealRing
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
+public import Nyll.AlgebraicCurves.FunctionFields.Extensions.CurveIffTranscendentalFiniteDimensional
+public import Nyll.ValuedFieldTheory.Valuation.Subring.Discrete.IsPrincipalIdealRing
 
 /-!
 # Mem integral Closure iff forall place
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

@@ -4,16 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueCoefficient
-import Nyll.SchemeTheory.RingTheory.Ramification.MaximalQuotientResidueConjugate
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueEpi
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeResidueAction
-import Nyll.SchemeTheory.RingTheory.Ramification.MaximalQuotientResidueNaturality
-import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
-import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
-import Mathlib.RingTheory.Ideal.Quotient.Operations
+module
 
-import Mathlib.RingTheory.Ideal.Pointwise
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueCoefficient
+public import Nyll.SchemeTheory.RingTheory.Ramification.MaximalQuotientResidueConjugate
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueEpi
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeResidueAction
+public import Nyll.SchemeTheory.RingTheory.Ramification.MaximalQuotientResidueNaturality
+public import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
+public import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
+public import Mathlib.RingTheory.Ideal.Quotient.Operations
+
+public import Mathlib.RingTheory.Ideal.Pointwise
 
 /-!
 # Algebra residue morphisms and localization
@@ -22,6 +24,8 @@ Identifies the algebra residue morphism with the quotient automorphism of its co
 action. The canonical maximal-quotient equivalence then relates it to the localization residue
 map.
 -/
+
+@[expose] public section
 
 noncomputable section
 

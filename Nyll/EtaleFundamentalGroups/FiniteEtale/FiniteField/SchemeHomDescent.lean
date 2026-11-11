@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Mathlib.AlgebraicGeometry.AffineTransitionLimit
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldLimit
+module
+
+public import Mathlib.AlgebraicGeometry.AffineTransitionLimit
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldLimit
 
 /-!
 # Descent of scheme morphisms to a finite constant field
@@ -15,6 +17,8 @@ to a fixed locally finitely presented scheme descends to an actual finite
 intermediate field. The structure map and recovery equality use the native
 constant-field pullbacks.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.SubalgebraNormalizationTower
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.Algebra.Algebra.Tower
-import Mathlib.RingTheory.Flat.TorsionFree
-import Mathlib.RingTheory.RamificationInertia.Ramification
+module
+
+public import Nyll.SchemeTheory.Normalization.SubalgebraNormalizationTower
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.Algebra.Algebra.Tower
+public import Mathlib.RingTheory.Flat.TorsionFree
+public import Mathlib.RingTheory.RamificationInertia.Ramification
 
 /-!
 # Ramification indices in normalization towers
@@ -16,6 +18,8 @@ import Mathlib.RingTheory.RamificationInertia.Ramification
 Proves compatibility of the normalization tower map with base coefficients and multiplicativity
 of ramification indices for the resulting tower.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -50,14 +54,12 @@ theorem subalgebraNormalization_ramificationIdx_tower
     (P : Ideal (subalgebraNormalizationCommAlgCat S))
     (Q : Ideal (subalgebraNormalizationCommAlgCat T))
     (hPQ : P = Q.comap (subalgebraNormalizationTowerRingMap S T h)) :
-    letI : Algebra (subalgebraNormalizationCommAlgCat S)
+    let : Algebra (subalgebraNormalizationCommAlgCat S)
         (subalgebraNormalizationCommAlgCat T) :=
       (subalgebraNormalizationTowerRingMap S T h).toAlgebra
     Q.ramificationIdx A = P.ramificationIdx A *
       Q.ramificationIdx (subalgebraNormalizationCommAlgCat S) := by
-  let : Algebra (subalgebraNormalizationCommAlgCat S)
-      (subalgebraNormalizationCommAlgCat T) :=
-    (subalgebraNormalizationTowerRingMap S T h).toAlgebra
+  intro normalizationAlgebra
   have : IsScalarTower A (subalgebraNormalizationCommAlgCat S)
       (subalgebraNormalizationCommAlgCat T) :=
     IsScalarTower.of_algebraMap_eq'

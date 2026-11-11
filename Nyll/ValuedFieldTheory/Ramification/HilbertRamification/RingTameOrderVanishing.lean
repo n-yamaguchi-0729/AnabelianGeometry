@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingTameOrderRamification
-import Mathlib.RingTheory.DiscreteValuationRing.Basic
-import Mathlib.RingTheory.OrderOfVanishing.Noetherian
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingTameOrderRamification
+public import Mathlib.RingTheory.DiscreteValuationRing.Basic
+public import Mathlib.RingTheory.OrderOfVanishing.Noetherian
 
 /-!
 # Tame-order divisibility of vanishing orders
@@ -14,6 +16,8 @@ import Mathlib.RingTheory.OrderOfVanishing.Noetherian
 Proves that the tame order divides the length-based order of vanishing of every nonzero fixed
 element in a discrete valuation ring.
 -/
+
+@[expose] public section
 
 namespace RamificationTheory.HilbertRamification.DiscreteValuationRing
 

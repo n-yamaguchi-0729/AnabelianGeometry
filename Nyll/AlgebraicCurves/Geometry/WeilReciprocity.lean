@@ -10,20 +10,24 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Nyll.AlgebraicCurves.Divisors.Maps.Maps
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncWeilReciprocity
-import Nyll.AlgebraicCurves.FunctionFields.NormTrace.WeilReciprocityAlgebraMap
-import Nyll.AlgebraicCurves.FunctionFields.Rational.FunctionFieldFiniteRatFuncAlgHom
-import Nyll.AlgebraicCurves.FunctionFields.Rational.FunctionFieldRatFuncAlgHomApplyXEq
-import Nyll.AlgebraicCurves.Places.Degree.IsRationalAlgClosed
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncDegEqOneAlgClosed
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncHasPrincipalDivisors
-import Nyll.AlgebraicCurves.Places.Basic
+module
+
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.AlgebraicCurves.Divisors.Maps.Maps
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncWeilReciprocity
+public import Nyll.AlgebraicCurves.FunctionFields.NormTrace.WeilReciprocityAlgebraMap
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.FunctionFieldFiniteRatFuncAlgHom
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.FunctionFieldRatFuncAlgHomApplyXEq
+public import Nyll.AlgebraicCurves.Places.Degree.IsRationalAlgClosed
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncDegEqOneAlgClosed
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncHasPrincipalDivisors
+public import Nyll.AlgebraicCurves.Places.Basic
 
 /-!
 # Weil Reciprocity
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

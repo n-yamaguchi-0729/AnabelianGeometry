@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.ScalarRestrictionGroupMap
-import Mathlib.FieldTheory.Galois.GaloisClosure
-import Mathlib.FieldTheory.Normal.Defs
-import Mathlib.Algebra.Category.Grp.Basic
+module
+
+public import Nyll.SchemeTheory.Normalization.ScalarRestrictionGroupMap
+public import Mathlib.FieldTheory.Galois.GaloisClosure
+public import Mathlib.FieldTheory.Normal.Defs
+public import Mathlib.Algebra.Category.Grp.Basic
 
 /-!
 # Restriction to finite Galois group objects
@@ -15,6 +17,8 @@ import Mathlib.Algebra.Category.Grp.Basic
 Defines the Galois group object of a finite intermediate field and the restriction homomorphism
 from the ambient Galois group.
 -/
+
+@[expose] public section
 
 noncomputable section
 

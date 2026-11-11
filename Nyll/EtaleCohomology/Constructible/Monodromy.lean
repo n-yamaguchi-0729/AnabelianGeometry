@@ -4,18 +4,20 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
-import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantEquivalence
-import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantSet
-import Nyll.EtaleFundamentalGroups.Pi1.FiniteEtale.GaloisCategory
-import Mathlib.AlgebraicGeometry.Sites.EtalePoint
-import Mathlib.CategoryTheory.Action.Continuous
-import Mathlib.CategoryTheory.Equivalence
-import Mathlib.CategoryTheory.Galois.Equivalence
-import Mathlib.CategoryTheory.ObjectProperty.FullSubcategory
-import Mathlib.CategoryTheory.Sites.Point.Basic
-import Mathlib.CategoryTheory.Whiskering
-import Mathlib.Topology.Category.FinTopCat
+module
+
+public import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
+public import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantEquivalence
+public import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantSet
+public import Nyll.EtaleFundamentalGroups.Pi1.FiniteEtale.GaloisCategory
+public import Mathlib.AlgebraicGeometry.Sites.EtalePoint
+public import Mathlib.CategoryTheory.Action.Continuous
+public import Mathlib.CategoryTheory.Equivalence
+public import Mathlib.CategoryTheory.Galois.Equivalence
+public import Mathlib.CategoryTheory.ObjectProperty.FullSubcategory
+public import Mathlib.CategoryTheory.Sites.Point.Basic
+public import Mathlib.CategoryTheory.Whiskering
+public import Mathlib.Topology.Category.FinTopCat
 
 /-!
 # Monodromy of finite locally constant étale sheaves
@@ -31,6 +33,8 @@ fiber comparison by `finiteEtaleSheafFiberIso`. The comparison below also uses
 the counit of the constructed finite étale representability equivalence, so it
 applies to every finite locally constant sheaf, not only a represented input.
 -/
+
+@[expose] public section
 
 noncomputable section
 

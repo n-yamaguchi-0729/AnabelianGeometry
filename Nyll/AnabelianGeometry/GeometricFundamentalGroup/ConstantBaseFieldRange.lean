@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.ConstantExtension.BaseTower
-import Nyll.AlgebraicCurves.Models.ConstantExtension.BaseGeneration
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Defs
+module
+
+public import Nyll.AlgebraicCurves.Models.ConstantExtension.BaseTower
+public import Nyll.AlgebraicCurves.Models.ConstantExtension.BaseGeneration
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Defs
 
 /-! # The image of an actual constant base change
 
@@ -16,6 +18,10 @@ constants and the original function field; this is proved from the actual
 projection maps and the generation theorem for base change.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve
@@ -23,14 +29,14 @@ open AlgebraicGeometry.SmoothProperCurve
 
 namespace AnabelianGeometry.GeometricFundamentalGroup
 
-variable {k Ω F : Type} [Field k] [Field Ω] [Algebra k Ω]
+variable {k Ω F : Type u} [Field k] [Field Ω] [Algebra k Ω]
     [Field F] [Algebra Ω F]
-    (M : CurveModel Ω F) {C : Scheme} [IsIntegral C]
+    (M : CurveModel Ω F) {C : Scheme.{u}} [IsIntegral C]
     (c : C ⟶ Spec (CommRingCat.of k)) [IsProper c]
     [SmoothOfRelativeDimension 1 c] [GeometricallyIntegral c]
     (e : M.C ≅ pullback c (specMap k Ω))
     (he : e.hom ≫ pullback.snd c (specMap k Ω) = M.toBase)
-    (E : Type) [Field E] [Algebra k E] [Algebra E Ω] [IsScalarTower k E Ω]
+    (E : Type u) [Field E] [Algebra k E] [Algebra E Ω] [IsScalarTower k E Ω]
     [Algebra E F] [IsScalarTower E Ω F]
 
 local notation "CE" => pullback c (specMap k E)
@@ -76,7 +82,7 @@ theorem constantTowerFieldEmbedding_fieldRange :
         (Set.range (ME.constantBaseEmbedding c (Iso.refl _))) := by
       rw [hgen]
       exact IntermediateField.mem_top
-    refine IntermediateField.adjoin_induction E (p := fun x _ => j x ∈ A ⊔ B)
+    refine IntermediateField.adjoin_induction E (motive := fun x _ => j x ∈ A ⊔ B)
       ?_ ?_ ?_ ?_ ?_ hx
     · rintro _ ⟨a, rfl⟩
       rw [hj]

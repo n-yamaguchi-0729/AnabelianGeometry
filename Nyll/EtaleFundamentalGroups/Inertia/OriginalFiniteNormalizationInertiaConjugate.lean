@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.NativeIdealInertiaConjugate
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Nyll.SchemeTheory.RingTheory.Ramification.NormalizationResidueSequence
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeIdealInertiaConjugate
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Nyll.SchemeTheory.RingTheory.Ramification.NormalizationResidueSequence
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
 
 /-!
 # Conjugation of original finite-field inertia
@@ -16,6 +18,8 @@ import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
 Defines the original finite-field inertia conjugate and identifies its underlying element with
 the original field-automorphism expression.
 -/
+
+@[expose] public section
 
 noncomputable section
 

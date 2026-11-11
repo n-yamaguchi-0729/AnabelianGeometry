@@ -3,13 +3,17 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.SchemeTheory.ProjectiveSpace.RationalPunctureCoordinateChange
-import Nyll.SchemeTheory.ProjectiveSpace.Normalization
-import Nyll.SchemeTheory.ProjectiveSpace.CrossRatioSeparation
-import Mathlib.Tactic.FinCases
-import Mathlib.Tactic.Ring
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.RationalPunctureCoordinateChange
+public import Nyll.SchemeTheory.ProjectiveSpace.Normalization
+public import Nyll.SchemeTheory.ProjectiveSpace.CrossRatioSeparation
+public import Mathlib.Tactic.FinCases
+public import Mathlib.Tactic.Ring
 
 /-! # Injectivity of the actual rational projective point map -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry MvPolynomial

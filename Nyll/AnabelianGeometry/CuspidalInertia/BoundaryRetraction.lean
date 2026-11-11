@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryModule
-import Mathlib.LinearAlgebra.Quotient.Basic
-import Mathlib.Tactic.Ring
+module
+
+public import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryModule
+public import Mathlib.LinearAlgebra.Quotient.Basic
+public import Mathlib.Tactic.Ring
 
 /-!
 # Integral retractions of boundary coordinates
@@ -15,6 +17,8 @@ Differences of coordinate evaluations vanish on the diagonal relation and
 therefore descend to the reduced boundary module. They recover a boundary
 coefficient integrally, without division by the number of punctures.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.CuspidalInertia
 

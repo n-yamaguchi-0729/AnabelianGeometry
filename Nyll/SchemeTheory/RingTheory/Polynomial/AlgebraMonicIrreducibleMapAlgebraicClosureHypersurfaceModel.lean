@@ -10,17 +10,21 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.RingTheory.MvPolynomial.Localization
-import Mathlib.Algebra.GCDMonoid.IntegrallyClosed
-import Mathlib.FieldTheory.Minpoly.IsIntegrallyClosed
-import Mathlib.RingTheory.Discriminant
-import Nyll.SchemeTheory.RingTheory.AlgebraNeZeroAlgebraicIndependentIsIntegralPowSmul
-import Nyll.SchemeTheory.RingTheory.Polynomial.PolynomialIrreducibleMapMapAlgebraicClosure
+module
+
+public import Mathlib.RingTheory.MvPolynomial.Localization
+public import Mathlib.Algebra.GCDMonoid.IntegrallyClosed
+public import Mathlib.FieldTheory.Minpoly.IsIntegrallyClosed
+public import Mathlib.RingTheory.Discriminant
+public import Nyll.SchemeTheory.RingTheory.AlgebraNeZeroAlgebraicIndependentIsIntegralPowSmul
+public import Nyll.SchemeTheory.RingTheory.Polynomial.PolynomialIrreducibleMapMapAlgebraicClosure
 
 /-!
 # Algebra exists monic irreducible map algebraic Closure hypersurface Model of forall is
 Separable
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

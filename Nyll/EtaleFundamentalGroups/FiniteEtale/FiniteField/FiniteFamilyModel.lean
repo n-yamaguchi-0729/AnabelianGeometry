@@ -3,9 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.AffineSchemeModel
-import Mathlib.CategoryTheory.MorphismProperty.OverAdjunction
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.AffineSchemeModel
+public import Mathlib.CategoryTheory.MorphismProperty.OverAdjunction
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
 
 /-!
 # Finite Family Model
@@ -13,6 +16,8 @@ import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
 The canonical finite étale comparison for two successive pullbacks,
 with the composite map and category explicitly fixed.
 -/
+
+@[expose] public section
 
 noncomputable section
 universe u

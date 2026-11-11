@@ -10,15 +10,19 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.FunctionField
-import Mathlib.AlgebraicGeometry.Morphisms.Finite
+module
 
-import Nyll.SchemeTheory.RingTheory.IntegralClosure.IntegralHeights
-import Nyll.SchemeTheory.RingTheory.AlgHomInjectiveFinite
+public import Mathlib.AlgebraicGeometry.FunctionField
+public import Mathlib.AlgebraicGeometry.Morphisms.Finite
+
+public import Nyll.SchemeTheory.RingTheory.IntegralClosure.IntegralHeights
+public import Nyll.SchemeTheory.RingTheory.AlgHomInjectiveFinite
 
 /-!
 # ring Krull Dim stalk eq of is Finite endomorphism
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Places.Ramification.GaloisPlaceFiber
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteNormalizationInertiaImage
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationPlaceDoubleCoset
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationPrimeContractionEquivariance
+module
+
+public import Nyll.AlgebraicCurves.Places.Ramification.GaloisPlaceFiber
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteNormalizationInertiaImage
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationPlaceDoubleCoset
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationPrimeContractionEquivariance
 
 /-!
 # Actual extending places and double cosets of normalization inertia
@@ -15,6 +17,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.NormalizationPrimeContractionEquivari
 The literal contracted prime selects the extending place. The supplied
 finite quotient must agree with restriction on the same absolute field.
 -/
+
+@[expose] public section
 
 noncomputable section
 

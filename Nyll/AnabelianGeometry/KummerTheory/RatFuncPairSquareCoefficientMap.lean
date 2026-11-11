@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationFiniteExtensionCoordinate
-import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairSquareMap
+module
+
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationFiniteExtensionCoordinate
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.RatFuncPairSquareMap
 
 /-! # The same pair-square map commutes with the original coefficient extension
 
@@ -12,6 +14,8 @@ The square substitution and the already compatible pair coordinates determine
 the full field square. Conjugating by the literal projective model's field
 identifications gives the corresponding square of actual function-field maps.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve

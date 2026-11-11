@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.PrincipalUnitActionComparison
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.ValuationSubring
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.PrincipalUnitActionComparison
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.ValuationSubring
 
 /-!
 # The ring-character wild predicate is actual Hilbert ramification
@@ -14,6 +16,8 @@ This consumer uses the native decomposition action on the actual valuation
 subring. Both individual ring maps in the sparse comparison are supplied
 by that action; their coefficient compatibility is definitional.
 -/
+
+@[expose] public section
 
 noncomputable section
 

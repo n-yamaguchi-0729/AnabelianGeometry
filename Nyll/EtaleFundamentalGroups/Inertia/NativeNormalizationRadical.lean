@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
-import Mathlib.RingTheory.IntegralClosure.IsIntegral.Basic
+module
+
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Nyll.SchemeTheory.CategoryTheory.CommAlgRingMap
+public import Mathlib.RingTheory.IntegralClosure.IsIntegral.Basic
 
 /-!
 # Ambient integral radicals in the actual native subalgebra normalization
@@ -16,6 +18,8 @@ integrality construct the actual normalization element. Its power equation
 is inherited through the two subtype inclusions. No fraction-field tower
 or chosen absolute prime is opened in this owner.
 -/
+
+@[expose] public section
 
 noncomputable section
 

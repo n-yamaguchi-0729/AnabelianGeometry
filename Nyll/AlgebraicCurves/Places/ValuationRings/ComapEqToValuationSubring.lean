@@ -10,13 +10,17 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.RingTheory.DedekindDomain.IntegralClosure
-import Mathlib.RingTheory.Ideal.GoingUp
-import Nyll.AlgebraicCurves.Places.Basic
+module
+
+public import Mathlib.RingTheory.DedekindDomain.IntegralClosure
+public import Mathlib.RingTheory.Ideal.GoingUp
+public import Nyll.AlgebraicCurves.Places.Basic
 
 /-!
 # Place exists comap eq to Valuation Subring
 -/
+
+@[expose] public section
 
 open IsDedekindDomain WithZero IsLocalRing AlgebraicCurve
 

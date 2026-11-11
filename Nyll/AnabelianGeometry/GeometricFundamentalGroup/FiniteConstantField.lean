@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
-import Mathlib.FieldTheory.Galois.GaloisClosure
+module
+
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+public import Mathlib.FieldTheory.Galois.GaloisClosure
 
 /-! # Finite fields of constants for specified rational functions
 
@@ -14,6 +16,8 @@ only finitely many constants. Taking their normal closure gives a common
 finite Galois field. The assertion keeps the original functions inside the
 original ambient field, rather than replacing them by abstract copies.
 -/
+
+@[expose] public section
 
 noncomputable section
 

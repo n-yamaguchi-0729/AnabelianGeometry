@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.TorsionCoefficientExtension
-import Mathlib.FieldTheory.Normal.Defs
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.TorsionCoefficientExtension
+public import Mathlib.FieldTheory.Normal.Defs
 
 /-!
 # Actual normal restriction and torsion coefficient extension
@@ -14,6 +16,8 @@ The same automorphism on the larger coefficient field restricts normally
 to the smaller field. The original coefficient maps intertwine these
 actual actions at each torsion level and on the full Tate family.
 -/
+
+@[expose] public section
 
 noncomputable section
 

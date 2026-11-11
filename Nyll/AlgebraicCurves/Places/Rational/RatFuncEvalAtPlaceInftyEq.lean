@@ -10,16 +10,20 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
-import Nyll.AlgebraicCurves.Places.Basic
-import Nyll.AlgebraicCurves.Places.Evaluation.EvalAtCongr
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Mathlib.Tactic.Ring
-import Lean.Elab.Tactic.Omega
+module
+
+public import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
+public import Nyll.AlgebraicCurves.Places.Basic
+public import Nyll.AlgebraicCurves.Places.Evaluation.EvalAtCongr
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Mathlib.Tactic.Ring
+public import Lean.Elab.Tactic.Omega
 
 /-!
 # Evaluation at infinity from negative degree
 -/
+
+@[expose] public section
 
 open Polynomial AlgebraicCurve AlgebraicCurve.RationalFunctionField
 

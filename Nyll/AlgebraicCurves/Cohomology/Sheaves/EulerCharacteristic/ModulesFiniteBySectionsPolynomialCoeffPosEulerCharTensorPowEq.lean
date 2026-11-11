@@ -10,31 +10,35 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Analysis.Polynomial.Basic
-import Mathlib.Algebra.Group.Pi.Lemmas
-import Mathlib.Analysis.Normed.Field.Lemmas
-import Mathlib.Order.Filter.AtTopBot.Archimedean
-import Nyll.SchemeTheory.Modules.Tensor.Monoidal
-import Nyll.SchemeTheory.Modules.Tensor.TensorPowers
-import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
-import Nyll.SchemeTheory.Modules.ProjectivePresentation.ProjectivePresentation
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.OModulePresheafEulerChar
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
-import Nyll.SchemeTheory.ProjectiveSpace.Cover
-import Nyll.AlgebraicCurves.Geometry.Projective.ProjTwistDatum
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.SheafEulerPolynomialTensorTensorPowEq
-import Nyll.AlgebraicCurves.Geometry.Projective.ProjSpaceSubsingletonHSuccTwist
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Projective.ProjPresentationLinearMapSectionsTensorPowTwistObj
-import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.EquivModulesQuasicoherent
-import Nyll.AlgebraicCurves.Cohomology.Cech.ProjectiveSpace.ModulesProjPresentationMulPowLeCechFinrankZeroTensorPow
-import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.EquivModulesIso
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleTensor
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.CoherentModules
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.QuasicoherentModules
+module
+
+public import Mathlib.Analysis.Polynomial.Basic
+public import Mathlib.Algebra.Group.Pi.Lemmas
+public import Mathlib.Analysis.Normed.Field.Lemmas
+public import Mathlib.Order.Filter.AtTopBot.Archimedean
+public import Nyll.SchemeTheory.Modules.Tensor.Monoidal
+public import Nyll.SchemeTheory.Modules.Tensor.TensorPowers
+public import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
+public import Nyll.SchemeTheory.Modules.ProjectivePresentation.ProjectivePresentation
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.OModulePresheafEulerChar
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
+public import Nyll.SchemeTheory.ProjectiveSpace.Cover
+public import Nyll.AlgebraicCurves.Geometry.Projective.ProjTwistDatum
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.SheafEulerPolynomialTensorTensorPowEq
+public import Nyll.AlgebraicCurves.Geometry.Projective.ProjSpaceSubsingletonHSuccTwist
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Projective.ProjPresentationLinearMapSectionsTensorPowTwistObj
+public import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.EquivModulesQuasicoherent
+public import Nyll.AlgebraicCurves.Cohomology.Cech.ProjectiveSpace.ModulesProjPresentationMulPowLeCechFinrankZeroTensorPow
+public import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.EquivModulesIso
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleTensor
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.CoherentModules
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.QuasicoherentModules
 
 /-!
 # Hilbert polynomials with positive leading coefficient from finite presentations by sections
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -200,9 +204,8 @@ theorem supportedIn_top (M : X.Modules) : (OModulePresheaf.ofModules f M).Suppor
   exact Module.subsingleton Γ(X, (V : X.Opens)) _
 
 theorem isInvertible_tensorPow {𝓛 : X.Modules} (h𝓛 : Scheme.Modules.IsInvertible 𝓛) :
-    ∀ n : ℕ, Scheme.Modules.IsInvertible (𝓛.tensorPow n)
-  | 0 => Scheme.Modules.isInvertible_unit X
-  | n + 1 => (isInvertible_tensorPow h𝓛 n).tensor h𝓛
+    ∀ n : ℕ, Scheme.Modules.IsInvertible (𝓛.tensorPow n) :=
+  fun n => Scheme.Modules.IsInvertible.tensorPow h𝓛 n
 
 end Chi
 

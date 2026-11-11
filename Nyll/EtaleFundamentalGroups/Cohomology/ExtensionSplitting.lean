@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.H1Extensions
-import Mathlib.Algebra.Homology.DerivedCategory.Ext.ExactSequences
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1Extensions
+public import Mathlib.Algebra.Homology.DerivedCategory.Ext.ExactSequences
 
 /-!
 # The zero extension class and splitting
@@ -14,6 +16,8 @@ The actual connecting class of a short exact sequence vanishes precisely
 when the quotient map has a section. This is the exact-sequence criterion
 used to detect trivial degree-one cohomology classes.
 -/
+
+@[expose] public section
 
 noncomputable section
 

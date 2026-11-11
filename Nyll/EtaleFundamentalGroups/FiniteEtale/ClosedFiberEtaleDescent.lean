@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperSectionsEtaleFieldDescent
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperSectionsEtaleFieldDescent
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
 
 /-!
 # The étale closed-fibre algebra of an actual local model
@@ -15,6 +17,8 @@ are related by the native residue-field extension. Geometric reducedness
 of the original family therefore supplies the étale section algebra of
 the model's closed fibre, without a condition on its other fibres.
 -/
+
+@[expose] public section
 
 noncomputable section
 

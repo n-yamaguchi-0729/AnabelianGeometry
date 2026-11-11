@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameScalarEvaluation
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameCharacter
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameScalarEvaluation
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameCharacter
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
 
 /-!
 # Scalar evaluation of tame character composites
@@ -14,6 +16,8 @@ import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityField
 Evaluates a precomposed canonical tame character followed by a residue ring map. Supplies the
 corresponding local coefficient map and a uniformizer-ratio witness.
 -/
+
+@[expose] public section
 
 noncomputable section
 

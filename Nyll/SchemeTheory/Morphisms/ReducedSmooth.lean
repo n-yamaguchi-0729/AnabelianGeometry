@@ -10,12 +10,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.RingTheory.Smooth.SmoothReduced
-import Mathlib.AlgebraicGeometry.Morphisms.Smooth
+module
+
+public import Nyll.SchemeTheory.RingTheory.Smooth.SmoothReduced
+public import Mathlib.AlgebraicGeometry.Morphisms.Smooth
 
 /-!
 # is Reduced of smooth of field
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

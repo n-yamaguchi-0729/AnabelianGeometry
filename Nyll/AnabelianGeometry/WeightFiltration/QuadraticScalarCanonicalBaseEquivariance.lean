@@ -3,9 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.QuadraticScalarFiniteBaseEquivariance
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ConstantFieldInclusionFiberPoint
-import Nyll.EtaleFundamentalGroups.GeometricFiber.EquivariantFiberCoverIso
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.QuadraticScalarFiniteBaseEquivariance
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ConstantFieldInclusionFiberPoint
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.EquivariantFiberCoverIso
+public import Nyll.GaloisCohomology.Kummer.Concrete.RootCharacters
 
 /-! # The same radical and fibre map at the canonical finite-base point
 
@@ -15,6 +18,8 @@ radical β already occurring in the original displacement. The unchanged e and
 x₀ therefore give an actual isomorphism of the same pulled-back named covers.
 No new scalar, root, fibre map, or equality of characters is assumed.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicGeometry.FiniteEtale
 open CategoryTheory.PreGaloisCategory EtaleFundamentalGroups
@@ -39,37 +44,6 @@ local instance canonicalQuadraticCoverIsoStableUnderBaseChangeAlong
       (@IsFiniteEtale : MorphismProperty Scheme) f :=
   ⟨fun h hf ↦ MorphismProperty.of_isPullback
     (P := (@IsFiniteEtale : MorphismProperty Scheme)) h hf⟩
-
-/-- The semilinear torsor calculation is reused from
-`QuadraticScalarFiniteBaseEquivariance`, with the original displacement point. -/
-private theorem canonical_equivariant_of_semilinear_displacement_eq_one
-    {P A X Y : Type*} [Group P] [Group A]
-    [Torsor A X] [Torsor A Y] [MulAction P X] [MulAction P Y]
-    (p : P) (φ : A → A)
-    (hX : ∀ (a : A) (x : X), p • (a • x) = φ a • (p • x))
-    (hY : ∀ (a : A) (y : Y), p • (a • y) = φ a • (p • y))
-    (e : X ≃ Y) (he : ∀ (a : A) (x : X), e (a • x) = a • e x)
-    (x₀ : X) (hd : ((p • e (p⁻¹ • x₀)) /ₛ e x₀ : A) = 1) :
-    ∀ x, e (p • x) = p • e x := by
-  have he₀ : p • e (p⁻¹ • x₀) = e x₀ := by
-    calc
-      _ = ((p • e (p⁻¹ • x₀)) /ₛ e x₀ : A) • e x₀ :=
-        (sdiv_smul _ _).symm
-      _ = _ := by rw [hd, one_smul]
-  intro x
-  let a : A := x /ₛ (p⁻¹ • x₀)
-  have hx : a • (p⁻¹ • x₀) = x := sdiv_smul _ _
-  calc
-    e (p • x) = e (p • (a • (p⁻¹ • x₀))) :=
-      congrArg (fun z : X => e (p • z)) hx.symm
-    _ = e (φ a • x₀) := by rw [hX, smul_inv_smul]
-    _ = φ a • e x₀ := he _ _
-    _ = φ a • (p • e (p⁻¹ • x₀)) :=
-      congrArg (fun z : Y => φ a • z) he₀.symm
-    _ = p • (a • e (p⁻¹ • x₀)) := (hY a _).symm
-    _ = p • e (a • (p⁻¹ • x₀)) :=
-      congrArg (fun z : Y => p • z) (he a _).symm
-    _ = p • e x := congrArg (fun z : X => p • e z) hx
 
 variable (k κ : Type) [Field k] [Field κ] [Algebra k κ]
   [IsSepClosure k κ] [IsSepClosed κ]
@@ -130,7 +104,7 @@ theorem quadraticScalar_originalEquiv_actual_canonicalBase :
   have hd : ((p • e (p⁻¹ • x₀)) /ₛ e x₀ : rootsOfUnity 2 κ) = 1 := by
     apply Subtype.ext
     exact (hdisp p).symm.trans hr
-  exact canonical_equivariant_of_semilinear_displacement_eq_one p
+  exact equivariant_of_semilinear_displacement_eq_one p
     (restrictRootsOfUnity (arithmeticFundamentalGroupHom k κ f xi p).toRingHom 2)
     (h₁ p) (h₂ p) e heμ x₀ hd x
 

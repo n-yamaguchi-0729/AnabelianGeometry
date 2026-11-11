@@ -3,13 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Mathlib.Data.Finset.Union
-import Mathlib.AlgebraicGeometry.Morphisms.FlatDescent
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Basic
-import Mathlib.AlgebraicGeometry.Morphisms.QuasiCompact
-import Mathlib.AlgebraicGeometry.Morphisms.QuasiSeparated
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.SchemeHomDescent
-import Mathlib.Data.Fintype.EquivFin
+module
+
+public import Mathlib.Data.Finset.Union
+public import Mathlib.AlgebraicGeometry.Morphisms.FlatDescent
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Basic
+public import Mathlib.AlgebraicGeometry.Morphisms.QuasiCompact
+public import Mathlib.AlgebraicGeometry.Morphisms.QuasiSeparated
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.SchemeHomDescent
+public import Mathlib.Data.Fintype.EquivFin
 
 /-!
 # Scheme Pair Descent
@@ -18,6 +20,8 @@ A morphism from a qcqs constant extension to a locally finitely presented
 constant extension descends to one finite coefficient field, with both structure
 maps and recovery preserved.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory Limits Opposite AlgebraicGeometry

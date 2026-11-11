@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteGaloisRestrictionGroupMap
-import Nyll.SchemeTheory.Normalization.ScalarRestrictionGroupMap
-import Mathlib.FieldTheory.KrullTopology
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteGaloisRestrictionGroupMap
+public import Nyll.SchemeTheory.Normalization.ScalarRestrictionGroupMap
+public import Mathlib.FieldTheory.KrullTopology
 
 /-!
 # Original Krull topology on native Galois group owners
@@ -15,6 +17,8 @@ The native group objects retain exactly Mathlib's original Krull topology.
 The finite native owner inherits its already proved discrete Krull topology.
 No normalization ring or inertia subgroup is opened in this field-only scope.
 -/
+
+@[expose] public section
 
 noncomputable section
 

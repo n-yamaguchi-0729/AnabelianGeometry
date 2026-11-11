@@ -10,35 +10,39 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.FieldTheory.RatFunc.AsPolynomial
-import Mathlib.FieldTheory.RatFunc.Degree
-import Mathlib.NumberTheory.RatFunc.Ostrowski
-import Mathlib.RingTheory.DedekindDomain.Factorization
-import Mathlib.FieldTheory.IsAlgClosed.Basic
-import Nyll.AlgebraicCurves.Places.Rational.Basic
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Nyll.AlgebraicCurves.Places.Rational.Infinity
-import Nyll.AlgebraicCurves.Places.Basic
-import Nyll.AlgebraicCurves.Places.ValuationRings.OrdEqNegLogValuationSubringEq
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncFiniteSetOfOrdNeZero
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncDegreeEqZeroEqOrd
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncHasPrincipalDivisors
-import Nyll.AlgebraicCurves.Places.Rational.FiniteOrder
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncSubsingletonSetOfNeOfHeightOneSpectrum
-import Nyll.AlgebraicCurves.Places.Evaluation.EvalAtCongr
-import Nyll.AlgebraicCurves.Divisors.Evaluation
+module
 
-import Nyll.AlgebraicCurves.Places.Rational.Classification
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncOrdXSubC
-import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncEvalAtPlaceOfPointAlgebraMap
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncEvalAtPlaceInftyEq
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncDegEqOneAlgClosed
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncAlgebraMapOrdEqZero
+public import Mathlib.FieldTheory.RatFunc.AsPolynomial
+public import Mathlib.FieldTheory.RatFunc.Degree
+public import Mathlib.NumberTheory.RatFunc.Ostrowski
+public import Mathlib.RingTheory.DedekindDomain.Factorization
+public import Mathlib.FieldTheory.IsAlgClosed.Basic
+public import Nyll.AlgebraicCurves.Places.Rational.Basic
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.AlgebraicCurves.Places.Rational.Infinity
+public import Nyll.AlgebraicCurves.Places.Basic
+public import Nyll.AlgebraicCurves.Places.ValuationRings.OrdEqNegLogValuationSubringEq
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncFiniteSetOfOrdNeZero
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncDegreeEqZeroEqOrd
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncHasPrincipalDivisors
+public import Nyll.AlgebraicCurves.Places.Rational.FiniteOrder
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncSubsingletonSetOfNeOfHeightOneSpectrum
+public import Nyll.AlgebraicCurves.Places.Evaluation.EvalAtCongr
+public import Nyll.AlgebraicCurves.Divisors.Evaluation
+
+public import Nyll.AlgebraicCurves.Places.Rational.Classification
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncOrdXSubC
+public import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncEvalAtPlaceOfPointAlgebraMap
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncEvalAtPlaceInftyEq
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncDegEqOneAlgClosed
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncAlgebraMapOrdEqZero
 
 /-!
 # Rational Function Field weil Reciprocity
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

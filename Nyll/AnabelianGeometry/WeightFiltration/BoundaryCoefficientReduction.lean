@@ -4,8 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteResidueSequence
-import Nyll.AnabelianGeometry.WeightFiltration.ResidueCoefficientReduction
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteResidueSequence
+public import Nyll.AnabelianGeometry.WeightFiltration.ResidueCoefficientReduction
+public import Nyll.EtaleFundamentalGroups.Cohomology.SchemePullback
+public import Nyll.JacobianVarieties.Kummer.BoundaryResidueCardinality
 
 /-!
 # Coefficient transitions on the finite residue sequence
@@ -13,6 +17,10 @@ import Nyll.AnabelianGeometry.WeightFiltration.ResidueCoefficientReduction
 The sum-zero boundary term admits the usual reduction maps. These commute
 with the actual coefficient maps on étale cohomology.
 -/
+
+@[expose] public section
+
+universe uGeom uField₁ uField₂
 
 noncomputable section
 
@@ -111,14 +119,14 @@ theorem boundaryResidueReduce_surjective {ι : Type*} [Fintype ι] {m n : ℕ+}
     exact isEmptyElim i
 
 /-- The genuine cohomological map induced by the power map on roots of unity. -/
-def finiteKummerH1Reduce {K : Type} [Field K] (X : Scheme) (m k : ℕ+) :
+def finiteKummerH1Reduce {K : Type uGeom} [Field K] (X : Scheme.{uGeom}) (m k : ℕ+) :
     FiniteKummerH1 K X (m * k) →+ FiniteKummerH1 K X m :=
-  Sheaf.H.map ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{0}).map
+  Sheaf.H.map ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{uGeom}).map
     (kummerCoefficientReduction K m k)) 1
 
 /-- Coefficient reduction commutes with geometric pullback. -/
-theorem finiteKummerH1Reduce_pullback {K : Type} [Field K]
-    {X Y : Scheme} (f : X ⟶ Y) (m k : ℕ+) (c : FiniteKummerH1 K Y (m * k)) :
+theorem finiteKummerH1Reduce_pullback {K : Type uGeom} [Field K]
+    {X Y : Scheme.{uGeom}} (f : X ⟶ Y) (m k : ℕ+) (c : FiniteKummerH1 K Y (m * k)) :
     finiteKummerH1Reduce X m k
         (EtaleFundamentalGroups.Cohomology.constantCohomologyPullback f
           (AddCommGrpCat.of (Additive (rootsOfUnity ((m * k : ℕ+) : ℕ) K))) 1 c) =
@@ -130,12 +138,12 @@ theorem finiteKummerH1Reduce_pullback {K : Type} [Field K]
 
 /-- The residue square commutes after restricting the target to sum-zero vectors. -/
 theorem finiteBoundaryResidue_coefficientReduction
-    {K F : Type} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
+    {K : Type uGeom} {F : Type uField₁} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
     [IsCurveOver K F] (M : CurveModel K F) (m k : ℕ+)
-    {X : Scheme} [IsIntegral X] [CompactSpace X]
+    {X : Scheme.{uGeom}} [IsIntegral X] [CompactSpace X]
     (j : X ⟶ M.C) [IsOpenImmersion j] (hj : DenseRange j)
     (hm : IsUnit ((m : ℕ) : K)) (hmk : IsUnit (((m * k : ℕ+) : ℕ) : K))
-    {Ω : Type} [Field Ω] [IsSepClosed Ω] (xi : Spec (.of Ω) ⟶ X)
+    {Ω : Type uGeom} [Field Ω] [IsSepClosed Ω] (xi : Spec (.of Ω) ⟶ X)
     [Fintype (M.openBoundaryPlaces j)] (c : FiniteKummerH1 K X (m * k)) :
     finiteBoundaryResidue M m j hj hm xi (finiteKummerH1Reduce X m k c) =
       boundaryResidueReduce (dvd_mul_right (m : ℕ) (k : ℕ))

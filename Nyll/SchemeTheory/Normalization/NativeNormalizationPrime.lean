@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.RingTheory.Ideal.GoingUp
-import Mathlib.RingTheory.LocalRing.MaximalIdeal.Basic
-import Mathlib.RingTheory.DiscreteValuationRing.Basic
+module
+
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.RingTheory.Ideal.GoingUp
+public import Mathlib.RingTheory.LocalRing.MaximalIdeal.Basic
+public import Mathlib.RingTheory.DiscreteValuationRing.Basic
 
 /-!
 # Prime contraction in subalgebra normalizations
@@ -15,6 +17,8 @@ import Mathlib.RingTheory.DiscreteValuationRing.Basic
 Proves faithfulness and lies-over properties for subalgebra normalizations. For faithful
 algebras over a discrete valuation ring, the contracted maximal prime is nonzero.
 -/
+
+@[expose] public section
 
 namespace SchemeTheory
 

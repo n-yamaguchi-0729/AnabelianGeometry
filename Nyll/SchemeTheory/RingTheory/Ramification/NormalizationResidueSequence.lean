@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueEpi
-import Nyll.SchemeTheory.RingTheory.Ramification.NormalizationGaloisInvariant
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
-import Mathlib.FieldTheory.Galois.Profinite
+module
+
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeAlgebraResidueEpi
+public import Nyll.SchemeTheory.RingTheory.Ramification.NormalizationGaloisInvariant
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
+public import Mathlib.FieldTheory.Galois.Profinite
 
 /-!
 # The actual normalization residue sequence
@@ -20,6 +22,8 @@ Normality supplies coefficient descent and the Krull topology supplies the
 open stabilizers; the compact residue construction proves surjectivity.
 The kernel included into the original Galois group is exactly inertia.
 -/
+
+@[expose] public section
 
 noncomputable section
 

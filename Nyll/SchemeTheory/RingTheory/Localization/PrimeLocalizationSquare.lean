@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.Localization.AtPrime.Basic
-import Mathlib.Algebra.Ring.Hom.Defs
+module
+
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
+public import Mathlib.Algebra.Ring.Hom.Defs
 
 /-!
 # Commuting squares after prime localization
@@ -13,6 +15,8 @@ import Mathlib.Algebra.Ring.Hom.Defs
 Proves that a commuting square of ring maps induces a commuting square on prime localizations
 when the relevant primes are preserved.
 -/
+
+@[expose] public section
 
 namespace SchemeTheory
 

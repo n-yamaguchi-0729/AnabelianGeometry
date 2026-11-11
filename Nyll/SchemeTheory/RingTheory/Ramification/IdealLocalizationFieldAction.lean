@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.IdealLocalizationValuationEquiv
-import Mathlib.RingTheory.Localization.AtPrime.Basic
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.IdealLocalizationValuationEquiv
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
 
 /-!
 # Field compatibility of prime-localization automorphisms
@@ -13,6 +15,8 @@ import Mathlib.RingTheory.Localization.AtPrime.Basic
 Proves that a prime-localization automorphism, viewed through the canonical valuation-ring
 equivalence, agrees with a compatible ambient field action on coefficients.
 -/
+
+@[expose] public section
 
 noncomputable section
 

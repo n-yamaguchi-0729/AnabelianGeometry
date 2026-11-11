@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaLocalization
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaLocalization
 
 /-!
 # The ambient embedding of finite local normalizations
@@ -12,6 +14,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaLocalization
 The literal finite-normalization inclusion extends to its prime localization.
 It intertwines the actual localized inertia action with the original field action.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -37,6 +37,11 @@ variable {X Y W : Scheme.{u}} (f : Y ⟶ X) (p : W ⟶ Y)
   (a : pullback f (p ≫ f) ⟶ W)
   (ha : a ≫ p = pullback.fst f (p ≫ f))
 
+include ha in
+/-- An action over the cover is compatible with its composite map to the base. -/
+lemma pullbackAction_base : a ≫ (p ≫ f) = pullback.fst f (p ≫ f) ≫ f := by
+  rw [← Category.assoc, ha]
+
 /-- Exchange the cover coordinates and act on the scheme coordinate. -/
 def pullbackActionFlip : pullback f (p ≫ f) ⟶ pullback f (p ≫ f) :=
   pullback.lift (pullback.snd f (p ≫ f) ≫ p) a (by
@@ -52,7 +57,7 @@ private lemma pullbackActionFlip_snd : pullbackActionFlip f p a ha ≫ pullback.
 variable
   (hunit : pullback.lift (f := f) (g := p ≫ f) p (𝟙 W)
     (Category.id_comp (p ≫ f)).symm ≫ a = 𝟙 W)
-  (hassoc : pullbackActionStep f (p ≫ f) a (by rw [← Category.assoc, ha]) ≫ a =
+  (hassoc : pullbackActionStep f (p ≫ f) a (pullbackAction_base f p a ha) ≫ a =
     pullbackSkipMiddle f (p ≫ f) ≫ a)
 
 include hunit hassoc
@@ -64,7 +69,7 @@ private lemma pullbackActionFlip_action :
   let t : pullback f (p ≫ f) ⟶ pullback f (pullback.fst f (p ≫ f) ≫ f) :=
     pullback.lift (pullback.snd f (p ≫ f) ≫ p) (𝟙 _) (by
       rw [Category.id_comp, Category.assoc, pullback.condition])
-  have htStep : t ≫ pullbackActionStep f (p ≫ f) a (by rw [← Category.assoc, ha]) =
+  have htStep : t ≫ pullbackActionStep f (p ≫ f) a (pullbackAction_base f p a ha) =
       pullbackActionFlip f p a ha := by
     apply pullback.hom_ext
     · simp only [Category.assoc, pullbackActionStep, pullback.lift_fst, t,
@@ -78,7 +83,7 @@ private lemma pullbackActionFlip_action :
         pullback.lift_snd_assoc, Category.id_comp, Category.comp_id]
   calc
     pullbackActionFlip f p a ha ≫ a =
-        t ≫ (pullbackActionStep f (p ≫ f) a (by rw [← Category.assoc, ha]) ≫ a) := by
+        t ≫ (pullbackActionStep f (p ≫ f) a (pullbackAction_base f p a ha) ≫ a) := by
       rw [← Category.assoc, htStep]
     _ = t ≫ (pullbackSkipMiddle f (p ≫ f) ≫ a) := congrArg (t ≫ ·) hassoc
     _ = pullback.snd f (p ≫ f) ≫ (d ≫ a) := by rw [← Category.assoc, htSkip, Category.assoc]

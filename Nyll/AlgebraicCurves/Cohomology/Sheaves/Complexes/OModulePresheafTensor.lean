@@ -10,12 +10,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
-import Mathlib.LinearAlgebra.TensorProduct.Basic
+module
+
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
+public import Mathlib.LinearAlgebra.TensorProduct.Basic
 
 /-!
 # OModule Presheaf Tensor
 -/
+
+@[expose] public section
 
 noncomputable section
 

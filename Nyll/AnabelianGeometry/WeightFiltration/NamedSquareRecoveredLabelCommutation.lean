@@ -3,11 +3,15 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareChosenLabelInertia
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareInertiaNontriviality
-import Nyll.AnabelianGeometry.WeightFiltration.LiftedPunctureProjection
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareChosenLabelInertia
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareInertiaNontriviality
+public import Nyll.AnabelianGeometry.WeightFiltration.LiftedPunctureProjection
 
 /-! # Recovered label commutation for named square models -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve

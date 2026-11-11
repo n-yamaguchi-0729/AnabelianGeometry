@@ -10,13 +10,17 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.RingTheory.FiniteType
-import Mathlib.RingTheory.TensorProduct.DirectLimitFG
-import Mathlib.RingTheory.TensorProduct.Maps
+module
+
+public import Mathlib.RingTheory.FiniteType
+public import Mathlib.RingTheory.TensorProduct.DirectLimitFG
+public import Mathlib.RingTheory.TensorProduct.Maps
 
 /-!
 # Algebra Tensor Product exists fg subalgebra surjective map of surjective map
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

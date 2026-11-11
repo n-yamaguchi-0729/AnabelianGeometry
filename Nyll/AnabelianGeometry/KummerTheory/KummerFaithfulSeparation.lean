@@ -4,11 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.KummerTheory.NumberFieldPowerSeparation
-import Nyll.GaloisCohomology.Kummer.Concrete.RootCharacters
-import Nyll.Yamaguchi26AbfaithfulGalois.Theorem6Dot7FieldSlimExamples
-import Mathlib.FieldTheory.Galois.Infinite
-import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.NumberFieldPowerSeparation
+public import Nyll.GaloisCohomology.Kummer.Concrete.RootCharacters
+public import Nyll.Yamaguchi26AbfaithfulGalois.Theorem6Dot7FieldSlimExamples
+public import Mathlib.FieldTheory.Galois.Infinite
+public import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
+public import Nyll.ClassFieldTheory.AlgebraicNumberTheory.SUnit.Rank
 
 /-! # Kummer separation over torally Kummer-faithful fields
 
@@ -22,6 +25,8 @@ This is the multiplicative-group part of Kummer-faithfulness. No assertion
 about all semiabelian varieties, or about reconstruction of an entire curve,
 is made here.
 -/
+
+@[expose] public section
 
 noncomputable section
 

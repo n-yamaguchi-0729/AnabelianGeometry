@@ -10,25 +10,27 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.LinearAlgebra.TensorProduct.RightExactness
-import Mathlib.LinearAlgebra.TensorProduct.Tower
-import Mathlib.RingTheory.FiniteType
-import Mathlib.RingTheory.FiniteStability
-import Mathlib.RingTheory.Flat.Basic
-import Mathlib.RingTheory.Ideal.MinimalPrime.Noetherian
-import Mathlib.RingTheory.Ideal.Operations
-import Mathlib.RingTheory.Ideal.Quotient.Noetherian
-import Mathlib.RingTheory.Localization.AtPrime.Basic
-import Mathlib.RingTheory.Localization.BaseChange
-import Mathlib.RingTheory.Localization.Basic
-import Mathlib.RingTheory.Localization.Submodule
-import Mathlib.RingTheory.Noetherian.Basic
-import Mathlib.RingTheory.Spectrum.Prime.Basic
-import Mathlib.RingTheory.Spectrum.Prime.Topology
-import Mathlib.RingTheory.TensorProduct.Basic
-import Mathlib.RingTheory.TensorProduct.Finite
-import Nyll.SchemeTheory.RingTheory.Flat.GenericFlatness
-import Nyll.SchemeTheory.RingTheory.Flat.LocalCriterion
+module
+
+public import Mathlib.LinearAlgebra.TensorProduct.RightExactness
+public import Mathlib.LinearAlgebra.TensorProduct.Tower
+public import Mathlib.RingTheory.FiniteType
+public import Mathlib.RingTheory.FiniteStability
+public import Mathlib.RingTheory.Flat.Basic
+public import Mathlib.RingTheory.Ideal.MinimalPrime.Noetherian
+public import Mathlib.RingTheory.Ideal.Operations
+public import Mathlib.RingTheory.Ideal.Quotient.Noetherian
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
+public import Mathlib.RingTheory.Localization.BaseChange
+public import Mathlib.RingTheory.Localization.Basic
+public import Mathlib.RingTheory.Localization.Submodule
+public import Mathlib.RingTheory.Noetherian.Basic
+public import Mathlib.RingTheory.Spectrum.Prime.Basic
+public import Mathlib.RingTheory.Spectrum.Prime.Topology
+public import Mathlib.RingTheory.TensorProduct.Basic
+public import Mathlib.RingTheory.TensorProduct.Finite
+public import Nyll.SchemeTheory.RingTheory.Flat.GenericFlatness
+public import Nyll.SchemeTheory.RingTheory.Flat.LocalCriterion
 
 /-!
 # Openness of the flat locus
@@ -37,6 +39,8 @@ Tensor-kernel torsion criteria characterize flatness at a prime and its behavior
 specialization. For the stated noetherian and finite-presentation hypotheses, the locus
 of flat prime localizations is open.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -228,7 +232,12 @@ theorem exists_uniform_killer {N : Type*} [AddCommGroup N] [Module B N] (S : Sub
   classical
   obtain ⟨t, rfl⟩ := hK
   induction t using Finset.induction_on with
-  | empty => exact ⟨1, S.one_mem, fun k hk => by simp_all⟩
+  | empty =>
+      refine ⟨1, S.one_mem, ?_⟩
+      intro k hk
+      have hk0 : k = 0 := by
+        simpa only [Finset.coe_empty, Submodule.span_empty, Submodule.mem_bot] using hk
+      rw [hk0, smul_zero]
   | insert x t hx ih =>
     obtain ⟨s₁, hs₁, h₁⟩ := ih (fun k hk =>
       h k (Submodule.span_mono (fun _ ht ↦ Finset.mem_insert_of_mem ht) hk))

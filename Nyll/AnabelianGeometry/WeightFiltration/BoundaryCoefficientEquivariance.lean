@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaSemilinear
-import Nyll.AnabelianGeometry.WeightFiltration.OpenBoundarySemilinear
-import Nyll.AnabelianGeometry.WeightFiltration.GenericCoefficientDuality
-import Nyll.AlgebraicCurves.Models.ConstantExtension.BaseChangeSemilinearAction
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaSemilinear
+public import Nyll.AnabelianGeometry.WeightFiltration.OpenBoundarySemilinear
+public import Nyll.AnabelianGeometry.WeightFiltration.GenericCoefficientDuality
+public import Nyll.AlgebraicCurves.Models.ConstantExtension.BaseChangeSemilinearAction
 
 /-!
 # Arithmetic coefficient equivariance of the original boundary inertia
@@ -16,6 +18,8 @@ The coefficient isomorphisms of the original open curve and compactification
 supply boundary preservation and the function-field square. A single fixed
 base-point correction gives the arithmetic action on all boundary parameters.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -108,7 +112,7 @@ theorem exists_boundary_coefficient_equivariance :
   have hsource : e.hom ≫ (xi ≫ p₀) = xi ≫ p₀ := by
     rw [← Category.assoc, hp, Category.assoc, coefficientBaseChangeIso_hom_snd]
   let gA : Aut (fiber (xi ≫ p₀)) :=
-    fiberSourceIso (xi ≫ p₀) e ≪≫ eqToIso (congrArg fiber hsource)
+    Aut.of (fiberSourceIso (xi ≫ p₀) e ≪≫ eqToIso (congrArg fiber hsource))
   change arithmeticFundamentalGroupHom k K (i ≫ c) (xi ≫ p₀) gA = α * σ * α⁻¹ at hlabel
   let A := geometricAbelianGaloisAction k K U (i ≫ c) xi
   intro p t
@@ -117,7 +121,8 @@ theorem exists_boundary_coefficient_equivariance :
   change A (arithmeticFundamentalGroupHom k K (i ≫ c) (xi ≫ p₀) gA)
       (boundaryPlaceInertiaHom M j hj hfield Q p t) = _ at hb
   rw [hlabel, hgbase] at hb
-  have hmul : σ * α⁻¹ = α⁻¹ * (α * σ * α⁻¹) := by simp [mul_assoc]
+  have hmul : σ * α⁻¹ = α⁻¹ * (α * σ * α⁻¹) := by
+    rw [mul_assoc, inv_mul_cancel_left]
   calc
     A σ (A α⁻¹ (boundaryPlaceInertiaHom M j hj hfield Q p t)) =
         A (σ * α⁻¹) (boundaryPlaceInertiaHom M j hj hfield Q p t) := by

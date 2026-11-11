@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.EtaleFundamentalGroups.Inertia.NativeGaloisGroupTopology
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
-import Mathlib.FieldTheory.KrullTopology
-import Mathlib.Topology.Algebra.Group.Subgroup
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeGaloisGroupTopology
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
+public import Mathlib.FieldTheory.KrullTopology
+public import Mathlib.Topology.Algebra.Group.Subgroup
 
 /-!
 # Original subgroup topology on native normalization inertia
@@ -18,6 +20,8 @@ The native actual inertia group inherits exactly the subspace topology of
 its literal subgroup in the original Krull Galois group. Its topological
 group and separation properties are inherited from that same subgroup.
 -/
+
+@[expose] public section
 
 noncomputable section
 

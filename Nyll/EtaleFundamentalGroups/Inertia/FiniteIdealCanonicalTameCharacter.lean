@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameCharacter
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.LocalTameRootsPowerMap
-import Mathlib.RingTheory.RamificationInertia.Ramification
+module
+
+public import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameCharacter
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.LocalTameRootsPowerMap
+public import Mathlib.RingTheory.RamificationInertia.Ramification
 
 /-!
 # Normalized tame characters at finite ideals
@@ -15,6 +17,8 @@ import Mathlib.RingTheory.RamificationInertia.Ramification
 Defines the ramification-index-to-tame-order normalization exponent and the resulting canonical
 character on finite ideal inertia.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -39,12 +43,11 @@ def finiteIdealCanonicalTameCharacterGroupMap
     (A : Type u) (B : Type v) [CommRing A] [CommRing B] [IsDedekindDomain B]
     [Algebra A B] (G : Type v) [Group G] [Finite G] [MulSemiringAction G B]
     (Q : Ideal B) [Q.IsPrime] (hQ : Q ≠ ⊥) :
-    letI : IsDiscreteValuationRing (Localization.AtPrime Q) :=
+    let : IsDiscreteValuationRing (Localization.AtPrime Q) :=
       SchemeTheory.localizationAtPrime_isDiscreteValuationRing B Q hQ
     idealInertiaGroupObject B G Q →*
       localTameRootsGroupObject (Localization.AtPrime Q) (MulAction.stabilizer G Q) := by
-  letI : IsDiscreteValuationRing (Localization.AtPrime Q) :=
-    SchemeTheory.localizationAtPrime_isDiscreteValuationRing B Q hQ
+  intro sharedDefinitionOwner1
   exact (localTameRootsPowerGroupMap (Localization.AtPrime Q) (MulAction.stabilizer G Q)
     (finiteIdealNormalizationExponent A B G Q hQ)).comp
       (finiteIdealTameCharacterGroupMap B G Q hQ)

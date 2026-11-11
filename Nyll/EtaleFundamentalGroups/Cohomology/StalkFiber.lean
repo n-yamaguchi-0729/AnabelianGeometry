@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Category.Grp.AB
-import Mathlib.Algebra.Category.Grp.EpiMono
-import Mathlib.Algebra.Homology.ShortComplex.Ab
-import Mathlib.Algebra.Torsor.Basic
-import Mathlib.AlgebraicGeometry.Sites.EtalePoint
-import Mathlib.AlgebraicGeometry.Sites.AffineEtale
-import Mathlib.CategoryTheory.Sites.Point.Skyscraper
+module
+
+public import Mathlib.Algebra.Category.Grp.AB
+public import Mathlib.Algebra.Category.Grp.EpiMono
+public import Mathlib.Algebra.Homology.ShortComplex.Ab
+public import Mathlib.Algebra.Torsor.Basic
+public import Mathlib.AlgebraicGeometry.Sites.EtalePoint
+public import Mathlib.AlgebraicGeometry.Sites.AffineEtale
+public import Mathlib.CategoryTheory.Sites.Point.Skyscraper
 
 /-!
 # Translation torsors in geometric stalks of extensions
@@ -20,6 +22,8 @@ actual kernel. Applying the exact geometric stalk functor gives this structure
 for extensions of étale abelian sheaves. No splitting of the extension is
 assumed: a point of each fiber is obtained from the surjective quotient map.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -34,20 +38,24 @@ variable (S : ShortComplex AddCommGrpCat.{u}) (hS : S.ShortExact) (z : S.X₃)
 /-- The fiber of the actual quotient homomorphism in an abelian extension. -/
 abbrev abelianExtensionFiber := {e : S.X₂ // S.g e = z}
 
-private def fiberTranslate (a : S.X₁) (e : abelianExtensionFiber S z) :
+/-- Translate a quotient fiber by the image of an element of the kernel. -/
+def fiberTranslate (a : S.X₁) (e : abelianExtensionFiber S z) :
     abelianExtensionFiber S z :=
   ⟨S.f a + e.val, by rw [map_add, S.ab_zero_apply, zero_add, e.property]⟩
 
-private theorem exists_fiberDifference (hS : S.ShortExact)
+/-- The difference of two points of a quotient fiber lies in the kernel. -/
+theorem exists_fiberDifference (hS : S.ShortExact)
     (e f : abelianExtensionFiber S z) :
     ∃ a : S.X₁, S.f a = e.val - f.val := by
   apply (ShortComplex.ab_exact_iff S).mp hS.exact
   rw [map_sub, e.property, f.property, sub_self]
 
-private def fiberDifference (e f : abelianExtensionFiber S z) : S.X₁ :=
+/-- The kernel element giving the difference of two points of the fiber. -/
+def fiberDifference (e f : abelianExtensionFiber S z) : S.X₁ :=
   (exists_fiberDifference S z hS e f).choose
 
-private theorem fiberDifference_spec (hS : S.ShortExact)
+/-- The chosen fiber difference maps to the original difference. -/
+theorem fiberDifference_spec (hS : S.ShortExact)
     (e f : abelianExtensionFiber S z) :
     S.f (fiberDifference S hS z e f) = e.val - f.val :=
   (exists_fiberDifference S z hS e f).choose_spec

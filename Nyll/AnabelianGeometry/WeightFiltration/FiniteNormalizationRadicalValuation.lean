@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.LocalRadicalValuation
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationRadicalRatios
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.LocalRadicalValuation
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationRadicalRatios
 
 /-!
 # Radical valuations in actual finite normalizations
@@ -13,6 +15,8 @@ import Nyll.AnabelianGeometry.WeightFiltration.FiniteNormalizationRadicalRatios
 The local valuation comparison is instantiated at the original finite
 normalization and its actual contracted prime.
 -/
+
+@[expose] public section
 
 noncomputable section
 

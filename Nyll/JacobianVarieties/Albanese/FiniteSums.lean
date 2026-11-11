@@ -5,11 +5,14 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Picard.GroupLaw.RelativeGroupLawGrpObj
-import Mathlib.CategoryTheory.Limits.Constructions.Over.Basic
-import Nyll.AlgebraicCurves.Hilbert.SymmetricPowerData
-import Mathlib.Data.List.FinRange
-import Mathlib.Data.Multiset.MapFold
+module
+
+public import Nyll.AlgebraicCurves.Geometry.Picard.GroupLaw.RelativeGroupLawGrpObj
+public import Mathlib.CategoryTheory.Limits.Constructions.Over.Basic
+public import Nyll.AlgebraicCurves.Hilbert.SymmetricPowerData
+public import Mathlib.Data.List.FinRange
+public import Mathlib.Data.Multiset.MapFold
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
 
 /-!
 # Finite sums towards the Albanese construction
@@ -25,6 +28,8 @@ test scheme. This is a quotient of point families, not an assertion of a scheme 
 The construction does not require a rational point or algebraic closedness of the field.
 It does not yet assert invariance under linear equivalence or descent to a Jacobian.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -165,22 +170,22 @@ theorem finiteSumMap_permute_of_commutative (G : RelativeGroupLaw K b)
     (hc : G.IsCommutative) {C : Scheme.{u}}
     (c : C ⟶ Spec (CommRingCat.of K)) (q : SchemeHomOver c b) {n : ℕ}
     (σ : Equiv.Perm (Fin n)) :
-    (finFibrePow.permAct c n σ).hom ≫ (G.finiteSumMap c q n).1 =
+    (finFibrePow.permAct c n σ).asIso.hom ≫ (G.finiteSumMap c q n).1 =
       (G.finiteSumMap c q n).1 := by
   have h := G.sumList_natural (finFibrePow.toBase c n) (finFibrePow.toBase c n)
-    (finFibrePow.permAct c n σ).hom (finFibrePow.permAct_hom_toBase c n σ)
+    (finFibrePow.permAct c n σ).asIso.hom (finFibrePow.permAct_hom_toBase c n σ)
     (List.ofFn fun i : Fin n => NeronModelInfra.schemeHomOverComp
       ⟨finFibrePow.proj c n i, finFibrePow.proj_comp c n i⟩ q)
   rw [List.map_ofFn] at h
   have heq (i : Fin n) :
-      GoodReductionJacobian.schemeHomOverComp (finFibrePow.permAct c n σ).hom
+      GoodReductionJacobian.schemeHomOverComp (finFibrePow.permAct c n σ).asIso.hom
           (finFibrePow.permAct_hom_toBase c n σ)
           (NeronModelInfra.schemeHomOverComp
             ⟨finFibrePow.proj c n i, finFibrePow.proj_comp c n i⟩ q) =
         NeronModelInfra.schemeHomOverComp
           ⟨finFibrePow.proj c n (σ⁻¹ i), finFibrePow.proj_comp c n (σ⁻¹ i)⟩ q := by
     apply Subtype.ext
-    change (finFibrePow.permAct c n σ).hom ≫ (finFibrePow.proj c n i ≫ q.1) = _
+    change (finFibrePow.permAct c n σ).asIso.hom ≫ (finFibrePow.proj c n i ≫ q.1) = _
     rw [← Category.assoc, finFibrePow.permAct_hom, finFibrePow.permHom_proj]
     rfl
   have hcongr := congrArg
@@ -212,7 +217,7 @@ theorem sumFamily_perm (G : RelativeGroupLaw K b)
 theorem finiteSumMap_permute (G : RelativeGroupLaw K b) {C : Scheme.{u}}
     (c : C ⟶ Spec (CommRingCat.of K)) (q : SchemeHomOver c b) {n : ℕ}
     (σ : Equiv.Perm (Fin n)) :
-    (finFibrePow.permAct c n σ).hom ≫ (G.finiteSumMap c q n).1 =
+    (finFibrePow.permAct c n σ).asIso.hom ≫ (G.finiteSumMap c q n).1 =
       (G.finiteSumMap c q n).1 :=
   G.finiteSumMap_permute_of_commutative
     (fun t x y => G.mul_comm_of_isProper_of_geometricallyIntegral t x y) c q σ

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.GenericGaloisMapComparison
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisNaturality
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.GenericGaloisMapComparison
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisNaturality
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
 
 /-!
 # The exact generic Galois square for a pointed scheme morphism
@@ -14,6 +16,8 @@ import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
 The canonical pointed map uses precisely the supplied geometric-point
 equality and the original absolute generic Galois homomorphism.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.Pic0SubsingletonGenusFFEqZero
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.PicardZero
-import Nyll.AlgebraicCurves.FunctionFields.Extensions.CurveFiniteDimensionalAdjoinSimple
-import Nyll.AlgebraicCurves.Places.Orders.FinsetSumNegOrdEqFinrank
-import Nyll.AlgebraicCurves.Places.Orders.TranscendentalOrdNeZero
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+module
+
+public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Spaces.Pic0SubsingletonGenusFFEqZero
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.PicardZero
+public import Nyll.AlgebraicCurves.FunctionFields.Extensions.CurveFiniteDimensionalAdjoinSimple
+public import Nyll.AlgebraicCurves.Places.Orders.FinsetSumNegOrdEqFinrank
+public import Nyll.AlgebraicCurves.Places.Orders.TranscendentalOrdNeZero
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
 
 /-!
 # Rational parameters with prescribed zero and pole
@@ -20,13 +22,17 @@ proved genus-zero Picard theorem; the pole-degree formula proves that the parame
 the entire field, rather than merely a finite subextension.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 
 open AlgebraicCurve
 
 namespace AnabelianGeometry.GeometricFundamentalGroup
 
-variable {K F : Type} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
+variable {K F : Type u} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
   [IsCurveOver K F] [Algebra.EssFiniteType K F]
 
 open Classical in

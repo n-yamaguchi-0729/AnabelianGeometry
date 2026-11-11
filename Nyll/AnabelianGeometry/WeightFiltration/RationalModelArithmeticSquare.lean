@@ -4,10 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteRationalModelBaseChange
-import Nyll.AnabelianGeometry.WeightFiltration.NamedModelCoverGroupSquare
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConstantFieldCoverGroupTransport
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticGeometricEquivUniqueness
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteRationalModelBaseChange
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedBaseIsomorphism
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedModelCoverGroupSquare
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConstantFieldCoverGroupTransport
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticGeometricEquivUniqueness
 
 /-! # The original arithmetic square of the actual rational models
 
@@ -16,6 +19,8 @@ commuting square of pointed morphisms. Thus removing the correction in the
 split model gives the original arithmetic square without a further path or
 conjugator choice.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve

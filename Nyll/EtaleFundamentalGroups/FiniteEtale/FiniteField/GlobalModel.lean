@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.RecoveredStageRecovery
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldRebase
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.FiniteTowerModel
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.RecoveredStageRecovery
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldRebase
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.FiniteTowerModel
 
 /-!
 # Global Model
@@ -13,6 +15,8 @@ import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.FiniteTowerModel
 Actual recovered local models glue to a finite-stage model that recovers
 the original finite étale cover as an object of the finite étale category.
 -/
+
+@[expose] public section
 
 noncomputable section
 universe u

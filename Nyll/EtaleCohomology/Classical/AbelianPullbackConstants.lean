@@ -5,11 +5,14 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.EtaleCohomology.Classical.AbelianSheafFunctors
-import Nyll.EtaleCohomology.Sites.ConstantPullback
-import Mathlib.CategoryTheory.Adjunction.Unique
-import Mathlib.CategoryTheory.Sites.ConstantSheaf
-import Mathlib.CategoryTheory.Sites.Sheafification
+module
+
+public import Nyll.EtaleCohomology.Classical.AbelianSheafFunctors
+public import Nyll.EtaleCohomology.Sites.ConstantPullback
+public import Nyll.EtaleCohomology.Sites.ConstantPullbackSections
+public import Mathlib.CategoryTheory.Adjunction.Unique
+public import Mathlib.CategoryTheory.Sites.ConstantSheaf
+public import Mathlib.CategoryTheory.Sites.Sheafification
 
 /-!
 # Constant sections under actual abelian inverse image
@@ -20,6 +23,8 @@ on the base-changed etale scheme. In particular it preserves the integer section
 one used to represent degree-one cohomology classes by extension fibers.
 -/
 
+@[expose] public section
+
 noncomputable section
 
 universe u
@@ -28,15 +33,9 @@ open AlgebraicGeometry CategoryTheory CategoryTheory.Limits Opposite
 
 namespace EtaleCohomology
 
-private theorem constantSheafAdj_homEquiv_section (X : Scheme.{u})
-    (T : X.Etale) (hT : IsTerminal T) (A : AddCommGrpCat.{u})
-    (E : Sheaf X.smallEtaleTopology AddCommGrpCat.{u})
-    (g : (constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).obj A ⟶ E) :
-    (constantSheafAdj X.smallEtaleTopology AddCommGrpCat.{u} hT).homEquiv A E g =
-      (toSheafify X.smallEtaleTopology ((Functor.const X.Etaleᵒᵖ).obj A)).app (op T) ≫
-        g.hom.app (op T) := rfl
-
-private theorem constantPullbackSection
+/-- The adjoint of the canonical constant comparison preserves the original
+constant section for every left adjoint to actual direct image. -/
+theorem constantSheafCompLeftAdjointIso_hom_section
     {X Y : Scheme.{u}} (f : X ⟶ Y)
     (L : Sheaf Y.smallEtaleTopology AddCommGrpCat.{u} ⥤
       Sheaf X.smallEtaleTopology AddCommGrpCat.{u})
@@ -48,51 +47,8 @@ private theorem constantPullbackSection
               (terminalIsTerminal.isTerminalObj (etaleBaseChange f) (⊤_ Y.Etale))
                 L adj).hom.app A)).hom.app (op U) =
       (toSheafify X.smallEtaleTopology ((Functor.const X.Etaleᵒᵖ).obj A)).app
-        (op ((etaleBaseChange f).obj U)) := by
-  let F := etaleBaseChange f
-  let ηY : (Functor.const Y.Etaleᵒᵖ).obj A ⟶
-      ((constantSheaf Y.smallEtaleTopology AddCommGrpCat.{u}).obj A).obj :=
-    toSheafify Y.smallEtaleTopology ((Functor.const Y.Etaleᵒᵖ).obj A)
-  let ηX : (Functor.const X.Etaleᵒᵖ).obj A ⟶
-      ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).obj A).obj :=
-    toSheafify X.smallEtaleTopology ((Functor.const X.Etaleᵒᵖ).obj A)
-  let c := adj.homEquiv _ _
-    ((Sites.constantSheafCompLeftAdjointIso (etaleBaseChange f) AddCommGrpCat.{u}
-      terminalIsTerminal (terminalIsTerminal.isTerminalObj (etaleBaseChange f) (⊤_ Y.Etale))
-        L adj).hom.app A)
-  have hc : ηY.app (op (⊤_ Y.Etale)) ≫ c.hom.app (op (⊤_ Y.Etale)) =
-      ηX.app (op (F.obj (⊤_ Y.Etale))) := by
-    let adjY : constantSheaf Y.smallEtaleTopology AddCommGrpCat.{u} ⊣
-        (sheafSections Y.smallEtaleTopology AddCommGrpCat.{u}).obj (op (⊤_ Y.Etale)) :=
-      constantSheafAdj Y.smallEtaleTopology AddCommGrpCat.{u} terminalIsTerminal
-    let adjX : constantSheaf X.smallEtaleTopology AddCommGrpCat.{u} ⊣
-        etaleAbelianPushforward f ⋙
-          (sheafSections Y.smallEtaleTopology AddCommGrpCat.{u}).obj (op (⊤_ Y.Etale)) :=
-      constantSheafAdj X.smallEtaleTopology AddCommGrpCat.{u}
-        (terminalIsTerminal.isTerminalObj F (⊤_ Y.Etale))
-    have hcomp : adjY.homEquiv A _ c = adjX.unit.app A :=
-      Adjunction.homEquiv_leftAdjointUniq_hom_app
-        (adjY.comp adj) adjX A
-    have hsource : adjY.homEquiv A _ c =
-        ηY.app (op (⊤_ Y.Etale)) ≫ c.hom.app (op (⊤_ Y.Etale)) :=
-      constantSheafAdj_homEquiv_section Y (⊤_ Y.Etale) terminalIsTerminal A _ c
-    have htarget : adjX.unit.app A = ηX.app (op (F.obj (⊤_ Y.Etale))) :=
-      (adjX.homEquiv_id A).symm.trans
-        ((constantSheafAdj_homEquiv_section X (F.obj (⊤_ Y.Etale))
-          (terminalIsTerminal.isTerminalObj F (⊤_ Y.Etale)) A _ (𝟙 _)).trans
-            (Category.comp_id _))
-    exact hsource.symm.trans (hcomp.trans htarget)
-  let j : U ⟶ ⊤_ Y.Etale := terminal.from U
-  have hY : ηY.app (op U) = ηY.app (op (⊤_ Y.Etale)) ≫
-      ((constantSheaf Y.smallEtaleTopology AddCommGrpCat.{u}).obj A).obj.map j.op := by
-    exact (Category.id_comp _).symm.trans (ηY.naturality j.op)
-  have hX : ηX.app (op (F.obj U)) = ηX.app (op (F.obj (⊤_ Y.Etale))) ≫
-      ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).obj A).obj.map (F.map j).op := by
-    exact (Category.id_comp _).symm.trans (ηX.naturality (F.map j).op)
-  change ηY.app (op U) ≫ c.hom.app (op U) = ηX.app (op (F.obj U))
-  rw [hY, Category.assoc, c.hom.naturality j.op, ← Category.assoc, hc]
-  exact hX.symm
-
+        (op ((etaleBaseChange f).obj U)) :=
+  Sites.constantSheafCompLeftAdjointIso_hom_section f L adj A U
 
 /-- The adjoint of the actual constant inverse-image comparison sends a constant
 coefficient to the same coefficient on each base-changed etale scheme. -/
@@ -103,7 +59,7 @@ theorem etaleAbelianPullbackConstantIso_hom_section
           ((etaleAbelianPullbackConstantIso f).hom.app A)).hom.app (op U) =
       (toSheafify X.smallEtaleTopology ((Functor.const X.Etaleᵒᵖ).obj A)).app
         (op ((etaleBaseChange f).obj U)) :=
-  constantPullbackSection f (etaleAbelianPullback f)
+  constantSheafCompLeftAdjointIso_hom_section f (etaleAbelianPullback f)
     (etaleAbelianPullbackPushforwardAdjunction f) A U
 
 end EtaleCohomology

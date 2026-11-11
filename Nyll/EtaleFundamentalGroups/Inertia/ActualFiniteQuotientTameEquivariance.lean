@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinateEquivariance
-import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationQuotientActionComparison
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameValue
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinateEquivariance
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationQuotientActionComparison
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameValue
 
 /-!
 # Equivariance of the actual quotient scalar coordinates
@@ -14,6 +16,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameValue
 The existing canonical maximal-quotient equivalence transports the proved
 finite scalar action to the SAME quotient coordinate used by global theta.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

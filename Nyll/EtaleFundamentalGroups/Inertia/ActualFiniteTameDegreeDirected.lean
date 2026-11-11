@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteTameRootsSystem
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameOrderTower
-import Mathlib.FieldTheory.Galois.GaloisClosure
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteTameRootsSystem
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameOrderTower
+public import Mathlib.FieldTheory.Galois.GaloisClosure
 
 /-!
 # Directedness of the actual finite tame degrees
@@ -14,6 +16,8 @@ import Mathlib.FieldTheory.Galois.GaloisClosure
 The literal range of the actual tame index is nonempty and directed by
 divisibility. Its upper bounds are supplied by finite Galois composita.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

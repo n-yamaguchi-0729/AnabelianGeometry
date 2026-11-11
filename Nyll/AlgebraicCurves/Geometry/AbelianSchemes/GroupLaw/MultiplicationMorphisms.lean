@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.Kernel
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.Translation
-import Nyll.AlgebraicCurves.Geometry.Picard.GroupLaw.RelativeGroupLaw
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
-import Mathlib.AlgebraicGeometry.Pullbacks
+module
+
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.Kernel
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.Translation
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.Basic
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
+public import Mathlib.AlgebraicGeometry.Pullbacks
 
 /-!
 # The multiplication morphism of a relative group law
@@ -17,6 +19,8 @@ The existing morphism `G.mulRight f idPoint` represents multiplication on
 every test scheme. Naturality supplies its unit identities and its relation
 to the actual multiplication-by-an-integer morphisms, over any commutative base ring.
 -/
+
+@[expose] public section
 
 noncomputable section
 

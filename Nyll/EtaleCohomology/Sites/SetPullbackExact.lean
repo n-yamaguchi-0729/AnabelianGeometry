@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Sites.SetSheafFunctors
-import Nyll.EtaleCohomology.Sites.PullbackStalks
-import Mathlib.CategoryTheory.Functor.ReflectsIso.Limits
-import Mathlib.CategoryTheory.Sites.Point.Conservative
-import Mathlib.CategoryTheory.Limits.Preserves.Finite
+module
+
+public import Nyll.EtaleCohomology.Sites.SetSheafFunctors
+public import Nyll.EtaleCohomology.Sites.PullbackStalks
+public import Mathlib.CategoryTheory.Functor.ReflectsIso.Limits
+public import Mathlib.CategoryTheory.Sites.Point.Conservative
+public import Mathlib.CategoryTheory.Limits.Preserves.Finite
 
 /-!
 # Exact inverse image of set-valued étale sheaves
@@ -17,6 +19,8 @@ The stalk of the actual inverse image is the stalk at the composite geometric
 point. Since geometric stalks are conservative, inverse image preserves finite
 limits, including the fiber squares defining extension torsors.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -36,15 +40,8 @@ local instance : RepresentablyFlat (etaleBaseChange f) :=
 def geometricComapSetSheafFiberIso :
     ((Scheme.pointSmallEtale s).comap (etaleBaseChange f)
       (etaleBaseChange_coverPreserving f)).sheafFiber (A := Type u) ≅
-      (Scheme.pointSmallEtale (s ≫ f)).sheafFiber where
-  hom := (geometricPointComapIso f s).inv.sheafFiber
-  inv := (geometricPointComapIso f s).hom.sheafFiber
-  hom_inv_id := by
-    rw [← GrothendieckTopology.Point.Hom.sheafFiber_comp, Iso.hom_inv_id,
-      GrothendieckTopology.Point.Hom.sheafFiber_id]
-  inv_hom_id := by
-    rw [← GrothendieckTopology.Point.Hom.sheafFiber_comp, Iso.inv_hom_id,
-      GrothendieckTopology.Point.Hom.sheafFiber_id]
+      (Scheme.pointSmallEtale (s ≫ f)).sheafFiber :=
+  geometricComapSheafFiberIsoOfCoefficients f s (Type u)
 
 /-- The geometric stalk formula for the actual set-valued inverse image. -/
 def etaleSetPullbackStalkIso :

@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalk
-import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkStructure
-import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
-import Mathlib.CategoryTheory.Sites.Point.Basic
-import Mathlib.RingTheory.LocalRing.RingHom.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalk
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.GeometricStalkStructure
+public import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
+public import Mathlib.CategoryTheory.Sites.Point.Basic
+public import Mathlib.RingTheory.LocalRing.RingHom.Basic
 
 /-!
 # Extending the field of a pointed étale colimit
@@ -17,6 +19,8 @@ Compose each actual field-valued neighborhood point with the given field
 embedding. The existing colimit descent constructs the map on stalks. Its
 evaluation and structure-map equations are proved on the original germ maps.
 -/
+
+@[expose] public section
 
 noncomputable section
 

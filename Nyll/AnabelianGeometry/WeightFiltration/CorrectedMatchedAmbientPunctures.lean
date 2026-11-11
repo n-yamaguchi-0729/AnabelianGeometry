@@ -3,15 +3,20 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareCorrectedGeometricComparison
-import Nyll.AnabelianGeometry.WeightFiltration.CorrectedRationalCuspCorrespondence
-import Nyll.AnabelianGeometry.WeightFiltration.MatchedAmbientPunctureCorrespondence
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineGenericPoints
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareCorrectedGeometricComparison
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedBaseIsomorphism
+public import Nyll.AnabelianGeometry.WeightFiltration.CorrectedRationalCuspCorrespondence
+public import Nyll.AnabelianGeometry.WeightFiltration.MatchedAmbientPunctureCorrespondence
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineGenericPoints
 
 /-!
 # Punctures of corrected maps at matched ambient points
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve
@@ -119,7 +124,7 @@ private theorem originalAmbient_corrected_geometricMap
     rw [eS.apply_symm_apply, eT.apply_symm_apply]
 
 theorem rationalConfiguration_correctedMatchedMap_same_punctures
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (htcard : 3 ≤ t.card)
     (Ωs Ωt : Type) [Field Ωs] [Field Ωt] [IsAlgClosed Ωs] [IsAlgClosed Ωt]

@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.LocalCoefficientRatios
-import Nyll.EtaleFundamentalGroups.Inertia.UniformizerRadicalRamification
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.LocalCoefficientRatios
+public import Nyll.EtaleFundamentalGroups.Inertia.UniformizerRadicalRamification
 
 /-!
 # Normalized valuations and ramification lengths
@@ -13,6 +15,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.UniformizerRadicalRamification
 The length definition of ramification is compared with the normalized additive
 valuation used to evaluate local inertia coefficients.
 -/
+
+@[expose] public section
 
 noncomputable section
 

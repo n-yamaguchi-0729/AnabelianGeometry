@@ -4,10 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.KummerRootPower
-import Nyll.AnabelianGeometry.WeightFiltration.ResidueBasePointIndependence
-import Nyll.EtaleFundamentalGroups.Cohomology.GenericPointCharacterDetection
-import Nyll.EtaleFundamentalGroups.Cohomology.H1Naturality
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.KummerRootPower
+public import Nyll.AnabelianGeometry.WeightFiltration.ResidueBasePointIndependence
+public import Nyll.EtaleFundamentalGroups.Cohomology.GenericPointCharacterDetection
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1Naturality
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
 
 /-!
 # Coefficient reduction of actual Kummer cohomology classes
@@ -15,6 +18,10 @@ import Nyll.EtaleFundamentalGroups.Cohomology.H1Naturality
 The power map on roots of unity induces the expected transition on genuine
 étale H¹: the representing function is unchanged, while the exponent is reduced.
 -/
+
+@[expose] public section
+
+universe u v
 
 noncomputable section
 
@@ -24,7 +31,7 @@ open EtaleFundamentalGroups.Cohomology
 namespace AnabelianGeometry.WeightFiltration
 
 /-- The power map as a morphism of finite abelian coefficient groups. -/
-def kummerCoefficientReduction (K : Type) [Field K] (m k : ℕ+) :
+def kummerCoefficientReduction (K : Type u) [Field K] (m k : ℕ+) :
     AddCommGrpCat.of (Additive (rootsOfUnity ((m * k : ℕ+) : ℕ) K)) ⟶
       AddCommGrpCat.of (Additive (rootsOfUnity (m : ℕ) K)) :=
   AddCommGrpCat.ofHom (EtaleFundamentalGroups.Inertia.rootsOfUnityPowerTransition K
@@ -33,14 +40,14 @@ def kummerCoefficientReduction (K : Type) [Field K] (m k : ℕ+) :
 /-- The actual coefficient map takes a Kummer class to the class of the
 same function for the smaller exponent. -/
 theorem openKummerEtaleClass_coefficientReduction
-    {K F : Type} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
+    {K : Type u} {F : Type v} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
     (M : CurveModel K F) (m k : ℕ+)
-    {X : Scheme} [IsIntegral X] [CompactSpace X]
+    {X : Scheme.{u}} [IsIntegral X] [CompactSpace X]
     (j : X ⟶ M.C) [IsOpenImmersion j] (hj : DenseRange j)
     (hm : IsUnit ((m : ℕ) : K)) (hmk : IsUnit (((m * k : ℕ+) : ℕ) : K))
-    {Ω : Type} [Field Ω] [IsSepClosed Ω] (xi : Spec (.of Ω) ⟶ X)
+    {Ω : Type u} [Field Ω] [IsSepClosed Ω] (xi : Spec (.of Ω) ⟶ X)
     (u : Pic0.openKummerUnits K F (M.openBoundaryPlaces j) (m * k)) :
-    Sheaf.H.map ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{0}).map
+    Sheaf.H.map ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).map
       (kummerCoefficientReduction K m k)) 1
       (CurveModel.OpenKummer.kummerEtaleClass M (M.openBoundaryPlaces j) (m * k)
         u j hj (M.place_not_mem_openBoundaryPlaces j) hmk xi) =

@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealCanonicalTameScalarEvaluation
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameCharacter
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgInertiaRingMaps
-import Nyll.SchemeTheory.RingTheory.Ramification.InertiaLocalization
-import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
-import Mathlib.RingTheory.Localization.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealCanonicalTameScalarEvaluation
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameCharacter
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgInertiaRingMaps
+public import Nyll.SchemeTheory.RingTheory.Ramification.InertiaLocalization
+public import Nyll.SchemeTheory.RingTheory.Ramification.StabilizerLocalizationAction
+public import Mathlib.RingTheory.Localization.Basic
 
 /-!
 # Scalar values of intrinsic tame characters
@@ -18,6 +20,8 @@ import Mathlib.RingTheory.Localization.Basic
 Defines the scalar projection and local coefficient map of intrinsic inertia, and evaluates the
 canonical character using a uniformizer-ratio coefficient.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,11 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
-import Nyll.JacobianVarieties.Kummer.OpenBoundaryRelation
-import Nyll.JacobianVarieties.Kummer.BoundaryResidueCardinality
-import Nyll.JacobianVarieties.Kummer.FiniteH1Cardinality
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyIntegralAlgClosed
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.EssFiniteTypeFunctionField
+public import Nyll.JacobianVarieties.Kummer.OpenBoundaryRelation
+public import Nyll.JacobianVarieties.Kummer.BoundaryResidueCardinality
+public import Nyll.JacobianVarieties.Kummer.FiniteH1Cardinality
+public import Nyll.SchemeTheory.Morphisms.GeometricallyIntegralAlgClosed
+public import Nyll.SchemeTheory.FunctionFields.StructureMorphism
 
 /-!
 # Cardinality of open divisorial Kummer classes
@@ -19,6 +22,10 @@ The proof uses its exact residue sequence, actual Pic⁰ torsion, and the
 proved geometric Picard cardinality calculation. Identification with
 derived H¹ of the open curve is not assumed or asserted here.
 -/
+
+@[expose] public section
+
+universe u v
 
 noncomputable section
 
@@ -31,7 +38,7 @@ namespace AlgebraicCurve.CurveModel
 /-- The image of the actual quotient residue map consists exactly of
 the actual sum-zero boundary residue vectors. -/
 def openKummerResidueRangeEquiv
-    {K F : Type} [Field K] [IsAlgClosed K]
+    {K : Type u} {F : Type v} [Field K] [IsAlgClosed K]
     [Field F] [Algebra K F] [IsCurveOver K F]
     (M : CurveModel K F)
     (ε : SchemeHomOver (𝟙 (Spec (.of K))) M.toBase)
@@ -65,13 +72,14 @@ def properKummerQuotientEquivResidueKernel
           ↥H) (Pic0.kummerQuotientToOpen_range S n)))
 
 /-- The cardinality formula for actual divisorial Kummer classes on the
-complement of a nonempty finite set of places, in characteristic zero. -/
-theorem natCard_openKummerQuotient
-    {K F : Type} [Field K] [IsAlgClosed K] [CharZero K]
+complement of a nonempty finite set of places, for an invertible exponent. -/
+theorem natCard_openKummerQuotient_of_isUnit
+    {K : Type u} {F : Type v} [Field K] [IsAlgClosed K]
     [Field F] [Algebra K F] [IsCurveOver K F]
     (M : CurveModel K F)
     (ε : SchemeHomOver (𝟙 (Spec (.of K))) M.toBase)
-    (S : Set (Place K F)) [Fintype S] (v₀ : S) (n : ℕ+) :
+    (S : Set (Place K F)) [Fintype S] (v₀ : S) (n : ℕ+)
+    (hn : IsUnit ((n : ℕ) : K)) :
     Nat.card (Pic0.openKummerUnits K F S n ⧸ Pic0.openKummerPowers K F S n) =
       (n : ℕ) ^ (2 * genusFF K F + Fintype.card S - 1) := by
   have : Algebra.EssFiniteType K F := by
@@ -81,7 +89,7 @@ theorem natCard_openKummerQuotient
     exact (Algebra.EssFiniteType.iff_of_algEquiv e).mpr
       (AlgebraicCurve.essFiniteType_functionField M.toBase)
   have : GeometricallyIntegral M.toBase := geometricallyIntegral_of_isAlgClosed M.toBase
-  have hchar : ((n : ℕ) : K) ≠ 0 := Nat.cast_ne_zero.mpr n.ne_zero
+  have hchar : ((n : ℕ) : K) ≠ 0 := hn.ne_zero
   let f := Pic0.openKummerResidueQuotient S n
   have hker : Nat.card f.ker = (n : ℕ) ^ (2 * genusFF K F) := by
     calc
@@ -89,13 +97,13 @@ theorem natCard_openKummerQuotient
         (Nat.card_congr (properKummerQuotientEquivResidueKernel S n)).symm
       _ = Nat.card (Pic0.torsion K F (n : ℕ)) :=
         Nat.card_congr (Pic0.kummerDivisorEquiv K F n).toEquiv
-      _ = Nat.card (Sheaf.H.{0}
-          ((constantSheaf M.C.smallEtaleTopology AddCommGrpCat.{0}).obj
+      _ = Nat.card (Sheaf.H.{u}
+          ((constantSheaf M.C.smallEtaleTopology AddCommGrpCat.{u}).obj
             (AddCommGrpCat.of (Additive (rootsOfUnity (n : ℕ) K)))) 1) :=
         Nat.card_congr (M.kummerTorsionCohomologyEquiv n
           (isUnit_iff_ne_zero.mpr hchar) ε.val).toEquiv
       _ = (n : ℕ) ^ (2 * genusFF K F) :=
-        M.natCard_finiteH1_eq_pow_genus ε n ε.val
+        M.natCard_finiteH1_eq_pow_genus_of_isUnit ε n hn ε.val
   have hrange : Nat.card f.range = (n : ℕ) ^ (Fintype.card S - 1) := by
     calc
       Nat.card f.range = Nat.card (boundaryResidueGroup S n) :=
@@ -117,5 +125,18 @@ theorem natCard_openKummerQuotient
       rw [← pow_add]
       congr 1
       omega
+
+/-- The cardinality formula for actual divisorial Kummer classes on the
+complement of a nonempty finite set of places, in characteristic zero. -/
+theorem natCard_openKummerQuotient
+    {K : Type u} {F : Type v} [Field K] [IsAlgClosed K] [CharZero K]
+    [Field F] [Algebra K F] [IsCurveOver K F]
+    (M : CurveModel K F)
+    (ε : SchemeHomOver (𝟙 (Spec (.of K))) M.toBase)
+    (S : Set (Place K F)) [Fintype S] (v₀ : S) (n : ℕ+) :
+    Nat.card (Pic0.openKummerUnits K F S n ⧸ Pic0.openKummerPowers K F S n) =
+      (n : ℕ) ^ (2 * genusFF K F + Fintype.card S - 1) :=
+  M.natCard_openKummerQuotient_of_isUnit ε S v₀ n
+    (isUnit_iff_ne_zero.mpr (Nat.cast_ne_zero.mpr n.ne_zero))
 
 end AlgebraicCurve.CurveModel

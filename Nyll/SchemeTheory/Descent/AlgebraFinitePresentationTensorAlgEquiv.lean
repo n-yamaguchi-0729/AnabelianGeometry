@@ -10,13 +10,17 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.RingTheory.Extension.Presentation.Core
-import Mathlib.Data.Finset.Order
-import Nyll.SchemeTheory.Descent.AlgebraDirectLimit
+module
+
+public import Mathlib.RingTheory.Extension.Presentation.Core
+public import Mathlib.Data.Finset.Order
+public import Nyll.SchemeTheory.Descent.AlgebraDirectLimit
 
 /-!
 # Algebra exists finite Presentation tensor Product alg Equiv of is Direct Limit
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

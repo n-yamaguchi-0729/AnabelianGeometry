@@ -4,10 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerFiber
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerCovers
-import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerFiber
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerCovers
+public import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
 
 /-!
 # The geometric fibre of the actual Laurent Kummer cover
@@ -17,6 +20,8 @@ full faithfulness of Spec, and then with the existing geometric fibre
 functor. Consequently the actual finite-etale fibre is equivalent to the
 set of roots of its defining Kummer equation.
 -/
+
+@[expose] public section
 
 noncomputable section
 

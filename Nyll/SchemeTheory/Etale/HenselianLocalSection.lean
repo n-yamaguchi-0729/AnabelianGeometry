@@ -4,17 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.FiniteEtale.Algebra.HenselianEtaleSection
-import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
-import Mathlib.AlgebraicGeometry.Morphisms.Etale
-import Mathlib.AlgebraicGeometry.Morphisms.FormallyUnramified
-import Mathlib.AlgebraicGeometry.Pullbacks
-import Mathlib.AlgebraicGeometry.Morphisms.RingHomProperties
-import Mathlib.AlgebraicGeometry.OpenImmersion
-import Mathlib.AlgebraicGeometry.Sites.EtalePoint
-import Mathlib.RingTheory.Henselian
-import Mathlib.RingTheory.RingHom.Etale
-import Mathlib.RingTheory.Spectrum.Prime.Topology
+module
+
+public import Nyll.SchemeTheory.FiniteEtale.Algebra.HenselianEtaleSection
+public import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
+public import Mathlib.AlgebraicGeometry.Morphisms.Etale
+public import Mathlib.AlgebraicGeometry.Morphisms.FormallyUnramified
+public import Mathlib.AlgebraicGeometry.Pullbacks
+public import Mathlib.AlgebraicGeometry.Morphisms.RingHomProperties
+public import Mathlib.AlgebraicGeometry.OpenImmersion
+public import Mathlib.AlgebraicGeometry.Sites.EtalePoint
+public import Mathlib.RingTheory.Henselian
+public import Mathlib.RingTheory.RingHom.Etale
+public import Mathlib.RingTheory.Spectrum.Prime.Topology
 
 
 /-!
@@ -28,6 +30,8 @@ Henselian pair. The étale scheme need not be affine or finite over the base.
 For a separably closed residue field, a point over the closed point supplies
 the rational point, so every étale cover of a strictly local spectrum splits.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -117,14 +121,16 @@ theorem exists_section_of_isSepClosed_residueField
   exact ⟨s, hs⟩
 
 
-private theorem localSource_hom_ext_of_residue
+/-- Maps from a local spectrum into an unramified scheme agree if they
+agree after a test morphism whose image contains the closed point. The
+equalizer is open and contains that closed point, hence is the whole
+local spectrum. No Henselian or residue-field closure hypothesis is needed. -/
+theorem localSource_hom_ext_of_closedPoint
     (R : Type u) [CommRing R] [IsLocalRing R]
     {X Y : Scheme.{u}} (f : X ⟶ Y) [FormallyUnramified f] [LocallyOfFiniteType f]
     (a b : Spec (.of R) ⟶ X) (hab : a ≫ f = b ≫ f)
-    (hresidue : Spec.map (CommRingCat.ofHom (IsLocalRing.residue R)) ≫ a =
-      Spec.map (CommRingCat.ofHom (IsLocalRing.residue R)) ≫ b) : a = b := by
-  let r : Spec (.of (IsLocalRing.ResidueField R)) ⟶ Spec (.of R) :=
-    Spec.map (CommRingCat.ofHom (IsLocalRing.residue R))
+    {P : Scheme.{u}} (j : P ⟶ Spec (.of R)) (p : P)
+    (hj : j p = IsLocalRing.closedPoint R) (heq : j ≫ a = j ≫ b) : a = b := by
   let pair : Spec (.of R) ⟶ pullback f f := pullback.lift a b hab
   let d : pullback pair (pullback.diagonal f) ⟶ Spec (.of R) :=
     pullback.fst pair (pullback.diagonal f)
@@ -136,29 +142,33 @@ private theorem localSource_hom_ext_of_residue
     simp only [pair, Category.assoc, pullback.lift_fst, pullback.lift_snd,
       pullback.diagonal_fst, pullback.diagonal_snd, Category.comp_id] at h₁ h₂
     exact h₁.trans h₂.symm
-  let w : Spec (.of (IsLocalRing.ResidueField R)) ⟶
-      pullback pair (pullback.diagonal f) :=
-    pullback.lift r (r ≫ a) (by
+  let w : P ⟶ pullback pair (pullback.diagonal f) :=
+    pullback.lift j (j ≫ a) (by
       apply pullback.hom_ext
       · simp only [pair, Category.assoc, pullback.lift_fst,
           pullback.diagonal_fst, Category.comp_id]
       · simp only [pair, Category.assoc, pullback.lift_snd,
           pullback.diagonal_snd, Category.comp_id]
-        exact hresidue.symm)
-  have hw : w ≫ d = r := pullback.lift_fst _ _ _
+        exact heq.symm)
+  have hw : w ≫ d = j := pullback.lift_fst _ _ _
   have hmem : IsLocalRing.closedPoint R ∈ d.opensRange := by
     change IsLocalRing.closedPoint R ∈ Set.range d
-    refine ⟨w default, ?_⟩
-    have hr : r default = IsLocalRing.closedPoint R := by
-      change Spec.map (CommRingCat.ofHom (IsLocalRing.residue R)) default = _
-      rw [Spec.map_apply]
-      exact IsLocalRing.PrimeSpectrum.comap_residue R
-        (default : Spec (.of (IsLocalRing.ResidueField R)))
-    exact (congrArg
-      (fun k : Spec (.of (IsLocalRing.ResidueField R)) ⟶ Spec (.of R) => k default) hw).trans hr
+    exact ⟨w p, (congrArg (fun k : P ⟶ Spec (.of R) => k p) hw).trans hj⟩
   have : IsIso d := isIso_of_isOpenImmersion_of_opensRange_eq_top d
     ((IsLocalRing.closedPoint_mem_iff d.opensRange).mp hmem)
   exact (cancel_epi d).mp hd
+
+private theorem localSource_hom_ext_of_residue
+    (R : Type u) [CommRing R] [IsLocalRing R]
+    {X Y : Scheme.{u}} (f : X ⟶ Y) [FormallyUnramified f] [LocallyOfFiniteType f]
+    (a b : Spec (.of R) ⟶ X) (hab : a ≫ f = b ≫ f)
+    (hresidue : Spec.map (CommRingCat.ofHom (IsLocalRing.residue R)) ≫ a =
+      Spec.map (CommRingCat.ofHom (IsLocalRing.residue R)) ≫ b) : a = b := by
+  apply localSource_hom_ext_of_closedPoint R f a b hab
+    (Spec.map (CommRingCat.ofHom (IsLocalRing.residue R))) default ?_ hresidue
+  rw [Spec.map_apply]
+  exact IsLocalRing.PrimeSpectrum.comap_residue R
+    (default : Spec (.of (IsLocalRing.ResidueField R)))
 
 /-- A prescribed residue-field point of an étale scheme lifts uniquely over
 any map from a Henselian local spectrum. The source of the étale morphism

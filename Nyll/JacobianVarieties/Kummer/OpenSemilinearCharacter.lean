@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverGenericCharacter
-import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
-import Nyll.SchemeTheory.FunctionFields.ScalarFunctoriality
-import Nyll.GaloisCohomology.Kummer.Concrete.SemilinearConjugation
-import Mathlib.FieldTheory.IsSepClosed
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverGenericCharacter
+public import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
+public import Nyll.SchemeTheory.FunctionFields.ScalarFunctoriality
+public import Nyll.GaloisCohomology.Kummer.Concrete.SemilinearConjugation
+public import Mathlib.FieldTheory.IsSepClosed
 
 /-!
 # Semilinear transport of actual open Kummer characters
@@ -16,6 +18,10 @@ import Mathlib.FieldTheory.IsSepClosed
 The original open Kummer covers retain their root formulas under semilinear
 transport. Boundary orders are transported by the existing place action.
 -/
+
+@[expose] public section
+
+universe u v
 
 noncomputable section
 
@@ -49,14 +55,12 @@ end AlgebraicCurve.Pic0
 
 namespace AlgebraicCurve.CurveModel.OpenKummer
 
-attribute [local instance] IsSepClosure.sep_closed
-
 /-- The actual generic character of the transformed open Kummer cover is
 the coefficient transform of the original character under positive Galois conjugation. -/
 theorem kummerMonodromyCharacter_generic_semilinear
-    {K F : Type} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
+    {K : Type u} {F : Type v} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
     (M : CurveModel K F) (S : Set (Place K F)) (n : ℕ+)
-    {X : Scheme} [IsIntegral X] [CompactSpace X]
+    {X : Scheme.{u}} [IsIntegral X] [CompactSpace X]
     (j : X ⟶ M.C) [IsOpenImmersion j] (hj : DenseRange j)
     (hinterior : ∀ (y : X) (x : closedPoints M.C),
       x.val = j y → M.placeOfPoint x ∉ S)
@@ -64,13 +68,14 @@ theorem kummerMonodromyCharacter_generic_semilinear
     (g : SemilinearAut K F) (φ : X.functionField ≃+* X.functionField)
     (hφ : ∀ z : F, φ (j.functionFieldMap hj (M.ffEquiv z)) =
       j.functionFieldMap hj (M.ffEquiv (SemilinearAut.toRingAut g z)))
-    {Ω : Type} [Field Ω] [Algebra X.functionField Ω] [IsSepClosure X.functionField Ω]
+    {Ω : Type u} [Field Ω] [Algebra X.functionField Ω] [IsSepClosure X.functionField Ω]
     (a : Ω ≃+* Ω)
     (ha : ∀ z : X.functionField,
       a (algebraMap X.functionField Ω z) = algebraMap X.functionField Ω (φ z))
     (u u' : Pic0.openKummerUnits K F S n)
     (hu' : u'.val = Units.map (SemilinearAut.toRingAut g).toMonoidHom u.val)
     (ρ : Ω ≃ₐ[X.functionField] Ω) :
+    let : IsSepClosed Ω := IsSepClosure.sep_closed X.functionField
     let : TopologicalSpace (rootsOfUnity (n : ℕ) K) := ⊥
     let η := Spec.map (CommRingCat.ofHom (algebraMap X.functionField Ω))
     let q := X.fromSpecStalk (genericPoint X)
@@ -81,7 +86,7 @@ theorem kummerMonodromyCharacter_generic_semilinear
       (s (KummerTheory.semilinearGaloisConjugate φ a ha ρ)) : Kˣ) : K) =
       SemilinearAut.baseAut g
         ((kummerMonodromyCharacter M S n u j hj hinterior hn (η ≫ q) (s ρ) : Kˣ) : K) := by
-  intro topology η q s
+  intro sepClosed topology η q s
   let ψ : F →+* X.functionField := (j.functionFieldMap hj).comp M.ffEquiv.toRingHom
   have hψφ (z : F) : φ (ψ z) = ψ (SemilinearAut.toRingAut g z) := hφ z
   have hbase (z : K) : ψ (algebraMap K F z) = baseToFunctionField (j ≫ M.toBase) z := by

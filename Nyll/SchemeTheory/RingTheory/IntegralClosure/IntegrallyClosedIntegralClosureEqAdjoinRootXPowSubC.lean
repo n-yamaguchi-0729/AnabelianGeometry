@@ -10,13 +10,17 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.RingTheory.Smooth.IntegralClosure
-import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
-import Nyll.SchemeTheory.RingTheory.Etale.AdjoinRootEtaleFiniteXPowSubC
+module
+
+public import Mathlib.RingTheory.Smooth.IntegralClosure
+public import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
+public import Nyll.SchemeTheory.RingTheory.Etale.AdjoinRootEtaleFiniteXPowSubC
 
 /-!
 # Is Integrally Closed integral Closure eq adjoin root X pow sub C of is Unit
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -96,7 +100,7 @@ noncomputable def ψ₁ (n : ℕ) (u : A) : AdjoinRoot (fA n u) →ₐ[A] Adjoin
 omit [IsDomain A] [IsIntegrallyClosed A] [IsFractionRing A K] in
 theorem ψ₁_root (n : ℕ) (u : A) : ψ₁ (K := K) n u (AdjoinRoot.root (fA n u)) = AdjoinRoot.root (fK
   K n u) := by
-  simp [ψ₁]
+  simp only [ψ₁, AdjoinRoot.liftAlgHom_root]
 
 /-- The scalar extension map from the original Kummer algebra to the root algebra over `K`. -/
 noncomputable def ψ (n : ℕ) (u : A) : AdjoinRoot (fA n u) ⊗[A] K →ₐ[A] AdjoinRoot (fK K n u) :=
@@ -106,7 +110,8 @@ noncomputable def ψ (n : ℕ) (u : A) : AdjoinRoot (fA n u) ⊗[A] K →ₐ[A] 
 omit [IsDomain A] [IsIntegrallyClosed A] [IsFractionRing A K] in
 theorem ψ_tmul (n : ℕ) (u : A) (s : AdjoinRoot (fA n u)) (k : K) :
     ψ n u (s ⊗ₜ[A] k) = ψ₁ n u s * algebraMap K (AdjoinRoot (fK K n u)) k := by
-  simp [ψ]
+  simp only [ψ, Algebra.TensorProduct.lift_tmul, IsScalarTower.coe_toAlgHom',
+    AdjoinRoot.algebraMap_eq]
 
 /-- The map sending the Kummer root over `K` to the original root tensored with one. -/
 noncomputable def θ (n : ℕ) (u : A) : AdjoinRoot (fK K n u) →+* AdjoinRoot (fA n u) ⊗[A] K :=
@@ -121,12 +126,13 @@ noncomputable def θ (n : ℕ) (u : A) : AdjoinRoot (fK K n u) →+* AdjoinRoot 
 omit [IsDomain A] [IsIntegrallyClosed A] [IsFractionRing A K] in
 theorem θ_of (n : ℕ) (u : A) (k : K) :
     θ n u (AdjoinRoot.of (fK K n u) k) = (1 : AdjoinRoot (fA n u)) ⊗ₜ[A] k := by
-  simp [θ]
+  simp only [θ, AlgHom.toRingHom_eq_coe, AdjoinRoot.lift_of, RingHom.coe_coe,
+    Algebra.TensorProduct.includeRight_apply]
 
 omit [IsDomain A] [IsIntegrallyClosed A] [IsFractionRing A K] in
 theorem θ_root (n : ℕ) (u : A) :
     θ n u (AdjoinRoot.root (fK K n u)) = AdjoinRoot.root (fA n u) ⊗ₜ[A] (1 : K) := by
-  simp [θ]
+  simp only [θ, AlgHom.toRingHom_eq_coe, AdjoinRoot.lift_root]
 
 /-- The inverse scalar extension map, viewed as an algebra homomorphism over `A`. -/
 noncomputable def θₐ (n : ℕ) (u : A) : AdjoinRoot (fK K n u) →ₐ[A] AdjoinRoot (fA n u) ⊗[A] K :=

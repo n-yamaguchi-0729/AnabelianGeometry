@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperSplitClosedFiberSections
-import Nyll.SchemeTheory.Affine.FaithfullyFlatSectionSurjectivity
-import Nyll.SchemeTheory.Affine.SpecFlatBaseChangeSections
-import Nyll.SchemeTheory.Etale.ClosedFiberBaseChange
-import Nyll.SchemeTheory.Etale.LocalResidueFieldExtension
-import Nyll.SchemeTheory.FiniteEtale.Algebra.FiniteEtaleSplittingField
-import Mathlib.AlgebraicGeometry.Morphisms.ClosedImmersion
-import Mathlib.RingTheory.TensorProduct.Maps
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperSplitClosedFiberSections
+public import Nyll.SchemeTheory.Affine.FaithfullyFlatSectionSurjectivity
+public import Nyll.SchemeTheory.Affine.SpecFlatBaseChangeSections
+public import Nyll.SchemeTheory.Etale.ClosedFiberBaseChange
+public import Nyll.SchemeTheory.Etale.LocalResidueFieldExtension
+public import Nyll.SchemeTheory.FiniteEtale.Algebra.FiniteEtaleSplittingField
+public import Mathlib.AlgebraicGeometry.Morphisms.ClosedImmersion
+public import Mathlib.RingTheory.TensorProduct.Maps
 
 /-!
 # Restriction to an etale closed-fibre section algebra
@@ -23,6 +25,8 @@ Noetherian extension. The actual cartesian closed-fibre comparison transports
 the split section algebra, and faithfully flat descent returns the desired
 restriction-surjectivity statement over the original local ring.
 -/
+
+@[expose] public section
 
 noncomputable section
 

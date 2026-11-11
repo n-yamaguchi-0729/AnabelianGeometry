@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.AlignedRationalModelAmbient
-import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationNakamura
-import Nyll.AnabelianGeometry.WeightFiltration.NamedModelCoverGroupSquare
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConstantFieldStrictTransport
-import Nyll.EtaleFundamentalGroups.GeometricFiber.MatchedFiberArithmeticCoverTransport
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.AlignedRationalModelAmbient
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedBaseIsomorphism
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationNakamura
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedModelCoverGroupSquare
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConstantFieldStrictTransport
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.MatchedFiberArithmeticCoverTransport
+public import Nyll.ProCGroups.Topologies.ArithmeticInnerCorrectionFiberTransport
 
 /-! # Split reconstruction through the actual matched rational models
 
@@ -17,6 +21,8 @@ The point equalities here are supplied by
 literal pointed maps. The same finite-cover correction, geometric comparison,
 and inertia bijection are retained, before any Galois descent is asserted.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -28,7 +34,7 @@ namespace AnabelianGeometry.WeightFiltration
 /-- Apply split reconstruction to the actual pointed finite models. The only
 inner correction is the computed correction in the native target cover. -/
 theorem exists_projectiveTransformation_of_pointed_constantCover_models
-    (k E κ : Type) [Field k] [Field E] [NumberField E]
+    (k E κ : Type) [Field k] [Field E] [CharZero E] [Field.FG E]
     [Field κ] [CharZero κ] [IsAlgClosed κ]
     [Algebra k E] [Algebra E κ] [Algebra k κ] [IsScalarTower k E κ]
     [IsSepClosure k κ] [IsAlgClosure E κ]

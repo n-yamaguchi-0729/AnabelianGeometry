@@ -4,12 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteBoundaryValueRigidity
-import Nyll.AnabelianGeometry.WeightFiltration.KummerCohomologyCharacters
-import Nyll.EtaleFundamentalGroups.Cohomology.TorsorCharacterEquiv
-import Nyll.JacobianVarieties.Kummer.OpenKummerFunctionPower
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteBoundaryValueRigidity
+public import Nyll.AnabelianGeometry.WeightFiltration.KummerCohomologyCharacters
+public import Nyll.EtaleFundamentalGroups.Cohomology.TorsorCharacterEquiv
+public import Nyll.JacobianVarieties.Kummer.OpenKummerFunctionPower
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
 
 /-! # Actual named Kummer fibers from boundary character values -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory AlgebraicCurve

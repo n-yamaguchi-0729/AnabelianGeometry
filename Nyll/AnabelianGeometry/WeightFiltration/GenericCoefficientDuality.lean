@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.GenericSourceIso
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CoefficientBaseChangeIso
-import Nyll.EtaleFundamentalGroups.GeometricFiber.SourceIsoGalois
-import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricGaloisSourceDuality
+module
+
+public import Nyll.SchemeTheory.FunctionFields.GenericSourceIso
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CoefficientBaseChangeIso
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.SourceIsoGalois
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricGaloisSourceDuality
 
 /-!
 # Actual coefficient Galois action and generic H¹ duality
@@ -16,6 +18,8 @@ Every coefficient automorphism acts on the literal base change and lifts to
 the supplied generic separable closure. The original arithmetic comparison
 contributes one fixed inner correction for all Galois elements.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -61,7 +65,7 @@ theorem exists_genericCoefficient_sourceAction
           have hp : e.hom ≫ xi = xi ≫ (coefficientBaseChangeIso k L f σ).hom := hpoint
           rw [← Category.assoc, hp, Category.assoc, coefficientBaseChangeIso_hom_snd]
         arithmeticFundamentalGroupHom k L f (xi ≫ p)
-            (fiberSourceIso (xi ≫ p) e ≪≫ eqToIso (congrArg fiber hz)) =
+            (Aut.of (fiberSourceIso (xi ≫ p) e ≪≫ eqToIso (congrArg fiber hz))) =
           α * σ * α⁻¹ := by
   let φ := Spec.map (CommRingCat.ofHom (algebraMap k L))
   let c := Limits.pullback.fst φ f
@@ -143,7 +147,7 @@ theorem exists_genericCoefficient_duality
     have hp : e.hom ≫ xi = xi ≫ θ.hom := hpoint
     rw [← Category.assoc, hp, Category.assoc, coefficientBaseChangeIso_hom_snd]
   let g : Aut (fiber (xi ≫ p)) :=
-    fiberSourceIso (xi ≫ p) e ≪≫ eqToIso (congrArg fiber hz)
+    Aut.of (fiberSourceIso (xi ≫ p) e ≪≫ eqToIso (congrArg fiber hz))
   change arithmeticFundamentalGroupHom k L f (xi ≫ p) g = α * σ * α⁻¹ at hlabel
   have hinv : arithmeticFundamentalGroupHom k L f (xi ≫ p) g⁻¹ =
       α * σ⁻¹ * α⁻¹ := by

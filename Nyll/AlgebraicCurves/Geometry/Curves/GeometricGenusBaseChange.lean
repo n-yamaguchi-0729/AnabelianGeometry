@@ -5,13 +5,17 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricGenus
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
-import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveTwoAffineCover
-import Nyll.AlgebraicCurves.Geometry.AlgEquivFunctionFieldIso
-import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Genus.GenusFFEqAlgEquiv
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.Pasting
-import Mathlib.Algebra.Algebra.Tower
+module
+
+public import Nyll.AlgebraicCurves.Geometry.Curves.GeometricGenus
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
+public import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveTwoAffineCover
+public import Nyll.AlgebraicCurves.Geometry.AlgEquivFunctionFieldIso
+public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Genus.GenusFFEqAlgEquiv
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.Pasting
+public import Mathlib.Algebra.Algebra.Tower
+public import Nyll.AlgebraicCurves.Cohomology.Adelic.Repartitions
+public import Nyll.SchemeTheory.FunctionFields.StructureMorphism
 
 /-!
 # Geometric genus after a finite field extension
@@ -21,6 +25,8 @@ Cech cohomology and the function-field isomorphism of the two iterated pullbacks
 then compare the genera. The auxiliary rational point is only used to construct
 a two-affine cover of the extended curve.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -48,7 +54,7 @@ private theorem finrank_H1_eq_genusFF_baseChange
   have hexΩ : Function.Exact (d.baseChange Ω)
       ((LinearMap.range d).mkQ.baseChange Ω) := by
     have ht := lTensor_exact Ω hex hsurj
-    rwa [← LinearMap.baseChange_eq_ltensor, ← LinearMap.baseChange_eq_ltensor] at ht
+    rwa [← LinearMap.baseChange_eq_lTensor, ← LinearMap.baseChange_eq_lTensor] at ht
   let e := hexΩ.linearEquivOfSurjective (LinearMap.baseChange_surjective Ω hsurj)
   calc
     Module.finrank K (𝒱.structureSheafSections c).H1 =

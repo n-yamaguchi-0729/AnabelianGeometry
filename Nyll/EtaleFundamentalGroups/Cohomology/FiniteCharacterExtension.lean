@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Topology.Algebra.ContinuousMonoidHom
-import Mathlib.Topology.Algebra.MulAction
-import Mathlib.Algebra.Group.Hom.Instances
-import Mathlib.Algebra.Group.Prod
-import Mathlib.Algebra.Group.TypeTags.Hom
+module
+
+public import Mathlib.Topology.Algebra.ContinuousMonoidHom
+public import Mathlib.Topology.Algebra.MulAction
+public import Mathlib.Algebra.Group.Hom.Instances
+public import Mathlib.Algebra.Group.Prod
+public import Mathlib.Algebra.Group.TypeTags.Hom
 
 /-!
 # A finite linear extension constructed from a character
@@ -19,6 +21,8 @@ For an additive abelian group `A`, a character acts on `A × End(A)` by
 has displacement exactly `χ`. If `A` is finite, this whole extension is finite;
 no choice of an exponent or an invertibility hypothesis is required.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -63,7 +67,7 @@ theorem characterExtensionAction_continuous [DiscreteTopology A] :
     let : TopologicalSpace (A × (A →+ A)) := ⊥
     let : DistribMulAction G (A × (A →+ A)) := characterExtensionAction χ
     ContinuousSMul G (A × (A →+ A)) := by
-  let : TopologicalSpace (A × (A →+ A)) := ⊥
+  intro sharedOwner1
   have : DiscreteTopology (A × (A →+ A)) := ⟨rfl⟩
   let : DistribMulAction G (A × (A →+ A)) := characterExtensionAction χ
   constructor

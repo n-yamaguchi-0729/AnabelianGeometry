@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.PlaceLocalValuation
-import Nyll.AnabelianGeometry.WeightFiltration.KummerTameResidue
-import Nyll.AlgebraicCurves.Places.Basic
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.PlaceLocalValuation
+public import Nyll.AnabelianGeometry.WeightFiltration.KummerTameResidue
+public import Nyll.AlgebraicCurves.Places.Basic
 
 /-!
 # Actual tame values at arbitrary places
@@ -14,6 +16,8 @@ import Nyll.AlgebraicCurves.Places.Basic
 The integral Kummer residue formula extends to signed place orders by inversion.
 This retains the value of each inertia character, including at poles.
 -/
+
+@[expose] public section
 
 noncomputable section
 

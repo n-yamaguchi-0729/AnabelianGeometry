@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.CompactificationResidues
-import Nyll.AnabelianGeometry.WeightFiltration.ResidueBasePointIndependence
-import Nyll.AnabelianGeometry.WeightFiltration.FiniteCohomologyPullback
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.CompactificationResidues
+public import Nyll.AnabelianGeometry.WeightFiltration.ResidueBasePointIndependence
+public import Nyll.AnabelianGeometry.WeightFiltration.FiniteCohomologyPullback
 
 /-!
 # The finite residue sequence with geometric pullback
@@ -16,6 +18,10 @@ of the open immersion. Exactness therefore has no auxiliary field-compatibility
 hypotheses and holds at every geometric base point.
 -/
 
+@[expose] public section
+
+universe uGeom uField₁ uField₂
+
 noncomputable section
 
 open AlgebraicGeometry CategoryTheory AlgebraicCurve
@@ -23,13 +29,13 @@ open EtaleFundamentalGroups.Cohomology
 
 namespace AnabelianGeometry.WeightFiltration
 
-variable {K F : Type} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
+variable {K : Type uGeom} {F : Type uField₁} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
   [Algebra.EssFiniteType K F] [IsCurveOver K F]
   (M : CurveModel K F) (n : ℕ+)
-  {X : Scheme} [IsIntegral X] [CompactSpace X]
+  {X : Scheme.{uGeom}} [IsIntegral X] [CompactSpace X]
   (j : X ⟶ M.C) [IsOpenImmersion j] (hj : DenseRange j)
   (hn : IsUnit ((n : ℕ) : K))
-  {Ω : Type} [Field Ω] [IsSepClosed Ω] (xi : Spec (.of Ω) ⟶ X)
+  {Ω : Type uGeom} [Field Ω] [IsSepClosed Ω] (xi : Spec (.of Ω) ⟶ X)
 
 /-- Exactness at open-curve cohomology for the actual compactification map. -/
 theorem finiteResidue_eq_zero_iff_pullback (x : FiniteKummerH1 K X n) :

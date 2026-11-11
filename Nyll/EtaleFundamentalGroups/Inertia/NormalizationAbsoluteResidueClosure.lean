@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteResidueClosure
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationResidueDVR
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.RingTheory.Localization.Integral
-import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteResidueClosure
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationResidueDVR
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.RingTheory.Localization.Integral
+public import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
 
 /-!
 # Algebraic closedness of absolute normalization residues
@@ -16,6 +18,8 @@ import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
 Proves that the maximal quotient of the normalization of a DVR in a separable closure of its
 fraction field is algebraically closed.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

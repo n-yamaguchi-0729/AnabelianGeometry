@@ -9,8 +9,10 @@ Upstream per-file ATTRIBUTION (earlier FLT and Mathlib notices): https://github.
 Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
-import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLineRatFuncCoordinate
-import Mathlib.AlgebraicGeometry.ProjectiveSpectrum.Functor
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLineRatFuncCoordinate
+public import Mathlib.AlgebraicGeometry.ProjectiveSpectrum.Functor
 
 /-! # The actual polynomial-chart coefficient-extension square
 
@@ -24,6 +26,10 @@ BaseChange.lean isPullback_map' proof. Function-field promotion is a
 separate task and is not asserted in this file.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 
 open CategoryTheory AlgebraicGeometry
@@ -34,11 +40,9 @@ namespace AlgebraicGeometry.ProjSpace
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
-variable (k κ : Type) [Field k] [Field κ] [Algebra k κ]
+variable (k κ : Type u) [Field k] [Field κ] [Algebra k κ]
 local notation "𝒜k" => MvPolynomial.homogeneousSubmodule (Fin 2) k
 local notation "𝒜κ" => MvPolynomial.homogeneousSubmodule (Fin 2) κ
-local notation "Ak" => Away 𝒜k (MvPolynomial.X (1 : Fin 2))
-local notation "Aκ" => Away 𝒜κ (MvPolynomial.X (1 : Fin 2))
 
 /-- The actual chart-local homogeneous coefficient map commutes with the
 actual morphism of projective lines. -/

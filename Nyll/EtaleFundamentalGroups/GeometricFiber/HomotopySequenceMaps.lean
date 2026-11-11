@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.EtaleFundamentalGroups.GaloisCategories.Surjectivity
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticComposite
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedComposition
-import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
-import Nyll.EtaleFundamentalGroups.GeometricFiber.OpenImmersionSurjective
-import Mathlib.AlgebraicGeometry.Geometrically.Connected
-import Mathlib.AlgebraicGeometry.Morphisms.UniversallyOpen
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.Surjectivity
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticComposite
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedComposition
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.OpenImmersionSurjective
+public import Mathlib.AlgebraicGeometry.Geometrically.Connected
+public import Mathlib.AlgebraicGeometry.Morphisms.UniversallyOpen
 
 /-!
 # The maps in the homotopy sequence
@@ -28,6 +30,8 @@ The flat, locally finitely presented case is retained as a corollary.
 These are the composite and surjectivity inputs to
 Stacks Project, Proposition 58.15.2 (tag 0C0J); middle exactness is separate.
 -/
+
+@[expose] public section
 
 noncomputable section
 

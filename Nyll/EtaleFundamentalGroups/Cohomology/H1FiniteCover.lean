@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.LocalTrivialization
-import Nyll.EtaleCohomology.Constructible.Representability
-import Mathlib.CategoryTheory.Sites.ConstantSheaf
-import Mathlib.CategoryTheory.Sites.Sheafification
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.LocalTrivialization
+public import Nyll.EtaleCohomology.Constructible.Representability
+public import Mathlib.CategoryTheory.Sites.ConstantSheaf
+public import Mathlib.CategoryTheory.Sites.Sheafification
 
 /-!
 # Finite étale covers obtained from actual first cohomology classes
@@ -17,6 +19,8 @@ section `1` in an extension representing a cohomology class is represented by
 a finite étale scheme. Both the extension and the representer are constructed
 from existing theorems, with no comparison hypothesis on cohomology.
 -/
+
+@[expose] public section
 
 noncomputable section
 

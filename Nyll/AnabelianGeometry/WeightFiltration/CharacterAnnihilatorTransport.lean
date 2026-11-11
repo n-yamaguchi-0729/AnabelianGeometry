@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Topology.Algebra.ContinuousMonoidHom
-import Mathlib.GroupTheory.QuotientGroup.Basic
+module
+
+public import Mathlib.Topology.Algebra.ContinuousMonoidHom
+public import Mathlib.GroupTheory.QuotientGroup.Basic
 
 /-!
 # Transport of continuous characters and their annihilators
@@ -13,6 +15,8 @@ import Mathlib.GroupTheory.QuotientGroup.Basic
 A topological group equivalence preserving a subgroup transports its character
 annihilator. The induced quotient equivalence also transports residue ranges.
 -/
+
+@[expose] public section
 
 noncomputable section
 

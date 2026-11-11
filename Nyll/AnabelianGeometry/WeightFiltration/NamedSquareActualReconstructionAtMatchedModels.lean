@@ -3,10 +3,14 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareActualReconstruction
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralPointModel
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareActualReconstruction
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareLiteralPointModel
 
 /-! # Reconstruction at the matched geometric models -/
+
+@[expose] public section
 
 noncomputable section
 open scoped RatFunc
@@ -19,7 +23,7 @@ attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra Classic
 namespace AnabelianGeometry.WeightFiltration
 
 theorem namedSquare_actual_matched_models_reconstruct_same_punctures
-    (k E κ : Type) [Field k] [NumberField k] [Field E] [NumberField E]
+    (k E κ : Type) [Field k] [CharZero k] [Field.FG k] [Field E] [CharZero E] [Field.FG E]
     [Field κ] [CharZero κ] [IsAlgClosed κ]
     [Algebra k κ] [Algebra E κ] [Algebra k E] [IsScalarTower k E κ]
     [IsAlgClosure k κ] [IsAlgClosure E κ]

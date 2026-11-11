@@ -4,13 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Polynomial.Eval.Irreducible
-import Mathlib.Algebra.Polynomial.Lifts
-import Mathlib.FieldTheory.IsSepClosed
-import Mathlib.RingTheory.LocalRing.ResidueField.Basic
-import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
-import Mathlib.RingTheory.Localization.LocalizationLocalization
-import Mathlib.RingTheory.Polynomial.GaussLemma
+module
+
+public import Mathlib.Algebra.Polynomial.Eval.Irreducible
+public import Mathlib.Algebra.Polynomial.Lifts
+public import Mathlib.FieldTheory.IsSepClosed
+public import Mathlib.RingTheory.LocalRing.ResidueField.Basic
+public import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
+public import Mathlib.RingTheory.Localization.LocalizationLocalization
+public import Mathlib.RingTheory.Polynomial.GaussLemma
 
 /-!
 # Residue fields of normal domains with separably closed fraction field
@@ -24,6 +26,8 @@ makes the derivative nonzero.
 Reference: Stacks Project, Tag 0BSP.
 https://stacks.math.columbia.edu/tag/0BSP
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.StrictHenselian
 

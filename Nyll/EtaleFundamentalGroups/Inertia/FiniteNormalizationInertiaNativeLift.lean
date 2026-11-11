@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationInertiaLift
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgInertiaRingMaps
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationInertiaLift
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgInertiaRingMaps
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
 
 /-!
 # Native finite-field lifts of normalization inertia
@@ -14,6 +16,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
 Constructs an original finite-field inertia element whose coefficient ring map is the prescribed
 intrinsic normalization inertia map.
 -/
+
+@[expose] public section
 
 noncomputable section
 

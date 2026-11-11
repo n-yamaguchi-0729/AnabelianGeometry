@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Purity.ConnectedCoverGenericNormalizationOpenRestriction
-import Mathlib.AlgebraicGeometry.Morphisms.Proper
+module
+
+public import Nyll.EtaleFundamentalGroups.Purity.ConnectedCoverGenericNormalizationOpenRestriction
+public import Mathlib.AlgebraicGeometry.Morphisms.Proper
 
 /-!
 # The actual normalization compactification and its boundary
@@ -15,6 +17,8 @@ of the ambient proper scheme in its own function field. Its complement is
 exactly the inverse image of the original boundary. No extension across the
 boundary is assumed to be étale.
 -/
+
+@[expose] public section
 
 noncomputable section
 

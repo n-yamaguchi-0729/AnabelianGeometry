@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelNormalizationAlgebra
-import Mathlib.Algebra.Category.CommAlgCat.Basic
-import Mathlib.FieldTheory.Galois.GaloisClosure
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteLevelNormalizationAlgebra
+public import Mathlib.Algebra.Category.CommAlgCat.Basic
+public import Mathlib.FieldTheory.Galois.GaloisClosure
 
 /-!
 # Finite intermediate fields as coefficient algebras
@@ -14,6 +16,8 @@ import Mathlib.FieldTheory.Galois.GaloisClosure
 Bundles a finite Galois intermediate field as a coefficient algebra and supplies its inherited
 field, scalar-tower, finite-dimensional, and Galois structures.
 -/
+
+@[expose] public section
 
 noncomputable section
 

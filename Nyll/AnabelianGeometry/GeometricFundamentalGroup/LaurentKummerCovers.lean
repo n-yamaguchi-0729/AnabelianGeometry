@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerAlgebra
-import Nyll.EtaleFundamentalGroups.GaloisCovers.Basic
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
-import Mathlib.AlgebraicGeometry.Morphisms.FlatRank
-import Mathlib.RingTheory.Spectrum.Prime.FreeLocus
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerAlgebra
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.Basic
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+public import Mathlib.AlgebraicGeometry.Morphisms.FlatRank
+public import Mathlib.RingTheory.Spectrum.Prime.FreeLocus
 
 /-!
 # Actual connected finite-etale Kummer covers of every positive degree
@@ -18,6 +20,8 @@ Taking the spectrum of the explicit Kummer algebra produces the cover. Its sourc
 connected because the algebra is a domain, and its actual geometric fibre has the
 prescribed cardinality by the power basis and the finite-etale rank comparison.
 -/
+
+@[expose] public section
 
 noncomputable section
 

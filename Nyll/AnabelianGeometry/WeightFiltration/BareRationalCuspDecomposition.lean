@@ -3,10 +3,13 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationPunctureEquiv
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaSelfNormalizer
-import Nyll.AnabelianGeometry.WeightFiltration.OriginalRationalCuspDecompositionImage
-import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticInertiaNormalizerGroupBridge
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationPunctureEquiv
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaSelfNormalizer
+public import Nyll.AnabelianGeometry.WeightFiltration.OriginalRationalCuspDecompositionImage
+public import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticInertiaNormalizerGroupBridge
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
 
 /-! # Actual arithmetic decomposition images at the recovered rational cusps
 
@@ -17,6 +20,8 @@ arithmetic point. The arithmetic exact sequence and geometric self-normalizer
 identify this image with the arithmetic inertia normalizer. The already proved
 inertia conjugacy then transports this actual image with the same conjugator.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicCurve AlgebraicGeometry.FiniteEtale
@@ -36,7 +41,8 @@ local instance (priority := 2000) bareDecompositionSMulRatFunc
     {A E : Type*} [CommSemiring A] [Field E] [Algebra A (RatFunc E)] :
     SMul A (RatFunc E) := (inferInstance : Algebra A (RatFunc E)).toSMul
 
-private def decompositionSubgroupAtEqualPoint
+/-- Transport a decomposition subgroup along equality of its geometric point. -/
+def decompositionSubgroupAtEqualPoint
     {X : Scheme} {Ω : Type} [Field Ω]
     {x y : Spec (.of Ω) ⟶ X} (h : x = y) (D : Subgroup (Aut (fiber x))) :
     Subgroup (Aut (fiber y)) :=
@@ -63,7 +69,7 @@ private theorem decomposition_data_at_canonical_point
 
 /-- The image of the SAME normalization-prime decomposition group at the actual point. -/
 def rationalConfigurationChosenDecomposition
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
@@ -133,7 +139,7 @@ def rationalConfigurationChosenDecomposition
 
 /-- The actual decomposition image equals the normalizer of the original inertia image. -/
 theorem rationalConfigurationChosenDecomposition_eq_normalizer
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
@@ -238,7 +244,7 @@ theorem rationalConfigurationChosenDecomposition_eq_normalizer
 
 /-- The same geometric inertia conjugator transports the actual decomposition images. -/
 theorem rationalConfigurationChosenDecomposition_map_of_inertia
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
@@ -272,7 +278,7 @@ theorem rationalConfigurationChosenDecomposition_map_of_inertia
 
 /-- Bare arithmetic recognition also recovers the actual decomposition images. -/
 theorem bare_rationalConfiguration_punctureEquiv_decomposition
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]

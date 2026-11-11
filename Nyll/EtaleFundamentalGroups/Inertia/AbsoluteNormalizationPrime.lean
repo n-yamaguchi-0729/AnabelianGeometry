@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.DivisorialQuotientFieldSource
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.DivisorialQuotientFieldSource
 
 /-!
 # Absolute normalization-prime inertia
@@ -16,13 +18,15 @@ the field-theoretic model of divisorial inertia and does not require a
 separate strict-henselization construction.
 -/
 
+@[expose] public section
+
 noncomputable section
 
 namespace EtaleFundamentalGroups.Inertia
 
-universe uA u
+universe uA uK uL uOmega
 
-variable {A : Type uA} {K L Omega : Type u}
+variable {A : Type uA} {K : Type uK} {L : Type uL} {Omega : Type uOmega}
 variable [CommRing A]
 variable [Field K] [Field L] [Field Omega]
 variable [Algebra A K] [IsFractionRing A K]

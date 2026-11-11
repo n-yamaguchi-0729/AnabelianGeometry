@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineBaseChange
-import Nyll.SchemeTheory.ProjectiveSpace.RationalPuncturePointInjective
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineBaseChange
+public import Nyll.SchemeTheory.ProjectiveSpace.RationalPuncturePointInjective
 
 /-! # Every geometric boundary point of the actual rational configuration open
 
@@ -15,6 +17,10 @@ homogeneous representative. Its fiber is proved to be a singleton directly
 from the homogeneous puncture equation, rather than assumed.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 
 open CategoryTheory AlgebraicGeometry MvPolynomial
@@ -23,7 +29,7 @@ namespace AlgebraicGeometry.ProjSpace
 
 attribute [local instance] MvPolynomial.gradedAlgebra
 
-variable (k κ : Type) [Field k] [Field κ] [Algebra k κ]
+variable (k κ : Type u) [Field k] [Field κ] [Algebra k κ]
 
 /-- The original homogeneous representative with coefficients extended to κ. -/
 def extendedPunctureCoordinates (p : Projectivization k (k × k)) : κ × κ :=

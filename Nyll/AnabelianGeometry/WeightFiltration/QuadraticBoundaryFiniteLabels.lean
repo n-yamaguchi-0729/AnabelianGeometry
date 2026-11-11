@@ -3,12 +3,14 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.QuadraticScalarFiniteBase
-import Nyll.AlgebraicCurves.Places.Rational.RatFuncSquareFibers
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
-import Mathlib.Tactic.NormNum
-import Mathlib.Tactic.Ring
-import Lean.Elab.Tactic.Omega
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.QuadraticScalarFiniteBase
+public import Nyll.AlgebraicCurves.Places.Rational.RatFuncSquareFibers
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+public import Mathlib.Tactic.NormNum
+public import Mathlib.Tactic.Ring
+public import Lean.Elab.Tactic.Omega
 
 /-! # A single finite field retaining the original quadratic boundary labels
 
@@ -18,6 +20,8 @@ subtype elements, with exactly their original values in the fixed closure.
 The place lemmas classify every finite square fibre by those same roots and
 their negatives; they do not assume rationality of the source place.
 -/
+@[expose] public section
+
 noncomputable section
 attribute [local instance] Classical.propDecidable
 open AlgebraicCurve AlgebraicGeometry.ProjSpace

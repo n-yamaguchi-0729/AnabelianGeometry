@@ -10,18 +10,22 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
-import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
-import Nyll.SchemeTheory.Cohomology.Cech.TwoAffineOpenCover
-import Nyll.SchemeTheory.Modules.Tensor.TensorSections
-import Nyll.AlgebraicCurves.Geometry.Schemes.Sections.BijectiveAlgebraMapSectionsBaseChange
-import Nyll.AlgebraicCurves.Geometry.Schemes.Sections.BijectiveAlgebraMapSections
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Invertible.InvertibleBijectiveSmul
-import Nyll.SchemeTheory.Modules.Frames.IsFrameOnPullbackIsoUnit
+module
+
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
+public import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
+public import Nyll.SchemeTheory.Cohomology.Cech.TwoAffineOpenCover
+public import Nyll.SchemeTheory.Modules.Tensor.TensorSections
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Sections.BijectiveAlgebraMapSectionsBaseChange
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Sections.BijectiveAlgebraMapSections
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Invertible.InvertibleBijectiveSmul
+public import Nyll.SchemeTheory.Modules.Frames.IsFrameOnPullbackIsoUnit
 
 /-!
 # Local triviality of fibrewise trivial invertible modules
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

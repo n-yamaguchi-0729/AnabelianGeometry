@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
-import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
-import Mathlib.AlgebraicGeometry.AlgClosed.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.Functoriality
+public import Mathlib.AlgebraicGeometry.AlgClosed.Basic
 
 /-! # Actual rational and closed points above points of a finite étale cover -/
+
+@[expose] public section
 
 noncomputable section
 

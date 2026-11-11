@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.ConstantStalk
-import Nyll.EtaleFundamentalGroups.Cohomology.FiberStalkComparison
-import Mathlib.CategoryTheory.Sites.Sheafification
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.ConstantStalk
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiberStalkComparison
+public import Mathlib.CategoryTheory.Sites.Sheafification
 
 /-!
 # Constant coefficient translations on the sheaf of lifts
@@ -16,6 +18,8 @@ On a geometric stalk this is translation by the same coefficient under the
 canonical constant-stalk isomorphism. Naturality of these sheaf morphisms
 will give commutation with geometric monodromy.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -31,7 +35,9 @@ variable {X : Scheme.{u}} (A : AddCommGrpCat.{u})
   (p : E ⟶ Q) (h : i ≫ p = 0)
   (t : (Functor.const X.Etaleᵒᵖ).obj PUnit ⟶ Q.obj ⋙ forget AddCommGrpCat.{u})
 
-private abbrev constantSection (U : X.Etaleᵒᵖ) (a : A) :=
+/-- The section of the constant abelian sheaf determined by a coefficient. -/
+abbrev constantSection (U : X.Etaleᵒᵖ) (a : A) :
+    ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).obj A).obj.obj U :=
   (toSheafify X.smallEtaleTopology ((Functor.const X.Etaleᵒᵖ).obj A)).app U a
 
 /-- Adding the image of a constant coefficient defines an endomorphism of the

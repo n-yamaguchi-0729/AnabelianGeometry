@@ -10,19 +10,23 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafConstructions
-import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafIdealFiltration
-import Nyll.SchemeTheory.Cohomology.Sheaves.ModulePresheafIdealPowSubEqBot
-import Nyll.SchemeTheory.Cohomology.Sheaves.ModulePresheafCoherentIdealPowQuot
-import Nyll.SchemeTheory.Cohomology.Sheaves.ModulePresheafQuasicoherentIdealPowQuot
-import Nyll.SchemeTheory.Cohomology.Sheaves.ModulePresheafSupportedInIdealPowQuot
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.QuasicoherentIdealPow
-import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.EqZeroResBasicOpenEqZero
-import Mathlib.AlgebraicGeometry.Morphisms.Proper
+module
+
+public import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafConstructions
+public import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafIdealFiltration
+public import Nyll.SchemeTheory.Cohomology.Sheaves.ModulePresheafIdealPowSubEqBot
+public import Nyll.SchemeTheory.Cohomology.Sheaves.ModulePresheafCoherentIdealPowQuot
+public import Nyll.SchemeTheory.Cohomology.Sheaves.ModulePresheafQuasicoherentIdealPowQuot
+public import Nyll.SchemeTheory.Cohomology.Sheaves.ModulePresheafSupportedInIdealPowQuot
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.QuasicoherentIdealPow
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.EqZeroResBasicOpenEqZero
+public import Mathlib.AlgebraicGeometry.Morphisms.Proper
 
 /-!
 # OModule Presheaf forall of forall ideal Annihilates
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

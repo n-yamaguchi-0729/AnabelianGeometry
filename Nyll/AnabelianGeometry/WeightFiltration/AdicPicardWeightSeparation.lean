@@ -4,10 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.LocalPicardWeightSeparation
-import Nyll.ClassFieldTheory.GlobalClassFieldTheory.ClassFieldAxiom.IdeleClassPowerLocalUnitQuotient.FinitePlaceCompletionInstances
-import Nyll.ValuedFieldTheory.Valuation.DiscreteValuationField.ChevalleyExtension
-import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.LocalPicardWeightSeparation
+public import Nyll.ClassFieldTheory.GlobalClassFieldTheory.ClassFieldAxiom.IdeleClassPowerLocalUnitQuotient.FinitePlaceCompletionInstances
+public import Nyll.ValuedFieldTheory.Valuation.DiscreteValuationField.ChevalleyExtension
+public import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
+public import Nyll.ValuedFieldTheory.Valuation.DiscreteValuationField.Complete
 
 /-!
 # Picard weight separation at an actual finite place
@@ -16,6 +19,8 @@ The local field, valuation ring, finite residue field, Henselian structure,
 and extension valuation are supplied from the given number-field place.
 No auxiliary valuation, residue finiteness, or Frobenius witness is assumed.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLinePolynomialChartBaseChange
-import Nyll.SchemeTheory.FunctionFields.AffineFunctionFieldNaturality
-import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLinePolynomialChartBaseChange
+public import Nyll.SchemeTheory.FunctionFields.AffineFunctionFieldNaturality
+public import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceNaturality
 
 /-! # The literal rational coordinate under extension of constants
 
@@ -15,6 +17,10 @@ and the equality with the standard RatFunc coefficient extension are
 constructed here. No function-field comparison is assumed.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 
 open CategoryTheory AlgebraicGeometry AlgebraicCurve TopologicalSpace
@@ -22,7 +28,7 @@ open EtaleFundamentalGroups
 open scoped RatFunc
 
 local instance projectiveLineBaseChangeAffineFunctionFieldAlgebra
-    (R : Type) [CommRing R] [IsDomain R] :
+    (R : Type u) [CommRing R] [IsDomain R] :
     Algebra R (Spec (CommRingCat.of R)).functionField :=
   RingHom.toAlgebra
     ((StructureSheaf.toStalk R
@@ -41,9 +47,9 @@ theorem functionFieldMap_eq_of_eq
   subst g
   rfl
 
-variable (k κ : Type) [Field k] [Field κ] [Algebra k κ]
+variable (k κ : Type u) [Field k] [Field κ] [Algebra k κ]
 
-local instance projectiveLineBaseChange_integral (F : Type) [Field F] :
+local instance projectiveLineBaseChange_integral (F : Type u) [Field F] :
     IsIntegral (Proj (MvPolynomial.homogeneousSubmodule (Fin (1 + 1)) F)) :=
   projectiveSpace_isIntegral F 1
 

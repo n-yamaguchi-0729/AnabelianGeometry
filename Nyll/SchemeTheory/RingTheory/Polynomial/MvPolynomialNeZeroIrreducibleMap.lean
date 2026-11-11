@@ -10,22 +10,26 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Algebra.MvPolynomial.Monad
-import Mathlib.Algebra.MvPolynomial.Nilpotent
-import Mathlib.Algebra.MvPolynomial.NoZeroDivisors
-import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
-import Mathlib.FieldTheory.IsAlgClosed.Basic
-import Mathlib.RingTheory.Jacobson.Ring
-import Mathlib.RingTheory.Localization.Ideal
-import Mathlib.RingTheory.Localization.FractionRing
-import Mathlib.RingTheory.MvPolynomial.Localization
-import Mathlib.Tactic.Push
-import Mathlib.Tactic.Choose
+module
+
+public import Mathlib.Algebra.MvPolynomial.Monad
+public import Mathlib.Algebra.MvPolynomial.Nilpotent
+public import Mathlib.Algebra.MvPolynomial.NoZeroDivisors
+public import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
+public import Mathlib.FieldTheory.IsAlgClosed.Basic
+public import Mathlib.RingTheory.Jacobson.Ring
+public import Mathlib.RingTheory.Localization.Ideal
+public import Mathlib.RingTheory.Localization.FractionRing
+public import Mathlib.RingTheory.MvPolynomial.Localization
+public import Mathlib.Tactic.Push
+public import Mathlib.Tactic.Choose
 
 /-!
 # Mv Polynomial exists ne zero and forall irreducible map of irreducible map algebraic
 Closure
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

@@ -4,15 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationContinuity
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationInertiaTopology
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.Topology.Constructions
-import Mathlib.Topology.LocallyConstant.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationContinuity
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationInertiaTopology
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.Topology.Constructions
+public import Mathlib.Topology.LocallyConstant.Basic
 
 /-!
 # Local constancy of actual finite inertia restriction
@@ -22,6 +24,8 @@ restriction factors through the locally constant finite Galois restriction.
 Injectivity of the intrinsic subgroup inclusion then proves local constancy
 without installing any replacement topology on the original inertia group.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

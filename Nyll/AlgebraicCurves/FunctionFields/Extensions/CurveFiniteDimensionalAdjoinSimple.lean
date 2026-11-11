@@ -10,13 +10,17 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
-import Nyll.AlgebraicCurves.FunctionFields.Extensions.FiniteSimpleExtensions
-import Mathlib.RingTheory.Unramified.Finite
+module
+
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
+public import Nyll.AlgebraicCurves.FunctionFields.Extensions.FiniteSimpleExtensions
+public import Mathlib.RingTheory.Unramified.Finite
 
 /-!
 # Is Curve Over finite Dimensional adjoin simple of transcendental of ess Finite Type
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

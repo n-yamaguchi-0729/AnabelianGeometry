@@ -11,12 +11,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.JacobianVarieties.WeilPairing.Datum
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+module
+
+public import Nyll.JacobianVarieties.WeilPairing.Datum
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
 
 /-!
 Disjoint rational supports make both divisor evaluations, and hence the Weil pairing, nonzero.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

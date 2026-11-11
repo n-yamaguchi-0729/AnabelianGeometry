@@ -10,15 +10,19 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.GroupLaw.Kernel
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyIntegralAlgClosed
-import Nyll.SchemeTheory.Sheaves.IdealSheafDataReducedSubschemeVanishingIdealLeKer
-import Nyll.AlgebraicCurves.Geometry.Picard.GroupLaw.RelativeGroupLaw
+module
+
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.Kernel
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
+public import Nyll.SchemeTheory.Morphisms.GeometricallyIntegralAlgClosed
+public import Nyll.SchemeTheory.Sheaves.IdealSheafDataReducedSubschemeVanishingIdealLeKer
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.Basic
 
 /-!
 # Relative Group Law eq of mem irreducible Components of apply closed Point mem
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -56,7 +60,9 @@ theorem const_transition {T T' : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of k))
     (t' : T' ⟶ Spec (CommRingCat.of k)) (ψ : T' ⟶ T) (hψ : ψ ≫ t = t')
     (s : SchemeHomOver pt gN) :
     GoodReductionJacobian.schemeHomOverComp ψ hψ (const t s) = const t' s :=
-  Subtype.ext (by simp [← hψ])
+  Subtype.ext (by
+    change ψ ≫ (t ≫ s.1) = t' ≫ s.1
+    rw [← Category.assoc, hψ])
 
 theorem const_mul {T : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of k)) (s s' : SchemeHomOver pt gN) :
     const t (LN.mul pt s s') = LN.mul t (const t s) (const t s') :=
@@ -109,7 +115,7 @@ theorem transl_point {T : Scheme.{u}} {t : T ⟶ Spec (CommRingCat.of k)} (x : S
 theorem transl_one : transl LN (LN.one pt) = 𝟙 N := by
   have h := comp_transl LN (RelativeGroupLaw.idPoint : SchemeHomOver gN gN) (LN.one pt)
   rw [const_one, LN.one_mul] at h
-  simpa using h
+  simpa only [RelativeGroupLaw.idPoint, Category.id_comp] using h
 
 theorem transl_comp (s s' : SchemeHomOver pt gN) :
     transl LN s ≫ transl LN s' = transl LN (LN.mul pt s' s) := by
@@ -239,28 +245,29 @@ theorem ratLift_over (Z : Closeds N) (s : SchemeHomOver pt gN) (hs : clpt s ∈ 
 def mulMap (C₁ C₂ : Closeds N) : pullback (redι C₁ ≫ gN) (redι C₂ ≫ gN) ⟶ N :=
   (LN.mul (pullback.fst (redι C₁ ≫ gN) (redι C₂ ≫ gN) ≫ redι C₁ ≫ gN)
     ⟨pullback.fst _ _ ≫ redι C₁, Category.assoc _ _ _⟩
-    ⟨pullback.snd _ _ ≫ redι C₂, by simpa using pullback.condition.symm⟩).1
+    ⟨pullback.snd _ _ ≫ redι C₂, by simpa only [Category.assoc] using pullback.condition.symm⟩).1
 
 theorem lift_mulMap (C₁ C₂ : Closeds N) {T : Scheme.{u}} (t : T ⟶ Spec (CommRingCat.of k))
     (a : T ⟶ redSub C₁) (b : T ⟶ redSub C₂) (ha : a ≫ redι C₁ ≫ gN = t)
     (hb : b ≫ redι C₂ ≫ gN = t) :
     pullback.lift a b (ha.trans hb.symm) ≫ mulMap LN C₁ C₂ =
-      (LN.mul t ⟨a ≫ redι C₁, by simpa using ha⟩ ⟨b ≫ redι C₂, by simpa using hb⟩).1 := by
+      (LN.mul t ⟨a ≫ redι C₁, by simpa only [Category.assoc] using ha⟩
+        ⟨b ≫ redι C₂, by simpa only [Category.assoc] using hb⟩).1 := by
   have hψ : pullback.lift a b (ha.trans hb.symm) ≫
       (pullback.fst (redι C₁ ≫ gN) (redι C₂ ≫ gN) ≫ redι C₁ ≫ gN) = t := by
     rw [pullback.lift_fst_assoc, ha]
   have hnat := LN.mul_natural _ t (pullback.lift a b (ha.trans hb.symm)) hψ
     ⟨pullback.fst _ _ ≫ redι C₁, Category.assoc _ _ _⟩
-    ⟨pullback.snd _ _ ≫ redι C₂, by simpa using pullback.condition.symm⟩
+    ⟨pullback.snd _ _ ≫ redι C₂, by simpa only [Category.assoc] using pullback.condition.symm⟩
   have h1 : GoodReductionJacobian.schemeHomOverComp (pullback.lift a b (ha.trans hb.symm)) hψ
       (⟨pullback.fst _ _ ≫ redι C₁, Category.assoc _ _ _⟩ : SchemeHomOver _ gN) =
-      ⟨a ≫ redι C₁, by simpa using ha⟩ :=
+      ⟨a ≫ redι C₁, by simpa only [Category.assoc] using ha⟩ :=
     Subtype.ext (by rw [GoodReductionJacobian.schemeHomOverComp_coe, ← Category.assoc,
       pullback.lift_fst])
   have h2 : GoodReductionJacobian.schemeHomOverComp (pullback.lift a b (ha.trans hb.symm)) hψ
-      (⟨pullback.snd _ _ ≫ redι C₂, by simpa using pullback.condition.symm⟩ :
+      (⟨pullback.snd _ _ ≫ redι C₂, by simpa only [Category.assoc] using pullback.condition.symm⟩ :
         SchemeHomOver _ gN) =
-      ⟨b ≫ redι C₂, by simpa using hb⟩ :=
+      ⟨b ≫ redι C₂, by simpa only [Category.assoc] using hb⟩ :=
     Subtype.ext (by rw [GoodReductionJacobian.schemeHomOverComp_coe, ← Category.assoc,
       pullback.lift_snd])
   rw [h1, h2] at hnat
@@ -274,11 +281,11 @@ theorem subset_range_mulMap_left (C₁ C₂ : Closeds N) (e₂ : clpt (LN.one pt
     rw [ratLift_over, Category.comp_id]
   have hj := lift_mulMap LN C₁ C₂ (redι C₁ ≫ gN) (𝟙 _) ((redι C₁ ≫ gN) ≫ e₂')
     (Category.id_comp _) hb
-  have hone : (⟨((redι C₁ ≫ gN) ≫ e₂') ≫ redι C₂, by simpa using hb⟩ :
+  have hone : (⟨((redι C₁ ≫ gN) ≫ e₂') ≫ redι C₂, by simpa only [Category.assoc] using hb⟩ :
       SchemeHomOver (redι C₁ ≫ gN) gN) = LN.one (redι C₁ ≫ gN) := by
     apply Subtype.ext
     rw [← const_one LN, const_coe]
-    simp [e₂']
+    simp only [e₂', Category.assoc, ratLift_ι]
   rw [hone, LN.mul_one] at hj
   have hj' : pullback.lift (𝟙 _) ((redι C₁ ≫ gN) ≫ e₂') ((Category.id_comp _).trans hb.symm) ≫
       mulMap LN C₁ C₂ = redι C₁ := hj.trans (Category.id_comp _)
@@ -296,11 +303,11 @@ theorem subset_range_mulMap_right (C₁ C₂ : Closeds N) (e₁ : clpt (LN.one p
     rw [ratLift_over, Category.comp_id]
   have hj := lift_mulMap LN C₁ C₂ (redι C₂ ≫ gN) ((redι C₂ ≫ gN) ≫ e₁') (𝟙 _)
     ha (Category.id_comp _)
-  have hone : (⟨((redι C₂ ≫ gN) ≫ e₁') ≫ redι C₁, by simpa using ha⟩ :
+  have hone : (⟨((redι C₂ ≫ gN) ≫ e₁') ≫ redι C₁, by simpa only [Category.assoc] using ha⟩ :
       SchemeHomOver (redι C₂ ≫ gN) gN) = LN.one (redι C₂ ≫ gN) := by
     apply Subtype.ext
     rw [← const_one LN, const_coe]
-    simp [e₁']
+    simp only [e₁', Category.assoc, ratLift_ι]
   rw [hone, LN.one_mul] at hj
   have hj' : pullback.lift ((redι C₂ ≫ gN) ≫ e₁') (𝟙 _) (ha.trans (Category.id_comp _).symm) ≫
       mulMap LN C₁ C₂ = redι C₂ := hj.trans (Category.id_comp _)

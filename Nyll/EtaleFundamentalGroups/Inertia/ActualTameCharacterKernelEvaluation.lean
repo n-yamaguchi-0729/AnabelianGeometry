@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacter
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinateIdentity
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCharacter
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinateIdentity
 
 /-!
 # Detecting the actual character kernel by its original finite coordinates
@@ -14,6 +16,8 @@ The canonical quotient comparison preserves and reflects the identity.
 Consequently the constructed global character is trivial exactly when all
 of the SAME original finite canonical coordinates are trivial.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

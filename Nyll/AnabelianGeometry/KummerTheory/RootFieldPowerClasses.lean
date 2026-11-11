@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.KummerTheory.RootField
-import Nyll.GaloisCohomology.Kummer.Concrete.Correspondence
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.RootField
+public import Nyll.GaloisCohomology.Kummer.Concrete.Correspondence
 
 /-!
 # Power classes recovered from a root field
@@ -15,6 +17,8 @@ of a unit determines its cyclic subgroup modulo powers. The statement
 retains the roots-of-unity hypothesis; it does not assert descent through
 an arbitrary cyclotomic extension.
 -/
+
+@[expose] public section
 
 noncomputable section
 

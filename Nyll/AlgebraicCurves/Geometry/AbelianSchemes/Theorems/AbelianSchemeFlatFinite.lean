@@ -10,17 +10,21 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Picard.GroupLaw.RelativeGroupLaw
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
-import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
-import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.AbelianSchemeIsIntegral
-import Nyll.AlgebraicCurves.Geometry.Schemes.LocalGeometry.KrullDimensionStalkEqFiniteEndomorphism
-import Nyll.AlgebraicCurves.Geometry.Schemes.LocalGeometry.IsFiniteKrullDimensionStalkQuotientEqZero
-import Nyll.SchemeTheory.RingTheory.Flat.ModuleFlatIsLocalHom
+module
+
+public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.Basic
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
+public import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
+public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.AbelianSchemeIsIntegral
+public import Nyll.AlgebraicCurves.Geometry.Schemes.LocalGeometry.KrullDimensionStalkEqFiniteEndomorphism
+public import Nyll.AlgebraicCurves.Geometry.Schemes.LocalGeometry.IsFiniteKrullDimensionStalkQuotientEqZero
+public import Nyll.SchemeTheory.RingTheory.Flat.ModuleFlatIsLocalHom
 
 /-!
 # Abelian Scheme Property Bundle flat of is Finite
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

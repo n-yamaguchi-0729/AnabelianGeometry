@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
-import Nyll.ProCGroups.InverseSystems.CofinalityAndDensity
-import Nyll.ProCGroups.Topologies.ContinuousMulEquiv
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
+public import Nyll.ProCGroups.InverseSystems.CofinalityAndDensity
+public import Nyll.ProCGroups.Topologies.ContinuousMulEquiv
 
 /-!
 # A common roots index in characteristic zero
@@ -15,6 +17,8 @@ Changing the characteristic-zero field used to index invertible exponents
 preserves every exponent and every roots coordinate. The existing cofinal
 reindexing homeomorphism supplies the inverse-limit comparison.
 -/
+
+@[expose] public section
 
 noncomputable section
 

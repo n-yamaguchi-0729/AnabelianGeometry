@@ -4,6 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 import Nyll.AnabelianGeometry.WeightFiltration.QuadraticScalarFiniteBaseCoverIso
+import Nyll.AnabelianGeometry.WeightFiltration.QuadraticScalarFiniteBaseEquivariance
+import Nyll.GaloisCohomology.Kummer.Concrete.RootCharacters
 
 /-! # Retaining the same square transport after rationalizing its cusp lifts
 
@@ -82,37 +84,6 @@ theorem quadraticScalar_rootQuotient_actual_refinedBase_eq_one
   exact α.injective hfix
 
 
-/-- Only semilinearity at the arithmetic element and the original torsor map
-are needed to propagate trivial displacement from one point to every point. -/
-private theorem refined_equivariant_of_semilinear_displacement_eq_one
-    {P A X Y : Type*} [Group P] [Group A]
-    [Torsor A X] [Torsor A Y] [MulAction P X] [MulAction P Y]
-    (p : P) (φ : A → A)
-    (hX : ∀ (a : A) (x : X), p • (a • x) = φ a • (p • x))
-    (hY : ∀ (a : A) (y : Y), p • (a • y) = φ a • (p • y))
-    (e : X ≃ Y) (he : ∀ (a : A) (x : X), e (a • x) = a • e x)
-    (x₀ : X) (hd : ((p • e (p⁻¹ • x₀)) /ₛ e x₀ : A) = 1) :
-    ∀ x, e (p • x) = p • e x := by
-  have he₀ : p • e (p⁻¹ • x₀) = e x₀ := by
-    calc
-      _ = ((p • e (p⁻¹ • x₀)) /ₛ e x₀ : A) • e x₀ :=
-        (sdiv_smul _ _).symm
-      _ = _ := by rw [hd, one_smul]
-  intro x
-  let a : A := x /ₛ (p⁻¹ • x₀)
-  have hx : a • (p⁻¹ • x₀) = x := sdiv_smul _ _
-  calc
-    e (p • x) = e (p • (a • (p⁻¹ • x₀))) :=
-      congrArg (fun z : X => e (p • z)) hx.symm
-    _ = e (φ a • x₀) := by rw [hX, smul_inv_smul]
-    _ = φ a • e x₀ := he _ _
-    _ = φ a • (p • e (p⁻¹ • x₀)) :=
-      congrArg (fun z : Y => φ a • z) he₀.symm
-    _ = p • (a • e (p⁻¹ • x₀)) := (hY a _).symm
-    _ = p • e (a • (p⁻¹ • x₀)) :=
-      congrArg (fun z : Y => p • z) (he a _).symm
-    _ = p • e x := congrArg (fun z : X => p • e z) hx
-
 /-- The original arithmetic fiber equivalence is equivariant under the actual
 finite-base image, for the same scalar radical already chosen by descent. -/
 theorem quadraticScalar_originalEquiv_actual_refinedBase
@@ -164,7 +135,7 @@ theorem quadraticScalar_originalEquiv_actual_refinedBase
   have hd : ((p • e (p⁻¹ • x₀)) /ₛ e x₀ : rootsOfUnity 2 κ) = 1 := by
     apply Subtype.ext
     exact (hdisp p).symm.trans hr
-  exact refined_equivariant_of_semilinear_displacement_eq_one p
+  exact equivariant_of_semilinear_displacement_eq_one p
     (restrictRootsOfUnity (arithmeticFundamentalGroupHom k κ f xiX p).toRingHom 2)
     (h₁ p) (h₂ p) e heμ x₀ hd x
 

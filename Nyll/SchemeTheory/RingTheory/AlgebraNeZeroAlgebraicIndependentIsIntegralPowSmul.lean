@@ -10,15 +10,19 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.RingTheory.MvPolynomial.Tower
-import Mathlib.RingTheory.AlgebraicIndependent.Defs
-import Mathlib.RingTheory.NoetherNormalization
-import Mathlib.Tactic.Choose
-import Mathlib.Tactic.Ring.RingNF
+module
+
+public import Mathlib.RingTheory.MvPolynomial.Tower
+public import Mathlib.RingTheory.AlgebraicIndependent.Defs
+public import Mathlib.RingTheory.NoetherNormalization
+public import Mathlib.Tactic.Choose
+public import Mathlib.Tactic.Ring.RingNF
 
 /-!
 # Algebra exists ne zero algebraic Independent forall is Integral pow smul of finite Type
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

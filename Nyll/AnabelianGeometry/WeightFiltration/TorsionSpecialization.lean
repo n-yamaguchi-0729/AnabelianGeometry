@@ -4,9 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AbelianVarieties.Tate.FullTateModule
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianUnitMultiplicationCover
-import Nyll.EtaleFundamentalGroups.GeometricFiber.HenselianSpecialization
+module
+
+public import Nyll.AbelianVarieties.Tate.FiniteTorsion
+public import Nyll.AbelianVarieties.Tate.FullTateModule
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianUnitMultiplicationCover
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.HenselianSpecialization
+public import Nyll.ProCGroups.Abelian.FullTateModule
 
 /-!
 # Actual prime-to-residue torsion specialization
@@ -16,6 +20,8 @@ The multiplication kernel over a smooth proper local-ring group is finite
 identified by the existing normal henselian specialization. The group and
 Tate transition compatibilities are separate from this point comparison.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -27,31 +33,6 @@ namespace GoodReductionJacobian.RelativeGroupLaw
 variable {H : Type} [CommRing H] [IsLocalRing H]
   {A : Scheme} {f : A ⟶ Spec (.of H)} [IsProper f] [Smooth f]
   (G : RelativeGroupLaw H f) (hc : G.IsCommutative)
-
-include hc in
-/-- The actual multiplication kernel at an invertible index is finite étale. -/
-theorem isFiniteEtale_schemeKerStr_of_isUnit (n : ℕ) (hn : IsUnit (n : H)) :
-    IsFiniteEtale (G.schemeKerStr n) := by
-  have : IsFiniteEtale (G.schemeNsmul n) :=
-    G.isFiniteEtale_schemeNsmul_of_isUnit hc n hn
-  have : IsFinite (G.schemeKerStr n) := inferInstance
-  have : Etale (G.schemeKerStr n) := inferInstance
-  exact IsFiniteEtale.mk
-
-/-- The existing multiplication kernel bundled over the original local ring. -/
-def unitTorsionCover (n : ℕ+) (hn : IsUnit ((n : ℕ) : H)) :
-    FiniteEtale (Spec (.of H)) := by
-  have : IsFiniteEtale (G.schemeKerStr (n : ℕ)) :=
-    G.isFiniteEtale_schemeKerStr_of_isUnit hc (n : ℕ) hn
-  exact FiniteEtale.mk (G.schemeKerStr (n : ℕ))
-
-/-- Torsion points over any coefficient algebra are actual points of this cover. -/
-def torsionLevelEquivUnitKernelPoints (T : Type) [CommRing T] [Algebra H T]
-    (n : ℕ+) (hn : IsUnit ((n : ℕ) : H)) :
-    ProCGroups.torsionLevel (G.AlgPoints hc T) n ≃
-      (Over.mk (Spec.algebraMap H T) ⟶ (G.unitTorsionCover hc n hn).toComma) :=
-  (G.torsionLevelEquivAlgSchemeKerPoints hc T n).trans
-    (schemeHomOverEquivOverHom (Spec.algebraMap H T) (G.schemeKerStr (n : ℕ)))
 
 variable (R L : Type) [CommRing R] [HenselianLocalRing R] [IsIntegrallyClosed R]
   [Field L] [Algebra H R] [Algebra R L] [IsFractionRing R L]

@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.Inertia.AbsolutePrimeContractionOrbit
-import Nyll.EtaleFundamentalGroups.Inertia.InertiaConjugateImage
-import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertiaImage
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsolutePrimeContractionOrbit
+public import Nyll.EtaleFundamentalGroups.Inertia.InertiaConjugateImage
+public import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertiaImage
 
 /-! # Nonabelian comparison with the retained normalization-prime family
 
@@ -15,6 +17,8 @@ prime from the connected-cover calculation may be compared to the fixed
 rational-model prime by an actual absolute-Galois conjugator. The output keeps
 both primes and does not replace an inertia equality by an abelian statement.
 -/
+@[expose] public section
+
 noncomputable section
 open AlgebraicCurve IsDedekindDomain
 open scoped Pointwise

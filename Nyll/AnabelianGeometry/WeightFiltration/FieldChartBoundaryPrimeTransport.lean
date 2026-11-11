@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.GenericPlaceInertiaRingEquiv
-import Nyll.AlgebraicCurves.Places.Rational.Basic
-import Nyll.EtaleFundamentalGroups.Inertia.PlaceNormalizationInertiaRestriction
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.GenericPlaceInertiaRingEquiv
+public import Nyll.AlgebraicCurves.Places.Rational.Basic
+public import Nyll.EtaleFundamentalGroups.Inertia.PlaceNormalizationInertiaRestriction
 
 /-! # The original normalization prime in a reparametrized field chart
 
@@ -14,6 +16,8 @@ normalization ring equivalence. The generic point and Ω are unchanged.
 This exports the same construction used internally by the field-chart
 centralizer theorem, so a final caller can retain its original prime family.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry AlgebraicCurve SchemeTheory EtaleFundamentalGroups.Inertia

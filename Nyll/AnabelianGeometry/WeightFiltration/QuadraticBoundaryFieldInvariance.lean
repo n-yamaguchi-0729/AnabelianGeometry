@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.QuadraticBoundaryFiniteLabels
-import Mathlib.FieldTheory.Normal.Closure
-import Mathlib.FieldTheory.Galois.Basic
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.QuadraticBoundaryFiniteLabels
+public import Mathlib.FieldTheory.Normal.Closure
+public import Mathlib.FieldTheory.Galois.Basic
 
 /-! # Galois invariance of the original quadratic boundary-coordinate field
 
@@ -13,6 +15,8 @@ The field is the original adjoin of the selected scalar radical and selected
 boundary roots. Every ambient automorphism sends each generator to that same
 generator or its negative. The field, roots, and labels are never replaced.
 -/
+@[expose] public section
+
 noncomputable section
 
 namespace AnabelianGeometry.WeightFiltration

@@ -12,12 +12,14 @@ Authors of the finite-extension point construction: Naganori Yamaguchi (assisted
 https://github.com/n-yamaguchi-0729
 -/
 
-import Mathlib.AlgebraicGeometry.Morphisms.Finite
-import Mathlib.AlgebraicGeometry.Morphisms.FiniteType
-import Mathlib.RingTheory.Jacobson.Ring
-import Mathlib.Topology.JacobsonSpace
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
-import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveBase
+module
+
+public import Mathlib.AlgebraicGeometry.Morphisms.Finite
+public import Mathlib.AlgebraicGeometry.Morphisms.FiniteType
+public import Mathlib.RingTheory.Jacobson.Ring
+public import Mathlib.Topology.JacobsonSpace
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
+public import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveBase
 
 /-!
 # A point after a finite extension of the ground field
@@ -26,6 +28,8 @@ A closed point of a nonempty scheme locally of finite type has a finite residue 
 Its actual residue-field morphism gives a section after base change. No separability
 or characteristic assumption enters the construction.
 -/
+
+@[expose] public section
 
 universe u
 

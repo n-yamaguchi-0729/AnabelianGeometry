@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroNormalizationRootSpecialization
-import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeOrdinaryHenselization
-import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationResidueAction
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+module
+
+public import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroNormalizationRootSpecialization
+public import Nyll.EtaleFundamentalGroups.StrictHenselian.NormalizationPrimeOrdinaryHenselization
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationResidueAction
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
 
 /-!
 # Original decomposition action on the same specialized Kummer roots
@@ -20,6 +22,10 @@ original normalization residue action. No compatible-actions hypothesis or
 replacement root equivalence is introduced.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 
 open SchemeTheory EtaleFundamentalGroups.Inertia EtaleFundamentalGroups.StrictHenselian
@@ -30,7 +36,7 @@ namespace AlgebraicCurve.Place
 attribute [local instance] normalizationInertiaImageAction normalizationCommAlgGaloisAction
 
 private theorem actualNormalizationResidueFieldMap_residue
-    (A F Ω : Type) [CommRing A] [Field F] [Field Ω]
+    (A F Ω : Type u) [CommRing A] [Field F] [Field Ω]
     [Algebra A F] [IsFractionRing A F] [Algebra F Ω] [Algebra A Ω]
     [IsScalarTower A F Ω] [IsGalois F Ω]
     (Q : Ideal (normalizationCommAlgCat A Ω)) [Q.IsMaximal]
@@ -82,7 +88,7 @@ private theorem actualNormalizationResidueFieldMap_residue
   rw [← hmap]
   exact IsLocalRing.ResidueField.map_residue τ.toRingHom r
 
-variable {k F : Type} [Field k] [Field F] [Algebra k F]
+variable {k F : Type u} [Field k] [Field F] [Algebra k F]
 
 /-- The same actual root specialization retains its literal integral-lift
 evaluation and intertwines every original decomposition element with the
@@ -90,12 +96,12 @@ original normalization residue action. -/
 theorem exists_ordZero_normalizationRootSpecialization_equivariant
     (v : Place k F) (u : Fˣ) (hu : v.ord (u : F) = 0)
     (n : ℕ) (hn : IsUnit (n : k))
-    (Ω : Type) [Field Ω] [Algebra F Ω]
+    (Ω : Type u) [Field Ω] [Algebra F Ω]
     [Algebra v.toValuationSubring Ω] [IsScalarTower v.toValuationSubring F Ω]
     [IsGalois F Ω] [IsSepClosed Ω]
     (Q : Ideal (integralClosure v.toValuationSubring Ω)) [hQmax : Q.IsMaximal] :
     let nativeQ : Ideal (normalizationCommAlgCat v.toValuationSubring Ω) := Q
-    letI : nativeQ.IsMaximal := hQmax
+    let : nativeQ.IsMaximal := hQmax
     ∃ e : {b : Ω // b ^ n = algebraMap F Ω (u : F)} ≃
         {b : IsLocalRing.ResidueField (Localization.AtPrime Q) //
           b ^ n = IsLocalRing.residue (Localization.AtPrime Q)
@@ -108,8 +114,7 @@ theorem exists_ordZero_normalizationRootSpecialization_equivariant
         (b : {b : Ω // b ^ n = algebraMap F Ω (u : F)}),
         (e ⟨d.val b.val, by rw [← map_pow, b.property, d.val.commutes]⟩).val =
           actualNormalizationResidueFieldMap v.toValuationSubring F Ω nativeQ d (e b).val := by
-  intro nativeQ
-  let : nativeQ.IsMaximal := hQmax
+  intro nativeQ nativeMaximal
   let : MulSemiringAction Gal(Ω/F) (integralClosure v.toValuationSubring Ω) :=
     normalizationInertiaImageAction v.toValuationSubring F Ω
   obtain ⟨e, he⟩ := exists_ordZero_normalizationRootSpecialization v u hu n hn Ω Q

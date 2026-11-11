@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.JacobianVarieties.WeilPairing.CharZeroNondegeneracy
-import Nyll.JacobianVarieties.WeilPairing.DivisorialPairingPairSemilinearSmul
+module
+
+public import Nyll.JacobianVarieties.WeilPairing.CharZeroNondegeneracy
+public import Nyll.JacobianVarieties.WeilPairing.DivisorialPairingPairSemilinearSmul
 
 /-!
 # The divisorial pairing on an identified finite torsion group
@@ -15,6 +17,8 @@ Picard-to-point comparison. Nondegeneracy is derived from the divisorial
 theorem, and the scalar multiplier follows from the same semilinear action
 and its action on roots of unity.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -73,11 +77,6 @@ theorem pairingOn_multiplier (g : SemilinearAut K F) (T : B →+ B)
       (Additive.toMul (w.pairingOn e a) b) ^ q := by
   rw [w.pairingOn_semilinear e g T he]
   apply hroot
-  have hb : n • e.symm b = 0 := by
-    apply Subtype.ext
-    change n • (e.symm b).val = 0
-    simpa only [natCast_zsmul] using (Pic0.mem_torsion.mp (e.symm b).property)
-  change w.toChar (e.symm a) (e.symm b) ^ n = 1
-  rw [← AddChar.map_nsmul_eq_pow, hb, AddChar.map_zero_eq_one]
+  exact w.pair_pow_eq_one (e.symm a) (e.symm b)
 
 end AlgebraicCurve.DivisorialWeilPairingData

@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.DominantPreimmersionPullback
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AlgebraicClosure
-import Nyll.EtaleFundamentalGroups.GeometricFiber.OpenImmersionSurjective
-import Nyll.SchemeTheory.Normalization.FiniteSeparable
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.DominantPreimmersionPullback
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AlgebraicClosure
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.OpenImmersionSurjective
+public import Nyll.SchemeTheory.Normalization.FiniteSeparable
 
 /-!
 # The generic absolute Galois map of a normal integral scheme
@@ -17,6 +19,8 @@ Galois group of the function field to the étale fundamental group. For a
 normal integral scheme this map is surjective, because dominant
 preimmersions preserve connected finite étale covers.
 -/
+
+@[expose] public section
 
 noncomputable section
 

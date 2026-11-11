@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.CyclotomicCommonLiftFiniteBase
-import Nyll.AnabelianGeometry.WeightFiltration.RecoveredArithmeticBoundaryWeight
-import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverActionComparison
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticFieldExtensionPointedConjugacy
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.CyclotomicCommonLiftFiniteBase
+public import Nyll.AnabelianGeometry.WeightFiltration.RecoveredArithmeticBoundaryWeight
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.RecoveredCoverActionComparison
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticFieldExtensionPointedConjugacy
 
 /-! # A transported candidate in the actual recovered cover
 
@@ -16,6 +18,8 @@ actual scheme morphisms. The only candidate-specific inputs are normalizer
 openness and its literal roots conjugation, supplied by the source cusp and
 the arithmetic isomorphism. No relative test or kernel membership is assumed.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -147,7 +151,7 @@ theorem recoveredCandidate_image_mem_openCyclotomicSpan
 span membership into the actual compactification kernel. A section is actual
 geometric data, supplied after finite refinement by the existing section owner. -/
 theorem recoveredCandidate_image_mem_compactificationKernel
-    (k E κ : Type) [Field k] [Field E] [NumberField E]
+    (k E κ : Type) [Field k] [Field E] [CharZero E] [Field.FG E]
     [Field κ] [CharZero κ] [IsAlgClosed κ]
     [Algebra k E] [Algebra E κ] [Algebra k κ] [IsScalarTower k E κ]
     [IsSepClosure k κ] [IsSepClosure E κ]

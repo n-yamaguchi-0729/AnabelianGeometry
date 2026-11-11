@@ -3,12 +3,16 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareExactCrossRatio
-import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareOriginalPairValues
-import Nyll.AnabelianGeometry.WeightFiltration.CoherentLiftedCyclicClasses
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationFiniteExtensionValues
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareExactCrossRatio
+public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareOriginalPairValues
+public import Nyll.AnabelianGeometry.WeightFiltration.CoherentLiftedCyclicClasses
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationFiniteExtensionValues
 
 /-! # Arithmetic reconstruction from a named rational square -/
+
+@[expose] public section
 
 noncomputable section
 open scoped RatFunc
@@ -21,7 +25,8 @@ attribute [local instance] Classical.propDecidable
 namespace AnabelianGeometry.WeightFiltration
 
 section Named
-variable (k E : Type) [Field k] [NumberField k] [Field E] [NumberField E] [Algebra k E]
+variable (k E : Type) [Field k] [CharZero k] [Field.FG k] [Field E] [CharZero E] [Field.FG E]
+  [Algebra k E]
   [Algebra.IsAlgebraic k E] [Algebra.IsSeparable k E]
 variable (s t : Finset (Projectivization k (k × k)))
 variable (S T : Finset (Projectivization E (E × E)))

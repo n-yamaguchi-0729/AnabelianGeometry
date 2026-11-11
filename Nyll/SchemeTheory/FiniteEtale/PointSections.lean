@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Geometry
-import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
-import Mathlib.AlgebraicGeometry.Morphisms.Finite
-import Mathlib.RingTheory.RingHom.Finite
+module
+
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Geometry
+public import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
+public import Mathlib.AlgebraicGeometry.Morphisms.Finite
+public import Mathlib.RingTheory.RingHom.Finite
 
 /-!
 # Points and sections of finite étale covers over a ring
@@ -16,6 +18,8 @@ The canonical affine presentation and the native spectrum algebra-hom
 equivalence identify points with algebra maps on sections over any base
 ring. The comparison is natural and respects actual point automorphisms.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -80,7 +84,8 @@ def sectionsAlgHom {X Y : FiniteEtale (Spec (.of H))} (f : X ⟶ Y) :
 
 variable (Ω : Type u) [CommRing Ω] [Algebra H Ω]
 
-private def pointHomSpecEquiv (X : FiniteEtale (Spec (.of H))) :
+/-- Affinization identifies original points with points of the actual section spectrum. -/
+def pointHomSpecEquiv (X : FiniteEtale (Spec (.of H))) :
     (Over.mk (Spec.algebraMap H Ω) ⟶ X.toComma) ≃
       {f : Spec (.of Ω) ⟶ Spec Γ(X.left, ⊤) //
         f ≫ Spec.algebraMap H Γ(X.left, ⊤) = Spec.algebraMap H Ω} where
@@ -123,7 +128,7 @@ theorem pointHomAlgEquiv_naturality {X Y : FiniteEtale (Spec (.of H))}
     (f : X ⟶ Y) (x : Over.mk (Spec.algebraMap H Ω) ⟶ X.toComma) :
     pointHomAlgEquiv H Ω Y (x ≫ f.hom) =
       (pointHomAlgEquiv H Ω X x).comp (sectionsAlgHom H f) := by
-  apply AlgHom.coe_ringHom_injective
+  apply AlgHom.toRingHom_injective
   have hRight :
       Spec.map (CommRingCat.ofHom
         ((pointHomAlgEquiv H Ω X x).comp (sectionsAlgHom H f)).toRingHom) =
@@ -169,7 +174,7 @@ theorem pointHomAlgEquiv_mapPointHom (σ : Ω ≃ₐ[H] Ω)
     (X : FiniteEtale (Spec (.of H))) (x : Over.mk (Spec.algebraMap H Ω) ⟶ X.toComma) :
     pointHomAlgEquiv H Ω X (mapPointHom H Ω σ X x) =
       σ.toAlgHom.comp (pointHomAlgEquiv H Ω X x) := by
-  apply AlgHom.coe_ringHom_injective
+  apply AlgHom.toRingHom_injective
   refine congrArg (fun k : Γ(X.left, ⊤) ⟶ CommRingCat.of Ω => k.hom) ?_
   apply Spec.map_injective
   calc

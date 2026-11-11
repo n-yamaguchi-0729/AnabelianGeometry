@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.CurveCoverRamification
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalOneBranch
-import Nyll.AlgebraicCurves.Places.Rational.Basic
-import Nyll.AlgebraicCurves.FunctionFields.Rational.CurveRatFunc
-import Mathlib.RingTheory.EssentialFiniteness
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.CurveCoverRamification
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalOneBranch
+public import Nyll.AlgebraicCurves.Places.Rational.Basic
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.CurveRatFunc
+public import Mathlib.RingTheory.EssentialFiniteness
 
 /-!
 # Function fields of etale covers of a proper rational curve
@@ -19,6 +21,8 @@ isomorphism retains the actual morphism's correspondence between points and plac
 This conclusion uses the stalk comparison and Riemann--Hurwitz, not a fundamental-group
 presentation or an assumed triviality of covers.
 -/
+
+@[expose] public section
 
 noncomputable section
 

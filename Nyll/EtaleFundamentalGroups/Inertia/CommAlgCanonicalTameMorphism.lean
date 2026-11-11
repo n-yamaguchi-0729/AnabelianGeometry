@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameCharacter
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
-import Mathlib.Algebra.Category.Grp.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameCharacter
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
+public import Mathlib.Algebra.Category.Grp.Basic
 
 /-!
 # Canonical tame characters as group morphisms
@@ -14,6 +16,8 @@ import Mathlib.Algebra.Category.Grp.Basic
 Packages the intrinsic canonical finite tame character as a morphism between its native inertia
 and residue-root group objects.
 -/
+
+@[expose] public section
 
 noncomputable section
 

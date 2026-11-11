@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Localization.AwayAlgebra
-import Nyll.SchemeTheory.RingTheory.Localization.SubalgebraPrime
-import Mathlib.Algebra.Algebra.Tower
-import Mathlib.Algebra.Category.Ring.Basic
-import Mathlib.Algebra.Ring.Hom.Defs
-import Mathlib.RingTheory.Localization.AtPrime.Basic
-import Mathlib.RingTheory.Localization.Away.Basic
-import Mathlib.RingTheory.OreLocalization.Ring
+module
+
+public import Nyll.SchemeTheory.RingTheory.Localization.AwayAlgebra
+public import Nyll.SchemeTheory.RingTheory.Localization.SubalgebraPrime
+public import Mathlib.Algebra.Algebra.Tower
+public import Mathlib.Algebra.Category.Ring.Basic
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
+public import Mathlib.RingTheory.Localization.Away.Basic
+public import Mathlib.RingTheory.OreLocalization.Ring
 
 /-!
 # Native principal-localization maps to an actual prime localization
@@ -22,6 +24,8 @@ localization proof below closes the coefficient equation in an R/C-only scope.
 The base equation then uses only that proved equation and an ordinary
 coefficient-ring square, supplied in applications by the original inclusion.
 -/
+
+@[expose] public section
 
 noncomputable section
 

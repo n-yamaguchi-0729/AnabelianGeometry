@@ -10,16 +10,20 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.RingTheory.Localization.LocalAlgebra
-import Nyll.SchemeTheory.RingTheory.RegularLocal.FlatLocalAscent
-import Nyll.SchemeTheory.RingTheory.RegularLocal.RegularLocalDepth
-import Nyll.SchemeTheory.RingTheory.Localization.LocalRingIsRegularSystemOfParameters
-import Nyll.SchemeTheory.RingTheory.Flat.TorLocalCriterion
-import Nyll.SchemeTheory.RingTheory.RegularLocal.RingTheorySequenceIsWeaklyRegularIsZeroTorOneQuotientOfList
+module
+
+public import Nyll.SchemeTheory.RingTheory.Localization.LocalAlgebra
+public import Nyll.SchemeTheory.RingTheory.RegularLocal.FlatLocalAscent
+public import Nyll.SchemeTheory.RingTheory.RegularLocal.RegularLocalDepth
+public import Nyll.SchemeTheory.RingTheory.Localization.LocalRingIsRegularSystemOfParameters
+public import Nyll.SchemeTheory.RingTheory.Flat.TorLocalCriterion
+public import Nyll.SchemeTheory.RingTheory.RegularLocal.RingTheorySequenceIsWeaklyRegularIsZeroTorOneQuotientOfList
 
 /-!
 # Module Flat of is Local Hom of is Regular Local Ring of ring Krull Dim quotient eq zero
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

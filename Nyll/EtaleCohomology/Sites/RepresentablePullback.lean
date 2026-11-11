@@ -4,15 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Sites.BaseChange
-import Nyll.EtaleCohomology.Sites.SetSheafFunctors
-import Nyll.EtaleCohomology.Sites.SetPullbackComposition
-import Nyll.EtaleCohomology.Sites.Subcanonical
-import Mathlib.CategoryTheory.Adjunction.Basic
-import Mathlib.CategoryTheory.Adjunction.Unique
-import Mathlib.CategoryTheory.Sites.Subcanonical
-import Mathlib.CategoryTheory.MorphismProperty.OverAdjunction
-import Mathlib.CategoryTheory.NatIso
+module
+
+public import Nyll.EtaleCohomology.Sites.BaseChange
+public import Nyll.EtaleCohomology.Sites.SetSheafFunctors
+public import Nyll.EtaleCohomology.Sites.SetPullbackComposition
+public import Nyll.EtaleCohomology.Sites.Subcanonical
+public import Mathlib.CategoryTheory.Adjunction.Basic
+public import Mathlib.CategoryTheory.Adjunction.Unique
+public import Mathlib.CategoryTheory.Sites.Subcanonical
+public import Mathlib.CategoryTheory.MorphismProperty.OverAdjunction
+public import Mathlib.CategoryTheory.NatIso
 
 /-!
 # Natural inverse-image comparison for represented étale sheaves
@@ -24,6 +26,8 @@ compatibility with composition of base changes. The composition law uses the
 already constructed sheaf pullback comparison and the canonical scheme
 pullback-pasting isomorphism, without changing either construction.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -82,7 +86,7 @@ lemma etaleSetPullbackYonedaIso_app (U : Y.Etale) :
 
 variable (g : Y ⟶ Z)
 
-private lemma pullbackCompIso_hom_homEquiv
+lemma pullbackCompIso_hom_homEquiv
     (G : Sheaf Z.smallEtaleTopology (Type u)) (H : Sheaf X.smallEtaleTopology (Type u))
     (k : (etaleSetPullback f).obj ((etaleSetPullback g).obj G) ⟶ H) :
     (etaleSetPullbackPushforwardAdjunction (f ≫ g)).homEquiv _ _

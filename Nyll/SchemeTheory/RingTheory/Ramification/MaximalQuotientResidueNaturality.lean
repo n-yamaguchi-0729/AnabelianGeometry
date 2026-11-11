@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.NativeMaximalResidue
-import Mathlib.RingTheory.Ideal.Quotient.Operations
-import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.NativeMaximalResidue
+public import Mathlib.RingTheory.Ideal.Quotient.Operations
+public import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
 
 /-!
 # Naturality of the maximal-quotient residue equivalence
@@ -14,6 +16,8 @@ import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
 Proves that the canonical equivalence from a maximal-ideal quotient to the localization residue
 field intertwines the maps induced by a prime-preserving ring automorphism.
 -/
+
+@[expose] public section
 
 noncomputable section
 

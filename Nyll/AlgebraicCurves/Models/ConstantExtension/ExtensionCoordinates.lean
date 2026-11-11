@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Schemes.FunctionFields.FunctionFieldConstantExtensionScalars
-import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveCurveModelIsoPullbackFunctionFieldGermEq
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveSeparatingTranscendental
+module
+
+public import Nyll.AlgebraicCurves.Geometry.Schemes.FunctionFields.FunctionFieldConstantExtensionScalars
+public import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveCurveModelIsoPullbackFunctionFieldGermEq
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveSeparatingTranscendental
 
 /-!
 # Reusing the actual constant-extension coordinates of a curve model
@@ -15,6 +17,10 @@ The existing function-field and curve-model suppliers produce the scalar
 structures and the germ comparison together. A continuation consumes these
 coordinates without introducing a separate data structure.
 -/
+
+@[expose] public section
+
+universe u
 
 noncomputable section
 
@@ -26,12 +32,12 @@ namespace AlgebraicCurve.CurveModel
 /-- Supply the actual constant-extension model, scalar towers, field generation,
 and germ compatibility to a proof, for a specified algebraically closed extension. -/
 theorem with_constantExtension_coordinates
-    {K F₀ : Type} [Field K] [IsAlgClosed K]
+    {K F₀ : Type u} [Field K] [IsAlgClosed K]
     [Field F₀] [Algebra K F₀] [IsCurveOver K F₀] [Algebra.EssFiniteType K F₀]
     (M₀ : CurveModel K F₀) [GeometricallyIntegral M₀.toBase]
-    (Ω : Type) [Field Ω] [IsAlgClosed Ω] [Algebra K Ω]
+    (Ω : Type u) [Field Ω] [IsAlgClosed Ω] [Algebra K Ω]
     {P : Prop}
-    (hP : ∀ (F : Type) [Field F] [Algebra Ω F] [IsCurveOver Ω F]
+    (hP : ∀ (F : Type u) [Field F] [Algebra Ω F] [IsCurveOver Ω F]
       [Algebra F₀ F] [Algebra K F]
       [IsScalarTower K F₀ F] [IsScalarTower K Ω F],
       (∃ t : F₀, Transcendental K t ∧

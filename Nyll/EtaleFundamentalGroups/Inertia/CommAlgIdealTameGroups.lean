@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameCharacter
-import Mathlib.Algebra.Category.Grp.Basic
-import Mathlib.Algebra.Category.CommAlgCat.Basic
-import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
-import Mathlib.RingTheory.RootsOfUnity.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameOrder
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealTameCharacter
+public import Mathlib.Algebra.Category.Grp.Basic
+public import Mathlib.Algebra.Category.CommAlgCat.Basic
+public import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
+public import Mathlib.RingTheory.RootsOfUnity.Basic
 
 /-!
 # Intrinsic ideal inertia and tame root groups
@@ -17,6 +19,8 @@ import Mathlib.RingTheory.RootsOfUnity.Basic
 Defines the group objects for coefficient-automorphism inertia and the full residue roots of its
 computed tame order.
 -/
+
+@[expose] public section
 
 noncomputable section
 

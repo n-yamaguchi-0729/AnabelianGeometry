@@ -4,9 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverModelIso
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverModelIso
 
 /-! # Smooth proper extensions of actual open covers with the exact boundary -/
+
+@[expose] public section
+
+universe uGeom uField₁ uField₂
 
 noncomputable section
 
@@ -22,9 +28,9 @@ finite map of smooth proper curve models. The source open is the original
 cover, and its boundary is exactly the inverse image of the original
 boundary. -/
 theorem exists_open_cover_curveModel_square_boundary_with_functionField
-    {K F : Type} [Field K] [CharZero K]
+    {K : Type uGeom} {F : Type uField₁} [Field K] [CharZero K]
     [Field F] [Algebra K F]
-    (M : CurveModel K F) {X : Scheme}
+    (M : CurveModel K F) {X : Scheme.{uGeom}}
     [IsIntegral X] [IsNormalIntegral X] [IsLocallyNoetherian X]
     (j : X ⟶ M.C) [IsOpenImmersion j] [QuasiCompact j] [QuasiSeparated j]
     (W : FiniteEtale X) [IsConnected W] :
@@ -101,9 +107,9 @@ finite map of smooth proper curve models. The source open is the original
 cover, and its boundary is exactly the inverse image of the original
 boundary. -/
 theorem exists_open_cover_curveModel_square_boundary
-    {K F : Type} [Field K] [CharZero K]
+    {K : Type uGeom} {F : Type uField₁} [Field K] [CharZero K]
     [Field F] [Algebra K F]
-    (M : CurveModel K F) {X : Scheme}
+    (M : CurveModel K F) {X : Scheme.{uGeom}}
     [IsIntegral X] [IsNormalIntegral X] [IsLocallyNoetherian X]
     (j : X ⟶ M.C) [IsOpenImmersion j] [QuasiCompact j] [QuasiSeparated j]
     (W : FiniteEtale X) [IsConnected W] :
@@ -122,7 +128,7 @@ theorem exists_open_cover_curveModel_square_boundary
 
 /-- A finite extension of a surjective map over a dense open is surjective. -/
 theorem surjective_finite_extension_of_open_square
-    {X Y M N : Scheme} [IsIntegral M] [Nonempty X]
+    {X Y M N : Scheme.{uGeom}} [IsIntegral M] [Nonempty X]
     (j : X ⟶ M) [IsOpenImmersion j]
     (f : Y ⟶ X) (hf : Function.Surjective f)
     (k : Y ⟶ N) (d : N ⟶ M) [IsFinite d]

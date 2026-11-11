@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacter
-import Mathlib.RingTheory.Ideal.Pointwise
-import Mathlib.RingTheory.LocalRing.RingHom.Basic
-import Mathlib.Algebra.Group.Units.Equiv
-import Mathlib.GroupTheory.GroupAction.ConjAct
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingInertiaCharacter
+public import Mathlib.RingTheory.Ideal.Pointwise
+public import Mathlib.RingTheory.LocalRing.RingHom.Basic
+public import Mathlib.Algebra.Group.Units.Equiv
+public import Mathlib.GroupTheory.GroupAction.ConjAct
 
 /-!
 # Conjugation of the DVR inertia character
@@ -17,6 +19,8 @@ Proves normality of maximal-ideal inertia and computes the conjugation of unifor
 units. The residue character intertwines group conjugation with the induced residue-field
 action.
 -/
+
+@[expose] public section
 
 noncomputable section
 

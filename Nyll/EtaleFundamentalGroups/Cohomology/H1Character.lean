@@ -4,10 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionComparison
-import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionMonodromy
-import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionVanishing
-import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberIso
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionComparison
+public import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionMonodromy
+public import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionVanishing
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.FiberIso
+public import Nyll.ProCGroups.Abelian.TopologicalAbelianization
 
 /-!
 # The comparison character of an actual degree-one étale cohomology class
@@ -18,6 +21,8 @@ Comparison of extension representatives proves that the character is canonical.
 Its vanishing detects the zero cohomology class. Additivity and surjectivity are
 separate comparison results, not assumed in this construction.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -30,7 +35,8 @@ namespace EtaleFundamentalGroups.Cohomology
 variable {X : Scheme.{u}} [ConnectedSpace X] (A : AddCommGrpCat.{u}) [Finite A]
   {Ω : Type u} [Field Ω] [IsSepClosed Ω] (ξ : Spec (.of Ω) ⟶ X)
 
-private theorem exists_character_of_h1
+/-- Every degree-one class has a character computed by any extension representative. -/
+theorem exists_character_of_h1
     (a : Sheaf.H.{u} ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).obj A) 1) :
     let : TopologicalSpace (Multiplicative A) := ⊥
     ∃ χ : Aut (FiniteEtale.fiber ξ) →ₜ* Multiplicative A,
@@ -40,7 +46,7 @@ private theorem exists_character_of_h1
           (AddCommGrpCat.of (ULift.{u} ℤ))) (h : i ≫ p = 0)
         (hs : (ShortComplex.mk i p h).ShortExact), hs.extClass = a →
           χ = extensionMonodromyCharacter A i p h hs (integerUnitSection X) ξ := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
+  intro sharedOwner1
   obtain ⟨E, i, p, h, hs, ha⟩ := exists_h1_extension X _ a
   refine ⟨extensionMonodromyCharacter A i p h hs (integerUnitSection X) ξ, ?_⟩
   intro E' i' p' h' hs' ha'
@@ -80,7 +86,7 @@ theorem h1Character_basePoint
     let : TopologicalSpace (Multiplicative A) := ⊥
     (h1Character A η a).comp (ContinuousMonoidHom.toContinuousMonoidHom
       (PreGaloisCategory.continuousConjAut τ)) = h1Character A ξ a := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
+  intro sharedOwner1
   obtain ⟨E, i, p, h, hs, ha⟩ := exists_h1_extension X _ a
   rw [← ha, h1Character_extClass A η i p h hs, h1Character_extClass A ξ i p h hs]
   exact extensionMonodromyCharacter_basePoint A i p h hs (integerUnitSection X) ξ η τ
@@ -90,7 +96,7 @@ theorem h1Character_eq_one_iff
     (a : Sheaf.H.{u} ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).obj A) 1) :
     let : TopologicalSpace (Multiplicative A) := ⊥
     h1Character A ξ a = 1 ↔ a = 0 := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
+  intro sharedOwner1
   obtain ⟨E, i, p, h, hs, ha⟩ := exists_h1_extension X _ a
   rw [← ha, h1Character_extClass A ξ i p h hs]
   exact extensionMonodromyCharacter_eq_one_iff A i p h hs ξ
@@ -101,7 +107,7 @@ def h1AbelianCharacter
     (a : Sheaf.H.{u} ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).obj A) 1) :
     let : TopologicalSpace (Multiplicative A) := ⊥
     TopologicalAbelianization (Aut (FiniteEtale.fiber ξ)) →ₜ* Multiplicative A := by
-  let : TopologicalSpace (Multiplicative A) := ⊥
+  intro sharedDefinitionOwner1
   have : DiscreteTopology (Multiplicative A) := ⟨rfl⟩
   exact ProCGroups.Abelian.TopologicalAbelianization.lift (h1Character A ξ a)
 

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.GaloisCohomology.ProP.FiniteIndexTransfer
-import Nyll.GaloisCohomology.ProP.TransferRestriction
-import Mathlib.GroupTheory.OrderOfElement
+module
+
+public import Nyll.GaloisCohomology.ProP.FiniteIndexTransfer
+public import Nyll.GaloisCohomology.ProP.TransferRestriction
+public import Mathlib.GroupTheory.OrderOfElement
 
 /-!
 # Coprime-index transfer with arbitrary finite abelian coefficients
@@ -15,6 +17,8 @@ Bézout inversion of the index power normalizes transfer. This works for every
 finite abelian coefficient group, including universe-lifted coefficient groups,
 and preserves continuity. No choice of cyclic coordinates is needed.
 -/
+
+@[expose] public section
 
 noncomputable section
 

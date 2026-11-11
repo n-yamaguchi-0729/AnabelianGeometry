@@ -10,12 +10,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.Morphisms.Affine
-import Mathlib.Tactic.CategoryTheory.Reassoc
+module
+
+public import Mathlib.AlgebraicGeometry.Morphisms.Affine
+public import Mathlib.Tactic.CategoryTheory.Reassoc
 
 /-!
 # Subalgebra Stages
 -/
+
+@[expose] public section
 
 universe u
 

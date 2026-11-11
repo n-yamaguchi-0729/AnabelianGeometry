@@ -3,16 +3,20 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.MatchedConstantGenericAmbient
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationIteratedBaseChange
-import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineOriginalFields
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.MatchedConstantGenericAmbient
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationIteratedBaseChange
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineOriginalFields
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
 
 /-! # Matched generic ambient fields for rational configurations
 
 The existing constant-cover lift supplies the ambient field maps for the actual
 rational configuration and its specified geometric fiber point.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
@@ -53,7 +57,7 @@ private theorem actualFiberPointLift_exists_of_point_eq
   exact ⟨w, rfl⟩
 
 theorem rationalConfiguration_exists_matchedConstant_genericAmbient
-    (k E κ : Type) [Field k] [NumberField k] [Field E] [Field κ]
+    (k E κ : Type) [Field k] [CharZero k] [Field.FG k] [Field E] [Field κ]
     [Algebra k E] [Algebra E κ] [Algebra k κ] [IsScalarTower k E κ]
     [IsAlgClosure k κ] [IsAlgClosed κ] [CharZero κ]
     [Algebra.IsAlgebraic E κ]

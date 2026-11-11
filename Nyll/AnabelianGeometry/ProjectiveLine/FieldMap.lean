@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.ProjectiveSpace.Normalization
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.Normalization
 
 /-! # Field maps on projective configurations
 
@@ -12,6 +14,8 @@ Coefficient extension acts on the actual projectivization quotient. It is
 injective for every field embedding, and commutes with cross ratios, including
 the total cross-ratio function at degenerate tuples.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.ProjectiveLine
 

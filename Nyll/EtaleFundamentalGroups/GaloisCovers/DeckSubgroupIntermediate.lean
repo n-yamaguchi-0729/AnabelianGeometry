@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCovers.PointedIntermediateObject
-import Nyll.EtaleFundamentalGroups.GaloisCategories.GaloisObjectQuotient
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.PointedIntermediateObject
+public import Nyll.EtaleFundamentalGroups.GaloisCategories.GaloisObjectQuotient
 
 /-!
 # Intermediate objects for subgroups of the actual deck group
@@ -14,6 +16,8 @@ The inverse image of a deck subgroup is open because it contains the
 point stabilizer. Its connected geometric realization gives a quotient
 morphism with exactly the prescribed subgroup of deck transformations.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -47,7 +51,7 @@ theorem exists_intermediateObject_of_deckSubgroup
     (H : Subgroup (Aut A)ᵐᵒᵖ) :
     ∃ (B : C) (_ : IsConnected B) (y : F.obj B) (f : A ⟶ B),
       F.map f x = y ∧
-      (∀ σ : Aut A, σ.hom ≫ f = f ↔ MulOpposite.op σ ∈ H) := by
+      (∀ σ : Aut A, σ.asIso.hom ≫ f = f ↔ MulOpposite.op σ ∈ H) := by
   let q := galoisObjectQuotientMonoidHom F (Aut F) A x
   let U := deckSubgroupOpenPreimage F A x H
   have hU : MulAction.stabilizer (Aut F) x ≤ U.toSubgroup := by
@@ -64,12 +68,12 @@ theorem exists_intermediateObject_of_deckSubgroup
   intro σ
   obtain ⟨g, hg⟩ :=
     galoisObjectQuotientMonoidHom_surjective F (Aut F) A x (MulOpposite.op σ)
-  have heval : F.map σ.hom x = g • x := by
+  have heval : F.map σ.asIso.hom x = g • x := by
     have he := galoisObjectQuotientMonoidHom_evaluation F (Aut F) A x g
     rw [hg] at he
     exact he
   have hiff := hdeck σ g heval
-  change σ.hom ≫ f = f ↔ q g ∈ H at hiff
+  change σ.asIso.hom ≫ f = f ↔ q g ∈ H at hiff
   rw [hg] at hiff
   exact hiff
 

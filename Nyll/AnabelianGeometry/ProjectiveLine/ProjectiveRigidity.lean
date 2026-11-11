@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.ProjectiveSpace.MatchTriplesSchemeIso
-import Mathlib.Data.Fintype.CardEmbedding
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.MatchTriplesSchemeIso
+public import Mathlib.Data.Fintype.CardEmbedding
 
 /-! # Three-point rigidity of projective transformations
 
@@ -13,6 +15,8 @@ The uniqueness statements concern the projective action, not its linear
 representative. They also give independence of a reference triple and a finite
 bound for the projective transformations preserving a finite configuration.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.ProjectiveLine
 

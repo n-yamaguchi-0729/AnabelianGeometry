@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.BoundaryModelTransport
-import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.OpenBaseChange
-import Nyll.AnabelianGeometry.ProjectiveLine.SchemeOpenRestriction
-import Nyll.AlgebraicCurves.Models.ConstantExtension.SemilinearTower
-import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineBaseChange
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.HasPullback
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.BoundaryModelTransport
+public import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.OpenBaseChange
+public import Nyll.AnabelianGeometry.ProjectiveLine.SchemeOpenRestriction
+public import Nyll.AlgebraicCurves.Models.ConstantExtension.SemilinearTower
+public import Nyll.SchemeTheory.ProjectiveSpace.PuncturedProjectiveLineBaseChange
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.HasPullback
 
 /-! # Geometric boundary cardinality of an actual finite rational model
 
@@ -17,6 +19,8 @@ The finite model is extended by its actual pullback square. Both the proper
 model and the open model are transported, so the resulting boundary bijection
 counts the punctures of the original geometric curve.
 -/
+
+@[expose] public section
 
 noncomputable section
 

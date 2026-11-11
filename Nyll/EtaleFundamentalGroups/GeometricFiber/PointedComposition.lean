@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackCoherence
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroupComposition
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackCoherence
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroupComposition
 
 /-!
 # Canonical pointed composition
@@ -14,6 +16,8 @@ The collapse of three actual pullbacks is independent of parenthesization.
 This is the comparison needed when an inverse-system transition preserves a
 specified geometric point by an equality of morphisms.
 -/
+
+@[expose] public section
 
 noncomputable section
 

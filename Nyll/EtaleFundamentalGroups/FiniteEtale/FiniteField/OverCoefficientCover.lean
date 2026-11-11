@@ -4,9 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Gluing.CoefficientCover
+module
+
+public import Nyll.SchemeTheory.Gluing.CoefficientCover
 
 /-! Compatibility names for the general coefficient-pullback cover owner. -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups
 export AlgebraicGeometry.Scheme.Cover

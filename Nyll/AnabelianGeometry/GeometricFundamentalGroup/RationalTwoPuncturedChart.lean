@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalPuncturedChart
-import Nyll.AlgebraicCurves.Models.Charts.RangeSectionsEqMapEval2PolyPartInvPolyPart
-import Nyll.AlgebraicCurves.Places.Rational.Basic
-import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
-import Mathlib.AlgebraicGeometry.Morphisms.Affine
-import Mathlib.AlgebraicGeometry.AffineScheme
-import Mathlib.AlgebraicGeometry.FunctionField
-import Mathlib.Algebra.Ring.Subring.Basic
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalPuncturedChart
+public import Nyll.AlgebraicCurves.Models.Charts.RangeSectionsEqMapEval2PolyPartInvPolyPart
+public import Nyll.AlgebraicCurves.Places.Rational.Basic
+public import Nyll.AlgebraicCurves.Places.Rational.InfinityArithmetic
+public import Mathlib.AlgebraicGeometry.Morphisms.Affine
+public import Mathlib.AlgebraicGeometry.AffineScheme
+public import Mathlib.AlgebraicGeometry.FunctionField
+public import Mathlib.Algebra.Ring.Subring.Basic
 
 /-!
 # The actual two-puncture chart of a rational curve
@@ -20,6 +22,8 @@ The complements of zero and infinity are affine. Their intersection has its actu
 ring embedded in the function field, with image equal to the Laurent polynomial image.
 This constructs the scheme isomorphism with the multiplicative group chart.
 -/
+
+@[expose] public section
 
 noncomputable section
 

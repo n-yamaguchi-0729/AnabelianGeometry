@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.QuadraticScalarFiniteBaseEquivariance
-import Nyll.EtaleFundamentalGroups.GeometricFiber.EquivariantFiberCoverIso
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.QuadraticScalarFiniteBaseEquivariance
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.EquivariantFiberCoverIso
 
 /-! # Actual finite-base cover isomorphism from the same quadratic scalar
 
@@ -13,6 +15,8 @@ calculation. Connectedness follows from the given geometric constant extension.
 The resulting isomorphism of the actual pulled-back covers induces precisely
 the original fiber map under the canonical pointed comparisons.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory AlgebraicGeometry AlgebraicGeometry.FiniteEtale
 open CategoryTheory.PreGaloisCategory EtaleFundamentalGroups
@@ -54,9 +58,9 @@ theorem scalarFiniteBase_connectedSpace
   exact connectedSpace_of_connected_constantField E κ c
 
 /-- Killing the original quadratic scalar constructs an isomorphism of the
-same two covers over its finite number field, with its original fiber map. -/
+same two covers over its finite scalar extension, with its original fiber map. -/
 theorem quadraticScalar_actual_finiteBase_coverIso
-    (k κ : Type) [Field k] [NumberField k] [Field κ] [Algebra k κ]
+    (k κ : Type) [Field k] [CharZero k] [Field κ] [Algebra k κ]
     [IsAlgClosure k κ]
     (X : Scheme) (f : X ⟶ Spec (.of k))
     [ConnectedSpace ↑(Limits.pullback

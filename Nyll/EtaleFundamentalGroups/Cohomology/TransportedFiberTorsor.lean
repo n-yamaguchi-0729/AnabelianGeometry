@@ -3,9 +3,14 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.Cohomology.TorsorCharacter
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.TorsorCharacter
+public import Nyll.ProCGroups.Abelian.TopologicalAbelianization
 
 /-! # Torsor structures on the actual transported cover fiber -/
+
+@[expose] public section
 
 noncomputable section
 namespace EtaleFundamentalGroups.Cohomology
@@ -27,9 +32,9 @@ theorem transportedFiberSMulCommClass
     [Group G] [Group H] [MulAction G P] [SMulCommClass G A P] [MulAction H Q]
     (α : G ≃* H) (e : Q ≃ P)
     (he : ∀ (h : H) (q : Q), e (h • q) = α.symm h • e q) :
-    letI := transportedFiberTorsor e
+    let := transportedFiberTorsor e
     SMulCommClass H A Q := by
-  let := transportedFiberTorsor e
+  intro sharedOwner1
   refine ⟨fun h a q => e.injective ?_⟩
   change e (h • e.symm (a • e q)) = e (e.symm (a • e (h • q)))
   rw [he, e.apply_symm_apply, e.apply_symm_apply, he]
@@ -45,13 +50,12 @@ theorem transportedFiber_torsorCharacter
     [TopologicalSpace Q] [DiscreteTopology Q] [ContinuousSMul H Q]
     (α : G ≃ₜ* H) (e : Q ≃ P)
     (he : ∀ (h : H) (q : Q), e (h • q) = α.symm h • e q) (q : Q) :
-    letI := transportedFiberTorsor e
-    letI := transportedFiberSMulCommClass α.toMulEquiv e he
+    let := transportedFiberTorsor e
+    let := transportedFiberSMulCommClass α.toMulEquiv e he
     torsorCharacter (G := H) q =
       (torsorCharacter (G := G) (e q)).comp
         (ContinuousMonoidHom.toContinuousMonoidHom α.symm) := by
-  let := transportedFiberTorsor e
-  let := transportedFiberSMulCommClass α.toMulEquiv e he
+  intro sharedOwner1 sharedOwner2
   apply ContinuousMonoidHom.ext
   intro h
   change (e (h • q) /ₛ e q : A) = (α.symm h • e q) /ₛ e q
@@ -67,14 +71,13 @@ theorem transportedFiber_torsorAbelianCharacter
     [TopologicalSpace Q] [DiscreteTopology Q] [ContinuousSMul H Q]
     (α : G ≃ₜ* H) (e : Q ≃ P)
     (he : ∀ (h : H) (q : Q), e (h • q) = α.symm h • e q) (q : Q) :
-    letI := transportedFiberTorsor e
-    letI := transportedFiberSMulCommClass α.toMulEquiv e he
+    let := transportedFiberTorsor e
+    let := transportedFiberSMulCommClass α.toMulEquiv e he
     torsorAbelianCharacter (G := H) q =
       (torsorAbelianCharacter (G := G) (e q)).comp
         (ContinuousMonoidHom.toContinuousMonoidHom
           (ProCGroups.Abelian.TopologicalAbelianization.congr α.symm)) := by
-  let := transportedFiberTorsor e
-  let := transportedFiberSMulCommClass α.toMulEquiv e he
+  intro sharedOwner1 sharedOwner2
   apply ProCGroups.Abelian.TopologicalAbelianization.hom_ext
   intro h
   change (e (h • q) /ₛ e q : A) = (α.symm h • e q) /ₛ e q

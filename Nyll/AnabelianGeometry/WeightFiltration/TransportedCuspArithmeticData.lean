@@ -4,10 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticKernelEquivalence
-import Nyll.AnabelianGeometry.WeightFiltration.OriginalGeometricCuspNormalizer
-import Nyll.AnabelianGeometry.WeightFiltration.RationalBoundaryInertiaConjugation
-import Mathlib.Topology.Algebra.OpenSubgroup
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticKernelEquivalence
+public import Nyll.AnabelianGeometry.WeightFiltration.OriginalGeometricCuspNormalizer
+public import Nyll.AnabelianGeometry.WeightFiltration.RationalBoundaryInertiaConjugation
+public import Mathlib.Topology.Algebra.OpenSubgroup
+public import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
 
 /-! # The actual transported cusp as arithmetic input
 
@@ -16,6 +19,8 @@ original roots parameter. Its normalizer and conjugation law are proved from
 the source normalizer and the arithmetic equivalence. No target cusp,
 inertia-preservation theorem, or target kernel test is an input.
 -/
+
+@[expose] public section
 
 noncomputable section
 

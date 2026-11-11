@@ -4,9 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.HenselianResidueAction
-import Nyll.ValuedFieldTheory.Valuation.Henselian.ResiduePowerRootsOfUnity
-import Nyll.AnabelianGeometry.WeightFiltration.TorsionTateSpecialization
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.HenselianResidueAction
+public import Nyll.ValuedFieldTheory.Valuation.Henselian.ResiduePowerRootsOfUnity
+public import Nyll.SchemeTheory.RingTheory.FiniteType.FrobeniusFixedAlgebraHom
+public import Nyll.SchemeTheory.FiniteEtale.Algebra.PointSpecialization
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.ValuationSubring
 
 /-!
 # One actual Frobenius lift for all prime-to-residue torsion levels
@@ -16,6 +20,8 @@ restriction to the actual valuation ring induces arithmetic Frobenius and
 has the corresponding cyclotomic power on every prime-to-residue root.
 No separate finite-level choices are made.
 -/
+
+@[expose] public section
 
 noncomputable section
 

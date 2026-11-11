@@ -4,11 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverDegree
-import Nyll.EtaleFundamentalGroups.GaloisCovers.FunctionFieldAutomorphisms
-import Nyll.AlgebraicCurves.Places.Restriction.RestrictAlongSurjective
+module
+
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverDegree
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.FunctionFieldAutomorphisms
+public import Nyll.AlgebraicCurves.Places.Restriction.RestrictAlongSurjective
 
 /-! # Degree and nonempty boundary of actual open covers -/
+
+@[expose] public section
+
+universe uGeom uField₁ uField₂
 
 noncomputable section
 
@@ -22,12 +28,12 @@ attribute [local instance] CurveModel.isIntegral CurveModel.isProper CurveModel.
 /-- The actual finite extension has a place above every omitted place,
 so the source of the open cover still has nonempty boundary. -/
 theorem openBoundary_nonempty_of_finite_square
-    {K F E : Type} [Field K] [IsAlgClosed K] [CharZero K]
+    {K : Type uGeom} {F : Type uField₁} {E : Type uField₂} [Field K] [IsAlgClosed K] [CharZero K]
     [Field F] [Field E] [Algebra K F] [Algebra K E]
     (M : CurveModel K F) (N : CurveModel K E)
     (d : N.C ⟶ M.C) (hd : d ≫ M.toBase = N.toBase)
     [IsFinite d] (hsurj : Function.Surjective d)
-    {X Y : Scheme} (j : X ⟶ M.C) (k : Y ⟶ N.C)
+    {X Y : Scheme.{uGeom}} (j : X ⟶ M.C) (k : Y ⟶ N.C)
     (hboundary : ∀ y : N.C, y ∉ Set.range k ↔ d y ∉ Set.range j)
     (hS : (M.openBoundaryPlaces j).Nonempty) :
     (N.openBoundaryPlaces k).Nonempty := by
@@ -50,7 +56,7 @@ theorem openBoundary_nonempty_of_finite_square
 /-- A nonidentity actual Galois deck transformation forces the actual
 function-field degree to be greater than one. -/
 theorem one_lt_functionField_degree_of_nontrivial_galois_deck
-    {X : Scheme} [IsIntegral X] [IsNormalIntegral X] [IsLocallyNoetherian X]
+    {X : Scheme.{uGeom}} [IsIntegral X] [IsNormalIntegral X] [IsLocallyNoetherian X]
     (W : FiniteEtale X) [IsGalois W] (σ : Aut W) (hσ : σ ≠ 1) :
     let : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
     let : Algebra X.functionField W.left.functionField := finiteEtaleFunctionFieldAlgebra W

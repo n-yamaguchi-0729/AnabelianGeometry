@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinateCompatibility
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsGroupSystem
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameCoordinateCompatibility
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsGroupSystem
 
 /-!
 # The actual canonical tame character
@@ -14,6 +16,8 @@ Constructs the group homomorphism from the original inertia into the literal
 inverse limit of roots in the original normalization quotient. Evaluation
 at a degree is the stage-independent actual canonical finite coordinate.
 -/
+
+@[expose] public section
 
 noncomputable section
 

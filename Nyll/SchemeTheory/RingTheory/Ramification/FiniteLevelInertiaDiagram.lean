@@ -4,22 +4,24 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaRepresentatives
-import Mathlib.Algebra.Algebra.Equiv
-import Mathlib.Algebra.Algebra.Subalgebra.Operations
-import Mathlib.Algebra.Category.AlgCat.Basic
-import Mathlib.Algebra.Category.AlgCat.FilteredColimits
-import Mathlib.Algebra.Category.Ring.FilteredColimits
-import Mathlib.Algebra.Group.Action.Defs
-import Mathlib.CategoryTheory.Category.Preorder
-import Mathlib.CategoryTheory.Filtered.Basic
-import Mathlib.CategoryTheory.Limits.Types.Filtered
-import Mathlib.Data.Finset.Insert
-import Mathlib.FieldTheory.Galois.GaloisClosure
-import Mathlib.FieldTheory.IntermediateField.Basic
-import Mathlib.FieldTheory.Normal.Basic
-import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
-import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaRepresentatives
+public import Mathlib.Algebra.Algebra.Equiv
+public import Mathlib.Algebra.Algebra.Subalgebra.Operations
+public import Mathlib.Algebra.Category.AlgCat.Basic
+public import Mathlib.Algebra.Category.AlgCat.FilteredColimits
+public import Mathlib.Algebra.Category.Ring.FilteredColimits
+public import Mathlib.Algebra.Group.Action.Defs
+public import Mathlib.CategoryTheory.Category.Preorder
+public import Mathlib.CategoryTheory.Filtered.Basic
+public import Mathlib.CategoryTheory.Limits.Types.Filtered
+public import Mathlib.Data.Finset.Insert
+public import Mathlib.FieldTheory.Galois.GaloisClosure
+public import Mathlib.FieldTheory.IntermediateField.Basic
+public import Mathlib.FieldTheory.Normal.Basic
+public import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
+public import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
 
 
 /-!
@@ -30,6 +32,8 @@ inertia-fixed subalgebra under the literal normalization inclusion. Transition
 maps are restrictions of the existing intermediate-field inclusions. The
 coefficient algebra is never replaced by an independently chosen action.
 -/
+
+@[expose] public section
 
 noncomputable section
 

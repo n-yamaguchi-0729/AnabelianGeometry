@@ -10,25 +10,29 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.Algebra.TrivSqZeroExt.Ideal
-import Nyll.AlgebraicCurves.Geometry.Deformation.SquareZeroDeformation
-import Nyll.SchemeTheory.Cohomology.Cech.TwoAffineOpenCover
-import Nyll.AlgebraicCurves.Cohomology.Cech.TwoChart.SectionsOf
-import Nyll.AlgebraicCurves.Geometry.Picard.BaseChange.StageHom
-import Nyll.AlgebraicCurves.Cohomology.Cech.TwoChart.CoverSquareZeroUnitCohomologousIff
-import Nyll.AlgebraicCurves.Geometry.Sheaves.Sections.InvertibleSectionsOfEquivLineBundleOneAdd
-import Nyll.AlgebraicCurves.Geometry.Schemes.Cohomology.TwoAffineCoverIsoIffUnits
-import Nyll.AlgebraicCurves.Geometry.Schemes.Cohomology.TwoAffineCoverSectionsOfPullbackStageHomEquivLineBundleAppLE
-import Nyll.AlgebraicCurves.Geometry.Schemes.Cohomology.TwoAffineCoverBaseChangeIsosStructureSheaf
-import Nyll.AlgebraicCurves.Geometry.Projective.TwoAffineCoverInvertibleSectionsOfEquiv
+module
 
-import Nyll.AlgebraicCurves.Geometry.Picard.Representability.Designation
-import Nyll.AlgebraicCurves.Geometry.Picard.Representability.Representation
+public import Mathlib.Algebra.TrivSqZeroExt.Ideal
+public import Nyll.AlgebraicCurves.Geometry.Deformation.SquareZeroDeformation
+public import Nyll.SchemeTheory.Cohomology.Cech.TwoAffineOpenCover
+public import Nyll.AlgebraicCurves.Cohomology.Cech.TwoChart.SectionsOf
+public import Nyll.AlgebraicCurves.Geometry.Picard.BaseChange.StageHom
+public import Nyll.AlgebraicCurves.Cohomology.Cech.TwoChart.CoverSquareZeroUnitCohomologousIff
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Sections.InvertibleSectionsOfEquivLineBundleOneAdd
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Cohomology.TwoAffineCoverIsoIffUnits
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Cohomology.TwoAffineCoverSectionsOfPullbackStageHomEquivLineBundleAppLE
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Cohomology.TwoAffineCoverBaseChangeIsosStructureSheaf
+public import Nyll.AlgebraicCurves.Geometry.Projective.TwoAffineCoverInvertibleSectionsOfEquiv
+
+public import Nyll.AlgebraicCurves.Geometry.Picard.Representability.Designation
+public import Nyll.AlgebraicCurves.Geometry.Picard.Representability.Representation
 /-!
 # Trivial module deformations and first cohomology
 
 Construct the cohomology classification on two affine charts and prove its naturality.
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

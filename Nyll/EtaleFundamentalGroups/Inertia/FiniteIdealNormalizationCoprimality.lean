@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealNormalizationPower
-import Nyll.EtaleFundamentalGroups.Inertia.TameOrderDivisibility
-import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteIdealNormalizationPower
+public import Nyll.EtaleFundamentalGroups.Inertia.TameOrderDivisibility
+public import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
 
 /-!
 # Coprimality of finite normalization exponents
@@ -14,6 +16,8 @@ import Mathlib.RingTheory.LocalRing.ResidueField.Ideal
 Proves that an integer invertible in the original base ring is coprime to the finite ideal
 character normalization exponent.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

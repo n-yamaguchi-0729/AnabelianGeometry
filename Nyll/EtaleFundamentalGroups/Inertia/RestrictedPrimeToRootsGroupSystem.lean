@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
-import Nyll.ProCGroups.InverseSystems.GroupSystemRestriction
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
+public import Nyll.ProCGroups.InverseSystems.GroupSystemRestriction
 
 /-!
 # The canonical group-system class on a restricted roots system
@@ -14,6 +16,8 @@ The full exponent group family is closed here, with only the two coefficient
 fields present. The result retains exactly the restricted prime-to-roots
 group family, so original DVR consumers need not reopen the full index.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

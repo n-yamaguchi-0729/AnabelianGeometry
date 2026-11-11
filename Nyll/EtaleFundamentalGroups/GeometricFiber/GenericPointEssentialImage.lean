@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointSurjective
-import Nyll.EtaleFundamentalGroups.GeometricFiber.BasePoint
-import Nyll.EtaleFundamentalGroups.ContinuousActions.RestrictionEssentialImage
-import Mathlib.CategoryTheory.EssentialImage
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointSurjective
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.BasePoint
+public import Nyll.EtaleFundamentalGroups.ContinuousActions.RestrictionEssentialImage
+public import Mathlib.CategoryTheory.EssentialImage
 
 /-!
 # Generic fibers and the kernel of the generic absolute Galois map
@@ -16,6 +18,8 @@ The absolute Galois action on a generic fiber is restriction of the action
 of the fundamental group. A finite continuous absolute Galois action comes
 from a finite étale cover precisely when the generic kernel acts trivially.
 -/
+
+@[expose] public section
 
 noncomputable section
 

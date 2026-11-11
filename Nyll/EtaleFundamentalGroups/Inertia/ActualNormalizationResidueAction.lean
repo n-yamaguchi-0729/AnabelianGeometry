@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.NativeResidueRingAction
-import Nyll.EtaleFundamentalGroups.Inertia.NativeAbsoluteResidueFields
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationResidueCoefficient
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeResidueRingAction
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeAbsoluteResidueFields
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationResidueCoefficient
 
 /-!
 # The actual original decomposition action on residue coefficients
@@ -14,6 +16,8 @@ import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationResidueCoefficie
 The quotient automorphism is the SAME original normalization residue morphism.
 Its localization presentation retains the already proved coefficient equation.
 -/
+
+@[expose] public section
 
 noncomputable section
 

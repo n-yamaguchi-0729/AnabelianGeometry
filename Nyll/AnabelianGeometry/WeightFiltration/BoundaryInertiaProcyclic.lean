@@ -4,10 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaEmbedding
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsProcyclic
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaEmbedding
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsProcyclic
 
 /-! # Procyclicity and nontriviality of actual boundary inertia -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.NativeSeparableResidueGroup
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsSeparableCoordinates
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsResidueAction
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeSeparableResidueGroup
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsSeparableCoordinates
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsResidueAction
 
 /-!
 # Full roots limits of the stored residue fields
@@ -15,6 +17,8 @@ These group objects store exactly the existing compatible-family limits.
 The stored coefficient algebra is installed in this field-only owner,
 before any original fraction field or tame-degree subset is introduced.
 -/
+
+@[expose] public section
 
 noncomputable section
 

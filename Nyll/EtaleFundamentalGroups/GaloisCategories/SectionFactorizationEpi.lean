@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Mathlib.CategoryTheory.Limits.Preserves.Finite
-import Mathlib.CategoryTheory.Limits.Preserves.Shapes.Products
-import Mathlib.CategoryTheory.Limits.Shapes.Terminal
+module
+
+public import Mathlib.CategoryTheory.Limits.Preserves.Finite
+public import Mathlib.CategoryTheory.Limits.Preserves.Shapes.Products
+public import Mathlib.CategoryTheory.Limits.Shapes.Terminal
 
 /-!
 # Section Factorization Epi
@@ -13,6 +15,8 @@ import Mathlib.CategoryTheory.Limits.Shapes.Terminal
 Actual factorizations of all terminal sections assemble to an epimorphism
 from the image whenever the target becomes a finite coproduct of terminals.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory Limits

@@ -4,14 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianTateFamilies
-import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationMonodromyGroup
-import Nyll.EtaleFundamentalGroups.GeometricFiber.BasePoint
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
-import Mathlib.AlgebraicGeometry.Geometrically.Connected
-import Mathlib.CategoryTheory.Galois.Topology
-import Nyll.ProCGroups.Abelian.FullTateModule
-import Nyll.ProCGroups.Topologies.ContinuousMulEquiv
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianTateFamilies
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.AbelianMultiplicationMonodromyGroup
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.BasePoint
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FundamentalGroup
+public import Mathlib.AlgebraicGeometry.Geometrically.Connected
+public import Mathlib.CategoryTheory.Galois.Topology
+public import Nyll.ProCGroups.Abelian.FullTateModule
+public import Nyll.ProCGroups.Topologies.ContinuousMulEquiv
 
 /-!
 # The actual full Tate module and the fundamental group of an abelian variety
@@ -22,14 +24,18 @@ proved using deck translations, and the bijection and topology come from
 cofinality of the multiplication covers and compactness.
 -/
 
+@[expose] public section
+
 noncomputable section
+
+universe u
 
 open CategoryTheory AlgebraicGeometry AlgebraicGeometry.FiniteEtale
 
 namespace GoodReductionJacobian.RelativeGroupLaw
 
-variable {K : Type} [Field K] [IsAlgClosed K] [CharZero K]
-  {A : Scheme} {f : A ⟶ Spec (.of K)}
+variable {K : Type u} [Field K] [IsAlgClosed K] [CharZero K]
+  {A : Scheme.{u}} {f : A ⟶ Spec (.of K)}
   [IsProper f] [Smooth f]
   (G : RelativeGroupLaw K f) (hc : G.IsCommutative)
 
@@ -76,7 +82,7 @@ theorem fundamentalGroupEquivFullTate_projection [GeometricallyConnected f]
 topologically isomorphic to the actual full Tate module of the original
 group of algebraic points. The basepoint comparison is chosen internally. -/
 def fundamentalGroupEquivFullTateAt [GeometricallyConnected f]
-    {Ω : Type} [Field Ω] [IsSepClosed Ω] (xi : Spec (.of Ω) ⟶ A) :
+    {Ω : Type u} [Field Ω] [IsSepClosed Ω] (xi : Spec (.of Ω) ⟶ A) :
     π₁ᵉᵗ(xi) ≃ₜ* Multiplicative (ProCGroups.FullTateModule (G.AlgPoints hc K)) := by
   have : ConnectedSpace A := GeometricallyConnected.connectedSpace f f.isOpenMap
   let e : Spec (.of K) ⟶ A := (G.one (𝟙 (Spec (.of K)))).1

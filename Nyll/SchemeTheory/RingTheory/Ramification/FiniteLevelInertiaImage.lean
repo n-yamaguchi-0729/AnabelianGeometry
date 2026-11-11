@@ -4,24 +4,26 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.RingTheory.Ramification.ProfiniteInertiaMap
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.Algebra.Algebra.Equiv
-import Mathlib.Algebra.Ring.Action.Basic
-import Mathlib.Algebra.Algebra.Subalgebra.Basic
-import Mathlib.FieldTheory.Galois.Basic
-import Mathlib.FieldTheory.Galois.GaloisClosure
-import Mathlib.FieldTheory.Galois.Infinite
-import Mathlib.FieldTheory.Galois.Profinite
-import Mathlib.FieldTheory.KrullTopology
-import Mathlib.FieldTheory.Normal.Basic
-import Mathlib.RingTheory.Ideal.Over
-import Mathlib.RingTheory.IntegralClosure.IsIntegral.Basic
-import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
-import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
-import Mathlib.RingTheory.Invariant.Galois
-import Mathlib.Topology.Algebra.MulAction
-import Mathlib.Topology.Compactness.Compact
+module
+
+public import Nyll.SchemeTheory.RingTheory.Ramification.ProfiniteInertiaMap
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.Algebra.Algebra.Equiv
+public import Mathlib.Algebra.Ring.Action.Basic
+public import Mathlib.Algebra.Algebra.Subalgebra.Basic
+public import Mathlib.FieldTheory.Galois.Basic
+public import Mathlib.FieldTheory.Galois.GaloisClosure
+public import Mathlib.FieldTheory.Galois.Infinite
+public import Mathlib.FieldTheory.Galois.Profinite
+public import Mathlib.FieldTheory.KrullTopology
+public import Mathlib.FieldTheory.Normal.Basic
+public import Mathlib.RingTheory.Ideal.Over
+public import Mathlib.RingTheory.IntegralClosure.IsIntegral.Basic
+public import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
+public import Mathlib.RingTheory.IntegralClosure.IntegralRestrict
+public import Mathlib.RingTheory.Invariant.Galois
+public import Mathlib.Topology.Algebra.MulAction
+public import Mathlib.Topology.Compactness.Compact
 
 
 /-!
@@ -33,6 +35,8 @@ intermediate field has that field's integral closure as its invariant base.
 These two facts supply the profinite inertia-image theorem at every finite
 Galois intermediate field. No equality of inertia images is an input.
 -/
+
+@[expose] public section
 
 noncomputable section
 

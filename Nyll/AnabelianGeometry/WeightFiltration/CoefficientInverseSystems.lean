@@ -6,6 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 import Nyll.AnabelianGeometry.WeightFiltration.FiniteCoefficientTransitions
 import Nyll.ProCGroups.InverseSystems.Basic
+import Nyll.JacobianVarieties.Kummer.BoundaryResidueCardinality
 
 /-!
 # Divisibility-indexed cohomology and boundary systems

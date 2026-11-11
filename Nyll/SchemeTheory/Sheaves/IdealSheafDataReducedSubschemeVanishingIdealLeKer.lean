@@ -10,10 +10,14 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.Morphisms.ClosedImmersion
+module
+
+public import Mathlib.AlgebraicGeometry.Morphisms.ClosedImmersion
 /-!
 # Scheme Ideal Sheaf Data is Reduced subscheme vanishing Ideal and le ker
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

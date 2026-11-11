@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.AmbientNormalizationGroupMap
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
-import Mathlib.Algebra.Category.Grp.Basic
+module
+
+public import Nyll.SchemeTheory.Normalization.AmbientNormalizationGroupMap
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
+public import Mathlib.Algebra.Category.Grp.Basic
 
 /-!
 # Original Galois inertia on the normalization
@@ -15,6 +17,8 @@ import Mathlib.Algebra.Category.Grp.Basic
 Identifies the native normalization ring map with the original Galois action. Defines the
 original inertia group and derives its coefficient difference condition.
 -/
+
+@[expose] public section
 
 noncomputable section
 

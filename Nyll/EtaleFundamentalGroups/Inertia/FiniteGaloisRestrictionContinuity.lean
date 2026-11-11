@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteGaloisRestrictionGroupMap
-import Nyll.EtaleFundamentalGroups.Inertia.NativeGaloisGroupTopology
-import Mathlib.FieldTheory.Galois.Profinite
-import Mathlib.Topology.LocallyConstant.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteGaloisRestrictionGroupMap
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeGaloisGroupTopology
+public import Mathlib.FieldTheory.Galois.Profinite
+public import Mathlib.Topology.LocallyConstant.Basic
 
 /-!
 # Local constancy of the actual finite Galois restriction
@@ -16,6 +18,8 @@ The domain keeps its original Krull topology. Finite dimensionality makes
 the target's Krull topology discrete, so the existing continuous restriction
 is locally constant before any normalization or coefficient action is opened.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

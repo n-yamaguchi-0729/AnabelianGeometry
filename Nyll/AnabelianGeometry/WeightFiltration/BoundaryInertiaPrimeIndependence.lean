@@ -4,13 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaRelations
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaRelations
+public import Nyll.ProCGroups.ProC.Quotients.ClosedNormal
+public import Nyll.ProCGroups.Topologies.TopologicallyCharacteristicSubgroups
 
 /-!
 # Independence of normalization primes in abelian boundary inertia
 
 The finite residue formula identifies the maps for any two prime families.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Algebra.Hom
-import Mathlib.Algebra.Category.AlgCat.Basic
-import Mathlib.Algebra.Category.CommAlgCat.Basic
-import Mathlib.Algebra.Ring.Hom.Defs
+module
+
+public import Mathlib.Algebra.Algebra.Hom
+public import Mathlib.Algebra.Category.AlgCat.Basic
+public import Mathlib.Algebra.Category.CommAlgCat.Basic
+public import Mathlib.Algebra.Ring.Hom.Defs
 
 /-!
 # Native categorical algebra maps from their proved coefficient squares
@@ -16,6 +18,8 @@ The coefficient maps are the native maps stored by the commutative algebra
 objects. The categorical morphism is constructed only after its actual
 RingHom coefficient square has been proved. No new algebra action is used.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticAlignedCoefficientEmbedding
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryGeometricGaloisAction
-import Nyll.AlgebraicCurves.Geometry.Schemes.SchemeHomOver
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticAlignedCoefficientEmbedding
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryGeometricGaloisAction
+public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
 
 /-!
 # Boundary Galois actions for an arithmetically aligned generic embedding
@@ -15,6 +17,8 @@ exists_arithmeticAlignedCoefficientEmbedding. After using that embedding to
 construct the geometric generic point, coefficient actions and arithmetic
 labels agree exactly; the cusp labels require no subsequent correction.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry CategoryTheory CategoryTheory.Limits AlgebraicCurve
@@ -59,7 +63,7 @@ theorem genericCoefficient_sourceAction_of_alignedComparison
           change Spec.map (CommRingCat.ofHom a.toRingHom) ≫ (xi ≫ p) = xi ≫ p
           rw [← Category.assoc, hpoint, Category.assoc, coefficientBaseChangeIso_hom_snd]
         arithmeticFundamentalGroupHom k K f (xi ≫ p)
-          (fiberSourceIso (xi ≫ p) e ≪≫ eqToIso (congrArg fiber hz)) = σ := by
+          (Aut.of (fiberSourceIso (xi ≫ p) e ≪≫ eqToIso (congrArg fiber hz))) = σ := by
   intro σ
   let θ := coefficientBaseChangeIso k K f σ
   obtain ⟨a, ha, hpoint₀⟩ := exists_genericPoint_sourceIso θ Ω
@@ -177,7 +181,7 @@ theorem boundary_geometric_range_action_of_alignedComparison :
   have hsource : e.hom ≫ (xi ≫ p₀) = xi ≫ p₀ := by
     rw [← Category.assoc, hp, Category.assoc, coefficientBaseChangeIso_hom_snd]
   let gA : Aut (fiber (xi ≫ p₀)) :=
-    fiberSourceIso (xi ≫ p₀) e ≪≫ eqToIso (congrArg fiber hsource)
+    Aut.of (fiberSourceIso (xi ≫ p₀) e ≪≫ eqToIso (congrArg fiber hsource))
   change arithmeticFundamentalGroupHom k K (i ≫ c) (xi ≫ p₀) gA = σ at hlabel
   let A := geometricAbelianGaloisAction k K U (i ≫ c) xi
   have hb (p : M.openBoundaryPlaces j)

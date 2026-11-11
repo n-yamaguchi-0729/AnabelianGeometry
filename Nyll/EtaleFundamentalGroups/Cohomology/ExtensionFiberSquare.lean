@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionFibers
-import Mathlib.CategoryTheory.Limits.Types.Products
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Basic
-import Mathlib.CategoryTheory.Sites.Sheaf
-import Mathlib.CategoryTheory.Sites.Whiskering
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionFibers
+public import Mathlib.CategoryTheory.Limits.Types.Products
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Basic
+public import Mathlib.CategoryTheory.Sites.Sheaf
+public import Mathlib.CategoryTheory.Sites.Whiskering
 
 /-!
 # The sheaf of lifts is an actual categorical fiber
@@ -17,6 +19,8 @@ The sectionwise construction used for extension monodromy satisfies the
 pullback universal property in the category of étale sheaves. This allows
 exact inverse image to transport the original sheaf of lifts.
 -/
+
+@[expose] public section
 
 noncomputable section
 

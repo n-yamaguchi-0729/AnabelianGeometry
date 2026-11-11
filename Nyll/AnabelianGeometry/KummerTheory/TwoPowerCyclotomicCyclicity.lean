@@ -4,10 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.ZMod.UnitsCyclic
-import Mathlib.GroupTheory.Index
+module
+
+public import Mathlib.RingTheory.ZMod.UnitsCyclic
+public import Mathlib.GroupTheory.Index
 
 /-! # Cyclicity of good 2-primary cyclotomic characters -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.KummerTheory
 
@@ -35,7 +39,7 @@ theorem isCyclic_twoPower_unitsMap_four_ker
   have hfive : Nat.Coprime 5 (2 ^ (n + 2)) :=
     (by decide : Nat.Coprime 5 2).pow_right _
   let v : (ZMod (2 ^ (n + 2)))ˣ := ZMod.unitOfCoprime 5 hfive
-  have hv : (v : ZMod (2 ^ (n + 2))) = 5 := by simp [v]
+  have hv : (v : ZMod (2 ^ (n + 2))) = 5 := ZMod.coe_unitOfCoprime 5 hfive
   have hfv : f v = 1 := by
     apply Units.ext
     change (ZMod.castHom h4 (ZMod 4)) (v : ZMod (2 ^ (n + 2))) = 1

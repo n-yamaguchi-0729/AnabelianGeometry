@@ -4,9 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaRelations
-import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticOpenTateComparison
-import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricKernelNaturality
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaRelations
+public import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticOpenTateComparison
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricKernelNaturality
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
+public import Nyll.ProCGroups.Abelian.FullTateModule
+public import Nyll.ProCGroups.Abelian.FullTateModuleMap
 
 /-!
 # The original arithmetic compactification map with full Tate endpoint
@@ -15,6 +20,8 @@ The existing equivariant Tate comparison is applied at the actual image
 of the open generic point. The original boundary kernel and diagonal
 relation are preserved by the actual compactification isomorphism.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -106,8 +113,10 @@ theorem exists_arithmetic_boundary_Tate_map
   let e := eC ≪≫ pullbackSymmetry c (specMap k K)
   have hJ : J = j ≫ e.hom := by
     apply pullback.hom_ext
-    · simp [J, e, EtaleFundamentalGroups.coefficientModelMap, Category.assoc, heC, hbase]
-    · simp [J, e, EtaleFundamentalGroups.coefficientModelMap, Category.assoc, hproj]
+    · simp only [J, e, EtaleFundamentalGroups.coefficientModelMap, Iso.trans_hom,
+        Category.assoc, pullback.lift_fst, pullbackSymmetry_hom_comp_fst, heC, hbase]
+    · simp only [J, e, EtaleFundamentalGroups.coefficientModelMap, Iso.trans_hom,
+        Category.assoc, pullback.lift_snd, pullbackSymmetry_hom_comp_snd, hproj]
   have : IsOpenImmersion J := by rw [hJ]; infer_instance
   obtain ⟨E, hE⟩ := exists_arithmetic_fullTate_equiv_at_open_generic
     (k := k) (K := K) c ε D hD (pullback (specMap k K) (i ≫ c)) J Ω

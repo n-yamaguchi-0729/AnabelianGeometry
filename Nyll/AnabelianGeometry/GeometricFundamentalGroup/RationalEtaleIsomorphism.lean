@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalEtaleFunctionField
-import Nyll.AlgebraicCurves.Models.Points.IsoCompToBaseEqPlaceOfPointCongrEq
-import Nyll.AlgebraicCurves.Geometry.Schemes.Points.SchemeHomOverExtAlgebraicClosurePoint
-import Nyll.AlgebraicCurves.Places.Rational.Basic
-import Mathlib.AlgebraicGeometry.AlgClosed.Basic
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.RationalEtaleFunctionField
+public import Nyll.AlgebraicCurves.Models.Points.IsoCompToBaseEqPlaceOfPointCongrEq
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Points.SchemeHomOverExtAlgebraicClosurePoint
+public import Nyll.AlgebraicCurves.Places.Rational.Basic
+public import Mathlib.AlgebraicGeometry.AlgClosed.Basic
 
 /-!
 # Finite etale covers of proper rational curve models
@@ -22,6 +24,8 @@ Geometric-point density on the reduced source then identifies the actual morphis
 No fundamental-group presentation is used. Passing from arbitrary connected finite
 etale covers to curve models and identifying the fundamental group are separate steps.
 -/
+
+@[expose] public section
 
 noncomputable section
 

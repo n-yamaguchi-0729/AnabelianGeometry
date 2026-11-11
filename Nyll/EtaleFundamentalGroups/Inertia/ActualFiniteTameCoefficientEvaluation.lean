@@ -4,21 +4,23 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaRestriction
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaLocalization
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationCoefficientSquare
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationResidueMap
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteLocalResidue
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameCompositeEvaluation
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationAutomorphisms
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Mathlib.RingTheory.Localization.AtPrime.Basic
-import Mathlib.RingTheory.Localization.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaRestriction
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaLocalization
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationCoefficientSquare
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationResidueMap
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteLocalResidue
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameCoordinate
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgCanonicalTameCompositeEvaluation
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationAutomorphisms
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Mathlib.RingTheory.Localization.AtPrime.Basic
+public import Mathlib.RingTheory.Localization.Basic
 
 /-!
 # Coefficient evaluation of finite tame coordinates
@@ -26,6 +28,8 @@ import Mathlib.RingTheory.Localization.Basic
 Identifies the local ring map in the character composite with the finite inertia action and
 evaluates the ambient coordinate through a uniformizer ratio.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -57,12 +61,12 @@ actual local action: the two local RingHoms agree on every coefficient. -/
 theorem actualFiniteInertiaCompositeLocalRingHom_eq [Q.IsPrime]
     (E : FiniteGaloisIntermediateField K L)
     (σ : actualNormalizationInertiaGroup A K L Q) :
-    letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+    let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
     commAlgInertiaCompositeLocalRingHom A (finiteAbsoluteNormalizationAlgebra A K L E)
         (finiteAbsoluteNormalizationPrime A K L Q E)
         (actualFiniteInertiaRestriction A K L Q E).hom'.toFun σ =
       actualFiniteInertiaLocalRingHom A K L Q E σ := by
-  let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+  intro sharedOwner1
   exact localRingHom_eq_of_coefficient_square
     (finiteAbsoluteNormalizationAlgebra A K L E)
     (finiteAbsoluteNormalizationPrime A K L Q E)
@@ -84,7 +88,7 @@ theorem actualFiniteTameCoordinate_exists_coefficient
     [IsDomain A] [IsDiscreteValuationRing A] [Q.IsMaximal]
     (E : FiniteGaloisIntermediateField K L)
     (σ : actualNormalizationInertiaGroup A K L Q) :
-    letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+    let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
     ∀ (π : Localization.AtPrime (finiteAbsoluteNormalizationPrime A K L Q E)),
       Irreducible π →
       ∃ c : Localization.AtPrime (finiteAbsoluteNormalizationPrime A K L Q E),
@@ -93,7 +97,7 @@ theorem actualFiniteTameCoordinate_exists_coefficient
           (actualFiniteLocalResidueMap A K L Q E).toFun c ^
             ((finiteAbsoluteNormalizationPrime A K L Q E).ramificationIdx A /
               actualFiniteStageTameOrder A K L Q E) := by
-  let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+  intro sharedOwner1
   let := finiteAbsoluteNormalizationAlgebra_isDedekindDomain A K L E
   let := finiteAbsoluteNormalizationAutomorphisms_finite A K L E
   intro π hπ

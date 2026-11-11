@@ -4,21 +4,23 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Classical.CoefficientSheaves
-import Nyll.EtaleCohomology.Sites.ClosedImmersionExact
-import Nyll.EtaleCohomology.Sites.PullbackStalks
-import Nyll.EtaleCohomology.Sites.ConstantPullback
-import Mathlib.Algebra.Category.Grp.ZModuleEquivalence
-import Mathlib.Algebra.Category.Grp.AB
-import Mathlib.Algebra.Category.ModuleCat.ChangeOfRings
-import Mathlib.Algebra.Ring.ULift
-import Mathlib.AlgebraicGeometry.Sites.AffineEtale
-import Mathlib.CategoryTheory.Adjunction.Limits
-import Mathlib.CategoryTheory.Adjunction.Unique
-import Mathlib.CategoryTheory.Preadditive.AdditiveFunctor
-import Mathlib.CategoryTheory.Preadditive.Biproducts
-import Mathlib.CategoryTheory.Sites.Continuous
-import Mathlib.CategoryTheory.Sites.Whiskering
+module
+
+public import Nyll.EtaleCohomology.Classical.CoefficientSheaves
+public import Nyll.EtaleCohomology.Sites.ClosedImmersionExact
+public import Nyll.EtaleCohomology.Sites.PullbackStalks
+public import Nyll.EtaleCohomology.Sites.ConstantPullback
+public import Mathlib.Algebra.Category.Grp.ZModuleEquivalence
+public import Mathlib.Algebra.Category.Grp.AB
+public import Mathlib.Algebra.Category.ModuleCat.ChangeOfRings
+public import Mathlib.Algebra.Ring.ULift
+public import Mathlib.AlgebraicGeometry.Sites.AffineEtale
+public import Mathlib.CategoryTheory.Adjunction.Limits
+public import Mathlib.CategoryTheory.Adjunction.Unique
+public import Mathlib.CategoryTheory.Preadditive.AdditiveFunctor
+public import Mathlib.CategoryTheory.Preadditive.Biproducts
+public import Mathlib.CategoryTheory.Sites.Continuous
+public import Mathlib.CategoryTheory.Sites.Whiskering
 
 /-!
 # Abelian direct and inverse image on the small étale site
@@ -27,6 +29,8 @@ Transport the constructed exact inverse image of integer module sheaves through
 the equivalence with abelian sheaves. Direct image is the actual restriction
 along étale base change. This connects these functors to mathlib's `Sheaf.H`.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -85,7 +89,8 @@ def etaleAbelianPullback :
     etalePullback f (ULift.{u} ℤ) ⋙
       (Classical.integerSheafEquivalence X.smallEtaleTopology).functor
 
-private def etaleAbelianPushforwardTransportIso :
+/-- Transport of integer-module direct image to the original abelian direct image. -/
+def etaleAbelianPushforwardTransportIso :
     (Classical.integerSheafEquivalence X.smallEtaleTopology).inverse ⋙
         etalePushforward f (ULift.{u} ℤ) ⋙
           (Classical.integerSheafEquivalence Y.smallEtaleTopology).functor ≅

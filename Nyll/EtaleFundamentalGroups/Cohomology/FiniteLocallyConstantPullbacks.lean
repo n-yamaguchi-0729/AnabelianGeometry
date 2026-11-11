@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Constructible.Monodromy
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteLocallyConstantDetection
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Basic
-import Mathlib.CategoryTheory.Sites.Subcanonical
-import Mathlib.CategoryTheory.Sites.PreservesLimits
+module
+
+public import Nyll.EtaleCohomology.Constructible.Monodromy
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteLocallyConstantDetection
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Basic
+public import Mathlib.CategoryTheory.Sites.Subcanonical
+public import Mathlib.CategoryTheory.Sites.PreservesLimits
 
 /-!
 # Pullbacks of finite local systems detected on a geometric stalk
@@ -18,6 +20,8 @@ functor reflects them. Hence a square of finite locally constant abelian
 sheaves is cartesian if its actual geometric stalk square is cartesian.
 This detects kernels without assuming descent of exactness.
 -/
+
+@[expose] public section
 
 noncomputable section
 

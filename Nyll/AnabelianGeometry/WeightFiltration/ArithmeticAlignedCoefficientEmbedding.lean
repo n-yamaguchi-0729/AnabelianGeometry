@@ -3,10 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.GeometricFiber.SourceIsoGalois
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConstantFieldComparisonAlignment
-import Mathlib.FieldTheory.IsAlgClosed.Basic
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisPoint
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.SourceIsoGalois
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticConstantFieldComparisonAlignment
+public import Mathlib.FieldTheory.IsAlgClosed.Basic
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisPoint
 
 /-!
 # Coefficient embeddings aligned with the actual arithmetic comparison
@@ -17,6 +19,8 @@ The embedding is chosen before the geometric model and before any cusp labels.
 Consequently its source actions have their literal arithmetic Galois labels,
 without a later conjugation of a recovered cusp correspondence.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory CategoryTheory.PreGaloisCategory AlgebraicGeometry
@@ -62,11 +66,11 @@ theorem exists_fieldEmbedding_realizing_fiberIso
     IsScalarTower.of_algebraMap_eq (fun a => (j₀.commutes a).symm)
   let hz : z = ξ k Ω := (Spec.map_preimage z).symm
   let S := fieldFiberExtensionIso k κ Ω ≪≫ (eqToIso (congrArg fiber hz)).symm
-  let δ : Aut (fib k κ) := t.symm ≪≫ S.symm
+  let δ : Aut (fib k κ) := Aut.of (t.symm ≪≫ S.symm)
   let ε := suppliedGaloisEquivFundamentalGroup k κ
   let σ := ε.symm δ
   have hσ : ε σ = δ := ε.apply_symm_apply δ
-  have hfactor : ε σ ≪≫ S = t.symm := by
+  have hfactor : (ε σ).asIso ≪≫ S = t.symm := by
     rw [hσ]
     apply Iso.ext
     change (t.inv ≫ S.inv) ≫ S.hom = t.inv
@@ -83,9 +87,9 @@ theorem exists_fieldEmbedding_realizing_fiberIso
   apply Over.OverMorphism.ext
   have hnew := fieldFiberExtension_point_at_eq k κ Ω z hz' A x
   have hold := fieldFiberExtension_point_at_eq k κ Ω
-    (AκΩ := AκΩ₀) (AkΩ := AkΩ) (tower := hkκΩ₀) z hz A ((ε σ).hom.app A x)
+    (AκΩ := AκΩ₀) (AkΩ := AkΩ) (tower := hkκΩ₀) z hz A ((ε σ).asIso.hom.app A x)
   have hact := AlgebraicGeometry.FiniteEtale.suppliedGaloisEquivFundamentalGroup_point k κ σ A x
-  have hval : S.hom.app A ((ε σ).hom.app A x) = t.inv.app A x :=
+  have hval : S.hom.app A ((ε σ).asIso.hom.app A x) = t.inv.app A x :=
     congrArg (fun e : fib k κ ≅ fiber z => e.hom.app A x) hfactor
   calc
     (fiberObjEquivHom z A
@@ -99,9 +103,9 @@ theorem exists_fieldEmbedding_realizing_fiberIso
       change Spec.map (CommRingCat.ofHom (j₀.toRingHom.comp σ.toRingHom)) ≫ _ = _
       rw [CommRingCat.ofHom_comp, Spec.map_comp, Category.assoc]
     _ = Spec.map (CommRingCat.ofHom j₀.toRingHom) ≫
-        (fiberObjEquivHom (ξ k κ) A ((ε σ).hom.app A x)).left :=
+        (fiberObjEquivHom (ξ k κ) A ((ε σ).asIso.hom.app A x)).left :=
       congrArg (fun q => Spec.map (CommRingCat.ofHom j₀.toRingHom) ≫ q) hact.symm
-    _ = (fiberObjEquivHom z A (S.hom.app A ((ε σ).hom.app A x))).left := hold.symm
+    _ = (fiberObjEquivHom z A (S.hom.app A ((ε σ).asIso.hom.app A x))).left := hold.symm
     _ = (fiberObjEquivHom z A (t.inv.app A x)).left :=
       congrArg (fun y => (fiberObjEquivHom z A y).left) hval
 
@@ -127,7 +131,7 @@ theorem exists_arithmeticAlignedCoefficientEmbedding
         (_hρ : ρ.comp (algebraMap κ Ω) = (algebraMap κ Ω).comp σ.toRingHom)
         (hsource : e.hom ≫ xi = xi),
         arithmeticFundamentalGroupHom k κ f xi
-          (fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource)) = σ := by
+          (Aut.of (fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource))) = σ := by
   intro AkΩ
   let t := (nonempty_fiber_iso (xi ≫ f) (ξ k κ)).some
   obtain ⟨j, hj⟩ := exists_fieldEmbedding_realizing_fiberIso k κ Ω (xi ≫ f) t
@@ -140,7 +144,7 @@ theorem exists_arithmeticAlignedCoefficientEmbedding
   let E := fieldFiberExtensionIso k κ Ω
   let q := eqToIso (congrArg fiber hbase)
   let ε := suppliedGaloisEquivFundamentalGroup k κ
-  let g : Aut (fiber xi) := fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource)
+  let g : Aut (fiber xi) := Aut.of (fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource))
   have ht : q ≪≫ E.symm = t := congrArg Iso.symm hreal
   have hfield := fundamentalGroupHom_sourceAction_eq_extendedGalois
     k κ Ω f xi e ρ he σ hρ hsource hbase
@@ -148,7 +152,8 @@ theorem exists_arithmeticAlignedCoefficientEmbedding
     rw [← ht, Iso.trans_conjAut, hfield]
     change E.symm.conjAut (E.conjAut (ε σ)) = ε σ
     apply Aut.ext
-    simp only [Iso.conjAut_hom, Iso.symm_self_conj]
+    apply Iso.ext
+    exact congrArg End.asHom (Iso.symm_self_conj E (ε σ).toEnd)
   change ε.symm (t.conjAut (fundamentalGroupHom f xi g)) = σ
   rw [hc, ε.symm_apply_apply]
 
@@ -212,12 +217,12 @@ theorem arithmeticFundamentalGroupHom_sourceAction_of_alignedComparison
     (hρ : ρ.comp (algebraMap κ Ω) = (algebraMap κ Ω).comp σ.toRingHom)
     (hsource : e.hom ≫ xi = xi) :
     arithmeticFundamentalGroupHom k κ f xi
-      (fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource)) = σ := by
+      (Aut.of (fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource))) = σ := by
   let t := (nonempty_fiber_iso (xi ≫ f) (ξ k κ)).some
   let E := fieldFiberExtensionIso k κ Ω
   let q := eqToIso (congrArg fiber hbase)
   let ε := suppliedGaloisEquivFundamentalGroup k κ
-  let g : Aut (fiber xi) := fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource)
+  let g : Aut (fiber xi) := Aut.of (fiberSourceIso xi e ≪≫ eqToIso (congrArg fiber hsource))
   have ht : q ≪≫ E.symm = t := congrArg Iso.symm halign
   have hfield := fundamentalGroupHom_sourceAction_eq_extendedGalois
     k κ Ω f xi e ρ he σ hρ hsource hbase
@@ -225,7 +230,8 @@ theorem arithmeticFundamentalGroupHom_sourceAction_of_alignedComparison
     rw [← ht, Iso.trans_conjAut, hfield]
     change E.symm.conjAut (E.conjAut (ε σ)) = ε σ
     apply Aut.ext
-    simp only [Iso.conjAut_hom, Iso.symm_self_conj]
+    apply Iso.ext
+    exact congrArg End.asHom (Iso.symm_self_conj E (ε σ).toEnd)
   change ε.symm (t.conjAut (fundamentalGroupHom f xi g)) = σ
   rw [hc, ε.symm_apply_apply]
 

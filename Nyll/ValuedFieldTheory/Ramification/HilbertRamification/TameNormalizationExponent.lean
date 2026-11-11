@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Data.Nat.Prime.Basic
-import Mathlib.Data.Nat.GCD.Basic
+module
+
+public import Mathlib.Data.Nat.Prime.Basic
+public import Mathlib.Data.Nat.GCD.Basic
 
 /-!
 # The actual tame-character normalization exponent
@@ -15,6 +17,8 @@ show that the ratio of the ramification index to the tame degree divides the
 wild order. Thus it is a residue-characteristic power, and is prime to the
 tame degree. No residue-separability assertion is needed for this arithmetic.
 -/
+
+@[expose] public section
 
 namespace RamificationTheory.HilbertRamification
 

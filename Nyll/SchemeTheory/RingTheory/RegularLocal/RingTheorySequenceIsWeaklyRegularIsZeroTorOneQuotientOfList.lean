@@ -10,46 +10,50 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.HomologicalAlgebra.TorExactSequence
-import Mathlib.CategoryTheory.Monoidal.Tor
-import Mathlib.CategoryTheory.Abelian.LeftDerived
-import Mathlib.CategoryTheory.Preadditive.Projective.Resolution
-import Mathlib.CategoryTheory.Abelian.Projective.Resolution
-import Mathlib.Algebra.Category.ModuleCat.Projective
-import Mathlib.Algebra.Category.ModuleCat.Abelian
-import Mathlib.Algebra.Category.ModuleCat.Monoidal.Basic
-import Mathlib.Algebra.Category.ModuleCat.Monoidal.Symmetric
-import Mathlib.Algebra.Category.ModuleCat.Monoidal.Closed
-import Mathlib.CategoryTheory.Monoidal.Closed.Basic
-import Mathlib.CategoryTheory.Monoidal.Braided.Basic
-import Mathlib.CategoryTheory.Monoidal.Preadditive
-import Mathlib.Algebra.Homology.HomologySequence
-import Mathlib.Algebra.Homology.HomologicalComplexAbelian
-import Mathlib.Algebra.Homology.ShortComplex.HomologicalComplex
-import Mathlib.Algebra.Homology.Additive
-import Mathlib.Algebra.Homology.ShortComplex.ShortExact
-import Mathlib.Algebra.Homology.ShortComplex.Exact
-import Mathlib.Algebra.Homology.ShortComplex.ModuleCat
-import Mathlib.Algebra.Category.ModuleCat.EpiMono
-import Mathlib.CategoryTheory.Limits.Shapes.ZeroMorphisms
-import Mathlib.CategoryTheory.Limits.Preserves.Finite
-import Mathlib.RingTheory.Flat.CategoryTheory
-import Mathlib.RingTheory.Flat.Basic
-import Mathlib.RingTheory.Regular.RegularSequence
-import Mathlib.RingTheory.Regular.IsSMulRegular
-import Mathlib.LinearAlgebra.TensorProduct.Quotient
-import Mathlib.LinearAlgebra.TensorProduct.RightExactness
-import Mathlib.LinearAlgebra.TensorProduct.Map
-import Mathlib.Algebra.Exact.Basic
-import Mathlib.LinearAlgebra.Isomorphisms
-import Mathlib.LinearAlgebra.Quotient.Basic
-import Mathlib.RingTheory.Ideal.Span
-import Mathlib.Tactic.CategoryTheory.Slice
-import Mathlib.Tactic.Simps.Basic
+module
+
+public import Nyll.SchemeTheory.HomologicalAlgebra.TorExactSequence
+public import Mathlib.CategoryTheory.Monoidal.Tor
+public import Mathlib.CategoryTheory.Abelian.LeftDerived
+public import Mathlib.CategoryTheory.Preadditive.Projective.Resolution
+public import Mathlib.CategoryTheory.Abelian.Projective.Resolution
+public import Mathlib.Algebra.Category.ModuleCat.Projective
+public import Mathlib.Algebra.Category.ModuleCat.Abelian
+public import Mathlib.Algebra.Category.ModuleCat.Monoidal.Basic
+public import Mathlib.Algebra.Category.ModuleCat.Monoidal.Symmetric
+public import Mathlib.Algebra.Category.ModuleCat.Monoidal.Closed
+public import Mathlib.CategoryTheory.Monoidal.Closed.Basic
+public import Mathlib.CategoryTheory.Monoidal.Braided.Basic
+public import Mathlib.CategoryTheory.Monoidal.Preadditive
+public import Mathlib.Algebra.Homology.HomologySequence
+public import Mathlib.Algebra.Homology.HomologicalComplexAbelian
+public import Mathlib.Algebra.Homology.ShortComplex.HomologicalComplex
+public import Mathlib.Algebra.Homology.Additive
+public import Mathlib.Algebra.Homology.ShortComplex.ShortExact
+public import Mathlib.Algebra.Homology.ShortComplex.Exact
+public import Mathlib.Algebra.Homology.ShortComplex.ModuleCat
+public import Mathlib.Algebra.Category.ModuleCat.EpiMono
+public import Mathlib.CategoryTheory.Limits.Shapes.ZeroMorphisms
+public import Mathlib.CategoryTheory.Limits.Preserves.Finite
+public import Mathlib.RingTheory.Flat.CategoryTheory
+public import Mathlib.RingTheory.Flat.Basic
+public import Mathlib.RingTheory.Regular.RegularSequence
+public import Mathlib.RingTheory.Regular.IsSMulRegular
+public import Mathlib.LinearAlgebra.TensorProduct.Quotient
+public import Mathlib.LinearAlgebra.TensorProduct.RightExactness
+public import Mathlib.LinearAlgebra.TensorProduct.Map
+public import Mathlib.Algebra.Exact.Basic
+public import Mathlib.LinearAlgebra.Isomorphisms
+public import Mathlib.LinearAlgebra.Quotient.Basic
+public import Mathlib.RingTheory.Ideal.Span
+public import Mathlib.Tactic.CategoryTheory.Slice
+public import Mathlib.Tactic.Simps.Basic
 
 /-!
 # Ring Theory Sequence Is Weakly Regular is Zero tor one quotient of List
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

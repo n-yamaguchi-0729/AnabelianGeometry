@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerCovers
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentFundamentalGroupQuotients
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.EtaleFundamentalGroups.Pi1.FiniteEtale.GaloisCategory
-import Mathlib.CategoryTheory.Galois.Topology
-import Mathlib.GroupTheory.QuotientGroup.Basic
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerCovers
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentFundamentalGroupQuotients
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Nyll.EtaleFundamentalGroups.Pi1.FiniteEtale.GaloisCategory
+public import Mathlib.CategoryTheory.Galois.Topology
+public import Mathlib.GroupTheory.QuotientGroup.Basic
 
 /-!
 # Cyclic quotients of every order of the actual Laurent fundamental group
@@ -18,6 +20,8 @@ The degree-`n` Kummer cover supplies a transitive action on `n` actual geometric
 Its finite image is cyclic by the already proved geometric quotient theorem. Evaluation
 at one point is then injective as well as surjective, so this image has order `n`.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -55,7 +59,7 @@ theorem exists_openNormalQuotient_fundamentalGroup_laurent_card
   let e : (Aut F ⧸ ev.ker) ≃* ev.range := QuotientGroup.quotientKerEquivRange ev
   have cyclicImage : IsCyclic ev.range := isCyclic_of_surjective e.toMonoidHom e.surjective
   let x : F.obj Y := Classical.choice inferInstance
-  let evaluation : ev.range → F.obj Y := fun a => a.val.hom x
+  let evaluation : ev.range → F.obj Y := fun a => a.val.asIso.hom x
   have hsurj : Function.Surjective evaluation := by
     intro y
     obtain ⟨g, hg⟩ := MulAction.exists_smul_eq (Aut F) x y
@@ -67,13 +71,13 @@ theorem exists_openNormalQuotient_fundamentalGroup_laurent_card
     ext y
     obtain ⟨g, hg⟩ := MulAction.exists_smul_eq (Aut F) x y
     let c : ev.range := ⟨ev g, ⟨g, rfl⟩⟩
-    have hy : c.val.hom x = y := hg
-    have hac : a.val.hom (c.val.hom x) = c.val.hom (a.val.hom x) := by
-      exact congrArg (fun d : ev.range => d.val.hom x) (mul_comm a c)
-    have hbc : b.val.hom (c.val.hom x) = c.val.hom (b.val.hom x) := by
-      exact congrArg (fun d : ev.range => d.val.hom x) (mul_comm b c)
+    have hy : c.val.asIso.hom x = y := hg
+    have hac : a.val.asIso.hom (c.val.asIso.hom x) = c.val.asIso.hom (a.val.asIso.hom x) := by
+      exact congrArg (fun d : ev.range => d.val.asIso.hom x) (mul_comm a c)
+    have hbc : b.val.asIso.hom (c.val.asIso.hom x) = c.val.asIso.hom (b.val.asIso.hom x) := by
+      exact congrArg (fun d : ev.range => d.val.asIso.hom x) (mul_comm b c)
     rw [← hy, hac, hbc]
-    exact congrArg c.val.hom hab
+    exact congrArg c.val.asIso.hom hab
   refine ⟨U, cyclicQuotient, ?_⟩
   exact (Nat.card_congr e.toEquiv).trans
     ((Nat.card_congr (Equiv.ofBijective evaluation ⟨hinj, hsurj⟩)).trans (hdegree Ω ξ))

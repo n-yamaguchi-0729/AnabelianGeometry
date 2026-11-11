@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Category.CommAlgCat.Basic
-import Mathlib.RingTheory.Localization.Away.Basic
-import Mathlib.RingTheory.OreLocalization.Ring
+module
+
+public import Mathlib.Algebra.Category.CommAlgCat.Basic
+public import Mathlib.RingTheory.Localization.Away.Basic
+public import Mathlib.RingTheory.OreLocalization.Ring
 
 /-!
 # Principal localization as a commutative algebra
@@ -15,6 +17,8 @@ Bundles localization away from an element as a commutative algebra over the coef
 proves its localization witness.
 -/
 
+
+@[expose] public section
 
 noncomputable section
 

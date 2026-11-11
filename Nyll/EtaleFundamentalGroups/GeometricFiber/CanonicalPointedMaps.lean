@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticComposite
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedComposition
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
-import Mathlib.CategoryTheory.Limits.MorphismProperty
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticComposite
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedComposition
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
+public import Mathlib.CategoryTheory.Limits.MorphismProperty
 
 /-!
 # Canonical maps with specified geometric basepoints
@@ -17,6 +19,8 @@ fundamental-group map. Its composition and identity laws follow from the
 canonical pullback comparisons. A map factoring through a separably closed
 field induces the trivial homomorphism.
 -/
+
+@[expose] public section
 
 noncomputable section
 

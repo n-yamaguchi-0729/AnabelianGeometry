@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ProCGroups.InverseSystems.Basic
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
-import Mathlib.GroupTheory.Perm.Basic
-import Mathlib.Topology.Constructions
+module
+
+public import Nyll.ProCGroups.InverseSystems.Basic
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsInverseSystem
+public import Mathlib.GroupTheory.Perm.Basic
+public import Mathlib.Topology.Constructions
 
 /-!
 # The literal coefficient action on the full roots limit
@@ -16,6 +18,8 @@ Every coordinate is sent through the specified ring map. Compatibility is
 the proved coefficient/power transition square, and continuity follows
 from the existing inverse-limit topology and discrete root stages.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Constructible.Monodromy
-import Mathlib.Algebra.Category.Grp.FilteredColimits
+module
+
+public import Nyll.EtaleCohomology.Constructible.Monodromy
+public import Mathlib.Algebra.Category.Grp.FilteredColimits
 
 /-!
 # Morphisms of finite local systems detected on a geometric stalk
@@ -14,6 +16,8 @@ The monodromy equivalence makes one geometric stalk faithful on finite local
 systems on a connected scheme. The comparison with the underlying set stalk
 then detects equality of morphisms of the actual abelian sheaves.
 -/
+
+@[expose] public section
 
 noncomputable section
 

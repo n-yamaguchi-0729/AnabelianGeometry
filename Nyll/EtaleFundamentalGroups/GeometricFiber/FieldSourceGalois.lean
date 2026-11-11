@@ -4,15 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointSurjective
-import Nyll.EtaleFundamentalGroups.GeometricFiber.BasePoint
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FiniteGaloisSets
-import Nyll.EtaleFundamentalGroups.ContinuousActions.RestrictionEssentialImage
-import Nyll.EtaleFundamentalGroups.Inertia.NormalSubgroupEmbeddings
-import Mathlib.CategoryTheory.EssentialImage
-import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
-import Mathlib.RingTheory.Etale.Field
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointSurjective
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.BasePoint
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FiniteGaloisSets
+public import Nyll.EtaleFundamentalGroups.ContinuousActions.RestrictionEssentialImage
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalSubgroupEmbeddings
+public import Mathlib.CategoryTheory.EssentialImage
+public import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
+public import Mathlib.RingTheory.Etale.Field
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
 
 /-!
 # Generic Galois maps using the supplied separable closure
@@ -22,6 +24,8 @@ point, rather than a further extension of the function field. The ambient
 separable closure is supplied explicitly. Finite fixed subfields are
 characterized using their literal spectra and finite étale models.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -101,7 +105,8 @@ theorem fieldSourcePullback_obj_essImage_iff_ker_le_ker_ρAut [IsNormalIntegral 
   · rintro ⟨Z, ⟨e⟩⟩
     exact ⟨Z, ⟨E.preimageIso e⟩⟩
 
-private def finiteSubfieldCover (K Ω : Type u) [Field K] [Field Ω] [Algebra K Ω]
+/-- The finite étale spectrum of the actual finite intermediate field. -/
+def fieldSourceFiniteSubfieldCover (K Ω : Type u) [Field K] [Field Ω] [Algebra K Ω]
     [IsSepClosure K Ω] [IsSepClosed Ω]
     (L : IntermediateField K Ω) [FiniteDimensional K L] :
     FiniteEtale (Spec (.of K)) := by
@@ -117,13 +122,13 @@ private def finiteSubfieldCover (K Ω : Type u) [Field K] [Field Ω] [Algebra K 
 private def subfieldPointEquiv (K Ω : Type u) [Field K] [Field Ω] [Algebra K Ω]
     [IsSepClosure K Ω] [IsSepClosed Ω]
     (L : IntermediateField K Ω) [FiniteDimensional K L] :
-    (Over.mk (ξ K Ω) ⟶ (finiteSubfieldCover K Ω L).toComma) ≃
+    (Over.mk (ξ K Ω) ⟶ (fieldSourceFiniteSubfieldCover K Ω L).toComma) ≃
       (L →ₐ[K] Ω) :=
   ({ toFun := fun x ↦ ⟨x.left, x.w⟩
      invFun := fun x ↦ Over.homMk x.val x.property
      left_inv := fun _ ↦ Over.OverMorphism.ext rfl
      right_inv := fun _ ↦ Subtype.ext rfl } :
-    (Over.mk (ξ K Ω) ⟶ (finiteSubfieldCover K Ω L).toComma) ≃
+    (Over.mk (ξ K Ω) ⟶ (fieldSourceFiniteSubfieldCover K Ω L).toComma) ≃
       {f : Spec (.of Ω) ⟶ Spec (.of L) //
         f ≫ Spec.algebraMap K L = Spec.algebraMap K Ω}).trans
     Spec.homEquivAlgHom
@@ -133,10 +138,10 @@ private theorem subfieldPointEquiv_smul (K Ω : Type u) [Field K] [Field Ω] [Al
     (L : IntermediateField K Ω) [FiniteDimensional K L]
     (g : Ω ≃ₐ[K] Ω)
     (x : Over.mk (Spec.map (CommRingCat.ofHom (algebraMap K Ω))) ⟶
-      (finiteSubfieldCover K Ω L).toComma) :
+      (fieldSourceFiniteSubfieldCover K Ω L).toComma) :
     subfieldPointEquiv K Ω L (g • x) = g.toAlgHom.comp (subfieldPointEquiv K Ω L x) := by
   let y : Spec (.of Ω) ⟶ Spec (.of L) := x.left
-  apply AlgHom.coe_ringHom_injective
+  apply AlgHom.toRingHom_injective
   change (Spec.preimage
     (Spec.map (CommRingCat.ofHom g.toRingHom) ≫ y)).hom =
       g.toRingHom.comp (Spec.preimage y).hom
@@ -149,9 +154,9 @@ private theorem subfieldAction_ker_iff (K Ω : Type u) [Field K] [Field Ω] [Alg
     (g : Ω ≃ₐ[K] Ω) :
     g ∈ (Action.ρAut
       (((equivContAction K Ω).functor.obj
-        (finiteSubfieldCover K Ω L)).obj)).ker ↔
+        (fieldSourceFiniteSubfieldCover K Ω L)).obj)).ker ↔
       ∀ φ : L →ₐ[K] Ω, g.toAlgHom.comp φ = φ := by
-  let W := finiteSubfieldCover K Ω L
+  let W := fieldSourceFiniteSubfieldCover K Ω L
   let e := (fiberObjEquivHom (ξ K Ω) W).trans
     (subfieldPointEquiv K Ω L)
   have he (x : (fib K Ω).obj W) :
@@ -162,7 +167,7 @@ private theorem subfieldAction_ker_iff (K Ω : Type u) [Field K] [Field Ω] [Alg
     exact subfieldPointEquiv_smul K Ω L g _
   constructor
   · intro h φ
-    have hg := congrArg (fun a ↦ a.hom) (MonoidHom.mem_ker.mp h)
+    have hg := congrArg (fun a ↦ a.asIso.hom) (MonoidHom.mem_ker.mp h)
     have hx : g • e.symm φ = e.symm φ := by
       exact ConcreteCategory.congr_hom hg (e.symm φ)
     have hx' := congrArg e hx
@@ -170,6 +175,7 @@ private theorem subfieldAction_ker_iff (K Ω : Type u) [Field K] [Field Ω] [Alg
     exact hx'
   · intro h
     apply MonoidHom.mem_ker.mpr
+    apply Aut.ext
     apply Iso.ext
     apply FintypeCat.hom_ext
     intro x
@@ -177,10 +183,31 @@ private theorem subfieldAction_ker_iff (K Ω : Type u) [Field K] [Field Ω] [Alg
     apply e.injective
     exact (he x).trans (h (e x))
 
+/-- The original geometric fiber of a finite subfield cover has trivial
+pointwise action exactly when all embeddings of that same field are fixed. -/
+theorem fieldSourceSubfieldFiber_fixed_iff
+    (K Ω : Type u) [Field K] [Field Ω] [Algebra K Ω]
+    [IsSepClosure K Ω] [IsSepClosed Ω]
+    (L : IntermediateField K Ω) [FiniteDimensional K L] (σ : Gal(Ω/K)) :
+    (∀ x : (fib K Ω).obj (fieldSourceFiniteSubfieldCover K Ω L), σ • x = x) ↔
+      ∀ φ : L →ₐ[K] Ω, σ.toAlgHom.comp φ = φ := by
+  rw [← subfieldAction_ker_iff K Ω L σ]
+  constructor
+  · intro h
+    apply MonoidHom.mem_ker.mpr
+    apply Aut.ext
+    apply Iso.ext
+    apply FintypeCat.hom_ext
+    intro x
+    exact h x
+  · intro h x
+    have hσ := congrArg (fun a => a.asIso.hom) (MonoidHom.mem_ker.mp h)
+    exact ConcreteCategory.congr_hom hσ x
+
 private theorem fieldSourceSubfieldCover_essImage_iff [IsNormalIntegral X]
     [IsPreimmersion j] [IsDominant j] [QuasiCompact j]
     (E : IntermediateField F Ω) [FiniteDimensional F E] :
-    (pullback j).essImage (finiteSubfieldCover F Ω E) ↔
+    (pullback j).essImage (fieldSourceFiniteSubfieldCover F Ω E) ↔
       (fieldSourceAbsoluteGaloisHom F Ω j).toMonoidHom.ker ≤ E.fixingSubgroup := by
   rw [fieldSourcePullback_obj_essImage_iff_ker_le_ker_ρAut F Ω j]
   rw [← EtaleFundamentalGroups.normalSubgroup_fixes_embeddings_iff_le_fixingSubgroup]

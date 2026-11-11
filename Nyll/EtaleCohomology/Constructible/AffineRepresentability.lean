@@ -4,27 +4,30 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Constructible.SpecLocalRepresenter
-import Nyll.EtaleCohomology.Constructible.AffineRepresenterCoaction
-import Nyll.EtaleCohomology.Constructible.RepresenterDescent
-import Nyll.EtaleCohomology.Constructible.RepresenterIso
-import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
-import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantSet
-import Nyll.EtaleCohomology.Constructible.RepresenterAction
-import Nyll.EtaleCohomology.Sites.EtaleRestriction
-import Nyll.SchemeTheory.Descent.AffineActionCoordinates
-import Nyll.SchemeTheory.Descent.AffineAlgebraCoaction
-import Nyll.SchemeTheory.Descent.AffineCocycle
-import Nyll.SchemeTheory.Descent.AlgebraCoaction
-import Nyll.SchemeTheory.Descent.EffectiveAffine
-import Nyll.SchemeTheory.Descent.FaithfullyFlatAlgebra
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
-import Mathlib.AlgebraicGeometry.AffineScheme
-import Mathlib.AlgebraicGeometry.Morphisms.Flat
-import Mathlib.AlgebraicGeometry.Sites.Etale
-import Mathlib.CategoryTheory.MorphismProperty.Comma
-import Mathlib.CategoryTheory.Yoneda
-import Mathlib.RingTheory.TensorProduct.Maps
+module
+
+public import Nyll.EtaleCohomology.Constructible.SpecLocalRepresenter
+public import Nyll.EtaleCohomology.Constructible.AffineRepresenterCoaction
+public import Nyll.EtaleCohomology.Constructible.RepresenterDescent
+public import Nyll.EtaleCohomology.Constructible.RepresenterIso
+public import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
+public import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantSet
+public import Nyll.EtaleCohomology.Constructible.RepresenterAction
+public import Nyll.EtaleCohomology.Sites.EtaleRestriction
+public import Nyll.SchemeTheory.Descent.AffineActionCoordinates
+public import Nyll.SchemeTheory.Descent.AffineAlgebraCoaction
+public import Nyll.SchemeTheory.Descent.AffineCocycle
+public import Nyll.SchemeTheory.Descent.AlgebraCoaction
+public import Nyll.SchemeTheory.Descent.EffectiveAffine
+public import Nyll.SchemeTheory.Descent.FaithfullyFlatAlgebra
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+public import Mathlib.AlgebraicGeometry.AffineScheme
+public import Mathlib.AlgebraicGeometry.Morphisms.Flat
+public import Mathlib.AlgebraicGeometry.Sites.Etale
+public import Mathlib.CategoryTheory.MorphismProperty.Comma
+public import Mathlib.CategoryTheory.Yoneda
+public import Mathlib.RingTheory.TensorProduct.Maps
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Algebra.Basic
 
 /-!
 # Finite étale representability on affine schemes
@@ -38,6 +41,8 @@ its represented sheaf with the original sheaf.
 The base is any affine scheme: no ground field, noetherianity, or connectedness
 is required.
 -/
+
+@[expose] public section
 
 noncomputable section
 

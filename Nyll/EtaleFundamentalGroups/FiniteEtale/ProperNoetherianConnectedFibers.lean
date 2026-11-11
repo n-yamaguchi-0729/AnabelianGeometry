@@ -4,17 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperLocalScalarSections
-import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperNoetherianNormalization
-import Nyll.SchemeTheory.Affine.StalkBaseChangeSections
-import Nyll.SchemeTheory.Affine.GeometricallyConnectedOfGlobalSections
-import Nyll.SchemeTheory.Morphisms.NormalizationPushforward
-import Nyll.SchemeTheory.Morphisms.ProperNormalization
-import Nyll.SchemeTheory.Morphisms.EtalePostcomposition
-import Mathlib.AlgebraicGeometry.Noetherian
-import Mathlib.AlgebraicGeometry.ResidueField
-import Mathlib.AlgebraicGeometry.Geometrically.Connected
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.Pasting
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperLocalScalarSections
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.ProperNoetherianNormalization
+public import Nyll.SchemeTheory.Affine.StalkBaseChangeSections
+public import Nyll.SchemeTheory.Affine.GeometricallyConnectedOfGlobalSections
+public import Nyll.SchemeTheory.Morphisms.NormalizationPushforward
+public import Nyll.SchemeTheory.Morphisms.ProperNormalization
+public import Nyll.SchemeTheory.Morphisms.EtalePostcomposition
+public import Mathlib.AlgebraicGeometry.Noetherian
+public import Mathlib.AlgebraicGeometry.ResidueField
+public import Mathlib.AlgebraicGeometry.Geometrically.Connected
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.Pasting
 
 /-!
 # Geometrically connected fibres of the actual proper normalization
@@ -25,6 +27,8 @@ sections over that field imply geometric connectedness. For a proper flat
 geometrically reduced family, the previously computed finite étale second
 normalization map supplies flatness and geometric reducedness of the first.
 -/
+
+@[expose] public section
 
 noncomputable section
 

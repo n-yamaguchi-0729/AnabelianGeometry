@@ -4,7 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveCohomologyExactness
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.OpenCurveCohomologyExactness
+public import Nyll.JacobianVarieties.Kummer.BoundaryResidueCardinality
 
 /-!
 # A short exact residue sequence for finite cohomology
@@ -14,6 +17,10 @@ is the group of sum-zero boundary vectors. A rational point on the
 proper curve supplies surjectivity; the empty boundary is included explicitly.
 -/
 
+@[expose] public section
+
+universe uGeom uField₁ uField₂
+
 noncomputable section
 
 open AlgebraicGeometry CategoryTheory AlgebraicCurve NeronModelInfra
@@ -21,13 +28,13 @@ open EtaleFundamentalGroups.Cohomology
 
 namespace AnabelianGeometry.WeightFiltration
 
-variable {K F : Type} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
+variable {K : Type uGeom} {F : Type uField₁} [Field K] [IsAlgClosed K] [Field F] [Algebra K F]
   [Algebra.EssFiniteType K F] [IsCurveOver K F]
   (M : CurveModel K F) (n : ℕ+)
-  {X : Scheme} [IsIntegral X] [CompactSpace X]
+  {X : Scheme.{uGeom}} [IsIntegral X] [CompactSpace X]
   (j : X ⟶ M.C) [IsOpenImmersion j] (hj : DenseRange j)
   (hn : IsUnit ((n : ℕ) : K))
-  {Ω : Type} [Field Ω] [IsSepClosed Ω] (xi : Spec (.of Ω) ⟶ X)
+  {Ω : Type uGeom} [Field Ω] [IsSepClosed Ω] (xi : Spec (.of Ω) ⟶ X)
   [Fintype (M.openBoundaryPlaces j)]
 
 /-- The residue map with its natural sum-zero codomain. -/

@@ -4,12 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationSeparableRoots
-import Nyll.EtaleFundamentalGroups.Inertia.NormalizationQuotientRoots
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsCharZeroIndex
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsCoefficientComparison
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
-import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationSeparableRoots
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationQuotientRoots
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsCharZeroIndex
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsCoefficientComparison
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RootsOfUnityFieldEmbedding
+public import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
 
 /-!
 # Common constant roots for normalization inertia
@@ -18,6 +20,8 @@ The canonical constant-field map identifies the full roots limit with the
 normalization's separable roots target. Every place uses the same constant
 roots and the same positive integer exponents.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -48,7 +52,7 @@ def normalizationConstantRootsEquiv :
     let : NeZero n.val := ⟨(InvertibleExponent.pos k n).ne'⟩
     let : NeZero (n.val : k) := ⟨n.property.ne_zero⟩
     exact RamificationTheory.HilbertRamification.restrictRootsOfUnity_bijective_of_primitiveRoot
-      f n.val (HasEnoughRootsOfUnity.exists_primitiveRoot k n.val)
+      f n.val (HasEnoughRootsOfUnity.exists_isPrimitiveRoot k n.val)
   let c :=
     (primeToRootsCoefficientSystemIso k k E f.toMonoidHom hf).inverseLimitContinuousMulEquiv
   let r := primeToRootsCharZeroIndexEquiv k (IsLocalRing.ResidueField A) E

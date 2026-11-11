@@ -4,16 +4,18 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ProCGroups.Abelian.PrimeExponentCharacters
-import Nyll.ProCGroups.ProC.MaximalQuotients.SubgroupComparison
-import Nyll.ProCGroups.ProC.MaximalQuotients.ResidualUniversalProperty
-import Nyll.ProCGroups.FiniteGroups.PGroupFormation
-import Nyll.ProCGroups.Topologies.ContinuousMonoidHom
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenNormalFundamentalGroup
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Nyll.AnabelianGeometry.WeightFiltration.CharacterAnnihilatorTransport
-import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
+module
+
+public import Nyll.ProCGroups.Abelian.PrimeExponentCharacters
+public import Nyll.ProCGroups.ProC.MaximalQuotients.SubgroupComparison
+public import Nyll.ProCGroups.ProC.MaximalQuotients.ResidualUniversalProperty
+public import Nyll.ProCGroups.FiniteGroups.PGroupFormation
+public import Nyll.ProCGroups.Topologies.ContinuousMonoidHom
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenNormalFundamentalGroup
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteH1Comparison
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Nyll.AnabelianGeometry.WeightFiltration.CharacterAnnihilatorTransport
+public import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
 
 /-! # The power-image cover of an abelian maximal pro-prime quotient
 
@@ -22,6 +24,8 @@ maximal quotient to its inverse image and using the surjective power map
 then bounds the cover's prime-order character count by the original count.
 The open normal subgroup is realized as an actual finite étale cover.
 -/
+
+@[expose] public section
 
 noncomputable section
 

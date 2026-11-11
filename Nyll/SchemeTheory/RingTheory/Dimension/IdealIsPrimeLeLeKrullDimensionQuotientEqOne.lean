@@ -10,12 +10,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.RingTheory.IdealMemMemRadicalSpanSingletonIsPrime
-import Nyll.SchemeTheory.RingTheory.Dimension.IdealHeightAddKrullDimensionQuotientEqKrullDimension
+module
+
+public import Nyll.SchemeTheory.RingTheory.IdealMemMemRadicalSpanSingletonIsPrime
+public import Nyll.SchemeTheory.RingTheory.Dimension.IdealHeightAddKrullDimensionQuotientEqKrullDimension
 
 /-!
 # Ideal exists is Prime le and le and ring Krull Dim quotient eq one
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

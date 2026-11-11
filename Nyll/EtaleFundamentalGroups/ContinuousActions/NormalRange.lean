@@ -5,13 +5,15 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
 
-import Nyll.ProCGroups.ProC.Quotients.LeftQuotientProjectionSections
-import Nyll.ProCGroups.Topologies.ContinuousMonoidHom
-import Nyll.EtaleFundamentalGroups.ContinuousActions.FiniteLimitsAndColimits
-import Mathlib.CategoryTheory.Action.Concrete
-import Mathlib.GroupTheory.GroupAction.Quotient
-import Mathlib.GroupTheory.GroupAction.SubMulAction
-import Mathlib.Topology.Algebra.ClopenNhdofOne
+module
+
+public import Nyll.ProCGroups.ProC.Quotients.LeftQuotientProjectionSections
+public import Nyll.ProCGroups.Topologies.ContinuousMonoidHom
+public import Nyll.EtaleFundamentalGroups.ContinuousActions.FiniteLimitsAndColimits
+public import Mathlib.CategoryTheory.Action.Concrete
+public import Mathlib.GroupTheory.GroupAction.Quotient
+public import Mathlib.GroupTheory.GroupAction.SubMulAction
+public import Mathlib.Topology.Algebra.ClopenNhdofOne
 
 /-!
 # Normal ranges detected by finite continuous actions
@@ -23,6 +25,8 @@ fixed by the range forces every point to be fixed by the range.
 This is the group-action statement underlying
 [Stacks Project, Tag 0BTS](https://stacks.math.columbia.edu/tag/0BTS).
 -/
+
+@[expose] public section
 
 noncomputable section
 

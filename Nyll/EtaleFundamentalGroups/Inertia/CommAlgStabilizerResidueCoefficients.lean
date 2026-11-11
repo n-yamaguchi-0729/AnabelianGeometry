@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.NativeResidueRingAction
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgStabilizerResidueMorphism
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgDecompositionGroup
-import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.NativeResidueRingAction
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgStabilizerResidueMorphism
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgDecompositionGroup
+public import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
 
 /-!
 # Intrinsic stabilizer residue coefficients
@@ -15,6 +17,8 @@ import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
 The existing native intrinsic residue morphism has its actual algebra-
 automorphism coefficient formula after canonical localization transport.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.AffineNormalizationRamification
-import Nyll.AlgebraicCurves.Models.Charts.RangeSectionsEqMapEval2PolyPartInvPolyPart
-import Mathlib.Algebra.Polynomial.Laurent
-import Mathlib.RingTheory.Localization.LocalizationLocalization
-import Mathlib.RingTheory.DedekindDomain.Dvr
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.AffineNormalizationRamification
+public import Nyll.AlgebraicCurves.Models.Charts.RangeSectionsEqMapEval2PolyPartInvPolyPart
+public import Mathlib.Algebra.Polynomial.Laurent
+public import Mathlib.RingTheory.Localization.LocalizationLocalization
+public import Mathlib.RingTheory.DedekindDomain.Dvr
 
 /-!
 # Ramification outside the two missing points of the Laurent chart
@@ -18,6 +20,8 @@ property follows from localization of the polynomial ring, and its image is regu
 place except zero and infinity. Thus an etale normalization of this chart has ramification
 index one at every other place. No ramification comparison is assumed.
 -/
+
+@[expose] public section
 
 noncomputable section
 

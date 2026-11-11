@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.LocalCoefficientRatios
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.LocalCoefficientRatios
 
 /-!
 # Unit ratios of local radicals
@@ -12,6 +14,8 @@ import Nyll.AnabelianGeometry.WeightFiltration.LocalCoefficientRatios
 Uniformizer coefficients construct the unit ratio for every nonzero local
 element. If a power of the element is fixed, this unit is a root of unity.
 -/
+
+@[expose] public section
 
 noncomputable section
 

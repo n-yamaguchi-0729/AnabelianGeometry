@@ -4,10 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticFieldExtensionConjugacy
-import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticFieldExtensionConjugacy
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.CanonicalPointedMaps
 
 /-! # The actual finite-base arithmetic label at the prescribed target point -/
+
+@[expose] public section
 
 noncomputable section
 

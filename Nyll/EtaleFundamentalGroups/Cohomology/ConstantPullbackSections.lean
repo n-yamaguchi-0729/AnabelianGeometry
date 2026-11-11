@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.AbelianPullbackMate
-import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionFiberPullback
-import Nyll.EtaleFundamentalGroups.Cohomology.H1FiniteCover
-import Mathlib.CategoryTheory.Adjunction.Unique
-import Mathlib.CategoryTheory.Sites.ConstantSheaf
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.AbelianPullbackMate
+public import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionFiberPullback
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1FiniteCover
+public import Mathlib.CategoryTheory.Adjunction.Unique
+public import Mathlib.CategoryTheory.Sites.ConstantSheaf
 
 /-!
 # Constant sections under actual inverse image
@@ -18,6 +20,8 @@ Its adjoint carries each constant section to the same section on the
 base-changed étale object. In particular it preserves the integer section
 used to construct the torsor of an actual derived H¹ extension.
 -/
+
+@[expose] public section
 
 noncomputable section
 

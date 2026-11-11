@@ -4,8 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteNormalizationPrime
-import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteNormalizationPrime
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
+public import Nyll.SchemeTheory.RingTheory.Ramification.ProfiniteInertiaMap
 
 /-!
 # Full inertia image for an abstract finite normal subextension
@@ -15,13 +18,15 @@ Its prescribed embedding selects the same contraction of the absolute
 normalization prime, and restriction has exactly that inertia image.
 -/
 
+@[expose] public section
+
 noncomputable section
 
 namespace EtaleFundamentalGroups.Inertia
 
-universe uA u
+universe uA uK uL uOmega
 
-variable {A : Type uA} {K L Ω : Type u}
+variable {A : Type uA} {K : Type uK} {L : Type uL} {Ω : Type uOmega}
   [CommRing A] [Field K] [Field L] [Field Ω]
   [Algebra A K] [IsFractionRing A K]
   [Algebra K L] [Algebra A L] [IsScalarTower A K L]

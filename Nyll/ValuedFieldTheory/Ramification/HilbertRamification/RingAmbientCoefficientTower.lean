@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.DVRUniformizerFactorization
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingRestrictedInertiaDVRTransition
-import Mathlib.Algebra.GroupWithZero.Units.Basic
+module
+
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.DVRUniformizerFactorization
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingRestrictedInertiaDVRTransition
+public import Mathlib.Algebra.GroupWithZero.Units.Basic
 
 /-!
 # Uniformizer-ratio coefficients in a common field
@@ -15,6 +17,8 @@ Transports the uniformizer-ratio tower identity to a common field where the uppe
 the coefficient map. This removes the unit correction and gives the relation at the additive
 valuation of the mapped uniformizer.
 -/
+
+@[expose] public section
 
 namespace RamificationTheory.HilbertRamification.DiscreteValuationRing
 

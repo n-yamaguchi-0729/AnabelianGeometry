@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentFundamentalGroupQuotients
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentQuotientsEveryOrder
-import Nyll.ProCGroups.Completion.ProfiniteIntegerRecognition
-import Nyll.ProCGroups.Completion.ProCInteger
-import Nyll.ProCGroups.Generation.Basic
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentFundamentalGroupQuotients
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentQuotientsEveryOrder
+public import Nyll.ProCGroups.Completion.ProfiniteIntegerRecognition
+public import Nyll.ProCGroups.Completion.ProCInteger
+public import Nyll.ProCGroups.Generation.Basic
 
 /-!
 # The actual fundamental group of the multiplicative line
@@ -18,6 +20,8 @@ positive order. The normalized-coefficient construction identifies the fibre-fun
 automorphism group, with its original topology, with the inverse limit of all finite cyclic
 groups. The isomorphism depends on the choice of topological generator.
 -/
+
+@[expose] public section
 
 noncomputable section
 

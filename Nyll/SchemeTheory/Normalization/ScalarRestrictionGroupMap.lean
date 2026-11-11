@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.NormalizationAutomorphismGroupMap
-import Mathlib.Algebra.Algebra.Tower
-import Mathlib.FieldTheory.Galois.Basic
-import Mathlib.Algebra.Category.Grp.Basic
+module
+
+public import Nyll.SchemeTheory.Normalization.NormalizationAutomorphismGroupMap
+public import Mathlib.Algebra.Algebra.Tower
+public import Mathlib.FieldTheory.Galois.Basic
+public import Mathlib.Algebra.Category.Grp.Basic
 
 /-!
 # Restriction of scalars on automorphism groups
@@ -15,6 +17,8 @@ import Mathlib.Algebra.Category.Grp.Basic
 Bundles algebra automorphisms as group objects and constructs the group morphism that restricts
 their scalars along an algebra tower.
 -/
+
+@[expose] public section
 
 noncomputable section
 

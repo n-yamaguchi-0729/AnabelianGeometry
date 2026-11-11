@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.Algebra.Ring.Hom.Defs
-import Mathlib.Algebra.GroupWithZero.Units.Basic
+module
+
+public import Mathlib.Algebra.Ring.Hom.Defs
+public import Mathlib.Algebra.GroupWithZero.Units.Basic
 
 /-!
 # Coefficients of a mapped uniformizer
@@ -14,6 +16,8 @@ The coefficient in `π * c = s(π)` is constructed from the ring map and the ele
 Existence and nonzero-factor cancellation identify it with any actual unit ratio,
 without using a ramification character.
 -/
+
+@[expose] public section
 
 noncomputable section
 

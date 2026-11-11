@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.GroupTheory.Subgroup.Centralizer
+module
+
+public import Mathlib.GroupTheory.Subgroup.Centralizer
 
 /-!
 # Normalizers detected by abelian images
@@ -14,6 +16,8 @@ normalizer centralizes it. This supplies the abelianization step in
 self-normalization arguments for boundary inertia. No assertion about
 centralizers of free profinite generators is assumed to have been proved here.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.CuspidalInertia
 

@@ -4,10 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsCommonUnit
-import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryCommonCoefficient
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.PrimeToRootsCommonUnit
+public import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryCommonCoefficient
 
 /-! # A common finite unit on actual boundary characters -/
+
+@[expose] public section
 
 noncomputable section
 

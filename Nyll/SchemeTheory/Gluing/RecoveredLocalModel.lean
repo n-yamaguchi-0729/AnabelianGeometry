@@ -3,14 +3,18 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Mathlib.CategoryTheory.Comma.Over.Pullback
-import Mathlib.AlgebraicGeometry.Gluing
-import Mathlib.AlgebraicGeometry.PullbackCarrier
-import Nyll.SchemeTheory.Gluing.CommonCover
+module
+
+public import Mathlib.CategoryTheory.Comma.Over.Pullback
+public import Mathlib.AlgebraicGeometry.Gluing
+public import Mathlib.AlgebraicGeometry.PullbackCarrier
+public import Nyll.SchemeTheory.Gluing.CommonCover
 
 /-!
 # Recovering overlaps from cartesian local models
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory Limits AlgebraicGeometry
@@ -22,7 +26,8 @@ variable {S : Scheme.{u}} (𝒰 : S.OpenCover) (Z : Over S)
 variable (M : ∀ i : 𝒰.I₀, Over (𝒰.X i))
 variable (e : ∀ i : 𝒰.I₀, M i ≅ (Over.pullback (𝒰.f i)).obj Z)
 
-private def recoveredChartIso (i : 𝒰.I₀) :
+/-- The underlying chart isomorphism of the given cartesian local model. -/
+def recoveredChartIso (i : 𝒰.I₀) :
     (M i).left ≅ Limits.pullback Z.hom (𝒰.f i) :=
   (Over.forget (𝒰.X i)).mapIso (e i)
 
@@ -64,10 +69,12 @@ theorem recoveredLocalModelMap_isPullback (i : 𝒰.I₀) :
   · simp only [Iso.refl_hom, Category.id_comp, Category.comp_id]
   · simp only [Iso.refl_hom, Category.id_comp, Category.comp_id]
 
-private abbrev recoveredOverlap (i j : 𝒰.I₀) : Scheme.{u} :=
+/-- The actual overlap of a local model with another chart of the base. -/
+abbrev recoveredOverlap (i j : 𝒰.I₀) : Scheme.{u} :=
   Limits.pullback ((M i).hom ≫ 𝒰.f i) (𝒰.f j)
 
-private def recoveredOverlapTransfer (i j : 𝒰.I₀) :
+/-- Transport an overlap point to the other cartesian local model. -/
+def recoveredOverlapTransfer (i j : 𝒰.I₀) :
     recoveredOverlap 𝒰 M i j ⟶ (M j).left :=
   Limits.pullback.lift
       (Limits.pullback.fst ((M i).hom ≫ 𝒰.f i) (𝒰.f j) ≫
@@ -91,7 +98,8 @@ private theorem recoveredOverlapTransfer_chartMap (i j : 𝒰.I₀) :
   simp only [recoveredOverlapTransfer, recoveredLocalModelMap, Category.assoc,
     Iso.inv_hom_id_assoc, Limits.pullback.lift_fst]
 
-private def recoveredOverlapTransition (i j : 𝒰.I₀) :
+/-- Exchange the two recovered charts on their actual overlap. -/
+def recoveredOverlapTransition (i j : 𝒰.I₀) :
     recoveredOverlap 𝒰 M i j ⟶ recoveredOverlap 𝒰 M j i :=
   Limits.pullback.lift
     (recoveredOverlapTransfer 𝒰 Z M e i j)
@@ -123,18 +131,21 @@ private theorem recoveredOverlapTransition_chartMap (i j : 𝒰.I₀) :
       recoveredLocalModelMap 𝒰 Z M e i := by
   rw [recoveredOverlapTransition_fst_assoc, recoveredOverlapTransfer_chartMap]
 
-private theorem recoveredOverlapTransition_id (i : 𝒰.I₀) :
+/-- The transition from a recovered chart to itself is the identity. -/
+theorem recoveredOverlapTransition_id (i : 𝒰.I₀) :
     recoveredOverlapTransition 𝒰 Z M e i i = 𝟙 _ := by
   apply (cancel_mono (Limits.pullback.fst ((M i).hom ≫ 𝒰.f i) (𝒰.f i) ≫
     recoveredLocalModelMap 𝒰 Z M e i)).mp
   rw [recoveredOverlapTransition_chartMap, Category.id_comp]
 
-private abbrev recoveredTriple (i j k : 𝒰.I₀) : Scheme.{u} :=
+/-- The actual triple overlap of recovered local models. -/
+abbrev recoveredTriple (i j k : 𝒰.I₀) : Scheme.{u} :=
   Limits.pullback
     (Limits.pullback.fst ((M i).hom ≫ 𝒰.f i) (𝒰.f j))
     (Limits.pullback.fst ((M i).hom ≫ 𝒰.f i) (𝒰.f k))
 
-private def recoveredTripleToOverlap (i j k : 𝒰.I₀) :
+/-- Map a triple overlap to the overlap of its second and third charts. -/
+def recoveredTripleToOverlap (i j k : 𝒰.I₀) :
     recoveredTriple 𝒰 M i j k ⟶ recoveredOverlap 𝒰 M j k :=
   Limits.pullback.lift
     (Limits.pullback.fst _ _ ≫ recoveredOverlapTransfer 𝒰 Z M e i j)
@@ -146,7 +157,8 @@ private def recoveredTripleToOverlap (i j k : 𝒰.I₀) :
         ← Category.assoc, Limits.pullback.condition, Category.assoc,
         Limits.pullback.condition, Category.assoc])
 
-private def recoveredTripleTransition (i j k : 𝒰.I₀) :
+/-- Cyclically permute the recovered charts of a triple overlap. -/
+def recoveredTripleTransition (i j k : 𝒰.I₀) :
     recoveredTriple 𝒰 M i j k ⟶ recoveredTriple 𝒰 M j k i :=
   Limits.pullback.lift
     (recoveredTripleToOverlap 𝒰 Z M e i j k)
@@ -167,7 +179,8 @@ private theorem recoveredTripleTransition_chartMap (i j k : 𝒰.I₀) :
   simp only [recoveredTripleTransition, recoveredTripleToOverlap,
     Limits.pullback.lift_fst_assoc, Category.assoc, recoveredOverlapTransfer_chartMap]
 
-private theorem recoveredTripleTransition_cocycle (i j k : 𝒰.I₀) :
+/-- Three cyclic transitions on a recovered triple overlap compose to the identity. -/
+theorem recoveredTripleTransition_cocycle (i j k : 𝒰.I₀) :
     recoveredTripleTransition 𝒰 Z M e i j k ≫
       recoveredTripleTransition 𝒰 Z M e j k i ≫
         recoveredTripleTransition 𝒰 Z M e k i j = 𝟙 _ := by

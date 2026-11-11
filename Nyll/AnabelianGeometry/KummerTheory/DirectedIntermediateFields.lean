@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+module
+
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
 
 /-!
 # Finite subfields in directed unions
@@ -13,6 +15,8 @@ A finite extension contained in a directed union already lies in one
 member. In particular, its intersection with the entire union is attained
 at a finite level. This is the finite-level input for cyclotomic towers.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.KummerTheory
 

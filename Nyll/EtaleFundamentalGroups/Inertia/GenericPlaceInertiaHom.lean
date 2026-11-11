@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertia
-import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGalois
-import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationInertiaTopology
-import Nyll.GaloisCohomology.Topology.FiniteExtensionGalois
-import Mathlib.Topology.Homeomorph.Lemmas
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertia
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGalois
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualNormalizationInertiaTopology
+public import Nyll.GaloisCohomology.Topology.FiniteExtensionGalois
+public import Mathlib.Topology.Homeomorph.Lemmas
 
 /-!
 # The continuous actual place-inertia map
@@ -17,6 +19,8 @@ The original inertia inclusion, the existing change-of-scalars equivalence,
 and the existing geometric generic-point homomorphism form a continuous map.
 Its range is the already defined actual place-inertia subgroup.
 -/
+
+@[expose] public section
 
 noncomputable section
 

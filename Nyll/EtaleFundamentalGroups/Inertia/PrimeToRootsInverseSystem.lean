@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.RootsOfUnity.Basic
-import Mathlib.Data.Nat.GCD.Basic
-import Nyll.ProCGroups.InverseSystems.Basic
-import Mathlib.Topology.Order
+module
+
+public import Mathlib.RingTheory.RootsOfUnity.Basic
+public import Mathlib.Data.Nat.GCD.Basic
+public import Nyll.ProCGroups.InverseSystems.Basic
+public import Mathlib.Topology.Order
 
 /-!
 # The roots-of-unity inverse system over every invertible exponent
@@ -20,6 +22,8 @@ This constructs the complete prime-to-residue-characteristic target of
 Stacks Project, Tag 0BUB; no inverse system or comparison is supplied as data.
 https://stacks.math.columbia.edu/tag/0BUB
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

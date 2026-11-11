@@ -4,9 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.SchemeHomDescent
-import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
-import Mathlib.CategoryTheory.Limits.MorphismProperty
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.SchemeHomDescent
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.Connected
+public import Mathlib.CategoryTheory.Limits.MorphismProperty
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ConstantFieldLimit
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
 
 /-!
 # Arithmetic Sections
@@ -14,6 +18,8 @@ import Mathlib.CategoryTheory.Limits.MorphismProperty
 A section after a separable algebraic constant extension factors through
 an actual finite étale constant cover of the base.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory Limits Opposite

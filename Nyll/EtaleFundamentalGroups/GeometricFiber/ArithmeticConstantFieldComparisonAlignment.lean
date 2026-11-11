@@ -3,8 +3,10 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticFieldComparisonConjugator
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ConstantFieldDiagonalSectionPoint
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticFieldComparisonConjugator
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ConstantFieldDiagonalSectionPoint
 
 /-! # The actual finite-base comparison fixes the unchanged inclusion
 
@@ -13,6 +15,8 @@ The diagonal-section computation then forces the explicit field-extension
 conjugator to fix E pointwise. No stabilizer or arithmetic-label equality is
 introduced as an additional premise.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory
 open scoped FintypeCatDiscrete

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameCoordinate
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameSurjectivity
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameContinuity
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteQuotientTameCoordinate
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameSurjectivity
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameContinuity
 
 /-!
 # Surjectivity and local constancy of the finite quotient coordinate
@@ -15,6 +17,8 @@ The proved original finite-coordinate properties are preserved by the SAME
 canonical quotient comparison. Its root carriers and coefficient dictionaries
 remain inside their existing single-stage owners.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

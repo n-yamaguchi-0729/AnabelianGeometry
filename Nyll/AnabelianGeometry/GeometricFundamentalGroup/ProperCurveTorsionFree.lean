@@ -7,11 +7,12 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 import Nyll.JacobianVarieties.Kummer.AbelJacobiTate
 import Nyll.JacobianVarieties.Picard.Representability.CurveModelPicardRepresentabilityAbelJacobi
 import Nyll.AlgebraicCurves.Models.Points.RationalPointExistence
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyIntegralAlgClosed
+import Nyll.SchemeTheory.Morphisms.GeometricallyIntegralAlgClosed
 import Nyll.EtaleFundamentalGroups.GaloisCovers.ConnectedCurveModel
 import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenSubgroupFundamentalGroup
 import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
 import Nyll.ProCGroups.FiniteStepSolvableQuotients.SlimnessAndTorsion
+import Nyll.ProCGroups.Abelian.TopologicalAbelianization
 
 /-!
 # Torsion-freeness of actual proper-curve fundamental groups

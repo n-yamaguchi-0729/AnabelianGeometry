@@ -4,11 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Models.Ramification.OpenInteriorRamification
-import Nyll.AlgebraicCurves.Models.Points.AlgEquivPointPlaceCompHomEqAlgAutSmulPointPlace
-import Nyll.AlgebraicCurves.Models.Points.AlgHomFiniteAlongPointPlaceRestrictAlong
+module
+
+public import Nyll.AlgebraicCurves.Models.Ramification.OpenInteriorRamification
+public import Nyll.AlgebraicCurves.Models.Points.AlgEquivPointPlaceCompHomEqAlgAutSmulPointPlace
+public import Nyll.AlgebraicCurves.Models.Points.AlgHomFiniteAlongPointPlaceRestrictAlong
 
 /-! # The actual finite curve map and its boundary places -/
+
+@[expose] public section
+
+universe uGeom uField₁ uField₂
 
 noncomputable section
 
@@ -22,7 +28,7 @@ namespace AlgebraicCurve.CurveModel
 
 attribute [local instance] CurveModel.isIntegral CurveModel.isProper CurveModel.smooth
 
-variable {K F E : Type} [Field K] [IsAlgClosed K]
+variable {K : Type uGeom} {F : Type uField₁} {E : Type uField₂} [Field K] [IsAlgClosed K]
   [Field F] [Field E] [Algebra K F] [Algebra K E]
   (M : CurveModel K F) (N : CurveModel K E)
   (d : N.C ⟶ M.C) (hd : d ≫ M.toBase = N.toBase)
@@ -84,7 +90,7 @@ private theorem pointEquivPlace_symm_closedPoint
 /-- Geometric equality of boundaries becomes the literal preimage of
 places under the actual extension map. -/
 theorem openBoundaryPlaces_eq_restrict_preimage
-    {X Y : Scheme} (j : X ⟶ M.C) (k : Y ⟶ N.C)
+    {X Y : Scheme.{uGeom}} (j : X ⟶ M.C) (k : Y ⟶ N.C)
     (hboundary : ∀ y : N.C, y ∉ Set.range k ↔ d y ∉ Set.range j) :
     N.openBoundaryPlaces k =
       (fun w : Place K E => w.restrictAlong
@@ -112,7 +118,7 @@ theorem openBoundaryPlaces_eq_restrict_preimage
 /-- Interior ramification is obtained from the actual unramified open
 restriction of this same finite morphism. -/
 theorem finiteCurveFieldMap_unramified_on_open
-    {Y : Scheme} (k : Y ⟶ N.C) [IsOpenImmersion k]
+    {Y : Scheme.{uGeom}} (k : Y ⟶ N.C) [IsOpenImmersion k]
     [FormallyUnramified (k ≫ d)]
     (w : Place K E) (hw : w ∉ N.openBoundaryPlaces k) :
     Place.ramificationIndexAlong (M.finiteCurveFieldMap N d hd hsurj) w = 1 :=

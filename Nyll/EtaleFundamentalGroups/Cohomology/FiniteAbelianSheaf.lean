@@ -4,14 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteAbelianRepresenter
-import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
-import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantEquivalence
-import Nyll.SchemeTheory.FiniteEtale.Forget.FiniteLimits
-import Mathlib.CategoryTheory.Sites.Sheaf
-import Mathlib.CategoryTheory.Sites.Point.Basic
-import Mathlib.Algebra.Category.Grp.FilteredColimits
-import Mathlib.Algebra.Category.Grp.Limits
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteAbelianRepresenter
+public import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
+public import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantEquivalence
+public import Nyll.SchemeTheory.FiniteEtale.Forget.FiniteLimits
+public import Mathlib.CategoryTheory.Sites.Sheaf
+public import Mathlib.CategoryTheory.Sites.Point.Basic
+public import Mathlib.Algebra.Category.Grp.FilteredColimits
+public import Mathlib.Algebra.Category.Grp.Limits
+public import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantSet
 
 /-!
 # Abelian étale sheaves from finite monodromy
@@ -21,6 +24,8 @@ give an actual sheaf of abelian groups on the small étale site. The underlying
 set sheaf is the represented sheaf of that cover. All group operations are
 transported through finite-product-preserving functors.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -33,19 +38,24 @@ namespace EtaleFundamentalGroups.Cohomology
 
 variable (X : Scheme.{u})
 
-private instance finiteEtaleCartesian : CartesianMonoidalCategory (FiniteEtale X) :=
+/-- Use the finite products on finite étale covers in this module. -/
+local instance finiteEtaleCartesian : CartesianMonoidalCategory (FiniteEtale X) :=
   .ofHasFiniteProducts
 
-private instance finiteEtaleBraided : BraidedCategory (FiniteEtale X) :=
+/-- Use the braiding induced by finite products on finite étale covers. -/
+local instance finiteEtaleBraided : BraidedCategory (FiniteEtale X) :=
   .ofCartesianMonoidalCategory
 
-private instance etaleCartesian : CartesianMonoidalCategory X.Etale :=
+/-- Use the finite products on the small étale site in this module. -/
+local instance etaleCartesian : CartesianMonoidalCategory X.Etale :=
   .ofHasFiniteProducts
 
-private instance etaleBraided : BraidedCategory X.Etale :=
+/-- Use the braiding induced by finite products on the small étale site. -/
+local instance etaleBraided : BraidedCategory X.Etale :=
   .ofCartesianMonoidalCategory
 
-private instance finiteEtaleToEtalePreservesFiniteLimits :
+/-- The inclusion of finite étale covers preserves finite limits. -/
+local instance finiteEtaleToEtalePreservesFiniteLimits :
     PreservesFiniteLimits (EtaleCohomology.finiteEtaleToEtale X) := by
   let U := Scheme.Etale.forget X
   have : U.Full := (Scheme.Etale.forgetFullyFaithful X).full
@@ -54,11 +64,13 @@ private instance finiteEtaleToEtalePreservesFiniteLimits :
     inferInstanceAs (PreservesFiniteLimits (FiniteEtale.forget X))
   exact preservesFiniteLimits_of_reflects_of_preserves _ U
 
-private instance finiteEtaleToEtaleBraided :
+/-- The inclusion of finite étale covers preserves the chosen cartesian braiding. -/
+local instance finiteEtaleToEtaleBraided :
     (EtaleCohomology.finiteEtaleToEtale X).Braided :=
   .ofChosenFiniteProducts _
 
-private def abelianRepresentablePresheaf (G : CommGrp X.Etale) :
+/-- The abelian presheaf represented by a commutative group object on the étale site. -/
+def abelianRepresentablePresheaf (G : CommGrp X.Etale) :
     X.Etaleᵒᵖ ⥤ AddCommGrpCat.{u} where
   obj U := AddCommGrpCat.of (Additive (U.unop ⟶ G.X))
   map f := AddCommGrpCat.ofHom (((yonedaGrpObj G.X).map f).hom.toAdditive)
@@ -73,14 +85,16 @@ private def abelianRepresentablePresheaf (G : CommGrp X.Etale) :
     intro h
     exact Category.assoc g.unop f.unop h
 
-private def abelianRepresentableSheaf (G : CommGrp X.Etale) :
+/-- The abelian sheaf represented by a commutative group object on the étale site. -/
+def abelianRepresentableSheaf (G : CommGrp X.Etale) :
     Sheaf X.smallEtaleTopology AddCommGrpCat.{u} :=
   ⟨abelianRepresentablePresheaf X G, by
     apply Presheaf.isSheaf_of_isSheaf_comp _ _ (forget AddCommGrpCat.{u})
     change Presheaf.IsSheaf X.smallEtaleTopology (yoneda.obj G.X)
     exact (X.smallEtaleTopology.yoneda.obj G.X).property⟩
 
-private def abelianRepresentableSheafMap {G H : CommGrp X.Etale} (f : G ⟶ H) :
+/-- The morphism of represented abelian sheaves induced by a group-object morphism. -/
+def abelianRepresentableSheafMap {G H : CommGrp X.Etale} (f : G ⟶ H) :
     abelianRepresentableSheaf X G ⟶ abelianRepresentableSheaf X H where
   hom :=
     { app U := AddCommGrpCat.ofHom (((yonedaGrp.map f.hom).app U).hom.toAdditive)
@@ -97,7 +111,8 @@ variable {X} [ConnectedSpace X]
   [TopologicalSpace M] [DiscreteTopology M]
   [ContinuousSMul (Aut (FiniteEtale.fiber ξ)) M]
 
-private def finiteAbelianGroupOnEtale : CommGrp X.Etale := by
+/-- View the finite étale group representing monodromy as a group object on the étale site. -/
+def finiteAbelianGroupOnEtale : CommGrp X.Etale := by
   exact (EtaleCohomology.finiteEtaleToEtale X).mapCommGrp.obj
     (finiteAbelianGroupObject ξ M)
 

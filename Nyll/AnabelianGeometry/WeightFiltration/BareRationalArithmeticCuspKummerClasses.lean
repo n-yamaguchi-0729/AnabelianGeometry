@@ -3,13 +3,16 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalThirdCuspFiberCoordinates
-import Nyll.AnabelianGeometry.WeightFiltration.FixedRationalCuspDecompositionTransport
-import Nyll.AnabelianGeometry.WeightFiltration.FixedLabelCuspKummerClass
-import Nyll.EtaleFundamentalGroups.Cohomology.IsomCuspCoordinateRatios
-import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroValuePower
-import Nyll.JacobianVarieties.Kummer.RationalConfigurationPairKummerAllOrders
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairOrders
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalThirdCuspFiberCoordinates
+public import Nyll.AnabelianGeometry.WeightFiltration.FixedRationalCuspDecompositionTransport
+public import Nyll.AnabelianGeometry.WeightFiltration.FixedLabelCuspKummerClass
+public import Nyll.EtaleFundamentalGroups.Cohomology.IsomCuspCoordinateRatios
+public import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroValuePower
+public import Nyll.JacobianVarieties.Kummer.RationalConfigurationPairKummerAllOrders
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairOrders
+public import Nyll.GaloisCohomology.Kummer.Concrete.RootCharacters
 
 /-! # Actual cusp Kummer classes with the original scalar
 
@@ -18,6 +21,8 @@ are chosen before the cusp. The original point in its transported fiber is
 used at every cusp, and the prescribed geometric conjugator moves its target
 point. No new scalar or generic radical is selected at another cusp.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory CategoryTheory.PreGaloisCategory AlgebraicGeometry AlgebraicCurve
 open AlgebraicGeometry.FiniteEtale AlgebraicGeometry.ProjSpace
@@ -136,7 +141,7 @@ private theorem sameIsom_cusp_class_of_actual_coordinates
 /-- Same covers, exponent, Isom, scalar and fiber point give a class relation
 at every third rational cusp. The two coefficient units are common to all cusps. -/
 theorem rationalConfiguration_scalarRoots_cusp_classes
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]

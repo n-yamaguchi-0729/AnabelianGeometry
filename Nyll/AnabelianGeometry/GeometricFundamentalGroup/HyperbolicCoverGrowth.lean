@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroRamifiedCover
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusOneCoverGrowth
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProperCoverGrowth
-import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverInvariants
-import Mathlib.AlgebraicGeometry.Restrict
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusZeroRamifiedCover
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.GenusOneCoverGrowth
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.ProperCoverGrowth
+public import Nyll.EtaleFundamentalGroups.GaloisCovers.OpenCoverInvariants
+public import Mathlib.AlgebraicGeometry.Restrict
 
 /-! # Simultaneous genus and boundary growth
 
@@ -21,6 +23,8 @@ then increases both invariants, and the two maps are composed.
 Proper curves are handled by exists_finiteEtale_cover_genus_ge: their
 finite étale covers remain proper, so their boundary cannot grow.
 -/
+
+@[expose] public section
 
 noncomputable section
 

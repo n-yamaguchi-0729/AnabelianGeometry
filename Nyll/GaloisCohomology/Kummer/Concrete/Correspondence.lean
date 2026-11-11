@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.GaloisCohomology.Kummer.Concrete.ExtensionRoundTrip
-import Nyll.GaloisCohomology.Kummer.Concrete.InfiniteInverse
+module
+
+public import Nyll.GaloisCohomology.Kummer.Concrete.ExtensionRoundTrip
+public import Nyll.GaloisCohomology.Kummer.Concrete.InfiniteInverse
 
 /-!
 # Kummer subgroup-extension correspondence
@@ -15,6 +17,8 @@ For a fixed separable closure `Omega/K`, a positive integer `n`, and enough
 abelian Galois intermediate extensions whose Galois groups have exponent
 dividing `n`.
 -/
+
+@[expose] public section
 
 noncomputable section
 

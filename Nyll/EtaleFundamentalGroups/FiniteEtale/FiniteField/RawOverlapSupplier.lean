@@ -3,15 +3,19 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.SchemePairDescent
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+module
+
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.SchemePairDescent
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
 
 /-!
 # Raw Overlap Supplier
 
 The literal coefficient extension of a local model, over its coefficient base.
 -/
+
+@[expose] public section
 
 noncomputable section
 open CategoryTheory Limits Opposite AlgebraicGeometry

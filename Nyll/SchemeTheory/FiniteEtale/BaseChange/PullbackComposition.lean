@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.Pasting
+module
+
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.Pasting
 
 /-!
 # Projection formulas for canonical finite étale pullback composition
@@ -13,6 +15,8 @@ import Mathlib.CategoryTheory.Limits.Shapes.Pullback.Pasting
 These scheme-level formulas are shared by geometric descent and pointed
 fundamental-group comparison.  They retain the actual chosen pullbacks.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -3,9 +3,11 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AnabelianGeometry.KummerTheory.RationalSquareBoundaryLabelConverse
-import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairCrossRatio
-import Nyll.AlgebraicCurves.Models.Rational.RationalBoundaryConfigurationIso
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.RationalSquareBoundaryLabelConverse
+public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationPairCrossRatio
+public import Nyll.AlgebraicCurves.Models.Rational.RationalBoundaryConfigurationIso
 
 /-! # The named square configuration has an actual restricted-label projection
 
@@ -14,6 +16,8 @@ namedRationalSquareCover_exists_rationalConfiguration. They determine the
 projection on labels, rather than introducing a free map between finite sets.
 No comparison of source and target coordinates is a premise.
 -/
+@[expose] public section
+
 noncomputable section
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry AlgebraicCurve
 open AlgebraicGeometry.ProjSpace AnabelianGeometry.ProjectiveLine

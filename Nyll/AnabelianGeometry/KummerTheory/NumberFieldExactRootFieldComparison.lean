@@ -4,11 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.KummerTheory.PrimePowerCyclotomicDescent
-import Nyll.AnabelianGeometry.KummerTheory.RootFieldPowerClasses
-import Nyll.AnabelianGeometry.KummerTheory.NumberFieldPrimePowerSeparation
-import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
-import Mathlib.Tactic
+module
+
+public import Nyll.AnabelianGeometry.KummerTheory.PrimePowerCyclotomicDescent
+public import Nyll.AnabelianGeometry.KummerTheory.RootFieldPowerClasses
+public import Nyll.AnabelianGeometry.KummerTheory.NumberFieldPrimePowerSeparation
+public import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
+public import Mathlib.Tactic
 
 /-!
 # Exact cyclic subgroup recovery from full root fields
@@ -18,6 +20,8 @@ followed by injective reflection from that finite base extension, recovers the
 exact cyclic subgroup. This is the cyclic number-field specialization needed
 for the cross-ratio endpoint, not the full finitely-generated-subgroup lemma.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -37,7 +41,7 @@ theorem exists_zpow_mul_primePower_of_rootField_eq_of_primitive_four
     ∃ j : ℤ, ∃ d : Kˣ, b = a ^ j * d ^ (p ^ r) := by
   let n : ℕ+ := ⟨p ^ r, pow_pos hp.pos r⟩
   let : NeZero (p ^ r) := ⟨pow_ne_zero r hp.ne_zero⟩
-  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_primitiveRoot L (p ^ r)
+  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_isPrimitiveRoot L (p ^ r)
   let C : IntermediateField K L := IntermediateField.adjoin K {ζ}
   let : IsCyclotomicExtension {p ^ r} K C :=
     hζ.intermediateField_adjoin_isCyclotomicExtension K
@@ -72,7 +76,7 @@ theorem exists_zpow_mul_primePower_of_rootField_eq_of_primitive_four
     simpa [dU] using hd
   refine ⟨j, dU, ?_⟩
   rw [hdU]
-  simp [div_eq_mul_inv, mul_left_comm]
+  exact (mul_div_cancel (a ^ j) b).symm
 
 /-- Prime-power full root fields recover the cyclic subgroup over a good base. -/
 theorem zpowers_eq_of_primePower_rootFields_of_primitive_four
@@ -135,7 +139,7 @@ theorem numberField_zpowers_eq_of_forall_primePower_rootField_eq
         rootField (L := AlgebraicClosure K) (p ^ r) (b : K)) :
     Subgroup.zpowers a = Subgroup.zpowers b := by
   let L := AlgebraicClosure K
-  obtain ⟨ι, hι⟩ := HasEnoughRootsOfUnity.exists_primitiveRoot L 4
+  obtain ⟨ι, hι⟩ := HasEnoughRootsOfUnity.exists_isPrimitiveRoot L 4
   let F : IntermediateField K L := IntermediateField.adjoin K {ι}
   let : IsCyclotomicExtension {4} K F :=
     hι.intermediateField_adjoin_isCyclotomicExtension K

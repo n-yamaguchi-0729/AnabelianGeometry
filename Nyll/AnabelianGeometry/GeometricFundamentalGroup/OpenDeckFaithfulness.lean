@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenIntermediateH1
-import Nyll.EtaleFundamentalGroups.Cohomology.CyclicDeckH1Reduction
-import Nyll.EtaleFundamentalGroups.Cohomology.ProperH1CoprimeCoefficient
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.OpenIntermediateH1
+public import Nyll.EtaleFundamentalGroups.Cohomology.CyclicDeckH1Reduction
+public import Nyll.EtaleFundamentalGroups.Cohomology.ProperH1CoprimeCoefficient
 
 /-! # Faithfulness of actual finite H¹ on open hyperbolic deck groups
 
@@ -15,6 +17,8 @@ Choosing coefficients after constructing that cover avoids any
 coprimality assumption. Transfer would make all H¹ descend, contradicting
 the geometric genus and cohomology cardinality calculation.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -38,7 +42,7 @@ theorem open_deck_eq_one_of_all_finiteH1_trivial
     {Ω : Type} [Field Ω] [IsSepClosed Ω]
     (geom : Spec (.of Ω) ⟶ A.left) (σ : Aut A)
     (hσ : ∀ (C : AddCommGrpCat.{0}) [Finite C] c,
-      constantCohomologyPullback σ.hom.left C 1 c = c) :
+      constantCohomologyPullback σ.asIso.hom.left C 1 c = c) :
     σ = 1 := by
   classical
   have : ConnectedSpace A.left := FiniteEtale.connectedSpace_left_of_isConnected A

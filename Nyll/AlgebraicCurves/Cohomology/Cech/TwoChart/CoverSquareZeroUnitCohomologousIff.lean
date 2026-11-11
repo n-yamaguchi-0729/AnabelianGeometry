@@ -10,13 +10,20 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.Cohomology.Cech.TwoChartCech
-import Mathlib.Algebra.TrivSqZeroExt.Basic
-import Mathlib.LinearAlgebra.TensorProduct.Prod
+module
+
+public import Mathlib.Algebra.Algebra.Hom
+public import Mathlib.Algebra.Module.Equiv.Defs
+public import Mathlib.RingTheory.TensorProduct.Basic
+public import Nyll.SchemeTheory.Cohomology.Cech.TwoChartCech
+public import Mathlib.Algebra.TrivSqZeroExt.Basic
+public import Mathlib.LinearAlgebra.TensorProduct.Prod
 
 /-!
 # Two Chart Cech Cover square Zero Unit cohomologous iff and exists
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -58,16 +65,21 @@ variable {K V B}
 
 @[scoped simp] theorem red_tmul (a : TrivSqZeroExt K V) (b : B) : red K V B (a ⊗ₜ b) = a.fst • b
   := by
-  simp [red, Algebra.TensorProduct.lift_tmul, Algebra.ofId_apply, Algebra.smul_def]
+  rw [red, Algebra.TensorProduct.lift_tmul]
+  exact (Algebra.smul_def a.fst b).symm
 
 omit [Module Kᵐᵒᵖ V] [IsCentralScalar K V] in
 @[scoped simp] theorem σ_tmul (a : TrivSqZeroExt K V) (b : B) : σ K V B (a ⊗ₜ b) = b ⊗ₜ a.snd := by
-  simp [σ]
+  simp only [σ, LinearMap.comp_apply, TensorProduct.map_tmul,
+    LinearEquiv.coe_toLinearMap, TensorProduct.comm_tmul,
+    TrivSqZeroExt.sndHom_apply, LinearMap.id_apply]
 
 omit [Module Kᵐᵒᵖ V] [IsCentralScalar K V] in
 @[scoped simp] theorem incl_tmul (b : B) (v : V) : incl K V B (b ⊗ₜ v) = (TrivSqZeroExt.inr v)
   ⊗ₜ b := by
-  simp [incl]
+  simp only [incl, LinearMap.comp_apply, LinearEquiv.coe_toLinearMap,
+    TensorProduct.comm_tmul, TensorProduct.map_tmul,
+    TrivSqZeroExt.inrHom_apply, LinearMap.id_apply]
 
 theorem red_incl (w : B ⊗[K] V) : red K V B (incl K V B w) = 0 := by
   induction w using TensorProduct.inductionOn with
@@ -82,11 +94,12 @@ theorem σ_incl (w : B ⊗[K] V) : σ K V B (incl K V B w) = w := by
 
 theorem red_includeRight (b : B) :
     red K V B (Algebra.TensorProduct.includeRight (R := K) (A := TrivSqZeroExt K V) b) = b := by
-  simp [Algebra.TensorProduct.includeRight_apply]
+  rw [Algebra.TensorProduct.includeRight_apply, red_tmul, TrivSqZeroExt.fst_one, one_smul]
 
 theorem σ_includeRight (b : B) :
     σ K V B (Algebra.TensorProduct.includeRight (R := K) (A := TrivSqZeroExt K V) b) = 0 := by
-  simp [Algebra.TensorProduct.includeRight_apply]
+  rw [Algebra.TensorProduct.includeRight_apply, σ_tmul, TrivSqZeroExt.snd_one,
+    TensorProduct.tmul_zero]
 
 omit [IsCentralScalar K V] in
 theorem σ_one : σ K V B 1 = 0 := by
@@ -199,28 +212,31 @@ theorem map_incl (w : B ⊗[K] V) :
     Algebra.TensorProduct.map (AlgHom.id K (TrivSqZeroExt K V)) ρ (incl K V B w) = incl K V C
       (ρ.toLinearMap.rTensor V w) := by
   induction w using TensorProduct.inductionOn with
-  | tmul b v => simp [Algebra.TensorProduct.map_tmul]
+  | tmul b v => simp only [incl_tmul, Algebra.TensorProduct.map_tmul, AlgHom.id_apply,
+      LinearMap.rTensor_tmul, AlgHom.toLinearMap_apply]
   | add x y hx hy => rw [map_add, map_add, hx, hy, map_add, map_add]
 
 theorem red_map (z : TrivSqZeroExt K V ⊗[K] B) :
     red K V C (Algebra.TensorProduct.map (AlgHom.id K (TrivSqZeroExt K V)) ρ z) = ρ (red K V B
       z) := by
   induction z using TensorProduct.inductionOn with
-  | tmul a b => simp [Algebra.TensorProduct.map_tmul]
+  | tmul a b => simp only [Algebra.TensorProduct.map_tmul, AlgHom.id_apply, red_tmul, map_smul]
   | add x y hx hy => rw [map_add, map_add, hx, hy, map_add, map_add]
 
 theorem σ_map (z : TrivSqZeroExt K V ⊗[K] B) :
     σ K V C (Algebra.TensorProduct.map (AlgHom.id K (TrivSqZeroExt K V)) ρ z) =
       ρ.toLinearMap.rTensor V (σ K V B z) := by
   induction z using TensorProduct.inductionOn with
-  | tmul a b => simp [Algebra.TensorProduct.map_tmul]
+  | tmul a b => simp only [Algebra.TensorProduct.map_tmul, AlgHom.id_apply, σ_tmul,
+      LinearMap.rTensor_tmul, AlgHom.toLinearMap_apply]
   | add x y hx hy => rw [map_add, map_add, hx, hy, map_add, map_add]
 
 theorem map_includeRight (b : B) :
     Algebra.TensorProduct.map (AlgHom.id K (TrivSqZeroExt K V)) ρ
       (Algebra.TensorProduct.includeRight b) =
       Algebra.TensorProduct.includeRight (ρ b) := by
-  simp [Algebra.TensorProduct.includeRight_apply, Algebra.TensorProduct.map_tmul]
+  simp only [Algebra.TensorProduct.includeRight_apply, Algebra.TensorProduct.map_tmul,
+    AlgHom.id_apply]
 
 end Decomp
 

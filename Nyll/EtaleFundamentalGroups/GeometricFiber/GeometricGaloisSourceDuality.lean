@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricAbelianGaloisAction
-import Nyll.EtaleFundamentalGroups.GeometricFiber.SourceIsoConjugation
-import Nyll.EtaleFundamentalGroups.Cohomology.DeckAbelianH1Duality
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GeometricAbelianGaloisAction
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.SourceIsoConjugation
+public import Nyll.EtaleFundamentalGroups.Cohomology.DeckAbelianH1Duality
 
 /-!
 # Source-induced arithmetic conjugation and actual H¹ duality
@@ -15,6 +17,8 @@ The original geometric-kernel comparison identifies source-induced scheme
 pullback with arithmetic conjugation. The existing H¹ duality then supplies
 the cohomological formula, retaining the actual arithmetic Galois label.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -77,7 +81,7 @@ theorem geometricAbelianGaloisAction_source_duality
     let hz : e.hom ≫ (xi ≫ p) = xi ≫ p := by
       rw [← Category.assoc, hpoint, Category.assoc, hθ]
     let g : Aut (fiber (xi ≫ p)) :=
-      fiberSourceIso (xi ≫ p) e ≪≫ eqToIso (congrArg fiber hz)
+      Aut.of (fiberSourceIso (xi ≫ p) e ≪≫ eqToIso (congrArg fiber hz))
     abelianizationFiniteTorsionH1DualEquiv xi
         (geometricAbelianGaloisAction k L X f xi
           (arithmeticFundamentalGroupHom k L f (xi ≫ p) g⁻¹) x) =

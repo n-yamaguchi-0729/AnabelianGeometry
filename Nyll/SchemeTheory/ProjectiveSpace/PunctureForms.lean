@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.ProjectiveSpace.Basic
-import Mathlib.LinearAlgebra.Projectivization.Basic
-import Mathlib.Tactic.Ring
+module
+
+public import Nyll.SchemeTheory.ProjectiveSpace.Basic
+public import Mathlib.LinearAlgebra.Projectivization.Basic
+public import Mathlib.Tactic.Ring
 
 /-! # Intrinsic projective puncture opens from homogeneous linear forms -/
+
+@[expose] public section
 
 noncomputable section
 

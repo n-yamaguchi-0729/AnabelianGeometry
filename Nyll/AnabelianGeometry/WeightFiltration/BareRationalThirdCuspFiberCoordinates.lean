@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalArithmeticRootFieldAction
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalThirdCuspRootSpecialization
-import Nyll.AnabelianGeometry.WeightFiltration.BareRationalCuspDecompositionProjection
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalArithmeticRootFieldAction
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalThirdCuspRootSpecialization
+public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalCuspDecompositionProjection
 
 /-!
 # One arithmetic correction for all original third-cusp fiber coordinates
@@ -18,6 +20,8 @@ specialization at the same chosen normalization prime and with that fixed
 correction. This proves the actual arithmetic decomposition action and the
 twisted full-root scaling on the unchanged finite-cover fiber.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -57,7 +61,7 @@ private theorem corrected_specialization_coordinates
       (_hρ : ρ.comp (algebraMap κ Ω) = (algebraMap κ Ω).comp σ.toRingHom)
       (hsource : e.hom ≫ x = x),
       arithmeticFundamentalGroupHom k κ f x
-          (fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource)) = α * σ * α⁻¹)
+          (Aut.of (fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource))) = α * σ * α⁻¹)
     (eBare : (fiber x).obj W ≃ {z : Ω // z ^ n = algebraMap F Ω w})
     (hscale : ∀ (ζ : rootsOfUnity n κ) y,
       (eBare (ts.toMulAction.toSMul.smul ζ y)).val =
@@ -68,11 +72,11 @@ private theorem corrected_specialization_coordinates
       ∃ hsource : e.hom ≫ x = x,
         (∀ y : (fiber x).obj W,
           (eBare ((show π₁ᵉᵗ(x) from
-            fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource)) • y)).val =
+            Aut.of (fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource))) • y)).val =
             σ (eBare y).val) ∧
         continuousConjAut (eqToIso (congrArg fiber hchart))
             (fieldSourceAbsoluteGaloisHom F Ω j σ) =
-          fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource))
+          Aut.of (fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource)))
     (D : Subgroup π₁ᵉᵗ(x)) (R : Subgroup Gal(Ω/F))
     (hraw : ∀ γ : π₁ᵉᵗ(x), γ ∈ D → ∃ δ : R,
       continuousConjAut (eqToIso (congrArg fiber hchart))
@@ -116,7 +120,7 @@ private theorem corrected_specialization_coordinates
     obtain ⟨δ, hδ⟩ := hraw γ hγ
     obtain ⟨hsource, heval, haction⟩ := hfield δ.val
     let e := Scheme.Spec.mapIso δ.val.toRingEquiv.toCommRingCatIso.op
-    have hγsource : fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource) = γ :=
+    have hγsource : Aut.of (fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource)) = γ :=
       haction.symm.trans hδ
     let ρ : Gal(κ/k) := (δ.val.restrictScalars k).restrictNormal κ
     have hρ : δ.val.toRingHom.comp (algebraMap κ Ω) =
@@ -160,17 +164,17 @@ private def FixedRootSourceData
       ∃ hsource : e.hom ≫ x = x,
         (∀ y : (fiber x).obj W,
           (eBare ((show π₁ᵉᵗ(x) from
-            fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource)) • y)).val =
+            Aut.of (fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource))) • y)).val =
             σ (eBare y).val) ∧
         continuousConjAut (eqToIso (congrArg fiber hchart))
             (fieldSourceAbsoluteGaloisHom F Ω j σ) =
-          fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource)) ∧
+          Aut.of (fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource))) ∧
     ∀ (e : Spec (.of Ω) ≅ Spec (.of Ω)) (ρ : Ω →+* Ω)
       (_he : e.hom = Spec.map (CommRingCat.ofHom ρ)) (σ : Gal(κ/k))
       (_hρ : ρ.comp (algebraMap κ Ω) = (algebraMap κ Ω).comp σ.toRingHom)
       (hsource : e.hom ≫ x = x),
       arithmeticFundamentalGroupHom k κ f x
-          (fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource)) = α * σ * α⁻¹
+          (Aut.of (fiberSourceIso x e ≪≫ eqToIso (congrArg fiber hsource))) = α * σ * α⁻¹
 
 /-- Eliminate canonical-coordinate witnesses while every scheme and field is
 still abstract. The concrete caller supplies the two existing point owners. -/
@@ -250,7 +254,7 @@ private theorem corrected_coordinates_of_suppliers
 /-- Choose the original coordinate and the single correction before any
 normalization prime or third cusp is introduced. -/
 private theorem bare_fixed_root_source_data
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
@@ -260,30 +264,22 @@ private theorem bare_fixed_root_source_data
     (ts : Torsor (rootsOfUnity n κ)
       ((fiber (rationalConfigurationArithmeticBasePoint k κ s Ω)).obj W)) :
     let X : Scheme := (rationalConfigurationOpen s : Scheme)
-    letI : Algebra X.functionField Ω := rationalConfigurationOriginalAmbientAlgebra k κ s Ω
-    letI : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
-    letI : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
-    letI : IsSepClosure X.functionField Ω :=
+    let : Algebra X.functionField Ω := rationalConfigurationOriginalAmbientAlgebra k κ s Ω
+    let : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
+    let : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
+    let : IsSepClosure X.functionField Ω :=
       (rationalConfigurationOriginalField_suppliers k κ s Ω).2.2.2.2.1
-    letI : IsAlgClosure (RatFunc k) Ω :=
+    let : IsAlgClosure (RatFunc k) Ω :=
       rationalConfigurationAmbient_isAlgClosure_arithmetic k κ s Ω
-    letI : IsSepClosure (RatFunc k) Ω := inferInstance
+    let : IsSepClosure (RatFunc k) Ω := inferInstance
     let x := rationalConfigurationArithmeticBasePoint k κ s Ω
     ArithmeticFiberRootCoordinate κ X Ω n W x b (algebraMap κ Ω) ts →
     ∃ α : Gal(κ/k), ∃ eBare : (fiber x).obj W ≃ {z : Ω // z ^ n = b},
       FixedRootSourceData k (RatFunc k) κ Ω X
         ((rationalConfigurationOpen s).ι ≫ π k 1) x
         (rationalConfigurationArithmeticGenericPoint k s) n W b ts α eBare := by
-  intro X
-  let : Algebra X.functionField Ω := rationalConfigurationOriginalAmbientAlgebra k κ s Ω
-  let : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
-  let : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
-  let : IsSepClosure X.functionField Ω :=
-    (rationalConfigurationOriginalField_suppliers k κ s Ω).2.2.2.2.1
-  let : IsAlgClosure (RatFunc k) Ω :=
-    rationalConfigurationAmbient_isAlgClosure_arithmetic k κ s Ω
-  let : IsSepClosure (RatFunc k) Ω := inferInstance
-  intro x H
+  intro X originalAlgebra arithmeticAlgebra constantAlgebra originalSepClosure
+    arithmeticAlgClosure arithmeticSepClosure x H
   let : Algebra k Ω := rationalConfigurationBaseAmbientAlgebra k κ s Ω
   let : IsScalarTower k κ Ω :=
     (rationalConfigurationAmbient_scalarTowers k κ s Ω).2.2.2.2.1
@@ -297,7 +293,7 @@ private theorem bare_fixed_root_source_data
 /-- Use the prescribed correction and coordinate at one third cusp. This
 phase alone instantiates the original normalization-prime suppliers. -/
 private theorem bare_third_cusp_from_fixed_source
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k))) (a b c : s)
     (hca : c ≠ a) (hcb : c ≠ b)
@@ -315,11 +311,11 @@ private theorem bare_third_cusp_from_fixed_source
     (ts : Torsor (rootsOfUnity (n : ℕ) κ)
       ((fiber (rationalConfigurationArithmeticBasePoint k κ s Ω)).obj W)) :
     let X : Scheme := (rationalConfigurationOpen s : Scheme)
-    letI : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
-    letI : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
-    letI : IsAlgClosure (RatFunc k) Ω :=
+    let : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
+    let : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
+    let : IsAlgClosure (RatFunc k) Ω :=
       rationalConfigurationAmbient_isAlgClosure_arithmetic k κ s Ω
-    letI : IsSepClosure (RatFunc k) Ω := inferInstance
+    let : IsSepClosure (RatFunc k) Ω := inferInstance
     let x := rationalConfigurationArithmeticBasePoint k κ s Ω
     let q := arithmeticFundamentalGroupHom k κ ((rationalConfigurationOpen s).ι ≫ π k 1) x
     ∀ (α : Gal(κ/k))
@@ -341,13 +337,8 @@ private theorem bare_third_cusp_from_fixed_source
         ∀ (γ : rationalConfigurationArithmeticGroup k κ s Ω),
           γ ∈ rationalConfigurationChosenDecomposition k κ s Ω p →
           ∀ y, S (γ • y) = q γ (S y) := by
-  intro X
-  let : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
-  let : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
-  let : IsAlgClosure (RatFunc k) Ω :=
-    rationalConfigurationAmbient_isAlgClosure_arithmetic k κ s Ω
-  let : IsSepClosure (RatFunc k) Ω := inferInstance
-  intro x q α eBare hdata p V hV
+  intro X arithmeticAlgebra constantAlgebra arithmeticAlgClosure arithmeticSepClosure
+    x q α eBare hdata p V hV
   let : Algebra (RatFunc κ) Ω := rationalConfigurationGeometricAmbientAlgebra k κ s Ω
   let : Algebra k Ω := rationalConfigurationBaseAmbientAlgebra k κ s Ω
   let ambient := rationalConfigurationAmbient_scalarTowers k κ s Ω
@@ -373,7 +364,7 @@ private theorem bare_third_cusp_from_fixed_source
 cusps, with one fixed arithmetic correction. All values, prime choices and
 arithmetic actions are supplied by the original geometric constructions. -/
 theorem rationalConfiguration_pair_thirdCusp_fiberCoordinates
-    (k κ : Type) [Field k] [NumberField k]
+    (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k))) (a b : s)
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
@@ -390,10 +381,10 @@ theorem rationalConfiguration_pair_thirdCusp_fiberCoordinates
     (ts : Torsor (rootsOfUnity (n : ℕ) κ)
       ((fiber (rationalConfigurationArithmeticBasePoint k κ s Ω)).obj W)) :
     let X : Scheme := (rationalConfigurationOpen s : Scheme)
-    letI : Algebra X.functionField Ω := rationalConfigurationOriginalAmbientAlgebra k κ s Ω
-    letI : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
-    letI : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
-    letI : IsSepClosure X.functionField Ω :=
+    let : Algebra X.functionField Ω := rationalConfigurationOriginalAmbientAlgebra k κ s Ω
+    let : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
+    let : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
+    let : IsSepClosure X.functionField Ω :=
       (rationalConfigurationOriginalField_suppliers k κ s Ω).2.2.2.2.1
     let x := rationalConfigurationArithmeticBasePoint k κ s Ω
     let q := arithmeticFundamentalGroupHom k κ ((rationalConfigurationOpen s).ι ≫ π k 1) x
@@ -412,13 +403,7 @@ theorem rationalConfiguration_pair_thirdCusp_fiberCoordinates
         ∀ (γ : rationalConfigurationArithmeticGroup k κ s Ω),
           γ ∈ rationalConfigurationChosenDecomposition k κ s Ω p →
           ∀ y, S (γ • y) = q γ (S y) := by
-  intro X
-  let : Algebra X.functionField Ω := rationalConfigurationOriginalAmbientAlgebra k κ s Ω
-  let : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
-  let : Algebra κ Ω := rationalConfigurationConstantAmbientAlgebra k κ s Ω
-  let : IsSepClosure X.functionField Ω :=
-    (rationalConfigurationOriginalField_suppliers k κ s Ω).2.2.2.2.1
-  intro x q H
+  intro X originalAlgebra arithmeticAlgebra constantAlgebra originalSepClosure x q H
   let : IsAlgClosure (RatFunc k) Ω :=
     rationalConfigurationAmbient_isAlgClosure_arithmetic k κ s Ω
   let : IsSepClosure (RatFunc k) Ω := inferInstance

@@ -10,19 +10,24 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
-import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
-import Nyll.AlgebraicCurves.Places.Basic
-import Nyll.AlgebraicCurves.Divisors.Maps.Maps
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
-import Nyll.AlgebraicCurves.Differentials.Local.Order
-import Nyll.AlgebraicCurves.Differentials.Local.Uniformizer
-import Nyll.AlgebraicCurves.Divisors.Principal.Canonical
-import Nyll.AlgebraicCurves.Places.Ramification.SumRamificationIndexMulInertiaDeg
+module
+
+public import Nyll.AlgebraicCurves.Divisors.ClassGroup.ClassGroup
+public import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
+public import Nyll.AlgebraicCurves.Places.Basic
+public import Nyll.AlgebraicCurves.Divisors.Maps.Maps
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
+public import Nyll.AlgebraicCurves.Differentials.Local.Order
+public import Nyll.AlgebraicCurves.Differentials.Local.Uniformizer
+public import Nyll.AlgebraicCurves.Divisors.Principal.Canonical
+public import Nyll.AlgebraicCurves.Places.Ramification.SumRamificationIndexMulInertiaDeg
+public import Nyll.AlgebraicCurves.Places.Orders.OrderOfSum
 
 /-!
 # Exists finset forall not mem ramification Index eq one
 -/
+
+@[expose] public section
 
 section ProofImplementation
 
@@ -590,12 +595,6 @@ variable {K : Type*} (F : Type*) {F' : Type*} [Field K] [Field F] [Field F']
   [Algebra K F] [Algebra K F'] [Algebra F F'] [IsScalarTower K F F']
   [Algebra.IsIntegral F F']
 
-namespace Place
-open scoped _root_.AlgebraicCurve.Place in
-private noncomputable def _root_.AlgebraicCurve.Place.restrictDCoord (w : Place K F') : Ω[F'⁄K] :=
-  KaehlerDifferential.D K F' (algebraMap F F' (w.restrict F).uniformizer)
-
-end Place
 open _root_.AlgebraicCurve
 open scoped _root_.AlgebraicCurve.Place in
 theorem Place.restrictDCoord_eq_kaehlerMap (w : Place K F') :
@@ -756,25 +755,8 @@ private theorem _root_.AlgebraicCurve.Place.ord_neg' (f : F) : v.ord (-f) = v.or
 open _root_.AlgebraicCurve.Place
 
 private theorem _root_.AlgebraicCurve.Place.ord_add_eq_min' {f g : F} (hf : f ≠ 0) (hg : g ≠ 0)
-    (h : v.ord f ≠ v.ord g) : v.ord (f + g) = min (v.ord f) (v.ord g) := by
-  have hval : v.adicValuation f ≠ v.adicValuation g := by
-    intro hcon; exact h (by simp only [Place.ord, hcon])
-  have h1 : v.adicValuation (f + g) = max (v.adicValuation f) (v.adicValuation g) :=
-    Valuation.map_add_of_distinct_val _ hval
-  have hfg : f + g ≠ 0 := by
-    intro hcon
-    rw [hcon, map_zero] at h1
-    rcases max_choice (v.adicValuation f) (v.adicValuation g) with hm | hm
-    · exact (v.adicValuation_ne_zero hf) (h1 ▸ hm).symm
-    · exact (v.adicValuation_ne_zero hg) (h1 ▸ hm).symm
-  simp only [Place.ord, h1]
-  rcases max_cases (v.adicValuation f) (v.adicValuation g) with ⟨hmax, hle⟩ | ⟨hmax, hlt⟩
-  · have hlog := (WithZero.log_le_log (v.adicValuation_ne_zero hg)
-      (v.adicValuation_ne_zero hf)).mpr hle
-    rw [hmax]; omega
-  · have hlog := (WithZero.log_le_log (v.adicValuation_ne_zero hf)
-      (v.adicValuation_ne_zero hg)).mpr hlt.le
-    rw [hmax]; omega
+    (h : v.ord f ≠ v.ord g) : v.ord (f + g) = min (v.ord f) (v.ord g) :=
+  _root_.AlgebraicCurve.Place.ord_add_eq_min_of_ne v hf hg h
 
 open _root_.AlgebraicCurve.Place
 

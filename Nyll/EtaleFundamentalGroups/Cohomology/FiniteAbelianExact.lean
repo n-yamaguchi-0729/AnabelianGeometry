@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteAbelianStalk
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteLocallyConstantHom
-import Nyll.EtaleFundamentalGroups.Cohomology.FiniteLocallyConstantExact
+module
+
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteAbelianStalk
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteLocallyConstantHom
+public import Nyll.EtaleFundamentalGroups.Cohomology.FiniteLocallyConstantExact
 
 /-!
 # Descent of exact sequences of finite abelian representations
@@ -16,6 +18,8 @@ original maps on actual geometric stalks. Consequently an exact sequence of
 finite continuous representations descends to an exact sequence of actual
 étale sheaves, with no extra descent or comparison assumption.
 -/
+
+@[expose] public section
 
 noncomputable section
 

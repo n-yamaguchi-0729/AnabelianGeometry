@@ -11,18 +11,22 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.Geometrically.Connected
-import Mathlib.AlgebraicGeometry.Geometrically.Reduced
-import Mathlib.AlgebraicGeometry.Morphisms.Proper
-import Mathlib.AlgebraicGeometry.Morphisms.Flat
-import Mathlib.AlgebraicGeometry.Pullbacks
-import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyConnectedProperFlatBijectiveAppTopPullbackSnd
-import Nyll.AlgebraicCurves.Geometry.Curves.BijectiveAppTopUniversallyClosed
+module
+
+public import Mathlib.AlgebraicGeometry.Geometrically.Connected
+public import Mathlib.AlgebraicGeometry.Geometrically.Reduced
+public import Mathlib.AlgebraicGeometry.Morphisms.Proper
+public import Mathlib.AlgebraicGeometry.Morphisms.Flat
+public import Mathlib.AlgebraicGeometry.Pullbacks
+public import Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
+public import Nyll.AlgebraicCurves.Geometry.Curves.GeometricallyConnectedProperFlatBijectiveAppTopPullbackSnd
+public import Nyll.AlgebraicCurves.Geometry.Curves.BijectiveAppTopUniversallyClosed
 
 /-!
 # Geometric connectedness from the generic fibre of a proper flat morphism
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

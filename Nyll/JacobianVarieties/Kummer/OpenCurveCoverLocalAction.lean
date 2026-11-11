@@ -5,10 +5,13 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 https://github.com/n-yamaguchi-0729
 -/
 
-import Nyll.JacobianVarieties.Kummer.OpenCurveCoverAction
-import Nyll.AlgebraicCurves.Geometry.Schemes.Kummer.RootFromNormalizationKummerUniqueLift
-import Mathlib.AlgebraicGeometry.Morphisms.SchemeTheoreticallyDominant
-import Nyll.AlgebraicCurves.Places.ValuationRings.RangeStalkEq
+module
+
+public import Nyll.JacobianVarieties.Kummer.OpenCurveCoverAction
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Kummer.RootFromNormalizationKummerUniqueLift
+public import Mathlib.AlgebraicGeometry.Morphisms.SchemeTheoreticallyDominant
+public import Nyll.AlgebraicCurves.Places.ValuationRings.RangeStalkEq
+public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationSourceIso
 
 /-!
 # Local root coordinates for the actual Kummer action
@@ -19,6 +22,8 @@ base field. Equality of sections is proved using the schematic dominance of
 the original generic algebra in its normalization. No connectedness assumption
 on the cover or irreducibility assumption on the root algebra is used.
 -/
+
+@[expose] public section
 
 noncomputable section
 

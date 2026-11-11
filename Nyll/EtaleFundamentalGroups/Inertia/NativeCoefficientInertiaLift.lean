@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
-import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.CommAlgIdealTameGroups
+public import Nyll.SchemeTheory.Normalization.NativeAutomorphismRingMaps
 
 /-!
 # Inertia lifts through the actual coefficient action
@@ -14,6 +16,8 @@ Surjectivity on coefficient automorphisms and the proved action comparison
 transfer the literal inertia difference condition. No field or scalar
 tower occurs in this argument.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

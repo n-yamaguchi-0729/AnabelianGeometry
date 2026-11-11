@@ -4,17 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.CurveH1Cardinality
-import Nyll.EtaleFundamentalGroups.Cohomology.H1Character
-import Nyll.ProCGroups.ProC.PrimeSeparation
-import Nyll.ProCGroups.ProC.MaximalQuotients.UniversalProperty
-import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
-import Nyll.AlgebraicCurves.Models.Construction.LiteralArithmeticCurveModel
-import Nyll.AlgebraicCurves.Geometry.Curves.GeometricGenus
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
-import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.CoefficientPullback
-import Nyll.SchemeTheory.FunctionFields.GeometricIntegrality
-import Mathlib.AlgebraicGeometry.Noetherian
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.CurveH1Cardinality
+public import Nyll.EtaleFundamentalGroups.Cohomology.H1Character
+public import Nyll.ProCGroups.ProC.PrimeSeparation
+public import Nyll.ProCGroups.ProC.MaximalQuotients.UniversalProperty
+public import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
+public import Nyll.AlgebraicCurves.Models.Construction.LiteralArithmeticCurveModel
+public import Nyll.AlgebraicCurves.Geometry.Curves.GeometricGenus
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.ModelOverlap
+public import Nyll.EtaleFundamentalGroups.FiniteEtale.FiniteField.CoefficientPullback
+public import Nyll.SchemeTheory.FunctionFields.GeometricIntegrality
+public import Mathlib.AlgebraicGeometry.Noetherian
 
 /-! # Recovering the prime of an actual geometric pro-prime quotient
 
@@ -25,6 +27,8 @@ proves that quotient nontrivial. Distinct pro-prime classes intersect only
 in the trivial group, so its topological group structure determines p.
 No free-group presentation or unproved comparison of completions is assumed.
 -/
+
+@[expose] public section
 
 noncomputable section
 

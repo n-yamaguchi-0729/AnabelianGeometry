@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.AlgebraicGeometry.Sites.Fpqc
-import Mathlib.AlgebraicGeometry.Morphisms.FlatDescent
-import Nyll.SchemeTheory.Morphisms.OverPullbackDescent
+module
+
+public import Mathlib.AlgebraicGeometry.Sites.Fpqc
+public import Mathlib.AlgebraicGeometry.Morphisms.FlatDescent
+public import Nyll.SchemeTheory.Morphisms.OverPullbackDescent
 
 /-! # Descent of actual scheme isomorphisms
 
@@ -15,6 +17,8 @@ the actual Cech relation agree. If the given morphism is an isomorphism,
 fpqc descent of the isomorphism property supplies an isomorphism downstairs.
 No descended morphism or inverse is part of the input.
 -/
+
+@[expose] public section
 
 noncomputable section
 

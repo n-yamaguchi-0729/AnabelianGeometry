@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Normalization.NormalizationAutomorphismGroupMap
-import Nyll.SchemeTheory.Normalization.ScalarRestrictionGroupMap
-import Mathlib.Algebra.Category.Ring.Basic
+module
+
+public import Nyll.SchemeTheory.Normalization.NormalizationAutomorphismGroupMap
+public import Nyll.SchemeTheory.Normalization.ScalarRestrictionGroupMap
+public import Mathlib.Algebra.Category.Ring.Basic
 
 /-!
 # Ring maps underlying normalization automorphisms
@@ -14,6 +16,8 @@ import Mathlib.Algebra.Category.Ring.Basic
 Defines the underlying ring maps of coefficient and Galois automorphisms, together with the
 inclusion of the normalization into its ambient algebra.
 -/
+
+@[expose] public section
 
 namespace SchemeTheory
 

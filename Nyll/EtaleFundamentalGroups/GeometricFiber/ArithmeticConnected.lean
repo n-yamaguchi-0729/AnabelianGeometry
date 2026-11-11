@@ -3,13 +3,17 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729). All
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticSurjective
+module
+
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticSurjective
 
 /-!
 # Arithmetic Connected
 
 Connectedness after a separably closed constant extension descends to the base.
 -/
+
+@[expose] public section
 
 noncomputable section
 universe u

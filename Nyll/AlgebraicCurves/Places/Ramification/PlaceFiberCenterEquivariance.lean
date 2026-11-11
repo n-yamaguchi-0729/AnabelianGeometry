@@ -10,10 +10,12 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
-import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
-import Nyll.AlgebraicCurves.Places.Restriction.RestrictionComposition
-import Mathlib.NumberTheory.RamificationInertia.Galois
+module
+
+public import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
+public import Nyll.AlgebraicCurves.Divisors.Maps.Semilinear
+public import Nyll.AlgebraicCurves.Places.Restriction.RestrictionComposition
+public import Mathlib.NumberTheory.RamificationInertia.Galois
 
 /-!
 # Equivariance of the actual place–normalization-prime correspondence
@@ -22,6 +24,8 @@ The existing fiber center carries the actual field action to the prescribed
 normalization action. Consequently the two literal stabilizer conditions agree.
 The valuation calculation is extracted from the existing place transitivity proof.
 -/
+
+@[expose] public section
 
 noncomputable section
 

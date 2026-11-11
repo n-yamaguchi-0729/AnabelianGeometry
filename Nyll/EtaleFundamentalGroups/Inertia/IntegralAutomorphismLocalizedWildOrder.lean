@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.IntegralAutomorphismWildLift
-import Nyll.SchemeTheory.RingTheory.Ramification.IdealLocalizationPrincipalTransport
-import Nyll.SchemeTheory.RingTheory.Ramification.LocalRingResidueCharacteristicTransport
-import Nyll.SchemeTheory.RingTheory.Ramification.RingActionOrderReflection
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.IntegralAutomorphismWildLift
+public import Nyll.SchemeTheory.RingTheory.Ramification.IdealLocalizationPrincipalTransport
+public import Nyll.SchemeTheory.RingTheory.Ramification.LocalRingResidueCharacteristicTransport
+public import Nyll.SchemeTheory.RingTheory.Ramification.RingActionOrderReflection
 
 /-!
 # Orders of localized principal-unit automorphisms
@@ -15,6 +17,8 @@ import Nyll.SchemeTheory.RingTheory.Ramification.RingActionOrderReflection
 Proves a residue-characteristic power order law for intrinsic normalization automorphisms whose
 prime localizations act by principal units, including triviality in residue characteristic zero.
 -/
+
+@[expose] public section
 
 noncomputable section
 

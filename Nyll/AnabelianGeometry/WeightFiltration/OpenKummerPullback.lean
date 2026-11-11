@@ -4,11 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.GenericCohomologyInjection
-import Nyll.AnabelianGeometry.WeightFiltration.GenericCohomologyNaturality
-import Nyll.AnabelianGeometry.WeightFiltration.FieldCharacterNaturality
-import Nyll.AnabelianGeometry.WeightFiltration.KummerCohomologyCharacters
-import Nyll.AnabelianGeometry.WeightFiltration.GenericKummerRestriction
+module
+
+public import Nyll.AnabelianGeometry.WeightFiltration.GenericCohomologyInjection
+public import Nyll.AnabelianGeometry.WeightFiltration.GenericCohomologyNaturality
+public import Nyll.AnabelianGeometry.WeightFiltration.FieldCharacterNaturality
+public import Nyll.AnabelianGeometry.WeightFiltration.KummerCohomologyCharacters
+public import Nyll.AnabelianGeometry.WeightFiltration.GenericKummerRestriction
+public import Nyll.EtaleFundamentalGroups.Cohomology.SchemePullback
+public import Nyll.JacobianVarieties.Kummer.CohomologyPullback
 
 /-!
 # Proper Kummer classes pull back to the actual open Kummer classes
@@ -16,6 +20,10 @@ import Nyll.AnabelianGeometry.WeightFiltration.GenericKummerRestriction
 The proof restricts the two actual derived H¹ classes to the function field,
 computes their characters on the same root, and uses generic injectivity.
 -/
+
+@[expose] public section
+
+universe uGeom uField₁ uField₂
 
 noncomputable section
 
@@ -25,24 +33,24 @@ open EtaleFundamentalGroups.Cohomology JacobianVarieties.Kummer
 namespace AnabelianGeometry.WeightFiltration
 
 private theorem constantCohomologyPullback_eq
-    {Y Z : Scheme} (f : Y ⟶ Z) (A : AddCommGrpCat.{0}) (n : ℕ)
-    (a : Sheaf.H.{0} ((constantSheaf Z.smallEtaleTopology AddCommGrpCat.{0}).obj A) n) :
+    {Y Z : Scheme.{uGeom}} (f : Y ⟶ Z) (A : AddCommGrpCat.{uGeom}) (n : ℕ)
+    (a : Sheaf.H.{uGeom} ((constantSheaf Z.smallEtaleTopology AddCommGrpCat.{uGeom}).obj A) n) :
     EtaleFundamentalGroups.Cohomology.constantCohomologyPullback f A n a =
       JacobianVarieties.Kummer.constantCohomologyPullback f A n a := rfl
 
 /-- Actual compactification pullback agrees with forgetting the boundary
 conditions in the Kummer cover, at compatible geometric generic points. -/
 theorem properKummer_pullback_eq_openKummer
-    {K F : Type} [Field K] [IsSepClosed K] [Field F] [Algebra K F]
+    {K : Type uGeom} {F : Type uField₁} [Field K] [IsSepClosed K] [Field F] [Algebra K F]
     (M : CurveModel K F) (S : Set (Place K F)) (n : ℕ+)
     (u : Pic0.kummerUnits K F n)
-    {X : Scheme} [IsIntegral X] [IsNormalIntegral X] [CompactSpace X]
+    {X : Scheme.{uGeom}} [IsIntegral X] [IsNormalIntegral X] [CompactSpace X]
     (j : X ⟶ M.C) [IsOpenImmersion j] (hj : DenseRange j)
     (hinterior : ∀ (y : X) (x : closedPoints M.C),
       x.val = j y → M.placeOfPoint x ∉ S)
     [Algebra M.C.functionField X.functionField]
     (hfield : algebraMap M.C.functionField X.functionField = j.functionFieldMap hj)
-    {Ω : Type} [Field Ω] [Algebra X.functionField Ω] [Algebra M.C.functionField Ω]
+    {Ω : Type uGeom} [Field Ω] [Algebra X.functionField Ω] [Algebra M.C.functionField Ω]
     [IsScalarTower M.C.functionField X.functionField Ω]
     [IsSepClosed Ω] [IsSepClosure M.C.functionField Ω] [IsSepClosure X.functionField Ω]
     (β : Ω) (hβ : β ^ (n : ℕ) =

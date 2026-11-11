@@ -10,9 +10,11 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.AlgebraicCurves.Divisors.Correspondences.Correspondences
-import Nyll.AlgebraicCurves.Places.Restriction.RestrictEqMem
-import Mathlib.RingTheory.Unramified.LocalRing
+module
+
+public import Nyll.AlgebraicCurves.Divisors.Correspondences.Correspondences
+public import Nyll.AlgebraicCurves.Places.Restriction.RestrictEqMem
+public import Mathlib.RingTheory.Unramified.LocalRing
 
 /-!
 # Unramified local rings have ramification index one
@@ -21,6 +23,8 @@ This local-ring form of the existing curve-model argument applies equally
 to proper curves and open curves. The local rings are identified with the
 actual valuation rings, and the map is the actual local homomorphism.
 -/
+
+@[expose] public section
 
 noncomputable section
 

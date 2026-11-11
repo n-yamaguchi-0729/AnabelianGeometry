@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsGroupSystem
-import Nyll.ProCGroups.InverseSystems.Basic
-import Mathlib.Topology.Order
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualTameRootsGroupSystem
+public import Nyll.ProCGroups.InverseSystems.Basic
+public import Mathlib.Topology.Order
 
 /-!
 # Topology of the SAME actual tame roots limit
@@ -15,6 +17,8 @@ The existing roots system already chooses the discrete topology at every
 stage. Its existing inverse-limit topology is therefore Hausdorff, and the
 existing coordinatewise group operations are continuous.
 -/
+
+@[expose] public section
 
 namespace EtaleFundamentalGroups.Inertia
 

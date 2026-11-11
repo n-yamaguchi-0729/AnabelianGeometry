@@ -10,14 +10,18 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Mathlib.AlgebraicGeometry.Normalization
-import Mathlib.AlgebraicGeometry.Morphisms.Etale
+module
 
-import Nyll.SchemeTheory.RingTheory.Etale.IntegrallyClosedIntegralClosureEqAdjoinEtaleFinite
+public import Mathlib.AlgebraicGeometry.Normalization
+public import Mathlib.AlgebraicGeometry.Morphisms.Etale
+
+public import Nyll.SchemeTheory.RingTheory.Etale.IntegrallyClosedIntegralClosureEqAdjoinEtaleFinite
 
 /-!
 # is Finite and etale from Normalization kummer of is Integrally Closed
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

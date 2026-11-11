@@ -7,6 +7,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaRelations
 import Nyll.JacobianVarieties.Kummer.AbelJacobiTate
 import Nyll.AlgebraicCurves.Geometry.Picard.Representability.AbelJacobiPicardRepresentability
+import Nyll.ProCGroups.Abelian.FullTateModule
 
 /-!
 # The actual geometric boundary sequence with full Tate endpoint

@@ -4,17 +4,22 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.WeightFiltration.NumberFieldCyclotomicHomVanishing
-import Nyll.AlgebraicCurves.Geometry.Picard.BaseChange.PicardRepresentabilityBaseChange
-import Nyll.JacobianVarieties.Picard.GroupLaw.BaseChangeRelativeGroupLawMulCompat
+module
+
+public import Nyll.GaloisCohomology.FieldTheory.NumberFieldFiniteGeneration
+public import Nyll.AnabelianGeometry.WeightFiltration.FinitelyGeneratedCyclotomicHomVanishing
+public import Nyll.AlgebraicCurves.Geometry.Picard.BaseChange.PicardRepresentabilityBaseChange
+public import Nyll.JacobianVarieties.Picard.GroupLaw.BaseChangeRelativeGroupLawMulCompat
 
 /-!
-# Cyclotomic Hom vanishing after extending the number field
+# Cyclotomic Hom vanishing after extending the finitely generated field
 
 Keep the original Jacobian point group and roots limit. Restrict its actual
-coefficient action to a number-field extension and compare it with the
-represented base-changed Jacobian using the literal pullback projection.
+coefficient action to a finitely generated characteristic-zero extension and compare
+with the represented base-changed Jacobian using the literal pullback projection.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -26,12 +31,12 @@ open EtaleFundamentalGroups.Inertia
 namespace AnabelianGeometry.WeightFiltration
 
 variable (K L Ω : Type) [Field K]
-  [Field L] [NumberField L] [Algebra K L]
+  [Field L] [CharZero L] [Field.FG L] [Algebra K L]
   [Field Ω] [Algebra K Ω] [Algebra L Ω] [IsScalarTower K L Ω]
   [IsAlgClosure L Ω]
 
 /-- Vanishing for the original point group requires equivariance only for
-the Galois group of the extended number field. -/
+the Galois group of the extended field. -/
 theorem numberField_cyclotomicHom_eq_one_of_scalar_extension
     {C : Scheme} (c : C ⟶ Spec (.of K))
     [IsProper c] [SmoothOfRelativeDimension 1 c] [GeometricallyIntegral c]
@@ -90,7 +95,7 @@ theorem numberField_cyclotomicHom_eq_one_of_scalar_extension
       hc J₁ hcL π hπ hmul Ω σ
       (FullTateModule.evaluation _ n (Multiplicative.toAdd (φ t)))
   have hvan : Φ = 1 :=
-    numberField_cyclotomicHom_eq_one L Ω cL εL DL hDL Φ hΦ
+    finitelyGenerated_cyclotomicHom_eq_one L Ω cL εL DL hDL Φ hΦ
   apply MonoidHom.ext
   intro t
   apply eT.injective

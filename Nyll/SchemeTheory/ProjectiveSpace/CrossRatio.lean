@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.LinearAlgebra.Projectivization.Basic
-import Mathlib.Tactic.Ring
+module
+
+public import Mathlib.LinearAlgebra.Projectivization.Basic
+public import Mathlib.Tactic.Ring
 
 /-!
 # Cross ratios on the projective line
@@ -15,6 +17,8 @@ Homogeneous coordinates include infinity without a separate affine chart.
 Independent rescaling does not change the ratio, and the projective
 definition is evaluated by the proved representative formula.
 -/
+
+@[expose] public section
 
 namespace AnabelianGeometry.ProjectiveLine
 

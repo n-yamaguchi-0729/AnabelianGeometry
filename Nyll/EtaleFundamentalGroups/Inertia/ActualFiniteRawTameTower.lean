@@ -4,18 +4,20 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteRawTameValue
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaLocalization
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaAmbientResidue
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationLocalTower
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteLocalResidue
-import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
-import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
-import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
-import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
-import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
-import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingAmbientCoefficientTower
+module
+
+public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteFiniteNormalization
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteRawTameValue
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaLocalization
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteInertiaAmbientResidue
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteNormalizationLocalTower
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteLocalResidue
+public import Nyll.EtaleFundamentalGroups.Inertia.ActualFiniteTameStage
+public import Nyll.EtaleFundamentalGroups.Inertia.FiniteNormalizationDedekind
+public import Nyll.EtaleFundamentalGroups.Inertia.OriginalNormalizationInertiaAction
+public import Nyll.SchemeTheory.Normalization.SubalgebraPreimage
+public import Nyll.SchemeTheory.RingTheory.Localization.DedekindPrime
+public import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingAmbientCoefficientTower
 
 /-!
 # Raw tame values in finite towers
@@ -23,6 +25,8 @@ import Nyll.ValuedFieldTheory.Ramification.HilbertRamification.RingAmbientCoeffi
 Proves the power relation between raw coefficient-ratio residues of the same original inertia
 element at nested finite local normalizations.
 -/
+
+@[expose] public section
 
 noncomputable section
 
@@ -44,10 +48,10 @@ theorem actualFiniteRawTameValue_tower
     (Q : Ideal (normalizationCommAlgCat A L)) [Q.IsMaximal]
     (E F : FiniteGaloisIntermediateField K L) (h : E ≤ F)
     (σ : actualNormalizationInertiaGroup A K L Q) :
-    letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
-    letI := finiteAbsoluteNormalizationPrime_isPrime A K L Q F
-    letI := finiteAbsoluteNormalizationAlgebra_isDedekindDomain A K L F
-    letI := localizationAtPrime_isDiscreteValuationRing
+    let := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
+    let := finiteAbsoluteNormalizationPrime_isPrime A K L Q F
+    let := finiteAbsoluteNormalizationAlgebra_isDedekindDomain A K L F
+    let := localizationAtPrime_isDiscreteValuationRing
       (finiteAbsoluteNormalizationAlgebra A K L F)
       (finiteAbsoluteNormalizationPrime A K L Q F)
       (finiteAbsoluteNormalizationPrime_ne_bot A K L Q F)
@@ -58,13 +62,7 @@ theorem actualFiniteRawTameValue_tower
           ((IsDiscreteValuationRing.addVal
             (Localization.AtPrime (finiteAbsoluteNormalizationPrime A K L Q F))).toFun
             ((actualFiniteNormalizationTowerLocalRingMap A K L Q E F h).toFun π)).toNat := by
-  let pE := finiteAbsoluteNormalizationPrime_isPrime A K L Q E
-  let pF := finiteAbsoluteNormalizationPrime_isPrime A K L Q F
-  let dF := finiteAbsoluteNormalizationAlgebra_isDedekindDomain A K L F
-  let vF := localizationAtPrime_isDiscreteValuationRing
-    (finiteAbsoluteNormalizationAlgebra A K L F)
-    (finiteAbsoluteNormalizationPrime A K L Q F)
-    (finiteAbsoluteNormalizationPrime_ne_bot A K L Q F)
+  intro pE pF dF vF
   obtain ⟨π, c, hπ, _, hc, hE⟩ := actualFiniteRawTameValue_exists_coefficient A K L Q E σ
   obtain ⟨ρ, d, hρ, _, hd, hF⟩ := actualFiniteRawTameValue_exists_coefficient A K L Q F σ
   refine ⟨π, hπ, ?_⟩

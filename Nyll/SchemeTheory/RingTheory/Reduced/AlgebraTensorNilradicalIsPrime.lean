@@ -10,12 +10,16 @@ Local adaptation and maintenance: Naganori Yamaguchi (https://github.com/n-yamag
 AI assistance in local adaptation and maintenance: OpenAI Codex.
 -/
 
-import Nyll.SchemeTheory.RingTheory.FieldExtensions.SeparableConstantsTensor
+module
+
+public import Nyll.SchemeTheory.RingTheory.FieldExtensions.SeparableConstantsTensor
 
 /-!
 # Algebra Tensor Product nilradical is Prime of is Algebraic of forall is Separable mem
 range
 -/
+
+@[expose] public section
 
 section ProofImplementation
 

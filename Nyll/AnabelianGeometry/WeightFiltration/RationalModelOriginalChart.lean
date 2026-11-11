@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteRationalModelBaseChange
-import Nyll.AnabelianGeometry.ProjectiveLine.ConfigurationScalarExtension
-import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.OpenBaseChange
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiniteRationalModelBaseChange
+public import Nyll.AnabelianGeometry.ProjectiveLine.ConfigurationScalarExtension
+public import Nyll.AnabelianGeometry.ArithmeticIsomorphisms.OpenBaseChange
 
 /-! # The original proper chart of the specified finite rational model
 
@@ -15,6 +17,8 @@ comparison. Its proper model is supplied by the same finite proper model.
 The projection and coefficient equations follow from the actual ambient
 square, with no extra model-compatibility condition.
 -/
+
+@[expose] public section
 
 noncomputable section
 open AlgebraicGeometry.SmoothProperCurve

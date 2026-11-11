@@ -4,19 +4,21 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Constructible.AffineRepresentability
-import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
-import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantSet
-import Nyll.EtaleCohomology.Constructible.GluedRepresentability
-import Nyll.EtaleCohomology.Constructible.LocalRepresenterGluing
-import Nyll.EtaleCohomology.Sites.EtaleRestriction
-import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
-import Mathlib.AlgebraicGeometry.AffineScheme
-import Mathlib.AlgebraicGeometry.Cover.Directed
-import Mathlib.AlgebraicGeometry.Sites.Etale
-import Mathlib.CategoryTheory.Functor.FullyFaithful
-import Mathlib.CategoryTheory.Sites.Sheaf
-import Mathlib.CategoryTheory.Yoneda
+module
+
+public import Nyll.EtaleCohomology.Constructible.AffineRepresentability
+public import Nyll.EtaleCohomology.Constructible.FiniteEtaleSheaf
+public import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantSet
+public import Nyll.EtaleCohomology.Constructible.GluedRepresentability
+public import Nyll.EtaleCohomology.Constructible.LocalRepresenterGluing
+public import Nyll.EtaleCohomology.Sites.EtaleRestriction
+public import Nyll.SchemeTheory.Pi1.FiniteEtale.Basic
+public import Mathlib.AlgebraicGeometry.AffineScheme
+public import Mathlib.AlgebraicGeometry.Cover.Directed
+public import Mathlib.AlgebraicGeometry.Sites.Etale
+public import Mathlib.CategoryTheory.Functor.FullyFaithful
+public import Mathlib.CategoryTheory.Sites.Sheaf
+public import Mathlib.CategoryTheory.Yoneda
 
 /-!
 # Finite étale representability of finite locally constant sheaves
@@ -30,6 +32,8 @@ No connectedness, quasi-compactness, quasi-separatedness, or ground field
 hypothesis is imposed on the base. The result also gives an actual isomorphism
 with the sheaf associated to the finite étale representer.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Etale.ResidueFieldPushout
-import Mathlib.AlgebraicGeometry.Pullbacks
-import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Basic
+module
+
+public import Nyll.SchemeTheory.Etale.ResidueFieldPushout
+public import Mathlib.AlgebraicGeometry.Pullbacks
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.IsPullback.Basic
 
 /-!
 # Actual closed fibres under a local base change
@@ -17,6 +19,8 @@ maximal ideal is the new maximal ideal, it is also the base change of the
 original closed-fibre inclusion over the original base. Both comparisons
 use the actual pullback maps and retain their projection equations.
 -/
+
+@[expose] public section
 
 noncomputable section
 

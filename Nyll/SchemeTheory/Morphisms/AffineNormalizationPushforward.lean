@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Morphisms.ProperNormalization
-import Nyll.SchemeTheory.Affine.FlatBaseChangeAffinization
-import Mathlib.Topology.Sheaves.SheafCondition.Sites
-import Mathlib.Topology.Sheaves.Functors
+module
+
+public import Nyll.SchemeTheory.Morphisms.ProperNormalization
+public import Nyll.SchemeTheory.Affine.FlatBaseChangeAffinization
+public import Mathlib.Topology.Sheaves.SheafCondition.Sites
+public import Mathlib.Topology.Sheaves.Functors
 
 /-!
 # Structure-sheaf pushforward for affine relative normalization
@@ -19,6 +21,8 @@ basis criterion supplies it on all opens. Applied to the section isomorphism
 of a universally closed normalization, this proves the pushforward assertion
 for the actual normalization map over an affine base.
 -/
+
+@[expose] public section
 
 noncomputable section
 

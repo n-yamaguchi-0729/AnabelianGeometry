@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Mathlib.RingTheory.Finiteness.ModuleFinitePresentation
-import Mathlib.RingTheory.Kaehler.TensorProduct
-import Mathlib.RingTheory.LocalRing.Module
-import Mathlib.RingTheory.Smooth.Fiber
+module
+
+public import Mathlib.RingTheory.Finiteness.ModuleFinitePresentation
+public import Mathlib.RingTheory.Kaehler.TensorProduct
+public import Mathlib.RingTheory.LocalRing.Module
+public import Mathlib.RingTheory.Smooth.Fiber
 
 /-!
 # Étaleness of a finite projective algebra over a local ring
@@ -16,6 +18,8 @@ import Mathlib.RingTheory.Smooth.Fiber
 finite module of differentials. Nakayama kills the original differentials.
 Finite projectivity supplies flatness and finite presentation.
 -/
+
+@[expose] public section
 
 noncomputable section
 

@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AlgebraicCurves.Geometry.Picard.AlgebraicPointsEquivariance
-import Nyll.AlgebraicCurves.Geometry.Picard.Representability.AbelJacobiPicardRepresentability
-import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveCurveModelIsoPullbackFunctionFieldGermEq
-import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveSeparatingTranscendental
+module
+
+public import Nyll.AlgebraicCurves.Geometry.Picard.AlgebraicPointsEquivariance
+public import Nyll.AlgebraicCurves.Geometry.Picard.Representability.AbelJacobiPicardRepresentability
+public import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveCurveModelIsoPullbackFunctionFieldGermEq
+public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveSeparatingTranscendental
 
 /-!
 # Actual Picard point geometry over algebraically closed coefficients
@@ -17,6 +19,8 @@ equivariant Picard comparison are constructed from the original pointed
 curve and its Picard representation. Neither a curve model nor an
 Abel--Jacobi comparison is supplied as an extra hypothesis.
 -/
+
+@[expose] public section
 
 noncomputable section
 

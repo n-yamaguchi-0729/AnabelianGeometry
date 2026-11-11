@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.SchemeTheory.Morphisms.AlgebraicPointFiniteField
-import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
-import Mathlib.FieldTheory.Normal.Closure
-import Mathlib.FieldTheory.Galois.Basic
+module
+
+public import Nyll.SchemeTheory.Morphisms.AlgebraicPointFiniteField
+public import Mathlib.FieldTheory.IntermediateField.Adjoin.Basic
+public import Mathlib.FieldTheory.Normal.Closure
+public import Mathlib.FieldTheory.Galois.Basic
 
 /-! # A common finite Galois field for finitely many geometric points
 
@@ -15,6 +17,8 @@ The points themselves, including their maps to the original scheme, are
 retained. Taking the normal closure of the compositum of their finite fields
 of definition gives one finite Galois extension for all labels.
 -/
+
+@[expose] public section
 
 noncomputable section
 

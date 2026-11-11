@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
 import Nyll.AnabelianGeometry.CuspidalInertia.FiniteQuotientSeparation
+import Nyll.ProCGroups.ProC.OpenNormalSubgroups.Separation
 
 /-!
 # Open neighborhoods of closed subgroups avoiding compact sets

@@ -3,9 +3,12 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
-import Nyll.AlgebraicCurves.Places.Basic
-import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
-import Nyll.EtaleCohomology.Classical.KummerRootCover
+module
+
+public import Nyll.AlgebraicCurves.Places.Basic
+public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
+public import Nyll.EtaleCohomology.Classical.KummerRootCover
+public import Nyll.SchemeTheory.RingTheory.Etale.AdjoinRootEtaleFiniteXPowSubC
 
 /-! # The literal Kummer cover at a place of order zero
 
@@ -15,12 +18,16 @@ Its generic algebra points are the roots of the unchanged function, so an
 existing named generic-root coordinate can be composed with this comparison.
 -/
 
+@[expose] public section
+
+universe u
+
 noncomputable section
 open AlgebraicGeometry CategoryTheory Polynomial
 
 namespace AlgebraicCurve.Place
 
-variable {k F : Type} [Field k] [Field F] [Algebra k F]
+variable {k F : Type u} [Field k] [Field F] [Algebra k F]
 
 /-- The unchanged function and its literal inverse form a unit in the actual
 valuation ring. No local nth-power adjustment is chosen. -/
@@ -81,7 +88,7 @@ def ordZeroKummerCover
 in the original ambient field. The equivalence is literal root evaluation. -/
 def ordZeroKummerPointEquivRoots
     (v : Place k F) (u : Fˣ) (hu : v.ord (u : F) = 0) (n : ℕ)
-    (Ω : Type) [Field Ω] [Algebra F Ω] [Algebra v.toValuationSubring Ω]
+    (Ω : Type u) [Field Ω] [Algebra F Ω] [Algebra v.toValuationSubring Ω]
     [IsScalarTower v.toValuationSubring F Ω] :
     (EtaleCohomology.kummerRootAlgebra n (ordZeroUnit v u hu) →ₐ[v.toValuationSubring] Ω) ≃
       {β : Ω // β ^ n = algebraMap F Ω (u : F)} := by

@@ -4,17 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.EtaleCohomology.Constructible.RepresenterAction
-import Nyll.EtaleCohomology.Sites.EtaleRestriction
-import Nyll.SchemeTheory.Descent.AffineActionCoordinates
-import Nyll.SchemeTheory.Descent.AffineAlgebraCoaction
-import Nyll.SchemeTheory.Descent.AffineCocycle
-import Nyll.SchemeTheory.Descent.AlgebraCoaction
-import Mathlib.AlgebraicGeometry.Pullbacks
-import Mathlib.AlgebraicGeometry.Sites.Etale
-import Mathlib.CategoryTheory.MorphismProperty.Comma
-import Mathlib.CategoryTheory.Yoneda
-import Mathlib.RingTheory.TensorProduct.Maps
+module
+
+public import Nyll.EtaleCohomology.Constructible.RepresenterAction
+public import Nyll.EtaleCohomology.Sites.EtaleRestriction
+public import Nyll.SchemeTheory.Descent.AffineActionCoordinates
+public import Nyll.SchemeTheory.Descent.AffineAlgebraCoaction
+public import Nyll.SchemeTheory.Descent.AffineCocycle
+public import Nyll.SchemeTheory.Descent.AlgebraCoaction
+public import Mathlib.AlgebraicGeometry.Pullbacks
+public import Mathlib.AlgebraicGeometry.Sites.Etale
+public import Mathlib.CategoryTheory.MorphismProperty.Comma
+public import Mathlib.CategoryTheory.Yoneda
+public import Mathlib.RingTheory.TensorProduct.Maps
 
 /-!
 # Algebra descent data supplied by an affine local representer
@@ -24,6 +26,8 @@ Tensor coordinates then construct the algebra overlap equivalence and prove
 its diagonal and full cocycle laws. These laws are derived from the original
 sheaf's universal section, with no assumed descent comparison.
 -/
+
+@[expose] public section
 
 noncomputable section
 
