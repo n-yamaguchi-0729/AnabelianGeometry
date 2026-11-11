@@ -46,8 +46,8 @@ variable (a : pullback f c ⟶ Y)
     (P Q : SchemeHomOver t (pullback.snd f c)),
     ((Gc).mul t P Q).val ≫ a =
       (G₀.mul (t ≫ Spec.map (CommRingCat.ofHom (algebraMap H S)))
-        ⟨P.val ≫ a, by rw [Category.assoc, ha.w, ← Category.assoc, P.property]⟩
-        ⟨Q.val ≫ a, by rw [Category.assoc, ha.w, ← Category.assoc, Q.property]⟩).val)
+        ⟨P.val ≫ a, pullbackPointProjection_over a ha t P⟩
+        ⟨Q.val ≫ a, pullbackPointProjection_over a ha t Q⟩).val)
   (L : Type u) [CommRing L] [Algebra S L]
   [Algebra R L] [IsScalarTower R S L]
   [Algebra H L] [IsScalarTower H S L]
@@ -61,8 +61,8 @@ def goodModelPointsEquiv
     (P Q : SchemeHomOver t (pullback.snd f c)),
     ((Gc).mul t P Q).val ≫ a =
       (G₀.mul (t ≫ Spec.map (CommRingCat.ofHom (algebraMap H S)))
-        ⟨P.val ≫ a, by rw [Category.assoc, ha.w, ← Category.assoc, P.property]⟩
-        ⟨Q.val ≫ a, by rw [Category.assoc, ha.w, ← Category.assoc, Q.property]⟩).val)
+        ⟨P.val ≫ a, pullbackPointProjection_over a ha t P⟩
+        ⟨Q.val ≫ a, pullbackPointProjection_over a ha t Q⟩).val)
   (L : Type u) [CommRing L] [Algebra S L]
   [Algebra R L] [IsScalarTower R S L]
   [Algebra H L] [IsScalarTower H S L] :
@@ -83,8 +83,8 @@ theorem goodModelPointsEquiv_equivariant
     (P Q : SchemeHomOver t (pullback.snd f c)),
     ((Gc).mul t P Q).val ≫ a =
       (G₀.mul (t ≫ Spec.map (CommRingCat.ofHom (algebraMap H S)))
-        ⟨P.val ≫ a, by rw [Category.assoc, ha.w, ← Category.assoc, P.property]⟩
-        ⟨Q.val ≫ a, by rw [Category.assoc, ha.w, ← Category.assoc, Q.property]⟩).val)
+        ⟨P.val ≫ a, pullbackPointProjection_over a ha t P⟩
+        ⟨Q.val ≫ a, pullbackPointProjection_over a ha t Q⟩).val)
   (L : Type u) [CommRing L] [Algebra S L]
   [Algebra R L] [IsScalarTower R S L]
   [Algebra H L] [IsScalarTower H S L]
@@ -112,8 +112,8 @@ theorem goodModelPrimePowerTateRep_eq_one_iff
     (P Q : SchemeHomOver t (pullback.snd f c)),
     ((Gc).mul t P Q).val ≫ a =
       (G₀.mul (t ≫ Spec.map (CommRingCat.ofHom (algebraMap H S)))
-        ⟨P.val ≫ a, by rw [Category.assoc, ha.w, ← Category.assoc, P.property]⟩
-        ⟨Q.val ≫ a, by rw [Category.assoc, ha.w, ← Category.assoc, Q.property]⟩).val)
+        ⟨P.val ≫ a, pullbackPointProjection_over a ha t P⟩
+        ⟨Q.val ≫ a, pullbackPointProjection_over a ha t Q⟩).val)
   (L : Type u) [CommRing L] [Algebra S L]
   [Algebra R L] [IsScalarTower R S L]
   [Algebra H L] [IsScalarTower H S L]

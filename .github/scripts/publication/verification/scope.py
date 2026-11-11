@@ -104,7 +104,9 @@ def main():
     keys = list(partition(args.root, manifest, config)) if args.partition else ["all"]
     # The matrix is derived from the exact current source, never a maintained list
     # which could silently omit a newly added library.
-    plan = {"shard": keys}
+    # Every source shard needs both independent checkers. Separate runners give
+    # replay its full job budget instead of the time left after NanoDa.
+    plan = {"shard": keys, "phase": ["proof", "replay"]}
     (args.output / "matrix.json").write_text(json.dumps(plan) + "\n")
     print(json.dumps(plan))
 
