@@ -4,38 +4,13 @@
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
 This Lean component of [NYLL](https://github.com/n-yamaguchi-0729/NYLL) aims to
-formalize the **p-subtame Hom theorem** in the supplied reworking of Mochizuki's
-Hom theorem. The source manuscript and the detailed implementation plan are
-collected in [docs/mochizuki](docs/mochizuki/README.md).
+formalize Mochizuki's Hom theorem over p-subtame fields.
 
 ## Formalization target and source documents
 
-- [Implementation plan (Revision 3, 13 November 2026)](docs/mochizuki/MochizukiThmFormalizationPlan_20261113.md): the task checklist, proof obligations, and implementation order.
-- [Paper (PDF)](docs/mochizuki/ReworkingMochizukiThm_20261113_142937_JST.pdf) and [LaTeX source](docs/mochizuki/ReworkingMochizukiThm_20261113_142937_JST.tex): *A Reworking of Mochizuki's Hom Theorem over p-Subtame Fields*.
-
-The manuscript states the geometrically pro-Σ Hom theorem for every set of
-primes Σ containing p. For a p-subtame field K, it identifies dominant
-K-morphisms from a normal geometrically integral finite-type K-scheme X to a
-hyperbolic K-curve Y with continuous open homomorphisms of their geometrically
-pro-Σ arithmetic fundamental groups over G_K, modulo geometric inner
-automorphisms of the target. The source X need not be separated.
-
-Here p-subtame means that K embeds into the maximal algebraic tamely ramified
-extension of a Henselian discretely valued field of mixed characteristic (0,p).
-The residue field of that host is arbitrary; K itself need not be complete,
-discretely valued, or finitely generated.
-
-**The current implementation plan targets the geometrically pro-p case**
-(Σ = {p}), retaining the full arithmetic quotient G_K. It does not yet specify
-a Lean implementation of the entire pro-Σ extension. The plan calls for actual
-morphisms and fundamental-group maps, realization of each prescribed open
-homomorphism, and uniqueness, not only a weak Isom reconstruction statement.
-Stacks is the canonical foundation on overlaps with NYLL.
-
-**Status:** the supplied plan records **0 of 80 implementation tasks VERIFIED**.
-These documents are a mathematical manuscript and a formalization plan, not
-evidence that the target Hom theorem has already been checked in Lean. Adding
-them does not change the proved scope of the existing implementation below.
+- [Implementation plan](docs/mochizuki/MochizukiThmFormalizationPlan_20261113.md)
+- [LaTeX source](docs/mochizuki/ReworkingMochizukiThm_20261113_142937_JST.tex)
+- [Paper (PDF)](docs/mochizuki/ReworkingMochizukiThm_20261113_142937_JST.pdf)
 
 ## Existing implementation
 
