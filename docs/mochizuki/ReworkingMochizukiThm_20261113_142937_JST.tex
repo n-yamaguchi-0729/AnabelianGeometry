@@ -1,0 +1,1783 @@
+% !TeX program = pdflatex
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=28mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{xcolor,xurl,hyperref,bookmark}
+\hypersetup{colorlinks=true,linkcolor=blue!40!black,citecolor=blue!40!black,
+ urlcolor=blue!40!black,pdftitle={A Reworking of Mochizuki's Hom Theorem over p-Subtame Fields},
+ pdfauthor={}}
+\setlength{\emergencystretch}{2em}
+\setlist[enumerate]{label=\textup{(\roman*)},leftmargin=*,itemsep=2pt}
+\numberwithin{equation}{section}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\Zp}{\mathbf Z_p}
+\newcommand{\Qp}{\mathbf Q_p}
+\newcommand{\Gm}{\mathbf G_m}
+\newcommand{\PP}{\mathbf P}
+\newcommand{\cO}{\mathcal O}
+\newcommand{\et}{\mathrm{\acute et}}
+\newcommand{\etale}{\'etale}
+\newcommand{\ab}{\mathrm{ab}}
+\newcommand{\nr}{\mathrm{nr}}
+\newcommand{\tame}{\mathrm{t}}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Inn}{Inn}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\trdeg}{trdeg}
+\renewcommand{\S}{\ensuremath{\mathsection}}
+\newcommand{\stacks}[1]{\href{https://stacks.math.columbia.edu/tag/#1}{\texttt{#1}}}
+\title{A Reworking of Mochizuki's Hom Theorem\\over \texorpdfstring{$p$}{p}-Subtame Fields}
+\author{}
+\date{November 13, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We rework Mochizuki's proof of the anabelian Hom theorem, following also
+Faltings's exposition of its Picard-theoretic arguments.
+Let $p$ be a prime, and let $K$ be a subfield of the maximal tamely ramified
+extension of a henselian discretely valued field of mixed characteristic
+$(0,p)$. For every set of primes $\Sigma$ containing $p$, we prove that
+dominant morphisms from a normal geometrically integral $K$-scheme of finite
+type to a hyperbolic curve are determined by, and exhaust, the open
+homomorphisms of their geometrically pro-$\Sigma$ arithmetic fundamental
+groups over the absolute Galois group of $K$, up to geometric inner
+automorphisms. The local argument uses Tate's
+theorem on $p$-divisible groups and the relative Picard scheme of a semistable
+curve. Approximation of Kummer classes then permits the reconstruction of a
+morphism from its action on regular differentials.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+Grothendieck's anabelian programme asks whether arithmetic fundamental
+groups recover varieties and their morphisms \cite{Grothendieck1997}.
+For hyperbolic curves, the early rigidity results of Nakamura for
+punctured projective lines \cite{Nakamura1990} were followed by
+Tamagawa's Isom theorem for affine curves over fields finitely generated
+over $\mathbf Q$ \cite[Theorem~(0.3)]{Tamagawa1997} and Mochizuki's
+Isom theorem for proper curves over number fields
+\cite[Theorem~A]{Mochizuki1996}. Mochizuki subsequently proved the local
+pro-$p$ Hom theorem, which recovers dominant morphisms to hyperbolic
+curves from open homomorphisms of arithmetic fundamental groups. Its
+ground field is sub-$p$-adic, that is, a subfield of a finitely generated
+extension of $\Qp$, and its source is smooth
+\cite[Theorem~A and Theorem~16.5]{Mochizuki1999}. The theorem remains true
+after replacing the geometric fundamental groups by their maximal
+pro-$\Sigma$ quotients, for any set of primes $\Sigma$ containing $p$;
+this formulation is stated in \cite[Theorem~A and the subsequent remark,
+p.~121]{Mochizuki2003}.
+
+The present paper revisits this proof, with particular attention to the
+hypothesis on the ground field. The reconstruction through Jacobians,
+Kummer classes, and regular differentials is Mochizuki's. Our presentation
+also follows Faltings's account of the Picard-torsor and point-approximation
+arguments \cite[\S\S5--6]{Faltings1998}. The use of points on successive
+covers has its antecedent in Tamagawa's characterization of geometric
+sections \cite[Corollary~(2.10)]{Tamagawa1997}; its adaptation to the local
+Hom theorem is developed in \cite[\S\S7--10]{Mochizuki1999}.
+We carry out the local comparison over complete discrete valuation rings
+and their tamely ramified extensions. This leads to the following class
+of fields.
+
+\begin{definition}
+\label{def:subtame}
+Fix a prime $p$. A field $K$ of characteristic zero is \emph{$p$-subtame} if
+there exist a henselian discretely valued field $F$ of mixed characteristic
+$(0,p)$ and an embedding
+\[
+                         K\hookrightarrow F^{\tame},
+\]
+where $F^{\tame}$ denotes its maximal tamely ramified algebraic extension.
+The extension $F^{\tame}/F$ is algebraic; its completion is not used in this
+definition. The residue field of $F$ is arbitrary.
+\end{definition}
+
+One obtains the same class of fields by requiring $F$ to be complete.
+Moreover, the class is closed under subfields and finitely generated
+extensions (Lemma~\ref{lem:fields}). In particular it contains the
+sub-$p$-adic fields and the generalized sub-$p$-adic fields of
+\cite[Definition~4.11]{Mochizuki2003}. Mochizuki's theorem over the latter
+class is an Isom theorem \cite[Theorem~4.12]{Mochizuki2003}.
+We prove the Hom statement over $p$-subtame fields by the local argument
+developed below.
+
+Fix an algebraic closure $\bar K$ of $K$, and put $G_K=\Gal(\bar K/K)$.
+For a nonempty set of primes $\Sigma$ and a geometrically connected
+$K$-scheme $Z$, write
+\[
+ \Delta_Z^\Sigma=\pi_1(Z_{\bar K})^{(\Sigma)},\qquad
+ \Pi_Z^\Sigma=\pi_1(Z)\big/
+       \ker\bigl(\pi_1(Z_{\bar K})\longrightarrow\Delta_Z^\Sigma\bigr).
+\]
+Here $(\Sigma)$ means the maximal pro-$\Sigma$ quotient. Thus
+\begin{equation}
+ 1\longrightarrow\Delta_Z^\Sigma\longrightarrow\Pi_Z^\Sigma
+       \longrightarrow G_K\longrightarrow1.
+ \label{eq:arithmetic-sequence}
+\end{equation}
+All homomorphisms of profinite groups are understood to be continuous.
+An open homomorphism is one with open image. We suppress geometric base
+points; the quotient by geometric inner automorphisms in the theorem
+accounts for their choice. The subscript $G_K$ on $\Hom$ means that the
+homomorphisms commute with the projections to $G_K$.
+A hyperbolic curve is a smooth separated
+geometrically connected curve whose smooth proper compactification has
+genus $g$ and whose boundary has $r$ geometric points, with $2g-2+r>0$.
+
+\begin{theorem}[Geometrically pro-$\Sigma$ Hom theorem]
+\label{thm:main}
+Let $K$ be $p$-subtame, and let $\Sigma$ be any set of primes containing $p$.
+Let $X$ be a normal geometrically integral finite-type $K$-scheme and $Y$ a
+hyperbolic curve over $K$. Then the natural map
+\begin{equation}
+ \Hom_K^{\mathrm{dom}}(X,Y)\ \xrightarrow{\ \sim\ }\
+ \Hom_{G_K}^{\mathrm{open}}(\Pi_X^\Sigma,\Pi_Y^\Sigma)
+                  /\Inn(\Delta_Y^\Sigma)
+ \label{eq:main}
+\end{equation}
+is bijective. The scheme $X$ need not be separated.
+\end{theorem}
+
+For $\Sigma=\{p\}$ this is the geometrically pro-$p$ Hom theorem. Taking
+$\Sigma$ to be the set of all primes gives the corresponding statement for
+full \etale fundamental groups. In both cases the arithmetic quotient in
+\eqref{eq:arithmetic-sequence} is the full group $G_K$.
+
+Other extensions of anabelian Isom results use different hypotheses on
+the ground field. Hoshi proves an Isom theorem for affine hyperbolic
+curves over Kummer-faithful fields under point-theoreticity and
+Galois-preservation conditions \cite[Theorem~A]{Hoshi2017}.
+Tsujimura proves a relative birational Isom theorem for curves over
+arbitrary cyclotomic extensions of number fields
+\cite[Corollary~B]{Tsujimura2023}. A relative birational Hom analogue
+over generalized sub-$p$-adic fields is posed as a question in
+\cite[Introduction, Remark~(a)]{Tsujimura2026}.
+Theorem~\ref{thm:main} concerns arithmetic fundamental groups of
+finite-type schemes, with their projections to the fixed group $G_K$.
+Mochizuki's formulation for pro-varieties also includes function fields
+\cite[Definition~16.4 and Theorem~16.5]{Mochizuki1999}.
+
+The change in the ground field requires a local argument valid without
+any perfectness assumption on the residue field. We prove the needed
+comparison using connected $p$-divisible groups, finite Kummer torsors,
+and an integral estimate on differentials. The reconstruction is then
+expressed in terms of approximation at each finite level. We also give
+an extension criterion for normal sources, including singular ones.
+The finite-cover method and the passage from pro-$p$ to pro-$\Sigma$
+remain those of the preceding works; the latter is already part of
+Mochizuki's formulation cited above.
+
+\subsection*{Outline of the proof}
+
+Consider first a surjective homomorphism between the geometrically pro-$p$
+arithmetic fundamental groups of two smooth proper curves, with hyperbolic
+target. Abelianization gives a homomorphism between the Tate modules of
+their Jacobians. To recover a morphism of curves, one needs first to turn
+this homomorphism into a map on regular differentials, and then to show
+that the map on differentials respects the equations of the target curve.
+This is the order of reconstruction in Mochizuki's proof
+\cite[\S\S7--14]{Mochizuki1999}.
+
+The first question is local. After embedding $K$ in a tame extension of a
+complete discretely valued field, the Tate-module homomorphism descends to
+a finite extension of that field. The reason is that a prime-to-$p$ group
+acting on a $\Zp$-lattice is detected by reduction modulo $p$
+(Lemma~\ref{lem:tate-descent}). On a regular semistable model, inertia
+characterizes the Tate module of the connected formal subgroup of the
+Jacobian. Tate's full faithfulness theorem therefore gives an integral
+homomorphism of formal groups, whose differential is the required map
+\cite[\S4.2, Theorem~4 and Corollary~1]{Tate1967}.
+Section~\ref{sec:local} also proves that this homomorphism preserves finite
+Kummer classes. The point here is to subtract a point defined over the
+algebraic constant field before passing to the formal group. This
+subtraction gives both the assertion about Kummer classes and an integral
+bound on the error in the differential comparison.
+
+One then applies the Kummer assertion on finite covers of the target.
+Over a suitable field with pro-$p$ absolute Galois group, the resulting
+sections can be approximated, modulo any prescribed power of $p$, by
+sections arising from points (Section~\ref{sec:approximation}). Choose a
+generic point of the source in a Gauss-valued extension and a derivation
+which preserves its valuation ring. The differential values at the
+approximating points converge to the values prescribed by the
+Tate-module homomorphism. Ratios of canonical differentials, together
+with their first derivatives, generate an affine chart of the target;
+the derivatives supply the functions missing from the canonical map
+in the hyperelliptic case. Passing to the limit in their polynomial
+relations produces a morphism of curves
+(Proposition~\ref{prop:reconstruction}). Thus only approximation at each
+finite level is needed.
+
+This construction initially takes place over an algebraically closed
+extension of $K$. Applying it to finite covers identifies the geometric
+outer homomorphism induced by the constructed morphism. Faithfulness of the
+action on differentials then gives descent to $K$, and the triviality of
+centralizers of open subgroups in the geometric target group identifies the arithmetic
+homomorphism as well. These arguments prove the proper-target theorem
+for curves in Section~\ref{sec:proper-hom}. For a normal source,
+Section~\ref{sec:global} uses a generic curve over a purely transcendental
+extension of $K$ which preserves the connectedness of every finite
+geometric cover. The rational map so
+obtained extends to the source: a positive-dimensional fibre of its
+graph would contradict the existence of abelian covers of the target
+of arbitrarily large degree. Ramified covers at the cusps exclude the
+boundary of an open target. Finally, Section~\ref{sec:sigma} applies the
+pro-$p$ theorem on every finite pro-$\Sigma$ cover, as in
+\cite[Remark after Theorem~16.5]{Mochizuki1999}, to recover the original
+pro-$\Sigma$ homomorphism.
+
+\subsection*{Notation and preliminaries}
+
+Until Section~\ref{sec:sigma}, put $\Pi_Z=\Pi_Z^{\{p\}}$ and
+$\Delta_Z=\Delta_Z^{\{p\}}$. For $S$ an abelian variety or $\Gm$ over $K$, put
+$T_pS=\varprojlim S[p^n](\bar K)$, with transition map $[p]$, and write
+$\kappa_{S,n}:S(L)\to H^1(L,S[p^n])$ for the Kummer map over a field
+extension $L/K$.
+In particular, $T_pS/p^nT_pS=S[p^n](\bar K)$.
+
+We use the correspondence between finite \etale covers and finite
+fundamental-group sets \cite[Expos\'e~V]{SGA1}, the arithmetic exact
+sequence \cite[Expos\'e~IX, Th\'eor\`eme~6.1]{SGA1}, and invariance of
+geometric fundamental groups under algebraically closed extension in
+characteristic zero \cite[Expos\'e~XIII, Corollaire~3.2 and
+Remarque~3.1.3]{SGA1}. For a smooth proper curve
+$C$ with Jacobian $J_C$, the Abel--Jacobi identifications, formed using a
+geometric base point, are
+\begin{equation}
+ \Delta_C^{\ab}=T_pJ_C,\qquad
+ \Lie(J_C)^\vee=H^0(C,\omega_C).
+ \label{eq:AJ}
+\end{equation}
+Both identifications are independent of the base point and compatible with
+curve maps, norms, and field extension; see \cite[Propositions~2.2 and~9.1]{Milne1986}.
+We use semistable reduction and the standard relative Picard construction,
+with references supplied in Section~\ref{sec:local}.
+
+\section{The ground field and descent of Tate homomorphisms}
+\label{sec:fields}
+
+The valued overfield in Definition~\ref{def:subtame} serves only for the
+local construction. We first choose it with separably closed residue field,
+so that its tame Galois group is prime to $p$. We then show that a
+homomorphism of Tate modules is defined over a finite valued extension,
+even when $K$ itself is not.
+
+\begin{lemma}
+\label{lem:fields}
+\begin{enumerate}
+\item In Definition~\ref{def:subtame}, one may require a complete discretely
+valued field $M$ with separably closed residue field. With a uniformizer $\pi$,
+one may then write
+\[
+ M^{\tame}=M(\pi^{1/n}:(n,p)=1).
+\]
+Every finite quotient of $\Gal(M^{\tame}/M)$ has order prime to $p$.
+\item Subfields and finite extensions of $p$-subtame fields are $p$-subtame.
+\item Finitely generated extensions of $p$-subtame fields are $p$-subtame.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+For a henselian discretely valued $F$, tame ramification gives
+$F^{\tame}=F^{\nr}(\pi^{1/n}:(n,p)=1)$
+\cite[Tags~\stacks{04GK}, \stacks{0EXW}]{Stacks}. The completion of
+$F^{\nr}$ is a complete discretely valued field $M$ with the same uniformizer
+and separably closed residue field. Compatible choices of roots embed
+$F^{\tame}$ into $M^{\tame}$. All prime-to-$p$ roots of unity lie in $M$ by
+Hensel's lemma, so the finite root-adjoining stages are cyclic of
+prime-to-$p$ order. Conversely, a complete discretely valued field is
+henselian.
+
+Fix $K\subset M^{\tame}$ and an algebraic closure $\Omega$ of $M$. A finite
+extension $K(\alpha)/K$ embeds into $\Omega$, and $M(\alpha)/M$ is finite.
+Tame ramification is preserved by base change
+\cite[Tag~\stacks{0EXY}]{Stacks}; hence
+$M(\alpha)M^{\tame}\subset M(\alpha)^{\tame}$.
+This proves (ii).
+
+For independent variables $\mathbf t$, the Gauss completion of
+$M(\mathbf t)$ is a complete discretely valued field of mixed
+characteristic $(0,p)$. By the same base-change assertion,
+$M^{\tame}(\mathbf t)$ embeds into its maximal tame extension.
+A finitely generated extension is finite over a purely transcendental one,
+proving (iii).
+\end{proof}
+
+\begin{lemma}[Finite descent of Tate homomorphisms]
+\label{lem:tate-descent}
+Fix $K\subset M^{\tame}\subset\Omega$ as above. Let $S_1,S_2$ be
+Jacobians or $\Gm$ over $K$, and choose a finite extension $M_0/M$ inside
+$M^{\tame}$
+over which their defining equations descend. Every $G_K$-equivariant map
+$u:T_pS_1\to T_pS_2$ is equivariant over the finite extension
+\[
+                         M_0(S_1[p],S_2[p]).
+\]
+The same assertion holds for objects over finite extensions of $K$, using
+the same valued algebraic closure $\Omega$.
+\end{lemma}
+\begin{proof}
+The lattice $\Hom_{G_{M^{\tame}}}(T_pS_1,T_pS_2)$ is saturated in
+$\Hom_{\Zp}(T_pS_1,T_pS_2)$: if $ph$ is invariant, then
+$p(\sigma h-h)=0$ implies that $h$ is invariant. Reduction modulo $p$
+therefore embeds its reduction into
+$\Hom_{\mathbf F_p}(S_1[p],S_2[p])$. Its Galois action factors through
+$\Gal(M^{\tame}/M_0)$, a profinite group all of whose finite quotients have
+order prime to $p$.
+
+Such an action on a $\Zp$-lattice is detected modulo $p$. Indeed, if the
+lattice has rank $r$, then for every $n$ the kernel of
+$\operatorname{GL}_r(\Zp/p^n)\to\operatorname{GL}_r(\mathbf F_p)$ is a
+finite $p$-group, so its intersection with the finite prime-to-$p$ image
+is trivial. The subgroup fixing both $S_1[p]$ and $S_2[p]$ consequently
+acts trivially on every $G_{M^{\tame}}$-equivariant homomorphism.
+This applies to $u$, since $K\subset M^{\tame}$.
+
+For a finite extension $K(\alpha)/K$ inside $\Omega$, replace $M$ by
+$M(\alpha)$ and use
+$K(\alpha)\subset M(\alpha)^{\tame}$.
+The residue field remains separably closed, and the same argument applies
+inside $\Omega$.
+\end{proof}
+
+\section{Finite covers and geometric conjugacy}
+\label{sec:covers}
+
+The construction from differentials will first yield a morphism of curves
+over an algebraically closed field. To recover the prescribed homomorphism
+of fundamental groups, we shall apply that construction on finite covers,
+following the comparison preceding \cite[Theorem~14.1]{Mochizuki1999}.
+The following profinite facts explain how equality on finite torsors gives
+equality up to a single geometric conjugation. They apply to every set of
+primes $\Sigma$.
+
+\begin{lemma}
+\label{lem:cover-tools}
+\begin{enumerate}
+\item If $D$ is a closed subgroup of a profinite group $P$, two continuous
+homomorphisms $\alpha,\beta:H\to P$ are $D$-conjugate if and only if their
+images in every finite quotient of $P$ are conjugate by the image of $D$.
+It suffices to test a cofinal system of finite quotients.
+\item An open subgroup of $\Pi_Z^\Sigma$ is the relative pro-$\Sigma$
+fundamental group of the corresponding connected finite \etale cover,
+viewed over its field of constants.
+\item For a homomorphism $\theta:P_1\to P_2$ over $G$, where
+$1\to D_i\to P_i\to G\to1$ is exact, its image is open if and only if
+$\theta(D_1)$ is open in $D_2$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+For (i), the sets
+$\{d\in D:\beta\equiv d\alpha d^{-1}\pmod N\}$, for open normal
+$N\triangleleft P$, are nonempty closed subsets of the compact group $D$.
+They have the finite intersection property, and their intersection gives
+one conjugating element.
+
+For (ii), let $\mathcal D$ be a profinite group and let $\mathcal H$ be
+the inverse image of an open subgroup of $\mathcal D^{(\Sigma)}$.
+Given an open normal $U\triangleleft\mathcal H$ with finite
+$\Sigma$-group quotient, take cores in $\mathcal D$. The quotient of the
+core of $\mathcal H$ by the core of $U$ embeds into a finite product of
+conjugates of $\mathcal H/U$. Both this quotient and the quotient by the
+core of $\mathcal H$ are finite $\Sigma$-groups. Thus
+$\ker(\mathcal D\to\mathcal D^{(\Sigma)})\subset U$.
+It follows that the maximal pro-$\Sigma$ quotient of $\mathcal H$ is
+its image in $\mathcal D^{(\Sigma)}$.
+Apply this to the geometric fundamental group and then
+use the arithmetic exact sequence.
+
+For (iii), the equalities
+$\theta(P_1)\cap D_2=\theta(D_1)$ and $\theta(P_1)D_2=P_2$ give
+$[P_2:\theta(P_1)]=[D_2:\theta(D_1)]$.
+\end{proof}
+
+In particular, passage to the cover corresponding to the image reduces an
+open homomorphism to a surjection.
+
+A finite geometric cover need not be defined over the original ground
+field. The next observation allows a prescribed geometric Galois group to
+be realized after a finite extension of that field.
+
+\begin{lemma}[Realizing a geometric quotient]
+\label{lem:quotient-descent}
+Let $1\to D\to P\to\Gamma\to1$ be exact, and let $N\triangleleft D$
+be open. After restricting to an open normal subgroup of $\Gamma$, the
+quotient map $D\to D/N$ extends to a quotient of the restricted extension.
+\end{lemma}
+\begin{proof}
+Choose an open normal $B\triangleleft P$ with $B\cap D\subset N$.
+The subgroup $DB$ is the inverse image of an open normal subgroup of
+$\Gamma$. Since $[B,D]\subset B\cap D\subset N$, the subgroup $NB$ is
+normal in $DB$, and the inclusion of $D$ induces
+$D/N\simeq DB/NB$.
+\end{proof}
+
+\begin{lemma}[Arithmetic torsor comparison]
+\label{lem:torsor-comparison}
+Let $\theta:\Pi_X^\Sigma\to\Pi_Y^\Sigma$ be over $G_K$, and let
+$f:X\to Y$ be a $K$-morphism. For an open normal $N\triangleleft\Pi_Y^\Sigma$,
+let $V_N\to Y$ be the corresponding $\Pi_Y^\Sigma/N$-torsor, and let
+$W_N\to X$ be the pullback by $\theta$. If, for a cofinal system of $N$,
+there is a $\Pi_Y^\Sigma/N$-equivariant isomorphism
+\[
+ W_N\simeq X\times_YV_N
+\]
+inducing the identity on the common constant-field quotient, then $f_*$ and
+$\theta$ differ by one inner automorphism from $\Delta_Y^\Sigma$.
+\end{lemma}
+\begin{proof}
+The isomorphism of finite fibres conjugates the two monodromy actions by an
+element of $\Pi_Y^\Sigma/N$. Its identity action on the constant quotient says
+that this element lies in the image of $\Delta_Y^\Sigma$. Apply
+Lemma~\ref{lem:cover-tools}(i). 
+\end{proof}
+
+\section{Integral realization and finite Kummer classes}
+\label{sec:local}
+\label{sec:local-package}
+
+The passage from Tate modules to formal groups and geometric cohomology
+classes is already present in Mochizuki's proof
+\cite[\S6 and the proof of Proposition~7.4]{Mochizuki1999}; see also
+Faltings's account in \cite[Proposition~11]{Faltings1998}.  We need an
+integral version at each finite Kummer level over a discrete valuation
+ring with arbitrary residue field.  We obtain it by characterizing the
+connected Tate lattice by inertia and applying Tate's full faithfulness
+theorem.  The differential of the resulting formal homomorphism will
+then supply the map on regular differentials.
+
+Throughout, $R_0$ is a complete discrete valuation ring of mixed
+characteristic $(0,p)$, $K_0$ is its fraction field, and $\Omega$ is an
+algebraic closure of $K_0$, endowed with the extended valuation.  The
+residue field of $R_0$ is arbitrary.
+
+\subsection{Semistable models and their connected torsion}
+
+Let $C/K_0$ be a smooth proper geometrically connected curve.  By
+semistable reduction \cite[\S9.2, Theorem~7]{BLR1990}, after a finite
+extension of $K_0$ we may choose a regular split semistable model
+$\mathcal C/R_0$.  The stable reduction theorem in genus at least two is
+due to Deligne and Mumford \cite[Corollary~2.7]{DeligneMumford1969}.
+A further finite extension gives a section through the smooth locus
+\cite[\S2.3, Proposition~5]{BLR1990}.  Put
+\[
+ J=\operatorname{Pic}^0_{C/K_0},\qquad
+ \mathcal G=\operatorname{Pic}^0_{\mathcal C/R_0}.
+\]
+Here $\operatorname{Pic}^0$ denotes the subgroup of classes of
+multidegree zero.  Raynaud's theorem identifies $\mathcal G$ with the
+identity component of the N\'eron model of $J$
+\cite[Th\'eor\`emes~8.1.4(b) and~8.2.1]{Raynaud1970}; we use the
+formulation in \cite[\S9.5, Theorem~4(b) and Remark~5]{BLR1990}.
+It is smooth,
+separated, and of finite type, with generic fibre $J$.  Its special fibre
+is an extension of the product of the Jacobians of the normalized
+components by a split torus
+\cite[\S9.2, Example~8]{BLR1990}.
+Thus $\mathcal G$ is semiabelian, and its formation commutes with
+faithfully flat extensions of discrete valuation rings
+\cite[\S7.4, Corollary~4]{BLR1990}.
+
+Write $\widehat{\mathcal G}$ for the formal completion at the identity.
+Multiplication by $p^n$ on $\mathcal G$ is faithfully flat and
+quasi-finite.  Its local factor at the identity of the special fibre is a
+finite flat open and closed subgroup
+\[
+ \widehat{\mathcal G}[p^n]\subset\mathcal G[p^n].
+\]
+These kernels form the connected $p$-divisible group associated to
+$\widehat{\mathcal G}$
+\cite[\S2.2, Proposition~1]{Tate1967}.  We shall also use the same
+notation for $S=\mathbf G_m$, with $\mathcal G=\mathbf G_{m,R_0}$,
+whose formal $p^n$-torsion is $\mu_{p^n}$.
+
+The following description of $T_p\widehat{\mathcal G}$ makes it
+functorial for Galois equivariant homomorphisms of Tate modules.
+
+\begin{lemma}[The connected Tate module]
+\label{loc:inertia-lattice}
+Let $S$ be one of these Jacobians or $\mathbf G_m$, with model
+$\mathcal G$.  Then $T_p\widehat{\mathcal G}$ is saturated in $T_pS$,
+the quotient $T_pS/T_p\widehat{\mathcal G}$ is unramified, and
+\[
+ T_p\widehat{\mathcal G}
+ =T_pS\cap\sum_{\sigma\in I_{K_0}}
+       (\sigma-1)(T_pS\otimes_{\mathbf Z_p}\mathbf Q_p).
+\]
+In particular, every $G_{K_0}$-equivariant map between such Tate modules
+preserves their connected lattices.  A rationally surjective map is
+rationally surjective on the connected lattices as well.
+\end{lemma}
+\begin{proof}
+The injections
+$\widehat{\mathcal G}[p^n](\Omega)\hookrightarrow S[p^n](\Omega)$
+show that $T_p\widehat{\mathcal G}$ is saturated in $T_pS$.  To prove
+that the quotient is unramified, fix $\tau\in J[p^n](\Omega)$ and
+$\sigma\in I_{K_0}$.  Represent $\tau$ by a degree-zero divisor, and
+choose a finite Galois extension over which all its points are rational.
+A point $z$ and its conjugate $\sigma z$ have the same specialization.
+If this specialization is smooth, the difference of their horizontal
+divisors restricts to the trivial line bundle on the special fibre.
+In nodal coordinates, the function
+\[
+                       \frac{x-x(\sigma z)}{x-x(z)}
+\]
+defines the same horizontal difference near the node, since the
+vertical orders cancel.  On the normalized special branches its
+reductions are nonzero constants.  Summing these differences gives an
+extension of $\sigma\tau-\tau$ whose restriction to each normalized
+component is trivial.  Its $p^n$-th power is trivial by separatedness of
+$\mathcal G$.  Its reduction is therefore a $p^n$-torsion point of the
+gluing torus, hence the identity in characteristic $p$.  It follows that
+$\sigma\tau-\tau\in\widehat{\mathcal G}[p^n](\Omega)$, as required.
+For $\mathbf G_m$ the formal and full Tate modules coincide.
+
+It remains to show that the inertia differences span
+$T_p\widehat{\mathcal G}\otimes\mathbf Q_p$.
+More generally, the rational Tate module of a connected $p$-divisible
+group over $R_0$ has no nonzero unramified quotient.  The image of the
+integral Tate module in such a quotient is a Galois stable lattice,
+hence the Tate module of an \etale $p$-divisible group over $R_0$
+\cite[\S1.4]{Tate1967}.  Tate's full faithfulness theorem extends the
+quotient map to a homomorphism over $R_0$
+\cite[\S4.2, Theorem~4]{Tate1967}.  This homomorphism is zero.  Indeed,
+after strict henselization each finite level of the source is connected,
+whereas the target is a disjoint union of copies of the base.  The
+quotient of $T_p\widehat{\mathcal G}\otimes\mathbf Q_p$ by the span of
+its inertia differences is unramified, and must therefore vanish.
+Since $T_pS/T_p\widehat{\mathcal G}$ is
+unramified, every inertia difference in $T_pS\otimes\mathbf Q_p$ lies
+in $T_p\widehat{\mathcal G}\otimes\mathbf Q_p$.  Saturation gives the
+displayed formula.  An equivariant homomorphism
+preserves inertia differences, and a surjective homomorphism maps their
+span onto the corresponding span in the target.  This proves the final
+assertions.
+\end{proof}
+
+\begin{proposition}[Tate realization]
+\label{loc:tate-realization}
+Let $S_i$ and $\mathcal G_i$ be as above.  A $G_{K_0}$-equivariant
+homomorphism $u:T_pS_1\to T_pS_2$ induces a unique formal group
+homomorphism over $R_0$
+\[
+ F_u:\widehat{\mathcal G}_1\longrightarrow\widehat{\mathcal G}_2,
+ \qquad T_pF_u=u|_{T_p\widehat{\mathcal G}_1}.
+\]
+The assignment $u\mapsto dF_u$ is additive and compatible with
+composition and finite extensions.  After base change to $\Omega$, the
+induced map on Lie algebras is independent of the semistable models and
+finite local stages used in its construction.  For an algebraic
+homomorphism $f$ defined after a finite extension of $K_0$, one has
+$dF_{T_pf}=df$ over that extension.  Moreover, $dF_u\ne0$ if either
+$u\otimes\mathbf Q_p$ is surjective and $\dim S_2>0$, or
+$S_1=\mathbf G_m$ and $u\ne0$.
+\end{proposition}
+\begin{proof}
+By Lemma~\ref{loc:inertia-lattice}, $u$ restricts to the connected
+lattices.  Tate's theorem extends this restriction uniquely to a
+homomorphism of $p$-divisible groups, and hence of their associated
+formal groups \cite[\S4.2, Theorem~4 and Corollary~1; \S2.2,
+Proposition~1]{Tate1967}.  Uniqueness gives additivity and compatibility
+with composition.  The identification with the semistable N\'eron
+identity component, and its compatibility with base change, show that
+the construction is independent of the chosen model and finite stage.
+An algebraic homomorphism extends by the N\'eron mapping property; its
+formal completion induces the prescribed Tate map and therefore
+coincides with $F_{T_pf}$.  Taking derivatives proves
+$dF_{T_pf}=df$.
+
+If $u\otimes\mathbf Q_p$ is surjective, Lemma~\ref{loc:inertia-lattice}
+shows that its restriction to the connected part is surjective over
+$\mathbf Q_p$.  This target is nonzero when $\dim S_2>0$.  If
+$S_1=\mathbf G_m$, the connected Tate module is the whole Tate module.
+Thus either hypothesis implies $F_u\ne0$.  The formal logarithm in
+characteristic zero then gives $dF_u\ne0$.
+\end{proof}
+
+\subsection{Correcting points by algebraic constants}
+
+Mochizuki translates points by constants to place them in the identity
+component of a N\'eron model in the argument preceding
+\cite[Lemma~9.2]{Mochizuki1999}.  For the valued extensions used here,
+we make this correction directly on divisors of the semistable curve.
+The correcting point lies in $S(\Omega)$ and is therefore divisible by
+every power of $p$; its subtraction does not change a finite Kummer class.
+
+\begin{lemma}[Points modulo constants]
+\label{loc:point-correction}
+Let $F/K_0$ be an extension of complete discretely valued fields whose
+valuation ring dominates $R_0$, and let $E/F$ be algebraic with
+$\Omega\subset E$.  For a model $\mathcal G$ as above, every
+$P\in S(E)$ admits an expression
+\[
+                         P=z+c,
+ \qquad z\in\mathcal G(\mathcal O_E),\quad c\in S(\Omega).
+\]
+For $\mathbf G_m$ the displayed sum is interpreted multiplicatively.
+\end{lemma}
+\begin{proof}
+For $S=\mathbf G_m$, choose $c\in\Omega^\times$ with $v(c)=v(P)$;
+this is possible since the values are rational multiples of $v(p)$.
+Then $P/c\in\mathcal O_E^\times$.
+
+Now suppose $S=J$.  Choose a finite extension $F'/F$ inside $E$ over
+which $P$ is defined.  The section of $\mathcal C$ allows us to represent
+$P$ by a degree-zero line bundle, and hence by a divisor $\sum m_ZZ$
+on $C_{F'}$ \cite[\S8.1, Proposition~4]{BLR1990}.
+It suffices to choose constant points $c_Z\in C(\Omega)$ for which
+\[
+       \overline Z-[F'(Z):F']\,\overline{c_Z}
+\]
+is Cartier of multidegree zero.  We may enlarge $F'$ by finite constant
+extensions inside $E$ to make the chosen $c_Z$ rational.  If such an
+extension splits $Z$, the same choice of constant point is retained for
+each point above it.
+
+If $Z$ specializes to the smooth locus, take $c_Z$ specializing to a
+smooth point of the same component; Hensel's lemma gives such a point
+over a finite constant extension.  The closure of $Z$ is Cartier and
+has special degree $[F'(Z):F']$ on that component and degree zero on
+the others.  The required difference therefore has multidegree zero.
+
+Suppose instead that $Z$ specializes to a node.  In a split \etale
+chart the completed local ring is $\mathcal O_{F'}[[x,y]]/(xy-q)$, with
+$q\in R_0$.  Normalize $v$ to have value group $\mathbf Z$ on $F'$,
+and put $a=x(Z)$.  Then $0<v(a)<v(q)$ and $F'(Z)=F'(a)$: the other
+coordinate is $q/a$, and the lift through the \etale chart is uniquely
+determined by Hensel's
+lemma.  Write $d=[F'(Z):F']$, and let $P_a$ be the minimal polynomial
+of $a$.  The horizontal divisor of $P_a(x)$ is $\overline Z$, with
+multiplicity one.  Since all conjugates of $a$ have valuation $v(a)$,
+the vertical order along the branch $x=0$ is
+$v(N_{F'(a)/F'}(a))=d\,v(a)$; along the other branch it is zero.
+Choose $a_c\in\Omega$ with $v(a_c)=v(a)$ and lift $(a_c,q/a_c)$ through
+the chart to obtain $c_Z$.
+The quotient
+\[
+                  \frac{P_a(x)}{(x-a_c)^d}
+\]
+is a local equation for $\overline Z-d\,\overline{c_Z}$.  On the
+normalized special branches it reduces to $1$ and
+$\overline{N_{F'(a)/F'}(a)/a_c^d}$, respectively, after canceling the
+vertical orders.  Both are nonzero constants.  The associated line bundle is
+therefore trivial on each normalized component, and in particular has
+multidegree zero.  Being Cartier can be checked after the faithfully
+flat completion; away from the node it is already clear.  The same
+calculation applies after a constant extension, since the component and
+the valuation specifying $c_Z$ are unchanged.
+
+The sum of these corrected divisors is Cartier of multidegree zero,
+and its generic class is
+$P-[\sum m_Z[F'(Z):F']c_Z]$.  It defines a point of
+$\mathcal G(\mathcal O_{F'})$, and hence the required point of
+$\mathcal G(\mathcal O_E)$.
+\end{proof}
+
+\begin{lemma}[Preservation of Kummer classes]
+\label{loc:kummer-transfer}
+Retain the preceding notation and assume that the residue field of $E$
+is separably closed.  For $u:T_pS_1\to T_pS_2$ as in
+Proposition~\ref{loc:tate-realization}, $P\in S_1(E)$, and $n\ge1$, there
+is $Q_n\in S_2(E)$ such that
+\[
+ u_n\kappa_{S_1,n}(P)=\kappa_{S_2,n}(Q_n)
+       \quad\text{in }H^1(E,S_2[p^n]).
+\]
+\end{lemma}
+\begin{proof}
+Write $P=z+c$ as in Lemma~\ref{loc:point-correction}.  Since
+$S_1(\Omega)$ is $p$-divisible, it is enough to treat the integral point
+$z$.  Work over the strictly henselian ring $\mathcal O_E$.
+The quotient of $\mathcal G_i[p^n]$ by its open subgroup
+$\widehat{\mathcal G}_i[p^n]$ is \etale.
+Smooth-group torsors over a strictly henselian local ring are trivial
+\cite[Expos\'e~XXIV, Proposition~8.1 and its footnote]{SGA3}.  The fppf
+cohomology sequences show that every $\mathcal G_i[p^n]$-torsor lifts
+to a $\widehat{\mathcal G}_i[p^n]$-torsor and is itself the division
+torsor of a point of $\mathcal G_i(\mathcal O_E)$.
+
+Lift the division torsor of $z$ to the connected subgroup
+$\widehat{\mathcal G}_1[p^n]$.  Push it out by $F_u[p^n]$ and then by
+the inclusion into $\mathcal G_2[p^n]$.  The resulting torsor is the
+division torsor of some $Q_n\in\mathcal G_2(\mathcal O_E)$.
+On generic fibres, $F_u[p^n]$ is the restriction of $u_n$, so this
+construction gives the asserted equality of Kummer classes.
+\end{proof}
+
+\subsection{The differential estimate}
+
+The integral comparison between Kummer classes and differentials is the
+step carried out by $p$-adic Hodge theory in
+\cite[\S9, before Lemma~9.2]{Mochizuki1999}.  Here it follows from the
+formal homomorphism and the point correction above: equality of finite
+Kummer classes gives divisibility of the difference of the logarithmic
+derivatives in the integral Lie algebra of the fixed model.
+
+For a derivation $D$ of an $R_0$-algebra and a point $z$ of a smooth
+commutative group, write $\partial_Dz$ for its logarithmic derivative,
+characterized by
+$\langle\eta,\partial_Dz\rangle=\langle z^*\eta,D\rangle$ for invariant
+differentials $\eta$.  This operation is additive and is natural under
+group homomorphisms.
+
+\begin{lemma}[Integral differential comparison]
+\label{loc:differential-comparison}
+Let $u$ and $F_u$ be as in Proposition~\ref{loc:tate-realization}, and
+let $F/K_0$ and $E/F$ be as in Lemma~\ref{loc:point-correction}.
+Suppose $D:E\to E$ is a $K_0$-derivation preserving $\mathcal O_E$, with
+$D(F)\subset F$ and continuous restriction to $F$.  For
+$x\in\widehat{\mathcal G}_1(\mathfrak m_F)$ and every $n\ge1$,
+\[
+ \kappa_{S_2,n}(F_u(x))=u_n\kappa_{S_1,n}(x),\qquad
+ \partial_D(F_u(x))=dF_u(\partial_Dx).
+\]
+The first equality is in $H^1(F,S_2[p^n])$.
+If $S_2=J$ and $z\in J(E)$ has
+$\kappa_{J,n}(z)=u_n\kappa_{S_1,n}(x)$, then
+\[
+ \partial_Dz-dF_u(\partial_Dx)
+ \in p^n\operatorname{Lie}(\mathcal G_2)\otimes_{R_0}\mathcal O_E.
+\]
+\end{lemma}
+\begin{proof}
+The series $F_u$ converges at $x$, with
+$F_u(x)\in\widehat{\mathcal G}_2(\mathfrak m_F)$.
+Finite flatness of $[p^n]$ gives a division
+point $y$ of $x$ in the formal neighborhood over a finite extension of
+$F$.  For $\sigma\in G_F$ one has
+\[
+ \sigma F_u(y)-F_u(y)=F_u(\sigma y-y)=u_n(\sigma y-y).
+\]
+This proves the equality of Kummer classes.  Naturality of invariant
+differentials, together with continuity of $D$, gives the equality of
+logarithmic derivatives.
+
+For the final assertion, the Kummer exact sequence gives
+$z-F_u(x)=[p^n]w$ with $w\in J(E)$.  Apply
+Lemma~\ref{loc:point-correction} to write $w=w_0+a$, where
+$w_0\in\mathcal G_2(\mathcal O_E)$ and $a\in J(\Omega)$.
+Since a $K_0$-derivation vanishes on $\Omega$,
+\[
+ \partial_Dz-dF_u(\partial_Dx)=p^n\partial_Dw_0.
+\]
+Finally, $\partial_Dw_0$ belongs to
+$\operatorname{Lie}(\mathcal G_2)\otimes_{R_0}\mathcal O_E$ because $D$
+preserves $\mathcal O_E$.  This proves the inclusion.
+\end{proof}
+
+\section{From finite Kummer classes to curve points}
+\label{sec:approximation}
+
+To pass from points of Jacobians to points of curves, we follow the
+Picard-torsor argument of \cite[\S4, Proposition~7.4 and \S8]{Mochizuki1999}
+and its presentation in \cite[\S5, Proposition~9 and Definition~10;
+\S6]{Faltings1998}. A sufficiently divisible lift of a section
+trivializes the degree-one Picard torsor. After passing to a cover of
+suitable genus, the pro-$p$ hypothesis on the absolute Galois group
+turns a degree-one Picard class into a rational point. We obtain points whose
+sections agree with a prescribed section in a fixed finite Kummer quotient.
+
+For a proper curve $C$ with a chosen geometric base point,
+$\alpha_C:C\to J_C$ denotes the corresponding Abel--Jacobi morphism,
+defined over the field of that point. For $\Gm$, the notation
+$\alpha_{\Gm}$ denotes the identity. The differential pullback in the
+proper case is independent of the base point, since translations on a
+Jacobian preserve invariant differentials.
+
+\begin{lemma}[A divided torsor]
+\label{lem:divided-torsor}
+Let $A/F$ be an abelian variety in characteristic zero, let $T$ be an
+$A$-torsor, and let $s:G_F\to\Pi_T$ be a section. Let $m$ be a power of
+$p$. Suppose
+$E/F$ is finite of degree dividing $m$ and $P\in T(E)$ has the same $A[m]$-conjugacy class of sections as $s|_{G_E}$ in the
+quotient whose geometric kernel is $A[m]$. Then $T(F)\ne\varnothing$.
+\end{lemma}
+\begin{proof}
+The cocycle description of the extension with geometric kernel $A[m]$
+associates to the splitting induced by $s$ a class
+$\eta\in H^1(F,A)$ with $m\eta=[T]$
+\cite[Proposition~2.2 and Lemma~2.3]{HarariSzamuely2009}.
+In this description, agreement with the point section of $P$ means
+that $\eta|_E=0$.
+Restriction followed by corestriction gives $[E:F]\eta=0$. Since
+$[E:F]\mid m$, it follows that $[T]=m\eta=0$.
+\end{proof}
+
+\begin{lemma}[Degree-one Picard classes over pro-$p$ fields]
+\label{lem:picard-point}
+Let $F$ have characteristic zero and pro-$p$ absolute Galois group. Let
+$C/F$ be a smooth proper geometrically connected curve of genus $g$.
+If $\Pic_C^1(F)\ne\varnothing$ and either $p$ is odd or $g$ is odd, then
+$C(F)$ is nonempty. In fact its points avoid any prescribed finite closed
+subscheme.
+\end{lemma}
+\begin{proof}
+Let $\xi\in\Pic_C^1(F)$, and let $\beta\in\operatorname{Br}(F)$ be the
+obstruction to representing $\xi$ by a line bundle over $F$
+\cite[\S8.1, Proposition~4]{BLR1990}. Choose a
+degree-one representative $M$ and descent isomorphisms over a finite Galois
+extension $F'/F$, whose scalar cocycle $c_{\sigma,\tau}$ represents
+$\beta$. This extension
+has $p$-power degree, so restriction--corestriction shows that $\beta$ has
+$p$-power order.
+
+We use the determinant of cohomology to obtain an annihilator prime to
+$p$; this is the Picard-obstruction argument recalled by Faltings
+\cite[p.~143]{Faltings1998}.
+Choose $m>2g-2$ with $p\nmid m(m+1-g)$, which is possible under the
+stated parity hypothesis. Riemann--Roch gives
+$h^0(C_{F'},M^{\otimes m})=m+1-g$. Taking determinants of the
+semilinear maps on this space of sections makes the scalar cocycle
+$c_{\sigma,\tau}^{m(m+1-g)}$ a coboundary. Hence
+$m(m+1-g)\beta=0$, and $\beta=0$.
+Thus $\xi$ is represented by a degree-one line bundle $L$ over $F$.
+
+For a sufficiently large $d$ prime to $p$, the line bundle $L^{\otimes d}$
+has a section whose zero divisor avoids the prescribed finite subscheme:
+the evaluation map is surjective by Riemann--Roch, and $F$ is infinite.
+The resulting effective divisor has degree $d$. Every closed point has
+$p$-power degree, so at least one point in its support has degree one.
+\end{proof}
+
+We now apply these observations to a twist of an abelian cover of the
+target. The use of covers carrying a lift of a section is the method
+underlying Tamagawa's criterion for geometric sections
+\cite[Corollary~2.10]{Tamagawa1997}. Here we require agreement with the
+section only modulo a prescribed power of $p$; the pro-$p$ hypothesis
+and the preceding two lemmas provide the required rational point.
+
+\begin{lemma}[Finite point approximation]
+\label{lem:point-approximation}
+Let $X/K$ be a smooth proper geometrically connected curve or $\Gm$, let
+$Y/K$ be proper hyperbolic, and let $\theta:\Pi_X\to\Pi_Y$ be over $G_K$.
+Let $L\supset\bar K$ have pro-$p$ absolute Galois group. Suppose that on
+every finite geometric $p$-cover induced by $\theta$, the corresponding
+Tate map preserves finite Kummer images over every finite extension of
+$L$. Then, for every $x\in X(L)$ and $n\ge1$, there is $y_n\in Y(L)$
+whose point section agrees with $\theta s_x$ after geometric
+abelianization modulo $p^n$.
+\end{lemma}
+\begin{proof}
+Put $s=\theta s_x$ and choose $a\ge\max(n,2)$.
+A point of $Y(\bar K)$ supplies a splitting, and
+$G_L$ acts trivially on $T_pJ_Y/p^a$. Thus the abelianized extension
+modulo $p^a$ is $(T_pJ_Y/p^a)\times G_L$. Write
+$s(g)=(\rho_a(g),g)$. The quotient $(q,g)\mapsto q-\rho_a(g)$ defines a
+geometrically connected $(T_pJ_Y/p^a)$-torsor $Y_a^s\to Y_L$ to which
+$s$ lifts.
+The Abel--Jacobi morphism from $Y_a^s$ to its degree-one Picard torsor
+therefore carries the lifted section to a section of
+$\Pic^1_{Y_a^s/L}$.
+
+Let $T/L$ be the finite extension cut out by $\ker\rho_a$. Over $T$ the
+twisted cover becomes a geometric cover $V$, and $x$ lifts to a point $z$
+of the corresponding pullback cover $U$. Choose all covers and their
+constant base points over a finite extension of $K$ inside $\bar K$.
+Then $U$ is a proper curve or, in the multiplicative case, a copy of
+$\Gm$ with the chosen base point corresponding to $1$.
+These choices identify the Picard torsor with $J_V$ over $T$.
+The arithmetic base-point cocycle vanishes on $G_T$, since $T$ contains
+$\bar K$. Relative to the chosen constant point of $\Pic^1_V$, the
+difference of sections at level $p^m$ is consequently the image of
+$\kappa_{J_U,m}(\alpha_U(z))$ in the proper case, or
+$\kappa_{\Gm,m}(z)$ in the multiplicative case, under the homomorphism
+induced by $\theta$ on geometric abelianizations. This is the
+section-difference calculation of \cite[Lemma~2.6]{Tamagawa1997},
+applied to the finite $p$-primary quotient.
+
+Take $m$ with $[T:L]\mid p^m$. By the Kummer-image hypothesis this
+difference is the Kummer class of a point of $J_V(T)$. Translating the
+constant Picard point by that point gives a point whose section agrees
+with the prescribed section modulo $p^m$. Applying
+Lemma~\ref{lem:divided-torsor} to the Picard torsor over $L$ gives
+$\Pic^1_{Y_a^s/L}(L)\ne\varnothing$.
+Riemann--Hurwitz gives
+\[
+ g(Y_a^s)-1=p^{2g(Y)a}(g(Y)-1).
+\]
+Thus its genus is odd when $p=2$, and Lemma~\ref{lem:picard-point}
+produces an $L$-point of $Y_a^s$. Its image $y_n$ has the required
+section difference modulo $p^a$, and hence modulo $p^n$.
+\end{proof}
+
+\section{Reconstruction from differentials}
+\label{sec:reconstruction}
+
+The reconstruction of a curve morphism by preserving relations among
+regular differentials is the argument of Mochizuki
+\cite[Proposition~12.1 and Corollary~13.4]{Mochizuki1999}; see also
+Faltings \cite[\S6]{Faltings1998}.
+The points just constructed need not be compatible as $n$ varies.
+Their differential pullbacks nevertheless approach a fixed linear map,
+and this will suffice to reconstruct a morphism. The reason is that a
+proper hyperbolic curve is recovered from ratios of regular
+differentials together with their first derivatives. The derivatives
+retain the information lost by the canonical map in the hyperelliptic
+case. A derivation bounded for the valuation then allows the algebraic
+relations among these functions to pass to the limit.
+
+\subsection{Canonical ratios and their first derivatives}
+
+\begin{lemma}
+\label{lem:first-jets}
+Let $C/k$ be a proper hyperbolic curve in characteristic zero, with basis
+$\omega_0,\ldots,\omega_{g-1}$ of its regular differentials. Set
+\[
+ U=\{\omega_0\ne0\},\qquad
+ r_i=\omega_i/\omega_0,\qquad h_i=dr_i/\omega_0.
+\]
+Then $U$ is affine and
+\begin{equation}
+             \cO(U)=k[r_i]_i+\sum_i k[r_j]_j h_i=k[r_i,h_i]_i.
+ \label{eq:jet-generation}
+\end{equation}
+Consequently dominant rational maps from an integral $k$-scheme to $C$
+are determined by their pullbacks of regular differentials.
+\end{lemma}
+\begin{proof}
+The canonical map is an embedding unless $C$ is geometrically
+hyperelliptic \cite[Lemma~10.4(1)--(2)]{Mochizuki1999}.
+In the hyperelliptic case, uniqueness of the involution makes it descend
+to $k$. Its quotient is a smooth genus-zero curve, and the canonical
+map factors through this quotient, followed by the embedding defined by
+a complete linear system of degree $g-1$.
+The inverse image of the affine canonical chart is $U$, so
+$\cO(U)$ is finite over $k[r_i]_i$. In the nonhyperelliptic case,
+$\cO(U)=k[r_i]_i$.
+
+In the hyperelliptic case, the quotient has genus zero, so the involution
+$\iota$ acts as $-1$ on regular differentials. Its invariant ring is $k[r_i]_i$, and
+$\cO(U)=k[r_i]_i\oplus\cO(U)^-$, where the second summand is the
+anti-invariant part. Invariant differentials on $U$ are precisely the
+pullbacks of differentials from $\Spec k[r_i]_i$. Indeed, away from
+the branch locus this follows from \etale descent; at a branch point,
+the local equation $z^2=b$ gives $z\,dz=db/2$ and proves the same
+assertion. Since $\omega_0$ trivializes the differentials on $U$, their
+invariant part is $\cO(U)^-\omega_0$. The coordinate differentials
+$dr_i=h_i\omega_0$ generate this module over $k[r_i]_i$. Thus
+$\cO(U)^-=\sum_i k[r_j]_j h_i$, which proves
+\eqref{eq:jet-generation}.
+
+For the last assertion, two dominant maps with the same differential
+pullback have the same values on every $r_i$. Differentiating and dividing
+by the common nonzero pullback of $\omega_0$ gives the same values on
+every $h_i$. Equation~\eqref{eq:jet-generation} proves equality of the
+maps on the generic point.
+\end{proof}
+
+\begin{proposition}[Reconstruction of a morphism]
+\label{prop:reconstruction}
+Let $k\subset E\subset L$ be characteristic-zero fields with $E/k$
+finitely generated of transcendence degree one. Let $v$ be a real-valued
+nonarchimedean valuation on $L$, and let $D:L\to L$ be a derivation satisfying
+\[
+ D(k)=0,\quad D(E)\subset E,\quad D|_E\ne0,\qquad v(Db)\ge v(b).
+\]
+Let $C/k$ be proper hyperbolic and let
+$a:H^0(C,\omega_C)\to\Omega^1_{E/k}$ be a nonzero $k$-linear map.
+Suppose that for every $N$ there exists $y_N\in C(L)$ such that, on one
+basis $\omega_i$,
+\[
+ v\bigl(\langle y_N^*\omega_i,D\rangle-
+             \langle a(\omega_i),D\rangle\bigr)\ge N.
+\]
+Then there is a unique nonconstant $q\in C(E)$ with $q^*=a$.
+\end{proposition}
+\begin{proof}
+Evaluation at $D$ identifies $\Omega^1_{E/k}$ with $E$. Put
+$A_i=\langle a(\omega_i),D\rangle$ and reorder the basis so that
+$A_0\ne0$. Write $\beta_{i,N}=\langle y_N^*\omega_i,D\rangle$.
+For large $N$, $\beta_{0,N}\ne0$, and hence $y_N\in U(L)$, with $U$
+as in Lemma~\ref{lem:first-jets}. Its evaluation map
+$\varphi_N:\cO(U)\to L$
+satisfies
+\[
+ \varphi_N(r_i)=\frac{\beta_{i,N}}{\beta_{0,N}},\qquad
+ \varphi_N(h_i)=\frac{D\varphi_N(r_i)}{\beta_{0,N}}.
+\]
+The denominators have eventually constant valuation, and $D$ does not
+decrease the valuation of an error. Therefore these values converge, in
+the valuation sense, to
+\[
+ A_i/A_0,\qquad D(A_i/A_0)/A_0\quad\text{in }E.
+\]
+Every polynomial relation among the $r_i,h_i$ remains true at these
+limits. Indeed, evaluation of a polynomial is continuous for the
+valuation, and all the proposed limits already belong to $E$; no
+completeness assumption on $E$ or $L$ is involved.
+Equation~\eqref{eq:jet-generation}
+therefore gives a $k$-algebra map $\psi:\cO(U)\to E$ and a point
+$q\in U(E)$. For every $b\in\cO(U)$, both $\varphi_N(b)\to\psi(b)$ and
+$D\varphi_N(b)\to D\psi(b)$.
+
+Write each regular differential on $U$ as a finite sum
+$\omega_i=\sum_j c_{ij}\,db_j$, where $b_j$ run through the generators
+$r_i,h_i$ and $c_{ij}\in\cO(U)$. Passing to the limit in this expression
+shows $\langle q^*\omega_i,D\rangle=A_i$. Thus $q^*=a$; in particular
+$q$ is nonconstant. Uniqueness follows from Lemma~\ref{lem:first-jets}.
+\end{proof}
+
+\subsection{A valued generic point}
+
+To apply Proposition~\ref{prop:reconstruction}, we realize the generic
+point of the source curve in a valued field on which differentiation is
+bounded. We also need the residue field to be separably closed and the
+absolute Galois group to be pro-$p$, as required by the approximation
+argument. The following construction provides these properties
+simultaneously. The compositum of an unramified extension with the
+algebraic constants is the valued field used by Faltings
+\cite[\S6, pp.~146--147]{Faltings1998}. We record the boundedness of a
+derivation on this field, which will allow us to pass algebraic
+relations to the limit.
+
+\begin{lemma}
+\label{lem:gauss}
+Let $K_0$ be a complete discretely valued field of mixed characteristic
+$(0,p)$ and let $X/K_0$ be a smooth geometrically connected curve.
+After a finite extension of $K_0$, its function field embeds in
+$F=\widehat{K_0(t)}$, completed for the Gauss valuation, so that its
+generic point lies in any prescribed formal neighborhood of a chosen
+rational smooth point. On
+\[
+ L=F^{\nr}\Omega,\qquad \Omega=\overline{K_0},
+\]
+the derivation $D=\partial/\partial t$ satisfies
+\begin{equation}
+ D(\Omega)=0,\quad D(K_0(X))\subset K_0(X),\quad
+ D|_{K_0(X)}\ne0,\quad v(Db)\ge v(b).
+ \label{eq:bounded-D}
+\end{equation}
+The field $L$ and all its finite extensions have separably closed residue
+fields, value group $\mathbf Q$ when $v(p)=1$, and pro-$p$ absolute
+Galois groups.
+\end{lemma}
+\begin{proof}
+Choose a rational smooth point after finite extension, an \etale coordinate
+$z$ vanishing there, and a standard \etale equation $P(z,y)=0$ normalized
+by $P_y(0,0)=1$. With a uniformizer $\pi$ and sufficiently large $m$,
+\[
+ \pi^{-m}P(\pi^{2m}t,\pi^m w)=w+\pi H(t,w),
+                 \qquad H\in\cO_{K_0}[t,w].
+\]
+Hensel's lemma gives a point over $F$ with $z=\pi^{2m}t$. It is generic,
+and $m$ can be increased to place it in any prescribed formal
+neighborhood. Differentiation does not decrease Gauss valuation on
+$K_0(t)$, and consequently extends continuously to $F$. Separability
+implies that it preserves the embedded function field.
+
+For each finite constant extension $K_1/K_0$, the field $FK_1$ is the
+Gauss completion of $K_1(t)$, so the same estimate holds. Formal
+\'etaleness gives unique extension of a derivation across a finite
+\etale algebra \cite[Tag~\stacks{00UR}]{Stacks}. Applying this to the unramified
+extensions, after constant extension, shows that $D$ preserves
+$\cO_L$. Every value in $L$ is realized by a constant in $\Omega$.
+Dividing an element by a constant of the same value proves the full
+inequality in \eqref{eq:bounded-D}.
+
+The residue field of $L$ is separably closed. Since $L/F$ is algebraic
+and $\Omega$ contains all roots of $p$, its value group is $\mathbf Q$;
+these statements persist under finite extension. For every prime
+$\ell\ne p$, each such extension $T$ has $\ell$-divisible multiplicative
+group: divide the value by $\ell$, then apply Hensel's lemma to a unit.
+Kummer theory excludes cyclic extensions of degree $\ell$ over every
+finite extension of $L$. A non-$p$ finite Galois quotient would contain
+a subgroup of order $\ell$ and yield just such an extension. Hence $G_L$
+is pro-$p$.
+\end{proof}
+
+\subsection{The geometric curve morphism}
+
+Let $S_1,S_2$ be Jacobians or $\Gm$ over a $p$-subtame field $K$, and
+let $u:T_pS_1\to T_pS_2$ be $G_K$-equivariant. Fix an embedding
+$K\subset M^{\tame}\subset\Omega$ as in Section~\ref{sec:fields}.
+Lemma~\ref{lem:tate-descent} and Proposition~\ref{loc:tate-realization}
+define an $\Omega$-linear differential
+\begin{equation}
+ \lambda_u:\Lie(S_1)_\Omega\longrightarrow\Lie(S_2)_\Omega.
+ \label{eq:lambda}
+\end{equation}
+It is compatible with extension of the finite field of definition,
+composition, and algebraic group morphisms. The proposition below
+constructs a geometric curve morphism from this differential. Its
+descent to $K$, and the comparison with the original nonabelian
+homomorphism, will be proved in the next section.
+
+\begin{proposition}
+\label{prop:geometric-map}
+Let $K$ be $p$-subtame, $X/K$ a smooth proper geometrically connected
+curve or $\Gm$, and $Y/K$ proper hyperbolic. Choose geometric base
+points on the proper curves, and use $1$ on $\Gm$.
+Let $\theta:\Pi_X\to\Pi_Y$ be over $G_K$.
+Its geometric abelianization $\theta^{\ab}$ has target $T_pJ_Y$ and
+source $T_pJ_X$ in the proper case, or $\Zp(1)$ when $X=\Gm$.
+If
+\[
+ a_\theta=\alpha_X^*\lambda_{\theta^{\ab}}^*:
+ H^0(Y_\Omega,\omega_{Y_\Omega})\longrightarrow
+ H^0(X_\Omega,\Omega^1_{X_\Omega/\Omega})
+\]
+is nonzero, there is a unique nonconstant morphism
+$f_\Omega:X_\Omega\to Y_\Omega$ with $f_\Omega^*=a_\theta$.
+The construction commutes with morphisms of the relevant finite covers
+and their geometric deck transformations.
+\end{proposition}
+\begin{proof}
+Descend the curves, base points, and $\theta^{\ab}$ to a finite extension $M_0/M$
+of the local field using Lemma~\ref{lem:tate-descent}. Enlarge $M_0$ to choose the
+semistable models and the integral formal map $F_{\theta^{\ab}}$. Apply
+Lemma~\ref{lem:gauss} near a base point of $X$ so that its generic point
+$x\in X(F)$ has Abel--Jacobi image $\alpha_X(x)$ in the formal
+neighborhood of the identity. Set
+$L=F^{\nr}\Omega$ and
+$q=F_{\theta^{\ab}}(\alpha_X(x))\in J_Y(F)$.
+Lemma~\ref{loc:differential-comparison} identifies the Kummer class of
+$q$ modulo $p^n$ with the image under $(\theta^{\ab})_n$ of the Kummer
+class of $\alpha_X(x)$, taken in $J_X$ or $\Gm$ according to the
+source. It also gives
+\[
+ \partial_Dq=\lambda_{\theta^{\ab}}(\partial_D\alpha_X(x)).
+\]
+
+To obtain points of $Y$ approximating $q$, we check the hypothesis of
+Lemma~\ref{lem:point-approximation} over this same field $L$.
+The untwisted covers $V,U$ occurring there and their induced Tate maps
+descend to a finite extension of $K$.
+Lemma~\ref{lem:tate-descent} puts these data and their models over some
+finite $M_1/M_0$ inside $\Omega$. For any finite $T/L$,
+the field $FM_1\subset T$ is a complete discretely valued field and
+$T/FM_1$ is algebraic with separably closed residue field. Thus
+Lemma~\ref{loc:kummer-transfer} preserves every finite Kummer image over
+$T$ itself. Finite geometric $p$-covers of $\Gm$ become
+$t\mapsto t^{p^b}$ after finite constant extension
+\cite[Example~9.8]{Milne1986}, so the same argument includes that case.
+
+Lemma~\ref{lem:point-approximation} now supplies $y_n\in Y(L)$ whose
+Abel--Jacobi images have the same Kummer classes as $q$ modulo $p^n$.
+Apply Lemma~\ref{loc:differential-comparison}, using the one fixed lattice
+of invariant differentials on the model of $J_Y$. Their pullbacks to $Y$
+form a basis by \eqref{eq:AJ}. We obtain the approximation required in
+Proposition~\ref{prop:reconstruction}, with
+$M_0\subset M_0(X)\subset L$. This gives a nonconstant rational map over
+$M_0$, which extends because the source is a smooth curve and the target
+is proper \cite[Tag~\stacks{0BXZ}]{Stacks}. Base change gives $f_\Omega$.
+
+Uniqueness follows from Lemma~\ref{lem:first-jets}. For a comparison
+between covers, all the data can be defined over a common finite
+extension of the local field. Naturality of
+$\lambda_{\theta^{\ab}}$, followed by the same uniqueness, proves the assertions
+about finite covers and geometric deck maps.
+\end{proof}
+
+\section{The Hom theorem for proper curves}
+\label{sec:proper-hom}
+
+The preceding section constructs a geometric morphism with the
+differential prescribed by $\theta$. We must still prove that it induces
+$\theta$ on the fundamental group. We follow Mochizuki's comparison
+over finite covers \cite[\S14, proof of Theorem~14.1]{Mochizuki1999},
+also used by Faltings \cite[proof of Theorem~14]{Faltings1998}.
+The construction is applied to every finite cover of the target.
+Its uniqueness makes the resulting
+morphisms compatible and equivariant under deck transformations, so
+that they recover the full geometric homomorphism. The following lemma
+then gives descent to the ground field and equality on the arithmetic
+fundamental groups. We include the descent and centralizer arguments
+for the present ground fields.
+
+\begin{lemma}[Geometric faithfulness and arithmetic descent]
+\label{lem:arithmetic-descent}
+Let $X/k$ be a smooth proper geometrically connected curve and $Y/k$
+proper hyperbolic, in characteristic zero. A nonconstant morphism
+$X\to Y$ is determined by its geometric outer pro-$p$ homomorphism.
+If a nonconstant morphism over an algebraically closed extension $\Omega/k$
+has the same geometric outer homomorphism as an open
+$\theta:\Pi_X\to\Pi_Y$ over $G_k$, it descends to a unique $k$-morphism,
+whose entire arithmetic homomorphism is $\theta$ modulo geometric
+conjugation.
+\end{lemma}
+\begin{proof}
+The Tate-module functor is faithful on abelian varieties
+\cite[Lemma~12.2]{MilneAV1986}. Thus equal geometric outer
+homomorphisms give equal Jacobian homomorphisms and equal differential
+pullbacks, by the Abel--Jacobi identifications
+\cite[Propositions~2.2 and 9.1]{Milne1986}.
+Lemma~\ref{lem:first-jets} proves the first assertion.
+
+For every $\sigma\in\Aut(\Omega/k)$, the morphisms $f_\Omega$ and
+$\sigma f_\Omega$ have the same geometric outer homomorphism, by the
+$G_k$-compatibility of $\theta$ and invariance of geometric fundamental
+groups under algebraically closed extension. They are therefore equal.
+Their function-field map descends to $k$. One may see the descent
+directly from
+\[
+                         \Omega(X)^{\Aut(\Omega/k)}=k(X).
+\]
+To verify this equality, take an invariant fraction with a denominator
+$\sum_{i=1}^r a_ie_i$, where the $e_i\in k(X)$ are $k$-linearly
+independent, $a_1=1$, and $r$ is minimal. Subtracting any conjugate of
+the denominator gives a denominator with fewer terms unless it is zero.
+All its coefficients, and then those of the numerator, are fixed and
+belong to $k$. The descended rational map extends by properness.
+
+It remains to compare the arithmetic homomorphisms. We adapt the
+deck-transformation argument of \cite[Lemma~1 and Corollary~2]{Faltings1998}
+to the common open geometric image. After geometric
+conjugation, assume $f_*$ and $\theta$ agree on
+$\Delta_X$, whose common image is open in $\Delta_Y$.
+For $\gamma\in\Pi_X$, the element
+$z=f_*(\gamma)^{-1}\theta(\gamma)\in\Delta_Y$ centralizes
+$\theta(\Delta_X)$.
+If $z\ne1$, choose open normal $N\triangleleft\Delta_Y$ with
+$N\subset\theta(\Delta_X)$ and $z\notin N$. On the corresponding proper hyperbolic
+cover $C\to Y_{\bar k}$, the nontrivial deck transformation defined by
+$z$ induces the identity on $N^{\ab}=T_pJ_C$. The faithfulness just
+proved makes this deck transformation the identity, a contradiction.
+Thus $f_*=\theta$ on the entire arithmetic group.
+\end{proof}
+
+\begin{proposition}
+\label{prop:proper-curves}
+The pro-$p$ assertion of Theorem~\ref{thm:main} holds when $X$ and $Y$
+are smooth proper geometrically connected curves and $Y$ is hyperbolic.
+\end{proposition}
+\begin{proof}
+Replace the target by the cover corresponding to the image of an open
+$\theta$, so that $\theta$ is surjective. The induced homomorphism
+$T_pJ_X\to T_pJ_Y$ is surjective, so the differential
+$a_\theta$ of Proposition~\ref{prop:geometric-map} is nonzero. Fix the
+resulting $f_\Omega:X_\Omega\to Y_\Omega$.
+
+Let $V\to Y$ be an arithmetic Galois cover corresponding to an open
+normal subgroup of $\Pi_Y$, and let $W\to X$ be its $\theta$-pullback.
+Both are geometrically connected over the same finite constant field
+$E/K$. The induced map $\Pi_W\to\Pi_V$ is again surjective.
+Proposition~\ref{prop:geometric-map} gives $r:W_\Omega\to V_\Omega$.
+Naturality of its differential and Lemma~\ref{lem:first-jets} imply
+that $r$ lies over $f_\Omega$.
+They also imply equivariance under every geometric deck transformation.
+The resulting equivariant morphism
+$W_\Omega\to X_\Omega\times_{Y_\Omega}V_\Omega$ is a morphism
+between torsors under the same finite group, and is therefore an
+isomorphism. The geometric quotients so obtained are cofinal:
+every open subgroup of $\Delta_Y$ contains the intersection with
+$\Delta_Y$ of some open normal subgroup of $\Pi_Y$.
+Lemma~\ref{lem:cover-tools}(i) identifies the geometric outer
+homomorphism of $f_\Omega$ with that of $\theta$.
+Lemma~\ref{lem:arithmetic-descent} now supplies the required $K$-morphism
+and equality of the full arithmetic homomorphisms. It also proves
+uniqueness.
+
+A nonconstant morphism of proper curves is finite. Its function-field
+map has open Galois image, and the maps from the generic Galois groups
+to the respective fundamental groups are surjective
+\cite[Expos\'e~V, Proposition~8.2]{SGA1}. Hence its induced homomorphism is open.
+\end{proof}
+
+To allow an open source, it suffices to show that a homomorphism into
+the fundamental group of a proper hyperbolic curve kills the inertia
+at each missing point. The necessary local assertion is the following
+consequence of reconstruction for $\Gm$.
+
+\begin{lemma}[Vanishing of puncture inertia]
+\label{lem:puncture}
+For $K$ $p$-subtame and $Y/K$ proper hyperbolic, every
+$G_K$-homomorphism $\Pi_{\Gm}\to\Pi_Y$ kills $\Delta_{\Gm}$.
+Consequently every $\Pi_U\to\Pi_Y$, for a smooth separated curve $U$, factors
+through the smooth proper compactification of $U$, with unchanged image.
+\end{lemma}
+\begin{proof}
+Write $\Pi_{\Gm}=\Zp(1)\rtimes G_K$, using the point $1$.
+Suppose a generator has nontrivial image $z\in\Delta_Y$. Detect $z$
+in a finite arithmetic quotient and take the inverse image in
+$\Delta_Y$ of the cyclic subgroup generated by its image. This open
+subgroup is stable under the image section of $G_K$, since conjugation
+sends $z$ to $z^{\chi_p(g)}$. It gives a proper hyperbolic cover $C\to Y$
+to which the homomorphism lifts. The induced map
+$\Zp(1)\to T_pJ_C$ is nonzero, as is its differential by
+Proposition~\ref{loc:tate-realization}. Proposition~\ref{prop:geometric-map}
+would produce a nonconstant $\mathbf G_{m,\Omega}\to C_\Omega$. Properness extends
+it to $\PP^1_\Omega$, contradicting Riemann--Hurwitz.
+
+For a boundary point of $U$, first make the point rational over a finite
+extension $K'/K$. A parameter and a compatible system of its roots give
+a splitting of the decomposition group of the henselian local field
+as $\widehat{\mathbf Z}(1)\rtimes G_{K'}$.
+The action on inertia is cyclotomic. Since the geometric kernel of
+$\Pi_Y$ is pro-$p$, the resulting homomorphism factors through
+$\Zp(1)\rtimes G_{K'}$. The first assertion kills this inertia.
+A finite cover extends \etale over the compactification precisely when
+these inertia groups act trivially: this is the normalization
+description of covers of a normal scheme
+\cite[Expos\'e~I, Corollaire~10.3]{SGA1}.
+Thus their closed normal closure is the kernel of the map to the
+fundamental group of the compactification. This proves the
+factorization; passage to the inverse limit over the open subcurves
+gives the same assertion for the generic point.
+\end{proof}
+
+Combining Proposition~\ref{prop:proper-curves} with
+Lemma~\ref{lem:puncture} proves the pro-$p$ Hom theorem from every smooth
+separated curve to a proper hyperbolic curve. For a nonseparated smooth
+curve, apply this result on affine opens and glue by uniqueness.
+
+\section{Normal sources and open targets}
+\label{sec:global}
+
+We next remove the restrictions on the source and target. For the source,
+the essential point is to find a curve over a larger ground field which
+preserves every connected geometric cover of $X$. The curve theorem
+then gives a rational map on $X$. A separate extension argument shows
+that its compatibility with the fundamental group excludes
+indeterminacy, even when $X$ is singular or nonseparated. For an open
+target, ramification at the missing points will similarly exclude
+intersection with the boundary.
+
+\subsection{A simultaneous curve reduction}
+
+An arbitrary curve in $X$ need not preserve the image of $\theta$ on
+geometric fundamental groups. We instead use a generic pencil in the
+function field, with independent parameters in the ground field. Its
+regularity after every finite extension of the function field is what
+ensures the required surjectivity. Mochizuki obtains this surjectivity
+from a Bertini pencil and the Lefschetz theorem
+\cite[Lemmas~16.1--16.2]{Mochizuki1999}; the following field-theoretic
+argument supplies the pencil without choosing a smooth projective
+model of $X$.
+
+\begin{lemma}
+\label{lem:curve-reduction}
+Let $F/k$ be a regular finitely generated extension of positive
+transcendence degree $d$, in characteristic zero. There are algebraically
+independent variables $\mathbf t$ over $F$ and a purely transcendental
+extension $E/k$ contained in $F(\mathbf t)$ such that
+$F(\mathbf t)/E$ is regular of transcendence degree one. They can be
+chosen so that, for every finite $k'/k$ and every finite extension
+$M/Fk'$ regular over $k'$, the extension $M(\mathbf t)/Ek'$ is regular.
+If $F=k(X)$ for a normal geometrically integral finite-type scheme,
+there is a smooth geometrically connected curve $U/E$ with function
+field $F(\mathbf t)$ and a $k$-morphism $U\to X$ inducing a surjection
+$\Delta_{U/E}\to\Delta_{X/k}$.
+\end{lemma}
+\begin{proof}
+We first prove the field-theoretic assertion underlying the construction.
+If $M/k$ is
+regular and finitely generated and $a,b\in M$ are algebraically
+independent, then
+$M(t)/k(t,at+b)$ is regular. Let $N_0$ be the relative algebraic closure
+of $k(a,b)$ in $M$, which is finite over $k(a,b)$.
+For $z\in M(t)$ algebraic over $k(t,at+b)$, one has $z\in N_0(t)$.
+The intermediate field $k(a,b,t,z)$ is $L_0(t)$ for some
+$k(a,b)\subset L_0\subset N_0$. Indeed, take a primitive element of
+$N_0/k(a,b)$. The coefficients of its minimal polynomial over
+$k(a,b,t,z)$ are algebraic over $k(a,b)$, hence belong to $N_0$; the
+subfield $L_0$ they generate has the asserted property by comparison
+of degrees.
+Thus $k(a,b,t,z)$ is stable under $\sigma:t\mapsto t+1$ fixing $M$.
+Put $u=at+b$ and $u'=u+a$. Then
+$k(a,b,t,z)=k(t,u,z)(u')$ is regular over $k(t,u')$, because
+$k(t,u,z)/k(t)$ is regular and $u'$ is independent of it.
+But $\sigma z$ is algebraic over $k(t,u')$, so
+$\sigma z\in k(t,u')$, giving $z\in k(t,u)$.
+
+Now choose a transcendence basis $x_1,\ldots,x_d$ of $F/k$ and put
+\[
+ u_i=x_i+t_i x_d\quad(1\le i<d),\qquad
+ E=k(t_i,u_i:1\le i<d).
+\]
+The reversible change $x_i=u_i-t_i x_d$ gives
+$\trdeg_E F(\mathbf t)=1$. Apply the pencil observation successively,
+also to every $M/k'$ under consideration. It proves the asserted
+regularity with the same choices for all finite covers. Adding
+independent variables preserves their degrees and Galois groups.
+
+It remains to realize this field construction geometrically. Choose a
+nonempty affine open of $X$. Clearing denominators of its
+finitely many coordinate functions in $F(\mathbf t)$ realizes a
+nonempty smooth affine model $U/E$ with a map to this open.
+Every connected geometric finite cover of $X$ descends to some finite
+$k'/k$; its function field is one of the $M$ above. The proved
+regularity keeps its pullback to $U_{\bar E}$ connected. This is exactly
+the asserted surjectivity on geometric fundamental groups, and hence
+on their pro-$p$ quotients.
+\end{proof}
+
+The next lemma supplies the extension across the omitted locus of $X$.
+For smooth sources the extension is unconditional
+\cite[Lemma~16.3]{Mochizuki1999}, by the classical extension theorem
+for maps to abelian varieties. For a normal source we use the stated
+factorization on fundamental groups. The proof uses only abelian
+covers of the target. A positive-dimensional
+fibre in the closure of the graph would contain the whole target curve;
+the assumed factorization on fundamental groups would then trivialize
+covers of arbitrarily large degree over one fixed finite algebra.
+
+\begin{lemma}[Extension across a normal source]
+\label{lem:normal-extension}
+Let $X/k$ be normal, geometrically integral and of finite type in
+characteristic zero, let $F=k(X)$, and let $C/k$ be a smooth proper geometrically connected curve of
+genus $g\ge1$. A rational map $q:\Spec F\to C$ extends uniquely to
+$X$ if its geometric pro-$p$ abelianization factors as
+\[
+ \Delta_{\Spec F/k}\longrightarrow\Delta_{X/k}
+                         \longrightarrow T_pJ_C.
+\]
+\end{lemma}
+\begin{proof}
+Take the closure $\Gamma\subset X\times C$ of the graph. It is proper
+birational over $X$. Suppose it has a positive-dimensional geometric
+fibre over $\bar x=\Spec\Omega\to X$. Its reduced fibre is then the
+whole $C_\Omega$. Choose an affine neighborhood $\Spec A$ of its generic
+point in $\Gamma$ and let $B$ be the normalization of $A$ in $F$.
+This is finite since $A$ is of finite type over a field. The algebra
+\[
+             T=B\otimes_A\Omega(C)
+\]
+is nonzero and finite-dimensional over $\Omega(C)$.
+
+Choose $n$ with $p^{2gn}>\dim_{\Omega(C)}T$.
+After a finite constant extension $k'/k$,
+Lemma~\ref{lem:quotient-descent} realizes the quotient
+$T_pJ_C/p^n$ as a geometrically connected abelian cover $V\to C_{k'}$
+of degree $p^{2gn}$. The factorization assumption makes $q^*V$ the
+generic fibre of a finite \etale torsor over $X_{k'}$: the kernel of
+$G_{Fk'}\to\Pi_{X_{k'}}$ is geometric and is killed by the assumed
+factorization. Over the normal
+scheme $\Spec(B\otimes_k k')$, its pullback and the pullback of $V$
+are isomorphic: finite \etale covers of a normal integral scheme are
+determined by their generic fibres
+\cite[Expos\'e~I, Corollaires~10.2--10.3]{SGA1}.
+A section of that torsor at $\bar x$, pulled back to $T$, therefore gives
+an $\Omega(C)$-algebra map $\Omega(V)\to T$. It is injective, since
+$\Omega(V)$ is a field. This forces
+$p^{2gn}\le\dim_{\Omega(C)}T$, a contradiction.
+
+Thus $\Gamma\to X$ is proper with finite fibres, hence finite
+\cite[Expos\'e~VIII, Th\'eor\`eme~6.1]{SGA1}.
+Being birational, it is an isomorphism by normality of $X$.
+This proves existence;
+separatedness of $C$ proves uniqueness. 
+\end{proof}
+
+\begin{proposition}
+\label{prop:proper-normal}
+The pro-$p$ Hom theorem holds for normal geometrically integral
+finite-type sources and proper hyperbolic targets over $p$-subtame
+fields.
+\end{proposition}
+\begin{proof}
+In dimension zero both sides are empty. Suppose that $\dim X>0$,
+let $\theta:\Pi_X\to\Pi_Y$ be open over $G_K$, and put $F=K(X)$.
+Apply Lemma~\ref{lem:curve-reduction} to obtain $U/E\to X$ with
+$E(U)=F(\mathbf t)$. The field $E$ is $p$-subtame by
+Lemma~\ref{lem:fields}. The induced map
+\[
+ \Pi_{U/E}\longrightarrow\Pi_{Y/K}\times_{G_K}G_E=\Pi_{Y_E/E}
+\]
+has the same geometric image as $\theta$ and is open. The curve case
+therefore gives $q\in Y(F(\mathbf t))$ inducing this homomorphism.
+For a proper curve of positive genus,
+\[
+                         Y(F(\mathbf t))=Y(F):
+\]
+remove the variables one at a time, since a rational map
+$\PP^1_F\dashrightarrow Y$ extends and is constant by
+Riemann--Hurwitz. The surjection $G_{F(\mathbf t)}\to G_F$ shows that
+$q_*$ agrees with $\theta$ on the entire generic arithmetic group.
+Lemma~\ref{lem:normal-extension} extends $q$ to $X$. Surjectivity of
+$G_F\to\pi_1(X)$ \cite[Expos\'e~V, Proposition~8.2]{SGA1}
+then gives the prescribed arithmetic homomorphism.
+Uniqueness follows by pulling two candidates back to $U$, applying the
+curve case, and descending equality from the generic point.
+\end{proof}
+
+\subsection{Avoiding the boundary of the target}
+
+To treat an open target, we use proper compactifications of its finite
+covers. We recall two covering facts about a hyperbolic curve $Y$ in
+characteristic zero: each geometric pro-$p$ cusp inertia is a copy of
+$\Zp(1)$, and $Y$ has an arithmetic finite $p$-cover whose smooth
+compactified geometric components have genus at least two. Here
+``$p$-cover'' refers to its geometric degree, not its constant-field
+degree. When $Y$ is proper the second assertion is immediate. For an
+open $Y$, both assertions follow from the usual presentation of its
+geometric fundamental group
+\cite[Expos\'e~XIII, Corollaire~2.12]{SGA1}. If there are $r\ge2$
+boundary points, abelianizing this presentation gives residue vectors
+whose coordinates sum to zero. The vectors
+$(1,-1,0,\ldots,0)$ modulo $p^a$ detect cusp inertia to arbitrary
+order. The cyclic cover with residues
+$(1,\ldots,1,-(r-1))$ has, for $a>v_p(r-1)$,
+\[
+ 2g(\bar V)-2
+ =p^a(2g(\bar Y)-2+r)-(r-1)-p^{v_p(r-1)}>0
+\]
+when $a$ is large. If $r=1$, first take an unramified cover of degree
+$p$ of $\bar Y$, which exists since $g(\bar Y)\ge1$, and then apply
+the preceding construction. Finally descend the cover after finite
+constant extension and take an arithmetic Galois closure using
+Lemma~\ref{lem:quotient-descent}.
+
+The maps to these proper compactifications are supplied by
+Proposition~\ref{prop:proper-normal}. They descend to a map to
+$\bar Y$. We then use Mochizuki's ramification argument
+\cite[proof of Corollary~14.2]{Mochizuki1999}:
+if that map met a missing point of $Y$, its order of
+vanishing there would have to be divisible by the ramification indices
+in every finite cover. The unboundedness of cusp inertia makes this
+impossible.
+
+\begin{theorem}[The pro-$p$ Hom theorem]
+\label{thm:pro-p}
+Theorem~\ref{thm:main} holds for $\Sigma=\{p\}$.
+\end{theorem}
+\begin{proof}
+As before, replacing $Y$ by the image cover reduces the proof to a
+surjective $\theta:\Pi_X\to\Pi_Y$. Choose an arithmetic Galois
+cover $V_0\to Y$ as above, corresponding to $N_0\triangleleft\Pi_Y$.
+For each open normal $N\subset N_0$, let $V\to Y$ be its cover, let
+$W\to X$ be the $\theta$-pullback, and let $E$ be their common constant
+field. Apply Proposition~\ref{prop:proper-normal} to the induced open
+map from $\Pi_W$ to the fundamental group of the compactification
+$\bar V$. It gives a unique dominant $E$-morphism $r_V:W\to\bar V$.
+Uniqueness gives compatibility with $V\to V_0$ and with all arithmetic
+deck transformations, including their semilinear action on $E$.
+Hence $r_{V_0}$ descends to a dominant $\bar f:X\to\bar Y$.
+
+Suppose $\bar f$ meets the boundary. Its inverse image is a nonempty
+effective Cartier divisor, so has a height-one point $x$.
+The local ring $\cO_{X,x}$ is a DVR. If $t$ is a parameter at the
+boundary point $y$, put $e=\ord_x(\bar f^*t)>0$. For a cusp inertia
+generator $z$, choose $N\subset N_0$ with $z^e\notin N$. The order
+$r$ of $z$ in $\Pi_Y/N$ does not divide $e$, and every branch of
+$\bar V$ above $y$ has ramification index $r$. At a point $w\in W$
+above $x$, the cover $W\to X$ is \etale. A parameter $s$ at
+$r_V(w)$ consequently gives
+\[
+              e=\ord_w(\bar f^*t)=r\,\ord_w(r_V^*s),
+\]
+a contradiction. Thus $\bar f$ factors through $f:X\to Y$.
+
+All $r_V$ now land in $V$, and their arithmetic equivariance yields
+$W\simeq X\times_YV$ as torsors, with identity on the constant
+quotients. Lemma~\ref{lem:torsor-comparison} identifies $f_*$ with the
+specified $\theta$ by one geometric conjugation. Uniqueness follows
+after pulling back to $W_0$ and using uniqueness for the proper target
+$\bar V_0$.
+
+Finally, every dominant morphism $X\to Y$ induces an open
+homomorphism. The relative algebraic closure of $K(Y)$ in $K(X)$ is
+finite, and $K(X)$ is regular over it. Thus the generic Galois image is
+open. Surjectivity from generic Galois groups to fundamental groups of
+normal schemes \cite[Expos\'e~V, Proposition~8.2]{SGA1}
+proves the assertion for $\Pi_X\to\Pi_Y$.
+\end{proof}
+
+\section{Passage to a set of primes}
+\label{sec:sigma}
+
+The passage from the pro-$p$ theorem to a set of primes is due to
+Mochizuki. It appears for the full profinite statement in
+\cite[Remark after Theorem~16.5]{Mochizuki1999}, and for arbitrary
+$\Sigma$ containing $p$ in
+\cite[Theorem~A and the following remark, p.~121]{Mochizuki2003}.
+The same argument applies here because finite extensions of a
+$p$-subtame field are again $p$-subtame. One applies the pro-$p$ theorem
+to each finite $\Sigma$-cover and uses uniqueness to recover the cover
+itself. We include the argument to make explicit its compatibility
+with the constant-field quotient.
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Let $\theta:\Pi_X^\Sigma\to\Pi_Y^\Sigma$ be open over $G_K$.
+Lemma~\ref{lem:cover-tools} reduces it to a surjection. Passing to
+the canonical relative pro-$p$ quotients gives a surjective
+$\theta_p:\Pi_X\to\Pi_Y$. Theorem~\ref{thm:pro-p} gives a unique
+dominant $f:X\to Y$ inducing $\theta_p$.
+
+For every open normal $N\triangleleft\Pi_Y^\Sigma$, let $V\to Y$
+and $W\to X$ be the corresponding torsor and its $\theta$-pullback.
+They have the same
+finite constant field $E/K$. By Lemma~\ref{lem:cover-tools}(ii), the
+restricted map is a surjection
+\[
+                   \Pi_{W/E}^\Sigma\longrightarrow\Pi_{V/E}^\Sigma.
+\]
+Pass to its own relative pro-$p$ quotients and apply
+Theorem~\ref{thm:pro-p} over $E$, which is $p$-subtame. This gives
+a unique dominant $E$-morphism $r_V:W\to V$.
+
+The composites $W\xrightarrow{r_V}V\to Y_E$ and
+$W\to X_E\xrightarrow{f_E}Y_E$ induce the same relative pro-$p$
+homomorphism over $E$. Pro-$p$ uniqueness therefore makes them equal.
+For $a\in\Pi_Y^\Sigma/N$, the map $a_V^{-1}r_Va_W$ is $E$-linear, even if
+$a_V$ and $a_W$ are semilinear over $E$. It induces the same pro-$p$
+homomorphism as $r_V$, because the restricted homomorphism is
+equivariant under conjugation by $a$. The same uniqueness gives
+\[
+                         r_Va_W=a_Vr_V.
+\]
+Thus the induced morphism is an isomorphism of $(\Pi_Y^\Sigma/N)$-torsors
+$W\simeq X\times_YV$. Its action on the constant quotient is the
+identity, since $r_V$ is over $E$. Lemma~\ref{lem:torsor-comparison}
+now proves $f_*=\theta$ modulo one inner automorphism from
+$\Delta_Y^\Sigma$.
+
+Two morphisms inducing the same relative pro-$\Sigma$ homomorphism
+modulo geometric conjugation induce the same such pro-$p$ homomorphism, so are
+equal by Theorem~\ref{thm:pro-p}. Openness for dominant morphisms is
+the same generic-Galois argument used there. This proves
+\eqref{eq:main} for every $\Sigma$ containing $p$.
+\end{proof}
+
+\begin{thebibliography}{99}
+\small
+\raggedright
+\hypersetup{urlcolor=black}
+
+\bibitem{BLR1990}
+S.~Bosch, W.~L\"utkebohmert, and M.~Raynaud,
+\href{https://doi.org/10.1007/978-3-642-51438-8}{\emph{N\'eron Models}},
+Ergebnisse der Mathematik und ihrer Grenzgebiete (3), vol.~21,
+Springer-Verlag, Berlin, 1990.
+
+\bibitem{DeligneMumford1969}
+P.~Deligne and D.~Mumford,
+\href{https://doi.org/10.1007/BF02684599}{\emph{The irreducibility of the
+space of curves of given genus}},
+Inst. Hautes \'Etudes Sci. Publ. Math. \textbf{36} (1969), 75--109.
+
+\bibitem{SGA3}
+M.~Demazure and A.~Grothendieck (dir.),
+\href{https://doi.org/10.1007/BFb0059027}{\emph{Sch\'emas en groupes~III:
+Structure des sch\'emas en groupes r\'eductifs (SGA~3)}},
+S\'eminaire de g\'eom\'etrie alg\'ebrique du Bois Marie 1962--1964,
+Lecture Notes in Mathematics, vol.~153,
+Springer-Verlag, Berlin, 1970.
+
+\bibitem{Faltings1998}
+G.~Faltings, \emph{Curves and their fundamental groups
+[following Grothendieck, Tamagawa and Mochizuki]},
+S\'eminaire Bourbaki, Vol.~1997/98, Exp.~840,
+Ast\'erisque \textbf{252} (1998), 131--150.
+
+\bibitem{SGA1}
+A.~Grothendieck (dir.),
+\emph{Rev\^etements \'etales et groupe fondamental (SGA~1)},
+S\'eminaire de g\'eom\'etrie alg\'ebrique du Bois Marie 1960--1961,
+Lecture Notes in Mathematics, vol.~224, Springer-Verlag, Berlin, 1971;
+revised edition, Documents Math\'ematiques, vol.~3,
+Soci\'et\'e Math\'ematique de France, Paris, 2003.
+
+\bibitem{Grothendieck1997}
+A.~Grothendieck,
+\href{https://doi.org/10.1017/CBO9780511758874.004}{\emph{Brief an
+G.~Faltings}} (27 June 1983),
+in \emph{Geometric Galois Actions~1: Around Grothendieck's
+Esquisse d'un Programme}, L.~Schneps and P.~Lochak (eds.),
+London Mathematical Society Lecture Note Series, vol.~242,
+Cambridge University Press, Cambridge, 1997, pp.~49--58;
+English translation, pp.~285--293.
+
+\bibitem{HarariSzamuely2009}
+D.~Harari and T.~Szamuely,
+\href{https://doi.org/10.1007/s00208-008-0327-z}{\emph{Galois sections
+for abelianized fundamental groups}},
+with an appendix by E.~V.~Flynn,
+Math. Ann. \textbf{344} (2009), no.~4, 779--800.
+
+\bibitem{Hoshi2017}
+Y.~Hoshi,
+\href{https://doi.org/10.2206/kyushujm.71.1}{\emph{On the Grothendieck
+conjecture for affine hyperbolic curves over Kummer-faithful fields}},
+Kyushu J. Math. \textbf{71} (2017), no.~1, 1--29.
+
+\bibitem{MilneAV1986}
+J.~S.~Milne,
+\href{https://doi.org/10.1007/978-1-4613-8655-1_5}{\emph{Abelian varieties}},
+in \emph{Arithmetic Geometry} (Storrs, Conn., 1984),
+G.~Cornell and J.~H.~Silverman (eds.),
+Springer-Verlag, New York, 1986, pp.~103--150.
+
+\bibitem{Milne1986}
+J.~S.~Milne,
+\href{https://doi.org/10.1007/978-1-4613-8655-1_7}{\emph{Jacobian varieties}},
+in \emph{Arithmetic Geometry} (Storrs, Conn., 1984),
+G.~Cornell and J.~H.~Silverman (eds.),
+Springer-Verlag, New York, 1986, pp.~167--212.
+
+\bibitem{Mochizuki1996}
+S.~Mochizuki, \emph{The profinite Grothendieck conjecture for closed
+hyperbolic curves over number fields},
+J. Math. Sci. Univ. Tokyo \textbf{3} (1996), no.~3, 571--627.
+
+\bibitem{Mochizuki1999}
+S.~Mochizuki,
+\href{https://doi.org/10.1007/s002220050381}{\emph{The local pro-$p$
+anabelian geometry of curves}},
+Invent. Math. \textbf{138} (1999), no.~2, 319--423.
+
+\bibitem{Mochizuki2003}
+S.~Mochizuki,
+\emph{Topics surrounding the anabelian geometry of hyperbolic curves},
+in \emph{Galois Groups and Fundamental Groups},
+L.~Schneps (ed.), Mathematical Sciences Research Institute Publications,
+vol.~41, Cambridge University Press, Cambridge, 2003, pp.~119--165.
+
+\bibitem{Nakamura1990}
+H.~Nakamura,
+\href{https://doi.org/10.1515/crll.1990.411.205}{\emph{Galois rigidity
+of the \'etale fundamental groups of punctured projective lines}},
+J. Reine Angew. Math. \textbf{411} (1990), 205--216.
+
+\bibitem{Raynaud1970}
+M.~Raynaud,
+\href{https://doi.org/10.1007/BF02684651}{\emph{Sp\'ecialisation du
+foncteur de Picard}},
+Inst. Hautes \'Etudes Sci. Publ. Math. \textbf{38} (1970), 27--76.
+
+\bibitem{Stacks}
+The Stacks Project Authors, \emph{The Stacks Project},
+\url{https://stacks.math.columbia.edu}, 2026.
+
+\bibitem{Tamagawa1997}
+A.~Tamagawa,
+\href{https://doi.org/10.1023/A:1000114400142}{\emph{The Grothendieck
+conjecture for affine curves}},
+Compositio Math. \textbf{109} (1997), no.~2, 135--194.
+
+\bibitem{Tate1967}
+J.~T.~Tate,
+\href{https://doi.org/10.1007/978-3-642-87942-5_12}{\emph{$p$-Divisible groups}},
+in \emph{Proceedings of a Conference on Local Fields}
+(Driebergen, 1966), T.~A.~Springer (ed.),
+Springer-Verlag, Berlin, 1967, pp.~158--183.
+
+\bibitem{Tsujimura2023}
+S.~Tsujimura,
+\href{https://doi.org/10.1016/j.aim.2023.109380}{\emph{Birational anabelian
+Grothendieck conjecture for curves over arbitrary cyclotomic extension
+fields of number fields}},
+Adv. Math. \textbf{435} (2023), Paper No.~109380.
+
+\bibitem{Tsujimura2026}
+S.~Tsujimura, \emph{Generalizations of birational anabelian Grothendieck
+conjecture for curves~I},
+RIMS Preprint No.~1997, Research Institute for Mathematical Sciences,
+Kyoto University, July 2026.
+
+\end{thebibliography}
+\end{document}
