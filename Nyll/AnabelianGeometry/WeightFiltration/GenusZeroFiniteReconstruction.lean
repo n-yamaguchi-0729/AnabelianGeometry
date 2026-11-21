@@ -169,8 +169,8 @@ def genusZeroFiniteReconstructionResult
             (pullback.fst c₂ (specMap k E) ⁻¹ᵁ U₂).ι ≫ I₂.hom) ∧
       let Ys := pullback (specMap E κ) (pullback.fst (specMap k E) (U₁.ι ≫ c₁))
       let Yt := pullback (specMap E κ) (pullback.fst (specMap k E) (U₂.ι ≫ c₂))
-      let Zs := rationalConfigurationGeometricScheme E κ s
-      let Zt := rationalConfigurationGeometricScheme E κ t
+      let Zs := originalFieldGeometricScheme E κ s
+      let Zt := originalFieldGeometricScheme E κ t
       let Jκs := rationalModelGeometricIso k E κ (U₁.ι ≫ c₁) s Js hJs
       let Jκt := rationalModelGeometricIso k E κ (U₂.ι ≫ c₂) t Jt hJt
       ∃ (_hYs : IsIntegral Ys) (_hYt : IsIntegral Yt),

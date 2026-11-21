@@ -268,6 +268,6 @@ theorem etaleRootsOfUnityCohomologyPresheafRestriction_object_restriction
     ← Sheaf.H.map_comp_apply, etaleRootsOfUnityCohomologyPullback_restriction,
     etaleAbelianRestrictionCohomologyPullback_naturality,
     ← Sheaf.H.map_comp_apply, etaleRestrictionObjectIso_rootsOfUnity]
-  all_goals rfl
+  rfl
 
 end EtaleCohomology

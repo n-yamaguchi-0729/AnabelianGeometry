@@ -27,6 +27,7 @@ public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Geometricall
 public import Nyll.AbelianVarieties.Geometry.AbelianSchemeBaseChange
 public import Nyll.AlgebraicCurves.Geometry.Schemes.Points.SchemeHomOverExtAlgebraicClosurePoint
 public import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
+public import Nyll.SchemeTheory.Morphisms.ReducedSmooth
 public import Nyll.AlgebraicCurves.Geometry.Curves.MemSeparated
 
 /-!
@@ -204,21 +205,6 @@ end DefectField
 
 section Geometry
 
-scoped instance isDomain_sections_spec (k : Type u) [Field k] :
-    IsDomain Γ(Spec (CommRingCat.of k), ⊤) :=
-  MulEquiv.isDomain k (Scheme.ΓSpecIso (CommRingCat.of k)).commRingCatIsoToRingEquiv.toMulEquiv
-
-scoped instance isIntegrallyClosed_sections_spec (k : Type u) [Field k] :
-    IsIntegrallyClosed Γ(Spec (CommRingCat.of k), ⊤) :=
-  IsIntegrallyClosed.of_equiv (Scheme.ΓSpecIso (CommRingCat.of k)).commRingCatIsoToRingEquiv.symm
-
-theorem isReduced_of_smooth (k : Type u) [Field k] {X : Scheme.{u}}
-    (g : X ⟶ Spec (CommRingCat.of k)) [Smooth g] : IsReduced X := by
-  have : ∀ x : X, _root_.IsReduced (X.presheaf.stalk x) := fun x => by
-    have := (AlgebraicGeometry.Smooth.isDomain_and_isIntegrallyClosed_stalk g x).1
-    infer_instance
-  exact isReduced_of_isReduced_stalk _
-
 variable (k : Type u) [Field k] {G : Scheme.{u}} (f : G ⟶ Spec (CommRingCat.of k))
   [QuasiCompact f] [Smooth f] [ConnectedSpace G] (L : RelativeGroupLaw k f)
 
@@ -244,7 +230,7 @@ theorem irreducibleSpace_pullback : IrreducibleSpace ↑(pullback f σ) := by
 include L in
 theorem isIntegral_pullback : IsIntegral (pullback f σ) := by
   have := irreducibleSpace_pullback k f L K σ
-  have := isReduced_of_smooth K (pullback.snd f σ)
+  have := _root_.AlgebraicGeometry.isReduced_of_smooth_of_field (pullback.snd f σ)
   exact isIntegral_of_irreducibleSpace_of_isReduced _
 
 end Geometry
@@ -495,7 +481,7 @@ theorem isHomAt_universal :
   let gY : pullback f f ⟶ Spec (CommRingCat.of k) := pullback.fst f f ≫ f
   let π₁ : SchemeHomOver gY f := ⟨pullback.fst f f, rfl⟩
   let π₂ : SchemeHomOver gY f := ⟨pullback.snd f f, pullback.condition.symm⟩
-  have : IsReduced (pullback f f) := isReduced_of_smooth k gY
+  have : IsReduced (pullback f f) := _root_.AlgebraicGeometry.isReduced_of_smooth_of_field gY
   have : IsProper fA := hA.proper
   unfold IsHomAt
   apply SchemeHomOver.ext_of_forall_algebraicClosure_point_of_isReduced_of_flat (R := k) k K
@@ -524,14 +510,6 @@ end Main
 
 end P2mRigNP
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_comp_mul_eq_mul_comp_of_comp_one_eq_one_of_abelianSchemePropertyBundle in
-attribute [local instance]
-  P2mRigNP.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_comp_mul_eq_mul_comp_of_comp_one_eq_one_of_abelianSchemePropertyBundle in
-attribute [local instance]
-  P2mRigNP.isIntegrallyClosed_sections_spec
 
 
 end
@@ -544,14 +522,6 @@ universe u
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry NeronModelInfra GoodReductionJacobian
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_comp_mul_eq_mul_comp_of_comp_one_eq_one_of_abelianSchemePropertyBundle in
-attribute [local instance]
-  P2mRigNP.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_comp_mul_eq_mul_comp_of_comp_one_eq_one_of_abelianSchemePropertyBundle in
-attribute [local instance]
-  P2mRigNP.isIntegrallyClosed_sections_spec
 
 
 open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in

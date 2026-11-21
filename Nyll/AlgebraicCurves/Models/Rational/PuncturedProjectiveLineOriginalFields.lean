@@ -6,6 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
 public import Nyll.AlgebraicCurves.Models.Charts.OpenChartGenericPoints
 
@@ -26,7 +27,7 @@ namespace AlgebraicGeometry.ProjSpace
 
 attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
   rationalConfigurationGeometricFieldAlgebra rationalConfigurationGeometricConstantAlgebra
-  rationalConfigurationAmbientSMulRatFunc
+  RatFunc.algebraSMul
 
 /-- The original rational open over the arithmetic coefficient field. -/
 abbrev originalFieldArithmeticScheme

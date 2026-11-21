@@ -24,7 +24,7 @@ public import Nyll.AlgebraicCurves.Cohomology.Sheaves.EulerCharacteristic.OModul
 public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
 public import Nyll.AbelianVarieties.LineBundles.Cube.Multiplication
 public import Nyll.ProCGroups.Abelian.AddCommGroupApplyZsmulAddEq
-public import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleTensorInverse
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleDual
 public import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleTensor
 public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.AbelianSchemeIsIntegral
 public import Nyll.SchemeTheory.Morphisms.GeometricallyIrreducibleOverAlgebraicallyClosed

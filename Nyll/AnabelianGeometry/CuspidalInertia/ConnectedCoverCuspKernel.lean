@@ -28,7 +28,7 @@ namespace EtaleFundamentalGroups.Inertia
 attribute [local instance]
   placeBaseAmbientAlgebra placeBaseAmbientTower
   extendingPlaceAmbientAlgebra extendingPlaceAmbientTower
-  connectedCoverPlaceConstantAmbientTower
+  placeConstantAmbientTower
   CurveModel.isIntegral CurveModel.isProper CurveModel.smooth
 
 /-- The relative relation for the base cusp saturation is the preimage of

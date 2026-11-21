@@ -239,8 +239,8 @@ theorem exists_rationalConfiguration_unitChart
       punctureForm v.val.rep ∉ u.val.asHomogeneousIdeal := by
     intro h
     apply (mem_rationalConfigurationOpen_iff s u.val).mp u.property v.val v.property
-    exact eq_of_punctureForm_mem v.val.rep v.val.rep_nonzero _ _ h
-      (punctureForm_mem_rationalPuncturePoint v.val.rep v.val.rep_nonzero)
+    exact eq_of_punctureForm_mem v.val.rep v.val.rep_ne_zero _ _ h
+      (punctureForm_mem_rationalPuncturePoint v.val.rep v.val.rep_ne_zero)
   have hm₀ (u : (rationalConfigurationOpen s : Scheme)) :
       m u ∈ Proj.basicOpen 𝒜 (X (0 : Fin 2)) := by
     change u.val ∈ linearProjMap e ⁻¹ᵁ Proj.basicOpen 𝒜 (X 0)

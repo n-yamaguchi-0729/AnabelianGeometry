@@ -206,8 +206,7 @@ private theorem local_root_is_constant
       (hnK.map ι).mul (a.isUnit.pow (n - 1))
   exact IsLocalRing.eq_of_eval_eq_zero_of_not_isUnit_sub haroot hζroot hdiff hder
 
-open AlgebraicCurves.Geometry.Schemes.Proofs.AffineOpenBaseChange in
-open AlgebraicGeometry.Scheme.TwoAffineOpenCover.AffineBaseChange in
+open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.AffineBaseChange in
 private theorem unit_root_is_locally_constant
     (c : X ⟶ Spec (.of K)) {n : ℕ} (hn : 0 < n) (hnK : IsUnit (n : K))
     (hroot : ∃ ζ : K, IsPrimitiveRoot ζ n) (a : (Γ(X, ⊤) : Type u)ˣ) (ha : a ^ n = 1) (x : X) :

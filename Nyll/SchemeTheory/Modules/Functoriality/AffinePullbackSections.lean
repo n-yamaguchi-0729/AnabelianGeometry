@@ -42,55 +42,13 @@ public import Mathlib.Tactic.Choose
 
 section AffinePullbackSectionTensor
 
-section ProofImplementation
-
-namespace AlgebraicCurves.Geometry.Schemes.Proofs
-namespace AffineOpenBaseChange
+open CategoryTheory CategoryTheory.Limits Opposite TensorProduct
 
 universe u
 
-
-open _root_.CategoryTheory
-open _root_.CategoryTheory.Limits
-open _root_.AlgebraicGeometry
-open _root_.TensorProduct
-
-
 noncomputable section
 
-open CategoryTheory CategoryTheory.Limits Opposite TensorProduct
-
-namespace AlgebraicGeometry
-
-export _root_.AlgebraicGeometry (Spec.map_comp Scheme.Hom.map_appLE Scheme.Opens.topIso_inv
-  pullbackSpecIso_inv_snd Scheme.Hom Scheme.Γ IsAffineOpen.fromSpec_top
-  IsAffineOpen.SpecMap_appLE_fromSpec Spec Spec.map Scheme.ΓSpecIso_inv_naturality Scheme
-  pullbackSpecIso Scheme.isoSpec_Spec_inv IsAffineOpen.isoSpec_hom_appTop
-  pullbackRestrictIsoRestrict_inv_fst_assoc Scheme.Opens.topIso_hom Scheme.Hom.comp_appTop
-  pullbackSpecIso_inv_fst isAffineOpen_top IsAffineOpen pullbackRestrictIsoRestrict Scheme.Opens
-  Scheme.Hom.appLE_map Scheme.Hom.app_eq_appLE Scheme.Opens.ι_appTop Scheme.Hom.appLE
-  morphismRestrict_appLE Scheme.ΓSpecIso Scheme.TwoAffineOpenCover
-  Scheme.TwoAffineOpenCover.specMap Scheme.TwoAffineOpenCover.algebraOfHom)
-
-namespace Scheme
-
-export _root_.AlgebraicGeometry.Scheme (Hom.map_appLE Opens.topIso_inv Hom Γ topIso_hom topIso
-  ΓSpecIso_inv_naturality isoSpec_Spec_inv Opens.topIso_hom Hom.comp_appTop isoSpec Opens
-  Hom.appLE_map Hom.app_eq_appLE Opens.ι_appTop Hom.appLE ΓSpecIso TwoAffineOpenCover
-  TwoAffineOpenCover.specMap TwoAffineOpenCover.algebraOfHom)
-
-namespace TwoAffineOpenCover
-
-export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (specMap algebraOfHom
-  algebraMap_algebraOfHom pullback)
-
-
-open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
-open _root_.AlgebraicGeometry.Scheme
-open _root_.AlgebraicGeometry
-
-
-namespace AffineBaseChange
+namespace AlgebraicGeometry.Scheme.TwoAffineOpenCover.AffineBaseChange
 
 variable {R : Type u} [CommRing R] {X : Scheme.{u}} (c : X ⟶ Spec (.of R))
 variable (A : Type u) [CommRing A] [Algebra R A]
@@ -99,18 +57,13 @@ variable (A : Type u) [CommRing A] [Algebra R A]
 abbrev XA : Scheme.{u} := Limits.pullback c (specMap R A)
 
 /-- The base-change projection to the original scheme. -/
-abbrev _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.AffineBaseChange.fst : XA c A ⟶ X
+abbrev fst : XA c A ⟶ X
   := Limits.pullback.fst c (specMap R A)
 
-export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.AffineBaseChange (fst)
-
-
 /-- The base-change projection to the spectrum of the new coefficient ring. -/
-abbrev _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.AffineBaseChange.snd : XA c A ⟶
+abbrev snd : XA c A ⟶
   Spec (.of A) := Limits.pullback.snd c (specMap R A)
 
-
-export _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover.AffineBaseChange (snd)
 
 variable (U : X.Opens) (hU : IsAffineOpen U)
 
@@ -261,38 +214,10 @@ theorem algEquiv_one_tmul (s : Γ(X, U)) :
   change sigma c A U hU ((Algebra.TensorProduct.comm R A Γ(X, U)) ((1 : A) ⊗ₜ[R] s)) = _
   rw [Algebra.TensorProduct.comm_tmul, sigma_tmul_one]
 
-end AffineBaseChange
-
-open AffineBaseChange in
-theorem exists_algEquiv_sections_baseChange {R : Type u} [CommRing R] {X : Scheme.{u}}
-    (c : X ⟶ Spec (.of R)) (U : X.Opens) (hU : IsAffineOpen U) (A : Type u) [CommRing A] [Algebra R
-      A] :
-    letI := algebraOfHom c U
-    letI := algebraOfHom (Limits.pullback.snd c (specMap R A)) ((Limits.pullback.fst c (specMap R
-      A)) ⁻¹ᵁ U)
-    ∃ e : (A ⊗[R] Γ(X, U)) ≃ₐ[A]
-        Γ(Limits.pullback c (specMap R A), (Limits.pullback.fst c (specMap R A)) ⁻¹ᵁ U),
-      ∀ s : Γ(X, U), e ((1 : A) ⊗ₜ[R] s) = ((Limits.pullback.fst c (specMap R A)).app U).hom s :=
-  ⟨algEquiv c A U hU, algEquiv_one_tmul c A U hU⟩
-
-end AlgebraicGeometry.Scheme.TwoAffineOpenCover
-
-end
-end AffineOpenBaseChange
-end AlgebraicCurves.Geometry.Schemes.Proofs
+end AlgebraicGeometry.Scheme.TwoAffineOpenCover.AffineBaseChange
 
 namespace AlgebraicGeometry.Scheme
 
-open _root_.AlgebraicCurves.Geometry.Schemes.Proofs.AffineOpenBaseChange
-universe u
-open _root_.CategoryTheory
-open _root_.CategoryTheory.Limits
-open _root_.AlgebraicGeometry
-open _root_.TensorProduct
-
-
-open _root_.AlgebraicCurves.Geometry.Schemes.Proofs in
-open AffineOpenBaseChange.AlgebraicGeometry.Scheme.TwoAffineOpenCover in
 theorem exists_algEquiv_tensor_sections_pullback_fst_preimage_of_isAffineOpen
     {R : Type u} [CommRing R] {X : Scheme.{u}}
     (c : X ⟶ Spec (.of R)) (U : X.Opens) (hU : IsAffineOpen U) (A : Type u) [CommRing A] [Algebra R
@@ -306,9 +231,12 @@ theorem exists_algEquiv_tensor_sections_pullback_fst_preimage_of_isAffineOpen
           (Limits.pullback.fst c (Scheme.TwoAffineOpenCover.specMap R A)) ⁻¹ᵁ U),
       ∀ s : Γ(X, U), e ((1 : A) ⊗ₜ[R] s) =
         ((Limits.pullback.fst c (Scheme.TwoAffineOpenCover.specMap R A)).app U).hom s :=
-  exists_algEquiv_sections_baseChange c U hU A
+  ⟨TwoAffineOpenCover.AffineBaseChange.algEquiv c A U hU,
+    TwoAffineOpenCover.AffineBaseChange.algEquiv_one_tmul c A U hU⟩
+
 end AlgebraicGeometry.Scheme
-end ProofImplementation
+
+end
 
 end AffinePullbackSectionTensor
 

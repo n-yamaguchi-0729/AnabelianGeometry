@@ -83,22 +83,22 @@ private theorem ambient_correspondence_comp
 abbrev retainedAmbientPoint
     (k κ : Type) [Field k] [Field κ] [Algebra k κ] [Infinite k]
     (s : Finset (Projectivization k (k × k))) (Ω : Type) [Field Ω]
-    (A : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω) :
-    Spec (.of Ω) ⟶ rationalConfigurationGeometricScheme k κ s := by
-  let : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω := A
-  exact (rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω
+    (A : Algebra (originalFieldGeometricScheme k κ s).functionField Ω) :
+    Spec (.of Ω) ⟶ originalFieldGeometricScheme k κ s := by
+  let : Algebra (originalFieldGeometricScheme k κ s).functionField Ω := A
+  exact (originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω
 
 /-- The chosen inertia subgroup for the supplied ambient algebra and closure structures. -/
 abbrev retainedAmbientInertia
     (k κ : Type) [Field k] [CharZero k] [Field.FG k] [Field κ] [CharZero κ]
     [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k))) (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    (A : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω)
-    (H : let : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω := A
-      IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω)
+    (A : Algebra (originalFieldGeometricScheme k κ s).functionField Ω)
+    (H : let : Algebra (originalFieldGeometricScheme k κ s).functionField Ω := A
+      IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω)
     (p : s) : Subgroup (Aut (fiber (retainedAmbientPoint k κ s Ω A))) := by
-  let : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω := A
-  let : IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω := H
+  let : Algebra (originalFieldGeometricScheme k κ s).functionField Ω := A
+  let : IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω := H
   exact rationalConfigurationChosenInertia k κ s Ω (rationalConfigurationBoundaryPlace k κ s p)
 
 theorem rationalConfiguration_matchedAmbient_same_puncture_equiv
@@ -110,16 +110,16 @@ theorem rationalConfiguration_matchedAmbient_same_puncture_equiv
     [Algebra k Ωs] [IsScalarTower k (RatFunc k) Ωs]
     [Algebra (RatFunc k) Ωt] [IsSepClosure (RatFunc k) Ωt]
     [Algebra k Ωt] [IsScalarTower k (RatFunc k) Ωt]
-    (AS₀ AS₁ : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ωs)
-    (AT₀ AT₁ : Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ωt)
-    (HS₀ : let : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ωs := AS₀
-      IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ωs)
-    (HS₁ : let : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ωs := AS₁
-      IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ωs)
-    (HT₀ : let : Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ωt := AT₀
-      IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ωt)
-    (HT₁ : let : Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ωt := AT₁
-      IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ωt) :
+    (AS₀ AS₁ : Algebra (originalFieldGeometricScheme k κ s).functionField Ωs)
+    (AT₀ AT₁ : Algebra (originalFieldGeometricScheme k κ t).functionField Ωt)
+    (HS₀ : let : Algebra (originalFieldGeometricScheme k κ s).functionField Ωs := AS₀
+      IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ωs)
+    (HS₁ : let : Algebra (originalFieldGeometricScheme k κ s).functionField Ωs := AS₁
+      IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ωs)
+    (HT₀ : let : Algebra (originalFieldGeometricScheme k κ t).functionField Ωt := AT₀
+      IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ωt)
+    (HT₁ : let : Algebra (originalFieldGeometricScheme k κ t).functionField Ωt := AT₁
+      IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ωt) :
     let xs₀ := retainedAmbientPoint k κ s Ωs AS₀
     let xs₁ := retainedAmbientPoint k κ s Ωs AS₁
     let xt₀ := retainedAmbientPoint k κ t Ωt AT₀

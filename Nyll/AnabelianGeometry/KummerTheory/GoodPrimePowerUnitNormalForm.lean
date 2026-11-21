@@ -114,7 +114,7 @@ theorem goodPrimePowerUnit_normalForm
     have hcop' : IsCoprime ((p ^ r : ℕ) : ℤ) ((U - 1 : ℕ) : ℤ) := by
       simpa only [Nat.cast_pow] using hcop
     have hunit : IsUnit ((((U - 1 : ℕ) : ℤ)) : ZMod (p ^ r)) :=
-      (ZMod.coe_int_isUnit_iff_isCoprime ((U - 1 : ℕ) : ℤ) (p ^ r)).mpr hcop'
+      (ZMod.isUnit_intCast_iff_isCoprime ((U - 1 : ℕ) : ℤ) (p ^ r)).mpr hcop'
     have hrepr : ((((U - 1 : ℕ) : ℤ)) : ZMod (p ^ r)) =
         (u : ZMod (p ^ r)) - 1 := by
       rw [Int.cast_natCast, Nat.cast_sub hUge, Nat.cast_one, hcastU]

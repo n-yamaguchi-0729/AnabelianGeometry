@@ -133,8 +133,8 @@ theorem pairRatFunc_orders (a b : Projectivization k (k × k))
       (if V = projectiveRatFuncPlace a then 1 else 0) -
         (if V = projectiveRatFuncPlace b then 1 else 0) := by
   rw [pairRatFunc, div_eq_mul_inv,
-    V.ord_mul (pairLinearRatFunc_ne_zero a.rep a.rep_nonzero)
-      (inv_ne_zero (pairLinearRatFunc_ne_zero b.rep b.rep_nonzero)),
+    V.ord_mul (pairLinearRatFunc_ne_zero a.rep a.rep_ne_zero)
+      (inv_ne_zero (pairLinearRatFunc_ne_zero b.rep b.rep_ne_zero)),
     V.ord_inv, pairLinearRatFunc_orders, pairLinearRatFunc_orders]
   ring
 
@@ -153,7 +153,7 @@ private theorem pairRatFunc_evalAt_infty (a b : Projectivization k (k × k))
   apply evalAt_placeInfty_eq k
   let c : k := (a.rep.2 * b.rep.1 - a.rep.1 * b.rep.2) / b.rep.2
   have hden : pairLinearRatFunc b.rep ≠ 0 :=
-    pairLinearRatFunc_ne_zero b.rep b.rep_nonzero
+    pairLinearRatFunc_ne_zero b.rep b.rep_ne_zero
   have hdiff : pairRatFunc a b - algebraMap k (RatFunc k) (a.rep.2 / b.rep.2) =
       RatFunc.C c / pairLinearRatFunc b.rep := by
     apply (eq_div_iff hden).mpr
@@ -182,7 +182,7 @@ theorem pairRatFunc_evalAt (a b d : Projectivization k (k × k)) (hdb : d ≠ b)
   by_cases hd : d.rep.2 = 0
   · have hd₁ : d.rep.1 ≠ 0 := by
       intro h
-      exact d.rep_nonzero (Prod.ext h hd)
+      exact d.rep_ne_zero (Prod.ext h hd)
     have hb : b.rep.2 ≠ 0 := by
       intro h
       exact hdb' (by simp only [bracket, hd, h, mul_zero, zero_mul, sub_self])
@@ -200,7 +200,7 @@ theorem pairRatFunc_evalAt (a b d : Projectivization k (k × k)) (hdb : d ≠ b)
     have hdenord : V.ord (pairLinearRatFunc b.rep) = 0 := by
       rw [pairLinearRatFunc_orders, ite_eq_right hVb, ite_eq_right hVinf, sub_self]
     have hden : pairLinearRatFunc b.rep ≠ 0 :=
-      pairLinearRatFunc_ne_zero b.rep b.rep_nonzero
+      pairLinearRatFunc_ne_zero b.rep b.rep_ne_zero
     have hnum : pairLinearRatFunc a.rep ∈ V.toValuationSubring := by
       rw [hVeq]
       change algebraMap (Polynomial k) (RatFunc k) (pairLinearPolynomial a.rep) ∈
@@ -244,8 +244,8 @@ theorem ratFunc_pair_evalAt_ratio_eq_crossRatio
     rw [pairRatFunc_orders, ite_eq_right (projectiveRatFuncPlace_injective.ne hp), sub_zero]
     split_ifs <;> omega
   rw [ratFunc_evalAt_ratio_eq_of_same_orders f (pairRatFunc a b) hf
-    (div_ne_zero (pairLinearRatFunc_ne_zero a.rep a.rep_nonzero)
-      (pairLinearRatFunc_ne_zero b.rep b.rep_nonzero))
+    (div_ne_zero (pairLinearRatFunc_ne_zero a.rep a.rep_ne_zero)
+      (pairLinearRatFunc_ne_zero b.rep b.rep_ne_zero))
     (fun V => (hord V).trans (pairRatFunc_orders a b V).symm)
     (projectiveRatFuncPlace c) (projectiveRatFuncPlace d)
     (projectiveRatFuncPlace_isRational c) (projectiveRatFuncPlace_isRational d)

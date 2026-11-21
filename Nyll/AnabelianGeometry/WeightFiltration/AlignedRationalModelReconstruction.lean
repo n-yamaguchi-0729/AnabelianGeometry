@@ -44,10 +44,10 @@ theorem exists_projectiveTransformation_of_pointed_constantCover_models
     {Ωs Ωt : Type} [Field Ωs] [Field Ωt] [IsAlgClosed Ωs] [IsAlgClosed Ωt]
     (xis : Spec (.of Ωs) ⟶ Xs) (xit : Spec (.of Ωt) ⟶ Xt)
     (s t : Finset (Projectivization E (E × E))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
-    [Algebra (rationalConfigurationGeometricScheme E κ s).functionField Ωs]
-    [Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ωt]
-    [IsAlgClosure (rationalConfigurationGeometricScheme E κ s).functionField Ωs]
-    [IsAlgClosure (rationalConfigurationGeometricScheme E κ t).functionField Ωt]
+    [Algebra (originalFieldGeometricScheme E κ s).functionField Ωs]
+    [Algebra (originalFieldGeometricScheme E κ t).functionField Ωt]
+    [IsAlgClosure (originalFieldGeometricScheme E κ s).functionField Ωs]
+    [IsAlgClosure (originalFieldGeometricScheme E κ t).functionField Ωt]
     (Js : ((pullback fs).obj (originalConstantFieldCover k E)).left ≅
       (rationalConfigurationOpen s : Scheme))
     (Jt : ((pullback ft).obj (originalConstantFieldCover k E)).left ≅

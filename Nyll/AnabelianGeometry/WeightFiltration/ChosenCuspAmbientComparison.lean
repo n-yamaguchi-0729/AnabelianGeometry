@@ -47,12 +47,12 @@ theorem rationalConfigurationChosenInertia_commonPoint_conjugate
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
     [Algebra (RatFunc k) Ω] [IsSepClosure (RatFunc k) Ω]
     [Algebra k Ω] [IsScalarTower k (RatFunc k) Ω]
-    (A₀ A₁ : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω)
-    (H₀ : let : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω := A₀
-      IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω)
-    (H₁ : let : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω := A₁
-      IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω) :
-    let U := rationalConfigurationGeometricScheme k κ s
+    (A₀ A₁ : Algebra (originalFieldGeometricScheme k κ s).functionField Ω)
+    (H₀ : let : Algebra (originalFieldGeometricScheme k κ s).functionField Ω := A₀
+      IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω)
+    (H₁ : let : Algebra (originalFieldGeometricScheme k κ s).functionField Ω := A₁
+      IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω) :
+    let U := originalFieldGeometricScheme k κ s
     let X : Scheme := (rationalConfigurationOpen s : Scheme)
     let f := (rationalConfigurationOpen s).ι ≫ π k 1
     let u : U ⟶ X := Limits.pullback.snd

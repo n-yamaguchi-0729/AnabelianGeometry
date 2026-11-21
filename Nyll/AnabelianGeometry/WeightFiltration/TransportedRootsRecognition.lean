@@ -31,7 +31,7 @@ namespace AnabelianGeometry.WeightFiltration
 attribute [local instance]
   placeBaseAmbientAlgebra placeBaseAmbientTower
   extendingPlaceAmbientAlgebra extendingPlaceAmbientTower
-  connectedCoverPlaceConstantAmbientTower
+  placeConstantAmbientTower
 
 variable
     (k κ : Type) [Field k] [CharZero k] [Field.FG k]
@@ -156,6 +156,7 @@ theorem transportedRoots_eq_conjugate_boundaryInertia
     have hcomm' : v * eΔ (f₁ s) = eΔ (f₁ s) * v := hcomm
     have hcentral : eΔ.symm v ∈ Subgroup.centralizer ({f₁ s} : Set G₁) := by
       apply Subgroup.mem_centralizer_singleton_iff.mpr
+      change eΔ.symm v * f₁ s = f₁ s * eΔ.symm v
       have hpull := congrArg eΔ.symm hcomm'
       simpa only [map_mul, eΔ.symm_apply_apply] using hpull
     rw [hcentralizer s hs₁] at hcentral

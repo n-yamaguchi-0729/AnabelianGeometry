@@ -85,7 +85,7 @@ theorem exists_faithfullyFlat_local_residueField_extension
     rw [IsLocalization.AtPrime.under_maximalIdeal B q]
     exact (q.over_def p).symm
   have hLocal : IsLocalHom (algebraMap A B) :=
-    ((IsLocalRing.local_hom_TFAE (algebraMap A B)).out 1 5).mpr hMaximal
+    ((IsLocalRing.local_hom_tfae (algebraMap A B)).out 1 5).mpr hMaximal
   have hFaithfullyFlat : Module.FaithfullyFlat A B :=
     Module.FaithfullyFlat.of_flat_of_isLocalHom
   have hEssential : Algebra.EssFiniteType A B := inferInstance

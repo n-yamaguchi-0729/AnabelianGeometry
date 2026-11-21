@@ -98,8 +98,8 @@ theorem namedSquareModels_exists_geometric_square_of_matched_points
     (AS : FiniteEtale XS) (AT : FiniteEtale XT) [CategoryTheory.PreGaloisCategory.IsConnected AS]
     [CategoryTheory.PreGaloisCategory.IsConnected AT]
     (s t : Finset (Projectivization E (E × E)))
-    [Algebra (rationalConfigurationGeometricScheme E κ s).functionField Ωs]
-    [Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ωt]
+    [Algebra (originalFieldGeometricScheme E κ s).functionField Ωs]
+    [Algebra (originalFieldGeometricScheme E κ t).functionField Ωt]
     (ys : Spec (.of Ωs) ⟶ XS) (yt : Spec (.of Ωt) ⟶ XT)
     (hxs : xs ≫ pullback.snd _ fs = ys) (hxt : xt ≫ pullback.snd _ ft = yt)
     (α : π₁ᵉᵗ(ys) ≃ₜ* π₁ᵉᵗ(yt))
@@ -120,9 +120,9 @@ theorem namedSquareModels_exists_geometric_square_of_matched_points
       namedModelPoint AS ys w JS)
     (ht : rationalConfigurationArithmeticBasePoint E κ t Ωt =
       namedModelPoint AT yt (e w) JT)
-    (qκs : rationalConfigurationGeometricScheme E κ s ⟶
+    (qκs : originalFieldGeometricScheme E κ s ⟶
       pullback (Spec.map (CommRingCat.ofHom (algebraMap E κ))) fs)
-    (qκt : rationalConfigurationGeometricScheme E κ t ⟶
+    (qκt : originalFieldGeometricScheme E κ t ⟶
       pullback (Spec.map (CommRingCat.ofHom (algebraMap E κ))) ft)
     (hcoeffS : qκs ≫ pullback.snd _ fs =
       pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap E κ)))
@@ -130,9 +130,9 @@ theorem namedSquareModels_exists_geometric_square_of_matched_points
     (hcoeffT : qκt ≫ pullback.snd _ ft =
       pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap E κ)))
         ((rationalConfigurationOpen t).ι ≫ π E 1) ≫ qt)
-    (hgeomS : (rationalConfigurationGeometricScheme E κ s).genericExtensionMorphism Ωs ≫
+    (hgeomS : (originalFieldGeometricScheme E κ s).genericExtensionMorphism Ωs ≫
       qκs = xs)
-    (hgeomT : (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ωt ≫
+    (hgeomT : (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ωt ≫
       qκt = xt) :
     let αP := matchedPointGroupEquiv hxs hxt α
     ∃ αΔ : π₁ᵉᵗ(xs) ≃ₜ* π₁ᵉᵗ(xt),
@@ -149,10 +149,10 @@ theorem namedSquareModels_exists_geometric_square_of_matched_points
         (∀ z, rationalConfigurationGeometricInclusion E κ t Ωt (βΔ z) =
           αR (rationalConfigurationGeometricInclusion E κ s Ωs z)) ∧
         ∀ z, pointedFundamentalGroupHom qκt
-            ((rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ωt)
+            ((originalFieldGeometricScheme E κ t).genericExtensionMorphism Ωt)
             xt hgeomT (βΔ z) =
           αΔ (pointedFundamentalGroupHom qκs
-            ((rationalConfigurationGeometricScheme E κ s).genericExtensionMorphism Ωs)
+            ((originalFieldGeometricScheme E κ s).genericExtensionMorphism Ωs)
             xs hgeomS z) := by
   intro αP
   have hαP := matchedPointGroupEquiv_arithmetic E κ fs ft hxs hxt α hα

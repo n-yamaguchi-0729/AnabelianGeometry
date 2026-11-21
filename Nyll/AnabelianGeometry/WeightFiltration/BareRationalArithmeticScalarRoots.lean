@@ -6,6 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalArithmeticScalarTransport
 public import Nyll.JacobianVarieties.Kummer.BareRationalNamedKummerRootCoordinate
 public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalPairNamedTransportAllOrders
@@ -32,24 +33,7 @@ attribute [local instance] Classical.propDecidable
 
 namespace AnabelianGeometry.WeightFiltration
 
-local instance rootedScalarArithmeticChart_isOpenImmersion
-    (k : Type) [Field k] (s : Finset (Projectivization k (k × k))) :
-    IsOpenImmersion (show (rationalConfigurationOpen s : Scheme) ⟶
-      (projectiveLineRatFuncModel k).C from (rationalConfigurationOpen s).ι) := by
-  change IsOpenImmersion (rationalConfigurationOpen s).ι
-  infer_instance
-
-local instance rootedScalarChart_isOpenImmersion
-    (k κ : Type) [Field k] [Field κ] [Algebra k κ] [IsAlgClosed κ]
-    (s : Finset (Projectivization k (k × k))) :
-    IsOpenImmersion (show rationalConfigurationGeometricScheme k κ s ⟶
-      (projectiveLineRatFuncModel κ).C from rationalConfigurationBaseChangeChart k κ s) := by
-  change IsOpenImmersion (rationalConfigurationBaseChangeChart k κ s)
-  exact rationalConfigurationBaseChangeChart_isOpenImmersion k κ s
-
-local instance (priority := 2000) rootedScalarSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E] [Algebra A (RatFunc E)] :
-    SMul A (RatFunc E) := (inferInstance : Algebra A (RatFunc E)).toSMul
+attribute [local instance 2000] RatFunc.algebraSMul
 
 /-- A coordinate on the same arithmetic torsor, retaining the canonical
 original generic action and equality transport to the original bare point. -/
@@ -80,10 +64,10 @@ def RationalConfigurationArithmeticScalarTransportWithRoots
     [IsAlgClosed κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k)))
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (n : ℕ+)
     (us : Pic0.openKummerUnits k (RatFunc k)
       ((projectiveLineRatFuncModel k).openBoundaryPlaces (rationalConfigurationOpen s).ι) n)
@@ -107,9 +91,11 @@ def RationalConfigurationArithmeticScalarTransportWithRoots
     isUnit_iff_ne_zero.mpr (Nat.cast_ne_zero.mpr n.ne_zero)
   let M := projectiveLineRatFuncModel k
   let iS : (rationalConfigurationOpen s : Scheme) ⟶ M.C := (rationalConfigurationOpen s).ι
-  let _ : IsOpenImmersion iS := rootedScalarArithmeticChart_isOpenImmersion k s
+  let _ : IsOpenImmersion iS :=
+    inferInstanceAs (IsOpenImmersion (rationalConfigurationOpen s).ι)
   let iT : (rationalConfigurationOpen t : Scheme) ⟶ M.C := (rationalConfigurationOpen t).ι
-  let _ : IsOpenImmersion iT := rootedScalarArithmeticChart_isOpenImmersion k t
+  let _ : IsOpenImmersion iT :=
+    inferInstanceAs (IsOpenImmersion (rationalConfigurationOpen t).ι)
   let ξs := rationalConfigurationArithmeticBasePoint k κ s Ω₁
   let ξt := rationalConfigurationArithmeticBasePoint k κ t Ω₂
   let Fs := fiber ξs
@@ -168,10 +154,10 @@ theorem RationalConfigurationArithmeticScalarTransportWithRoots.forget
     [IsAlgClosed κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k)))
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (n : ℕ+)
     (us : Pic0.openKummerUnits k (RatFunc k)
       ((projectiveLineRatFuncModel k).openBoundaryPlaces (rationalConfigurationOpen s).ι) n)
@@ -193,10 +179,10 @@ theorem arithmeticScalarTransport_with_roots_of_namedGeometricTransport
     [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k)))
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (n : ℕ+) (hnκ : IsUnit ((n : ℕ) : κ))
     (us : Pic0.openKummerUnits k (RatFunc k)
       ((projectiveLineRatFuncModel k).openBoundaryPlaces (rationalConfigurationOpen s).ι) n)
@@ -225,17 +211,22 @@ theorem arithmeticScalarTransport_with_roots_of_namedGeometricTransport
   delta RationalConfigurationArithmeticScalarTransportWithRoots
   intro A_s A_t B_s B_t C_s C_t sep_s sep_t hn MA iS hiS iT hiT ξs ξt Fs Ft AS ATs ea
   let MG := projectiveLineRatFuncModel κ
-  let js := rationalConfigurationBaseChangeChart k κ s
-  let jt := rationalConfigurationBaseChangeChart k κ t
-  let ys := (rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω₁
-  let yt := (rationalConfigurationGeometricScheme k κ t).genericExtensionMorphism Ω₂
+  let js : originalFieldGeometricScheme k κ s ⟶ MG.C :=
+    rationalConfigurationBaseChangeChart k κ s
+  let jt : originalFieldGeometricScheme k κ t ⟶ MG.C :=
+    rationalConfigurationBaseChangeChart k κ t
+  let : IsOpenImmersion js := rationalConfigurationBaseChangeChart_isOpenImmersion k κ s
+  let : IsOpenImmersion jt := rationalConfigurationBaseChangeChart_isOpenImmersion k κ t
+  let ys := (originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω₁
+  let yt := (originalFieldGeometricScheme k κ t).genericExtensionMorphism Ω₂
   let ps := Limits.pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
     ((rationalConfigurationOpen s).ι ≫ π k 1)
   let pt := Limits.pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
     ((rationalConfigurationOpen t).ι ≫ π k 1)
-  let GS := MG.openKummerCover (MG.openBoundaryPlaces js) n hnκ ws js
-    (rationalConfigurationBaseChangeChart_denseRange k κ s)
-    (MG.place_not_mem_openBoundaryPlaces js)
+  let GS : FiniteEtale (originalFieldGeometricScheme k κ s) :=
+    MG.openKummerCover (MG.openBoundaryPlaces js) n hnκ ws js
+      (rationalConfigurationBaseChangeChart_denseRange k κ s)
+      (MG.place_not_mem_openBoundaryPlaces js)
   let : Torsor (rootsOfUnity (n : ℕ) κ) ((fiber ys).obj GS) :=
     CurveModel.OpenKummer.kummerGeometricRootTorsor MG (MG.openBoundaryPlaces js)
     n ws js (rationalConfigurationBaseChangeChart_denseRange k κ s)
@@ -253,10 +244,11 @@ theorem arithmeticScalarTransport_with_roots_of_namedGeometricTransport
   let AT := MA.openKummerCover (MA.openBoundaryPlaces iT) n hn
     (ut ^ (u : ZMod (n : ℕ)).val) iT (rationalConfigurationOpen_denseRange k t)
     (MA.place_not_mem_openBoundaryPlaces iT)
-  let GT := MG.openKummerCover (MG.openBoundaryPlaces jt) n hnκ
-    (wt ^ (u : ZMod (n : ℕ)).val) jt
-    (rationalConfigurationBaseChangeChart_denseRange k κ t)
-    (MG.place_not_mem_openBoundaryPlaces jt)
+  let GT : FiniteEtale (originalFieldGeometricScheme k κ t) :=
+    MG.openKummerCover (MG.openBoundaryPlaces jt) n hnκ
+      (wt ^ (u : ZMod (n : ℕ)).val) jt
+      (rationalConfigurationBaseChangeChart_denseRange k κ t)
+      (MG.place_not_mem_openBoundaryPlaces jt)
   let : Torsor (rootsOfUnity (n : ℕ) κ) ((fiber yt).obj GT) :=
     CurveModel.OpenKummer.kummerGeometricRootTorsor MG (MG.openBoundaryPlaces jt)
     n (wt ^ (u : ZMod (n : ℕ)).val) jt
@@ -298,10 +290,10 @@ theorem bare_rationalConfiguration_pair_arithmetic_scalarTransport_with_roots
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (eP : rationalConfigurationArithmeticGroup k κ s Ω₁ ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ω₂)
     (hP : ∀ γ,
@@ -370,10 +362,10 @@ theorem bare_rationalConfiguration_pair_scalarTransport_with_roots_and_all_order
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (eP : rationalConfigurationArithmeticGroup k κ s Ω₁ ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ω₂)
     (hP : ∀ γ,

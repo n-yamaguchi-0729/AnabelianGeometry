@@ -44,7 +44,7 @@ theorem namedSquare_pair_exists_actual_finiteBase_configuration
         (if W = (rationalConfigurationBoundaryPlace k κ s b).val then 1 else 0))
     (r : s → E)
     (hr : ∀ x : s, r x ^ 2 = algebraMap k E
-      ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt
+      ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt
         (u.val : RatFunc k))) :
     let M := projectiveLineRatFuncModel k
     let i : (rationalConfigurationOpen s : Scheme) ⟶ M.C := (rationalConfigurationOpen s).ι
@@ -95,13 +95,13 @@ theorem namedSquare_pair_exists_actual_finiteBase_configuration
     intro h
     exact hab ((rationalConfigurationBoundaryPlaceEquiv k κ s).injective
       (Subtype.ext h)).symm
-  have hpole : (literalRationalPuncturePlace k b.val.rep b.val.rep_nonzero).ord
+  have hpole : (literalRationalPuncturePlace k b.val.rep b.val.rep_ne_zero).ord
       (u.val : RatFunc k) = -1 := by
     rw [← rationalConfigurationBoundaryPlace_coefficient_orders k κ s b,
       hgeom, ite_eq_right hba, ite_eq_left rfl, zero_sub]
   refine ⟨e, eE, he, heE, ?_⟩
   exact namedSquare_originalUnit_exists_finiteBase_configuration
     k E s hn u e eE he heE
-    (literalRationalPuncturePlace k b.val.rep b.val.rep_nonzero) hpole r hr yE
+    (literalRationalPuncturePlace k b.val.rep b.val.rep_ne_zero) hpole r hr yE
 
 end AnabelianGeometry.WeightFiltration

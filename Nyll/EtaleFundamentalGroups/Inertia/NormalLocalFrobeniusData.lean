@@ -110,7 +110,7 @@ theorem exists_normalization_frobenius_data
         {z : IsLocalRing.ResidueField R | SchemeTheory.residueAlgEquiv A R τ z = z} := by
       rw [hset]
       exact Polynomial.finite_setOfPred_isRoot
-        (FiniteField.X_pow_card_sub_X_ne_zero (IsLocalRing.ResidueField R) hq)
+        (Polynomial.X_pow_sub_X_ne_zero (R := IsLocalRing.ResidueField R) hq)
     exact hfin.to_subtype
   refine ⟨inferInstance, inferInstance, inferInstance, inferInstance, d.val, τ,
     hcompat, hres, hfinite, ?_⟩

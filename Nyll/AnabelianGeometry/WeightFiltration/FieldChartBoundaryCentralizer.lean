@@ -14,7 +14,7 @@ module
 
 public import Nyll.AlgebraicCurves.Models.Ramification.OpenBoundary
 public import Nyll.AlgebraicCurves.Models.FunctionFields.FieldReparametrization
-public import Nyll.AlgebraicCurves.Places.Rational.Basic
+public import Nyll.AlgebraicCurves.Places.RingEquiv
 public import Nyll.AnabelianGeometry.WeightFiltration.GenericPlaceInertiaRingEquiv
 public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaEmbedding
 public import Nyll.AnabelianGeometry.CuspidalInertia.BoundaryInertiaCentralizer

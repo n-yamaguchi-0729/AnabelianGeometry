@@ -47,13 +47,13 @@ theorem scalarExtensionModelIso_original_genericPoint
     (J : pullback (specMap k E) f ≅ (rationalConfigurationOpen s : Scheme))
     (hJ : J.hom ≫ ((rationalConfigurationOpen s).ι ≫ π E 1) =
       pullback.fst (specMap k E) f)
-    [Algebra (rationalConfigurationGeometricScheme E κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme E κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme E κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme E κ s).functionField Ω]
     [Algebra κ Ω]
     (xi : Spec (.of Ω) ⟶ X)
     (hpoint : rationalConfigurationArithmeticBasePoint E κ s Ω =
       arithmeticConstantFieldLift k E κ f xi ≫ J.hom)
-    (hcoef : (rationalConfigurationGeometricScheme E κ s).genericExtensionMorphism Ω ≫
+    (hcoef : (originalFieldGeometricScheme E κ s).genericExtensionMorphism Ω ≫
       pullback.fst (specMap E κ) ((rationalConfigurationOpen s).ι ≫ π E 1) = ξ κ Ω) :
     let T := scalarExtensionModelIso k E κ f
       ((rationalConfigurationOpen s).ι ≫ π E 1) J hJ
@@ -61,14 +61,14 @@ theorem scalarExtensionModelIso_original_genericPoint
       namedBaseTransportAmbientAlgebra T.symm Ω
     IsAlgClosure (pullback (specMap k κ) f).functionField Ω ∧
       (pullback (specMap k κ) f).genericExtensionMorphism Ω ≫ T.hom =
-        (rationalConfigurationGeometricScheme E κ s).genericExtensionMorphism Ω ∧
+        (originalFieldGeometricScheme E κ s).genericExtensionMorphism Ω ∧
       (pullback (specMap k κ) f).genericExtensionMorphism Ω ≫
           pullback.fst (specMap k κ) f = ξ κ Ω ∧
       (pullback (specMap k κ) f).genericExtensionMorphism Ω ≫
           pullback.snd (specMap k κ) f = xi := by
   intro T AX
   let x := (pullback (specMap k κ) f).genericExtensionMorphism Ω
-  let z := (rationalConfigurationGeometricScheme E κ s).genericExtensionMorphism Ω
+  let z := (originalFieldGeometricScheme E κ s).genericExtensionMorphism Ω
   have hback : z ≫ T.inv = x := namedBaseTransport_genericPoint T.symm Ω
   have hforward : x ≫ T.hom = z := by
     rw [← hback, Category.assoc, T.inv_hom_id, Category.comp_id]
@@ -111,16 +111,16 @@ theorem rationalConfiguration_fixedConstant_scalarTower
     (k κ : Type) [Field k] [Infinite k] [Field κ] [Algebra k κ]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
     [Algebra κ Ω]
-    (hcoef : (rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω ≫
+    (hcoef : (originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω ≫
       pullback.fst (specMap k κ) ((rationalConfigurationOpen s).ι ≫ π k 1) = ξ κ Ω) :
     let _AFΩ : Algebra (RatFunc κ) Ω := rationalConfigurationGeometricAmbientAlgebra k κ s Ω
     IsScalarTower κ (RatFunc κ) Ω := by
   intro AFΩ
   let : IsIntegral (projectiveLineScheme κ) := projectiveSpace_isIntegral κ 1
   let M := projectiveLineRatFuncModel κ
-  let Z := rationalConfigurationGeometricScheme k κ s
+  let Z := originalFieldGeometricScheme k κ s
   let j : Z ⟶ M.C := rationalConfigurationBaseChangeChart k κ s
   let : IsOpenImmersion j :=
     inferInstanceAs (IsOpenImmersion (rationalConfigurationBaseChangeChart k κ s))

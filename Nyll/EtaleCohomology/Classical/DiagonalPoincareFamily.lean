@@ -6,6 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 module
 
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Morphisms.HomInvertibleKerCompEqId
 public import Nyll.AlgebraicCurves.Geometry.Picard.AbelJacobi.AbelJacobiFamily
 public import Nyll.AlgebraicCurves.Geometry.Picard.AbelJacobi.AjFamilyFibreIso
 public import Nyll.AlgebraicCurves.Geometry.Picard.AlgebraicEquivalence.AlgEquivZeroCut
@@ -34,6 +35,8 @@ original signed divisor bundle of the normalized diagonal.
 -/
 
 @[expose] public section
+
+open AlgebraicGeometry.Scheme.Hom (sectionEffectiveCartierDivisor)
 
 noncomputable section
 

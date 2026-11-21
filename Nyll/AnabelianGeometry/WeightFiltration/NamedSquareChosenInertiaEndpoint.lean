@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareModelInertiaCaller
 public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareCoherentBaseChangeCaller
 public import Nyll.AlgebraicCurves.Places.Restriction.PlaceChartRestrictionSquare
@@ -36,9 +37,7 @@ attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
   placeBaseAmbientAlgebra placeBaseAmbientTower normalizationCommAlgGaloisAction
 namespace AnabelianGeometry.WeightFiltration
 
-local instance chosenSquareSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E] [Algebra A (RatFunc E)] :
-    SMul A (RatFunc E) := (inferInstance : Algebra A (RatFunc E)).toSMul
+attribute [local instance] RatFunc.algebraSMul
 
 /-- The chosen inertia groups on the cover model project into conjugates of the inertia groups
 at the corresponding restricted places on the base. -/
@@ -53,10 +52,10 @@ def namedSquareChosenInertiaProjection
       DivisionSemiring.to_moduleIsTorsionFree]
     (W : FiniteEtale U) [IsConnected W]
     (w : (fiber (U.genericExtensionMorphism Ω)).obj W)
-    (J : W.left ≅ rationalConfigurationGeometricScheme E κ t)
-    (qN : rationalConfigurationGeometricScheme E κ t ⟶ U)
+    (J : W.left ≅ originalFieldGeometricScheme E κ t)
+    (qN : originalFieldGeometricScheme E κ t ⟶ U)
     (eκ : RatFunc κ ≃ₐ[κ] RatFunc κ) : Prop :=
-    let N := rationalConfigurationGeometricScheme E κ t
+    let N := originalFieldGeometricScheme E κ t
     let K := U.functionField
     let _AκK : Algebra κ K := (cU.toRingHom.comp (algebraMap κ (RatFunc κ))).toAlgebra
     let _hcharK : CharZero K := Algebra.charZero_of_charZero (R := κ) (A := K)
@@ -98,8 +97,8 @@ theorem namedSquareChosenInertiaProjection_of_fieldSquare
       DivisionSemiring.to_moduleIsTorsionFree]
     (W : FiniteEtale U) [IsConnected W]
     (w : (fiber (U.genericExtensionMorphism Ω)).obj W)
-    (J : W.left ≅ rationalConfigurationGeometricScheme E κ t)
-    (qN : rationalConfigurationGeometricScheme E κ t ⟶ U)
+    (J : W.left ≅ originalFieldGeometricScheme E κ t)
+    (qN : originalFieldGeometricScheme E κ t ⟶ U)
     (eκ : RatFunc κ ≃ₐ[κ] RatFunc κ)
     (hJq : J.hom ≫ qN = W.hom)
     (hsquare :
@@ -209,21 +208,9 @@ theorem namedSquareChosenInertiaProjection_of_fieldSquare
   rw [← hforward] at hprojection
   exact hprojection
 
-local instance chosenEndpointBaseChangeOverCategory (S : Scheme) :
-    Category (MorphismProperty.Over
-      (@IsFiniteEtale : MorphismProperty Scheme) ⊤ S) :=
-  AlgebraicGeometry.FiniteEtale.instCategory S
-local instance chosenEndpointBaseChangeHasPullbacksAlong
-    {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.HasPullbacksAlong
-      (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun _ _ ↦ inferInstance⟩
-local instance chosenEndpointBaseChangeStableUnderBaseChangeAlong
-    {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.IsStableUnderBaseChangeAlong
-      (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun h hf ↦ MorphismProperty.of_isPullback
-    (P := (@IsFiniteEtale : MorphismProperty Scheme)) h hf⟩
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleOverCategory
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleHasPullbacksAlong
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleIsStableUnderBaseChangeAlong
 
 theorem namedSquareModel_actual_chosen_inertia_endpoint
     (E κ : Type) [Field E] [Field κ] [Algebra E κ] [Infinite E] [CharZero κ]
@@ -269,7 +256,7 @@ theorem namedSquareModel_actual_chosen_inertia_endpoint
           exact (pullback.condition (f := φ) (g := f)).trans
             (Category.assoc b j
               (show (projectiveLineRatFuncModel E).C ⟶ Spec (.of E) from π E 1)).symm)
-    ∃ Jκ : Wκ.left ≅ rationalConfigurationGeometricScheme E κ t,
+    ∃ Jκ : Wκ.left ≅ originalFieldGeometricScheme E κ t,
       Jκ.hom ≫ pullback.snd φ g = pullback.fst W.hom b ≫ J.hom ∧
       Jκ.hom ≫ pullback.fst φ g = Wκ.hom ≫ pullback.fst φ f ∧
       ∃ hjκ : IsOpenImmersion jκ,

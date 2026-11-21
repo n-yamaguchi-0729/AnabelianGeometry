@@ -6,6 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 module
 
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Morphisms.HomInvertibleKerCompEqId
 public import Nyll.EtaleCohomology.Classical.CartierAdicCycleClass
 public import Nyll.EtaleCohomology.Classical.CartierAdicCyclePullback
 public import Nyll.EtaleCohomology.Classical.CartierAdicLineBundleComparison
@@ -28,6 +29,8 @@ whose actual line bundle is compared with the Abel–Jacobi family.
 -/
 
 @[expose] public section
+
+open AlgebraicGeometry.Scheme.Hom (sectionEffectiveCartierDivisor)
 
 noncomputable section
 

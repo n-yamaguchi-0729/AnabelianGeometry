@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.EtaleFundamentalGroups.Inertia.RatFuncRationalCuspInertiaImage
 public import Nyll.EtaleFundamentalGroups.Inertia.RationalCuspArithmeticNormalizer
 
@@ -21,9 +22,7 @@ attribute [local instance] Polynomial.algebra
 
 namespace EtaleFundamentalGroups.Inertia
 attribute [local instance] normalizationCommAlgGaloisAction
-local instance (priority := 2000) {R K : Type*} [CommSemiring R] [Field K]
-    [Algebra R (RatFunc K)] : SMul R (RatFunc K) :=
-  (inferInstance : Algebra R (RatFunc K)).toSMul
+attribute [local instance 2000] RatFunc.algebraSMul
 universe u
 
 private theorem rationalPlace_residueRetraction

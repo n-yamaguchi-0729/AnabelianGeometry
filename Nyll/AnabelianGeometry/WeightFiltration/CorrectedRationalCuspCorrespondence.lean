@@ -59,10 +59,10 @@ theorem rationalConfiguration_corrected_geometricMap_same_punctures
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (ht : 3 ≤ t.card)
     (Ωs Ωt : Type) [Field Ωs] [Field Ωt] [IsAlgClosed Ωs] [IsAlgClosed Ωt]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ωs]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ωt]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ωs]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ωt]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ωs]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ωt]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ωs]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ωt]
     (α α' : rationalConfigurationGeometricGroup k κ s Ωs ≃ₜ*
       rationalConfigurationGeometricGroup k κ t Ωt)
     (σ : s ≃ t)

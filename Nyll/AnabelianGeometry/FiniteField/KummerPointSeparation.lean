@@ -141,8 +141,8 @@ theorem finiteField_eq_of_pairKummerCocycles
   have heq := KummerTheory.finiteField_eq_of_kummerRootCocycles_cohomologous
     (pairValueUnit a b x hxa hxb) (pairValueUnit a b y hya hyb) r s ζ hr hs hζ h
   apply eq_of_pairFunction_evalAt_eq a b x y hba hxa hxb hyb (pairRatFunc a b)
-    (div_ne_zero (pairLinearRatFunc_ne_zero a.rep a.rep_nonzero)
-      (pairLinearRatFunc_ne_zero b.rep b.rep_nonzero)) (pairRatFunc_orders a b)
+    (div_ne_zero (pairLinearRatFunc_ne_zero a.rep a.rep_ne_zero)
+      (pairLinearRatFunc_ne_zero b.rep b.rep_ne_zero)) (pairRatFunc_orders a b)
   exact congrArg Units.val heq
 
 /-- The three-puncture Abel image contains no translate of a nontrivial

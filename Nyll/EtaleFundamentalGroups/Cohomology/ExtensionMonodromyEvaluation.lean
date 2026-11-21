@@ -36,18 +36,12 @@ variable {X : Scheme.{u}} [ConnectedSpace X] (A : AddCommGrpCat.{u}) [Finite A]
   (t : (Functor.const X.Etaleᵒᵖ).obj PUnit ⟶ Q.obj ⋙ forget AddCommGrpCat.{u})
   {Ω : Type u} [Field Ω] [IsSepClosed Ω] (ξ : Spec (.of Ω) ⟶ X)
 
-/-- The finite locally constant sheaf of lifts of the quotient section. -/
-abbrev lifts : EtaleFiniteLocallyConstantSetSheaf X :=
-  ⟨extensionFiber (ShortComplex.mk i p h) t,
-    extensionFiber_isFiniteLocallyConstant (ShortComplex.mk i p h) t hs
-      (constantAbelian_isFiniteLocallyConstant X A)⟩
-
 /-- A monodromy point of the lift sheaf, evaluated in the original middle stalk. -/
 def extensionMonodromyEvaluation
     (q : (extensionMonodromy A i p h hs t ξ).obj.V) :
     (Scheme.pointSmallEtale ξ).sheafFiber (A := AddCommGrpCat.{u}) |>.obj E :=
   (extensionFiberStalkEquiv (ShortComplex.mk i p h) t ξ
-    ((finiteLocallyConstantSetMonodromyStalkIso ξ).hom.app (lifts A i p h hs t) q)).val
+    ((finiteLocallyConstantSetMonodromyStalkIso ξ).hom.app (liftSheaf A i p h hs t) q)).val
 
 /-- An evaluated monodromy point is represented by an actual local lift of
 the specified quotient section. -/
@@ -61,7 +55,7 @@ theorem extensionMonodromyEvaluation_exists_germ
   let Φ := Scheme.pointSmallEtale ξ
   obtain ⟨U, x, a, ha⟩ := Φ.toPresheafFiber_jointly_surjective
     (P := (extensionFiber (ShortComplex.mk i p h) t).obj)
-    ((finiteLocallyConstantSetMonodromyStalkIso ξ).hom.app (lifts A i p h hs t) q)
+    ((finiteLocallyConstantSetMonodromyStalkIso ξ).hom.app (liftSheaf A i p h hs t) q)
   refine ⟨U, x, a.val, ?_, a.property⟩
   exact (congrArg (fun z => (extensionFiberStalkEquiv
     (ShortComplex.mk i p h) t ξ z).val) ha.symm).trans
@@ -79,7 +73,7 @@ theorem extensionMonodromyEvaluation_translation (a : Multiplicative A)
   let z := quotientSectionStalk (ShortComplex.mk i p h) t ξ
   let e : (extensionMonodromy A i p h hs t ξ).obj.V ≃ abelianExtensionFiber S z :=
     ((finiteLocallyConstantSetMonodromyStalkIso ξ).app
-    (lifts A i p h hs t)).toEquiv.trans
+    (liftSheaf A i p h hs t)).toEquiv.trans
       (extensionFiberStalkEquiv (ShortComplex.mk i p h) t ξ)
   let T := extensionMonodromyTorsor A i p h hs t ξ
   change (e (a • q)).val = S.f ((constantAbelianStalkIso ξ A).inv a.toAdd) + (e q).val
@@ -93,7 +87,7 @@ variable (M : Type u) [AddCommGroup M] [Fintype M]
   (f : E ⟶ finiteAbelianMonodromySheaf ξ M)
 
 private def representedLiftMap :
-    lifts A i p h hs t ⟶
+    liftSheaf A i p h hs t ⟶
       (finiteEtaleEquivFiniteLocallyConstantSetSheaf X).functor.obj
         (finiteAbelianCover ξ M) :=
   ObjectProperty.homMk
@@ -134,7 +128,7 @@ private theorem representedLiftMap_evaluation
           (((finiteLocallyConstantSetMonodromy ξ).functor.map
             (representedLiftMap A i p h hs t ξ M f)).hom.hom q)) := by
   let I := finiteLocallyConstantSetMonodromyStalkIso ξ
-  let F := lifts A i p h hs t
+  let F := liftSheaf A i p h hs t
   let V := finiteAbelianCover ξ M
   let mf := representedLiftMap A i p h hs t ξ M f
   let N := (finiteLocallyConstantSetMonodromy ξ).functor

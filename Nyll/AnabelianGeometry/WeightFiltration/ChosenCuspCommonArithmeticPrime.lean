@@ -50,8 +50,8 @@ theorem rationalConfigurationChosenInertia_commonArithmeticPrime
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     [Algebra (RatFunc k) Ω] [IsSepClosure (RatFunc k) Ω]
     [Algebra k Ω] [IsScalarTower k (RatFunc k) Ω]
     (p : (projectiveLineRatFuncModel κ).openBoundaryPlaces
@@ -59,12 +59,12 @@ theorem rationalConfigurationChosenInertia_commonArithmeticPrime
     (V : Place k (RatFunc k)) (hV : V.IsRational)
     (hord : ∀ t : RatFunc k,
       p.val.ord (algebraMap (RatFunc k) (RatFunc κ) t) = V.ord t)
-    (hpoint : (rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω ≫
+    (hpoint : (originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω ≫
         Limits.pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
           ((rationalConfigurationOpen s).ι ≫ π k 1) =
       Spec.map (CommRingCat.ofHom (algebraMap (RatFunc k) Ω)) ≫
         rationalConfigurationArithmeticGenericPoint k s) :
-    let x := (rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω
+    let x := (originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω
     let z := Spec.map (CommRingCat.ofHom (algebraMap (RatFunc k) Ω)) ≫
       rationalConfigurationArithmeticGenericPoint k s
     let i := (pointedFundamentalGroupHom
@@ -81,7 +81,7 @@ theorem rationalConfigurationChosenInertia_commonArithmeticPrime
         Function.Surjective (fun d : D => arithmeticFundamentalGroupHom k κ
           ((rationalConfigurationOpen s).ι ≫ π k 1) z d.val) := by
   intro x z i
-  let U := rationalConfigurationGeometricScheme k κ s
+  let U := originalFieldGeometricScheme k κ s
   let j := rationalConfigurationBaseChangeChart k κ s
   let u : U ⟶ (rationalConfigurationOpen s : Scheme) :=
     Limits.pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap k κ)))

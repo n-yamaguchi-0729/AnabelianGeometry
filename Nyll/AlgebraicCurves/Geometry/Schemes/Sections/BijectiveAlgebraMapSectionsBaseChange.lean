@@ -12,12 +12,14 @@ AI assistance in local adaptation and maintenance: OpenAI Codex.
 
 module
 
+public import Nyll.SchemeTheory.Cohomology.Cech.OrderedAffineCoverCech
 public import Nyll.SchemeTheory.Cohomology.Cech.TwoAffineOpenCover
 public import Nyll.AlgebraicCurves.Geometry.Schemes.Covers.OrderedAffineCoverComap
 public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafOfModules
 public import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
 public import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.BaseChangeEquiv
 public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.DZeroModulesEqZeroIffUnique
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Vanishing.SectionsTopEquivH0Modules
 
 /-!
 # Global sections after base change from a field
@@ -27,6 +29,9 @@ comparison used in the final statement.
 -/
 
 @[expose] public section
+
+open _root_.AlgebraicGeometry.OModulePresheaf
+  (sectionsEquivH0)
 
 section ProofImplementation
 
@@ -42,76 +47,6 @@ open CategoryTheory CategoryTheory.Limits AlgebraicGeometry Opposite Topological
   TensorProduct
 
 namespace P2mH0BaseChangeField
-
-/-- A finite ordered affine cover obtained from the canonical affine cover. -/
-def coverOfCompact (X : Scheme.{u}) [CompactSpace X] : X.OrderedAffineCover :=
-  let 𝒰 := X.affineCover.finiteSubcover
-  { ι := 𝒰.I₀
-    instFintype := inferInstance
-    instLinearOrder := LinearOrder.lift' (Fintype.equivFin 𝒰.I₀) (Fintype.equivFin 𝒰.I₀).injective
-    U := fun i => (𝒰.f i).opensRange
-    isAffineOpen := fun i => isAffineOpen_opensRange (𝒰.f i)
-    iSup_eq_top := 𝒰.iSup_opensRange }
-
-section H0
-
-variable {R : Type u} [CommRing R] {V : Scheme.{u}} (π : V ⟶ Spec (.of R)) (M : V.Modules)
-  (K : V.OrderedAffineCover)
-
-/-- The degree-zero Cech cochain obtained by restricting a global section. -/
-def toCochain :
-    letI := Scheme.TwoAffineOpenCover.moduleSectionsOfHom π M ⊤
-    Γ(M, ⊤) →ₗ[R] (OModulePresheaf.ofModules π M).cochain K 0 :=
-  let := Scheme.TwoAffineOpenCover.moduleSectionsOfHom π M ⊤
-  LinearMap.pi fun s => (OModulePresheaf.ofModules π M).res (le_top : K.inter s ≤ ⊤)
-
-theorem toCochain_apply (x : Γ(M, ⊤)) (s : K.Idx 0) :
-    toCochain π M K x s = M.presheaf.map (homOfLE (le_top : K.inter s ≤ ⊤)).op x := rfl
-
-theorem toCochain_apply' (x : Γ(M, ⊤)) (s : K.Idx 0) :
-    toCochain π M K x s = (OModulePresheaf.ofModules π M).res (le_top : K.inter s ≤ ⊤)
-      (show (OModulePresheaf.ofModules π M).obj ⊤ from x) := rfl
-
-theorem d_toCochain (x : Γ(M, ⊤)) :
-    (OModulePresheaf.ofModules π M).d K 0 (toCochain π M K x) = 0 := by
-  funext s
-  change ((OModulePresheaf.ofModules π M).d K 0 (toCochain π M K x)) s =
-    (0 : Γ(M, K.inter s))
-  rw [OModulePresheaf.d_apply, Fin.sum_univ_two]
-  simp only [Fin.val_zero, pow_zero, one_smul, Fin.val_one, pow_one, neg_smul, toCochain_apply']
-  have hres (j : Fin 2) := (OModulePresheaf.ofModules π M).res_res
-    (K.inter_le_inter_face s j) (le_top : K.inter (K.face s j) ≤ ⊤)
-    (show (OModulePresheaf.ofModules π M).obj ⊤ from x)
-  exact (congrArg₂ (fun a b : Γ(M, K.inter s) => a + -b) (hres 0) (hres 1)).trans
-    (add_neg_cancel ((OModulePresheaf.ofModules π M).res (le_top : K.inter s ≤ ⊤) x))
-
-theorem toCochain_mem (x : Γ(M, ⊤)) : toCochain π M K x ∈ (OModulePresheaf.ofModules π M).H0 K :=
-  d_toCochain π M K x
-
-theorem toCochain_injective : Function.Injective (toCochain π M K) := by
-  intro x y hxy
-  obtain ⟨z, -, huniq⟩ := (OModulePresheaf.d_zero_ofModules_eq_zero_iff_existsUnique π M K _).mp
-    (d_toCochain π M K x)
-  exact (huniq x fun s => rfl).trans (huniq y fun s => by rw [hxy]; rfl).symm
-
-theorem exists_toCochain_eq (c : (OModulePresheaf.ofModules π M).cochain K 0)
-    (hc : c ∈ (OModulePresheaf.ofModules π M).H0 K) : ∃ x : Γ(M, ⊤), toCochain π M K x = c := by
-  obtain ⟨x, hx, -⟩ := (OModulePresheaf.d_zero_ofModules_eq_zero_iff_existsUnique π M K c).mp hc
-  exact ⟨x, funext fun s => (hx s).symm⟩
-
-/-- Degree-zero Cech cocycles identify with global sections of the module. -/
-def H0Equiv :
-    letI := Scheme.TwoAffineOpenCover.moduleSectionsOfHom π M ⊤
-    (OModulePresheaf.ofModules π M).H0 K ≃ₗ[R] Γ(M, ⊤) :=
-  let := Scheme.TwoAffineOpenCover.moduleSectionsOfHom π M ⊤
-  (LinearEquiv.ofBijective (LinearMap.codRestrict ((OModulePresheaf.ofModules π M).H0 K)
-      (toCochain π M K) (toCochain_mem π M K))
-    ⟨fun x y h => toCochain_injective π M K (congrArg Subtype.val h),
-     fun ⟨c, hc⟩ => by
-      obtain ⟨x, rfl⟩ := exists_toCochain_eq π M K c hc
-      exact ⟨x, rfl⟩⟩).symm
-
-end H0
 
 section Transport
 
@@ -202,7 +137,7 @@ theorem main (k : Type u) [Field k] {X : Scheme.{u}} (π : X ⟶ Spec (.of k))
     Function.Bijective (algebraMap A Γ(Limits.pullback π (Scheme.TwoAffineOpenCover.specMap k A),
       ⊤)) := by
   have : CompactSpace X := QuasiCompact.compactSpace_of_compactSpace π
-  let 𝒰 := coverOfCompact X
+  let 𝒰 := _root_.AlgebraicGeometry.Scheme.OrderedAffineCover.ofCompact X
   let 𝒪 : X.Modules := SheafOfModules.unit X.ringCatSheaf
   let p₁ := Limits.pullback.fst π (specMap k A)
   let p₂ := Limits.pullback.snd π (specMap k A)
@@ -220,11 +155,12 @@ theorem main (k : Type u) [Field k] {X : Scheme.{u}} (π : X ⟶ Spec (.of k))
   let := Scheme.TwoAffineOpenCover.moduleSectionsOfHom p₂
     (SheafOfModules.unit (Limits.pullback π (specMap k A)).ringCatSheaf) ⊤
   let e2 : (OModulePresheaf.ofModules π 𝒪).H0 𝒰 ≃ₗ[k] k :=
-    (H0Equiv π 𝒪 𝒰).trans ((unitSectionsEquiv π).trans
+    (sectionsEquivH0 π 𝒪 𝒰).symm.trans ((unitSectionsEquiv π).trans
       (LinearEquiv.ofBijective (Algebra.linearMap k Γ(X, ⊤)) hX).symm)
   let e3 : A ⊗[k] (OModulePresheaf.ofModules π 𝒪).H0 𝒰 ≃ₗ[A] A :=
     (e2.baseChange k A _ _).trans (AlgebraTensorModule.rid k A A)
-  let e4 := (H0Equiv p₂ ((Scheme.Modules.pullback p₁).obj 𝒪) (𝒰.baseChange π A)).trans
+  let e4 := (sectionsEquivH0 p₂
+    ((Scheme.Modules.pullback p₁).obj 𝒪) (𝒰.baseChange π A)).symm.trans
     ((sectionsEquivOfIso p₂ (Scheme.Modules.pullbackUnitIso p₁)).trans (unitSectionsEquiv p₂))
   exact bijective_algebraMap_of_linearEquiv (e4.symm.trans (e1.trans e3))
 

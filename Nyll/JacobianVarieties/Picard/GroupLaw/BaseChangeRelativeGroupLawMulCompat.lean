@@ -60,28 +60,6 @@ open _root_.AlgebraicGeometry.RelPicard.BaseChange
 
 open scoped CategoryTheory.MonObj
 
-namespace GrpBCLawSol
-
-variable {R : Type u} [CommRing R] {C : Scheme.{u}} {c : C ⟶ Spec (CommRingCat.of R)}
-  {ε : SchemeHomOver (𝟙 (Spec (CommRingCat.of R))) c}
-
-/-- Comparison of iterated pullback with pullback along the composite base morphism. -/
-noncomputable def pullbackAlongComp {T T' T'' : Scheme.{u}} {t : T ⟶ Spec (CommRingCat.of R)}
-    {t' : T' ⟶ Spec (CommRingCat.of R)} {t'' : T'' ⟶ Spec (CommRingCat.of R)}
-    (M : RigidifiedLineBundle c ε t) (φ : SchemeHomOver t' t) (ψ : SchemeHomOver t'' t') :
-    ((M.pullbackAlong φ).pullbackAlong ψ).L ≅ (M.pullbackAlong (postComp φ ψ)).L :=
-  (Scheme.Modules.pullbackComp (baseChangeSnd c ψ) (baseChangeSnd c φ)).app M.L ≪≫
-    (Scheme.Modules.pullbackCongr (baseChangeSnd_comp c φ ψ)).app M.L
-
-/-- Equal underlying base morphisms induce isomorphic pulled-back line bundles. -/
-noncomputable def pullbackAlongCongr {T T' : Scheme.{u}} {t : T ⟶ Spec (CommRingCat.of R)}
-    {t' : T' ⟶ Spec (CommRingCat.of R)} (M : RigidifiedLineBundle c ε t) {φ ψ : SchemeHomOver t' t}
-    (e : φ.1 = ψ.1) : (M.pullbackAlong φ).L ≅ (M.pullbackAlong ψ).L :=
-  eqToIso (by cases φ; cases ψ; cases e; rfl)
-
-end GrpBCLawSol
-
-open GrpBCLawSol in
 theorem _root_.AlgebraicGeometry.RelPicard.baseChange_relativeGroupLaw_mul_compat
     (R : Type u) [CommRing R] {C : Scheme.{u}} (c : C ⟶ Spec (CommRingCat.of R))
     (ε : SchemeHomOver (𝟙 (Spec (CommRingCat.of R))) c)
@@ -123,7 +101,7 @@ theorem _root_.AlgebraicGeometry.RelPicard.baseChange_relativeGroupLaw_mul_compa
       (toR c ε R' (P'.pullbackAlong z)).L ≅ (h.poincare.pullbackAlong (Θ z)).L :=
     fun z => (toR_pullbackAlong_iso c ε R' z P').symm ≪≫
       (Scheme.Modules.pullback (baseChangeSnd c (overR R' z))).mapIso (toR_ofR_iso c ε R' _) ≪≫
-      pullbackAlongComp h.poincare ψ₀ (overR R' z)
+      h.poincare.pullbackAlongPullbackAlongIso ψ₀ (overR R' z)
   have poinc : ∀ z : SchemeHomOver t' (D.baseChange R').toBase,
       (toR c ε R' (h'.poincare.pullbackAlong z)).L ≅ (h.poincare.pullbackAlong (Θ z)).L :=
     fun z =>

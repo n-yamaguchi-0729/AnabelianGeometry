@@ -26,10 +26,10 @@ theorem bare_rationalConfiguration_coherent_square_inputs
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (eP : rationalConfigurationArithmeticGroup k κ s Ω₁ ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ω₂)
     (hP : ∀ γ,

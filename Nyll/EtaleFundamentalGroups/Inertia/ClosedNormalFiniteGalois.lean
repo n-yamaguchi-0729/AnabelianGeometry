@@ -56,7 +56,8 @@ theorem closedNormalSubgroup_eq_iInf_finiteGalois_fixingSubgroup
       exact IntermediateField.normalClosure_le_iff_of_normal.mpr
         (IntermediateField.adjoin_simple_le_iff.mpr hx)
     have hfix : H.toSubgroup ≤ E.toIntermediateField.fixingSubgroup :=
-      (IntermediateField.le_iff_le H.toSubgroup E.toIntermediateField).mp hE
+      (IntermediateField.le_fixedField_iff_le_fixingSubgroup
+        H.toSubgroup E.toIntermediateField).mp hE
     have hσE : σ ∈ E.toIntermediateField.fixingSubgroup :=
       Subgroup.mem_iInf.mp (Subgroup.mem_iInf.mp hσ E) hfix
     exact (IntermediateField.mem_fixingSubgroup_iff E.toIntermediateField σ).mp hσE

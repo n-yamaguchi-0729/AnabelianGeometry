@@ -19,18 +19,9 @@ open CategoryTheory.PreGaloisCategory
 open scoped FintypeCatDiscrete
 namespace AlgebraicGeometry.FiniteEtale
 
-local instance squareFiberOverCategory (S : Scheme) :
-    Category (MorphismProperty.Over
-      (@IsFiniteEtale : MorphismProperty Scheme) ⊤ S) :=
-  AlgebraicGeometry.FiniteEtale.instCategory S
-local instance squareFiberHasPullbacksAlong {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.HasPullbacksAlong (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun _ _ ↦ inferInstance⟩
-local instance squareFiberStableUnderBaseChangeAlong {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.IsStableUnderBaseChangeAlong
-      (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun h hf ↦ MorphismProperty.of_isPullback
-    (P := (@IsFiniteEtale : MorphismProperty Scheme)) h hf⟩
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleOverCategory
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleHasPullbacksAlong
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleIsStableUnderBaseChangeAlong
 
 /-- The specified fiber equivalence intertwines the two fundamental-group actions. -/
 def fiberEquivariant

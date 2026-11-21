@@ -25,7 +25,7 @@ private theorem actualLabel_eq_affine_of_finite
     {E : Type} [Field E] (z : Projectivization E (E × E)) (hz : z.rep.2 ≠ 0) :
     z = affinePoint (z.rep.1 / z.rep.2) := by
   calc
-    z = Projectivization.mk E z.rep z.rep_nonzero := z.mk_rep.symm
+    z = Projectivization.mk E z.rep z.rep_ne_zero := z.mk_rep.symm
     _ = affinePoint (z.rep.1 / z.rep.2) := by
       apply (Projectivization.mk_eq_mk_iff' E _ _ _ _).mpr
       refine ⟨z.rep.2, ?_⟩
@@ -158,7 +158,7 @@ theorem namedSquare_matchedLabel_infty
       simpa only [projectiveRatFuncPlace, ite_eq_right hn] using h
     exact (RationalFunctionField.placeOfPoint_ne_placeInfty E _) hh
   calc
-    (τ z).val = Projectivization.mk E (τ z).val.rep (τ z).val.rep_nonzero :=
+    (τ z).val = Projectivization.mk E (τ z).val.rep (τ z).val.rep_ne_zero :=
       (τ z).val.mk_rep.symm
     _ = infinityPoint := by
       apply (Projectivization.mk_eq_mk_iff' E _ _ _ _).mpr

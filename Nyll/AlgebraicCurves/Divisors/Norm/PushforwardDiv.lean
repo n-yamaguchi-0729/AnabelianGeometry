@@ -13,7 +13,7 @@ Repository maintainer: Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 module
 
 public import Nyll.AlgebraicCurves.Divisors.Maps.Maps
-public import Nyll.AlgebraicCurves.Divisors.Norm.PushforwardNormFormula
+public import Nyll.AlgebraicCurves.Divisors.Norm.PushforwardNormFormulaSeparable
 public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
 
 /-!
@@ -33,6 +33,7 @@ theorem _root_.AlgebraicCurve.Divisor.pushforward_div {K F F' : Type*} [Field K]
   [Algebra.IsSeparable F F'] [CharZero F] [HasPrincipalDivisors K F'] {f : F'} (hf : f ≠ 0) {D :
   Divisor K F'} (hD : ∀ w, D w = w.ord f) {E : Divisor K F} (hE : ∀ v, E v = v.ord (Algebra.norm F
   f)) : Divisor.pushforward F D = E :=
-  pushforward_eq_of_normFormula AlgebraicCurve.Divisor.pushforwardNormFormula hf hD hE
+  pushforward_eq_of_normFormula AlgebraicCurve.Divisor.pushforwardNormFormula_of_isSeparable
+    hf hD hE
 end AlgebraicCurves.Divisors.Proofs.Divisor_pushforward_div
 end ProofImplementation

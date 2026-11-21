@@ -53,9 +53,9 @@ theorem rationalConfiguration_schemeIso_of_card_eq_three
     calc
       normalizeCoordinates p.rep q.rep r.rep _ _ _ p =
           normalizeCoordinates p.rep q.rep r.rep _ _ _
-            (Projectivization.mk k p.rep p.rep_nonzero) :=
+            (Projectivization.mk k p.rep p.rep_ne_zero) :=
         congrArg (normalizeCoordinates p.rep q.rep r.rep _ _ _) p.mk_rep.symm
-      _ = affinePoint 0 := normalizeCoordinates_first _ _ _ _ _ _ p.rep_nonzero
+      _ = affinePoint 0 := normalizeCoordinates_first _ _ _ _ _ _ p.rep_ne_zero
   have hthird (p q r : Projectivization k (k × k))
       (hpq : p ≠ q) (hrq : r ≠ q) (hrp : r ≠ p) :
       normalizeTriple p q r hpq hrq hrp r = affinePoint 1 := by
@@ -63,9 +63,9 @@ theorem rationalConfiguration_schemeIso_of_card_eq_three
     calc
       normalizeCoordinates p.rep q.rep r.rep _ _ _ r =
           normalizeCoordinates p.rep q.rep r.rep _ _ _
-            (Projectivization.mk k r.rep r.rep_nonzero) :=
+            (Projectivization.mk k r.rep r.rep_ne_zero) :=
         congrArg (normalizeCoordinates p.rep q.rep r.rep _ _ _) r.mk_rep.symm
-      _ = affinePoint 1 := normalizeCoordinates_third _ _ _ _ _ _ r.rep_nonzero
+      _ = affinePoint 1 := normalizeCoordinates_third _ _ _ _ _ _ r.rep_ne_zero
   have hmatch : ∀ z : s,
       matchTriples a.val b.val c.val (σ a).val (σ b).val (σ c).val
         (fun h => hab (Subtype.ext h)) (fun h => hcb (Subtype.ext h))
@@ -129,10 +129,10 @@ theorem bare_rationalConfiguration_schemeIso_of_card_eq_three
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : s.card = 3) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (eP : rationalConfigurationArithmeticGroup k κ s Ω₁ ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ω₂)
     (hP : ∀ γ,

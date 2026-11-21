@@ -29,6 +29,7 @@ public import Nyll.SchemeTheory.RingTheory.RegularLocal.CohenMacaulay
 public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawIsGreatestOpensDifferenceExtension
 public import Nyll.SchemeTheory.LocalGeometry.OpenIrreducibleComponents
 public import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
+public import Nyll.SchemeTheory.Morphisms.ReducedSmooth
 public import Nyll.SchemeTheory.RingTheory.RegularLocal.RegularLocalSpanFinrankKerAddKrullDimensionEq
 public import Nyll.SchemeTheory.RingTheory.RegularLocal.LocalRingIsCohenMacaulayOfDimKrullDimensionQuotientAddHeight
 public import Nyll.SchemeTheory.RingTheory.RegularLocal.RegularLocalDepth
@@ -379,26 +380,6 @@ open _root_.GoodReductionJacobian
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry Topology
 
-scoped instance isDomain_sections_spec (k : Type u) [Field k] :
-    IsDomain Γ(Spec (CommRingCat.of k), ⊤) :=
-  MulEquiv.isDomain k (Scheme.ΓSpecIso (CommRingCat.of k)).commRingCatIsoToRingEquiv.toMulEquiv
-
-scoped instance isIntegrallyClosed_sections_spec (k : Type u) [Field k] :
-    IsIntegrallyClosed Γ(Spec (CommRingCat.of k), ⊤) :=
-  IsIntegrallyClosed.of_equiv (Scheme.ΓSpecIso (CommRingCat.of k)).commRingCatIsoToRingEquiv.symm
-
-theorem isDomain_and_isIntegrallyClosed_stalk_of_field (k : Type u) [Field k] {X : Scheme.{u}}
-    (g : X ⟶ Spec (CommRingCat.of k)) [Smooth g] (x : X) :
-    IsDomain (X.presheaf.stalk x) ∧ IsIntegrallyClosed (X.presheaf.stalk x) :=
-  AlgebraicGeometry.Smooth.isDomain_and_isIntegrallyClosed_stalk g x
-
-theorem isReduced_of_smooth (k : Type u) [Field k] {X : Scheme.{u}}
-    (g : X ⟶ Spec (CommRingCat.of k)) [Smooth g] : IsReduced X := by
-  have : ∀ x : X, _root_.IsReduced (X.presheaf.stalk x) := fun x => by
-    have := (isDomain_and_isIntegrallyClosed_stalk_of_field k g x).1
-    infer_instance
-  exact isReduced_of_isReduced_stalk _
-
 theorem exists_specializes_ringKrullDim_stalk_le_one {X : Scheme.{u}} (x : X) :
     ∃ ξ : X, ξ ⤳ x ∧ ringKrullDim (X.presheaf.stalk ξ) ≤ 1 := by
   have hZ : IsIrreducible (irreducibleComponent x) := isIrreducible_irreducibleComponent
@@ -441,14 +422,6 @@ theorem dense_inf_preimage_of_dense {R : Type u} [CommRing R] {T : Scheme.{u}}
 
 end GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
 
@@ -536,7 +509,7 @@ theorem diagonal_restrict_comp_eq_unit (G : RelativeGroupLaw k f) [IsSeparated f
     (pullback.diagonal t ∣_ W) ≫ d.1 =
       ((pullback.diagonal t) ⁻¹ᵁ W).ι ≫ t ≫ (G.one (𝟙 (Spec (CommRingCat.of k)))).1 := by
   have : IsReduced T :=
-    GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isReduced_of_smooth k t
+    _root_.AlgebraicGeometry.isReduced_of_smooth_of_field t
   set U : T.Opens := (pullback.diagonal t) ⁻¹ᵁ W with hU
   have : IsReduced (U : Scheme.{u}) := isReduced_of_isOpenImmersion U.ι
   set e := G.one (𝟙 (Spec (CommRingCat.of k))) with he
@@ -579,55 +552,15 @@ theorem diagonal_restrict_comp_eq_unit (G : RelativeGroupLaw k f) [IsSeparated f
 
 end GoodReductionJacobian.RelativeGroupLaw.WeilExtField.C3
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 end
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
 
@@ -695,8 +628,7 @@ theorem exists_rationalMap_component_affine
           u.domain) := by
   classical
   have : IsReduced (pullback t t) :=
-    GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isReduced_of_smooth k (pullback.fst t
-      t ≫ t)
+    _root_.AlgebraicGeometry.isReduced_of_smooth_of_field (pullback.fst t t ≫ t)
   have hV : Dense (V : Set T) :=
     GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.dense_of_forall_ringKrullDim_le_one V
       hV1
@@ -842,44 +774,12 @@ theorem exists_rationalMap_component_affine
 
 end GoodReductionJacobian.RelativeGroupLaw.WeilExtField.C3b
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
 namespace GoodReductionJacobian
@@ -948,44 +848,12 @@ theorem krull_transfer_inputs
 
 end GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
 namespace GoodReductionJacobian
@@ -1054,54 +922,14 @@ theorem ι_base_apply_mk {X : Scheme.{u}} (U : X.Opens) (x : X) (hx : x ∈ U) :
 
 end GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.B
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
 namespace GoodReductionJacobian
@@ -1164,7 +992,8 @@ theorem diag_assembly
     (pullback.fst t t ≫ t)
   have hPn : ∀ p : ↑(pullback t t), IsDomain ((pullback t t).presheaf.stalk p) ∧
       IsIntegrallyClosed ((pullback t t).presheaf.stalk p) := fun p =>
-    isDomain_and_isIntegrallyClosed_stalk_of_field k (pullback.fst t t ≫ t) p
+    _root_.AlgebraicGeometry.Smooth.isDomain_and_isIntegrallyClosed_stalk_of_field
+      (pullback.fst t t ≫ t) p
   obtain ⟨hP₀open, -⟩ :=
     AlgebraicGeometry.isOpen_irreducibleComponent_of_isDomain_stalk (X := pullback t t) (fun p =>
       (hPn p).1) q
@@ -1213,44 +1042,12 @@ theorem diag_assembly
 
 end GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG.isIntegrallyClosed_sections_spec
 
 
 end RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one
@@ -1261,11 +1058,6 @@ namespace GoodReductionJacobian.RelativeGroupLaw
 universe u
 
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry NeronModelInfra GoodReductionJacobian
-
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in
-open GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DIAG in
-attribute [local instance] isDomain_sections_spec isIntegrallyClosed_sections_spec
 
 open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
 open RelativeGroupLaw_exists_opens_diagonal_difference_extension_of_forall_ringKrullDim_le_one in

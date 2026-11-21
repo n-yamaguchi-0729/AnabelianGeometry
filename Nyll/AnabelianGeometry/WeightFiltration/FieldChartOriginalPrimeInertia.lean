@@ -5,7 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 import Nyll.AnabelianGeometry.WeightFiltration.GenericPlaceInertiaRingEquiv
 import Nyll.AnabelianGeometry.WeightFiltration.NamedModelPointedInertia
-import Nyll.AlgebraicCurves.Places.Rational.Basic
+import Nyll.AlgebraicCurves.Places.RingEquiv
 import Nyll.EtaleFundamentalGroups.Inertia.PlaceNormalizationInertiaRestriction
 
 /-! # Keep the localized original prime while changing to the named field chart

@@ -124,7 +124,7 @@ theorem rationalEllAdicExternalCup_kunnethSectionLeft_eq_zero
     rationalEllAdicCohomologyPullback ℓ (kunnethSectionLeft f g p hp) n
         (rationalEllAdicExternalCup ℓ f g i (j + 1) n h x y) = 0 := by
   rw [rationalEllAdicExternalCup_pullback, kunnethSectionLeft_fst,
-    kunnethSectionLeft_snd, rationalEllAdicCohomologyPullback_id, Module.End.one_apply,
+    kunnethSectionLeft_snd, rationalEllAdicCohomologyPullback_id, one_apply_eq_self,
     rationalEllAdicCohomologyPullback_through_isSepClosed K ℓ f p j,
     LinearMap.zero_apply, map_zero]
 
@@ -137,7 +137,7 @@ theorem rationalEllAdicExternalCup_kunnethSectionRight_eq_zero
     rationalEllAdicCohomologyPullback ℓ (kunnethSectionRight f g p hp) n
         (rationalEllAdicExternalCup ℓ f g (i + 1) j n h x y) = 0 := by
   rw [rationalEllAdicExternalCup_pullback, kunnethSectionRight_fst,
-    kunnethSectionRight_snd, rationalEllAdicCohomologyPullback_id, Module.End.one_apply,
+    kunnethSectionRight_snd, rationalEllAdicCohomologyPullback_id, one_apply_eq_self,
     rationalEllAdicCohomologyPullback_through_isSepClosed K ℓ g p i,
     LinearMap.zero_apply, map_zero, LinearMap.zero_apply]
 

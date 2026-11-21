@@ -42,8 +42,8 @@ theorem rationalConfigurationChosenInertia_abelian_range_galois_fixed
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     (p : (projectiveLineRatFuncModel κ).openBoundaryPlaces
       (rationalConfigurationBaseChangeChart k κ s))
     (σ : κ ≃ₐ[k] κ) :
@@ -51,11 +51,11 @@ theorem rationalConfigurationChosenInertia_abelian_range_galois_fixed
       (TopologicalAbelianization.mk (rationalConfigurationGeometricGroup k κ s Ω))).map
         (geometricAbelianGaloisAction k κ (rationalConfigurationOpen s : Scheme)
           ((rationalConfigurationOpen s).ι ≫ π k 1)
-          ((rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω)
+          ((originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω)
           σ).toMonoidHom =
       (rationalConfigurationChosenInertia k κ s Ω p).map
         (TopologicalAbelianization.mk (rationalConfigurationGeometricGroup k κ s Ω)) := by
-  let X := rationalConfigurationGeometricScheme k κ s
+  let X := originalFieldGeometricScheme k κ s
   let M := projectiveLineRatFuncModel κ
   let j : X ⟶ M.C := rationalConfigurationBaseChangeChart k κ s
   let : IsIntegral (projectiveLineScheme k) := projectiveSpace_isIntegral k 1

@@ -96,6 +96,19 @@ class ScopeTests(unittest.TestCase):
         self.assertEqual(set(matrix["shard"]), {"Base", "Target"})
         self.assertEqual(matrix["phase"], ["proof", "replay"])
 
+    def test_proof_only_preserves_every_source_shard(self):
+        output = self.root / "plan"
+        with patch.object(sys, "argv", ["scope.py", "--root", str(self.root),
+                "--config", str(self.root / "config.json"), "--output", str(output), "--partition", "--proof-only"]), \
+             patch.object(scope.generate_manifest, "load_json", return_value=self.config), \
+             patch.object(scope.generate_manifest, "analyze", return_value=(self.full,
+                 {"staticPassed": True, "allPhysicalSourcesMapped": True})), \
+             redirect_stdout(StringIO()):
+            scope.main()
+        matrix = json.loads((output / "matrix.json").read_text())
+        self.assertEqual(set(matrix["shard"]), {"Base", "Target"})
+        self.assertEqual(matrix["phase"], ["proof"])
+
     def test_comments_do_not_hide_body_or_join_tokens(self):
         self.assertEqual(scope.pure_imports("/- outer -- text /- nested -/ -/ import A -- end\n"), ["A"])
         for text in ('import A\n"hidden"', 'import A\n«hidden»',
@@ -300,7 +313,7 @@ class PipelineTests(unittest.TestCase):
     def test_missing_replay_module_is_rejected(self):
         self.pipeline.manifest = {"roots": ["Nyll.Target.All"], "moduleRows": {"Nyll.Target.All": {}}}
         records = [{"phase": "inventory", "roots": ["Nyll.Target.All"], "loaded_modules": []},
-                   {"phase": "replay", "result": "PASS", "kernel": "official Lean 4.35.0"}]
+                   {"phase": "replay", "result": "PASS", "kernel": "official Lean 4.36.0"}]
         (self.pipeline.out / "replay.log").write_text("\n".join(map(json.dumps, records)))
         with self.assertRaisesRegex(verify.VerificationError, "omitted"):
             self.pipeline.check_replay()

@@ -78,7 +78,7 @@ theorem eq_of_crossRatio_eq (a b c d e : Projectivization K (K × K))
       hba hca hcb hdb heb h
   have hed : bracket e.rep d.rep = 0 := by rw [bracket_swap, hde, neg_zero]
   have hs := eq_smul_of_bracket_eq_zero e.rep d.rep b.rep heb hed
-  have hm := (Projectivization.mk_eq_mk_iff' K d.rep e.rep d.rep_nonzero e.rep_nonzero).mpr
+  have hm := (Projectivization.mk_eq_mk_iff' K d.rep e.rep d.rep_ne_zero e.rep_ne_zero).mpr
     ⟨bracket d.rep b.rep / bracket e.rep b.rep, hs.symm⟩
   simpa only [Projectivization.mk_rep] using hm
 
@@ -100,10 +100,10 @@ theorem bracket_rep_eq_zero_iff (d e : Projectivization K (K × K)) :
     bracket d.rep e.rep = 0 ↔ d = e := by
   constructor
   · intro hde
-    obtain ⟨c, hc⟩ := exists_bracket_ne_zero e.rep e.rep_nonzero
+    obtain ⟨c, hc⟩ := exists_bracket_ne_zero e.rep e.rep_ne_zero
     have hed : bracket e.rep d.rep = 0 := by rw [bracket_swap, hde, neg_zero]
     have hs := eq_smul_of_bracket_eq_zero e.rep d.rep c hc hed
-    have hm := (Projectivization.mk_eq_mk_iff' K d.rep e.rep d.rep_nonzero e.rep_nonzero).mpr
+    have hm := (Projectivization.mk_eq_mk_iff' K d.rep e.rep d.rep_ne_zero e.rep_ne_zero).mpr
       ⟨bracket d.rep c / bracket e.rep c, hs.symm⟩
     simpa only [Projectivization.mk_rep] using hm
   · rintro rfl

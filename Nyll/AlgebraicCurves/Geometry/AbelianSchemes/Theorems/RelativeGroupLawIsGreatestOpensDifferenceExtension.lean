@@ -32,6 +32,7 @@ public import Mathlib.Tactic.Set
 public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
 public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.Basic
 public import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
+public import Nyll.SchemeTheory.Morphisms.ReducedSmooth
 
 /-!
 # Relative Group Law exists is Greatest opens difference extension of dense
@@ -72,21 +73,6 @@ namespace DOM
 open _root_.GoodReductionJacobian.RelativeGroupLaw
 open _root_.GoodReductionJacobian
 
-
-scoped instance isDomain_sections_spec (k : Type u) [Field k] :
-    IsDomain Γ(Spec (CommRingCat.of k), ⊤) :=
-  MulEquiv.isDomain k (Scheme.ΓSpecIso (CommRingCat.of k)).commRingCatIsoToRingEquiv.toMulEquiv
-
-scoped instance isIntegrallyClosed_sections_spec (k : Type u) [Field k] :
-    IsIntegrallyClosed Γ(Spec (CommRingCat.of k), ⊤) :=
-  IsIntegrallyClosed.of_equiv (Scheme.ΓSpecIso (CommRingCat.of k)).commRingCatIsoToRingEquiv.symm
-
-theorem isReduced_of_smooth (k : Type u) [Field k] {X : Scheme.{u}}
-    (g : X ⟶ Spec (CommRingCat.of k)) [Smooth g] : IsReduced X := by
-  have : ∀ x : X, _root_.IsReduced (X.presheaf.stalk x) := fun x => by
-    have := (AlgebraicGeometry.Smooth.isDomain_and_isIntegrallyClosed_stalk g x).1
-    infer_instance
-  exact isReduced_of_isReduced_stalk _
 
 theorem eq_on_inf_of_eq_on_dense {P A B : Scheme.{u}} (sP : P ⟶ B) (f : A ⟶ B) [IsSeparated f]
     [IsReduced P]
@@ -297,7 +283,7 @@ theorem dense_prodOpen (t : T ⟶ Spec (CommRingCat.of k)) [UniversallyOpen t] (
 
 theorem isReduced_pullback (t : T ⟶ Spec (CommRingCat.of k)) [Smooth t] : IsReduced (pullback t t)
   :=
-  isReduced_of_smooth k (pullback.fst t t ≫ t)
+  _root_.AlgebraicGeometry.isReduced_of_smooth_of_field (pullback.fst t t ≫ t)
 
 variable {A : Scheme.{u}} {f : A ⟶ Spec (CommRingCat.of k)}
 
@@ -343,13 +329,13 @@ theorem main (G : RelativeGroupLaw k f) [IsSeparated f]
   have hDd : Dense ((prodOpen t V : (pullback t t).Opens) : Set ↑(pullback t t)) := dense_prodOpen
     t V hV
   let pΦ : (pullback t t).PartialMap A := ⟨prodOpen t V, hDd, (diffMap G t V v).1⟩
-  have hpΦ : pΦ.IsOver (Spec (CommRingCat.of k)) := by
+  have hpΦ : pΦ.IsOver (pullback.fst t t ≫ t) f := by
     rw [Scheme.PartialMap.isOver_iff, Scheme.PartialMap.compHom_hom]
     exact (diffMap G t V v).2
   let u := pΦ.toRationalMap
-  have hu : u.IsOver (Spec (CommRingCat.of k)) := ⟨⟨pΦ, hpΦ, rfl⟩⟩
+  have hu : u.IsOver (pullback.fst t t ≫ t) f := ⟨⟨pΦ, hpΦ, rfl⟩⟩
   let dW := u.toPartialMap
-  have hdWover : dW.IsOver (Spec (CommRingCat.of k)) :=
+  have hdWover : dW.IsOver (pullback.fst t t ≫ t) f :=
     Scheme.PartialMap.isOver_toRationalMap_iff_of_isSeparated.mp
       (by rw [Scheme.RationalMap.toRationalMap_toPartialMap]; exact hu)
   have hdW : dW.hom ≫ f = dW.domain.ι ≫ pullback.fst t t ≫ t := by
@@ -429,10 +415,6 @@ end Main2
 
 end GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DOM
 
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DOM.isDomain_sections_spec
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DOM.isIntegrallyClosed_sections_spec
 
 
 
@@ -440,10 +422,6 @@ attribute [local instance]
 
 end
 
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DOM.isDomain_sections_spec
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DOM.isIntegrallyClosed_sections_spec
 
 
 
@@ -455,14 +433,6 @@ namespace GoodReductionJacobian
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry NeronModelInfra
 universe u
 
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_isGreatest_opens_difference_extension_of_dense in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DOM.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
-open RelativeGroupLaw_exists_isGreatest_opens_difference_extension_of_dense in
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DOM.isIntegrallyClosed_sections_spec
 
 open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
 open RelativeGroupLaw_exists_isGreatest_opens_difference_extension_of_dense in

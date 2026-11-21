@@ -6,6 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalArithmeticScalarRoots
 public import Nyll.EtaleFundamentalGroups.GeometricFiber.SourceIsoGalois
 public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisPoint
@@ -36,9 +37,7 @@ attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
   rationalConfigurationGeometricFieldAlgebra rationalConfigurationGeometricConstantAlgebra
   rationalConfigurationOriginalFieldAlgebra rationalConfigurationOriginalConstantAlgebra
 
-local instance (priority := 2000) rootFieldActionSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E] [Algebra A (RatFunc E)] :
-    SMul A (RatFunc E) := (inferInstance : Algebra A (RatFunc E)).toSMul
+attribute [local instance 2000] RatFunc.algebraSMul
 
 private theorem coordinate_sourceIso_eval
     (X : Scheme) [IsIntegral X] (Ω : Type) [Field Ω] [IsSepClosed Ω]
@@ -175,8 +174,8 @@ theorem rationalConfiguration_arithmeticRootCoordinate_fieldSource_eval
     [IsAlgClosed κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     (n : ℕ) (W : FiniteEtale (rationalConfigurationOpen s : Scheme)) (b : Ω) :
     let X : Scheme := (rationalConfigurationOpen s : Scheme)
     let : Algebra X.functionField Ω := rationalConfigurationOriginalAmbientAlgebra k κ s Ω

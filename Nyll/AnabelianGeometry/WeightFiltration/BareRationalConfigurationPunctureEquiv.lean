@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationBidirectionalCusps
 public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaConjugacySeparation
 public import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
@@ -100,9 +101,7 @@ attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
   rationalConfigurationGeometricField_scalarTower
   placeBaseAmbientAlgebra placeBaseAmbientTower placeConstantAmbientTower
 
-local instance (priority := 2000) punctureEquivSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E] [Algebra A (RatFunc E)] :
-    SMul A (RatFunc E) := (inferInstance : Algebra A (RatFunc E)).toSMul
+attribute [local instance 2000] RatFunc.algebraSMul
 
 /-- The originally chosen inertia subgroups distinguish all original boundary labels. -/
 theorem rationalConfigurationChosenInertia_eq_conjugate_imp_eq
@@ -110,15 +109,15 @@ theorem rationalConfigurationChosenInertia_eq_conjugate_imp_eq
     [Algebra k κ] [Infinite k]
     (s : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card)
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     (p q : (projectiveLineRatFuncModel κ).openBoundaryPlaces
       (rationalConfigurationBaseChangeChart k κ s))
     (a : rationalConfigurationGeometricGroup k κ s Ω)
     (h : rationalConfigurationChosenInertia k κ s Ω p =
       (rationalConfigurationChosenInertia k κ s Ω q).map (MulAut.conj a).toMonoidHom) :
     p = q := by
-  let U := rationalConfigurationGeometricScheme k κ s
+  let U := originalFieldGeometricScheme k κ s
   let M := projectiveLineRatFuncModel κ
   let j : U ⟶ M.C := rationalConfigurationBaseChangeChart k κ s
   let : IsOpenImmersion j := inferInstanceAs
@@ -152,10 +151,10 @@ theorem bare_rationalConfiguration_punctureEquiv
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (eP : rationalConfigurationArithmeticGroup k κ s Ω₁ ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ω₂)
     (hP : ∀ γ,

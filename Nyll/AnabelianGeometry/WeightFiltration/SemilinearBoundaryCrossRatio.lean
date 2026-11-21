@@ -78,8 +78,8 @@ theorem crossRatio_of_semilinear_places
     rw [crossRatio_second_fourth, crossRatio_second_fourth, map_zero]
   let f : RatFunc K := pairRatFunc a b
   have hf : f ≠ 0 := div_ne_zero
-    (pairLinearRatFunc_ne_zero a.rep a.rep_nonzero)
-    (pairLinearRatFunc_ne_zero b.rep b.rep_nonzero)
+    (pairLinearRatFunc_ne_zero a.rep a.rep_ne_zero)
+    (pairLinearRatFunc_ne_zero b.rep b.rep_ne_zero)
   have hgf : g • f ≠ 0 := by
     intro h
     apply hf

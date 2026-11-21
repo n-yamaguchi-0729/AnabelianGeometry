@@ -40,6 +40,17 @@ local instance placeBaseAmbientAlgebra : Algebra v.toValuationSubring Ω :=
 local instance placeBaseAmbientTower : IsScalarTower v.toValuationSubring F Ω :=
   IsScalarTower.of_algebraMap_eq (fun _ => rfl)
 
+/-- Constants act on the ambient field through the valuation ring. -/
+theorem placeConstantAmbientTower
+    {κ F Ω : Type} [Field κ] [Field F] [Field Ω]
+    [Algebra κ F] [Algebra F Ω] [Algebra κ Ω]
+    [IsScalarTower κ F Ω] (p : Place κ F) :
+    IsScalarTower κ p.toValuationSubring Ω := by
+  apply IsScalarTower.of_algebraMap_eq
+  intro a
+  change algebraMap κ Ω a = algebraMap F Ω (algebraMap κ F a)
+  exact IsScalarTower.algebraMap_apply κ F Ω a
+
 local instance extendingPlaceAmbientAlgebra (w : Place k L) :
     Algebra w.toValuationSubring Ω := Algebra.ofSubsemiring w.toValuationSubring
 
@@ -47,25 +58,8 @@ local instance extendingPlaceAmbientTower (w : Place k L) :
     IsScalarTower w.toValuationSubring L Ω :=
   IsScalarTower.of_algebraMap_eq (fun _ => rfl)
 
-local instance finiteNormalizationPlaceAlgebra
-    (P : HeightOneSpectrum (Place.integralClosureAt L v)) :
-    Algebra (Place.integralClosureAt L v) (Place.placeOfPrime P).toValuationSubring := by
-  change Algebra (Place.integralClosureAt L v)
-    (HeightOneSpectrum.valuationSubringAtPrime L P)
-  infer_instance
-
-local instance finiteNormalizationPlaceTower
-    (P : HeightOneSpectrum (Place.integralClosureAt L v)) :
-    IsScalarTower (Place.integralClosureAt L v) (Place.placeOfPrime P).toValuationSubring L := by
-  change IsScalarTower (Place.integralClosureAt L v)
-    (HeightOneSpectrum.valuationSubringAtPrime L P) L
-  infer_instance
-
-local instance finiteNormalizationPlaceLocalization
-    (P : HeightOneSpectrum (Place.integralClosureAt L v)) :
-    IsLocalization.AtPrime (Place.placeOfPrime P).toValuationSubring P.asIdeal := by
-  change IsLocalization.AtPrime (HeightOneSpectrum.valuationSubringAtPrime L P) P.asIdeal
-  infer_instance
+attribute [local instance] Place.placeOfPrimeAlgebra Place.placeOfPrimeIsScalarTower
+  Place.placeOfPrimeIsLocalization
 
 local instance finiteNormalizationPlaceAmbientTower
     (P : HeightOneSpectrum (Place.integralClosureAt L v)) :

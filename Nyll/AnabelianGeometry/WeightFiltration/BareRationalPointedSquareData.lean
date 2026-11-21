@@ -25,33 +25,19 @@ attribute [local instance] Classical.propDecidable
   MvPolynomial.gradedAlgebra Polynomial.algebra
 namespace AnabelianGeometry.WeightFiltration
 
-local instance pointedSquareOverCategory (S : Scheme) :
-    Category (MorphismProperty.Over (@IsFiniteEtale : MorphismProperty Scheme) ⊤ S) :=
-  AlgebraicGeometry.FiniteEtale.instCategory S
-local instance pointedSquareHasPullbacksAlong {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.HasPullbacksAlong (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun _ _ ↦ inferInstance⟩
-local instance pointedSquareStableUnderBaseChangeAlong {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.IsStableUnderBaseChangeAlong (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun h hf ↦ MorphismProperty.of_isPullback
-    (P := (@IsFiniteEtale : MorphismProperty Scheme)) h hf⟩
-
-local instance pointedSquareChart_isOpenImmersion
-    (k : Type) [Field k] (s : Finset (Projectivization k (k × k))) :
-    IsOpenImmersion (show (rationalConfigurationOpen s : Scheme) ⟶
-      (projectiveLineRatFuncModel k).C from (rationalConfigurationOpen s).ι) := by
-  change IsOpenImmersion (rationalConfigurationOpen s).ι
-  infer_instance
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleOverCategory
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleHasPullbacksAlong
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleIsStableUnderBaseChangeAlong
 
 theorem bare_rationalConfiguration_same_punctures_pointed_square_data
     (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (eP : rationalConfigurationArithmeticGroup k κ s Ω₁ ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ω₂)
     (hP : ∀ γ,
@@ -128,10 +114,10 @@ theorem bare_rationalConfiguration_same_punctures_pointed_square_data
                 k κ s t Ω₁ Ω₂ us ut eP ∧
               ∃ (ρS : s → κ) (ρT : t → κ),
                 (∀ x : s, ρS x ^ 2 = algebraMap k κ
-                  ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt
+                  ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt
                     (us.val : RatFunc k))) ∧
                 (∀ x : t, ρT x ^ 2 = algebraMap k κ
-                  ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt
+                  ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt
                     (ut.val : RatFunc k))) ∧
                   let fs := (rationalConfigurationOpen s).ι ≫ π k 1
                   let ft := (rationalConfigurationOpen t).ι ≫ π k 1
@@ -140,14 +126,22 @@ theorem bare_rationalConfiguration_same_punctures_pointed_square_data
                   let hn : IsUnit ((2 : ℕ) : k) :=
                     isUnit_iff_ne_zero.mpr (Nat.cast_ne_zero.mpr (show (2 : ℕ) ≠ 0 from by decide))
                   let M := projectiveLineRatFuncModel k
-                  let AS := M.openKummerCover (M.openBoundaryPlaces (rationalConfigurationOpen s).ι)
-                    (2 : ℕ+) hn us (rationalConfigurationOpen s).ι
-                    (rationalConfigurationOpen_denseRange k s)
-                    (M.place_not_mem_openBoundaryPlaces (rationalConfigurationOpen s).ι)
-                  let AT := M.openKummerCover (M.openBoundaryPlaces (rationalConfigurationOpen t).ι)
-                    (2 : ℕ+) hn ut (rationalConfigurationOpen t).ι
-                    (rationalConfigurationOpen_denseRange k t)
-                    (M.place_not_mem_openBoundaryPlaces (rationalConfigurationOpen t).ι)
+                  let iS : (rationalConfigurationOpen s : Scheme) ⟶ M.C :=
+                    (rationalConfigurationOpen s).ι
+                  let : IsOpenImmersion iS :=
+                    inferInstanceAs (IsOpenImmersion (rationalConfigurationOpen s).ι)
+                  let iT : (rationalConfigurationOpen t : Scheme) ⟶ M.C :=
+                    (rationalConfigurationOpen t).ι
+                  let : IsOpenImmersion iT :=
+                    inferInstanceAs (IsOpenImmersion (rationalConfigurationOpen t).ι)
+                  let AS : FiniteEtale (rationalConfigurationOpen s : Scheme) :=
+                    M.openKummerCover (M.openBoundaryPlaces iS) (2 : ℕ+) hn us iS
+                      (rationalConfigurationOpen_denseRange k s)
+                      (M.place_not_mem_openBoundaryPlaces iS)
+                  let AT : FiniteEtale (rationalConfigurationOpen t : Scheme) :=
+                    M.openKummerCover (M.openBoundaryPlaces iT) (2 : ℕ+) hn ut iT
+                      (rationalConfigurationOpen_denseRange k t)
+                      (M.place_not_mem_openBoundaryPlaces iT)
                   ∃ (a : kˣ) (β : κˣ), β ^ 2 = Units.map (algebraMap k κ).toMonoidHom a ∧
                     let E := quadraticBoundaryCoordinateField k κ β (Sum.elim ρS ρT)
                     let _hFD : FiniteDimensional k E :=
@@ -179,10 +173,10 @@ theorem bare_rationalConfiguration_same_punctures_pointed_square_data
                     ∃ (rS : s → E) (rT : t → E),
                       (∀ x : s, (rS x : κ) = ρS x) ∧ (∀ x : t, (rT x : κ) = ρT x) ∧
                       (∀ x : s, rS x ^ 2 = algebraMap k E
-                        ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt
+                        ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt
                           (us.val : RatFunc k))) ∧
                       (∀ x : t, rT x ^ 2 = algebraMap k E
-                        ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt
+                        ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt
                           (ut.val : RatFunc k))) ∧
                     ∃ (θ : (fiber xt).obj
                         ((coverTransportOfAutEquiv (fiber xs) (fiber xt) eP).functor.obj AS) ≃
@@ -238,12 +232,12 @@ theorem bare_rationalConfiguration_same_punctures_pointed_square_data
   refine ⟨us, ut, ws, wt, hus, hut, hws, hwt, hvector, hres, hgeom,
     hscalar, hsquare, ?_⟩
   have hrootsS : ∀ x : s, ∃ r : κ, r ^ 2 = algebraMap k κ
-      ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt
+      ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt
         (us.val : RatFunc k)) := by
     intro x
     exact IsAlgClosed.exists_pow_nat_eq _ (show 0 < (2 : ℕ) from by decide)
   have hrootsT : ∀ x : t, ∃ r : κ, r ^ 2 = algebraMap k κ
-      ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt
+      ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt
         (ut.val : RatFunc k)) := by
     intro x
     exact IsAlgClosed.exists_pow_nat_eq _ (show 0 < (2 : ℕ) from by decide)

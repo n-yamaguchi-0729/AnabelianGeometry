@@ -107,6 +107,8 @@ theorem hilbertClassField_normalization_genericFiber
       apply RingHom.ext
       intro a
       exact congrArg (algebraMap K H.val) (M.ffEquiv.symm_apply_apply a))
+  let : Algebra.IsAlgebraic M.C.functionField H.val :=
+    Algebra.IsAlgebraic.of_finite M.C.functionField H.val
   exact isPullback_genericExtensionNormalization M.C H.val
 
 /-- Every specified embedding of the original Hilbert field gives its

@@ -286,7 +286,7 @@ theorem properHilbertSource_fixed_of_geometricAbelianization_fixed
   let mKH₁ : Module K H₁.val := aKH₁.toModule
   have hKLH₁ : IsScalarTower K L H₁.val := IsScalarTower.of_algebraMap_eq (fun _ => rfl)
   have hLH₁finite : FiniteDimensional L H₁.val :=
-    ClassFieldTheory.FiniteAbelianLocalExtension.finiteDimensional H₁
+    H₁.property.1
   have hKH₁finite : FiniteDimensional K H₁.val := Module.Finite.trans L H₁.val
   let i₁ : H₁.val →ₐ[L] Ω := IsSepClosed.lift
   have hnormEtale := constantHilbertClassField_normalization_finiteEtale k E cE w
@@ -318,8 +318,7 @@ theorem properHilbertSource_fixed_of_geometricAbelianization_fixed
     akK inferInstance akΩ aKΩ aκΩ hkKΩ hkκΩ inferInstance hsepΩ hclosedΩ
     aEκ aEΩ hEκΩ aKL aEL aLΩ hKLΩ hELΩ
     inferInstance aKH₁ hKLH₁ hKH₁finite
-    (ClassFieldTheory.FiniteAbelianLocalExtension.finiteDimensional H₁)
-    (ClassFieldTheory.FiniteAbelianLocalExtension.isAbelianGalois H₁).toIsGalois
+    hLH₁finite H₁.property.2.toIsGalois
     C inferInstance inferInstance c j inferInstance inferInstance
     hbase hgen W η hηPreimmersion hη i₁
   let ψ : L ≃ₐ[K] L := M₀.constantFiniteFrobenius M e he E

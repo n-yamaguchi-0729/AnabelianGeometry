@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalArithmeticScalarRoots
 public import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationSquareNamedTransport
 public import Nyll.AnabelianGeometry.WeightFiltration.QuadraticScalarFiniteBaseCoverIso
@@ -30,34 +31,13 @@ attribute [local instance] Classical.propDecidable
 
 namespace AnabelianGeometry.WeightFiltration
 
-local instance finiteSquareArithmeticChart_isOpenImmersion
-    (k : Type) [Field k] (s : Finset (Projectivization k (k × k))) :
-    IsOpenImmersion (show (rationalConfigurationOpen s : Scheme) ⟶
-      (projectiveLineRatFuncModel k).C from (rationalConfigurationOpen s).ι) := by
-  change IsOpenImmersion (rationalConfigurationOpen s).ι
-  infer_instance
+attribute [local instance 2000] RatFunc.algebraSMul
 
-local instance (priority := 2000) finiteSquareSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E] [Algebra A (RatFunc E)] :
-    SMul A (RatFunc E) := (inferInstance : Algebra A (RatFunc E)).toSMul
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleOverCategory
 
-local instance finiteSquareOverCategory (S : Scheme) :
-    Category (MorphismProperty.Over
-      (@IsFiniteEtale : MorphismProperty Scheme) ⊤ S) :=
-  AlgebraicGeometry.FiniteEtale.instCategory S
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleHasPullbacksAlong
 
-local instance finiteSquareHasPullbacksAlong
-    {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.HasPullbacksAlong
-      (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun _ _ ↦ inferInstance⟩
-
-local instance finiteSquareStableUnderBaseChangeAlong
-    {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.IsStableUnderBaseChangeAlong
-      (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun h hf ↦ MorphismProperty.of_isPullback
-    (P := (@IsFiniteEtale : MorphismProperty Scheme)) h hf⟩
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleIsStableUnderBaseChangeAlong
 
 /-- The original rooted square transport together with its actual finite-base
 cover isomorphism; every previously selected witness remains in the scope. -/
@@ -66,10 +46,10 @@ def RationalConfigurationArithmeticSquareTransportWithFiniteBase
     [IsAlgClosed κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k)))
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (us : Pic0.openKummerUnits k (RatFunc k)
       ((projectiveLineRatFuncModel k).openBoundaryPlaces
         (rationalConfigurationOpen s).ι) (2 : ℕ+))
@@ -94,9 +74,11 @@ def RationalConfigurationArithmeticSquareTransportWithFiniteBase
     isUnit_iff_ne_zero.mpr (Nat.cast_ne_zero.mpr (show (2 : ℕ) ≠ 0 from by decide))
   let M := projectiveLineRatFuncModel k
   let iS : (rationalConfigurationOpen s : Scheme) ⟶ M.C := (rationalConfigurationOpen s).ι
-  let _ : IsOpenImmersion iS := finiteSquareArithmeticChart_isOpenImmersion k s
+  let _ : IsOpenImmersion iS :=
+    inferInstanceAs (IsOpenImmersion (rationalConfigurationOpen s).ι)
   let iT : (rationalConfigurationOpen t : Scheme) ⟶ M.C := (rationalConfigurationOpen t).ι
-  let _ : IsOpenImmersion iT := finiteSquareArithmeticChart_isOpenImmersion k t
+  let _ : IsOpenImmersion iT :=
+    inferInstanceAs (IsOpenImmersion (rationalConfigurationOpen t).ι)
   let ξs := rationalConfigurationArithmeticBasePoint k κ s Ω₁
   let ξt := rationalConfigurationArithmeticBasePoint k κ t Ω₂
   let Fs := fiber ξs
@@ -151,7 +133,7 @@ def RationalConfigurationArithmeticSquareTransportWithFiniteBase
         let fT := (rationalConfigurationOpen t).ι ≫ π k 1
         let b := Limits.pullback.snd
           (Spec.map (CommRingCat.ofHom (algebraMap k Kβ))) fT
-        let xiG := (rationalConfigurationGeometricScheme k κ t).genericExtensionMorphism Ω₂
+        let xiG := (originalFieldGeometricScheme k κ t).genericExtensionMorphism Ω₂
         let xiE := scalarFiniteBasePoint k κ Kβ (rationalConfigurationOpen t : Scheme) fT xiG
         let hp := scalarFiniteBasePoint_comp_snd
           k κ Kβ (rationalConfigurationOpen t : Scheme) fT xiG
@@ -166,10 +148,10 @@ theorem arithmeticSquareTransport_with_finiteBase_of_rootedScalar
     [IsAlgClosed κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k)))
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (us : Pic0.openKummerUnits k (RatFunc k)
       ((projectiveLineRatFuncModel k).openBoundaryPlaces
         (rationalConfigurationOpen s).ι) (2 : ℕ+))
@@ -193,11 +175,11 @@ theorem arithmeticSquareTransport_with_finiteBase_of_rootedScalar
     E, hEμ, hEH, x₀, a, β, hβn, hβ⟩ := hu
   let : Torsor (rootsOfUnity 2 κ) (Fs.obj AS) := ts
   let : Torsor (rootsOfUnity 2 κ)
-      ((fiber ((rationalConfigurationGeometricScheme k κ t).genericExtensionMorphism Ω₂ ≫
+      ((fiber ((originalFieldGeometricScheme k κ t).genericExtensionMorphism Ω₂ ≫
         Limits.pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
           ((rationalConfigurationOpen t).ι ≫ π k 1))).obj AT) := tt
   let : Torsor (rootsOfUnity 2 κ)
-      ((fiber ((rationalConfigurationGeometricScheme k κ t).genericExtensionMorphism Ω₂ ≫
+      ((fiber ((originalFieldGeometricScheme k κ t).genericExtensionMorphism Ω₂ ≫
         Limits.pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
           ((rationalConfigurationOpen t).ι ≫ π k 1))).obj ATs) := transportedFiberTorsor ea
   refine ⟨ts, tt, hrootS, hrootT, hSsemi, hTsemi, hEsemi,
@@ -205,7 +187,7 @@ theorem arithmeticSquareTransport_with_finiteBase_of_rootedScalar
   exact quadraticScalar_actual_finiteBase_coverIso
     k κ (rationalConfigurationOpen t : Scheme)
     ((rationalConfigurationOpen t).ι ≫ π k 1)
-    ((rationalConfigurationGeometricScheme k κ t).genericExtensionMorphism Ω₂)
+    ((originalFieldGeometricScheme k κ t).genericExtensionMorphism Ω₂)
     ATs AT hEsemi hTsemi E hEμ x₀ a β hβn hβ
 
 end AnabelianGeometry.WeightFiltration

@@ -17,6 +17,7 @@ public import Nyll.AlgebraicCurves.Cohomology.Cech.TwoChart.SectionsOf
 public import Nyll.AlgebraicCurves.Geometry.Schemes.Cohomology.TwoAffineCoverBaseChangeIsosStructureSheaf
 public import Nyll.AlgebraicCurves.Geometry.Schemes.Cohomology.TwoAffineCoverSectionsOfBaseChangeEquiv
 public import Nyll.AlgebraicCurves.Geometry.Projective.TwoAffineCoverSectionsOfInvertibleProjectiveFiniteFinrank
+public import Nyll.SchemeTheory.Modules.Functoriality.AffinePullbackSections
 public import Nyll.SchemeTheory.RingTheory.LinearAlgebra.InvertibleModules
 
 /-!
@@ -29,8 +30,8 @@ quotient is Nilpotent
 section ProofImplementation
 
 open _root_.AlgebraicCurves.Geometry.Schemes.Proofs
-open TwoAffineBaseChange.AlgebraicGeometry.Scheme.TwoAffineOpenCover (
-  exists_algEquiv_sections_baseChange)
+open _root_.AlgebraicGeometry.Scheme (
+  exists_algEquiv_tensor_sections_pullback_fst_preimage_of_isAffineOpen)
 
 open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover (
   exists_sectionsOf_baseChange_equiv_of_locallyTrivial)
@@ -55,7 +56,7 @@ theorem le_jacobson_bot_of_isNilpotent {I : Ideal B} (hI : IsNilpotent I) : I �
   B).jacobson := by
   obtain ⟨n, hn⟩ := hI
   intro x hx
-  rw [Ideal.mem_jacobson_bot]
+  rw [Ideal.jacobson_bot, Ring.mem_jacobson_iff]
   intro y
   have hxy : IsNilpotent (x * y) := ⟨n, by
     have := Ideal.pow_mem_pow (I.mul_mem_right y hx) n
@@ -80,7 +81,8 @@ theorem bijective_smul_of_invertible [Module.Invertible B M] (g : M) {I : Ideal 
     (hgen : ∀ m, ∃ b : B, m - b • g ∈ I • (⊤ : Submodule B M)) :
     Function.Bijective (LinearMap.toSpanSingleton B M g) := by
   have htop : (⊤ : Submodule B M) ≤ Submodule.span B {g} := by
-    refine Submodule.le_of_le_smul_of_le_jacobson_bot Module.Finite.fg_top hI fun m _ => ?_
+    refine Submodule.le_of_le_smul_of_le_jacobson Module.Finite.fg_top
+      (by simpa only [Ideal.jacobson_bot] using hI) fun m _ => ?_
     obtain ⟨b, hb⟩ := hgen m
     have : m = b • g + (m - b • g) := by abel
     rw [this]
@@ -199,7 +201,7 @@ theorem main :
     let : Algebra A (𝒰).A0 := (𝒰).A0_algebra
     let : Algebra A' (𝒰J).A0 := (𝒰J).A0_algebra
     obtain ⟨k0, hk0⟩ :=
-      exists_algEquiv_sections_baseChange
+      exists_algEquiv_tensor_sections_pullback_fst_preimage_of_isAffineOpen
         c 𝒱.U0 𝒱.isAffineOpen_U0 A'
     let k0Cover : (A' ⊗[A] (𝒰).A0) ≃ₐ[A'] (𝒰J).A0 := k0
     exact (chart_facts J (B := (𝒰).A0) (B' := (𝒰J).A0) k0Cover τ0 hk0).1
@@ -207,7 +209,7 @@ theorem main :
     let : Algebra A (𝒰).A1 := (𝒰).A1_algebra
     let : Algebra A' (𝒰J).A1 := (𝒰J).A1_algebra
     obtain ⟨k1, hk1⟩ :=
-      exists_algEquiv_sections_baseChange
+      exists_algEquiv_tensor_sections_pullback_fst_preimage_of_isAffineOpen
         c 𝒱.U1 𝒱.isAffineOpen_U1 A'
     let k1Cover : (A' ⊗[A] (𝒰).A1) ≃ₐ[A'] (𝒰J).A1 := k1
     exact (chart_facts J (B := (𝒰).A1) (B' := (𝒰J).A1) k1Cover τ1 hk1).1
@@ -216,7 +218,7 @@ theorem main :
     let : Algebra A (𝒰).A01 := (𝒰).A01_algebra
     let : Algebra A' (𝒰J).A01 := (𝒰J).A01_algebra
     obtain ⟨k01, hk01⟩ :=
-      exists_algEquiv_sections_baseChange
+      exists_algEquiv_tensor_sections_pullback_fst_preimage_of_isAffineOpen
         c (𝒱.U0 ⊓ 𝒱.U1) 𝒱.isAffineOpen_inf A'
     let k01Cover : (A' ⊗[A] (𝒰).A01) ≃ₐ[A'] (𝒰J).A01 := k01
     exact chart_facts J (B := (𝒰).A01) (B' := (𝒰J).A01) k01Cover τ01 hk01

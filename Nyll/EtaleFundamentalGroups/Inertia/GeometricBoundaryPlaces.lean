@@ -6,6 +6,9 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 module
 
+public import Nyll.SchemeTheory.FunctionFields.OpenImmersion
+public import Nyll.ClassFieldTheory.AlgebraicFunctionFieldTheory.RayClass.RestrictedRayBaseChange
+
 public import Nyll.ClassFieldTheory.AlgebraicFunctionFieldTheory.Fields.GeometricConstantBaseChange
 public import Nyll.ClassFieldTheory.AlgebraicFunctionFieldTheory.Artin.GeometricArtinFiniteBoundaryStages
 public import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProperCurveBase
@@ -214,7 +217,7 @@ local notation "pr" => pullback.fst c (specMap k C)
 
 attribute [local instance]
   AlgebraicGeometry.FiniteEtale.genericPoint_isDominant
-  integralOpenDominant smoothOpenCurve
+  AlgebraicGeometry.Scheme.Hom.isDominant_of_isOpenImmersion smoothOpenCurve
   geometricBoundaryConstants geometricBoundaryConstantTower
 
 /-- The actual pulled-back open complement corresponds to the support
@@ -262,12 +265,12 @@ theorem exists_three_openSourceGeometricBoundaryStages
         ∃ s : GeometricArtinIndex k F Ω, i ≤ s ∧
           ∀ l : GeometricArtinIndex k F Ω, s ≤ l →
             Function.Injective (fun a => geometricArtinPlaceAtStage k F Ω l (W a)) ∧
-            (∀ a, rayModulusBaseChange (geometricArtinStageField k F Ω l)
+            (∀ a, reindexAlongPlaces (geometricArtinStageField k F Ω l)
               (openSourceBoundaryModulus c j)
               (geometricArtinPlaceAtStage k F Ω l (W a)) = 1) ∧
             ∀ v : Place k (geometricArtinStageField k F Ω l),
               ∃ w : Place k (geometricArtinStageField k F Ω l), w ≠ v ∧
-                rayModulusBaseChange (geometricArtinStageField k F Ω l)
+                reindexAlongPlaces (geometricArtinStageField k F Ω l)
                   (openSourceBoundaryModulus c j) w ≠ 0 := by
   intro baseAlgebra hTower hRatTower hFunctionField
   obtain ⟨e, he⟩ := exists_openSourceGeometricBoundaryPlaceEquiv c j Ω

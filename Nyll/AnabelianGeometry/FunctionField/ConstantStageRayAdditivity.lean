@@ -6,6 +6,8 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 module
 
+public import Nyll.ClassFieldTheory.AlgebraicFunctionFieldTheory.RayClass.RestrictedRayBaseChange
+
 public import Nyll.ClassFieldTheory.AlgebraicFunctionFieldTheory.RayClass.GeometricRayReconstruction
 public import Nyll.ClassFieldTheory.AlgebraicFunctionFieldTheory.Fields.GeometricPlaceStageLimits
 public import Nyll.ClassFieldTheory.AlgebraicFunctionFieldTheory.Fields.GeometricConstantCurveModel
@@ -35,7 +37,7 @@ namespace AnabelianGeometry.FunctionField
 
 attribute [local instance]
   stageRatFuncAlgebra stageRatFuncTower stageFunctionField stagePrincipalDivisors
-  geometricLocalizationConstants geometricLocalizationConstantTower
+  constantAlgebra constantScalarTower
 
 variable (k₁ K₁ Ω₁ k₂ K₂ Ω₂ : Type)
     [Field k₁] [Finite k₁] [Field K₁] [Field Ω₁]
@@ -60,8 +62,8 @@ local notation "G₁" => geometricConstantExtension k₁ K₁ Ω₁
 local notation "G₂" => geometricConstantExtension k₂ K₂ Ω₂
 local notation "C₁" => separableClosure k₁ Ω₁
 local notation "C₂" => separableClosure k₂ Ω₂
-local notation "M₁" => fun i : I => rayModulusBaseChange (E₁ i) m₁
-local notation "M₂" => fun i : I => rayModulusBaseChange (E₂ (q i)) m₂
+local notation "M₁" => fun i : I => reindexAlongPlaces (E₁ i) m₁
+local notation "M₂" => fun i : I => reindexAlongPlaces (E₂ (q i)) m₂
 local notation "b₁" => geometricRestrictedRayTransition k₁ K₁ Ω₁ m₁ hm₁
 local notation "b₂" => geometricRestrictedRayTransition k₂ K₂ Ω₂ m₂ hm₂
 
@@ -71,21 +73,21 @@ variable
       Ω₂) i)))
     (γ : ∀ i : (GeometricArtinIndex k₁ K₁ Ω₁),
       (localAbsoluteAbelianProfinite ((geometricArtinStageField k₁ K₁ Ω₁) i) ⧸ artinRaySubgroup
-        (rayModulusBaseChange (geometricArtinStageField k₁ K₁ Ω₁ i) m₁)) ≃*
+        (reindexAlongPlaces (geometricArtinStageField k₁ K₁ Ω₁ i) m₁)) ≃*
         (localAbsoluteAbelianProfinite ((geometricArtinStageField k₂ K₂ Ω₂)
           ((geometricArtinIndexOrderIso k₁ K₁ Ω₁ k₂ K₂ Ω₂) i)) ⧸ artinRaySubgroup
-          (rayModulusBaseChange (geometricArtinStageField k₂ K₂ Ω₂ (geometricArtinIndexOrderIso k₁
+          (reindexAlongPlaces (geometricArtinStageField k₂ K₂ Ω₂ (geometricArtinIndexOrderIso k₁
           K₁ Ω₁ k₂ K₂ Ω₂ i)) m₂)))
     (hclosure : ∀ (i : (GeometricArtinIndex k₁ K₁ Ω₁)) (w : Place k₁ ((geometricArtinStageField k₁
       K₁ Ω₁) i)) g,
-      g ∈ (localRayAbsoluteArtin (rayModulusBaseChange (geometricArtinStageField k₁ K₁ Ω₁ i) m₁)
+      g ∈ (localRayAbsoluteArtin (reindexAlongPlaces (geometricArtinStageField k₁ K₁ Ω₁ i) m₁)
         w).range.topologicalClosure ↔
-        γ i g ∈ (localRayAbsoluteArtin (rayModulusBaseChange (geometricArtinStageField k₂ K₂ Ω₂
+        γ i g ∈ (localRayAbsoluteArtin (reindexAlongPlaces (geometricArtinStageField k₂ K₂ Ω₂
           (geometricArtinIndexOrderIso k₁ K₁ Ω₁ k₂ K₂ Ω₂ i)) m₂) (v i
           w)).range.topologicalClosure)
-    (hdegree : ∀ (i : (GeometricArtinIndex k₁ K₁ Ω₁)) g, rayAbelianDegree (rayModulusBaseChange
+    (hdegree : ∀ (i : (GeometricArtinIndex k₁ K₁ Ω₁)) g, rayAbelianDegree (reindexAlongPlaces
       (geometricArtinStageField k₂ K₂ Ω₂ (geometricArtinIndexOrderIso k₁ K₁ Ω₁ k₂ K₂ Ω₂ i)) m₂) (γ
-      i g) = rayAbelianDegree (rayModulusBaseChange (geometricArtinStageField k₁ K₁ Ω₁ i) m₁) g)
+      i g) = rayAbelianDegree (reindexAlongPlaces (geometricArtinStageField k₁ K₁ Ω₁ i) m₁) g)
 
 local notation "ρ" => geometricReconstructedRestrictedRayEquiv k₁ K₁ Ω₁ k₂ K₂ Ω₂
   m₁ m₂ hb₁ hb₂ v γ hclosure hdegree
@@ -98,12 +100,12 @@ variable
         Ω₁ k₂ K₂ Ω₂).monotone hij) (v j w) =
         v i (geometricArtinStagePlaceRestrict k₁ K₁ Ω₁ i j hij w))
     (hartin : ∀ (i j : (GeometricArtinIndex k₁ K₁ Ω₁)) (hij : i ≤ j),
-      (restrictedProductAbsoluteArtin (rayModulusBaseChange (geometricArtinStageField k₂ K₂ Ω₂
+      (restrictedProductAbsoluteArtin (reindexAlongPlaces (geometricArtinStageField k₂ K₂ Ω₂
         (geometricArtinIndexOrderIso k₁ K₁ Ω₁ k₂ K₂ Ω₂ j)) m₂)).comp
           (((geometricReconstructedRestrictedRayEquiv k₁ K₁ Ω₁ k₂ K₂ Ω₂ m₁ m₂ hb₁ hb₂ v γ hclosure
             hdegree) j).toMonoidHom.comp ((geometricRestrictedRayTransition k₁ K₁ Ω₁ m₁ hm₁) i j
             hij)) =
-        (restrictedProductAbsoluteArtin (rayModulusBaseChange (geometricArtinStageField k₂ K₂ Ω₂
+        (restrictedProductAbsoluteArtin (reindexAlongPlaces (geometricArtinStageField k₂ K₂ Ω₂
           (geometricArtinIndexOrderIso k₁ K₁ Ω₁ k₂ K₂ Ω₂ j)) m₂)).comp
           (((geometricRestrictedRayTransition k₂ K₂ Ω₂ m₂ hm₂) ((geometricArtinIndexOrderIso k₁ K₁
             Ω₁ k₂ K₂ Ω₂) i) ((geometricArtinIndexOrderIso k₁ K₁ Ω₁ k₂ K₂ Ω₂) j)
@@ -112,9 +114,9 @@ variable
             hclosure hdegree) i).toMonoidHom))
     (hmodulus : ∀ (i : GeometricArtinIndex k₁ K₁ Ω₁)
       (w : Place k₁ (geometricArtinStageField k₁ K₁ Ω₁ i)),
-      rayModulusBaseChange
+      reindexAlongPlaces
         (geometricArtinStageField k₂ K₂ Ω₂ (geometricArtinIndexOrderIso k₁ K₁ Ω₁ k₂ K₂ Ω₂ i))
-        m₂ (v i w) = rayModulusBaseChange (geometricArtinStageField k₁ K₁ Ω₁ i) m₁ w)
+        m₂ (v i w) = reindexAlongPlaces (geometricArtinStageField k₁ K₁ Ω₁ i) m₁ w)
     (hz₁ : m₁ ≠ 0) (hz₂ : m₂ ≠ 0)
 
 local notation "φ" => geometricReconstructedFunction k₁ K₁ Ω₁ k₂ K₂ Ω₂
@@ -181,9 +183,9 @@ def geometricReconstructedStageFieldEquiv (i : I) : E₁ i ≃+* E₂ (q i) :=
   FieldTheory.ringEquivOfMultiplicativeExtension
     (reconstructedRayFunction (M₁ i) (M₂ i) (v i) (γ i)
       (hclosure i) (hdegree i)
-      (rayModulusBaseChange_other_boundary (L := E₁ i) m₁ hb₁)
-      (rayModulusBaseChange_other_boundary (L := E₂ (q i)) m₂ hb₂)
-      (rayModulusBaseChange_ne_zero m₁ hz₁) (rayModulusBaseChange_ne_zero m₂ hz₂))
+      (reindexAlongPlaces_other_boundary (L := E₁ i) m₁ hb₁)
+      (reindexAlongPlaces_other_boundary (L := E₂ (q i)) m₂ hb₂)
+      (reindexAlongPlaces_ne_zero m₁ hz₁) (reindexAlongPlaces_ne_zero m₂ hz₂))
     (fullConstantStageGeometricInclusion k₁ K₁ Ω₁ i.degree).toRingHom
     (fullConstantStageGeometricInclusion k₂ K₂ Ω₂ (q i).degree).toRingHom
     (geometricReconstructedFieldEquiv k₁ K₁ Ω₁ k₂ K₂ Ω₂

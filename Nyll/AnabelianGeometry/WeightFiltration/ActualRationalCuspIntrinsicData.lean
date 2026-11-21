@@ -3,6 +3,7 @@ Copyright (c) 2026 Naganori Yamaguchi (https://github.com/n-yamaguchi-0729).
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
+import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 import Nyll.AnabelianGeometry.WeightFiltration.TransportedCuspArithmeticData
 import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaSelfNormalizer
 import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
@@ -45,10 +46,7 @@ section SourceChart
 open scoped RatFunc
 attribute [local instance] Polynomial.algebra
 
-local instance (priority := 2000) actualRationalCuspIntrinsicSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E]
-    [Algebra A (RatFunc E)] : SMul A (RatFunc E) :=
-  (inferInstance : Algebra A (RatFunc E)).toSMul
+attribute [local instance 2000] RatFunc.algebraSMul
 
 variable
     (k κ : Type) [Field k] [Field κ] [CharZero κ] [IsAlgClosed κ]

@@ -9,6 +9,9 @@ on:
       partition:
         type: boolean
         default: false
+      kernel-replay:
+        type: boolean
+        default: true
       cache-prefix:
         type: string
         default: proof-build-v4
@@ -31,10 +34,12 @@ jobs:
         env:
           SCOPE_CONFIG: ${{ inputs.config }}
           PARTITION: ${{ inputs.partition }}
+          KERNEL_REPLAY: ${{ inputs.kernel-replay }}
         run: |
           set -euo pipefail
           args=()
           if [[ "$PARTITION" == true ]]; then args+=(--partition); fi
+          if [[ "$KERNEL_REPLAY" == false ]]; then args+=(--proof-only); fi
           python3 -B .github/scripts/publication/verification/scope.py \
             --root . --config "$SCOPE_CONFIG" --output "$RUNNER_TEMP/scope" "${args[@]}"
           echo "matrix=$(cat "$RUNNER_TEMP/scope/matrix.json")" >> "$GITHUB_OUTPUT"
@@ -136,7 +141,7 @@ jobs:
           retention-days: 14
 
   complete:
-    name: Require both verification phases for every source shard
+    name: Require every configured verification phase for every source shard
     needs: [plan, verify]
     if: always() && github.event.repository.private == false
     runs-on: ubuntu-24.04

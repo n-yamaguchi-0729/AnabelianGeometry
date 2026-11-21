@@ -5,6 +5,7 @@ Original copyright, authors, license and pinned sources are retained per unit be
 
 module
 
+public import Mathlib.AlgebraicGeometry.Limits
 public import Mathlib.AlgebraicGeometry.Morphisms.Separated
 public import Mathlib.AlgebraicGeometry.Morphisms.Smooth
 public import Mathlib.RingTheory.DedekindDomain.Basic
@@ -43,6 +44,48 @@ universe u
 open CategoryTheory CategoryTheory.Limits AlgebraicGeometry
 
 namespace NeronModelInfra
+
+section PartialMultiplication
+
+variable {S Y : Scheme.{u}} (y : Y ⟶ S)
+variable (U : (pullback y y).Opens) (m : SchemeHomOver (U.ι ≫ pullback.fst y y ≫ y) y)
+
+/-- The chart pairing the first input with the product of a partial multiplication. -/
+abbrev firstMultiplicationChart : (U : Scheme.{u}) ⟶ pullback y y :=
+  pullback.lift (f := y) (g := y) (U.ι ≫ pullback.fst y y) m.1
+    ((Category.assoc _ _ _).trans m.2.symm)
+
+/-- The chart pairing the product of a partial multiplication with the second input. -/
+abbrev secondMultiplicationChart : (U : Scheme.{u}) ⟶ pullback y y :=
+  pullback.lift (f := y) (g := y) m.1 (U.ι ≫ pullback.snd y y)
+    (m.2.trans (by rw [Category.assoc, pullback.condition]))
+
+/-- The triple fibre product with the first two factors grouped together. -/
+abbrev tripleFiberProduct : Scheme.{u} := pullback (pullback.fst y y ≫ y) y
+
+/-- The graph of the partial multiplication inside the triple fibre product. -/
+abbrev multiplicationGraph : (U : Scheme.{u}) ⟶ tripleFiberProduct y :=
+  pullback.lift (f := pullback.fst y y ≫ y) (g := y) U.ι m.1 m.2.symm
+
+/-- The projection of the triple fibre product onto its first two factors. -/
+abbrev firstSecondProjection : tripleFiberProduct y ⟶ pullback y y :=
+  pullback.fst (pullback.fst y y ≫ y) y
+
+/-- The projection of the triple fibre product onto its first and third factors. -/
+abbrev firstThirdProjection : tripleFiberProduct y ⟶ pullback y y :=
+  pullback.lift (f := y) (g := y)
+    (pullback.fst (pullback.fst y y ≫ y) y ≫ pullback.fst y y)
+    (pullback.snd (pullback.fst y y ≫ y) y)
+    (by rw [Category.assoc]; exact pullback.condition)
+
+/-- The projection of the triple fibre product onto its second and third factors. -/
+abbrev secondThirdProjection : tripleFiberProduct y ⟶ pullback y y :=
+  pullback.lift (f := y) (g := y)
+    (pullback.fst (pullback.fst y y ≫ y) y ≫ pullback.snd y y)
+    (pullback.snd (pullback.fst y y ≫ y) y)
+    (by rw [Category.assoc, ← pullback.condition (f := y) (g := y)]; exact pullback.condition)
+
+end PartialMultiplication
 
 variable (R K : Type u) [CommRing R] [Field K] [Algebra R K]
 variable {X Y : Scheme.{u}}

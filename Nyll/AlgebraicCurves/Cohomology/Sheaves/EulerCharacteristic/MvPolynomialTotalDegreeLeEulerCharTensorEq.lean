@@ -28,7 +28,7 @@ public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.QuasicoherentCohe
 public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.QuasicoherentModules
 public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Coherent.CoherentModules
 public import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.EquivModulesIso
-public import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleTensorInverse
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleDual
 public import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleTensor
 public import Nyll.SchemeTheory.RingTheory.Polynomial.AddCommGroupMvPolynomialTotalDegreeLeEvalEq
 

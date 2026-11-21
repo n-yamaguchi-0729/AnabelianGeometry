@@ -98,7 +98,7 @@ theorem exists_finiteEtale_openCover_genus_ge_two_of_genus_zero
     rw [← zpow_natCast, a.ord_zpow, horda] at ho
     omega
   have hirr : Irreducible (Polynomial.X ^ 5 - Polynomial.C (u.val : F)) :=
-    X_pow_sub_C_irreducible_of_prime (by decide : Nat.Prime 5) hnonpower
+    irreducible_X_pow_sub_C_of_prime (by decide : Nat.Prime 5) hnonpower
   have hn : IsUnit ((5 : ℕ) : K) := isUnit_iff_ne_zero.mpr (by norm_num)
   let P : Polynomial F := Polynomial.X ^ 5 - Polynomial.C (u.val : F)
   let : Fact (Irreducible P) := ⟨hirr⟩
@@ -113,7 +113,7 @@ theorem exists_finiteEtale_openCover_genus_ge_two_of_genus_zero
     calc
       Module.finrank F L = B.dim := B.finrank
       _ = P.natDegree := rfl
-      _ = 5 := Polynomial.natDegree_X_pow_sub_C
+      _ = 5 := Polynomial.natDegree_X_pow_sub_C _
   have : NeZero (5 : K) := ⟨by norm_num⟩
   obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_isPrimitiveRoot K 5
   have hprimitive : (primitiveRoots 5 F).Nonempty :=

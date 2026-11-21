@@ -28,8 +28,8 @@ attribute [local instance]
   Place.instFiniteSubtypeMemValuationSubringToValuationSubringIntegralClosureAt
   placeBaseAmbientAlgebra placeBaseAmbientTower
   extendingPlaceAmbientAlgebra extendingPlaceAmbientTower
-  finiteNormalizationPlaceAlgebra finiteNormalizationPlaceTower
-  finiteNormalizationPlaceLocalization finiteNormalizationPlaceAmbientTower
+  Place.placeOfPrimeAlgebra Place.placeOfPrimeIsScalarTower
+  Place.placeOfPrimeIsLocalization finiteNormalizationPlaceAmbientTower
   originalPlaceNormalizationAction extendingPlaceNormalizationAction
 
 /-- Exact projection image, hence containment via `inf_le_left`, including at

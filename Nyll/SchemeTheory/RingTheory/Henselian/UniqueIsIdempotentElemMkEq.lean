@@ -449,7 +449,8 @@ theorem eq_of_sub_mem_jacobson {S : Type*} [CommRing S] {e₁ e₂ : S}
     ring
   have hsq : (e₁ - e₂) ^ 2 ∈ Ideal.jacobson (⊥ : Ideal S) := Ideal.pow_mem_of_mem _ h 2
     (by norm_num)
-  have hu : IsUnit ((e₁ - e₂) ^ 2 * (-1) + 1) := Ideal.mem_jacobson_bot.mp hsq (-1)
+  have hu : IsUnit ((e₁ - e₂) ^ 2 * (-1) + 1) :=
+    Ring.mem_jacobson_iff.mp (by simpa only [Ideal.jacobson_bot] using hsq) (-1)
   have hzero : (e₁ - e₂) * ((e₁ - e₂) ^ 2 * (-1) + 1) = 0 := by
     have : (e₁ - e₂) * ((e₁ - e₂) ^ 2 * (-1) + 1) = (e₁ - e₂) - (e₁ - e₂) ^ 3 := by ring
     rw [this, h3, sub_self]

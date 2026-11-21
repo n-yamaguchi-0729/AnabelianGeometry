@@ -35,13 +35,7 @@ variable {A : Type uA} {K : Type uK} {L : Type uL} {Ω : Type uOmega}
   [Algebra L Ω] [IsScalarTower K L Ω] [IsScalarTower A L Ω]
   [IsGalois K Ω]
 
-local instance finiteNormalizationAction :
-    MulSemiringAction Gal(L/K) (integralClosure A L) :=
-  IsIntegralClosure.MulSemiringAction A K L (integralClosure A L)
-
-local instance absoluteNormalizationAction :
-    MulSemiringAction Gal(Ω/K) (integralClosure A Ω) :=
-  IsIntegralClosure.MulSemiringAction A K Ω (integralClosure A Ω)
+attribute [local instance] normalizationInertiaImageAction
 
 /-- Restriction of absolute inertia is the full inertia of the literal
 contracted prime for the given finite-field embedding. -/

@@ -21,7 +21,7 @@ public import Mathlib.RingTheory.Ideal.Norm.RelNorm
 public import Nyll.AlgebraicCurves.Places.ValuationRings.OverDVR
 public import Nyll.AlgebraicCurves.Places.Evaluation.Evaluation
 public import Nyll.AlgebraicCurves.Places.Ramification.RamificationIndexEqRamificationIdxFiberCenter
-public import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegEqInertiaDegFiberCenter
+public import Nyll.AlgebraicCurves.Places.Ramification.FiberCenterResidueComparison
 public import Nyll.AlgebraicCurves.Places.Ramification.InertiaDegEqOneIsRational
 public import Nyll.AlgebraicCurves.Places.Basic
 public import Nyll.SchemeTheory.RingTheory.NormIdentities

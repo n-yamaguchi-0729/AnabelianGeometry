@@ -96,7 +96,7 @@ def projectivePointEquivClosedPoint :
     Projectivization K (K × K) ≃ closedPoints P¹ :=
   Equiv.ofBijective
     (fun p => ⟨projectiveRationalPoint p,
-      isClosed_singleton_rationalPuncturePoint p.rep p.rep_nonzero⟩)
+      isClosed_singleton_rationalPuncturePoint p.rep p.rep_ne_zero⟩)
     ⟨fun _ _ h => projectiveRationalPoint_injective (congrArg Subtype.val h), by
       rintro ⟨x, hx⟩
       obtain ⟨p, hp⟩ := exists_projectiveRationalPoint_eq K x hx
@@ -108,7 +108,7 @@ def projectivePointEquivPlace :
   (projectivePointEquivClosedPoint K).trans (projectiveLineRatFuncModel K).placeEquiv
 
 theorem projectivePointEquivPlace_apply (p : Projectivization K (K × K)) :
-    projectivePointEquivPlace K p = literalRationalPuncturePlace K p.rep p.rep_nonzero := rfl
+    projectivePointEquivPlace K p = literalRationalPuncturePlace K p.rep p.rep_ne_zero := rfl
 
 theorem projectivePointEquivPlace_mk (v : K × K) (hv : v ≠ 0) :
     projectivePointEquivPlace K (Projectivization.mk K v hv) =

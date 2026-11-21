@@ -52,7 +52,7 @@ theorem actualAbsoluteTameCharacter_scalar_eq_tameCoefficient
   have hstage (E : FiniteGaloisIntermediateField F Ω) :
       e (normalizationSeparableRootsScalar A Ω Q (actualFiniteStageTameIndex A F Ω Q E) y) =
         (((actualFiniteTameCoordinate A F Ω Q E).hom' τ).val : Q.ResidueField) := by
-    let m : Subtype (actualFiniteTameDegreeSet A F Ω Q) :=
+    let m : ↥(actualFiniteTameDegreeSet A F Ω Q) :=
       ⟨actualFiniteStageTameIndex A F Ω Q E, E, rfl⟩
     have hcancel : actualSeparableRootsComparison_apply A F Ω Q y =
         (actualTameCharacterMorphism A F Ω Q).hom' τ := by

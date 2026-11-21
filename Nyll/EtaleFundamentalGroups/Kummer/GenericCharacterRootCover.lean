@@ -86,7 +86,7 @@ theorem exists_finiteEtale_genericKummerRoot
       (Algebra.IsIntegral.isIntegral (β : SeparableClosure X.functionField))
   have hfix : (FiniteEtale.genericAbsoluteGaloisHom X).toMonoidHom.ker ≤
       L.fixingSubgroup := by
-    apply (IntermediateField.le_iff_le
+    apply (IntermediateField.le_fixedField_iff_le_fixingSubgroup
       (FiniteEtale.genericAbsoluteGaloisHom X).toMonoidHom.ker L).mp
     apply IntermediateField.adjoin_simple_le_iff.mpr
     apply (IntermediateField.mem_fixedField_iff _ _).mpr

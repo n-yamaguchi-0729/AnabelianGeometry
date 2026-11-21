@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerSplittingField
-import Nyll.AnabelianGeometry.KummerTheory.TwistedRootFields
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerSplittingField
+public import Nyll.AnabelianGeometry.KummerTheory.TwistedRootFields
 
 /-!
 # Root fields detected by equivalent fibre actions
@@ -14,6 +16,8 @@ Equivariant identifications of actual Kummer fibres preserve their root
 fields. Simultaneous pointwise stabilizers detect the compositum of two
 root fields; their common-twist family detects the root field of the ratio.
 -/
+
+@[expose] public section
 
 noncomputable section
 

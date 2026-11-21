@@ -91,6 +91,32 @@ private theorem finrank_degree_computation
     Nat.cast_mul, Nat.cast_mul, hdegree]
   ring
 
+/-- Transport a single coboundary value and its primitive-root coordinate
+along the same equivalence of coefficient fields. -/
+private theorem unitsCochain_d₁₂_primitiveRootCoordinate_of_equiv
+    {F L M : Type u} [Field F] [Field L] [Field M] [Algebra F L] [Algebra F M]
+    (e : L ≃ₐ[F] M) {n : ℕ} [NeZero n] {ζM : Mˣ} {ζL : Lˣ}
+    (hζM : IsPrimitiveRoot ζM n) (hζL : IsPrimitiveRoot ζL n)
+    (hζmap : Units.map e.symm.toMonoidHom ζM = ζL)
+    (a : Gal(L/F) → Additive Lˣ) (b : Gal(M/F) → Additive Mˣ)
+    (hab : ∀ γ, a γ =
+      (Units.mapEquiv e.toMulEquiv).toAdditive.symm (b (AlgEquiv.autCongr e γ)))
+    (σ τ : Gal(L/F)) (t : ZMod n)
+    (hb : groupCohomology.d₁₂ (liftedGaloisUnitsRep F M) b
+      (AlgEquiv.autCongr e σ, AlgEquiv.autCongr e τ) =
+        Additive.ofMul (primitiveRootCoordinate hζM t)) :
+    groupCohomology.d₁₂ (liftedGaloisUnitsRep F L) a (σ, τ) =
+      Additive.ofMul (primitiveRootCoordinate hζL t) := by
+  rw [funext hab]
+  change groupCohomology.d₁₂ (liftedGaloisUnitsRep F L)
+      (fun γ => Additive.ofMul
+        (Units.map e.symm.toMonoidHom (b (AlgEquiv.autCongr e γ)).toMul)) (σ, τ) = _
+  rw [unitsCochain_d₁₂_congr_lifted, hb]
+  apply Additive.toMul.injective
+  change Units.map e.symm.toMonoidHom (primitiveRootCoordinate hζM t) =
+    primitiveRootCoordinate hζL t
+  rw [primitiveRootCoordinate_eq_pow_val, map_pow, primitiveRootCoordinate_eq_pow_val, hζmap]
+
 /-- Transport the original primitive's divisor and cup equation through
 the actual field equivalence, before a chosen Kummer stage is substituted. -/
 private theorem cyclicNormCup_field_transport
@@ -142,13 +168,14 @@ private theorem cyclicNormCup_field_transport
         Additive.ofMul (Units.map j.toMonoidHom
           (finiteCyclicNormPrefixCochain (Rep.ofAlgebraAutOnUnits F E) g hg
             (Additive.ofMul (Units.mk0 u hu)) (q σ)).toMul)
+    let aM : Gal(M/F) → Additive Mˣ := fun γ =>
+      -((-ψ (Additive.ofMul γ)).val • Additive.ofMul βM) +
+        Rep.toAdditive (M := Gal(M/F)) (G := Mˣ)
+          (φ.hom (finiteCyclicNormPrefixCochain (Rep.ofAlgebraAutOnUnits F E) g hg
+            (Additive.ofMul (Units.mk0 u hu)) (qM γ)))
     ∀ (_ : ∀ γ : Gal(M/F), (-ψ (Additive.ofMul γ)).val =
         k * (finiteCyclicGeneratorCoordinate g hg (qM γ)).val)
-      (_ : groupCohomology.d₁₂ (liftedGaloisUnitsRep F M)
-        (fun γ => -((-ψ (Additive.ofMul γ)).val • Additive.ofMul βM) +
-          Rep.toAdditive (M := Gal(M/F)) (G := Mˣ)
-            (φ.hom (finiteCyclicNormPrefixCochain (Rep.ofAlgebraAutOnUnits F E) g hg
-              (Additive.ofMul (Units.mk0 u hu)) (qM γ)))) =
+      (_ : groupCohomology.d₁₂ (liftedGaloisUnitsRep F M) aM =
         (fun γδ => ι (ULift.up (χ (Additive.ofMul γδ.1) * ψ (Additive.ofMul γδ.2))))),
       (∀ σ : Gal(L/F), Divisor.principalHom (K := K) (a σ) =
         SemilinearAut.ofAlgAut (σ.restrictScalars K) • V - V) ∧
@@ -157,7 +184,7 @@ private theorem cyclicNormCup_field_transport
           Additive.ofMul (primitiveRootCoordinate hζL
             (χ (Additive.ofMul (s σ)) * ψ (Additive.ofMul (s τ))))) := by
   intro j algEL towerFEL towerKEL finiteEL integralEL βM ζM hζM ι ζL hζL
-    s qM φ q V₀ V a hcoord hcup
+    s qM φ q V₀ V a aM hcoord hcup
   constructor
   · intro σ
     have hdivisor : Divisor.principalHom (K := K) (Additive.ofMul (Units.mk0 u hu)) =
@@ -172,11 +199,6 @@ private theorem cyclicNormCup_field_transport
       (intermediateFieldRestrictNormalHom_equiv_commutes E M hEM e σ)
   · intro σ τ
     let U : Additive Lˣ ≃+ Additive Mˣ := (Units.mapEquiv e.toMulEquiv).toAdditive
-    let aM : Gal(M/F) → Additive Mˣ := fun γ =>
-      -((-ψ (Additive.ofMul γ)).val • Additive.ofMul βM) +
-        Rep.toAdditive (M := Gal(M/F)) (G := Mˣ)
-          (φ.hom (finiteCyclicNormPrefixCochain (Rep.ofAlgebraAutOnUnits F E) g hg
-            (Additive.ofMul (Units.mk0 u hu)) (qM γ)))
     have ha (γ : Gal(L/F)) : a γ = U.symm (aM (s γ)) := by
       change _ = U.symm (-((-ψ (Additive.ofMul (s γ))).val • U (Additive.ofMul β)) + _)
       rw [hcoord]
@@ -185,25 +207,9 @@ private theorem cyclicNormCup_field_transport
     have hζmap : Units.map e.symm.toMonoidHom ζM = ζL := by
       apply Units.ext
       exact e.symm.commutes (ζF : F)
-    have htransport := unitsCochain_d₁₂_congr_lifted F L M e aM σ τ
-    change groupCohomology.d₁₂ (liftedGaloisUnitsRep F L)
-        (fun γ => U.symm (aM (s γ))) (σ, τ) =
-      U.symm (groupCohomology.d₁₂ (liftedGaloisUnitsRep F M) aM (s σ, s τ)) at htransport
-    have hvalue := congrFun hcup (s σ, s τ)
-    change groupCohomology.d₁₂ (liftedGaloisUnitsRep F M) aM (s σ, s τ) =
-      Additive.ofMul (primitiveRootCoordinate hζM
-        (χ (Additive.ofMul (s σ)) * ψ (Additive.ofMul (s τ)))) at hvalue
-    rw [show a = (fun γ => U.symm (aM (s γ))) from funext ha, htransport, hvalue]
-    apply Additive.toMul.injective
-    change Units.map e.symm.toMonoidHom
-        (primitiveRootCoordinate hζM
-          (χ (Additive.ofMul (s σ)) * ψ (Additive.ofMul (s τ)))) =
-      primitiveRootCoordinate hζL
-        (χ (Additive.ofMul (s σ)) * ψ (Additive.ofMul (s τ)))
-    rw [primitiveRootCoordinate_eq_pow_val, map_pow, primitiveRootCoordinate_eq_pow_val]
-    exact congrArg
-      (fun z : Lˣ => z ^ (χ (Additive.ofMul (s σ)) * ψ (Additive.ofMul (s τ))).val) hζmap
-
+    exact unitsCochain_d₁₂_primitiveRootCoordinate_of_equiv e hζM hζL
+      hζmap a aM ha σ τ (χ (Additive.ofMul (s σ)) * ψ (Additive.ofMul (s τ)))
+      (congrFun hcup (s σ, s τ))
 
 /-- Construct the field cochain, its actual divisor vertex and its
 Weil evaluation on the original finite separable covering field. -/

@@ -116,7 +116,7 @@ theorem effective_representative_unique {A E E' : Divisor K F}
   let u : LSpace A := ⟨f, hfA⟩
   let u' : LSpace A := ⟨f', hf'A⟩
   have hu : u ≠ 0 := fun h => hf0 (congrArg Subtype.val h)
-  obtain ⟨c, hc⟩ := (finrank_eq_one_iff_of_nonzero' u hu).mp hA u'
+  obtain ⟨c, hc⟩ := (finrank_eq_one_iff_of_ne_zero' u hu).mp hA u'
   have hcval : algebraMap K F c * f = f' := by
     have h := congrArg Subtype.val hc
     simpa only [SetLike.val_smul, Algebra.smul_def] using h

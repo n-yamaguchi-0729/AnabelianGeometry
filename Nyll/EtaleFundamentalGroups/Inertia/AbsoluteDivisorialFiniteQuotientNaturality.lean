@@ -6,6 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 module
 
+public import Nyll.SchemeTheory.RingTheory.Ramification.FiniteLevelInertiaImage
 public import Nyll.EtaleFundamentalGroups.Inertia.AbsoluteDivisorialFiniteQuotientCompatibility
 public import Nyll.EtaleFundamentalGroups.Kummer.Normalization.FiniteEtaleGaloisCoverNormalizationAction
 
@@ -429,11 +430,7 @@ variable {A : Type u} [CommRing A] [IsDomain A] [IsIntegrallyClosed A]
   [Algebra A U.functionField] [IsFractionRing A U.functionField]
   [Algebra A Omega] [IsScalarTower A U.functionField Omega]
 
-local instance absoluteNormalizationPrimeAction :
-    MulSemiringAction Gal(Omega/U.functionField)
-      (integralClosure A Omega) :=
-  IsIntegralClosure.MulSemiringAction A U.functionField Omega
-    (integralClosure A Omega)
+attribute [local instance] normalizationInertiaImageAction
 
 /-- Absolute normalization-prime inertia membership descends to membership
 of the corresponding direct pointed deck element in ideal inertia at the

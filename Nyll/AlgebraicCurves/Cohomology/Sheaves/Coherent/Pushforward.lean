@@ -12,7 +12,8 @@ AI assistance in local adaptation and maintenance: OpenAI Codex.
 
 module
 
-public import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafConstructions
+public import Nyll.SchemeTheory.Morphisms.NoetherianFiniteType
+public import Nyll.SchemeTheory.Cohomology.Sheaves.OModulePresheafCoherence
 public import Nyll.SchemeTheory.Cohomology.Sheaves.ModulePresheafBasicOpenSectionsFree
 
 /-!
@@ -48,253 +49,6 @@ theorem support_vanishingIdeal' (Z : Closeds V) :
     (Scheme.IdealSheafData.vanishingIdeal Z).support = Z :=
   SetLike.coe_injective (Scheme.IdealSheafData.coe_support_vanishingIdeal Z)
 
-theorem isNoetherian_of_isProper [IsNoetherianRing R] (π : V ⟶ Spec (.of R)) [IsProper π] :
-    IsNoetherian V := by
-  have : LocallyOfFiniteType π := inferInstance
-  have : IsLocallyNoetherian (Spec (CommRingCat.of R)) := inferInstance
-  have : IsLocallyNoetherian V := LocallyOfFiniteType.isLocallyNoetherian π
-  have : CompactSpace V := QuasiCompact.compactSpace_of_compactSpace π
-  exact {}
-
-section KerImCoker
-
-variable {F G : OModulePresheaf π} (φ : Hom F G)
-
-theorem isCoherent_ker [IsLocallyNoetherian V] (hF : F.IsCoherent) : (ker φ).IsCoherent := fun U =>
-  by
-  have := hF U
-  have : IsNoetherianRing Γ(V, U.1) := IsLocallyNoetherian.component_noetherian U
-  have : _root_.IsNoetherian Γ(V, U.1) (F.obj U.1) := isNoetherian_of_isNoetherianRing_of_finite _ _
-  exact Module.Finite.of_injective ((kerImSES φ).inc.appSections U.1) ((kerImSES φ).injective U.1)
-
-theorem isCoherent_im (hF : F.IsCoherent) : (im φ).IsCoherent := fun U => by
-  have := hF U
-  exact Module.Finite.of_surjective ((kerImSES φ).proj.appSections U.1) ((kerImSES φ).surjective
-    U.1)
-
-theorem isCoherent_coker (hG : G.IsCoherent) : (coker φ).IsCoherent := fun U => by
-  have := hG U
-  exact Module.Finite.of_surjective ((imCokerSES φ).proj.appSections U.1) ((imCokerSES
-    φ).surjective U.1)
-
-theorem isQuasicoherent_coker (hG : G.IsQuasicoherent) (hF : F.IsQuasicoherent) :
-    (coker φ).IsQuasicoherent := fun U f => by
-  refine ⟨fun x => x.inductionOn' fun x₀ => ?_, fun y => y.inductionOn' fun y₀ hy => ?_⟩
-  · obtain ⟨n, y, hy⟩ := (hG U f).1 x₀
-    exact ⟨n, Submodule.Quotient.mk y, congrArg Submodule.Quotient.mk hy⟩
-  · obtain ⟨z, hz⟩ := (Submodule.Quotient.mk_eq_zero _).mp hy
-    obtain ⟨n, w, hw⟩ := (hF U f).1 z
-    have h1 : G.res (V.basicOpen_le f) ((f ^ n : Γ(V, U.1)) • y₀ - φ.app U.1 w) = 0 := by
-      rw [map_sub, G.res_smul, ← hz, ← φ.app_smul, ← hw]
-      exact sub_eq_zero.mpr (φ.naturality_apply (V.basicOpen_le f) w)
-    obtain ⟨m, hm⟩ := (hG U f).2 _ h1
-    rw [smul_sub, sub_eq_zero, smul_smul, ← pow_add] at hm
-    exact ⟨m + n, (Submodule.Quotient.mk_eq_zero _).mpr
-      ⟨(f ^ m : Γ(V, U.1)) • w, (φ.app_smul U.1 _ _).trans hm.symm⟩⟩
-
-theorem isQuasicoherent_ker (hF : F.IsQuasicoherent) (hG : G.IsQuasicoherent) :
-    (ker φ).IsQuasicoherent := fun U f => by
-  refine ⟨fun x => ?_, fun y hy => ?_⟩
-  · obtain ⟨n, y', hy'⟩ := (hF U f).1 x.1
-    have h1 : G.res (V.basicOpen_le f) (φ.app U.1 y') = 0 := by
-      have hnat := φ.naturality_apply (V.basicOpen_le f) y'
-      rw [hy', φ.app_smul, LinearMap.mem_ker.mp x.2, smul_zero] at hnat
-      exact hnat.symm
-    obtain ⟨m, hm⟩ := (hG U f).2 _ h1
-    refine ⟨m + n, ⟨(f ^ m : Γ(V, U.1)) • y',
-      LinearMap.mem_ker.mpr ((φ.app_smul U.1 _ _).trans hm)⟩, Subtype.ext ?_⟩
-    change F.res (V.basicOpen_le f) ((f ^ m : Γ(V, U.1)) • y')
-      = (V.presheaf.map (homOfLE (V.basicOpen_le f)).op).hom (f ^ (m + n)) • x.1
-    rw [F.res_smul, hy', smul_smul, ← map_mul, ← pow_add]
-  · exact ((hF U f).2 y.1 (congrArg Subtype.val hy)).imp fun n hn => Subtype.ext hn
-
-theorem isQuasicoherent_im (hF : F.IsQuasicoherent) (hG : G.IsQuasicoherent) :
-    (im φ).IsQuasicoherent := fun U f => by
-  refine ⟨fun x => ?_, fun y hy => ?_⟩
-  · obtain ⟨s, hs⟩ := x.2
-    obtain ⟨n, y', hy'⟩ := (hF U f).1 s
-    refine ⟨n, ⟨φ.app U.1 y', y', rfl⟩, Subtype.ext ?_⟩
-    change G.res (V.basicOpen_le f) (φ.app U.1 y')
-      = (V.presheaf.map (homOfLE (V.basicOpen_le f)).op).hom (f ^ n) • x.1
-    rw [← φ.naturality_apply, hy', φ.app_smul, hs]
-  · exact ((hG U f).2 y.1 (congrArg Subtype.val hy)).imp fun n hn => Subtype.ext hn
-
-end KerImCoker
-
-theorem isCoherent_prod {F G : OModulePresheaf π} (hF : F.IsCoherent) (hG : G.IsCoherent) :
-    (F.prod G).IsCoherent :=
-  fun U => by have := hF U; have := hG U; exact Module.Finite.prod
-
-theorem isQuasicoherent_prod {F G : OModulePresheaf π} (hF : F.IsQuasicoherent) (hG :
-  G.IsQuasicoherent) :
-    (F.prod G).IsQuasicoherent := fun U f => by
-  refine ⟨fun x => ?_, fun y hy => ?_⟩
-  · obtain ⟨n₁, y₁, hy₁⟩ := (hF U f).1 x.1; obtain ⟨n₂, y₂, hy₂⟩ := (hG U f).1 x.2
-    exact ⟨n₁ + n₂, ((f ^ n₂ : Γ(V, U.1)) • y₁, (f ^ n₁ : Γ(V, U.1)) • y₂), Prod.ext
-      (show F.res _ ((f ^ n₂ : Γ(V, U.1)) • y₁) = _ • x.1 by
-        rw [F.res_smul, hy₁, smul_smul, ← map_mul, ← pow_add, Nat.add_comm])
-      (show G.res _ ((f ^ n₁ : Γ(V, U.1)) • y₂) = _ • x.2 by
-        rw [G.res_smul, hy₂, smul_smul, ← map_mul, ← pow_add])⟩
-  · obtain ⟨n₁, hn₁⟩ := (hF U f).2 y.1 (congrArg Prod.fst hy)
-    obtain ⟨n₂, hn₂⟩ := (hG U f).2 y.2 (congrArg Prod.snd hy)
-    exact ⟨n₁ + n₂, Prod.ext
-      (show (f ^ (n₁ + n₂) : Γ(V, U.1)) • y.1 = 0 by
-        rw [Nat.add_comm, pow_add, mul_smul, hn₁, smul_zero])
-      (show (f ^ (n₁ + n₂) : Γ(V, U.1)) • y.2 = 0 by
-        rw [pow_add, mul_smul, hn₂, smul_zero])⟩
-
-theorem isCoherent_pow {F : OModulePresheaf π} (n : ℕ) (hF : F.IsCoherent) : (F.pow n).IsCoherent :=
-  fun U => by have := hF U; exact Module.Finite.pi
-
-theorem isQuasicoherent_pow {F : OModulePresheaf π} (n : ℕ) (hF : F.IsQuasicoherent) :
-    (F.pow n).IsQuasicoherent := fun U f => by
-  refine ⟨fun x => ?_, fun y hy => ?_⟩
-  · choose m y' hy' using fun i => (hF U f).1 (x i)
-    refine ⟨∑ i, m i, fun i => (f ^ ((∑ j, m j) - m i) : Γ(V, U.1)) • y' i, funext fun i => ?_⟩
-    change F.res _ ((f ^ ((∑ j, m j) - m i) : Γ(V, U.1)) • y' i)
-      = (V.presheaf.map (homOfLE (V.basicOpen_le f)).op).hom (f ^ ∑ j, m j) • x i
-    rw [F.res_smul, hy' i, smul_smul, ← map_mul, ← pow_add,
-      Nat.sub_add_cancel (Finset.single_le_sum (fun _ _ => Nat.zero_le _) (Finset.mem_univ i))]
-  · choose m hm using fun i => (hF U f).2 (y i) (congrFun hy i)
-    refine ⟨∑ i, m i, funext fun i => show (f ^ ∑ j, m j : Γ(V, U.1)) • y i = 0 from ?_⟩
-    rw [show (∑ j, m j) = ((∑ j, m j) - m i) + m i from (Nat.sub_add_cancel
-        (Finset.single_le_sum (fun _ _ => Nat.zero_le _) (Finset.mem_univ i))).symm,
-      pow_add, mul_smul, hm i, smul_zero]
-
-theorem isQuasicoherent_restrOpen {F : OModulePresheaf π} (W₀ : V.Opens)
-    (haff : ∀ U : V.affineOpens, IsAffineOpen (U.1 ⊓ W₀)) (hF : F.IsQuasicoherent) :
-    (F.restrOpen W₀).IsQuasicoherent := fun U f => by
-  have hbo : V.basicOpen ((V.presheaf.map (homOfLE (inf_le_left : U.1 ⊓ W₀ ≤ U.1)).op).hom f)
-      = V.basicOpen f ⊓ W₀ := by
-    rw [Scheme.basicOpen_res, inf_right_comm, inf_eq_right.mpr (V.basicOpen_le f)]
-  obtain ⟨hs, ha⟩ := hF ⟨U.1 ⊓ W₀, haff U⟩
-    ((V.presheaf.map (homOfLE (inf_le_left : U.1 ⊓ W₀ ≤ U.1)).op).hom f)
-  refine ⟨fun x => ?_, fun y hy => ?_⟩
-  · let x₀ : F.obj (V.basicOpen f ⊓ W₀) := x
-    obtain ⟨n, y, hy⟩ := hs (F.res hbo.le x₀)
-    refine ⟨n, y, show F.res (inf_le_inf_right W₀ (V.basicOpen_le f)) y
-      = (V.presheaf.map (homOfLE (inf_le_left : V.basicOpen f ⊓ W₀ ≤ V.basicOpen f)).op).hom
-          ((V.presheaf.map (homOfLE (V.basicOpen_le f)).op).hom (f ^ n)) • x₀ from ?_⟩
-    have key := congrArg (F.res hbo.ge) hy
-    rw [F.res_res, F.res_smul, F.res_res, F.res_refl_apply] at key
-    refine key.trans (congrArg (· • x₀) ?_)
-    simp only [map_pow, ← CommRingCat.comp_apply, ← V.presheaf.map_comp, ← op_comp, homOfLE_comp]
-  · let y₀ : F.obj (U.1 ⊓ W₀) := y
-    refine (ha y₀ ?_).imp fun n hn => ?_
-    · exact (F.res_res hbo.le (inf_le_inf_right W₀ (V.basicOpen_le f)) y₀).symm.trans
-        ((congrArg (F.res hbo.le) (show F.res _ y = 0 from hy)).trans (map_zero _))
-    · change (V.presheaf.map (homOfLE (inf_le_left : U.1 ⊓ W₀ ≤ U.1)).op).hom (f ^ n) • y₀ = 0
-      rw [map_pow]; exact hn
-
-section PushUnit
-
-variable {Z : Scheme.{u}} (i : Z ⟶ V) [IsClosedImmersion i]
-
-theorem isCoherent_pushforwardUnit : (pushforwardUnit π i).IsCoherent := fun U => by
-  change @Module.Finite Γ(V, U.1) Γ(Z, i ⁻¹ᵁ U.1) _ _
-    (Module.compHom _ (i.appLE U.1 (i ⁻¹ᵁ U.1) le_rfl).hom)
-  let : Algebra Γ(V, U.1) Γ(Z, i ⁻¹ᵁ U.1) := (i.appLE U.1 (i ⁻¹ᵁ U.1) le_rfl).hom.toAlgebra
-  exact Module.Finite.of_surjective (Algebra.linearMap _ _) fun x =>
-    (i.app_surjective U.1 U.2 x).imp fun a ha =>
-      show (i.appLE U.1 _ le_rfl).hom a = x by rw [Scheme.Hom.appLE_eq_app]; exact ha
-
-theorem isQuasicoherent_unit (π : V ⟶ Spec (.of R)) : (unit π).IsQuasicoherent := by
-  intro U f
-  have := U.2.isLocalization_basicOpen f
-  refine ⟨fun x₀ => ?_, fun y hy => ?_⟩
-  · let x : Γ(V, V.basicOpen f) := x₀
-    obtain ⟨⟨y, _, n, rfl⟩, hxy⟩ :=
-      IsLocalization.surj (S := Γ(V, V.basicOpen f)) (.powers f) x
-    exact ⟨n, y, hxy.symm.trans (mul_comm x _)⟩
-  · obtain ⟨⟨_, n, rfl⟩, hc⟩ :=
-      (IsLocalization.map_eq_zero_iff (S := Γ(V, V.basicOpen f)) (.powers f) y).mp hy
-    exact ⟨n, hc⟩
-
-theorem isQuasicoherent_pushforwardUnit : (pushforwardUnit π i).IsQuasicoherent := fun U f => by
-  let S := unit (i ≫ π)
-  set g : Γ(Z, i ⁻¹ᵁ U.1) := (i.app U.1).hom f with hg_def
-  have hbo : i ⁻¹ᵁ V.basicOpen f = Z.basicOpen g := Scheme.preimage_basicOpen i f
-  obtain ⟨hs, ha⟩ := isQuasicoherent_unit (i ≫ π) ⟨i ⁻¹ᵁ U.1, U.2.preimage i⟩ g
-  have hpow : ∀ n (y : Γ(Z, i ⁻¹ᵁ U.1)),
-      (f ^ n : Γ(V, U.1)) • (show (pushforwardUnit π i).obj U.1 from y) = g ^ n * y := fun n y => by
-    change (i.appLE U.1 (i ⁻¹ᵁ U.1) le_rfl).hom (f ^ n) * y = _
-    rw [map_pow, Scheme.Hom.appLE_eq_app]
-  refine ⟨fun x => ?_, fun y hy => ?_⟩
-  · let x₀ : Γ(Z, i ⁻¹ᵁ V.basicOpen f) := x
-    obtain ⟨n, y, hny⟩ := hs (S.res hbo.ge x₀)
-    refine ⟨n, y, ?_⟩
-    have key := congrArg (S.res hbo.le) hny
-    have hback : S.res hbo.le (S.res hbo.ge x₀) = x₀ :=
-      (S.res_res hbo.le hbo.ge x₀).trans (S.res_refl_apply _ x₀)
-    erw [S.res_res, S.res_smul] at key
-    erw [hback] at key
-    change S.res ((Opens.map i.base).monotone (V.basicOpen_le f)) y
-      = (i.appLE (V.basicOpen f) (i ⁻¹ᵁ V.basicOpen f) le_rfl).hom
-          ((V.presheaf.map (homOfLE (V.basicOpen_le f)).op).hom (f ^ n)) * x₀
-    refine key.trans ?_
-    congr 1
-    rw [← CommRingCat.comp_apply (f := V.presheaf.map _), Scheme.Hom.map_appLE,
-      ← CommRingCat.comp_apply, ← Functor.map_comp, ← op_comp, homOfLE_comp, map_pow,
-      map_pow]
-    congr 1
-  · refine (ha y ?_).imp fun n hn => (hpow n y).trans hn
-    refine (S.res_res hbo.ge ((Opens.map i.base).monotone (V.basicOpen_le f)) y).symm.trans ?_
-    exact (congrArg (S.res hbo.ge)
-      (show S.res ((Opens.map i.base).monotone (V.basicOpen_le f)) y = 0 from hy)).trans
-        (map_zero _)
-
-end PushUnit
-
-/-- The affine short exact sequence inserting a zero last coordinate into a finite power and
-projecting to that coordinate. -/
-def affSESPowSucc (F : OModulePresheaf π) (m : ℕ) : AffSES (F.pow m) (F.pow (m + 1)) F := by
-  let ιapp : ∀ U : V.affineOpens, (F.pow m).obj U.1 →ₗ[R] (F.pow (m + 1)).obj U.1 :=
-    fun U => LinearMap.pi fun k =>
-      Fin.lastCases (0 : (Fin m → F.obj U.1) →ₗ[R] F.obj U.1) (fun j => LinearMap.proj j) k
-  have hlast : ∀ (U : V.affineOpens) (g : (F.pow m).obj U.1), ιapp U g (Fin.last m) = 0 := by
-    intro U g
-    change (Fin.lastCases (0 : (Fin m → F.obj U.1) →ₗ[R] F.obj U.1)
-      (fun j => LinearMap.proj j) (Fin.last m) : _ →ₗ[R] _) g = 0
-    rw [Fin.lastCases_last]; rfl
-  have hcast : ∀ (U : V.affineOpens) (g : (F.pow m).obj U.1) (j : Fin m),
-      ιapp U g j.castSucc = (g : Fin m → F.obj U.1) j := by
-    intro U g j
-    change (Fin.lastCases (0 : (Fin m → F.obj U.1) →ₗ[R] F.obj U.1)
-      (fun j => LinearMap.proj j) j.castSucc : _ →ₗ[R] _) g = g j
-    rw [Fin.lastCases_castSucc]; rfl
-  exact
-    { inc :=
-        { app := ιapp
-          app_smul := fun U a g => funext fun k => by
-            refine Fin.lastCases ?_ (fun j => ?_) k
-            · rw [show (a • ιapp U g) (Fin.last m) = a • ιapp U g (Fin.last m) from rfl,
-                hlast U (a • g), hlast U g, smul_zero]
-            · rw [show (a • ιapp U g) j.castSucc = a • ιapp U g j.castSucc from rfl,
-                hcast U (a • g) j, hcast U g j]; rfl
-          naturality := fun {U U'} h => LinearMap.ext fun g => funext fun k => by
-            refine Fin.lastCases ?_ (fun j => ?_) k
-            · rw [LinearMap.comp_apply, LinearMap.comp_apply,
-                show (F.pow (m + 1)).res h (ιapp U' g) (Fin.last m)
-                  = F.res h (ιapp U' g (Fin.last m)) from rfl,
-                hlast U, hlast U', map_zero]
-            · rw [LinearMap.comp_apply, LinearMap.comp_apply,
-                show (F.pow (m + 1)).res h (ιapp U' g) j.castSucc
-                  = F.res h (ιapp U' g j.castSucc) from rfl,
-                hcast U, hcast U']; rfl }
-      proj :=
-        { app := fun U => LinearMap.proj (R := R) (φ := fun _ : Fin (m + 1) => F.obj U.1)
-            (Fin.last m)
-          app_smul := fun U a x => rfl
-          naturality := fun {U U'} h => rfl }
-      injective := fun U g g' hgg' => funext fun j =>
-        (hcast U g j).symm.trans ((congrFun hgg' j.castSucc).trans (hcast U g' j))
-      surjective := fun U x => ⟨fun _ => x, rfl⟩
-      exact := fun U => le_antisymm
-        (LinearMap.range_le_ker_iff.mpr (LinearMap.ext fun g => hlast U g))
-        (fun g hg => ⟨fun j => g j.castSucc, funext fun k => Fin.lastCases
-          ((hlast U _).trans (LinearMap.mem_ker.mp hg).symm)
-          (fun j => hcast U _ j) k⟩) }
-
 theorem pow_of_ext (Q : OModulePresheaf π → Prop)
     (h0 : ∀ G : OModulePresheaf π, (∀ U : V.affineOpens, Subsingleton (G.obj U.1)) → Q G)
     (hext : ∀ (G₁ G₂ G₃ : OModulePresheaf π), Nonempty (AffSES G₁ G₂ G₃) →
@@ -305,7 +59,7 @@ theorem pow_of_ext (Q : OModulePresheaf π → Prop)
   induction n with
   | zero => exact h0 _ fun U => ⟨fun a b => funext fun k => k.elim0⟩
   | succ m ih =>
-    exact hext (F.pow m) (F.pow (m + 1)) F ⟨affSESPowSucc F m⟩ (isCoherent_pow m hFc)
+    exact hext (F.pow m) (F.pow (m + 1)) F ⟨AffSES.powSucc F m⟩ (isCoherent_pow m hFc)
       (isQuasicoherent_pow m hFq) (isCoherent_pow (m + 1) hFc) (isQuasicoherent_pow (m + 1) hFq)
         hFc hFq ih hF
 
@@ -338,7 +92,7 @@ theorem _root_.AlgebraicGeometry.OModulePresheaf.forall_pushforward_of_isIntegra
       H).SupportedIn Z₀) :
     Q (OModulePresheaf.pushforward π (Scheme.IdealSheafData.vanishingIdeal Z₀).subschemeι H) := by
   have : IsSeparated π := inferInstance
-  have : IsNoetherian V := PivotQAux.isNoetherian_of_isProper π
+  have : IsNoetherian V := LocallyOfFiniteType.isNoetherian π
   have : IsLocallyNoetherian V := inferInstance
   let Z₀S := (Scheme.IdealSheafData.vanishingIdeal Z₀).subscheme
   let iZ := (Scheme.IdealSheafData.vanishingIdeal Z₀).subschemeι
@@ -346,8 +100,8 @@ theorem _root_.AlgebraicGeometry.OModulePresheaf.forall_pushforward_of_isIntegra
   let O : OModulePresheaf π := OModulePresheaf.pushforwardUnit π iZ
   have := hint
   have : IsProper (iZ ≫ π) := inferInstance
-  have hOc : O.IsCoherent := PivotQAux.isCoherent_pushforwardUnit iZ
-  have hOq : O.IsQuasicoherent := PivotQAux.isQuasicoherent_pushforwardUnit iZ
+  have hOc : O.IsCoherent := isCoherent_pushforwardUnit iZ
+  have hOq : O.IsQuasicoherent := isQuasicoherent_pushforwardUnit iZ
   change Q G
   obtain ⟨r, Z₁, hZ₁_lt, P, hPc, hPq, α, β, hαbij, hβbij⟩ :
       ∃ (r : ℕ) (Z₁ : Closeds V), Z₁ < Z₀ ∧
@@ -482,16 +236,16 @@ theorem _root_.AlgebraicGeometry.OModulePresheaf.forall_pushforward_of_isIntegra
     have haff : ∀ U : V.affineOpens, IsAffineOpen (U.1 ⊓ W₀) := fun U =>
       Scheme.OrderedAffineCover.isAffineOpen_inf_of_isSeparated π U.2 (U₀.2.basicOpen f)
     exact ⟨r, Z₁, hZ₁_lt, P,
-      PivotQAux.isCoherent_ker δ (PivotQAux.isCoherent_prod hc
-        (PivotQAux.isCoherent_pow r hOc)),
-      PivotQAux.isQuasicoherent_ker δ (PivotQAux.isQuasicoherent_prod hq
-        (PivotQAux.isQuasicoherent_pow r hOq)) (PivotQAux.isQuasicoherent_restrOpen W₀ haff hq),
+      isCoherent_ker δ (isCoherent_prod hc
+        (isCoherent_pow r hOc)),
+      isQuasicoherent_ker δ (isQuasicoherent_prod hq
+        (isQuasicoherent_pow r hOq)) (isQuasicoherent_restrOpen W₀ haff hq),
       α, β, fun U hU => (hαβbij U hU).1, fun U hU => (hαβbij U hU).2⟩
   have hOr : Q (O.pow r) :=
     PivotQAux.pow_of_ext Q h0 (fun G₁ G₂ G₃ hS h1c h1q h2c h2q h3c h3q =>
       (hext G₁ G₂ G₃ hS h1c h1q h2c h2q h3c h3q).1) hOc hOq hO r
-  have hOrc : (O.pow r).IsCoherent := PivotQAux.isCoherent_pow r hOc
-  have hOrq : (O.pow r).IsQuasicoherent := PivotQAux.isQuasicoherent_pow r hOq
+  have hOrc : (O.pow r).IsCoherent := isCoherent_pow r hOc
+  have hOrq : (O.pow r).IsQuasicoherent := isQuasicoherent_pow r hOq
   have hflk : ∀ {F' G' : OModulePresheaf π} (φ : OModulePresheaf.Hom F' G')
       (_ : F'.IsCoherent) (_ : F'.IsQuasicoherent)
       (_ : G'.IsCoherent) (_ : G'.IsQuasicoherent)
@@ -503,13 +257,13 @@ theorem _root_.AlgebraicGeometry.OModulePresheaf.forall_pushforward_of_isIntegra
       ((OModulePresheaf.coker φ).IsCoherent ∧ (OModulePresheaf.coker φ).IsQuasicoherent ∧
         Q (OModulePresheaf.coker φ)) := by
     intro F' G' φ hF'c hF'q hG'c hG'q hbij
-    have hkc := PivotQAux.isCoherent_ker φ hF'c
-    have hkq := PivotQAux.isQuasicoherent_ker φ hF'q hG'q
-    have hcc := PivotQAux.isCoherent_coker φ hG'c
-    have hcq := PivotQAux.isQuasicoherent_coker φ hG'q hF'q
+    have hkc := isCoherent_ker φ hF'c
+    have hkq := isQuasicoherent_ker φ hF'q hG'q
+    have hcc := isCoherent_coker φ hG'c
+    have hcq := isQuasicoherent_coker φ hG'q hF'q
     exact ⟨⟨hkc, hkq, ih Z₁ hZ₁_lt _ hkc hkq
         (fun U hU => ⟨fun a b => Subtype.ext ((hbij U hU).1 (a.2.trans b.2.symm))⟩)⟩,
-      ⟨PivotQAux.isCoherent_im φ hF'c, PivotQAux.isQuasicoherent_im φ hF'q hG'q⟩,
+      ⟨isCoherent_im φ hF'c, isQuasicoherent_im φ hF'q hG'q⟩,
       ⟨hcc, hcq, ih Z₁ hZ₁_lt _ hcc hcq
         (fun U hU => Submodule.Quotient.subsingleton_iff.mpr
           (LinearMap.range_eq_top.mpr (hbij U hU).2))⟩⟩

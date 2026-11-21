@@ -245,7 +245,7 @@ theorem coeff_pos_of_eventually_le (q : Polynomial ℚ) (d : ℕ) (hq : q.natDeg
       rw [Polynomial.degree_eq_natDegree hr0, hrdeg]
       exact_mod_cast hd
     have ht : Tendsto (fun x : ℚ => r.eval x) atTop atTop :=
-      Polynomial.tendsto_atTop_of_leadingCoeff_nonneg r hdeg (by rw [hlead]; exact hcpos.le)
+      Polynomial.tendsto_atTop_of_leadingCoeff_nonneg (P := r) hdeg (by rw [hlead]; exact hcpos.le)
     have ht' : Tendsto (fun m : ℕ => r.eval (m : ℚ)) atTop atTop := ht.comp
       tendsto_natCast_atTop_atTop
     obtain ⟨M, hM⟩ := (ht'.eventually_gt_atTop 0).exists_forall_of_atTop

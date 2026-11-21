@@ -129,18 +129,18 @@ theorem normalizeTriple_first (a b c : Projectivization K (K × K))
     normalizeTriple a b c hab hcb hca a = affinePoint 0 := by
   calc
     normalizeTriple a b c hab hcb hca a =
-        normalizeTriple a b c hab hcb hca (Projectivization.mk K a.rep a.rep_nonzero) :=
+        normalizeTriple a b c hab hcb hca (Projectivization.mk K a.rep a.rep_ne_zero) :=
       congrArg (normalizeTriple a b c hab hcb hca) a.mk_rep.symm
-    _ = affinePoint 0 := normalizeCoordinates_first a.rep b.rep c.rep _ _ _ a.rep_nonzero
+    _ = affinePoint 0 := normalizeCoordinates_first a.rep b.rep c.rep _ _ _ a.rep_ne_zero
 
 theorem normalizeTriple_third (a b c : Projectivization K (K × K))
     (hab : a ≠ b) (hcb : c ≠ b) (hca : c ≠ a) :
     normalizeTriple a b c hab hcb hca c = affinePoint 1 := by
   calc
     normalizeTriple a b c hab hcb hca c =
-        normalizeTriple a b c hab hcb hca (Projectivization.mk K c.rep c.rep_nonzero) :=
+        normalizeTriple a b c hab hcb hca (Projectivization.mk K c.rep c.rep_ne_zero) :=
       congrArg (normalizeTriple a b c hab hcb hca) c.mk_rep.symm
-    _ = affinePoint 1 := normalizeCoordinates_third a.rep b.rep c.rep _ _ _ c.rep_nonzero
+    _ = affinePoint 1 := normalizeCoordinates_third a.rep b.rep c.rep _ _ _ c.rep_ne_zero
 
 theorem matchTriples_first (a b c a' b' c' : Projectivization K (K × K))
     (hab : a ≠ b) (hcb : c ≠ b) (hca : c ≠ a)

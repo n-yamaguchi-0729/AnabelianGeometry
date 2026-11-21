@@ -44,7 +44,7 @@ theorem rationalConfiguration_coefficientTower_isIntegral
       (pullback.fst (Spec.map (CommRingCat.ofHom (algebraMap k E)))
         ((rationalConfigurationOpen s).ι ≫ π k 1)) : Scheme) := by
     exact Nonempty.map e.inv (inferInstance : Nonempty
-      (rationalConfigurationGeometricScheme k κ s))
+      (originalFieldGeometricScheme k κ s))
   exact isIntegral_of_isOpenImmersion e.hom
 
 private theorem actualFiberPointLift_exists_of_point_eq
@@ -64,8 +64,8 @@ theorem rationalConfiguration_exists_matchedConstant_genericAmbient
     [IsFiniteEtale (Spec.map (CommRingCat.ofHom (algebraMap k E)))]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     (w : (fiber (rationalConfigurationArithmeticBasePoint k κ s Ω)).obj
       ((FiniteEtale.pullback ((rationalConfigurationOpen s).ι ≫ π k 1)).obj
         (originalConstantFieldCover k E))) :

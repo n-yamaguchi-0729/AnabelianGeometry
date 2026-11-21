@@ -6,6 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalCuspDecomposition
 public import Nyll.JacobianVarieties.Kummer.RationalConfigurationArithmeticPairKummerUnits
 public import Nyll.JacobianVarieties.Kummer.PlaceOrdZeroRationalRootAction
@@ -46,9 +47,7 @@ attribute [local instance] Classical.propDecidable
   placeBaseAmbientAlgebra placeBaseAmbientTower placeConstantAmbientTower
   normalizationCommAlgGaloisAction
 
-local instance (priority := 2000) thirdCuspSpecializationSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E] [Algebra A (RatFunc E)] :
-    SMul A (RatFunc E) := (inferInstance : Algebra A (RatFunc E)).toSMul
+attribute [local instance 2000] RatFunc.algebraSMul
 
 /-- The unchanged pair unit or its actual power specializes at the original third-cusp
 prime. Order zero and all ambient-field suppliers are derived internally;
@@ -60,8 +59,8 @@ theorem rationalConfiguration_pair_thirdChosenPrime_rootSpecialization
     (s : Finset (Projectivization k (k × k))) (a b c : s)
     (hca : c ≠ a) (hcb : c ≠ b)
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     (m : ℤ) (n : ℕ+)
     (u : Pic0.openKummerUnits k (RatFunc k)
       ((projectiveLineRatFuncModel k).openBoundaryPlaces (rationalConfigurationOpen s).ι) n)
@@ -69,7 +68,7 @@ theorem rationalConfiguration_pair_thirdChosenPrime_rootSpecialization
       W.ord (algebraMap (RatFunc k) (RatFunc κ) (u.val : RatFunc k)) =
         m * ((if W = (rationalConfigurationBoundaryPlace k κ s a).val then 1 else 0) -
           (if W = (rationalConfigurationBoundaryPlace k κ s b).val then 1 else 0))) :
-    let U := rationalConfigurationGeometricScheme k κ s
+    let U := originalFieldGeometricScheme k κ s
     let M := projectiveLineRatFuncModel κ
     let j : U ⟶ M.C := rationalConfigurationBaseChangeChart k κ s
     let : Algebra (RatFunc κ) Ω := rationalConfigurationGeometricAmbientAlgebra k κ s Ω

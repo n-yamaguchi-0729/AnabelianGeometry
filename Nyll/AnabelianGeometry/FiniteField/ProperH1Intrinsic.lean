@@ -92,7 +92,7 @@ theorem properH1_range_eq_scalarPowerCore
       (rationalEllAdicH1Pullback_square geom (p : ℕ) j θU.inv ψ.hom hsquare') v).symm
   have hpowers (n : ℕ) (v : rationalEllAdicCohomology (p : ℕ) M.C 1) :
       P ((A ^ n) v) = (T ^ n) (P v) := by
-    rw [Module.End.pow_apply, Module.End.pow_apply]
+    rw [pow_apply_eq_iterate, pow_apply_eq_iterate]
     exact (show Function.Semiconj P A T from hcomm).iterate_right n v
   have : Smooth M.toBase := SmoothOfRelativeDimension.smooth 1 M.toBase
   have : IsIntegrallyClosed Γ(Spec (.of K), ⊤) := IsIntegrallyClosed.of_equiv

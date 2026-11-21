@@ -72,10 +72,10 @@ theorem projectiveRationalPoint_injective :
   intro p q hpq
   apply (bracket_rep_eq_zero_iff p q).mp
   apply bracket_eq_zero_of_common_puncture_zero
-    p.rep q.rep p.rep_nonzero (projectiveRationalPoint p)
-  · exact punctureForm_mem_rationalPuncturePoint p.rep p.rep_nonzero
+    p.rep q.rep p.rep_ne_zero (projectiveRationalPoint p)
+  · exact punctureForm_mem_rationalPuncturePoint p.rep p.rep_ne_zero
   · rw [hpq]
-    exact punctureForm_mem_rationalPuncturePoint q.rep q.rep_nonzero
+    exact punctureForm_mem_rationalPuncturePoint q.rep q.rep_ne_zero
 
 @[simp] theorem projectiveRationalPoint_eq_iff
     (p q : Projectivization K (K × K)) :

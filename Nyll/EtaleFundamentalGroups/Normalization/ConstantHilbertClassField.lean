@@ -79,8 +79,10 @@ theorem constantHilbertClassField_normalization_finiteEtale
         (FunctionField.hilbertClassField E X.functionField {w}
           (Finset.singleton_nonempty _)).val).fromNormalization at hnormalization
   rw [toAlgebra_algebraMap] at hnormalization
-  rw [← FunctionField.hilbertClassField_forgetConstants k E X.functionField w]
-    at hnormalization
-  exact hnormalization
+  let P (L : IntermediateField X.functionField (SeparableClosure X.functionField)) : Prop :=
+    IsIntegral (X.genericExtensionMorphism L).normalization ∧
+      IsFiniteEtale (X.genericExtensionMorphism L).fromNormalization
+  have hfields := FunctionField.hilbertClassField_forgetConstants k E X.functionField w
+  exact (congrArg P hfields).mpr hnormalization
 
 end EtaleFundamentalGroups

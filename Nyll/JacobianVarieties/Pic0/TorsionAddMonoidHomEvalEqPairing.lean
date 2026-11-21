@@ -347,7 +347,7 @@ theorem _root_.AlgebraicCurve.Pic0.torsion.exists_addMonoidHom_eval_eq_pairing {
     intro x x'
     have h : chr (x + x') = chr x * chr x' := by
       ext y
-      rw [AddChar.mul_apply]
+      rw [mul_apply]
       exact pair_add_left x x' y
     rw [h, ofMul_mul]
   refine ⟨AddMonoidHom.mk' (fun x => Additive.ofMul (chr x)) hadd, ?_⟩

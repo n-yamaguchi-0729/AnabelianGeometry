@@ -36,7 +36,7 @@ private theorem exists_invertible_part_mul_characteristic_power
     (N : ℕ) (hN : 0 < N) :
     ∃ (m : ℕ+) (s : ℕ), IsUnit ((m : ℕ) : K) ∧ N = (m : ℕ) * p ^ s := by
   induction N using Nat.strong_induction_on with
-  | h N ih =>
+  | ind N ih =>
       by_cases hd : p ∣ N
       · have hp := (Fact.out : p.Prime)
         have hpos : 0 < N / p := Nat.div_pos (Nat.le_of_dvd hN hd) hp.pos

@@ -39,7 +39,7 @@ variable (A : Type u) (K : Type v) (L : Type w)
   (Q : Ideal (normalizationCommAlgCat A L).carrier) [Q.IsMaximal]
 
 /-- The actual quotient-valued coordinate at an actual tame degree. -/
-def actualTameCoordinate (n : Subtype (actualFiniteTameDegreeSet A K L Q)) :
+def actualTameCoordinate (n : ↥(actualFiniteTameDegreeSet A K L Q)) :
     (actualNormalizationInertiaGroup A K L Q).carrier →*
       rootsOfUnity n.val.val ((normalizationCommAlgCat A L).carrier ⧸ Q) :=
   (rootsOfUnityDegreeEquiv ((normalizationCommAlgCat A L).carrier ⧸ Q)
@@ -49,7 +49,7 @@ def actualTameCoordinate (n : Subtype (actualFiniteTameDegreeSet A K L Q)) :
 /-- Every realizing finite stage gives the same scalar value. This proves
 choice independence using the actual common-upper-stage comparison. -/
 theorem actualTameCoordinate_eval
-    (n : Subtype (actualFiniteTameDegreeSet A K L Q))
+    (n : ↥(actualFiniteTameDegreeSet A K L Q))
     (E : FiniteGaloisIntermediateField K L)
     (hE : actualFiniteStageTameIndex A K L Q E = n.val)
     (σ : (actualNormalizationInertiaGroup A K L Q).carrier) :

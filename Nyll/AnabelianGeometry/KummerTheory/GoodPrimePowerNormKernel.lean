@@ -58,7 +58,7 @@ theorem geomSum_orderOf_goodPrimePowerUnit_mul_eq_zero_iff
     subst r
     have horderPrincipal :
         orderOf (1 + (p : ZMod (p ^ (k + s))) ^ s * a) = p ^ k :=
-      ZMod.orderOf_one_add_mul_prime_pow hp s hs.ne' hps a ha k
+      ZMod.orderOf_one_add_mul_prime_pow hp s hps a ha k
     have horder : orderOf u = p ^ k := by
       rw [← orderOf_injective _ Units.coeHom_injective u, Units.coeHom_apply, hu]
       exact horderPrincipal

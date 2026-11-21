@@ -38,7 +38,7 @@ private theorem recoveredRelativeKernel_overMk_inv_eq_id
 attribute [local instance]
   placeBaseAmbientAlgebra placeBaseAmbientTower
   extendingPlaceAmbientAlgebra extendingPlaceAmbientTower
-  connectedCoverPlaceConstantAmbientTower
+  placeConstantAmbientTower
   CurveModel.isIntegral CurveModel.isProper CurveModel.smooth
 
 /-- The original base cusp relation on the actual finite étale cover is the

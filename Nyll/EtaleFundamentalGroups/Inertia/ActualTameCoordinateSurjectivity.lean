@@ -38,7 +38,7 @@ variable (A : Type u) (K : Type v) (L : Type w)
 /-- Every actual-degree coordinate is onto the full root group in the
 literal normalization quotient. -/
 theorem actualTameCoordinate_surjective
-    (n : Subtype (actualFiniteTameDegreeSet A K L Q)) :
+    (n : ↥(actualFiniteTameDegreeSet A K L Q)) :
     Function.Surjective (actualTameCoordinate A K L Q n).toFun :=
   (rootsOfUnityDegreeEquiv ((normalizationCommAlgCat A L).carrier ⧸ Q)
     (congrArg Subtype.val n.property.choose_spec)).toEquiv.surjective.comp
@@ -47,7 +47,7 @@ theorem actualTameCoordinate_surjective
 /-- Each degree in the literal actual range has a primitive root in the
 SAME literal normalization quotient. -/
 theorem actualFiniteTameDegreeSet_exists_primitiveRoot
-    (n : Subtype (actualFiniteTameDegreeSet A K L Q)) :
+    (n : ↥(actualFiniteTameDegreeSet A K L Q)) :
     ∃ ζ : (normalizationCommAlgCat A L).carrier ⧸ Q, IsPrimitiveRoot ζ n.val.val := by
   obtain ⟨E, hE⟩ := n.property
   obtain ⟨ζ, hζ⟩ := actualFiniteStageTameOrder_exists_primitiveRoot A K L Q E

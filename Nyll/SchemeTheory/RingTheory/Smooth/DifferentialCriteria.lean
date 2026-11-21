@@ -882,7 +882,7 @@ theorem _root_.Algebra.ker_algebraMap_eq_bot_of_formallySmooth_of_finrank_le
     rwa [hrange, Submodule.mem_bot] at this
   have hNfg : N.FG := IsNoetherian.noetherian N
   have hNbot : N = ⊥ := by
-    apply Submodule.eq_bot_of_le_smul_of_le_jacobson_bot (IsLocalRing.maximalIdeal S) N hNfg
+    apply Submodule.eq_bot_of_le_smul_of_le_jacobson (IsLocalRing.maximalIdeal S) N hNfg
     · have htop : (IsLocalRing.maximalIdeal S • ⊤ : Submodule S N) = ⊤ := by
         rw [eq_top_iff]
         intro n _
@@ -897,7 +897,7 @@ theorem _root_.Algebra.ker_algebraMap_eq_bot_of_formallySmooth_of_finrank_le
         exact Submodule.mem_top
       have := Submodule.mem_map_of_mem (f := N.subtype) this
       rwa [Submodule.map_smul'', Submodule.map_top, Submodule.range_subtype] at this
-    · rw [IsLocalRing.jacobson_eq_maximalIdeal ⊥ bot_ne_top]
+    · rw [IsLocalRing.ringJacobson_eq_maximalIdeal]
   have hcot : ∀ c : (RingHom.ker (algebraMap P S)).Cotangent, c = 0 := by
     intro c
     apply hιinj
@@ -914,9 +914,9 @@ theorem _root_.Algebra.ker_algebraMap_eq_bot_of_formallySmooth_of_finrank_le
     have : (1 : P) ∈ K := h ▸ Submodule.mem_top
     rw [hK, RingHom.mem_ker, map_one] at this
     exact one_ne_zero this
-  exact Submodule.eq_bot_of_le_smul_of_le_jacobson_bot K K (IsNoetherian.noetherian K) hKsq
+  exact Submodule.eq_bot_of_le_smul_of_le_jacobson K K (IsNoetherian.noetherian K) hKsq
     (by
-      rw [IsLocalRing.jacobson_eq_maximalIdeal ⊥ bot_ne_top]
+      rw [IsLocalRing.ringJacobson_eq_maximalIdeal]
       exact IsLocalRing.le_maximalIdeal hKtop)
 
 end AbelianVarieties.NOSProofs.CotangentKernel

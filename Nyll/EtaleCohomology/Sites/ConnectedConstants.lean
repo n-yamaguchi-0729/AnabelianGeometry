@@ -61,7 +61,7 @@ lemma etaleCopiesInj_bijective (X : Scheme.{u}) [ConnectedSpace X] (ι : Type u)
     have hr : Set.range f.left ⊆ Set.range (Sigma.ι (fun _ : ι => X) i) := by
       rintro _ ⟨x, rfl⟩
       let y : X := (e.symm (f.left x)).2
-      have hi : k x = i := PreconnectedSpace.constant inferInstance hc
+      have hi : k x = i := hc.isConst_of_preconnectedSpace x x₀
       have hz : e.symm (f.left x) = ⟨i, y⟩ := Sigma.ext hi HEq.rfl
       refine ⟨y, ?_⟩
       rw [← sigmaMk_mk, ← hz]

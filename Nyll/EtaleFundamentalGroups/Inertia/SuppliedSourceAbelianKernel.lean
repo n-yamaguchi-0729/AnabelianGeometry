@@ -7,6 +7,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 module
 
 public import Nyll.EtaleFundamentalGroups.Inertia.GenericSourceAbelianKernel
+public import Nyll.GaloisCohomology.Topology.GaloisConjugation
 public import Nyll.EtaleFundamentalGroups.Inertia.NormalizationClosureInertia
 public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceClosureComparison
 public import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceStalk
@@ -14,7 +15,6 @@ public import Nyll.SchemeTheory.FunctionFields.GenericFieldSourceClosure
 public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGaloisNaturality
 public import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackEquivalence
 public import Nyll.GaloisCohomology.Topology.GaloisRestrictionScalars
-public import Nyll.ValuedFieldTheory.Ramification.GaloisValuation.AbsoluteGalois.InfiniteGaloisCorrespondence
 public import Mathlib.Algebra.Algebra.Tower
 public import Mathlib.CategoryTheory.Limits.MorphismProperty
 public import Mathlib.FieldTheory.Separable

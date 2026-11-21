@@ -36,7 +36,7 @@ variable (A : Type u) (K : Type v) (L : Type w)
 
 /-- The SAME existing prime-to-roots stage-group family at the actual degrees. -/
 noncomputable instance actualFiniteTameRootsSystem_groups :
-    ∀ n : Subtype (actualFiniteTameDegreeSet A K L Q),
+    ∀ n : ↥(actualFiniteTameDegreeSet A K L Q),
       Group ((actualFiniteTameRootsSystem A K L Q).X n) :=
   fun n => primeToRootsSystem_group (IsLocalRing.ResidueField A)
     ((normalizationCommAlgCat A L).carrier ⧸ Q) n.val

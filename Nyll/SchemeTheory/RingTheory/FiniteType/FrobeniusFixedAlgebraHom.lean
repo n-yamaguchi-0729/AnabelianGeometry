@@ -57,7 +57,7 @@ theorem finite_frobenius_fixed_values
   have hfinite : Set.Finite {x : Ω | σ x = x} := by
     rw [hS]
     exact Polynomial.finite_setOfPred_isRoot
-      (FiniteField.X_pow_card_sub_X_ne_zero Ω Fintype.one_lt_card)
+      (Polynomial.X_pow_sub_X_ne_zero Fintype.one_lt_card)
   exact hfinite.to_subtype
 
 /-- Frobenius-fixed algebra maps from a finite-type algebra form a finite type. -/

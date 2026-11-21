@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationPunctureEquiv
 public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaSelfNormalizer
 public import Nyll.AnabelianGeometry.WeightFiltration.OriginalRationalCuspDecompositionImage
@@ -37,9 +38,7 @@ attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
   placeBaseAmbientAlgebra placeBaseAmbientTower placeConstantAmbientTower
   normalizationCommAlgGaloisAction
 
-local instance (priority := 2000) bareDecompositionSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E] [Algebra A (RatFunc E)] :
-    SMul A (RatFunc E) := (inferInstance : Algebra A (RatFunc E)).toSMul
+attribute [local instance 2000] RatFunc.algebraSMul
 
 /-- Transport a decomposition subgroup along equality of its geometric point. -/
 def decompositionSubgroupAtEqualPoint
@@ -73,12 +72,12 @@ def rationalConfigurationChosenDecomposition
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     (p : (projectiveLineRatFuncModel κ).openBoundaryPlaces
       (rationalConfigurationBaseChangeChart k κ s)) :
     Subgroup (rationalConfigurationArithmeticGroup k κ s Ω) := by
-  let U := rationalConfigurationGeometricScheme k κ s
+  let U := originalFieldGeometricScheme k κ s
   let M := projectiveLineRatFuncModel κ
   let j : U ⟶ M.C := rationalConfigurationBaseChangeChart k κ s
   let u : U ⟶ (rationalConfigurationOpen s : Scheme) :=
@@ -143,15 +142,15 @@ theorem rationalConfigurationChosenDecomposition_eq_normalizer
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     (p : (projectiveLineRatFuncModel κ).openBoundaryPlaces
       (rationalConfigurationBaseChangeChart k κ s))
     (hs : 3 ≤ s.card) :
     rationalConfigurationChosenDecomposition k κ s Ω p =
       Subgroup.normalizer ((rationalConfigurationChosenInertia k κ s Ω p).map
         (rationalConfigurationGeometricInclusion k κ s Ω).toMonoidHom).carrier := by
-  let U := rationalConfigurationGeometricScheme k κ s
+  let U := originalFieldGeometricScheme k κ s
   let M := projectiveLineRatFuncModel κ
   let j : U ⟶ M.C := rationalConfigurationBaseChangeChart k κ s
   let u : U ⟶ (rationalConfigurationOpen s : Scheme) :=
@@ -248,10 +247,10 @@ theorem rationalConfigurationChosenDecomposition_map_of_inertia
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (eP : rationalConfigurationArithmeticGroup k κ s Ω₁ ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ω₂)
     (eΔ : rationalConfigurationGeometricGroup k κ s Ω₁ ≃ₜ*
@@ -282,10 +281,10 @@ theorem bare_rationalConfiguration_punctureEquiv_decomposition
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (eP : rationalConfigurationArithmeticGroup k κ s Ω₁ ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ω₂)
     (hP : ∀ γ,

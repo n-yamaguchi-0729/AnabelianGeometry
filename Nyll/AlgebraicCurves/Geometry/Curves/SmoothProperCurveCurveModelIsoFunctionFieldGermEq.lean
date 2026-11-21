@@ -300,7 +300,7 @@ theorem exists_curveModel_iso_germToFunctionField_eq_of_isAlgClosed
       exact (equivOfIso_germToFunctionField ι U t).symm
     rw [h2, h3] at h1
     convert h1 using 2
-    all_goals rfl
+    rfl
 end AlgebraicGeometry.SmoothProperCurve
 end ProofImplementation
 

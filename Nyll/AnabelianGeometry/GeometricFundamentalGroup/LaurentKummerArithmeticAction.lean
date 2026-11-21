@@ -4,8 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerArithmeticFiber
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiberActionComparison
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerArithmeticFiber
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.FiberActionComparison
 
 /-!
 # The actual arithmetic action on Kummer fibres
@@ -16,6 +18,8 @@ Its pointwise stabilizer therefore recovers the full root field. This is a
 comparison theorem for the existing geometric-fibre functor, not a newly
 transported action defined to make the comparison true.
 -/
+
+@[expose] public section
 
 noncomputable section
 

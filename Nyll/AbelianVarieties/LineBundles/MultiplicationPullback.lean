@@ -17,7 +17,7 @@ public import Mathlib.Util.WithWeakNamespace
 public import Nyll.SchemeTheory.Modules.Tensor.TensorPowers
 public import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
 public import Nyll.AbelianVarieties.LineBundles.Cube.Multiplication
-public import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleTensorInverse
+public import Nyll.AlgebraicCurves.Geometry.Sheaves.Tensor.InvertibleDual
 
 /-!
 # Quadratic tensor powers of a symmetric line bundle

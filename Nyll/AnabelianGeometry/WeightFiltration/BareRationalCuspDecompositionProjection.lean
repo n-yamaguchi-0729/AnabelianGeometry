@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalCuspDecomposition
 
 /-! # Public projection and raw membership suppliers for the chosen decomposition image -/
@@ -26,15 +27,7 @@ attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
   placeBaseAmbientAlgebra placeBaseAmbientTower placeConstantAmbientTower
   normalizationCommAlgGaloisAction
 
-local instance (priority := 2000) chosenProjectionSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E] [Algebra A (RatFunc E)] :
-    SMul A (RatFunc E) := (inferInstance : Algebra A (RatFunc E)).toSMul
-
-private def projectionDecompositionSubgroupAtEqualPoint
-    {X : Scheme} {Ω : Type} [Field Ω]
-    {x y : Spec (.of Ω) ⟶ X} (h : x = y) (D : Subgroup (Aut (fiber x))) :
-    Subgroup (Aut (fiber y)) :=
-  Eq.ndrec (motive := fun z : Spec (.of Ω) ⟶ X => Subgroup (Aut (fiber z))) D h
+attribute [local instance 2000] RatFunc.algebraSMul
 
 private theorem projection_decomposition_data_at_canonical_point
     (k κ : Type) [Field k] [Field κ] [Algebra k κ] [IsSepClosure k κ]
@@ -48,7 +41,7 @@ private theorem projection_decomposition_data_at_canonical_point
       ∀ τ : Gal(κ/k), ∃ γ : Aut (fiber z),
         γ ∈ D ∧ arithmeticFundamentalGroupHom k κ f z γ = τ) :
     let D' : Subgroup (Aut (fiber (xi ≫ u))) :=
-      projectionDecompositionSubgroupAtEqualPoint hz.symm D
+      decompositionSubgroupAtEqualPoint hz.symm D
     I.map (fundamentalGroupHom u xi).toMonoidHom ≤ D' ∧
       D' ≤ Subgroup.normalizer (I.map (fundamentalGroupHom u xi).toMonoidHom).carrier ∧
       ∀ τ : Gal(κ/k), ∃ γ : Aut (fiber (xi ≫ u)),
@@ -63,14 +56,14 @@ theorem rationalConfigurationChosenDecomposition_arithmetic_surjective
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     (p : (projectiveLineRatFuncModel κ).openBoundaryPlaces
       (rationalConfigurationBaseChangeChart k κ s))
     : Function.Surjective (fun γ : rationalConfigurationChosenDecomposition k κ s Ω p =>
       arithmeticFundamentalGroupHom k κ ((rationalConfigurationOpen s).ι ≫ π k 1)
         (rationalConfigurationArithmeticBasePoint k κ s Ω) γ.val) := by
-  let U := rationalConfigurationGeometricScheme k κ s
+  let U := originalFieldGeometricScheme k κ s
   let M := projectiveLineRatFuncModel κ
   let j : U ⟶ M.C := rationalConfigurationBaseChangeChart k κ s
   let u : U ⟶ (rationalConfigurationOpen s : Scheme) :=
@@ -140,14 +133,14 @@ theorem rationalConfigurationChosenDecomposition_arithmetic_surjective
   intro τ
   obtain ⟨γ, hγ, hτ⟩ := hcanonical.2.2 τ
   refine ⟨⟨γ, ?_⟩, hτ⟩
-  change γ ∈ projectionDecompositionSubgroupAtEqualPoint hgeneric.symm d.range
+  change γ ∈ decompositionSubgroupAtEqualPoint hgeneric.symm d.range
   exact hγ
 
-private theorem projectionDecompositionSubgroupAtEqualPoint_mem_range
+private theorem decompositionSubgroupAtEqualPoint_mem_range
     {G : Type*} [Group G] {X : Scheme} {Ω : Type} [Field Ω]
     {x y : Spec (.of Ω) ⟶ X} (h : x = y)
     (d : G →* Aut (fiber x)) (γ : Aut (fiber y)) :
-    γ ∈ projectionDecompositionSubgroupAtEqualPoint h d.range ↔
+    γ ∈ decompositionSubgroupAtEqualPoint h d.range ↔
       ∃ δ : G, Eq.ndrec (motive := fun z : Spec (.of Ω) ⟶ X => Aut (fiber z))
         (d δ) h = γ := by
   subst y
@@ -163,13 +156,13 @@ private theorem projectionAutAtEqualPoint_eq_continuousConjAut
   ext Z z
   rfl
 
-private theorem projectionDecompositionSubgroupAtEqualPoint_mem_range_conj
+private theorem decompositionSubgroupAtEqualPoint_mem_range_conj
     {G : Type*} [Group G] {X : Scheme} {Ω : Type} [Field Ω]
     {x y : Spec (.of Ω) ⟶ X} (h : x = y)
     (d : G →* Aut (fiber x)) (γ : Aut (fiber y)) :
-    γ ∈ projectionDecompositionSubgroupAtEqualPoint h d.range ↔
+    γ ∈ decompositionSubgroupAtEqualPoint h d.range ↔
       ∃ δ : G, continuousConjAut (eqToIso (congrArg fiber h)) (d δ) = γ := by
-  rw [projectionDecompositionSubgroupAtEqualPoint_mem_range]
+  rw [decompositionSubgroupAtEqualPoint_mem_range]
   simp only [projectionAutAtEqualPoint_eq_continuousConjAut]
 
 /-- Membership in the actual chosen decomposition image is equivalent to a
@@ -181,11 +174,11 @@ theorem rationalConfigurationChosenDecomposition_mem_iff_exists_raw
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     (p : (projectiveLineRatFuncModel κ).openBoundaryPlaces
       (rationalConfigurationBaseChangeChart k κ s)) :
-    let U := rationalConfigurationGeometricScheme k κ s
+    let U := originalFieldGeometricScheme k κ s
     let M := projectiveLineRatFuncModel κ
     let j : U ⟶ M.C := rationalConfigurationBaseChangeChart k κ s
     let : Algebra (RatFunc κ) Ω := rationalConfigurationGeometricAmbientAlgebra k κ s Ω
@@ -245,7 +238,7 @@ theorem rationalConfigurationChosenDecomposition_mem_iff_exists_raw
     (normalizationDecompositionInclusion V.toValuationSubring (RatFunc k) Ω Qa)
   refine ⟨hgeneric, ?_⟩
   intro γ
-  change γ ∈ projectionDecompositionSubgroupAtEqualPoint hgeneric.symm d.range ↔ _
-  exact projectionDecompositionSubgroupAtEqualPoint_mem_range_conj hgeneric.symm d γ
+  change γ ∈ decompositionSubgroupAtEqualPoint hgeneric.symm d.range ↔ _
+  exact decompositionSubgroupAtEqualPoint_mem_range_conj hgeneric.symm d γ
 
 end AnabelianGeometry.WeightFiltration

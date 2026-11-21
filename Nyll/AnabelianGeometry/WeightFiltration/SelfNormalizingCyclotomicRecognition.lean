@@ -27,7 +27,7 @@ namespace AnabelianGeometry.WeightFiltration
 attribute [local instance]
   placeBaseAmbientAlgebra placeBaseAmbientTower
   extendingPlaceAmbientAlgebra extendingPlaceAmbientTower
-  connectedCoverPlaceConstantAmbientTower
+  placeConstantAmbientTower
 
 variable
     (k κ : Type) [Field k] [NumberField k]

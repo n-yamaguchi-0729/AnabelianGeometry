@@ -63,7 +63,7 @@ theorem finite_free_finrank_laurentKummerAlgebra (K : Type u) [Field K]
   let hm : (X ^ n - C (LaurentPolynomial.T 1 : LaurentPolynomial K)).Monic :=
     Polynomial.monic_X_pow_sub_C _ hn.ne'
   refine ⟨hm.finite_adjoinRoot, hm.free_adjoinRoot, ?_⟩
-  exact (AdjoinRoot.powerBasis' hm).finrank.trans Polynomial.natDegree_X_pow_sub_C
+  exact (AdjoinRoot.powerBasis' hm).finrank.trans (Polynomial.natDegree_X_pow_sub_C _)
 
 /-- In characteristic zero every positive-degree Kummer algebra is etale. -/
 theorem etale_laurentKummerAlgebra (K : Type u) [Field K] [CharZero K]

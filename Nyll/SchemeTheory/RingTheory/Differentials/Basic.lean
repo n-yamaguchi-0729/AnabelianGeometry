@@ -403,7 +403,7 @@ theorem _root_.IsLocalizedModule.existsUnique_forall_eq_of_span_range_eq_top
     rw [h3, h3]; exact h2
   have h5 : ∀ w : Mi j, ((u⁻¹ : (Module.End R (Mi j))ˣ) : Module.End R (Mi j)) ((u : Module.End R
       (Mi j)) w) = w :=
-    fun w => by rw [← Module.End.mul_apply, Units.inv_mul, Module.End.one_apply]
+    fun w => by rw [← mul_apply_eq_comp, Units.inv_mul, one_apply_eq_self]
   calc fi j (∑ i, a i • z i)
       = ((u⁻¹ : (Module.End R (Mi j))ˣ) : Module.End R (Mi j)) ((u : Module.End R (Mi j)) (fi j (∑
           i, a i • z i))) :=
@@ -451,8 +451,8 @@ scoped instance instIsScalarTowerR : IsScalarTower R A (⋀[A]^n (A ⊗[R] M)) :
 
 /-- The alternating map sending vectors to their base-changed exterior product. -/
 noncomputable def ιMultiBC : M [⋀^Fin n]→ₗ[R] (⋀[A]^n (A ⊗[R] M)) :=
-  { (@MultilinearMap.restrictScalars R (Fin n) (fun _ => A ⊗[R] M)
-      (⋀[A]^n (A ⊗[R] M)) _ _ _ _ (instModuleR R A M n) A _ _ _ _
+  { (@MultilinearMap.restrictScalars R _ (Fin n) (fun _ => A ⊗[R] M)
+      (⋀[A]^n (A ⊗[R] M)) _ _ _ A _ _ _ _ (instModuleR R A M n)
       (fun _ => inferInstance) (instIsScalarTowerR R A M n)
       (exteriorPower.ιMulti A n (M := A ⊗[R] M)).toMultilinearMap).compLinearMap
       (fun _ => TensorProduct.mk R A M 1) with
@@ -702,7 +702,7 @@ theorem _root_.KaehlerDifferential.D_ne_zero_of_forall_pow_ne
   have hint : ∀ y : k, IsIntegral F y := fun y => ⟨_, hmonic y, by rw [← aeval_def]; exact hpoly y⟩
   have hirr : ∀ y : k, y ∉ F → Irreducible (X ^ p - C (⟨y ^ p, hFpow y⟩ : F)) := by
     intro y hy
-    rw [X_pow_sub_C_irreducible_iff_of_prime hp]
+    rw [irreducible_X_pow_sub_C_iff_of_prime hp]
     intro b hb
     apply hy
     have hb' : ((b : F) : k) ^ p = y ^ p := by

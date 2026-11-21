@@ -57,16 +57,6 @@ private theorem torsorCharacter_map_hom
       congrArg (· /ₛ m p) (hc _ p).symm
     _ = (g • m p) /ₛ m p := by rw [sdiv_smul, hg]
 
-private abbrev lifts {Z : Scheme.{u}} (A : AddCommGrpCat.{u}) [Finite A]
-    {E Q : Sheaf Z.smallEtaleTopology AddCommGrpCat.{u}}
-    (i : (constantSheaf Z.smallEtaleTopology AddCommGrpCat.{u}).obj A ⟶ E)
-    (p : E ⟶ Q) (h : i ≫ p = 0) (hs : (ShortComplex.mk i p h).ShortExact)
-    (t : (Functor.const Z.Etaleᵒᵖ).obj PUnit ⟶ Q.obj ⋙ forget AddCommGrpCat.{u}) :
-    EtaleFiniteLocallyConstantSetSheaf Z :=
-  ⟨extensionFiber (ShortComplex.mk i p h) t,
-    extensionFiber_isFiniteLocallyConstant (ShortComplex.mk i p h) t hs
-      (constantAbelian_isFiniteLocallyConstant Z A)⟩
-
 private theorem translation_on_monodromy
     {Z : Scheme.{u}} [ConnectedSpace Z] (A : AddCommGrpCat.{u}) [Finite A]
     {E Q : Sheaf Z.smallEtaleTopology AddCommGrpCat.{u}}
@@ -79,17 +69,17 @@ private theorem translation_on_monodromy
     ((finiteLocallyConstantSetMonodromy ζ).functor.map
       (ObjectProperty.homMk (P := IsEtaleFiniteLocallyConstantSet (X := Z))
         (constantFiberTranslation A i p h t a) :
-          lifts A i p h hs t ⟶ lifts A i p h hs t)).hom.hom q =
+          liftSheaf A i p h hs t ⟶ liftSheaf A i p h hs t)).hom.hom q =
       Multiplicative.ofAdd a • q := by
   let T := extensionMonodromyTorsor A i p h hs t ζ
   let e : (extensionMonodromy A i p h hs t ζ).obj.V ≃
       abelianExtensionFiber ((ShortComplex.mk i p h).map
         (Scheme.pointSmallEtale ζ).sheafFiber)
         (quotientSectionStalk (ShortComplex.mk i p h) t ζ) :=
-    ((finiteLocallyConstantSetMonodromyStalkIso ζ).app (lifts A i p h hs t)).toEquiv.trans
+    ((finiteLocallyConstantSetMonodromyStalkIso ζ).app (liftSheaf A i p h hs t)).toEquiv.trans
       (extensionFiberStalkEquiv (ShortComplex.mk i p h) t ζ)
   let I := finiteLocallyConstantSetMonodromyStalkIso ζ
-  let F := lifts A i p h hs t
+  let F := liftSheaf A i p h hs t
   let aF : F ⟶ F := ObjectProperty.homMk (constantFiberTranslation A i p h t a)
   apply e.injective
   apply Subtype.ext
@@ -125,8 +115,8 @@ theorem extensionMonodromyCharacter_pullback
   let TX := extensionMonodromyTorsor A S.f S.g S.zero hS (integerUnitSection X) ξ
   have := extensionMonodromy_commutes A i p h hs (integerUnitSection Y) (ξ ≫ f)
   have := extensionMonodromy_commutes A S.f S.g S.zero hS (integerUnitSection X) ξ
-  let FY := lifts A i p h hs (integerUnitSection Y)
-  let FX := lifts A S.f S.g S.zero hS (integerUnitSection X)
+  let FY := liftSheaf A i p h hs (integerUnitSection Y)
+  let FX := liftSheaf A S.f S.g S.zero hS (integerUnitSection X)
   let MY := (finiteLocallyConstantSetMonodromy (ξ ≫ f)).functor
   let MX := (finiteLocallyConstantSetMonodromy ξ).functor
   have : ContinuousSMul (Aut (FiniteEtale.fiber (ξ ≫ f))) (MY.obj FY).obj.V :=

@@ -42,7 +42,7 @@ theorem actualTameCharacter_eq_one_iff
         (actualFiniteTameCoordinate A K L Q E).hom'.toFun σ = 1 := by
   constructor
   · intro h E
-    let n : Subtype (actualFiniteTameDegreeSet A K L Q) :=
+    let n : ↥(actualFiniteTameDegreeSet A K L Q) :=
       ⟨actualFiniteStageTameIndex A K L Q E, E, rfl⟩
     have hproj := congrArg ((actualFiniteTameRootsSystem A K L Q).projection n) h
     change (actualTameCoordinate A K L Q n).toFun σ = 1 at hproj

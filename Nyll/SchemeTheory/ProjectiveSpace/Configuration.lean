@@ -37,7 +37,7 @@ theorem normalizeTriple_apply (a b c d : Projectivization K (K × K))
     (hab : a ≠ b) (hcb : c ≠ b) (hca : c ≠ a) (hdb : d ≠ b) :
     normalizeTriple a b c hab hcb hca d = affinePoint (crossRatio a b c d) := by
   conv_lhs => rw [← d.mk_rep]
-  exact normalizeCoordinates_mk a.rep b.rep c.rep d.rep _ _ _ d.rep_nonzero
+  exact normalizeCoordinates_mk a.rep b.rep c.rep d.rep _ _ _ d.rep_ne_zero
     (fun h => hdb ((bracket_rep_eq_zero_iff d b).mp h))
 
 /-- The middle reference point is the pole of the normalized affine coordinate. -/
@@ -47,10 +47,10 @@ theorem normalizeTriple_second (a b c : Projectivization K (K × K))
   calc
     normalizeTriple a b c hab hcb hca b =
         normalizeTriple a b c hab hcb hca
-          (Projectivization.mk K b.rep b.rep_nonzero) :=
+          (Projectivization.mk K b.rep b.rep_ne_zero) :=
       congrArg (normalizeTriple a b c hab hcb hca) b.mk_rep.symm
     _ = infinityPoint :=
-      normalizeCoordinates_second a.rep b.rep c.rep _ _ _ b.rep_nonzero
+      normalizeCoordinates_second a.rep b.rep c.rep _ _ _ b.rep_ne_zero
 
 /-- Triple normalization preserves all cross ratios. -/
 theorem crossRatio_normalizeTriple (a b c : Projectivization K (K × K))

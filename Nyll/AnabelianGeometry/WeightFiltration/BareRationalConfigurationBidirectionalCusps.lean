@@ -29,10 +29,10 @@ theorem bare_rationalConfiguration_bidirectionalCusps_recognition
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (eP : rationalConfigurationArithmeticGroup k κ s Ω₁ ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ω₂)
     (hP : ∀ γ,
@@ -85,8 +85,8 @@ theorem bare_rationalConfiguration_bidirectionalCusps_recognition
   have heq : eΔ' = eΔ.symm := geometricEquiv_eq_of_same_arithmeticEquiv
     k κ (rationalConfigurationOpen t : Scheme) (rationalConfigurationOpen s : Scheme)
     ((rationalConfigurationOpen t).ι ≫ π k 1) ((rationalConfigurationOpen s).ι ≫ π k 1)
-    ((rationalConfigurationGeometricScheme k κ t).genericExtensionMorphism Ω₂)
-    ((rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω₁)
+    ((originalFieldGeometricScheme k κ t).genericExtensionMorphism Ω₂)
+    ((originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω₁)
     eP.symm eΔ' eΔ.symm heΔ' hinverse
   refine ⟨eΔ, heΔ, hforward, ?_⟩
   rw [heq] at hbackward

@@ -15,20 +15,9 @@ open CategoryTheory.PreGaloisCategory EtaleFundamentalGroups
 open scoped FintypeCatDiscrete
 namespace AnabelianGeometry.WeightFiltration
 
-local instance rootFieldCanonicalOverCategory (S : Scheme) :
-    Category (MorphismProperty.Over
-      (@IsFiniteEtale : MorphismProperty Scheme) ⊤ S) :=
-  AlgebraicGeometry.FiniteEtale.instCategory S
-local instance rootFieldCanonicalHasPullbacksAlong
-    {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.HasPullbacksAlong (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun _ _ ↦ inferInstance⟩
-local instance rootFieldCanonicalStableUnderBaseChangeAlong
-    {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.IsStableUnderBaseChangeAlong
-      (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun h hf ↦ MorphismProperty.of_isPullback
-    (P := (@IsFiniteEtale : MorphismProperty Scheme)) h hf⟩
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleOverCategory
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleHasPullbacksAlong
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleIsStableUnderBaseChangeAlong
 
 theorem quadraticScalar_actual_canonicalRootField_coverIso
     (k κ : Type) [Field k] [NumberField k] [Field κ] [Algebra k κ]

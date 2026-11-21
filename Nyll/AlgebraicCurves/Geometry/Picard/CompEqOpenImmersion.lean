@@ -21,6 +21,7 @@ public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGrou
 public import Nyll.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.RelativeGroupLawExtension
 public import Nyll.AlgebraicCurves.Geometry.Schemes.FunctionFields.PartialMapMemDomainToRationalMap
 public import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
+public import Nyll.SchemeTheory.Morphisms.ReducedSmooth
 
 /-!
 # exists comp eq of is Open Immersion of abelian Scheme Property Bundle
@@ -65,27 +66,13 @@ namespace EXT
 open _root_.AlgebraicGeometry
 
 
-scoped instance isDomain_sections_spec (k : Type u) [Field k] :
-    IsDomain Γ(Spec (CommRingCat.of k), ⊤) :=
-  MulEquiv.isDomain k (Scheme.ΓSpecIso (CommRingCat.of k)).commRingCatIsoToRingEquiv.toMulEquiv
-
-scoped instance isIntegrallyClosed_sections_spec (k : Type u) [Field k] :
-    IsIntegrallyClosed Γ(Spec (CommRingCat.of k), ⊤) :=
-  IsIntegrallyClosed.of_equiv (Scheme.ΓSpecIso (CommRingCat.of k)).commRingCatIsoToRingEquiv.symm
-
-theorem isReduced_of_smooth (k : Type u) [Field k] {X : Scheme.{u}}
-    (g : X ⟶ Spec (CommRingCat.of k)) [Smooth g] : IsReduced X := by
-  have : ∀ x : X, _root_.IsReduced (X.presheaf.stalk x) := fun x => by
-    have := (AlgebraicGeometry.Smooth.isDomain_and_isIntegrallyClosed_stalk g x).1
-    infer_instance
-  exact isReduced_of_isReduced_stalk _
-
 theorem valuationRing_stalk_of_ringKrullDim_le_one (k : Type u) [Field k] {X : Scheme.{u}}
   [IsIntegral X]
     (g : X ⟶ Spec (CommRingCat.of k)) [Smooth g] (x : X)
     (hx : ringKrullDim (X.presheaf.stalk x) ≤ 1) : ValuationRing (X.presheaf.stalk x) := by
   have : IsLocallyNoetherian X := LocallyOfFiniteType.isLocallyNoetherian g
-  obtain ⟨-, hic⟩ := AlgebraicGeometry.Smooth.isDomain_and_isIntegrallyClosed_stalk g x
+  obtain ⟨-, hic⟩ :=
+    _root_.AlgebraicGeometry.Smooth.isDomain_and_isIntegrallyClosed_stalk_of_field g x
   have : IsNoetherianRing (X.presheaf.stalk x) := inferInstance
   have : Ring.KrullDimLE 1 (X.presheaf.stalk x) := Ring.krullDimLE_iff.mpr hx
   have key := (tfae_of_isNoetherianRing_of_isLocalRing_of_isDomain (X.presheaf.stalk x)).out 4 2
@@ -102,7 +89,7 @@ theorem main
   classical
   obtain ⟨L⟩ := hA.hasGroupLaw
   have : IsProper fA := hA.proper
-  have : IsReduced X := isReduced_of_smooth k g
+  have : IsReduced X := _root_.AlgebraicGeometry.isReduced_of_smooth_of_field g
   have : IsIntegral X := (isIntegral_iff_irreducibleSpace_and_isReduced X).mpr ⟨‹_›, ‹_›⟩
   have : A.IsSeparated := ⟨by rw [← terminal.comp_from fA]; infer_instance⟩
   let U₀ : X.Opens := u.opensRange
@@ -119,12 +106,12 @@ theorem main
   let r := pm.toRationalMap
   let : X.Over (Spec (CommRingCat.of k)) := ⟨g⟩
   let : A.Over (Spec (CommRingCat.of k)) := ⟨fA⟩
-  have hpm : pm.IsOver (Spec (CommRingCat.of k)) := by
+  have hpm : pm.IsOver g fA := by
     rw [Scheme.PartialMap.isOver_iff, Scheme.PartialMap.compHom_hom]
     exact hφ₀
-  have hr : r.IsOver (Spec (CommRingCat.of k)) := ⟨⟨pm, hpm, rfl⟩⟩
+  have hr : r.IsOver g fA := ⟨⟨pm, hpm, rfl⟩⟩
   let w := r.toPartialMap
-  have hwover : w.IsOver (Spec (CommRingCat.of k)) :=
+  have hwover : w.IsOver g fA :=
     Scheme.PartialMap.isOver_toRationalMap_iff_of_isSeparated.mp
       (by rw [Scheme.RationalMap.toRationalMap_toPartialMap]; exact hr)
   have hw : w.hom ≫ fA = r.domain.ι ≫ g := by
@@ -156,28 +143,12 @@ theorem main
 
 end AlgebraicGeometry.WeilExtField.EXT
 
-open _root_.AlgebraicCurves.Geometry.Picard.Proofs in
-open exists_comp_eq_of_isOpenImmersion_of_abelianSchemePropertyBundle in
-attribute [local instance]
-  AlgebraicGeometry.WeilExtField.EXT.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.Picard.Proofs in
-open exists_comp_eq_of_isOpenImmersion_of_abelianSchemePropertyBundle in
-attribute [local instance]
-  AlgebraicGeometry.WeilExtField.EXT.isIntegrallyClosed_sections_spec
 
 
 
 
 end
 
-open _root_.AlgebraicCurves.Geometry.Picard.Proofs in
-open exists_comp_eq_of_isOpenImmersion_of_abelianSchemePropertyBundle in
-attribute [local instance]
-  AlgebraicGeometry.WeilExtField.EXT.isDomain_sections_spec
-open _root_.AlgebraicCurves.Geometry.Picard.Proofs in
-open exists_comp_eq_of_isOpenImmersion_of_abelianSchemePropertyBundle in
-attribute [local instance]
-  AlgebraicGeometry.WeilExtField.EXT.isIntegrallyClosed_sections_spec
 
 
 theorem _root_.AlgebraicGeometry.exists_comp_eq_of_isOpenImmersion_of_abelianSchemePropertyBundle

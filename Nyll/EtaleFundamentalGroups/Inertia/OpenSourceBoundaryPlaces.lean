@@ -6,6 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 module
 
+public import Nyll.SchemeTheory.FunctionFields.OpenImmersion
 public import Nyll.EtaleFundamentalGroups.Inertia.ClosedPointSourceRayInertia
 public import Nyll.AlgebraicCurves.Models.Charts.FiniteComplIsOpen
 public import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointSurjective
@@ -43,10 +44,7 @@ attribute [local instance]
   Place.instIsScalarTowerSubtypeMemValuationSubringToValuationSubring
   AlgebraicGeometry.FiniteEtale.genericPoint_isDominant
 
-local instance integralOpenDominant
-    {X U : Scheme.{u}} [IsIntegral X] [IsIntegral U]
-    (j : U ⟶ X) [IsOpenImmersion j] : IsDominant j :=
-  ⟨j.isOpenEmbedding.isOpenMap.denseRange_of_isPreirreducibleSpace j⟩
+attribute [local instance] AlgebraicGeometry.Scheme.Hom.isDominant_of_isOpenImmersion
 
 local instance smoothOpenCurve
     {k : Type u} [Field k] {X U : Scheme.{u}}

@@ -1,16 +1,17 @@
-# AnabelianGeometry (Lean 4.35.0)
+# AnabelianGeometry (Lean 4.36.0)
 
 [![Lean](https://github.com/n-yamaguchi-0729/AnabelianGeometry/actions/workflows/lean.yml/badge.svg)](https://github.com/n-yamaguchi-0729/AnabelianGeometry/actions/workflows/lean.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-This Lean component of [NYLL](https://github.com/n-yamaguchi-0729/NYLL) aims to
-formalize Mochizuki's Hom theorem over p-subtame fields.
+This Lean component of [NYLL](https://github.com/n-yamaguchi-0729/NYLL) studies the recovery of algebraic curves from
+their étale fundamental groups, with results on genus-zero reconstruction
+over finitely generated fields of characteristic zero, geometric slimness and explicit fundamental-group calculations.
+The [mathematical guide](https://n-yamaguchi-0729.github.io/NYLL/libraries/anabelian-geometry/) presents the reconstruction theorems and geometric applications
+with links to their formal proofs.
 
 ## Formalization target and source documents
 
 - [Implementation plan](docs/mochizuki/MochizukiThmFormalizationPlan_20261113.md)
-- [LaTeX source](docs/mochizuki/ReworkingMochizukiThm_20261113_142937_JST.tex)
-- [Paper (PDF)](docs/mochizuki/ReworkingMochizukiThm_20261113_142937_JST.pdf)
 
 ## Existing implementation
 
@@ -51,7 +52,7 @@ generated characteristic-zero fields remain unfinished.
 
 ## Public API
 
-Use [leanprover/lean4:v4.35.0](lean-toolchain) and the Mathlib revision pinned in
+Use [leanprover/lean4:v4.36.0](lean-toolchain) and the Mathlib revision pinned in
 [lake-manifest.json](lake-manifest.json). Add this dependency to your project’s
 lakefile.toml:
 

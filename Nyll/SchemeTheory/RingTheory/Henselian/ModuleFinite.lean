@@ -149,8 +149,8 @@ theorem main (R : Type u) [CommRing R] [HenselianLocalRing R]
       refine Submodule.add_mem_sup ⟨p.eval a₀, rfl⟩ ?_
       rw [hιalg, Algebra.algebraMap_eq_smul_one, smul_mul_assoc]
       exact Submodule.smul_mem_smul h₁ Submodule.mem_top
-    have hle := Submodule.le_of_le_smul_of_le_jacobson_bot (N := N) (N' := ⊤) Module.Finite.fg_top
-      (IsLocalRing.maximalIdeal_le_jacobson _) key
+    have hle := Submodule.le_of_le_smul_of_le_jacobson (N := N) (N' := ⊤) Module.Finite.fg_top
+      (IsLocalRing.ringJacobson_eq_maximalIdeal _).ge key
     intro c
     obtain ⟨s, hs⟩ := hle (Submodule.mem_top : c ∈ ⊤)
     exact ⟨s, hs⟩

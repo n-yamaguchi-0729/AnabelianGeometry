@@ -134,7 +134,7 @@ theorem eval_pow_eq_one {n : ℕ} (e : WeilPairingData K F n) (x y : Pic0.torsio
 theorem eval_add_left {n : ℕ} (e : WeilPairingData K F n) (x x' y : Pic0.torsion K F n) :
     e.eval (x + x') y = e.eval x y * e.eval x' y := by
   unfold eval
-  rw [map_add, toMul_add, AddChar.mul_apply]
+  rw [map_add, toMul_add, mul_apply]
 
 theorem eval_add_right {n : ℕ} (e : WeilPairingData K F n) (x y y' : Pic0.torsion K F n) :
     e.eval x (y + y') = e.eval x y * e.eval x y' :=
@@ -238,7 +238,7 @@ def congrHom {F' : Type*} [Field F'] [Algebra K F']
     change (Additive.toMul (e.toHom (φ.symm (x₁ + x₂)))) (φ.symm y')
         = (Additive.toMul (e.toHom (φ.symm x₁))) (φ.symm y')
           * (Additive.toMul (e.toHom (φ.symm x₂))) (φ.symm y')
-    rw [map_add, map_add, toMul_add, AddChar.mul_apply]
+    rw [map_add, map_add, toMul_add, mul_apply]
 
 private theorem congrHom_apply {F' : Type*} [Field F'] [Algebra K F']
     (φ : Pic0.torsion K F n ≃+ Pic0.torsion K F' n) (x' y' : Pic0.torsion K F' n) :

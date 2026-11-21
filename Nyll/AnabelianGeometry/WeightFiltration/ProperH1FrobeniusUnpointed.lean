@@ -115,7 +115,7 @@ theorem unpointedProperRationalH1_eq_zero_of_coefficientFrobenius
   let d := Module.finrank k E
   have hpower (n : ℕ) : v = (Fintype.card k ^ r) ^ n • (α σ ^ n) v := by
     induction n with
-    | zero => rw [pow_zero, pow_zero, Module.End.one_apply, one_smul]
+    | zero => rw [pow_zero, pow_zero, one_apply_eq_self, one_smul]
     | succ n ih =>
         calc
           v = (Fintype.card k ^ r) ^ n • (α σ ^ n) v := ih
@@ -123,7 +123,7 @@ theorem unpointedProperRationalH1_eq_zero_of_coefficientFrobenius
               (α σ ^ n) (Fintype.card k ^ r • α σ v) := congrArg
                 (fun w => (Fintype.card k ^ r) ^ n • (α σ ^ n) w) hv
           _ = (Fintype.card k ^ r) ^ (n + 1) • (α σ ^ (n + 1)) v := by
-            simp only [pow_succ, Module.End.mul_apply, map_nsmul, smul_smul]
+            simp only [pow_succ, mul_apply_eq_comp, map_nsmul, smul_smul]
   have hfrob : (FiniteField.frobeniusAlgEquivOfAlgebraic E K ^ r).restrictScalars k =
       σ ^ d := by
     change (AlgEquiv.restrictScalarsHom k)

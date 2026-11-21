@@ -45,7 +45,7 @@ theorem namedSquare_actual_finiteBase_exists_configuration
     (hJ₀ : J₀.hom ≫ pullback.snd p (rationalConfigurationOpen s).ι = W.hom)
     (r : s → E)
     (hr : ∀ x : s, r x ^ 2 = algebraMap k E
-      ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt f)) :
+      ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt f)) :
     let b := pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap k E)))
       ((rationalConfigurationOpen s).ι ≫ π k 1)
     let jE := rationalConfigurationBaseChangeChart k E s

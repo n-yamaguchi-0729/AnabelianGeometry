@@ -39,6 +39,7 @@ public import Mathlib.Topology.Sober
 public import Nyll.SchemeTheory.CategoryTheory.SchemeHomOver
 public import Nyll.SchemeTheory.GroupSchemes.RelativeGroupLaw.Basic
 public import Nyll.SchemeTheory.LocalGeometry.SmoothStalks
+public import Nyll.SchemeTheory.Morphisms.ReducedSmooth
 public import Nyll.SchemeTheory.LocalGeometry.OpenIrreducibleComponents
 
 /-!
@@ -186,21 +187,6 @@ section FieldBase
 
 open Topology
 
-scoped instance isDomain_sections_spec (k : Type u) [Field k] :
-    IsDomain Γ(Spec (CommRingCat.of k), ⊤) :=
-  MulEquiv.isDomain k (Scheme.ΓSpecIso (CommRingCat.of k)).commRingCatIsoToRingEquiv.toMulEquiv
-
-scoped instance isIntegrallyClosed_sections_spec (k : Type u) [Field k] :
-    IsIntegrallyClosed Γ(Spec (CommRingCat.of k), ⊤) :=
-  IsIntegrallyClosed.of_equiv (Scheme.ΓSpecIso (CommRingCat.of k)).commRingCatIsoToRingEquiv.symm
-
-theorem isReduced_of_smooth (k : Type u) [Field k] {X : Scheme.{u}}
-    (g : X ⟶ Spec (CommRingCat.of k)) [Smooth g] : IsReduced X := by
-  have : ∀ x : X, _root_.IsReduced (X.presheaf.stalk x) := fun x => by
-    have := (AlgebraicGeometry.Smooth.isDomain_and_isIntegrallyClosed_stalk g x).1
-    infer_instance
-  exact isReduced_of_isReduced_stalk _
-
 theorem exists_mem_specializes_of_dense (k : Type u) [Field k] {T : Scheme.{u}}
     (t : T ⟶ Spec (CommRingCat.of k)) [Smooth t] (V : T.Opens) (hV : Dense (V : Set T)) (x : T) :
     ∃ ξ : T, ξ ∈ V ∧ ξ ⤳ x := by
@@ -208,7 +194,7 @@ theorem exists_mem_specializes_of_dense (k : Type u) [Field k] {T : Scheme.{u}}
   have hZ : IsIrreducible (irreducibleComponent x) := isIrreducible_irreducibleComponent
   have hZc : IsClosed (irreducibleComponent x) := isClosed_irreducibleComponent
   obtain ⟨hZo, -⟩ := AlgebraicGeometry.isOpen_irreducibleComponent_of_isDomain_stalk (X := T)
-    (fun p => (AlgebraicGeometry.Smooth.isDomain_and_isIntegrallyClosed_stalk t p).1) x
+    (fun p => (AlgebraicGeometry.Smooth.isDomain_and_isIntegrallyClosed_stalk_of_field t p).1) x
   let ξ := hZ.genericPoint
   have hξ : IsGenericPoint ξ (irreducibleComponent x) := hZ.isGenericPoint_genericPoint hZc
   obtain ⟨y, hyZ, hyV⟩ := hV.inter_open_nonempty _ hZo ⟨x, mem_irreducibleComponent⟩
@@ -305,7 +291,8 @@ theorem pZ_surjective [Smooth t]
 theorem isReduced_kernelPair [Smooth t] :
     IsReduced (pullback (pZ t V W) (pZ t V W)) := by
   have : Smooth (pullback.fst (pZ t V W) (pZ t V W) ≫ pZ t V W ≫ t) := inferInstance
-  exact isReduced_of_smooth k (pullback.fst (pZ t V W) (pZ t V W) ≫ pZ t V W ≫ t)
+  exact _root_.AlgebraicGeometry.isReduced_of_smooth_of_field
+    (pullback.fst (pZ t V W) (pZ t V W) ≫ pZ t V W ≫ t)
 
 theorem dense_kernelPair_fstV [Smooth t]
     (hV : Dense (V : Set T)) :
@@ -424,10 +411,6 @@ theorem main
 
 end GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DESC
 
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DESC.isDomain_sections_spec
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DESC.isIntegrallyClosed_sections_spec
 attribute [local instance] GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DESC.pZ_smooth
 
 
@@ -436,10 +419,6 @@ attribute [local instance] GoodReductionJacobian.RelativeGroupLaw.WeilExtField.D
 
 end
 
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DESC.isDomain_sections_spec
-attribute [local instance]
-  GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DESC.isIntegrallyClosed_sections_spec
 attribute [local instance] GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DESC.pZ_smooth
 
 
@@ -455,7 +434,7 @@ open CategoryTheory CategoryTheory.Limits AlgebraicGeometry NeronModelInfra Good
 open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
 open RelativeGroupLaw_exists_extension_of_diagonal_difference_extension_of_dense in
 open GoodReductionJacobian.RelativeGroupLaw.WeilExtField.DESC in
-attribute [local instance] isDomain_sections_spec isIntegrallyClosed_sections_spec pZ_smooth
+attribute [local instance] pZ_smooth
 
 open _root_.AlgebraicCurves.Geometry.AbelianSchemes.Theorems.Proofs in
 open RelativeGroupLaw_exists_extension_of_diagonal_difference_extension_of_dense in

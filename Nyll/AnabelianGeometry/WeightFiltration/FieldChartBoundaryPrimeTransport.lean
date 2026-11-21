@@ -6,7 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 module
 
 public import Nyll.AnabelianGeometry.WeightFiltration.GenericPlaceInertiaRingEquiv
-public import Nyll.AlgebraicCurves.Places.Rational.Basic
+public import Nyll.AlgebraicCurves.Places.RingEquiv
 public import Nyll.EtaleFundamentalGroups.Inertia.PlaceNormalizationInertiaRestriction
 
 /-! # The original normalization prime in a reparametrized field chart

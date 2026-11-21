@@ -74,8 +74,8 @@ theorem exists_projectiveTransformation_of_pointed_arithmeticFundamentalGroupEqu
   let ft := (rationalConfigurationOpen t).ι ≫ π k 1
   let : GeometricallyConnected fs := rationalConfigurationOpen_geometricallyConnected k s
   let : GeometricallyConnected ft := rationalConfigurationOpen_geometricallyConnected k t
-  let Ω₁ := AlgebraicClosure (rationalConfigurationGeometricScheme k κ s).functionField
-  let Ω₂ := AlgebraicClosure (rationalConfigurationGeometricScheme k κ t).functionField
+  let Ω₁ := AlgebraicClosure (originalFieldGeometricScheme k κ s).functionField
+  let Ω₂ := AlgebraicClosure (originalFieldGeometricScheme k κ t).functionField
   let xs := rationalConfigurationArithmeticBasePoint k κ s Ω₁
   let yt := rationalConfigurationArithmeticBasePoint k κ t Ω₂
   obtain ⟨ts, hts⟩ := exists_arithmetic_preserving_fiberIso k κ fs x xs

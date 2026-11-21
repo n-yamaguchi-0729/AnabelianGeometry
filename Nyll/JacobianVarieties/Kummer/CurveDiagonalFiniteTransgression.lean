@@ -57,8 +57,7 @@ private theorem finiteLevelPullback_section_apply
   have hcomp := finiteLevelCohomologyPullback_comp s q ℓ n i
   have hsec := congrArg (fun f : X ⟶ X => finiteLevelCohomologyPullback ℓ f n i) hsq
   have hid := finiteLevelCohomologyPullback_id ℓ X n i
-  exact (LinearMap.congr_fun (hcomp.symm.trans (hsec.trans hid)) a).trans
-    (Module.End.one_apply (R := ℤ_[ℓ]) a)
+  exact LinearMap.congr_fun (hcomp.symm.trans (hsec.trans hid)) a
 
 private theorem ext_transgression_cancel_coefficients
     {A : Type*} [Category A] [Abelian A] [HasExt.{u} A]

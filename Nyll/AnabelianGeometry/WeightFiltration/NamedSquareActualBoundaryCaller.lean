@@ -26,16 +26,9 @@ attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
 attribute [local instance] CurveModel.isIntegral CurveModel.isProper CurveModel.smooth
 namespace AnabelianGeometry.WeightFiltration
 
-local instance actualBoundaryOverCategory (S : Scheme) :
-    Category (MorphismProperty.Over (@IsFiniteEtale : MorphismProperty Scheme) ⊤ S) :=
-  AlgebraicGeometry.FiniteEtale.instCategory S
-local instance actualBoundaryHasPullbacksAlong {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.HasPullbacksAlong (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun _ _ ↦ inferInstance⟩
-local instance actualBoundaryStableUnderBaseChangeAlong {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.IsStableUnderBaseChangeAlong (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun h hf ↦ MorphismProperty.of_isPullback
-    (P := (@IsFiniteEtale : MorphismProperty Scheme)) h hf⟩
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleOverCategory
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleHasPullbacksAlong
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleIsStableUnderBaseChangeAlong
 
 private theorem actualBoundary_range_comp_of_surjective
     {A B C : Type*} (f : A → B) (g : B → C) (hf : Function.Surjective f) :
@@ -82,7 +75,7 @@ theorem namedSquareModel_actualBaseChange_boundary_card
               (show (projectiveLineRatFuncModel E).C ⟶ Spec (.of E) from π E 1)).symm)
     let pκ : (projectiveLineRatFuncModel κ).C ⟶ (projectiveLineRatFuncModel κ).C :=
       baseChangedModelMap (isPullback_map E κ 1) p hp
-    ∀ (Jκ : Wκ.left ≅ rationalConfigurationGeometricScheme E κ t),
+    ∀ (Jκ : Wκ.left ≅ originalFieldGeometricScheme E κ t),
       Jκ.hom ≫ pullback.snd φ g = pullback.fst W.hom b ≫ J.hom →
       Jκ.hom ≫ pullback.fst φ g = Wκ.hom ≫ pullback.fst φ f →
       (∀ y : (projectiveLineRatFuncModel κ).C,
@@ -91,7 +84,7 @@ theorem namedSquareModel_actualBaseChange_boundary_card
       Nat.card ((projectiveLineRatFuncModel κ).openBoundaryPlaces jκ) ≤ t.card := by
   intro φ f g b Uκ Wκ jκ pκ Jκ hcoeff hbase
   let M : CurveModel κ (RatFunc κ) := projectiveLineRatFuncModel κ
-  let lκ : rationalConfigurationGeometricScheme E κ t ⟶ M.C :=
+  let lκ : originalFieldGeometricScheme E κ t ⟶ M.C :=
     rationalConfigurationBaseChangeChart E κ t
   have hlκopen : IsOpenImmersion lκ :=
     rationalConfigurationBaseChangeChart_isOpenImmersion E κ t
@@ -134,7 +127,7 @@ theorem namedSquareModel_actualBaseChange_boundary_card
     apply (isPullback_map E κ 1).hom_ext
     · change (Jκ.hom ≫ lκ) ≫ c = (eκ.hom ≫ rκ) ≫ c
       exact (Category.assoc Jκ.hom lκ c).trans
-        ((congrArg (fun z : rationalConfigurationGeometricScheme E κ t ⟶
+        ((congrArg (fun z : originalFieldGeometricScheme E κ t ⟶
             (projectiveLineRatFuncModel E).C => Jκ.hom ≫ z) hlcoeff).trans
         ((Category.assoc Jκ.hom (pullback.snd φ g) l).symm.trans
         ((congrArg (fun z : Wκ.left ⟶ (rationalConfigurationOpen t : Scheme) => z ≫ l)
@@ -145,7 +138,7 @@ theorem namedSquareModel_actualBaseChange_boundary_card
         (heκcoeff.symm.trans (Category.assoc eκ.hom rκ c).symm))))))
     · change (Jκ.hom ≫ lκ) ≫ d = (eκ.hom ≫ rκ) ≫ d
       exact (Category.assoc Jκ.hom lκ d).trans
-        ((congrArg (fun z : rationalConfigurationGeometricScheme E κ t ⟶
+        ((congrArg (fun z : originalFieldGeometricScheme E κ t ⟶
           Spec (.of κ) => Jκ.hom ≫ z) hlbase).trans
         (hbase.trans
         ((congrArg (fun z : Wκ.left ⟶ Uκ => z ≫ pullback.fst φ f) heκproj.symm).trans
@@ -169,7 +162,7 @@ theorem namedSquareModel_actualBaseChange_boundary_card
     change pκ y ∉ Set.range jκ ↔ pκ y ∉ Set.range jκ
     exact Iff.rfl
   refine ⟨hboundary, ?_⟩
-  let qκ : rationalConfigurationGeometricScheme E κ t ⟶ Uκ := Jκ.inv ≫ Wκ.hom
+  let qκ : originalFieldGeometricScheme E κ t ⟶ Uκ := Jκ.inv ≫ Wκ.hom
   have hJκq : Jκ.hom ≫ qκ = Wκ.hom := Jκ.hom_inv_id_assoc Wκ.hom
   have hsquare : lκ ≫ pκ = qκ ≫ jκ := by
     apply (cancel_epi Jκ.hom).mp

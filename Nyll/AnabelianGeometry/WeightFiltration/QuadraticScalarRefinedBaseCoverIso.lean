@@ -20,23 +20,11 @@ open scoped FintypeCatDiscrete
 
 namespace AnabelianGeometry.WeightFiltration
 
-local instance refinedQuadraticCoverIsoOverCategory (S : Scheme) :
-    Category (MorphismProperty.Over
-      (@IsFiniteEtale : MorphismProperty Scheme) ⊤ S) :=
-  AlgebraicGeometry.FiniteEtale.instCategory S
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleOverCategory
 
-local instance refinedQuadraticCoverIsoHasPullbacksAlong
-    {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.HasPullbacksAlong
-      (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun _ _ ↦ inferInstance⟩
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleHasPullbacksAlong
 
-local instance refinedQuadraticCoverIsoStableUnderBaseChangeAlong
-    {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.IsStableUnderBaseChangeAlong
-      (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun h hf ↦ MorphismProperty.of_isPullback
-    (P := (@IsFiniteEtale : MorphismProperty Scheme)) h hf⟩
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleIsStableUnderBaseChangeAlong
 
 /-- On the original pointed arithmetic group, the actual finite base-change
 image fixes the same scalar radical. No normalizer or quotient-label equality

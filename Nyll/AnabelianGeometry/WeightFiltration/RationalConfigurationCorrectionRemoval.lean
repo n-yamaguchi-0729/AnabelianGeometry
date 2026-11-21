@@ -12,7 +12,7 @@ public import Nyll.AnabelianGeometry.WeightFiltration.RationalConfigurationRange
 /-! # Remove the finite arithmetic correction without changing the cusp bijection
 
 The split reconstruction supplies the actual cusp correspondence up to geometric
-conjugacy. Abelianization removes that geometric conjugacy. The remaining
+conjugacy. Group.Abelianization removes that geometric conjugacy. The remaining
 arithmetic correction is removed using the cyclotomic stability of every actual
 rational puncture, retaining exactly the same cusp correspondence.
 -/
@@ -32,10 +32,10 @@ theorem rationalConfiguration_remove_arithmetic_correction_same_cusps
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k)))
     (Ωs Ωt : Type) [Field Ωs] [Field Ωt] [IsAlgClosed Ωs] [IsAlgClosed Ωt]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ωs]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ωt]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ωs]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ωt]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ωs]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ωt]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ωs]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ωt]
     (β : rationalConfigurationArithmeticGroup k κ s Ωs ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ωt)
     (e : rationalConfigurationGeometricGroup k κ s Ωs ≃ₜ*
@@ -66,7 +66,7 @@ theorem rationalConfiguration_remove_arithmetic_correction_same_cusps
   obtain ⟨e₀, he₀, hkeep⟩ := exists_geometricEquiv_remove_arithmetic_correction
     k κ (rationalConfigurationOpen t : Scheme)
     ((rationalConfigurationOpen t).ι ≫ π k 1)
-    ((rationalConfigurationGeometricScheme k κ t).genericExtensionMorphism Ωt)
+    ((originalFieldGeometricScheme k κ t).genericExtensionMorphism Ωt)
     b e c he
   refine ⟨e₀, he₀, ?_⟩
   intro p
@@ -103,10 +103,10 @@ theorem rationalConfiguration_remove_arithmetic_correction_same_punctures
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k)))
     (Ωs Ωt : Type) [Field Ωs] [Field Ωt] [IsAlgClosed Ωs] [IsAlgClosed Ωt]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ωs]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ωt]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ωs]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ωt]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ωs]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ωt]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ωs]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ωt]
     (β : rationalConfigurationArithmeticGroup k κ s Ωs ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ωt)
     (e : rationalConfigurationGeometricGroup k κ s Ωs ≃ₜ*

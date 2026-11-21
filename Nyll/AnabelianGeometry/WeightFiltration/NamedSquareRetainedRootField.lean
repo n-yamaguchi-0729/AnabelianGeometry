@@ -20,21 +20,21 @@ theorem namedSquare_exists_finiteField_retaining_both_root_families
     (hβ : β ^ 2 = Units.map (algebraMap k κ).toMonoidHom a)
     (ρS : s → κ) (ρT : t → κ)
     (hρS : ∀ x : s, ρS x ^ 2 = algebraMap k κ
-      ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt f))
+      ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt f))
     (hρT : ∀ x : t, ρT x ^ 2 = algebraMap k κ
-      ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt g)) :
+      ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt g)) :
     ∃ (E : IntermediateField k κ) (_ : FiniteDimensional k E) (_ : NumberField E),
       quadraticScalarField k κ β ≤ E ∧
       ∃ (rS : s → E) (rT : t → E),
         (∀ x : s, (rS x : κ) = ρS x) ∧
         (∀ x : t, (rT x : κ) = ρT x) ∧
         (∀ x : s, rS x ^ 2 = algebraMap k E
-          ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt f)) ∧
+          ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt f)) ∧
         (∀ x : t, rT x ^ 2 = algebraMap k E
-          ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt g)) := by
+          ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt g)) := by
   let v : Sum s t → k := Sum.elim
-    (fun x : s => (literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt f)
-    (fun x : t => (literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt g)
+    (fun x : s => (literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt f)
+    (fun x : t => (literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt g)
   let ρ : Sum s t → κ := Sum.elim ρS ρT
   have hρ : ∀ i : Sum s t, ρ i ^ 2 = algebraMap k κ (v i) := by
     intro i

@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineFunctionFields
 public import Nyll.AlgebraicCurves.FunctionFields.Constants.RatFuncConstantExtensionOrders
 public import Mathlib.FieldTheory.IsSepClosed
@@ -27,12 +28,7 @@ namespace AlgebraicGeometry.ProjSpace
 attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
   rationalConfigurationGeometricFieldAlgebra rationalConfigurationGeometricConstantAlgebra
 
--- Match the algebra-induced actions used by the rational-cusp recognition
--- owners, avoiding the independent transported `RatFunc.instSMul` action.
-local instance (priority := 2000) rationalConfigurationAmbientSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E]
-    [Algebra A (RatFunc E)] : SMul A (RatFunc E) :=
-  (inferInstance : Algebra A (RatFunc E)).toSMul
+attribute [local instance 2000] RatFunc.algebraSMul
 
 variable (k κ : Type) [Field k] [Field κ] [Algebra k κ]
     (s : Finset (Projectivization k (k × k)))

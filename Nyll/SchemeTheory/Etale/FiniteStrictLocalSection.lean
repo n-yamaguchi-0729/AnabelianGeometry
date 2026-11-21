@@ -44,7 +44,7 @@ private theorem isSepClosed_residueField_of_finite_local
       (Ideal.isMaximal_under_of_isIntegral_of_isMaximal (R := R)
         (IsLocalRing.maximalIdeal B))
   have : IsLocalHom (algebraMap R B) :=
-    ((IsLocalRing.local_hom_TFAE (algebraMap R B)).out 1 5).mpr hcontract
+    ((IsLocalRing.local_hom_tfae (algebraMap R B)).out 1 5).mpr hcontract
   exact Algebra.IsAlgebraic.isSepClosed
     (F := IsLocalRing.ResidueField R) (E := IsLocalRing.ResidueField B)
 

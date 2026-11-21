@@ -77,7 +77,7 @@ theorem actualSeparableRootsComparison_toFun :
 
 /-- The characteristic retained-coordinate law of the actual comparison. -/
 theorem actualSeparableRootsComparison_scalar
-    (n : Subtype (actualFiniteTameDegreeSet A K Ω Q))
+    (n : ↥(actualFiniteTameDegreeSet A K Ω Q))
     (x : (normalizationSeparableRootsGroup A Ω Q).carrier) :
     actualTameRootsScalar A K Ω Q n (actualSeparableRootsComparison_apply A K Ω Q x) =
       normalizationSeparableRootsScalar A Ω Q n.val x :=

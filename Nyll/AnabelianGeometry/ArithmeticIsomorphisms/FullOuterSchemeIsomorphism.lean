@@ -39,8 +39,8 @@ namespace AnabelianGeometry.ArithmeticIsomorphisms
 universe u v w
 
 attribute [local instance]
-  finiteEtaleStableUnderBaseChangeAlongFunctoriality
-  finiteEtaleHasPullbacksAlongFunctoriality
+  finiteEtaleIsStableUnderBaseChangeAlong
+  finiteEtaleHasPullbacksAlong
 
 /-- Continuous group isomorphisms modulo inner automorphisms of the full target group. -/
 abbrev FullOuterEquiv (G : Type u) (H : Type v)

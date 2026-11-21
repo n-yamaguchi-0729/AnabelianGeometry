@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalThirdCuspFiberCoordinates
 public import Nyll.AnabelianGeometry.WeightFiltration.FixedRationalCuspDecompositionTransport
 public import Nyll.AnabelianGeometry.WeightFiltration.FixedLabelCuspKummerClass
@@ -33,9 +34,7 @@ namespace AnabelianGeometry.WeightFiltration
 attribute [local instance] Classical.propDecidable
   MvPolynomial.gradedAlgebra Polynomial.algebra
 
-local instance (priority := 2000) cuspClassesSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E] [Algebra A (RatFunc E)] :
-    SMul A (RatFunc E) := (inferInstance : Algebra A (RatFunc E)).toSMul
+attribute [local instance 2000] RatFunc.algebraSMul
 
 @[instance_reducible]
 private def cuspRootsAction
@@ -145,10 +144,10 @@ theorem rationalConfiguration_scalarRoots_cusp_classes
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (eP : rationalConfigurationArithmeticGroup k κ s Ω₁ ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ω₂)
     (eΔ : rationalConfigurationGeometricGroup k κ s Ω₁ ≃ₜ*
@@ -212,8 +211,10 @@ theorem rationalConfiguration_scalarRoots_cusp_classes
   let M := projectiveLineRatFuncModel k
   let iS : (rationalConfigurationOpen s : Scheme) ⟶ M.C := (rationalConfigurationOpen s).ι
   let iT : (rationalConfigurationOpen t : Scheme) ⟶ M.C := (rationalConfigurationOpen t).ι
-  let : IsOpenImmersion iS := rootedScalarArithmeticChart_isOpenImmersion k s
-  let : IsOpenImmersion iT := rootedScalarArithmeticChart_isOpenImmersion k t
+  let : IsOpenImmersion iS :=
+    inferInstanceAs (IsOpenImmersion (rationalConfigurationOpen s).ι)
+  let : IsOpenImmersion iT :=
+    inferInstanceAs (IsOpenImmersion (rationalConfigurationOpen t).ι)
   let Fs := fiber (rationalConfigurationArithmeticBasePoint k κ s Ω₁)
   let Ft := fiber (rationalConfigurationArithmeticBasePoint k κ t Ω₂)
   let AS := M.openKummerCover (M.openBoundaryPlaces iS) n hn us iS
@@ -255,7 +256,7 @@ theorem rationalConfiguration_scalarRoots_cusp_classes
   obtain ⟨v, hv⟩ := _root_.KummerTheory.exists_unit_power_of_fixed_galois_label n
     (αt * αs⁻¹)
   obtain ⟨vt, hvt⟩ := _root_.KummerTheory.exists_unit_power_of_fixed_galois_label n αt
-  let ξG := (rationalConfigurationGeometricScheme k κ t).genericExtensionMorphism Ω₂
+  let ξG := (originalFieldGeometricScheme k κ t).genericExtensionMorphism Ω₂
   have hex := arithmetic_exactSequence_of_isSepClosure k κ
     (rationalConfigurationOpen t : Scheme) ((rationalConfigurationOpen t).ι ≫ π k 1) ξG
   have heker : ∀ p : rationalConfigurationArithmeticGroup k κ t Ω₂,

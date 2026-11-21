@@ -82,7 +82,7 @@ theorem namedSquare_pair_exists_actual_finiteBase_model_data
         (if W = (rationalConfigurationBoundaryPlace k κ s b).val then 1 else 0))
     (r : s → E)
     (hr : ∀ x : s, r x ^ 2 = algebraMap k E
-      ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt
+      ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt
         (u.val : RatFunc k))) :
     let M := projectiveLineRatFuncModel k
     let i : (rationalConfigurationOpen s : Scheme) ⟶ M.C := (rationalConfigurationOpen s).ι

@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareChosenInertiaEndpoint
 public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareGeometricBoundaryLabels
 public import Nyll.AnabelianGeometry.WeightFiltration.NamedSquareModelInertiaCaller
@@ -26,19 +27,17 @@ attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
   placeBaseAmbientAlgebra placeBaseAmbientTower normalizationCommAlgGaloisAction
 namespace AnabelianGeometry.WeightFiltration
 
-local instance chosenLabelInertiaSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E] [Algebra A (RatFunc E)] :
-    SMul A (RatFunc E) := (inferInstance : Algebra A (RatFunc E)).toSMul
+attribute [local instance] RatFunc.algebraSMul
 
 theorem rationalConfigurationChosenInertia_exists_functionFieldPrime
     (k κ : Type) [Field k] [Field κ] [CharZero κ] [Algebra k κ] [Infinite k]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω] [IsSepClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     (p : (projectiveLineRatFuncModel κ).openBoundaryPlaces
       (rationalConfigurationBaseChangeChart k κ s)) :
-    let U := rationalConfigurationGeometricScheme k κ s
+    let U := originalFieldGeometricScheme k κ s
     let _hchar : CharZero U.functionField := Algebra.charZero_of_charZero (R := κ) (A :=
       U.functionField)
     let _hsep : IsSepClosure U.functionField Ω := inferInstance
@@ -62,16 +61,16 @@ theorem namedSquare_chosen_label_inertia_projection
     [Algebra k κ] [Algebra E κ] [Infinite k] [Infinite E]
     (s : Finset (Projectivization k (k × k)))
     (t : Finset (Projectivization E (E × E)))
-    [IsNormalIntegral (rationalConfigurationGeometricScheme k κ s)]
-    [IsLocallyNoetherian (rationalConfigurationGeometricScheme k κ s)]
-    [ConnectedSpace (rationalConfigurationGeometricScheme k κ s)]
+    [IsNormalIntegral (originalFieldGeometricScheme k κ s)]
+    [IsLocallyNoetherian (originalFieldGeometricScheme k κ s)]
+    [ConnectedSpace (originalFieldGeometricScheme k κ s)]
     (Ω : Type) [Field Ω] [IsAlgClosed Ω] [IsSepClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    (W : FiniteEtale (rationalConfigurationGeometricScheme k κ s)) [IsConnected W]
-    (w : (fiber ((rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω)).obj W)
-    (J : W.left ≅ rationalConfigurationGeometricScheme E κ t)
-    (qN : rationalConfigurationGeometricScheme E κ t ⟶ rationalConfigurationGeometricScheme k κ s)
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
+    (W : FiniteEtale (originalFieldGeometricScheme k κ s)) [IsConnected W]
+    (w : (fiber ((originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω)).obj W)
+    (J : W.left ≅ originalFieldGeometricScheme E κ t)
+    (qN : originalFieldGeometricScheme E κ t ⟶ originalFieldGeometricScheme k κ s)
     (hJq : J.hom ≫ qN = W.hom)
     (pκ : (projectiveLineRatFuncModel κ).C ⟶ (projectiveLineRatFuncModel κ).C)
     (eκ : RatFunc κ ≃ₐ[κ] RatFunc κ)
@@ -85,24 +84,24 @@ theorem namedSquare_chosen_label_inertia_projection
         pκ y ∉ Set.range (rationalConfigurationBaseChangeChart k κ s))
     (hsquare :
       let _hWIntegral : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
-      let _AKL : Algebra (rationalConfigurationGeometricScheme k κ s).functionField
+      let _AKL : Algebra (originalFieldGeometricScheme k κ s).functionField
         W.left.functionField :=
         finiteEtaleFunctionFieldAlgebra W
       ∀ z : RatFunc κ,
         J.hom.functionFieldMap J.hom.homeomorph.surjective.denseRange
           (rationalConfigurationGeometricFunctionFieldEquiv E κ t (ratFuncPairSquareHom eκ z)) =
-          algebraMap (rationalConfigurationGeometricScheme k κ s).functionField W.left.functionField
+          algebraMap (originalFieldGeometricScheme k κ s).functionField W.left.functionField
             (rationalConfigurationGeometricFunctionFieldEquiv k κ s z)) :
     let cU := rationalConfigurationGeometricFunctionFieldEquiv k κ s
-    let N := rationalConfigurationGeometricScheme E κ t
-    let K := (rationalConfigurationGeometricScheme k κ s).functionField
+    let N := originalFieldGeometricScheme E κ t
+    let K := (originalFieldGeometricScheme k κ s).functionField
     let _AκK : Algebra κ K := (cU.toRingHom.comp (algebraMap κ (RatFunc κ))).toAlgebra
     let _hcharK : CharZero K := Algebra.charZero_of_charZero (R := κ) (A := K)
     let _hSepK : IsSepClosure K Ω := inferInstance
     let _hWIntegral : IsIntegral W.left := isIntegral_left_of_isConnected_finiteEtale W
     let L := W.left.functionField
     let _AKL : Algebra K L := finiteEtaleFunctionFieldAlgebra W
-    let lift := fiberObjEquivHom ((rationalConfigurationGeometricScheme k κ
+    let lift := fiberObjEquivHom ((originalFieldGeometricScheme k κ
       s).genericExtensionMorphism Ω) W w
     let emb := finiteEtaleGenericHomFunctionFieldAlgHom W lift
     let eR := J.hom.functionFieldRingEquivOfIsOpenImmersion
@@ -110,11 +109,11 @@ theorem namedSquare_chosen_label_inertia_projection
     ∃ hclosure : IsAlgClosure N.functionField Ω,
     let _modelClosure : IsAlgClosure N.functionField Ω := hclosure
     ∃ hN : N.genericExtensionMorphism Ω ≫ qN =
-      (rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω,
+      (originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω,
     ∀ z : t, ∃ a : rationalConfigurationGeometricGroup k κ s Ω,
       (rationalConfigurationChosenInertia E κ t Ω (rationalConfigurationBoundaryPlace E κ t z)).map
         (pointedFundamentalGroupHom qN (N.genericExtensionMorphism Ω)
-          ((rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω)
+          ((originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω)
             hN).toMonoidHom ≤
         (rationalConfigurationChosenInertia k κ s Ω
           (rationalConfigurationBoundaryPlace k κ s
@@ -126,7 +125,7 @@ theorem namedSquare_chosen_label_inertia_projection
   obtain ⟨hclosure, hp⟩ := hp
   let _modelClosure : IsAlgClosure N.functionField Ω := hclosure
   change ∃ hN : N.genericExtensionMorphism Ω ≫ qN =
-    (rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω, _ at hp
+    (originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω, _ at hp
   obtain ⟨hN, hprojection⟩ := hp
   refine ⟨hclosure, ?_⟩
   intro suppliedClosure

@@ -31,63 +31,58 @@ namespace AnabelianGeometry.WeightFiltration
 
 attribute [local instance] Classical.propDecidable
 
-local instance namedResidueChart_isOpenImmersion
-    (k κ : Type) [Field k] [Field κ] [Algebra k κ] [IsAlgClosed κ]
-    (s : Finset (Projectivization k (k × k))) :
-    IsOpenImmersion (show rationalConfigurationGeometricScheme k κ s ⟶
-      (projectiveLineRatFuncModel κ).C from rationalConfigurationBaseChangeChart k κ s) :=
-  rationalConfigurationBaseChangeChart_isOpenImmersion k κ s
-
 /-- The actual derived residue of the named cover at the fixed generic point. -/
 def rationalConfigurationNamedResidue
     (k κ : Type) [Field k] [Field κ] [Algebra k κ] [IsAlgClosed κ] [Infinite k]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
     (n : ℕ+) (hn : IsUnit ((n : ℕ) : κ))
     (w : Pic0.openKummerUnits κ (RatFunc κ)
       ((projectiveLineRatFuncModel κ).openBoundaryPlaces
         (rationalConfigurationBaseChangeChart k κ s)) n) :
     (projectiveLineRatFuncModel κ).openBoundaryPlaces
-      (rationalConfigurationBaseChangeChart k κ s) → ZMod (n : ℕ) :=
-  finiteResidue (projectiveLineRatFuncModel κ) n
-    (rationalConfigurationBaseChangeChart k κ s)
-    (rationalConfigurationBaseChangeChart_denseRange k κ s) hn
-    ((rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω)
-    (CurveModel.OpenKummer.kummerEtaleClass (projectiveLineRatFuncModel κ)
-      ((projectiveLineRatFuncModel κ).openBoundaryPlaces
-        (rationalConfigurationBaseChangeChart k κ s)) n w
-      (rationalConfigurationBaseChangeChart k κ s)
-      (rationalConfigurationBaseChangeChart_denseRange k κ s)
-      ((projectiveLineRatFuncModel κ).place_not_mem_openBoundaryPlaces
-        (rationalConfigurationBaseChangeChart k κ s)) hn
-      ((rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω))
+      (rationalConfigurationBaseChangeChart k κ s) → ZMod (n : ℕ) := by
+  let M := projectiveLineRatFuncModel κ
+  let j : originalFieldGeometricScheme k κ s ⟶ M.C :=
+    rationalConfigurationBaseChangeChart k κ s
+  let : IsOpenImmersion j := rationalConfigurationBaseChangeChart_isOpenImmersion k κ s
+  let hj : DenseRange j := rationalConfigurationBaseChangeChart_denseRange k κ s
+  let genericPoint := (originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω
+  exact finiteResidue M n j hj hn genericPoint
+    (CurveModel.OpenKummer.kummerEtaleClass M (M.openBoundaryPlaces j) n w j hj
+      (M.place_not_mem_openBoundaryPlaces j) hn genericPoint)
 
+/-- The geometric residue recovers the residue of the original Kummer unit. -/
 theorem rationalConfigurationNamedResidue_eq
     (k κ : Type) [Field k] [Field κ] [Algebra k κ] [IsAlgClosed κ] [Infinite k]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
     (n : ℕ+) (hn : IsUnit ((n : ℕ) : κ))
     (w : Pic0.openKummerUnits κ (RatFunc κ)
       ((projectiveLineRatFuncModel κ).openBoundaryPlaces
         (rationalConfigurationBaseChangeChart k κ s)) n) :
     rationalConfigurationNamedResidue k κ s Ω n hn w =
-      Multiplicative.toAdd (Pic0.openKummerResidue _ n w) :=
-  finiteResidue_namedKummer_eq_openKummerResidue (projectiveLineRatFuncModel κ) n
-    (rationalConfigurationBaseChangeChart k κ s)
-    (rationalConfigurationBaseChangeChart_denseRange k κ s) hn
-    ((rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω) w
+      Multiplicative.toAdd (Pic0.openKummerResidue _ n w) := by
+  let M := projectiveLineRatFuncModel κ
+  let j : originalFieldGeometricScheme k κ s ⟶ M.C :=
+    rationalConfigurationBaseChangeChart k κ s
+  let : IsOpenImmersion j := rationalConfigurationBaseChangeChart_isOpenImmersion k κ s
+  let hj : DenseRange j := rationalConfigurationBaseChangeChart_denseRange k κ s
+  exact finiteResidue_namedKummer_eq_openKummerResidue M n j hj hn
+    ((originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω) w
 
+/-- A pair of puncture labels determines the compatible named residues at all orders. -/
 theorem bare_rationalConfiguration_pair_namedResidues
     (k κ : Type) [Field k] [CharZero k] [Field.FG k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (eP : rationalConfigurationArithmeticGroup k κ s Ω₁ ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ω₂)
     (hP : ∀ γ,

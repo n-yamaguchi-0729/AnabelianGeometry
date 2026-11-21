@@ -74,14 +74,14 @@ theorem projectiveFieldMap_injective (ι : K →+* L) :
   intro p q h
   have hm : Projectivization.mk L (coordinateFieldMap ι p.rep)
       (map_zero (coordinateFieldMap ι) ▸
-        (coordinateFieldMap_injective ι).ne p.rep_nonzero) =
+        (coordinateFieldMap_injective ι).ne p.rep_ne_zero) =
       Projectivization.mk L (coordinateFieldMap ι q.rep)
       (map_zero (coordinateFieldMap ι) ▸
-        (coordinateFieldMap_injective ι).ne q.rep_nonzero) := by
-    exact ((projectiveFieldMap_mk ι p.rep p.rep_nonzero).symm.trans
+        (coordinateFieldMap_injective ι).ne q.rep_ne_zero) := by
+    exact ((projectiveFieldMap_mk ι p.rep p.rep_ne_zero).symm.trans
       (congrArg (projectiveFieldMap ι) p.mk_rep)).trans
       (h.trans ((congrArg (projectiveFieldMap ι) q.mk_rep).symm.trans
-        (projectiveFieldMap_mk ι q.rep q.rep_nonzero)))
+        (projectiveFieldMap_mk ι q.rep q.rep_ne_zero)))
   obtain ⟨t, ht⟩ := (Projectivization.mk_eq_mk_iff' L _ _ _ _).mp hm
   have hz : bracket (coordinateFieldMap ι p.rep) (coordinateFieldMap ι q.rep) = 0 := by
     rw [← ht]

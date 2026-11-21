@@ -28,10 +28,10 @@ theorem bare_rationalConfiguration_exists_matched_finiteBase_strict_transport
     [IsFiniteEtale (Spec.map (CommRingCat.ofHom (algebraMap k E)))]
     (s t : Finset (Projectivization k (k × k)))
     (Ωs Ωt : Type) [Field Ωs] [Field Ωt] [IsAlgClosed Ωs] [IsAlgClosed Ωt]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ωs]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ωt]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ωs]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ωt]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ωs]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ωt]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ωs]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ωt]
     (α : rationalConfigurationArithmeticGroup k κ s Ωs ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ωt)
     (hα : ∀ g, arithmeticFundamentalGroupHom k κ ((rationalConfigurationOpen t).ι ≫ π k 1)

@@ -22,6 +22,7 @@ public import Nyll.AlgebraicCurves.Cohomology.Sheaves.BaseChange.TwoTermComplexK
 public import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.BaseChangeEquiv
 public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.DZeroModulesEqZeroIffUnique
 public import Nyll.SchemeTheory.Cohomology.Cech.OrderedAffineCoverCech
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Vanishing.SectionsTopEquivH0Modules
 
 /-!
 # OModule Presheaf projective H0 and bijective ker Base Change Hom of is Reduced of finrank
@@ -29,6 +30,9 @@ eq
 -/
 
 @[expose] public section
+
+open _root_.AlgebraicGeometry.OModulePresheaf
+  (sectionsEquivH0)
 
 section ProofImplementation
 
@@ -469,59 +473,6 @@ theorem bijective_kerBaseChangeHom_of_transfer (A : Type u) [CommRing A] [Algebr
 
 end KerTransfer
 
-section H0
-
-variable {R : Type u} [CommRing R] {V : Scheme.{u}} (π : V ⟶ Spec (.of R)) (M : V.Modules)
-  (K : V.OrderedAffineCover)
-
-/-- Restrict a global section to the affine cover. -/
-def toCochain :
-    letI := Scheme.TwoAffineOpenCover.moduleSectionsOfHom π M ⊤
-    Γ(M, ⊤) →ₗ[R] (OModulePresheaf.ofModules π M).cochain K 0 :=
-  let := Scheme.TwoAffineOpenCover.moduleSectionsOfHom π M ⊤
-  LinearMap.pi fun s => (OModulePresheaf.ofModules π M).res (le_top : K.inter s ≤ ⊤)
-
-theorem toCochain_apply' (x : Γ(M, ⊤)) (s : K.Idx 0) :
-    toCochain π M K x s = (OModulePresheaf.ofModules π M).res (le_top : K.inter s ≤ ⊤)
-      (show (OModulePresheaf.ofModules π M).obj ⊤ from x) := rfl
-
-theorem d_toCochain (x : Γ(M, ⊤)) :
-    (OModulePresheaf.ofModules π M).d K 0 (toCochain π M K x) = 0 := by
-  funext s
-  rw [OModulePresheaf.d_apply, Fin.sum_univ_two]
-  simp only [Fin.val_zero, pow_zero, one_smul, Fin.val_one, pow_one, neg_smul, toCochain_apply']
-  change (OModulePresheaf.ofModules π M).obj ⊤ at x
-  rw [OModulePresheaf.res_res, OModulePresheaf.res_res]
-  exact add_neg_cancel ((OModulePresheaf.ofModules π M).res (le_top : K.inter s ≤ ⊤) x)
-
-theorem toCochain_mem (x : Γ(M, ⊤)) : toCochain π M K x ∈ (OModulePresheaf.ofModules π M).H0 K :=
-  d_toCochain π M K x
-
-theorem toCochain_injective : Function.Injective (toCochain π M K) := by
-  intro x y hxy
-  obtain ⟨z, -, huniq⟩ := (OModulePresheaf.d_zero_ofModules_eq_zero_iff_existsUnique π M K _).mp
-    (d_toCochain π M K x)
-  exact (huniq x fun s => rfl).trans (huniq y fun s => by rw [hxy]; rfl).symm
-
-theorem exists_toCochain_eq (c : (OModulePresheaf.ofModules π M).cochain K 0)
-    (hc : c ∈ (OModulePresheaf.ofModules π M).H0 K) : ∃ x : Γ(M, ⊤), toCochain π M K x = c := by
-  obtain ⟨x, hx, -⟩ := (OModulePresheaf.d_zero_ofModules_eq_zero_iff_existsUnique π M K c).mp hc
-  exact ⟨x, funext fun s => (hx s).symm⟩
-
-/-- Identify degree zero Cech cohomology with global sections. -/
-def H0Equiv :
-    letI := Scheme.TwoAffineOpenCover.moduleSectionsOfHom π M ⊤
-    (OModulePresheaf.ofModules π M).H0 K ≃ₗ[R] Γ(M, ⊤) :=
-  let := Scheme.TwoAffineOpenCover.moduleSectionsOfHom π M ⊤
-  (LinearEquiv.ofBijective (LinearMap.codRestrict ((OModulePresheaf.ofModules π M).H0 K)
-      (toCochain π M K) (toCochain_mem π M K))
-    ⟨fun x y h => toCochain_injective π M K (congrArg Subtype.val h),
-     fun ⟨c, hc⟩ => by
-      obtain ⟨x, rfl⟩ := exists_toCochain_eq π M K c hc
-      exact ⟨x, rfl⟩⟩).symm
-
-end H0
-
 section Main
 
 open _root_.AlgebraicGeometry.Scheme.TwoAffineOpenCover
@@ -558,7 +509,8 @@ theorem main
     let := Scheme.TwoAffineOpenCover.moduleSectionsOfHom p₂ ((Scheme.Modules.pullback p₁).obj M) ⊤
     obtain ⟨⟨⟨e1⟩, -⟩, -⟩ := OModulePresheaf.nonempty_cech_baseChange_equiv_of_locallyTrivial f 𝒰 M
       htriv K
-    let e2 := H0Equiv p₂ ((Scheme.Modules.pullback p₁).obj M) (𝒰.baseChange f K)
+    let e2 := (sectionsEquivH0 p₂
+      ((Scheme.Modules.pullback p₁).obj M) (𝒰.baseChange f K)).symm
     let e3 := LinearEquiv.ofBijective
       (TwoChartCech.kerMapBaseChange G.d ((OModulePresheaf.ofModules f M).d 𝒰 0) ι0 ι1 comm K)
         (hbij K)

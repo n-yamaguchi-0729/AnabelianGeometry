@@ -158,7 +158,8 @@ theorem le_idealSpan_sup_of_cotSpan_sup_cotImage_eq_top [IsNoetherianRing A] {ι
     rw [this]
     exact Submodule.add_mem_sup (Submodule.add_mem_sup hy hmkK) hsq
   have hfg : (maximalIdeal A : Submodule A A).FG := IsNoetherian.noetherian _
-  exact Submodule.le_of_le_smul_of_le_jacobson_bot hfg (maximalIdeal_le_jacobson ⊥) h1
+  exact Submodule.le_of_le_smul_of_le_jacobson hfg
+    (IsLocalRing.ringJacobson_eq_maximalIdeal A).ge h1
 
 end CotImage
 

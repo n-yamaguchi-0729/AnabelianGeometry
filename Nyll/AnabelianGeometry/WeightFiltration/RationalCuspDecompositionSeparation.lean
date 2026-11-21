@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.AnabelianGeometry.WeightFiltration.ArithmeticCorrectionRationalCuspInertia
 public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
 public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaMalnormal
@@ -41,15 +42,15 @@ attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
   rationalConfigurationGeometricFieldAlgebra rationalConfigurationGeometricConstantAlgebra
   rationalConfigurationGeometricField_scalarTower
   placeBaseAmbientAlgebra placeBaseAmbientTower placeConstantAmbientTower
-  normalizationCommAlgGaloisAction rationalConfigurationAmbientSMulRatFunc
+  normalizationCommAlgGaloisAction RatFunc.algebraSMul
 
 variable
     (k κ : Type) [Field k] [NumberField k]
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card)
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
 
 local notation "Δ" => rationalConfigurationGeometricGroup k κ s Ω
 local notation "Π" => rationalConfigurationArithmeticGroup k κ s Ω
@@ -71,7 +72,7 @@ private theorem chosenInertia_separation_data :
     (∀ p : B, ∃ z : Δ, z ∈ I p ∧ ∀ n : ℕ, n ≠ 0 → z ^ n ≠ 1) ∧
     ∀ (p r : B) (a x : Δ), x ≠ 1 → x ∈ I p →
       x ∈ (I r).map (MulAut.conj a).toMonoidHom → p = r ∧ a ∈ I p := by
-  let U := rationalConfigurationGeometricScheme k κ s
+  let U := originalFieldGeometricScheme k κ s
   let M := projectiveLineRatFuncModel κ
   let j : U ⟶ M.C := rationalConfigurationBaseChangeChart k κ s
   let : IsOpenImmersion j := inferInstanceAs
@@ -124,7 +125,7 @@ private theorem chosenDecomposition_comap_geometric (p : B) :
     (D p).comap ι = I p := by
   have hex := arithmetic_exactSequence_of_isSepClosure k κ
     (rationalConfigurationOpen s : Scheme) ((rationalConfigurationOpen s).ι ≫ π k 1)
-    ((rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω)
+    ((originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω)
   rw [rationalConfigurationChosenDecomposition_eq_normalizer k κ s Ω p hs]
   change (Subgroup.normalizer ((I p).map ι : Set Π)).comap ι = I p
   have hi : Function.Injective ι := hex.1
@@ -138,7 +139,7 @@ theorem rationalConfigurationChosenDecomposition_inf_geometricKernel (p : B) :
     D p ⊓ (q₀).ker = (I p).map ι := by
   have hex := arithmetic_exactSequence_of_isSepClosure k κ
     (rationalConfigurationOpen s : Scheme) ((rationalConfigurationOpen s).ι ≫ π k 1)
-    ((rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω)
+    ((originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω)
   have hmap := congrArg (fun H : Subgroup Δ => H.map ι)
     (chosenDecomposition_comap_geometric k κ s hs Ω p)
   rw [Subgroup.map_comap_eq] at hmap
@@ -154,7 +155,7 @@ theorem rationalConfigurationChosenDecomposition_common_geometric_ne_one
     p = r ∧ a ∈ D p := by
   have hex := arithmetic_exactSequence_of_isSepClosure k κ
     (rationalConfigurationOpen s : Scheme) ((rationalConfigurationOpen s).ι ≫ π k 1)
-    ((rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω)
+    ((originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω)
   have hrange : (ι).range = (q₀).ker := hex.2.2.symm
   obtain ⟨u, hu⟩ := (show x ∈ (ι).range from hrange.symm ▸ hxker)
   have hu1 : u ≠ 1 := by
@@ -221,7 +222,7 @@ theorem rationalConfigurationChosenDecomposition_finiteRelIndex_iff
       hindex.relIndex_ne_zero hzD
     have hex := arithmetic_exactSequence_of_isSepClosure k κ
       (rationalConfigurationOpen s : Scheme) ((rationalConfigurationOpen s).ι ≫ π k 1)
-      ((rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω)
+      ((originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω)
     have hn1 : (ι z) ^ n ≠ 1 := by
       intro h
       apply hzpow n (Nat.ne_of_gt hn)

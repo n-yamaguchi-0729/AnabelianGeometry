@@ -5,7 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 module
 
-public import Nyll.AlgebraicCurves.Places.Rational.Basic
+public import Nyll.AlgebraicCurves.Places.RingEquiv
 public import Nyll.AnabelianGeometry.WeightFiltration.GenericPlaceInertiaRingEquiv
 public import Nyll.AnabelianGeometry.WeightFiltration.NamedModelPointedInertia
 public import Nyll.EtaleFundamentalGroups.Inertia.GenericPlaceInertiaImage

@@ -50,7 +50,7 @@ theorem eq_infinityPoint_or_exists_affinePoint (p : Projectivization K (K × K))
   · right
     refine ⟨p.rep.1 / p.rep.2, ?_⟩
     calc
-      p = Projectivization.mk K p.rep p.rep_nonzero := p.mk_rep.symm
+      p = Projectivization.mk K p.rep p.rep_ne_zero := p.mk_rep.symm
       _ = affinePoint (p.rep.1 / p.rep.2) := by
         apply (Projectivization.mk_eq_mk_iff' K _ _ _ _).mpr
         refine ⟨p.rep.2, ?_⟩

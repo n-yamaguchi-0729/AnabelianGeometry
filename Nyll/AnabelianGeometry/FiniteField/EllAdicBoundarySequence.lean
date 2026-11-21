@@ -107,77 +107,66 @@ theorem exists_finiteKummerH1Lift_prescribedResidue [Algebra.EssFiniteType K F]
 
 variable (ℓ : ℕ) [Fact ℓ.Prime] (hℓ : IsUnit (ℓ : K))
 
-private def residueExponent (n : ℕ) : ℕ+ :=
-  ⟨ℓ ^ (n + 1), pow_pos (Fact.out : ℓ.Prime).pos _⟩
-
-include hℓ in
-omit [IsAlgClosed K] in
-private theorem residueExponent_isUnit (n : ℕ) :
-    IsUnit (((residueExponent ℓ n : ℕ+) : ℕ) : K) := by
-  change IsUnit ((ℓ ^ (n + 1) : ℕ) : K)
-  rw [Nat.cast_pow]
-  exact hℓ.pow (n + 1)
-
 private def finiteLevelBoundaryMap (n : ℕ) :
     finiteLevelCohomology X ℓ n 1 →+
       JacobianVarieties.Kummer.boundaryResidueGroup
-        (M.openBoundaryPlaces j) (residueExponent ℓ n) :=
-  (finiteBoundaryResidue M (residueExponent ℓ n) j hj
-    (residueExponent_isUnit ℓ hℓ n) ξ).comp
+        (M.openBoundaryPlaces j) (boundaryExponent ℓ n) :=
+  (finiteBoundaryResidue M (boundaryExponent ℓ n) j hj
+    (boundaryExponent_isUnit ℓ hℓ n) ξ).comp
       (finiteLevelKummerEquiv K X ℓ hℓ n 1).toAddMonoidHom
 
 private theorem finiteLevelBoundaryMap_transition (n : ℕ)
     (a : finiteLevelCohomology X ℓ (n + 1) 1) :
     finiteLevelBoundaryMap M j hj ξ ℓ hℓ n (finiteLevelReduction X ℓ n 1 a) =
-      boundaryResidueReduce (m := residueExponent ℓ n) (n := residueExponent ℓ (n + 1))
+      boundaryResidueReduce (m := boundaryExponent ℓ n) (n := boundaryExponent ℓ (n + 1))
         (pow_dvd_pow ℓ (Nat.le_succ (n + 1)))
         (finiteLevelBoundaryMap M j hj ξ ℓ hℓ (n + 1) a) := by
-  change finiteBoundaryResidue M (residueExponent ℓ n) j hj
-      (residueExponent_isUnit ℓ hℓ n) ξ
+  change finiteBoundaryResidue M (boundaryExponent ℓ n) j hj
+      (boundaryExponent_isUnit ℓ hℓ n) ξ
       (finiteLevelKummerEquiv K X ℓ hℓ n 1 (finiteLevelReduction X ℓ n 1 a)) = _
   rw [← finiteLevelKummerEquiv_reduction]
   exact finiteBoundaryResidue_dvdReduction M
-    (m := residueExponent ℓ n) (n := residueExponent ℓ (n + 1))
+    (m := boundaryExponent ℓ n) (n := boundaryExponent ℓ (n + 1))
     (pow_dvd_pow ℓ (Nat.le_succ (n + 1))) j hj
-    (residueExponent_isUnit ℓ hℓ n) (residueExponent_isUnit ℓ hℓ (n + 1)) ξ
+    (boundaryExponent_isUnit ℓ hℓ n) (boundaryExponent_isUnit ℓ hℓ (n + 1)) ξ
     (finiteLevelKummerEquiv K X ℓ hℓ (n + 1) 1 a)
 
 private theorem finiteLevelBoundaryMap_surjective (n : ℕ) :
     Function.Surjective (finiteLevelBoundaryMap M j hj ξ ℓ hℓ n) := by
   obtain ⟨ε⟩ := M.nonempty_rationalPoint
-  exact (finiteBoundaryResidue_surjective_all M (residueExponent ℓ n) j hj
-    (residueExponent_isUnit ℓ hℓ n) ξ ε).comp
+  exact (finiteBoundaryResidue_surjective_all M (boundaryExponent ℓ n) j hj
+    (boundaryExponent_isUnit ℓ hℓ n) ξ ε).comp
       (finiteLevelKummerEquiv K X ℓ hℓ n 1).surjective
 
 private theorem exists_finiteLevelLift_prescribedResidue [Algebra.EssFiniteType K F] (n : ℕ)
     (a : finiteLevelCohomology X ℓ n 1)
     (b : JacobianVarieties.Kummer.boundaryResidueGroup
-      (M.openBoundaryPlaces j) (residueExponent ℓ (n + 1)))
-    (hb : boundaryResidueReduce (m := residueExponent ℓ n) (n := residueExponent ℓ (n + 1))
+      (M.openBoundaryPlaces j) (boundaryExponent ℓ (n + 1)))
+    (hb : boundaryResidueReduce (m := boundaryExponent ℓ n) (n := boundaryExponent ℓ (n + 1))
         (pow_dvd_pow ℓ (Nat.le_succ (n + 1))) b =
       finiteLevelBoundaryMap M j hj ξ ℓ hℓ n a) :
     ∃ c : finiteLevelCohomology X ℓ (n + 1) 1,
       finiteLevelReduction X ℓ n 1 c = a ∧
         finiteLevelBoundaryMap M j hj ξ ℓ hℓ (n + 1) c = b := by
   obtain ⟨c, hc, hres⟩ := exists_finiteKummerH1Lift_prescribedResidue M j hj ξ
-    (residueExponent ℓ n) (residueExponent ℓ (n + 1))
+    (boundaryExponent ℓ n) (boundaryExponent ℓ (n + 1))
     (pow_dvd_pow ℓ (Nat.le_succ (n + 1)))
-    (residueExponent_isUnit ℓ hℓ n) (residueExponent_isUnit ℓ hℓ (n + 1))
+    (boundaryExponent_isUnit ℓ hℓ n) (boundaryExponent_isUnit ℓ hℓ (n + 1))
     (finiteLevelKummerEquiv K X ℓ hℓ n 1 a) b hb
   refine ⟨(finiteLevelKummerEquiv K X ℓ hℓ (n + 1) 1).symm c, ?_, ?_⟩
   · apply (finiteLevelKummerEquiv K X ℓ hℓ n 1).injective
     exact (finiteLevelKummerEquiv_reduction K X ℓ hℓ n 1
       ((finiteLevelKummerEquiv K X ℓ hℓ (n + 1) 1).symm c)).symm.trans
         ((congrArg (finiteKummerH1DvdReduce X
-          (m := residueExponent ℓ n) (n := residueExponent ℓ (n + 1))
+          (m := boundaryExponent ℓ n) (n := boundaryExponent ℓ (n + 1))
           (pow_dvd_pow ℓ (Nat.le_succ (n + 1))))
             ((finiteLevelKummerEquiv K X ℓ hℓ (n + 1) 1).apply_symm_apply c)).trans hc)
-  · change finiteBoundaryResidue M (residueExponent ℓ (n + 1)) j hj
-      (residueExponent_isUnit ℓ hℓ (n + 1)) ξ
+  · change finiteBoundaryResidue M (boundaryExponent ℓ (n + 1)) j hj
+      (boundaryExponent_isUnit ℓ hℓ (n + 1)) ξ
       (finiteLevelKummerEquiv K X ℓ hℓ (n + 1) 1
         ((finiteLevelKummerEquiv K X ℓ hℓ (n + 1) 1).symm c)) = b
-    exact (congrArg (finiteBoundaryResidue M (residueExponent ℓ (n + 1)) j hj
-      (residueExponent_isUnit ℓ hℓ (n + 1)) ξ)
+    exact (congrArg (finiteBoundaryResidue M (boundaryExponent ℓ (n + 1)) j hj
+      (boundaryExponent_isUnit ℓ hℓ (n + 1)) ξ)
         ((finiteLevelKummerEquiv K X ℓ hℓ (n + 1) 1).apply_symm_apply c)).trans hres
 
 /-- Original residues at successive finite levels are compatible. -/
@@ -260,8 +249,8 @@ private theorem ellAdicBoundaryResidue_smul (n : ℕ)
     (c : ℤ_[ℓ]) (a : ellAdicCohomology X ℓ 1) (v : M.openBoundaryPlaces j) :
     ellAdicBoundaryResidue M j hj ξ ℓ hℓ n (c • a) v =
       PadicInt.toZModPow (n + 1) c * ellAdicBoundaryResidue M j hj ξ ℓ hℓ n a v := by
-  let B := (finiteResidue M (residueExponent ℓ n) j hj
-    (residueExponent_isUnit ℓ hℓ n) ξ).comp
+  let B := (finiteResidue M (boundaryExponent ℓ n) j hj
+    (boundaryExponent_isUnit ℓ hℓ n) ξ).comp
       (finiteLevelKummerEquiv K X ℓ hℓ n 1).toAddMonoidHom
   change B (c • ellAdicProjection X ℓ 1 n a) v = _
   rw [finiteLevel_smul_eq_appr_nsmul]
@@ -323,12 +312,12 @@ theorem ellAdicBoundaryMap_surjective [Algebra.EssFiniteType K F] :
     Function.Surjective (ellAdicBoundaryMap M j hj ξ ℓ hℓ) := by
   intro z
   let b (n : ℕ) : JacobianVarieties.Kummer.boundaryResidueGroup
-      (M.openBoundaryPlaces j) (residueExponent ℓ n) :=
+      (M.openBoundaryPlaces j) (boundaryExponent ℓ n) :=
     ⟨fun v => PadicInt.toZModPow (n + 1) (z.val v), by
       change (∑ v, PadicInt.toZModPow (n + 1) (z.val v)) = 0
       rw [← map_sum, z.property, map_zero]⟩
   have hb (n : ℕ) :
-      boundaryResidueReduce (m := residueExponent ℓ n) (n := residueExponent ℓ (n + 1))
+      boundaryResidueReduce (m := boundaryExponent ℓ n) (n := boundaryExponent ℓ (n + 1))
         (pow_dvd_pow ℓ (Nat.le_succ (n + 1))) (b (n + 1)) =
         b n := by
     apply Subtype.ext

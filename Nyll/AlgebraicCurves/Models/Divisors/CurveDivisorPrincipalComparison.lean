@@ -14,7 +14,8 @@ public import Nyll.SchemeTheory.FunctionFields.OpenImmersion
 public import Nyll.SchemeTheory.FunctionFields.StalkFunctoriality
 public import Mathlib.AlgebraicGeometry.FunctionField
 public import Mathlib.AlgebraicGeometry.StructureSheaf
-public import Mathlib.RingTheory.DedekindDomain.AdicValuation
+public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Completion
+public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Valuation
 public import Mathlib.RingTheory.Localization.AsSubring
 
 /-!

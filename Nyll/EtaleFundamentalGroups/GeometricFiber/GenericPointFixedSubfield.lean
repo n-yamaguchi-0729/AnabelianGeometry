@@ -6,6 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 module
 
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceGalois
 public import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointEssentialImage
 public import Nyll.EtaleFundamentalGroups.Inertia.NormalSubgroupEmbeddings
 public import Mathlib.AlgebraicGeometry.GammaSpecAdjunction
@@ -31,93 +32,22 @@ namespace AlgebraicGeometry.FiniteEtale
 
 universe u
 
-private def finiteSubfieldCover (K : Type u) [Field K]
-    (L : IntermediateField K (SeparableClosure K)) [FiniteDimensional K L] :
-    FiniteEtale (Spec (.of K)) := by
-  let : Algebra.Etale K L :=
-    ⟨Algebra.FormallyEtale.of_isSeparable K L,
-      Algebra.FinitePresentation.of_finiteType.mp inferInstance⟩
-  let : IsFiniteEtale (ξ K L) := by
-    rw [IsFiniteEtale.SpecMap_iff, CommRingCat.hom_ofHom,
-      RingHom.finiteEtale_algebraMap_iff]
-    exact ⟨⟩
-  exact FiniteEtale.mk (ξ K L)
-
-private def subfieldPointEquiv (K : Type u) [Field K]
-    (L : IntermediateField K (SeparableClosure K)) [FiniteDimensional K L] :
-    (Over.mk (ξ K (SeparableClosure K)) ⟶ (finiteSubfieldCover K L).toComma) ≃
-      (L →ₐ[K] SeparableClosure K) :=
-  ({ toFun := fun x ↦ ⟨x.left, x.w⟩
-     invFun := fun x ↦ Over.homMk x.val x.property
-     left_inv := fun _ ↦ Over.OverMorphism.ext rfl
-     right_inv := fun _ ↦ Subtype.ext rfl } :
-    (Over.mk (ξ K (SeparableClosure K)) ⟶ (finiteSubfieldCover K L).toComma) ≃
-      {f : Spec (.of (SeparableClosure K)) ⟶ Spec (.of L) //
-        f ≫ Spec.algebraMap K L = Spec.algebraMap K (SeparableClosure K)}).trans
-    Spec.homEquivAlgHom
-
-private theorem subfieldPointEquiv_smul (K : Type u) [Field K]
-    (L : IntermediateField K (SeparableClosure K)) [FiniteDimensional K L]
-    (g : SeparableClosure K ≃ₐ[K] SeparableClosure K)
-    (x : Over.mk (Spec.map (CommRingCat.ofHom (algebraMap K (SeparableClosure K)))) ⟶
-      (finiteSubfieldCover K L).toComma) :
-    subfieldPointEquiv K L (g • x) = g.toAlgHom.comp (subfieldPointEquiv K L x) := by
-  let y : Spec (.of (SeparableClosure K)) ⟶ Spec (.of L) := x.left
-  apply AlgHom.toRingHom_injective
-  change (Spec.preimage
-    (Spec.map (CommRingCat.ofHom g.toRingHom) ≫ y)).hom =
-      g.toRingHom.comp (Spec.preimage y).hom
-  rw [Spec.preimage_comp, Spec.preimage_map]
-  rfl
-
-private theorem subfieldAction_ker_iff (K : Type u) [Field K]
-    (L : IntermediateField K (SeparableClosure K)) [FiniteDimensional K L]
-    (g : SeparableClosure K ≃ₐ[K] SeparableClosure K) :
-    g ∈ (Action.ρAut
-      (((equivContAction K (SeparableClosure K)).functor.obj
-        (finiteSubfieldCover K L)).obj)).ker ↔
-      ∀ φ : L →ₐ[K] SeparableClosure K, g.toAlgHom.comp φ = φ := by
-  let W := finiteSubfieldCover K L
-  let e := (fiberObjEquivHom (ξ K (SeparableClosure K)) W).trans
-    (subfieldPointEquiv K L)
-  have he (x : (fib K (SeparableClosure K)).obj W) :
-      e (g • x) = g.toAlgHom.comp (e x) := by
-    change subfieldPointEquiv K L (fiberObjEquivHom (ξ K (SeparableClosure K)) W
-      (g • x)) = _
-    rw [algEquiv_smul_fiber_def, Equiv.apply_symm_apply]
-    exact subfieldPointEquiv_smul K L g _
-  constructor
-  · intro h φ
-    have hg := congrArg (fun a ↦ a.asIso.hom) (MonoidHom.mem_ker.mp h)
-    have hx : g • e.symm φ = e.symm φ := by
-      exact ConcreteCategory.congr_hom hg (e.symm φ)
-    have hx' := congrArg e hx
-    rw [he, Equiv.apply_symm_apply] at hx'
-    exact hx'
-  · intro h
-    apply MonoidHom.mem_ker.mpr
-    apply Aut.ext
-    apply Iso.ext
-    apply FintypeCat.hom_ext
-    intro x
-    change g • x = x
-    apply e.injective
-    exact (he x).trans (h (e x))
-
 private theorem subfieldCover_essImage_iff (X : Scheme.{u})
     [IsIntegral X] [IsNormalIntegral X]
     (L : IntermediateField X.functionField (SeparableClosure X.functionField))
     [FiniteDimensional X.functionField L] :
     (pullback (X.fromSpecStalk (genericPoint X))).essImage
-      (finiteSubfieldCover X.functionField L) ↔
+      (fieldSourceFiniteSubfieldCover X.functionField (SeparableClosure X.functionField) L) ↔
         (genericAbsoluteGaloisHom X).toMonoidHom.ker ≤ L.fixingSubgroup := by
   rw [genericPullback_obj_essImage_iff_ker_le_ker_ρAut]
   rw [← EtaleFundamentalGroups.normalSubgroup_fixes_embeddings_iff_le_fixingSubgroup]
   constructor
   · intro h g hg
-    exact (subfieldAction_ker_iff X.functionField L g).mp (h hg)
+    exact (fieldSourceSubfieldAction_ker_iff X.functionField
+      (SeparableClosure X.functionField) L g).mp (h hg)
   · intro h g hg
-    exact (subfieldAction_ker_iff X.functionField L g).mpr (h g hg)
+    exact (fieldSourceSubfieldAction_ker_iff X.functionField
+      (SeparableClosure X.functionField) L g).mpr (h g hg)
 
 /-- A finite intermediate field is fixed by the generic Galois kernel
 exactly when its literal spectrum is the generic fiber of a finite étale

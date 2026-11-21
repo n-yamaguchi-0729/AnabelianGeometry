@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationPunctureEquiv
 public import Nyll.EtaleFundamentalGroups.GeometricFiber.MatchedFiberCoverGroupTransport
 public import Nyll.EtaleFundamentalGroups.GeometricFiber.PointedCoverInjectivity
@@ -119,9 +120,7 @@ attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
   rationalConfigurationGeometricField_scalarTower
   placeBaseAmbientAlgebra placeBaseAmbientTower placeConstantAmbientTower
 
-local instance (priority := 2000) liftedPunctureSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E] [Algebra A (RatFunc E)] :
-    SMul A (RatFunc E) := (inferInstance : Algebra A (RatFunc E)).toSMul
+attribute [local instance 2000] RatFunc.algebraSMul
 
 
 /-- The nontrivial-intersection separation owner on the original rational labels. -/
@@ -130,8 +129,8 @@ theorem rationalConfigurationChosenInertia_common_ne_one_imp_eq
     [Algebra k κ] [Infinite k]
     (s : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card)
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     (p q : (projectiveLineRatFuncModel κ).openBoundaryPlaces
       (rationalConfigurationBaseChangeChart k κ s))
     (a b x : rationalConfigurationGeometricGroup k κ s Ω)
@@ -141,7 +140,7 @@ theorem rationalConfigurationChosenInertia_common_ne_one_imp_eq
     (hq : x ∈ (rationalConfigurationChosenInertia k κ s Ω q).map
       (MulAut.conj b).toMonoidHom) :
     p = q := by
-  let U := rationalConfigurationGeometricScheme k κ s
+  let U := originalFieldGeometricScheme k κ s
   let M := projectiveLineRatFuncModel κ
   let j : U ⟶ M.C := rationalConfigurationBaseChangeChart k κ s
   let : IsOpenImmersion j := inferInstanceAs

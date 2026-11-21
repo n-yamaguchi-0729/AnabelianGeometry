@@ -115,7 +115,7 @@ theorem arithmeticKernel_closedCommutator_eq_bot
     (eta ≫ pullback.snd b f)).toMonoidHom.ker
   let : CommGroup D :=
     { (inferInstance : Group D) with mul_comm := arithmeticKernel_mul_comm k κ G eta }
-  exact TopologicalAbelianization.closedCommutator_eq_bot_of_commGroup_t1 D
+  exact Subgroup.closedCommutator_eq_bot_of_commGroup_t1 D
 
 /-- An original morphism to the group scheme has equal full target
 monodromy on elements equal in the source's first arithmetic quotient. -/

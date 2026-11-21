@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.SchemeTheory.FunctionFields.OpenChartGenericPoints
 public import Nyll.AlgebraicCurves.Models.Charts.OpenChartGenericPoints
 public import Nyll.SchemeTheory.ProjectiveSpace.ProjectiveLineRatFuncBaseChange
@@ -31,10 +32,7 @@ namespace AlgebraicGeometry.ProjSpace
 
 attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra projectiveSpace_isIntegral
 
-local instance (priority := 2000) genericPointsSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E]
-    [Algebra A (RatFunc E)] : SMul A (RatFunc E) :=
-  (inferInstance : Algebra A (RatFunc E)).toSMul
+attribute [local instance 2000] RatFunc.algebraSMul
 
 variable (k κ : Type u) [Field k] [Field κ] [Algebra k κ]
 

@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.EtaleFundamentalGroups.Inertia.RationalGeometricCuspNormalizer
 public import Nyll.AnabelianGeometry.WeightFiltration.GenericPlaceInertiaChartImage
 
@@ -21,10 +22,7 @@ attribute [local instance] Polynomial.algebra
 
 namespace AnabelianGeometry.WeightFiltration
 attribute [local instance] normalizationCommAlgGaloisAction
-local instance (priority := 2000) originalGeometricCuspNormalizerSMulRatFunc
-    {R K : Type*} [CommSemiring R] [Field K]
-    [Algebra R (RatFunc K)] : SMul R (RatFunc K) :=
-  (inferInstance : Algebra R (RatFunc K)).toSMul
+attribute [local instance 2000] RatFunc.algebraSMul
 
 private theorem maximal_comap_ringEquiv
     {A B : Type*} [CommRing A] [CommRing B]

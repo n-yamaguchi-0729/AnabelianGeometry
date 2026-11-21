@@ -21,21 +21,9 @@ open scoped RatFunc
 attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
 namespace AnabelianGeometry.WeightFiltration
 
-local instance pointedCoherentModelOverCategory (S : Scheme) :
-    Category (MorphismProperty.Over
-      (@IsFiniteEtale : MorphismProperty Scheme) ⊤ S) :=
-  AlgebraicGeometry.FiniteEtale.instCategory S
-local instance pointedCoherentModelHasPullbacksAlong
-    {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.HasPullbacksAlong
-      (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun _ _ ↦ inferInstance⟩
-local instance pointedCoherentModelStableUnderBaseChangeAlong
-    {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.IsStableUnderBaseChangeAlong
-      (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun h hf ↦ MorphismProperty.of_isPullback
-    (P := (@IsFiniteEtale : MorphismProperty Scheme)) h hf⟩
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleOverCategory
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleHasPullbacksAlong
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleIsStableUnderBaseChangeAlong
 
 theorem namedSquareModel_pointed_coherent_actualBaseChange
     (E κ : Type) [Field E] [Field κ] [Algebra E κ] [Infinite E]
@@ -86,7 +74,7 @@ theorem namedSquareModel_pointed_coherent_actualBaseChange
     let hconn : CategoryTheory.PreGaloisCategory.IsConnected Wκ :=
       @namedSquareModel_actualBaseChange_isConnected E κ _ _ _ X j hj W p hp
         Jmodel hJmodel Ω _ _ ξκ wκ
-    ∃ Jκ : Wκ.left ≅ rationalConfigurationGeometricScheme E κ t,
+    ∃ Jκ : Wκ.left ≅ originalFieldGeometricScheme E κ t,
       Jκ.hom ≫ pullback.snd φ g = pullback.fst W.hom b ≫ J.hom ∧
       Jκ.hom ≫ pullback.fst φ g = Wκ.hom ≫ pullback.fst φ f ∧
       let qκ := Jκ.inv ≫ Wκ.hom
@@ -108,11 +96,11 @@ theorem namedSquareModel_pointed_coherent_actualBaseChange
         let wκ := (pointedPullbackFiberEquiv b ξκ (ξκ ≫ b) rfl W).symm w
         let lift := fiberObjEquivHom ξκ Wκ wκ
         let emb := finiteEtaleGenericHomFunctionFieldAlgHom Wκ lift
-        let A : Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ω :=
+        let A : Algebra (originalFieldGeometricScheme E κ t).functionField Ω :=
           (emb.toRingHom.comp (Jκ.hom.functionFieldMap hJdense)).toAlgebra
-        (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω =
+        (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ω =
           actualFiberPointLift ξκ Wκ wκ ≫ Jκ.hom ∧
-        (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω ≫
+        (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ω ≫
             pullback.snd φ g = actualFiberPointLift (ξκ ≫ b) W w ≫ J.hom := by
   intro φ f g b Uκ Wκ ξκ jκ wκ hconn
   exact namedSquareModel_coherent_actualBaseChange

@@ -5,7 +5,8 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 module
 
-public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineAmbientFields
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
+public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineOriginalFields
 public import Nyll.AlgebraicCurves.Models.Rational.RationalConfigurationBoundaryPlaceOrders
 public import Nyll.AlgebraicCurves.Models.Ramification.BoundaryNormalizationPrimes
 public import Nyll.AnabelianGeometry.WeightFiltration.FieldChartBoundaryPrimeFamily
@@ -39,25 +40,16 @@ attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
   rationalConfigurationGeometricField_scalarTower
   placeBaseAmbientAlgebra placeBaseAmbientTower placeConstantAmbientTower
 
-local instance (priority := 2000) bareConfigurationSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E] [Algebra A (RatFunc E)] :
-    SMul A (RatFunc E) := (inferInstance : Algebra A (RatFunc E)).toSMul
-
-/-- The literal geometric pullback, with all original configuration parameters. -/
-abbrev rationalConfigurationGeometricScheme
-    (k κ : Type) [Field k] [Field κ] [Algebra k κ]
-    (s : Finset (Projectivization k (k × k))) : Scheme :=
-  Limits.pullback (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
-    ((rationalConfigurationOpen s).ι ≫ π k 1)
+attribute [local instance 2000] RatFunc.algebraSMul
 
 /-- The generic point of the original arithmetic open, induced from the same Ω. -/
 def rationalConfigurationArithmeticBasePoint
     (k κ : Type) [Field k] [Field κ] [Algebra k κ] [Infinite k]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω] :
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω] :
     Spec (.of Ω) ⟶ (rationalConfigurationOpen s : Scheme) :=
-  (rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω ≫
+  (originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω ≫
     Limits.pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
       ((rationalConfigurationOpen s).ι ≫ π k 1)
 
@@ -66,15 +58,15 @@ abbrev rationalConfigurationGeometricGroup
     (k κ : Type) [Field k] [Field κ] [Algebra k κ] [Infinite k]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω] :=
-  Aut (fiber ((rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω))
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω] :=
+  Aut (fiber ((originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω))
 
 /-- The actual arithmetic fundamental group at the corresponding arithmetic point. -/
 abbrev rationalConfigurationArithmeticGroup
     (k κ : Type) [Field k] [Field κ] [Algebra k κ] [Infinite k]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω] :=
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω] :=
   Aut (fiber (rationalConfigurationArithmeticBasePoint k κ s Ω))
 
 /-- The original geometric-to-arithmetic map, with no choice of a lift. -/
@@ -82,25 +74,25 @@ def rationalConfigurationGeometricInclusion
     (k κ : Type) [Field k] [Field κ] [Algebra k κ] [Infinite k]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω] :
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω] :
     rationalConfigurationGeometricGroup k κ s Ω →ₜ*
       rationalConfigurationArithmeticGroup k κ s Ω :=
   fundamentalGroupHom
     (Limits.pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
       ((rationalConfigurationOpen s).ι ≫ π k 1))
-    ((rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω)
+    ((originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω)
 
 /-- Original place inertia, using a fixed prime family in the original RatFunc chart. -/
 def rationalConfigurationChosenInertia
     (k κ : Type) [Field k] [Field κ] [CharZero κ] [Algebra k κ] [Infinite k]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     (p : (projectiveLineRatFuncModel κ).openBoundaryPlaces
       (rationalConfigurationBaseChangeChart k κ s)) :
     Subgroup (rationalConfigurationGeometricGroup k κ s Ω) := by
-  let U := rationalConfigurationGeometricScheme k κ s
+  let U := originalFieldGeometricScheme k κ s
   let : CharZero U.functionField := Algebra.charZero_of_charZero (R := κ) (A := U.functionField)
   let : IsSepClosure U.functionField Ω := inferInstance
   let : Algebra (RatFunc κ) Ω := rationalConfigurationGeometricAmbientAlgebra k κ s Ω
@@ -118,7 +110,7 @@ abbrev rationalConfigurationCanonicalAmbient
     (k : Type) [Field k] [CharZero k] [Field.FG k]
     (s : Finset (Projectivization k (k × k))) :=
   AlgebraicClosure
-    (rationalConfigurationGeometricScheme k (AlgebraicClosure k) s).functionField
+    (originalFieldGeometricScheme k (AlgebraicClosure k) s).functionField
 
 end AlgebraicGeometry.ProjSpace
 
@@ -131,9 +123,7 @@ attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
   rationalConfigurationGeometricField_scalarTower
   placeBaseAmbientAlgebra placeBaseAmbientTower placeConstantAmbientTower
 
-local instance (priority := 2000) bareRecognitionSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E] [Algebra A (RatFunc E)] :
-    SMul A (RatFunc E) := (inferInstance : Algebra A (RatFunc E)).toSMul
+attribute [local instance 2000] RatFunc.algebraSMul
 
 /-- Every actual source cusp is recognized using one fixed geometric equivalence
 above the given arithmetic isomorphism. All finite cardinalities at least three
@@ -143,10 +133,10 @@ theorem bare_rationalConfiguration_allCusps_recognition
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (eP : rationalConfigurationArithmeticGroup k κ s Ω₁ ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ω₂)
     (hP : ∀ γ,
@@ -167,8 +157,8 @@ theorem bare_rationalConfiguration_allCusps_recognition
             (rationalConfigurationChosenInertia k κ t Ω₂ q).map
               (MulAut.conj a).toMonoidHom := by
   classical
-  let U₁ := rationalConfigurationGeometricScheme k κ s
-  let U₂ := rationalConfigurationGeometricScheme k κ t
+  let U₁ := originalFieldGeometricScheme k κ s
+  let U₂ := originalFieldGeometricScheme k κ t
   let M := projectiveLineRatFuncModel κ
   let j₁ : U₁ ⟶ M.C := rationalConfigurationBaseChangeChart k κ s
   let jt : U₂ ⟶ M.C := rationalConfigurationBaseChangeChart k κ t

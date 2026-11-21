@@ -43,7 +43,7 @@ private theorem finiteLocal_algebraMap_isLocalHom
     IsLocalRing.eq_maximalIdeal
       (Ideal.isMaximal_under_of_isIntegral_of_isMaximal (R := R)
         (IsLocalRing.maximalIdeal B))
-  exact ((IsLocalRing.local_hom_TFAE (algebraMap R B)).out 1 5).mpr hcontract
+  exact ((IsLocalRing.local_hom_tfae (algebraMap R B)).out 1 5).mpr hcontract
 
 /-- The residue field of a finite local algebra over a local ring with
 separably closed residue field is separably closed. -/
@@ -73,7 +73,7 @@ private theorem finiteLocalPoint_isLocalHom
       infer_instance)
   have hker : RingHom.ker ψ = IsLocalRing.maximalIdeal B :=
     IsLocalRing.eq_maximalIdeal hmax
-  apply ((IsLocalRing.local_hom_TFAE ψ).out 1 5).mpr
+  apply ((IsLocalRing.local_hom_tfae ψ).out 1 5).mpr
   simpa only [IsLocalRing.maximalIdeal_eq_bot, RingHom.ker] using hker
 
 /-- A prescribed geometric closed point of a local ring with separably

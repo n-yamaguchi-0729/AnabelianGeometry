@@ -27,16 +27,9 @@ open scoped FintypeCatDiscrete
 attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
 namespace AnabelianGeometry.WeightFiltration
 
-local instance actualPointedSquareOverCategory (S : Scheme) :
-    Category (MorphismProperty.Over (@IsFiniteEtale : MorphismProperty Scheme) ⊤ S) :=
-  AlgebraicGeometry.FiniteEtale.instCategory S
-local instance actualPointedSquareHasPullbacksAlong {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.HasPullbacksAlong (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun _ _ ↦ inferInstance⟩
-local instance actualPointedSquareStableUnderBaseChangeAlong {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.IsStableUnderBaseChangeAlong (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun h hf ↦ MorphismProperty.of_isPullback
-    (P := (@IsFiniteEtale : MorphismProperty Scheme)) h hf⟩
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleOverCategory
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleHasPullbacksAlong
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleIsStableUnderBaseChangeAlong
 
 theorem namedSquareModels_actual_projections_exists_geometric_square
     (E κ : Type) [Field E] [Field κ] [Algebra E κ] [IsSepClosure E κ]
@@ -53,8 +46,8 @@ theorem namedSquareModels_actual_projections_exists_geometric_square
     (AS : FiniteEtale XS) (AT : FiniteEtale XT) [CategoryTheory.PreGaloisCategory.IsConnected AS]
     [CategoryTheory.PreGaloisCategory.IsConnected AT]
     (s t : Finset (Projectivization E (E × E)))
-    [modelASΩ : Algebra (rationalConfigurationGeometricScheme E κ s).functionField Ωs]
-    [modelATΩ : Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ωt]
+    [modelASΩ : Algebra (originalFieldGeometricScheme E κ s).functionField Ωs]
+    [modelATΩ : Algebra (originalFieldGeometricScheme E κ t).functionField Ωt]
     (ys : Spec (.of Ωs) ⟶ XS) (yt : Spec (.of Ωt) ⟶ XT)
     (hxs : xs ≫ pullback.snd _ fs = ys) (hxt : xt ≫ pullback.snd _ ft = yt)
     (α : π₁ᵉᵗ(ys) ≃ₜ* π₁ᵉᵗ(yt))
@@ -75,9 +68,9 @@ theorem namedSquareModels_actual_projections_exists_geometric_square
       namedModelPoint AS ys w JS)
     (hmodelarithT : rationalConfigurationArithmeticBasePoint E κ t Ωt =
       namedModelPoint AT yt (e w) JT)
-    (qκs : rationalConfigurationGeometricScheme E κ s ⟶
+    (qκs : originalFieldGeometricScheme E κ s ⟶
       pullback (Spec.map (CommRingCat.ofHom (algebraMap E κ))) fs)
-    (qκt : rationalConfigurationGeometricScheme E κ t ⟶
+    (qκt : originalFieldGeometricScheme E κ t ⟶
       pullback (Spec.map (CommRingCat.ofHom (algebraMap E κ))) ft)
     (hcoeffS : qκs ≫ pullback.snd _ fs =
       pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap E κ)))
@@ -85,9 +78,9 @@ theorem namedSquareModels_actual_projections_exists_geometric_square
     (hcoeffT : qκt ≫ pullback.snd _ ft =
       pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap E κ)))
         ((rationalConfigurationOpen t).ι ≫ π E 1) ≫ qt)
-    (hgeomS : (rationalConfigurationGeometricScheme E κ s).genericExtensionMorphism Ωs ≫
+    (hgeomS : (originalFieldGeometricScheme E κ s).genericExtensionMorphism Ωs ≫
       qκs = xs)
-    (hgeomT : (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ωt ≫
+    (hgeomT : (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ωt ≫
       qκt = xt) :
     ∃ αΔ : π₁ᵉᵗ(xs) ≃ₜ* π₁ᵉᵗ(xt),
       (∀ z, pointedFundamentalGroupHom (pullback.snd _ ft) xt yt hxt (αΔ z) =
@@ -103,10 +96,10 @@ theorem namedSquareModels_actual_projections_exists_geometric_square
         (∀ z, rationalConfigurationGeometricInclusion E κ t Ωt (βΔ z) =
           αR (rationalConfigurationGeometricInclusion E κ s Ωs z)) ∧
         ∀ z, pointedFundamentalGroupHom qκt
-            ((rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ωt)
+            ((originalFieldGeometricScheme E κ t).genericExtensionMorphism Ωt)
             xt hgeomT (βΔ z) =
           αΔ (pointedFundamentalGroupHom qκs
-            ((rationalConfigurationGeometricScheme E κ s).genericExtensionMorphism Ωs)
+            ((originalFieldGeometricScheme E κ s).genericExtensionMorphism Ωs)
             xs hgeomS z) := by
   change ∀ z v, e (z • v) = α z • e v at he
   subst ys
@@ -147,11 +140,11 @@ theorem namedSquareModels_actual_points_exists_geometric_square
     let _ATΩ : Algebra GT.functionField Ωt := aΩt.toAlgebra
     let xs := GS.genericExtensionMorphism Ωs
     let xt := GT.genericExtensionMorphism Ωt
-    ∀ (ys : Spec (.of Ωs) ⟶ rationalConfigurationGeometricScheme k E s₀)
-      (yt : Spec (.of Ωt) ⟶ rationalConfigurationGeometricScheme k E t₀)
+    ∀ (ys : Spec (.of Ωs) ⟶ originalFieldGeometricScheme k E s₀)
+      (yt : Spec (.of Ωt) ⟶ originalFieldGeometricScheme k E t₀)
       (hxs : xs ≫ bs = ys) (hxt : xt ≫ bt = yt)
-      (AS : FiniteEtale (rationalConfigurationGeometricScheme k E s₀))
-      (AT : FiniteEtale (rationalConfigurationGeometricScheme k E t₀))
+      (AS : FiniteEtale (originalFieldGeometricScheme k E s₀))
+      (AT : FiniteEtale (originalFieldGeometricScheme k E t₀))
       (hconnES : CategoryTheory.PreGaloisCategory.IsConnected AS)
       (hconnET : CategoryTheory.PreGaloisCategory.IsConnected AT),
     let _ := hconnES
@@ -165,8 +158,8 @@ theorem namedSquareModels_actual_points_exists_geometric_square
       (s t : Finset (Projectivization E (E × E)))
       (JS : AS.left ≅ (rationalConfigurationOpen s : Scheme))
       (JT : AT.left ≅ (rationalConfigurationOpen t : Scheme))
-      (qs : (rationalConfigurationOpen s : Scheme) ⟶ rationalConfigurationGeometricScheme k E s₀)
-      (qt : (rationalConfigurationOpen t : Scheme) ⟶ rationalConfigurationGeometricScheme k E t₀)
+      (qs : (rationalConfigurationOpen s : Scheme) ⟶ originalFieldGeometricScheme k E s₀)
+      (qt : (rationalConfigurationOpen t : Scheme) ⟶ originalFieldGeometricScheme k E t₀)
       (_hJS : JS.hom ≫ qs = AS.hom) (_hJT : JT.hom ≫ qt = AT.hom)
       (_hstructS : qs ≫ cs = (rationalConfigurationOpen s).ι ≫ π E 1)
       (_hstructT : qt ≫ ct = (rationalConfigurationOpen t).ι ≫ π E 1),
@@ -178,8 +171,8 @@ theorem namedSquareModels_actual_points_exists_geometric_square
       (hconnT : CategoryTheory.PreGaloisCategory.IsConnected WT),
     let _ := hconnS
     let _ := hconnT
-    ∀ (JκS : WS.left ≅ rationalConfigurationGeometricScheme E κ s)
-      (JκT : WT.left ≅ rationalConfigurationGeometricScheme E κ t),
+    ∀ (JκS : WS.left ≅ originalFieldGeometricScheme E κ s)
+      (JκT : WT.left ≅ originalFieldGeometricScheme E κ t),
     let qκS := JκS.inv ≫ WS.hom
     let qκT := JκT.inv ≫ WT.hom
     ∀ (_hcoeffS : qκS ≫ bs =
@@ -194,18 +187,18 @@ theorem namedSquareModels_actual_points_exists_geometric_square
     let liftT := fiberObjEquivHom xt WT wT
     let embS := finiteEtaleGenericHomFunctionFieldAlgHom WS liftS
     let embT := finiteEtaleGenericHomFunctionFieldAlgHom WT liftT
-    let _ANΩS : Algebra (rationalConfigurationGeometricScheme E κ s).functionField Ωs :=
+    let _ANΩS : Algebra (originalFieldGeometricScheme E κ s).functionField Ωs :=
       (embS.toRingHom.comp
         (JκS.hom.functionFieldMap JκS.hom.homeomorph.surjective.denseRange)).toAlgebra
-    let _ANΩT : Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ωt :=
+    let _ANΩT : Algebra (originalFieldGeometricScheme E κ t).functionField Ωt :=
       (embT.toRingHom.comp
         (JκT.hom.functionFieldMap JκT.hom.homeomorph.surjective.denseRange)).toAlgebra
     ∀ (_hmodelarithS : rationalConfigurationArithmeticBasePoint E κ s Ωs =
         namedModelPoint AS ys w JS)
       (_hmodelarithT : rationalConfigurationArithmeticBasePoint E κ t Ωt =
         namedModelPoint AT yt (e w) JT)
-      (hgeomS : (rationalConfigurationGeometricScheme E κ s).genericExtensionMorphism Ωs ≫ qκS = xs)
-      (hgeomT : (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ωt ≫ qκT =
+      (hgeomS : (originalFieldGeometricScheme E κ s).genericExtensionMorphism Ωs ≫ qκS = xs)
+      (hgeomT : (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ωt ≫ qκT =
         xt),
     ∃ αΔ : π₁ᵉᵗ(xs) ≃ₜ* π₁ᵉᵗ(xt),
       (∀ z, pointedFundamentalGroupHom bt xt yt hxt (αΔ z) =
@@ -221,10 +214,10 @@ theorem namedSquareModels_actual_points_exists_geometric_square
       (∀ z, rationalConfigurationGeometricInclusion E κ t Ωt (βΔ z) =
         βP (rationalConfigurationGeometricInclusion E κ s Ωs z)) ∧
       ∀ z, pointedFundamentalGroupHom qκT
-          ((rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ωt)
+          ((originalFieldGeometricScheme E κ t).genericExtensionMorphism Ωt)
           xt hgeomT (βΔ z) =
         αΔ (pointedFundamentalGroupHom qκS
-          ((rationalConfigurationGeometricScheme E κ s).genericExtensionMorphism Ωs)
+          ((originalFieldGeometricScheme E κ s).genericExtensionMorphism Ωs)
           xs hgeomS z) := by
   intro cs ct φ bs bt GS GT hGS hGT hNormalS hNormalT hNoetherianS hNoetherianT
     aΩs aΩt ASΩ ATΩ xs xt ys yt hxs hxt AS AT hconnES hconnET instES instET α hα e he w s t

@@ -30,7 +30,7 @@ attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
 private theorem originalAmbient_arithmeticPoint
     (k κ : Type) [Field k] [Field κ] [Algebra k κ] [Infinite k]
     (s : Finset (Projectivization k (k × k))) (Ω : Type) [Field Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω] :
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω] :
     let _A : Algebra (RatFunc k) Ω := rationalConfigurationArithmeticAmbientAlgebra k κ s Ω
     rationalConfigurationArithmeticBasePoint k κ s Ω =
       Spec.map (CommRingCat.ofHom (algebraMap (RatFunc k) Ω)) ≫
@@ -41,8 +41,8 @@ private theorem originalAmbient_arithmeticPoint
     (inferInstance : Algebra (RatFunc k) (RatFunc κ)).toSMul
   have : IsScalarTower (RatFunc k) (RatFunc κ) Ω :=
     (rationalConfigurationAmbient_scalarTowers k κ s Ω).2.2.2.1
-  have hchart : (rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω ≫
-      𝟙 (rationalConfigurationGeometricScheme k κ s) =
+  have hchart : (originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω ≫
+      𝟙 (originalFieldGeometricScheme k κ s) =
       Spec.map (CommRingCat.ofHom (algebraMap (RatFunc κ) Ω)) ≫
         rationalConfigurationGeometricGenericPoint k κ s :=
     rationalConfigurationGenericPoint_hchartpoint k κ s (Ω := Ω)
@@ -128,10 +128,10 @@ theorem rationalConfiguration_correctedMatchedMap_same_punctures
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (htcard : 3 ≤ t.card)
     (Ωs Ωt : Type) [Field Ωs] [Field Ωt] [IsAlgClosed Ωs] [IsAlgClosed Ωt]
-    [AS₀ : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ωs]
-    [AT₀ : Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ωt]
-    [HS₀ : IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ωs]
-    [HT₀ : IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ωt]
+    [AS₀ : Algebra (originalFieldGeometricScheme k κ s).functionField Ωs]
+    [AT₀ : Algebra (originalFieldGeometricScheme k κ t).functionField Ωt]
+    [HS₀ : IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ωs]
+    [HT₀ : IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ωt]
     (αP : rationalConfigurationArithmeticGroup k κ s Ωs ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ωt)
     (α : rationalConfigurationGeometricGroup k κ s Ωs ≃ₜ*
@@ -145,15 +145,15 @@ theorem rationalConfiguration_correctedMatchedMap_same_punctures
       (rationalConfigurationChosenInertia k κ t Ωt
         (rationalConfigurationBoundaryPlace k κ t (σ p))).map
           (MulAut.conj a).toMonoidHom)
-    (AS₁ : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ωs)
-    (AT₁ : Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ωt)
-    (HS₁ : let : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ωs := AS₁
-      IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ωs)
-    (HT₁ : let : Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ωt := AT₁
-      IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ωt) :
-    let _originalSource : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ωs :=
+    (AS₁ : Algebra (originalFieldGeometricScheme k κ s).functionField Ωs)
+    (AT₁ : Algebra (originalFieldGeometricScheme k κ t).functionField Ωt)
+    (HS₁ : let : Algebra (originalFieldGeometricScheme k κ s).functionField Ωs := AS₁
+      IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ωs)
+    (HT₁ : let : Algebra (originalFieldGeometricScheme k κ t).functionField Ωt := AT₁
+      IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ωt) :
+    let _originalSource : Algebra (originalFieldGeometricScheme k κ s).functionField Ωs :=
       AS₀
-    let _originalTarget : Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ωt :=
+    let _originalTarget : Algebra (originalFieldGeometricScheme k κ t).functionField Ωt :=
       AT₀
     let zs : Spec (.of Ωs) ⟶ (rationalConfigurationOpen s : Scheme) :=
       @rationalConfigurationArithmeticBasePoint k κ _ _ _ _ s Ωs _ AS₀
@@ -171,23 +171,23 @@ theorem rationalConfiguration_correctedMatchedMap_same_punctures
       Limits.pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap k κ))) ft
     let xs₁ : Spec (.of Ωs) ⟶ Limits.pullback
         (Spec.map (CommRingCat.ofHom (algebraMap k κ))) fs := by
-      let : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ωs := AS₁
-      exact (rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ωs
+      let : Algebra (originalFieldGeometricScheme k κ s).functionField Ωs := AS₁
+      exact (originalFieldGeometricScheme k κ s).genericExtensionMorphism Ωs
     let xt₁ : Spec (.of Ωt) ⟶ Limits.pullback
         (Spec.map (CommRingCat.ofHom (algebraMap k κ))) ft := by
-      let : Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ωt := AT₁
-      exact (rationalConfigurationGeometricScheme k κ t).genericExtensionMorphism Ωt
+      let : Algebra (originalFieldGeometricScheme k κ t).functionField Ωt := AT₁
+      exact (originalFieldGeometricScheme k κ t).genericExtensionMorphism Ωt
     ∀ (hs : xs₁ ≫ us = zs) (ht : xt₁ ≫ ut = zt)
       (β : π₁ᵉᵗ(xs₁) ≃ₜ* π₁ᵉᵗ(xt₁)) (c : π₁ᵉᵗ(zt)),
       originalAmbientCorrectedComparison us ut xs₁ xt₁ zs zt hs ht αP β c →
     let IS₁ : s → Subgroup (π₁ᵉᵗ(xs₁)) := by
-      let : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ωs := AS₁
-      let : IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ωs := HS₁
+      let : Algebra (originalFieldGeometricScheme k κ s).functionField Ωs := AS₁
+      let : IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ωs := HS₁
       exact fun p => rationalConfigurationChosenInertia k κ s Ωs
         (rationalConfigurationBoundaryPlace k κ s p)
     let IT₁ : t → Subgroup (π₁ᵉᵗ(xt₁)) := by
-      let : Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ωt := AT₁
-      let : IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ωt := HT₁
+      let : Algebra (originalFieldGeometricScheme k κ t).functionField Ωt := AT₁
+      let : IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ωt := HT₁
       exact fun p => rationalConfigurationChosenInertia k κ t Ωt
         (rationalConfigurationBoundaryPlace k κ t p)
     ∀ p : s, ∃ a : π₁ᵉᵗ(xt₁), (IS₁ p).map β.toMonoidHom =
@@ -196,11 +196,11 @@ theorem rationalConfiguration_correctedMatchedMap_same_punctures
   let xs₀ : Spec (.of Ωs) ⟶ Limits.pullback
       (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
       ((rationalConfigurationOpen s).ι ≫ π k 1) :=
-    (rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ωs
+    (originalFieldGeometricScheme k κ s).genericExtensionMorphism Ωs
   let xt₀ : Spec (.of Ωt) ⟶ Limits.pullback
       (Spec.map (CommRingCat.ofHom (algebraMap k κ)))
       ((rationalConfigurationOpen t).ι ≫ π k 1) :=
-    (rationalConfigurationGeometricScheme k κ t).genericExtensionMorphism Ωt
+    (originalFieldGeometricScheme k κ t).genericExtensionMorphism Ωt
   let eS := commonArithmeticPointGeometricEquiv k κ
     (rationalConfigurationOpen s : Scheme) fs xs₀ xs₁ zs rfl hs
   let eT := commonArithmeticPointGeometricEquiv k κ

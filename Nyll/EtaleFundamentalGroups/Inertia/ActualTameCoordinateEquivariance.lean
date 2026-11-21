@@ -30,7 +30,7 @@ theorem actualTameCoordinate_conjugate_scalar
     [Field K] [Field L] [Algebra A K] [IsFractionRing A K]
     [Algebra K L] [Algebra A L] [IsScalarTower A K L] [IsGalois K L]
     (Q : Ideal (normalizationCommAlgCat A L).carrier) [Q.IsMaximal]
-    (n : Subtype (actualFiniteTameDegreeSet A K L Q))
+    (n : ↥(actualFiniteTameDegreeSet A K L Q))
     (d : (normalizationDecompositionGroup A K L Q).carrier)
     (σ : (actualNormalizationInertiaGroup A K L Q).carrier) :
     ((actualTameCoordinate A K L Q n).toFun

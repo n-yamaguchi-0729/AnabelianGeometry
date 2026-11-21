@@ -703,7 +703,7 @@ def toHom : Pic0.torsion K F n →+ Additive (HomPic0Gm K F n) :=
     intro x x'
     have h : e.toChar (x + x') = e.toChar x * e.toChar x' := by
       ext y
-      rw [AddChar.mul_apply]
+      rw [mul_apply]
       exact e.pair_add_left x x' y
     change Additive.ofMul (e.toChar (x + x'))
         = Additive.ofMul (e.toChar x) + Additive.ofMul (e.toChar x')

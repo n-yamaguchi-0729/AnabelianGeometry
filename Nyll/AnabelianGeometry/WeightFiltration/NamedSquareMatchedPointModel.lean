@@ -33,16 +33,9 @@ attribute [local instance] Classical.propDecidable
 attribute [local instance] CurveModel.isIntegral
 namespace AnabelianGeometry.WeightFiltration
 
-local instance matchedPointModelOverCategory (S : Scheme) :
-    Category (MorphismProperty.Over (@IsFiniteEtale : MorphismProperty Scheme) ⊤ S) :=
-  AlgebraicGeometry.FiniteEtale.instCategory S
-local instance matchedPointModelHasPullbacksAlong {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.HasPullbacksAlong (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun _ _ ↦ inferInstance⟩
-local instance matchedPointModelStableUnderBaseChangeAlong {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.IsStableUnderBaseChangeAlong (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun h hf ↦ MorphismProperty.of_isPullback
-    (P := (@IsFiniteEtale : MorphismProperty Scheme)) h hf⟩
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleOverCategory
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleHasPullbacksAlong
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleIsStableUnderBaseChangeAlong
 
 /-- Transport the actual cover-field embedding to its named model. -/
 @[instance_reducible]
@@ -176,7 +169,7 @@ private theorem namedSquareModel_at_retained_point
     pκ ≫ map E κ 1 = map E κ 1 ≫ p ∧
     ∃ hconn : CategoryTheory.PreGaloisCategory.IsConnected Wκ,
     let _ := hconn
-    ∃ Jκ : Wκ.left ≅ rationalConfigurationGeometricScheme E κ t,
+    ∃ Jκ : Wκ.left ≅ originalFieldGeometricScheme E κ t,
       Jκ.hom ≫ pullback.snd φ ((rationalConfigurationOpen t).ι ≫ π E 1) =
         pullback.fst W.hom b ≫ J.hom ∧
       Jκ.hom ≫ pullback.fst φ ((rationalConfigurationOpen t).ι ≫ π E 1) =
@@ -204,12 +197,12 @@ private theorem namedSquareModel_at_retained_point
       (∀ z : RatFunc κ,
         Jκ.hom.functionFieldMap hJdense (cR (ratFuncPairSquareHom eκ z)) =
           algebraMap Uκ.functionField Wκ.left.functionField (cU z)) ∧
-      let _A : Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ω :=
+      let _A : Algebra (originalFieldGeometricScheme E κ t).functionField Ω :=
         namedSquareModelAmbientAlgebra Wκ wκ Jκ
-      (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω =
+      (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ω =
         actualFiberPointLift ξκ Wκ wκ ≫ Jκ.hom ∧
       rationalConfigurationArithmeticBasePoint E κ t Ω = namedModelPoint W y w J ∧
-      (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω ≫ qκ = ξκ := by
+      (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ω ≫ qκ = ξκ := by
   subst f
   subst y
   intro φ b Uκ Wκ ξκ wκ jκ pκ
@@ -232,10 +225,10 @@ private theorem namedSquareModel_at_retained_point
   refine ⟨Jκ, hcoeff, hbase, hplacesκ, hboundary, hcard,
     hqcoeff, hqbase, hjκ, hfield, ?_⟩
   intro A
-  have hmodel : (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω =
+  have hmodel : (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ω =
       actualFiberPointLift ξκ Wκ wκ ≫ Jκ.hom := (hpoint w).1
   refine ⟨hmodel, (hpoint w).2, ?_⟩
-  change (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω ≫
+  change (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ω ≫
     (Jκ.inv ≫ Wκ.hom) = ξκ
   rw [hmodel, Category.assoc, Jκ.hom_inv_id_assoc, actualFiberPointLift_comp]
 
@@ -261,7 +254,7 @@ theorem namedSquare_pair_matchedPoint_exists_actual_model
         (if V = (rationalConfigurationBoundaryPlace k κ s b).val then 1 else 0))
     (r : s → E)
     (hr : ∀ x : s, r x ^ 2 = algebraMap k E
-      ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt
+      ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt
         (u.val : RatFunc k)))
     (Ω : Type) [Field Ω] [IsSepClosed Ω] :
     let M := projectiveLineRatFuncModel k
@@ -283,7 +276,7 @@ theorem namedSquare_pair_matchedPoint_exists_actual_model
     let _hNoetherian : IsLocallyNoetherian G := namedSquareMatchedBase_isLocallyNoetherian k E κ s
     ∀ aΩ : G.functionField →+* Ω,
     let _AΩ : Algebra G.functionField Ω := aΩ.toAlgebra
-    ∀ (yE : Spec (.of Ω) ⟶ rationalConfigurationGeometricScheme k E s)
+    ∀ (yE : Spec (.of Ω) ⟶ originalFieldGeometricScheme k E s)
       (hpoint : G.genericExtensionMorphism Ω ≫ bκ = yE)
       (wE : (fiber yE).obj WE),
     let ξκ := G.genericExtensionMorphism Ω
@@ -310,7 +303,7 @@ theorem namedSquare_pair_matchedPoint_exists_actual_model
       (∀ z, z ∈ t ↔ projectiveRationalPoint z ∉ Set.range
         (pullback.fst pE (rationalConfigurationBaseChangeChart k E s))) ∧
     ∃ (J : WE.left ≅ (rationalConfigurationOpen t : Scheme))
-      (q : (rationalConfigurationOpen t : Scheme) ⟶ rationalConfigurationGeometricScheme k E s),
+      (q : (rationalConfigurationOpen t : Scheme) ⟶ originalFieldGeometricScheme k E s),
       J.hom ≫ q = WE.hom ∧
       q ≫ rationalConfigurationBaseChangeChart k E s = (rationalConfigurationOpen t).ι ≫ pE ∧
       q ≫ c = (rationalConfigurationOpen t).ι ≫ π E 1 ∧
@@ -320,7 +313,7 @@ theorem namedSquare_pair_matchedPoint_exists_actual_model
     pκ ≫ map E κ 1 = map E κ 1 ≫ pE ∧
     ∃ hconn : CategoryTheory.PreGaloisCategory.IsConnected Wκ,
     let _ := hconn
-    ∃ Jκ : Wκ.left ≅ rationalConfigurationGeometricScheme E κ t,
+    ∃ Jκ : Wκ.left ≅ originalFieldGeometricScheme E κ t,
       Jκ.hom ≫ pullback.snd φ ((rationalConfigurationOpen t).ι ≫ π E 1) =
         pullback.fst WE.hom bκ ≫ J.hom ∧
       Jκ.hom ≫ pullback.fst φ ((rationalConfigurationOpen t).ι ≫ π E 1) =
@@ -348,12 +341,12 @@ theorem namedSquare_pair_matchedPoint_exists_actual_model
       (∀ z : RatFunc κ,
         Jκ.hom.functionFieldMap hJdense (cR (ratFuncPairSquareHom eκ z)) =
           algebraMap G.functionField Wκ.left.functionField (cU z)) ∧
-      let _A : Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ω :=
+      let _A : Algebra (originalFieldGeometricScheme E κ t).functionField Ω :=
         namedSquareModelAmbientAlgebra Wκ wκ Jκ
-      (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω =
+      (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ω =
         actualFiberPointLift ξκ Wκ wκ ≫ Jκ.hom ∧
       rationalConfigurationArithmeticBasePoint E κ t Ω = namedModelPoint WE yE wE J ∧
-      (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω ≫ qκ = ξκ := by
+      (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ω ≫ qκ = ξκ := by
   intro M i hi W bE WE c φ bκ G hG hNormal hNoetherian aΩ AΩ yE hpoint wE ξκ Wκ wκ jκ
   let y : WE.left := actualFiberPointLift yE WE wE (IsLocalRing.closedPoint Ω)
   obtain ⟨_e, eE, _he, heE, p, hp, _hpGeneric, _J₀, _hJ₀,
@@ -364,7 +357,7 @@ theorem namedSquare_pair_matchedPoint_exists_actual_model
   obtain ⟨_hordersκ, eκ, heκ⟩ :=
     rationalConfiguration_pairFunction_finiteExtension_orders_coordinate
       k κ κ s a b hab V₀.val Vinf.val (u.val : RatFunc k) harith hgeom
-  have : IsOpenImmersion (show rationalConfigurationGeometricScheme k E s ⟶
+  have : IsOpenImmersion (show originalFieldGeometricScheme k E s ⟶
       (projectiveLineRatFuncModel E).C from rationalConfigurationBaseChangeChart k E s) :=
     inferInstanceAs (IsOpenImmersion (rationalConfigurationBaseChangeChart k E s))
   let pE : (projectiveLineRatFuncModel E).C ⟶ (projectiveLineRatFuncModel E).C :=

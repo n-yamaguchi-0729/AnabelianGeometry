@@ -57,7 +57,7 @@ theorem rep_eq_one_of_forall_torsionBy (g : G)
     (h : ∀ n : ℕ, ∀ m ∈ Submodule.torsionBy ℤ M ((p ^ n : ℕ) : ℤ), g • m = m) :
     rep p M G g = 1 := by
   refine LinearMap.ext fun x => Subtype.ext (funext fun n => ?_)
-  rw [rep_apply, Module.End.one_apply]
+  rw [rep_apply, one_apply_eq_self]
   exact h n _ (proj_mem_torsionBy n x)
 
 /-- Under the prime-power torsion cardinality condition, an element acts trivially on the
@@ -171,13 +171,13 @@ theorem rep_eq_one_iff_of_equivariant {G : Type w} {H : Type z} [Monoid G] [Mono
     intro y
     obtain ⟨x, rfl⟩ := (congr p e).surjective y
     change rep p N H h (map p e.toAddMonoidHom x) = map p e.toAddMonoidHom x
-    rw [← map_rep p e.toAddMonoidHom g h he, hg, Module.End.one_apply]
+    rw [← map_rep p e.toAddMonoidHom g h he, hg, one_apply_eq_self]
   · intro hh
     apply LinearMap.ext
     intro x
     apply (congr p e).injective
     change map p e.toAddMonoidHom (rep p M G g x) = map p e.toAddMonoidHom x
-    rw [map_rep p e.toAddMonoidHom g h he, hh, Module.End.one_apply]
+    rw [map_rep p e.toAddMonoidHom g h he, hh, one_apply_eq_self]
 
 end Functoriality
 

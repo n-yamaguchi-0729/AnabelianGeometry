@@ -13,6 +13,7 @@ public import Mathlib.CategoryTheory.Sites.LocallySurjective
 public import Mathlib.Algebra.Category.Grp.Basic
 public import Mathlib.Algebra.Category.Grp.AB
 public import Mathlib.Algebra.Category.Grp.Kernels
+public import Mathlib.Algebra.Homology.ShortComplex.Exact
 public import Mathlib.AlgebraicGeometry.Sites.AffineEtale
 public import Mathlib.CategoryTheory.Limits.Preserves.Shapes.Kernels
 public import Mathlib.CategoryTheory.Sites.EpiMono

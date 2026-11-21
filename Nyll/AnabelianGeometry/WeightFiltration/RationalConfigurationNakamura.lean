@@ -49,18 +49,11 @@ attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra Classic
   CurveModel.isIntegral
 namespace AnabelianGeometry.WeightFiltration
 
-local instance nakamuraOverCategory (S : Scheme) :
-    Category (MorphismProperty.Over (@IsFiniteEtale : MorphismProperty Scheme) ⊤ S) :=
-  AlgebraicGeometry.FiniteEtale.instCategory S
-local instance nakamuraHasPullbacksAlong {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.HasPullbacksAlong (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun _ _ ↦ inferInstance⟩
-local instance nakamuraStableUnderBaseChangeAlong {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.IsStableUnderBaseChangeAlong (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun h hf ↦ MorphismProperty.of_isPullback
-    (P := (@IsFiniteEtale : MorphismProperty Scheme)) h hf⟩
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleOverCategory
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleHasPullbacksAlong
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleIsStableUnderBaseChangeAlong
 
-attribute [local instance] pointedSquareChart_isOpenImmersion literalPoint_projectiveIntegral
+attribute [local instance] literalPoint_projectiveIntegral
 
 private theorem nakamura_reconstruct_literal_models
     (k E κ : Type) [Field k] [CharZero k] [Field.FG k] [Field E] [CharZero E] [Field.FG E]
@@ -71,18 +64,18 @@ private theorem nakamura_reconstruct_literal_models
     (sS sT : Finset (Projectivization k (k × k)))
     (tS tT : Finset (Projectivization E (E × E)))
     (hsT : 3 ≤ sT.card) (htS : 3 ≤ tS.card) (htT : 3 ≤ tT.card)
-    [IsNormalIntegral (rationalConfigurationGeometricScheme k κ sS)]
-    [IsLocallyNoetherian (rationalConfigurationGeometricScheme k κ sS)]
-    [ConnectedSpace (rationalConfigurationGeometricScheme k κ sS)]
+    [IsNormalIntegral (originalFieldGeometricScheme k κ sS)]
+    [IsLocallyNoetherian (originalFieldGeometricScheme k κ sS)]
+    [ConnectedSpace (originalFieldGeometricScheme k κ sS)]
     (ΩS : Type) [Field ΩS] [IsAlgClosed ΩS] [IsSepClosed ΩS]
-    [Algebra (rationalConfigurationGeometricScheme k κ sS).functionField ΩS]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ sS).functionField ΩS]
-    (WS : FiniteEtale (rationalConfigurationGeometricScheme k κ sS))
+    [Algebra (originalFieldGeometricScheme k κ sS).functionField ΩS]
+    [IsAlgClosure (originalFieldGeometricScheme k κ sS).functionField ΩS]
+    (WS : FiniteEtale (originalFieldGeometricScheme k κ sS))
       [CategoryTheory.PreGaloisCategory.IsConnected WS]
-    (wS : (fiber ((rationalConfigurationGeometricScheme k κ sS).genericExtensionMorphism ΩS)).obj
+    (wS : (fiber ((originalFieldGeometricScheme k κ sS).genericExtensionMorphism ΩS)).obj
       WS)
-    (JS : WS.left ≅ rationalConfigurationGeometricScheme E κ tS)
-    (qS : rationalConfigurationGeometricScheme E κ tS ⟶ rationalConfigurationGeometricScheme k κ sS)
+    (JS : WS.left ≅ originalFieldGeometricScheme E κ tS)
+    (qS : originalFieldGeometricScheme E κ tS ⟶ originalFieldGeometricScheme k κ sS)
     (hJS : JS.hom ≫ qS = WS.hom)
     (pS : (projectiveLineRatFuncModel κ).C ⟶ (projectiveLineRatFuncModel κ).C)
     (eS : RatFunc κ ≃ₐ[κ] RatFunc κ)
@@ -96,27 +89,27 @@ private theorem nakamura_reconstruct_literal_models
         pS y ∉ Set.range (rationalConfigurationBaseChangeChart k κ sS))
     (hfieldS :
       let _hWIntegral : IsIntegral WS.left := isIntegral_left_of_isConnected_finiteEtale WS
-      let _AKL : Algebra (rationalConfigurationGeometricScheme k κ sS).functionField
+      let _AKL : Algebra (originalFieldGeometricScheme k κ sS).functionField
         WS.left.functionField :=
         finiteEtaleFunctionFieldAlgebra WS
       ∀ z : RatFunc κ,
         JS.hom.functionFieldMap JS.hom.homeomorph.surjective.denseRange
           (rationalConfigurationGeometricFunctionFieldEquiv E κ tS (ratFuncPairSquareHom eS z)) =
-          algebraMap (rationalConfigurationGeometricScheme k κ sS).functionField
+          algebraMap (originalFieldGeometricScheme k κ sS).functionField
             WS.left.functionField
             (rationalConfigurationGeometricFunctionFieldEquiv k κ sS z))
-    [IsNormalIntegral (rationalConfigurationGeometricScheme k κ sT)]
-    [IsLocallyNoetherian (rationalConfigurationGeometricScheme k κ sT)]
-    [ConnectedSpace (rationalConfigurationGeometricScheme k κ sT)]
+    [IsNormalIntegral (originalFieldGeometricScheme k κ sT)]
+    [IsLocallyNoetherian (originalFieldGeometricScheme k κ sT)]
+    [ConnectedSpace (originalFieldGeometricScheme k κ sT)]
     (ΩT : Type) [Field ΩT] [IsAlgClosed ΩT] [IsSepClosed ΩT]
-    [Algebra (rationalConfigurationGeometricScheme k κ sT).functionField ΩT]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ sT).functionField ΩT]
-    (WT : FiniteEtale (rationalConfigurationGeometricScheme k κ sT))
+    [Algebra (originalFieldGeometricScheme k κ sT).functionField ΩT]
+    [IsAlgClosure (originalFieldGeometricScheme k κ sT).functionField ΩT]
+    (WT : FiniteEtale (originalFieldGeometricScheme k κ sT))
       [CategoryTheory.PreGaloisCategory.IsConnected WT]
-    (wT : (fiber ((rationalConfigurationGeometricScheme k κ sT).genericExtensionMorphism ΩT)).obj
+    (wT : (fiber ((originalFieldGeometricScheme k κ sT).genericExtensionMorphism ΩT)).obj
       WT)
-    (JT : WT.left ≅ rationalConfigurationGeometricScheme E κ tT)
-    (qT : rationalConfigurationGeometricScheme E κ tT ⟶ rationalConfigurationGeometricScheme k κ sT)
+    (JT : WT.left ≅ originalFieldGeometricScheme E κ tT)
+    (qT : originalFieldGeometricScheme E κ tT ⟶ originalFieldGeometricScheme k κ sT)
     (hJT : JT.hom ≫ qT = WT.hom)
     (pT : (projectiveLineRatFuncModel κ).C ⟶ (projectiveLineRatFuncModel κ).C)
     (eT : RatFunc κ ≃ₐ[κ] RatFunc κ)
@@ -130,13 +123,13 @@ private theorem nakamura_reconstruct_literal_models
         pT y ∉ Set.range (rationalConfigurationBaseChangeChart k κ sT))
     (hfieldT :
       let _hWIntegral : IsIntegral WT.left := isIntegral_left_of_isConnected_finiteEtale WT
-      let _AKL : Algebra (rationalConfigurationGeometricScheme k κ sT).functionField
+      let _AKL : Algebra (originalFieldGeometricScheme k κ sT).functionField
         WT.left.functionField :=
         finiteEtaleFunctionFieldAlgebra WT
       ∀ z : RatFunc κ,
         JT.hom.functionFieldMap JT.hom.homeomorph.surjective.denseRange
           (rationalConfigurationGeometricFunctionFieldEquiv E κ tT (ratFuncPairSquareHom eT z)) =
-          algebraMap (rationalConfigurationGeometricScheme k κ sT).functionField
+          algebraMap (originalFieldGeometricScheme k κ sT).functionField
             WT.left.functionField
             (rationalConfigurationGeometricFunctionFieldEquiv k κ sT z))
     (pSE : (projectiveLineRatFuncModel E).C ⟶ (projectiveLineRatFuncModel E).C)
@@ -159,24 +152,24 @@ private theorem nakamura_reconstruct_literal_models
             (ratFuncPairSquareHom eTE) (ratFuncPairSquareHom_isIntegral eTE))
     (hlabelsT : ∀ z, z ∈ tT ↔ projectiveRationalPoint z ∉ Set.range
       (Limits.pullback.fst pTE (rationalConfigurationBaseChangeChart k E sT)))
-    (AS : Algebra (rationalConfigurationGeometricScheme E κ tS).functionField ΩS)
-    (AT : Algebra (rationalConfigurationGeometricScheme E κ tT).functionField ΩT)
-    (hmodelS : let _A : Algebra (rationalConfigurationGeometricScheme E κ tS).functionField ΩS := AS
-      (rationalConfigurationGeometricScheme E κ tS).genericExtensionMorphism ΩS =
+    (AS : Algebra (originalFieldGeometricScheme E κ tS).functionField ΩS)
+    (AT : Algebra (originalFieldGeometricScheme E κ tT).functionField ΩT)
+    (hmodelS : let _A : Algebra (originalFieldGeometricScheme E κ tS).functionField ΩS := AS
+      (originalFieldGeometricScheme E κ tS).genericExtensionMorphism ΩS =
         actualFiberPointLift
-          ((rationalConfigurationGeometricScheme k κ sS).genericExtensionMorphism ΩS) WS wS ≫
+          ((originalFieldGeometricScheme k κ sS).genericExtensionMorphism ΩS) WS wS ≫
             JS.hom)
-    (hmodelT : let _A : Algebra (rationalConfigurationGeometricScheme E κ tT).functionField ΩT := AT
-      (rationalConfigurationGeometricScheme E κ tT).genericExtensionMorphism ΩT =
+    (hmodelT : let _A : Algebra (originalFieldGeometricScheme E κ tT).functionField ΩT := AT
+      (originalFieldGeometricScheme E κ tT).genericExtensionMorphism ΩT =
         actualFiberPointLift
-          ((rationalConfigurationGeometricScheme k κ sT).genericExtensionMorphism ΩT) WT wT ≫
+          ((originalFieldGeometricScheme k κ sT).genericExtensionMorphism ΩT) WT wT ≫
             JT.hom) :
-    let _modelAS : Algebra (rationalConfigurationGeometricScheme E κ tS).functionField ΩS := AS
-    let _modelAT : Algebra (rationalConfigurationGeometricScheme E κ tT).functionField ΩT := AT
-    ∀ (hgeomS : (rationalConfigurationGeometricScheme E κ tS).genericExtensionMorphism ΩS ≫ qS =
-        (rationalConfigurationGeometricScheme k κ sS).genericExtensionMorphism ΩS)
-      (hgeomT : (rationalConfigurationGeometricScheme E κ tT).genericExtensionMorphism ΩT ≫ qT =
-        (rationalConfigurationGeometricScheme k κ sT).genericExtensionMorphism ΩT),
+    let _modelAS : Algebra (originalFieldGeometricScheme E κ tS).functionField ΩS := AS
+    let _modelAT : Algebra (originalFieldGeometricScheme E κ tT).functionField ΩT := AT
+    ∀ (hgeomS : (originalFieldGeometricScheme E κ tS).genericExtensionMorphism ΩS ≫ qS =
+        (originalFieldGeometricScheme k κ sS).genericExtensionMorphism ΩS)
+      (hgeomT : (originalFieldGeometricScheme E κ tT).genericExtensionMorphism ΩT ≫ qT =
+        (originalFieldGeometricScheme k κ sT).genericExtensionMorphism ΩT),
     ∀ (α : rationalConfigurationGeometricGroup k κ sS ΩS ≃ₜ*
           rationalConfigurationGeometricGroup k κ sT ΩT)
       (βP : rationalConfigurationArithmeticGroup E κ tS ΩS ≃ₜ*
@@ -197,11 +190,11 @@ private theorem nakamura_reconstruct_literal_models
         (rationalConfigurationChosenInertia k κ sT ΩT
           (rationalConfigurationBoundaryPlace k κ sT (σ z))).map (MulAut.conj a).toMonoidHom) →
       (∀ x, pointedFundamentalGroupHom qT
-          ((rationalConfigurationGeometricScheme E κ tT).genericExtensionMorphism ΩT)
-          ((rationalConfigurationGeometricScheme k κ sT).genericExtensionMorphism ΩT) hgeomT (β x) =
+          ((originalFieldGeometricScheme E κ tT).genericExtensionMorphism ΩT)
+          ((originalFieldGeometricScheme k κ sT).genericExtensionMorphism ΩT) hgeomT (β x) =
         α (pointedFundamentalGroupHom qS
-          ((rationalConfigurationGeometricScheme E κ tS).genericExtensionMorphism ΩS)
-          ((rationalConfigurationGeometricScheme k κ sS).genericExtensionMorphism ΩS) hgeomS x)) →
+          ((originalFieldGeometricScheme E κ tS).genericExtensionMorphism ΩS)
+          ((originalFieldGeometricScheme k κ sS).genericExtensionMorphism ΩS) hgeomS x)) →
       (∀ (a b c₀ c : sS), a ≠ b → c₀ ≠ a → c₀ ≠ b → c ≠ a → c ≠ b →
         ∃ A B : kˣ,
           (A : k) = crossRatio a.val b.val c₀.val c.val ∧
@@ -226,9 +219,9 @@ private theorem nakamura_reconstruct_literal_models
             (if V = (rationalConfigurationBoundaryPlace k κ sT (σ b)).val then 1 else 0))
         (rS : sS → E) (rT : sT → E)
         (_hrS : ∀ x : sS, rS x ^ 2 = algebraMap k E
-          ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt f))
+          ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt f))
         (_hrT : ∀ x : sT, rT x ^ 2 = algebraMap k E
-          ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt g)),
+          ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt g)),
       ∃ F : (k × k) ≃ₗ[k] (k × k),
         (∀ p : sS, projectiveLinearEquiv F p.val = (σ p).val) ∧
         ∃ I : (rationalConfigurationOpen sS : Scheme) ≅ (rationalConfigurationOpen sT : Scheme),
@@ -246,8 +239,8 @@ private theorem nakamura_reconstruct_literal_models
       ΩT WT wT JT qT hJT pT eT hplacesT hboundaryT hfieldT
       pSE eSE hcoeffS hplacesSE hlabelsS pTE eTE hcoeffT hplacesTE hlabelsT
       AS AT hmodelS hmodelT
-  let : IsAlgClosure (rationalConfigurationGeometricScheme E κ tS).functionField ΩS := hclosureMS
-  let : IsAlgClosure (rationalConfigurationGeometricScheme E κ tT).functionField ΩT := hclosureMT
+  let : IsAlgClosure (originalFieldGeometricScheme E κ tS).functionField ΩS := hclosureMS
+  let : IsAlgClosure (originalFieldGeometricScheme E κ tT).functionField ΩT := hclosureMT
   obtain ⟨τ, _hIτ, _hcomm, hmatch⟩ := Hnumeric α βP hβP β hβ σ hIL hsquare
     hclasses a b c₀ hab h₀a h₀b VS₀ VSinf VT₀ VTinf
     f g hf hg heSE heTE harithS harithT hgeomf hgeomg rS rT hrS hrT
@@ -264,10 +257,10 @@ private theorem nakamura_finish_named_models
     [IsFiniteEtale (Spec.map (CommRingCat.ofHom (algebraMap k E)))]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [AoldS : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [AoldT : Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [HoldS : IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [HoldT : IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [AoldS : Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [AoldT : Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [HoldS : IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [HoldT : IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (eP : rationalConfigurationArithmeticGroup k κ s Ω₁ ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ω₂)
     (hP : ∀ γ,
@@ -305,9 +298,9 @@ private theorem nakamura_finish_named_models
       (if V = (rationalConfigurationBoundaryPlace k κ t (σ b)).val then 1 else 0))
     (rS : s → E) (rT : t → E)
     (hrS : ∀ x : s, rS x ^ 2 = algebraMap k E
-      ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt f))
+      ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt f))
     (hrT : ∀ x : t, rT x ^ 2 = algebraMap k E
-      ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt g)) :
+      ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt g)) :
     let fs := (rationalConfigurationOpen s).ι ≫ π k 1
     let ft := (rationalConfigurationOpen t).ι ≫ π k 1
     let xs := rationalConfigurationArithmeticBasePoint k κ s Ω₁
@@ -372,8 +365,8 @@ private theorem nakamura_finish_named_models
       (_hJS : JS.hom ≫ qES = WES.hom) (_hJT : JT.hom ≫ qET = WET.hom)
       (_hstructS : qES ≫ cs = (rationalConfigurationOpen tS).ι ≫ π E 1)
       (_hstructT : qET ≫ ct = (rationalConfigurationOpen tT).ι ≫ π E 1)
-      (JκS : WS.left ≅ rationalConfigurationGeometricScheme E κ tS)
-      (JκT : WT.left ≅ rationalConfigurationGeometricScheme E κ tT)
+      (JκS : WS.left ≅ originalFieldGeometricScheme E κ tS)
+      (JκT : WT.left ≅ originalFieldGeometricScheme E κ tT)
       (eS eT : RatFunc κ ≃ₐ[κ] RatFunc κ)
       (pS pT : (projectiveLineRatFuncModel κ).C ⟶ (projectiveLineRatFuncModel κ).C)
       (hjκS : IsOpenImmersion (namedSquareConstantProjectionChart k E κ s))
@@ -412,19 +405,19 @@ private theorem nakamura_finish_named_models
             (((projectiveLineRatFuncModel κ).ffEquiv.trans
               (namedSquareConstantProjectionChart k E κ
                 t).functionFieldRingEquivOfIsOpenImmersion) z))
-      (AMS : Algebra (rationalConfigurationGeometricScheme E κ tS).functionField Ω₁)
-      (AMT : Algebra (rationalConfigurationGeometricScheme E κ tT).functionField Ω₂),
+      (AMS : Algebra (originalFieldGeometricScheme E κ tS).functionField Ω₁)
+      (AMT : Algebra (originalFieldGeometricScheme E κ tT).functionField Ω₂),
     let _ := AMS
     let _ := AMT
     let qκS := JκS.inv ≫ WS.hom
     let qκT := JκT.inv ≫ WT.hom
-    ∀ (_hmodelS : (rationalConfigurationGeometricScheme E κ tS).genericExtensionMorphism Ω₁ =
+    ∀ (_hmodelS : (originalFieldGeometricScheme E κ tS).genericExtensionMorphism Ω₁ =
         actualFiberPointLift ξS WS wS ≫ JκS.hom)
-      (_hmodelT : (rationalConfigurationGeometricScheme E κ tT).genericExtensionMorphism Ω₂ =
+      (_hmodelT : (originalFieldGeometricScheme E κ tT).genericExtensionMorphism Ω₂ =
         actualFiberPointLift ξT WT wT ≫ JκT.hom)
-      (_hgeomS : (rationalConfigurationGeometricScheme E κ tS).genericExtensionMorphism Ω₁ ≫
+      (_hgeomS : (originalFieldGeometricScheme E κ tS).genericExtensionMorphism Ω₁ ≫
         qκS = ξS)
-      (_hgeomT : (rationalConfigurationGeometricScheme E κ tT).genericExtensionMorphism Ω₂ ≫
+      (_hgeomT : (originalFieldGeometricScheme E κ tT).genericExtensionMorphism Ω₂ ≫
         qκT = ξT)
       (_hmodelarithS : rationalConfigurationArithmeticBasePoint E κ tS Ω₁ =
         namedModelPoint WES ys wE JS)
@@ -492,9 +485,9 @@ private theorem nakamura_finish_named_models
     hboundaryT hfieldT hmodelT
   let isoS := namedSquareConstantProjectionIso k E κ s
   let isoT := namedSquareConstantProjectionIso k E κ t
-  let ALS : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁ :=
+  let ALS : Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁ :=
     namedBaseTransportAmbientAlgebra isoS Ω₁
-  let ALT : Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂ :=
+  let ALT : Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂ :=
     namedBaseTransportAmbientAlgebra isoT Ω₂
   let WLS := namedCoverOnIsomorphicBase isoS WS
   let WLT := namedCoverOnIsomorphicBase isoT WT
@@ -504,10 +497,10 @@ private theorem nakamura_finish_named_models
     namedCoverOnIsomorphicBase_isConnected isoT WT
   obtain ⟨hclosureLS, wLS, _hwLS, hJLS, hboundaryLS, hfieldLS, hmodelLS, hgeomLS⟩ := HLS
   obtain ⟨hclosureLT, wLT, _hwLT, hJLT, hboundaryLT, hfieldLT, hmodelLT, hgeomLT⟩ := HLT
-  let : IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁ := hclosureLS
-  let : IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂ := hclosureLT
-  let ξLS := (rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω₁
-  let ξLT := (rationalConfigurationGeometricScheme k κ t).genericExtensionMorphism Ω₂
+  let : IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁ := hclosureLS
+  let : IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂ := hclosureLT
+  let ξLS := (originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω₁
+  let ξLT := (originalFieldGeometricScheme k κ t).genericExtensionMorphism Ω₂
   have hgenS : ξS ≫ isoS.hom = ξLS := namedBaseTransport_genericPoint isoS Ω₁
   have hgenT : ξT ≫ isoT.hom = ξLT := namedBaseTransport_genericPoint isoT Ω₂
   have hcardS' : s.card ≤ tS.card := by
@@ -538,8 +531,8 @@ private theorem nakamura_finish_named_models
   have hqLT : qκT ≫ isoT.hom = qLT := Category.assoc _ _ _
   have hsquareL := namedBaseTransport_pointedGeometricMap_cover_square_of_eq
     isoS isoT ξS ξT ξLS ξLT hgenS hgenT
-    ((rationalConfigurationGeometricScheme E κ tS).genericExtensionMorphism Ω₁)
-    ((rationalConfigurationGeometricScheme E κ tT).genericExtensionMorphism Ω₂)
+    ((originalFieldGeometricScheme E κ tS).genericExtensionMorphism Ω₁)
+    ((originalFieldGeometricScheme E κ tT).genericExtensionMorphism Ω₂)
     qκS qκT hgeomS hgeomT αΔ βΔ hsquareκ qLS qLT hqLS hqLT hgeomLS hgeomLT
   have hIL := by
     as_aux_lemma =>
@@ -564,10 +557,10 @@ theorem exists_projectiveTransformation_with_inertia_of_arithmeticFundamentalGro
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [AoldS : Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [AoldT : Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [HoldS : IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [HoldT : IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [AoldS : Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [AoldT : Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [HoldS : IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [HoldT : IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (eP : rationalConfigurationArithmeticGroup k κ s Ω₁ ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ω₂)
     (hP : ∀ γ,
@@ -617,14 +610,16 @@ theorem exists_projectiveTransformation_with_inertia_of_arithmeticFundamentalGro
   let hn : IsUnit ((2 : ℕ) : k) :=
     isUnit_iff_ne_zero.mpr (Nat.cast_ne_zero.mpr (show (2 : ℕ) ≠ 0 from by decide))
   let M := projectiveLineRatFuncModel k
-  let AS := M.openKummerCover (M.openBoundaryPlaces (rationalConfigurationOpen s).ι)
-    (2 : ℕ+) hn us (rationalConfigurationOpen s).ι
-    (rationalConfigurationOpen_denseRange k s)
-    (M.place_not_mem_openBoundaryPlaces (rationalConfigurationOpen s).ι)
-  let AT := M.openKummerCover (M.openBoundaryPlaces (rationalConfigurationOpen t).ι)
-    (2 : ℕ+) hn ut (rationalConfigurationOpen t).ι
-    (rationalConfigurationOpen_denseRange k t)
-    (M.place_not_mem_openBoundaryPlaces (rationalConfigurationOpen t).ι)
+  let iS : (rationalConfigurationOpen s : Scheme) ⟶ M.C := (rationalConfigurationOpen s).ι
+  let : IsOpenImmersion iS := inferInstanceAs (IsOpenImmersion (rationalConfigurationOpen s).ι)
+  let iT : (rationalConfigurationOpen t : Scheme) ⟶ M.C := (rationalConfigurationOpen t).ι
+  let : IsOpenImmersion iT := inferInstanceAs (IsOpenImmersion (rationalConfigurationOpen t).ι)
+  let AS : FiniteEtale (rationalConfigurationOpen s : Scheme) :=
+    M.openKummerCover (M.openBoundaryPlaces iS) (2 : ℕ+) hn us iS
+      (rationalConfigurationOpen_denseRange k s) (M.place_not_mem_openBoundaryPlaces iS)
+  let AT : FiniteEtale (rationalConfigurationOpen t : Scheme) :=
+    M.openKummerCover (M.openBoundaryPlaces iT) (2 : ℕ+) hn ut iT
+      (rationalConfigurationOpen_denseRange k t) (M.place_not_mem_openBoundaryPlaces iT)
   obtain ⟨scalar, βroot, _hβroot, H⟩ := H
   let E := quadraticBoundaryCoordinateField k κ βroot (Sum.elim ρS ρT)
   let : FiniteDimensional k E :=
@@ -720,9 +715,9 @@ theorem exists_projectiveTransformation_with_inertia_of_arithmeticFundamentalGro
   let : IsLocallyNoetherian GT := namedSquareMatchedBase_isLocallyNoetherian k E κ t
   let : IsOpenImmersion (namedSquareConstantProjectionChart k E κ s) := hjκS
   let : IsOpenImmersion (namedSquareConstantProjectionChart k E κ t) := hjκT
-  let AMS : Algebra (rationalConfigurationGeometricScheme E κ tS).functionField Ω₁ :=
+  let AMS : Algebra (originalFieldGeometricScheme E κ tS).functionField Ω₁ :=
     namedSquareModelAmbientAlgebra WS wS JκS
-  let AMT : Algebra (rationalConfigurationGeometricScheme E κ tT).functionField Ω₂ :=
+  let AMT : Algebra (originalFieldGeometricScheme E κ tT).functionField Ω₂ :=
     namedSquareModelAmbientAlgebra WT wT JκT
   let pS := Limits.baseChangedModelMap (isPullback_map E κ 1) pSE hpSE
   let pT := Limits.baseChangedModelMap (isPullback_map E κ 1) pTE hpTE
@@ -745,10 +740,10 @@ theorem exists_projectiveTransformation_of_arithmeticFundamentalGroupEquiv
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (eP : rationalConfigurationArithmeticGroup k κ s Ω₁ ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ω₂)
     (hP : ∀ γ,

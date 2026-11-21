@@ -230,7 +230,7 @@ theorem inftyValuation_ι_le_one_iff {f : LaurentPolynomial K} {n : ℕ} {p : K[
       mul_inv_cancel₀ (pow_ne_zero n RatFunc.X_ne_zero), mul_one]
   have hpv : RatFunc.inftyValuation K (algebraMap K[X] (RatFunc K) p) = WithZero.exp (p.natDegree :
     ℤ) := by
-    rw [RatFunc.inftyValuation_apply, RatFunc.inftyValuation_of_nonzero _
+    rw [RatFunc.inftyValuation_apply, RatFunc.inftyValuation_of_ne_zero _
       ((map_ne_zero_iff _ (IsFractionRing.injective K[X] (RatFunc K))).mpr hp0),
         RatFunc.intDegree_polynomial]
   rw [hf, map_mul, map_inv₀, map_pow, RatFunc.inftyValuation.X, hpv, ← WithZero.exp_nsmul, ←

@@ -7,6 +7,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 module
 
 public import Nyll.EtaleFundamentalGroups.Cohomology.ExtensionFibers
+public import Nyll.EtaleCohomology.Classical.AbelianUnderlying
 public import Nyll.EtaleCohomology.Constructible.FiniteLocallyConstantSet
 public import Nyll.EtaleCohomology.Sites.ConstantPresentation
 public import Nyll.EtaleCohomology.Sites.EtaleRestriction
@@ -158,17 +159,6 @@ theorem extensionFiber_isFiniteLocallyConstant (hS : S.ShortExact)
   exact (hF.pullback (𝒰.f a)).of_iso
     (P.app _ ≪≫ E ≪≫ (P.app _).symm)
 
-/-- Forgetting a constant abelian sheaf gives the same constant sheaf of sets. -/
-def constantAbelianUnderlyingIso (X : Scheme.{u}) :
-    constantSheaf X.smallEtaleTopology AddCommGrpCat.{u} ⋙
-        sheafCompose X.smallEtaleTopology (forget AddCommGrpCat.{u}) ≅
-      forget AddCommGrpCat.{u} ⋙ constantSheaf X.smallEtaleTopology (Type u) := by
-  let : X.smallEtaleTopology.PreservesSheafification (forget AddCommGrpCat.{u}) :=
-    GrothendieckTopology.PreservesSheafification.transport
-      X.smallEtaleTopology (Scheme.AffineEtale.topology X) (Scheme.AffineEtale.Spec X)
-      (Type u) (forget AddCommGrpCat.{u})
-  exact constantCommuteCompose X.smallEtaleTopology (forget AddCommGrpCat.{u})
-
 /-- Finite constant coefficients satisfy the local-constancy hypothesis without
 any geometric condition on the scheme. -/
 theorem constantAbelian_isFiniteLocallyConstant (X : Scheme.{u})
@@ -177,6 +167,6 @@ theorem constantAbelian_isFiniteLocallyConstant (X : Scheme.{u})
       ((sheafCompose X.smallEtaleTopology (forget AddCommGrpCat.{u})).obj
         ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).obj A)) :=
   (IsEtaleFiniteLocallyConstantSet.constant (X := X) A).of_iso
-    ((constantAbelianUnderlyingIso X).app A).symm
+    ((etaleConstantAbelianUnderlyingIso X).app A).symm
 
 end EtaleFundamentalGroups.Cohomology

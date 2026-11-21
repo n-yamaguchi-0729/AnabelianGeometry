@@ -53,7 +53,6 @@ theorem abelianCechUnitAugmentation_section
     simp only [η, constantSheafAdj, Adjunction.comp_unit_app,
       constantPresheafAdj_unit_app, Category.id_comp,
       sheafificationAdjunction_unit_app, evaluation_obj_map]
-    rfl
   have htop := freeAbelianSheafYonedaTerminalIso_homEquiv
     X.smallEtaleTopology hT ((constantSheaf X.smallEtaleTopology AddCommGrpCat.{u}).obj
       (AddCommGrpCat.of (ULift.{u} ℤ))) (𝟙

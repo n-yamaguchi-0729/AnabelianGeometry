@@ -34,13 +34,13 @@ variable (A : Type u) (K : Type v) (L : Type w)
 
 /-- Each actual stage has precisely its already assigned discrete topology. -/
 theorem actualFiniteTameRootsSystem_discreteTopology
-    (n : Subtype (actualFiniteTameDegreeSet A K L Q)) :
+    (n : ↥(actualFiniteTameDegreeSet A K L Q)) :
     DiscreteTopology ((actualFiniteTameRootsSystem A K L Q).X n) := ⟨rfl⟩
 
 /-- The SAME actual roots limit is Hausdorff in its existing topology. -/
 theorem actualFiniteTameRootsSystem_t2Space :
     T2Space (actualFiniteTameRootsSystem A K L Q).inverseLimit := by
-  have stageT2 : ∀ n : Subtype (actualFiniteTameDegreeSet A K L Q),
+  have stageT2 : ∀ n : ↥(actualFiniteTameDegreeSet A K L Q),
       T2Space ((actualFiniteTameRootsSystem A K L Q).X n) := by
     intro n
     have stageDiscrete := actualFiniteTameRootsSystem_discreteTopology A K L Q n
@@ -50,7 +50,7 @@ theorem actualFiniteTameRootsSystem_t2Space :
 /-- The SAME actual roots limit has continuous existing group operations. -/
 theorem actualFiniteTameRootsSystem_isTopologicalGroup :
     IsTopologicalGroup (actualFiniteTameRootsSystem A K L Q).inverseLimit := by
-  have stageGroups : ∀ n : Subtype (actualFiniteTameDegreeSet A K L Q),
+  have stageGroups : ∀ n : ↥(actualFiniteTameDegreeSet A K L Q),
       IsTopologicalGroup ((actualFiniteTameRootsSystem A K L Q).X n) := by
     intro n
     have stageDiscrete := actualFiniteTameRootsSystem_discreteTopology A K L Q n

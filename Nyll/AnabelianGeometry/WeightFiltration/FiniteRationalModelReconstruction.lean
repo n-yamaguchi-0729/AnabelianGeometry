@@ -47,10 +47,10 @@ theorem exists_rationalModel_arithmetic_transport
     (xis : Spec (.of Ωs) ⟶ Xs) (xit : Spec (.of Ωt) ⟶ Xt)
     (s t : Finset (Projectivization E (E × E)))
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme E κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme E κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme E κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme E κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme E κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme E κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme E κ t).functionField Ω₂]
     (Js : ((pullback fs).obj (originalConstantFieldCover k E)).left ≅
       (rationalConfigurationOpen s : Scheme))
     (Jt : ((pullback ft).obj (originalConstantFieldCover k E)).left ≅
@@ -127,10 +127,10 @@ theorem exists_projectiveTransformation_of_constantCover_models
     (xis : Spec (.of Ωs) ⟶ Xs) (xit : Spec (.of Ωt) ⟶ Xt)
     (s t : Finset (Projectivization E (E × E))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme E κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme E κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme E κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme E κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme E κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme E κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme E κ t).functionField Ω₂]
     (Js : ((pullback fs).obj (originalConstantFieldCover k E)).left ≅
       (rationalConfigurationOpen s : Scheme))
     (Jt : ((pullback ft).obj (originalConstantFieldCover k E)).left ≅

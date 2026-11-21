@@ -61,10 +61,10 @@ theorem namedSquareModels_match_configuration_of_arithmeticEquivalences
     [Algebra k κ] [IsAlgClosure k κ] [Algebra E κ] [IsAlgClosure E κ]
     (hs : 3 ≤ s.card) (ht : 3 ≤ t.card) (hScard : 3 ≤ S.card) (hTcard : 3 ≤ T.card)
     (ΩS ΩT : Type) [Field ΩS] [Field ΩT] [IsAlgClosed ΩS] [IsAlgClosed ΩT]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField ΩS]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField ΩT]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField ΩS]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField ΩT]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField ΩS]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField ΩT]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField ΩS]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField ΩT]
     (αP : rationalConfigurationArithmeticGroup k κ s ΩS ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t ΩT)
     (hαP : ∀ γ,
@@ -83,10 +83,10 @@ theorem namedSquareModels_match_configuration_of_arithmeticEquivalences
         (rationalConfigurationBoundaryPlace k κ t (σ p))).map
           (MulAut.conj a).toMonoidHom)
     (ΘS ΘT : Type) [Field ΘS] [Field ΘT] [IsAlgClosed ΘS] [IsAlgClosed ΘT]
-    [Algebra (rationalConfigurationGeometricScheme E κ S).functionField ΘS]
-    [Algebra (rationalConfigurationGeometricScheme E κ T).functionField ΘT]
-    [IsAlgClosure (rationalConfigurationGeometricScheme E κ S).functionField ΘS]
-    [IsAlgClosure (rationalConfigurationGeometricScheme E κ T).functionField ΘT]
+    [Algebra (originalFieldGeometricScheme E κ S).functionField ΘS]
+    [Algebra (originalFieldGeometricScheme E κ T).functionField ΘT]
+    [IsAlgClosure (originalFieldGeometricScheme E κ S).functionField ΘS]
+    [IsAlgClosure (originalFieldGeometricScheme E κ T).functionField ΘT]
     (βP : rationalConfigurationArithmeticGroup E κ S ΘS ≃ₜ*
       rationalConfigurationArithmeticGroup E κ T ΘT)
     (hβP : ∀ γ,
@@ -123,9 +123,9 @@ theorem namedSquareModels_match_configuration_of_arithmeticEquivalences
         (if W = (rationalConfigurationBoundaryPlace k κ t (σ b)).val then 1 else 0))
     (rS : s → E) (rT : t → E)
     (hrS : ∀ x : s, rS x ^ 2 = algebraMap k E
-      ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt f))
+      ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt f))
     (hrT : ∀ x : t, rT x ^ 2 = algebraMap k E
-      ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt g)) :
+      ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt g)) :
     ∀ c : s,
       matchTriples a.val b.val c₀.val (σ a).val (σ b).val (σ c₀).val
         (fun h => hab (Subtype.ext h)) (fun h => h₀b (Subtype.ext h))

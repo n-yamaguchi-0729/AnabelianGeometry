@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalPairNamedResidues
 public import Nyll.AnabelianGeometry.WeightFiltration.NamedCoverTransportActualConjugacy
 public import Nyll.AlgebraicCurves.Cohomology.RiemannRoch.Genus.GenusFFRatFuncEqZeroAlgClosed
@@ -37,13 +38,6 @@ namespace AnabelianGeometry.WeightFiltration
 
 attribute [local instance] Classical.propDecidable
 
-local instance namedTransportChart_isOpenImmersion
-    (k κ : Type) [Field k] [Field κ] [Algebra k κ] [IsAlgClosed κ]
-    (s : Finset (Projectivization k (k × k))) :
-    IsOpenImmersion (show rationalConfigurationGeometricScheme k κ s ⟶
-      (projectiveLineRatFuncModel κ).C from rationalConfigurationBaseChangeChart k κ s) :=
-  rationalConfigurationBaseChangeChart_isOpenImmersion k κ s
-
 open CategoryTheory.PreGaloisCategory EtaleFundamentalGroups.Cohomology
 open SchemeTheory ProCGroups.Abelian
 open scoped FintypeCatDiscrete
@@ -52,9 +46,7 @@ attribute [local instance]
   rationalConfigurationGeometricField_scalarTower
   placeBaseAmbientAlgebra placeBaseAmbientTower placeConstantAmbientTower
 
-local instance (priority := 2000) namedTransportSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E] [Algebra A (RatFunc E)] :
-    SMul A (RatFunc E) := (inferInstance : Algebra A (RatFunc E)).toSMul
+attribute [local instance 2000] RatFunc.algebraSMul
 
 /-- The actual named finite étale cover transport, including both actions. -/
 def RationalConfigurationNamedTransport
@@ -62,8 +54,8 @@ def RationalConfigurationNamedTransport
     [IsAlgClosed κ] [Infinite k]
     (s t : Finset (Projectivization k (k × k)))
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (n : ℕ+) (hn : IsUnit ((n : ℕ) : κ))
     (ws : Pic0.openKummerUnits κ (RatFunc κ)
       ((projectiveLineRatFuncModel κ).openBoundaryPlaces
@@ -77,34 +69,43 @@ def RationalConfigurationNamedTransport
   let : TopologicalSpace (rootsOfUnity (n : ℕ) κ) := ⊥
   letI : DiscreteTopology (rootsOfUnity (n : ℕ) κ) := ⟨rfl⟩
   let M := projectiveLineRatFuncModel κ
-  let js := rationalConfigurationBaseChangeChart k κ s
-  let jt := rationalConfigurationBaseChangeChart k κ t
-  let ξs := (rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω₁
-  let ξt := (rationalConfigurationGeometricScheme k κ t).genericExtensionMorphism Ω₂
+  let js : originalFieldGeometricScheme k κ s ⟶ M.C :=
+    rationalConfigurationBaseChangeChart k κ s
+  let jt : originalFieldGeometricScheme k κ t ⟶ M.C :=
+    rationalConfigurationBaseChangeChart k κ t
+  let : IsOpenImmersion js := rationalConfigurationBaseChangeChart_isOpenImmersion k κ s
+  let : IsOpenImmersion jt := rationalConfigurationBaseChangeChart_isOpenImmersion k κ t
+  let ξs := (originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω₁
+  let ξt := (originalFieldGeometricScheme k κ t).genericExtensionMorphism Ω₂
   let Fs := FiniteEtale.fiber ξs
   let Ft := FiniteEtale.fiber ξt
-  let U := M.openKummerCover (M.openBoundaryPlaces js) n hn ws js
-    (rationalConfigurationBaseChangeChart_denseRange k κ s)
-    (M.place_not_mem_openBoundaryPlaces js)
-  letI := CurveModel.OpenKummer.kummerGeometricRootTorsor M (M.openBoundaryPlaces js)
-    n ws js (rationalConfigurationBaseChangeChart_denseRange k κ s)
-    (M.place_not_mem_openBoundaryPlaces js) hn ξs
-  letI := CurveModel.OpenKummer.kummerGeometricRootAction_commutes M
-    (M.openBoundaryPlaces js) n ws js (rationalConfigurationBaseChangeChart_denseRange k κ s)
-    (M.place_not_mem_openBoundaryPlaces js) hn ξs
+  let U : FiniteEtale (originalFieldGeometricScheme k κ s) :=
+    M.openKummerCover (M.openBoundaryPlaces js) n hn ws js
+      (rationalConfigurationBaseChangeChart_denseRange k κ s)
+      (M.place_not_mem_openBoundaryPlaces js)
+  let : Torsor (rootsOfUnity (n : ℕ) κ) (Fs.obj U) :=
+    CurveModel.OpenKummer.kummerGeometricRootTorsor M (M.openBoundaryPlaces js)
+      n ws js (rationalConfigurationBaseChangeChart_denseRange k κ s)
+      (M.place_not_mem_openBoundaryPlaces js) hn ξs
+  let : SMulCommClass (Aut Fs) (rootsOfUnity (n : ℕ) κ) (Fs.obj U) :=
+    CurveModel.OpenKummer.kummerGeometricRootAction_commutes M
+      (M.openBoundaryPlaces js) n ws js (rationalConfigurationBaseChangeChart_denseRange k κ s)
+      (M.place_not_mem_openBoundaryPlaces js) hn ξs
   let et := coverTransportFiberEquiv Fs Ft eΔ U
   let het := coverTransportFiberEquiv_smul Fs Ft eΔ U
   letI := transportedFiberTorsor et
   letI := transportedFiberSMulCommClass eΔ.toMulEquiv et het
   ∃ u : (ZMod (n : ℕ))ˣ,
-    let W := M.openKummerCover (M.openBoundaryPlaces jt) n hn
-      (wt ^ (u : ZMod (n : ℕ)).val) jt
-      (rationalConfigurationBaseChangeChart_denseRange k κ t)
-      (M.place_not_mem_openBoundaryPlaces jt)
-    letI := CurveModel.OpenKummer.kummerGeometricRootTorsor M (M.openBoundaryPlaces jt)
-      n (wt ^ (u : ZMod (n : ℕ)).val) jt
-      (rationalConfigurationBaseChangeChart_denseRange k κ t)
-      (M.place_not_mem_openBoundaryPlaces jt) hn ξt
+    let W : FiniteEtale (originalFieldGeometricScheme k κ t) :=
+      M.openKummerCover (M.openBoundaryPlaces jt) n hn
+        (wt ^ (u : ZMod (n : ℕ)).val) jt
+        (rationalConfigurationBaseChangeChart_denseRange k κ t)
+        (M.place_not_mem_openBoundaryPlaces jt)
+    let : Torsor (rootsOfUnity (n : ℕ) κ) (Ft.obj W) :=
+      CurveModel.OpenKummer.kummerGeometricRootTorsor M (M.openBoundaryPlaces jt)
+        n (wt ^ (u : ZMod (n : ℕ)).val) jt
+        (rationalConfigurationBaseChangeChart_denseRange k κ t)
+        (M.place_not_mem_openBoundaryPlaces jt) hn ξt
     ∃ f : Ft.obj ((coverTransportOfAutEquiv Fs Ft eΔ).functor.obj U) ≃ Ft.obj W,
       (∀ (z : rootsOfUnity (n : ℕ) κ) x, f (z • x) = z • f x) ∧
       ∀ (g : Aut Ft) x, f (g • x) = g • f x
@@ -116,10 +117,10 @@ theorem bare_rationalConfiguration_pair_namedCoverTransport
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ω₂]
     (eP : rationalConfigurationArithmeticGroup k κ s Ω₁ ≃ₜ*
       rationalConfigurationArithmeticGroup k κ t Ω₂)
     (hP : ∀ γ,
@@ -165,8 +166,8 @@ theorem bare_rationalConfiguration_pair_namedCoverTransport
   obtain ⟨ws, wt, hws, hwt, hvector, hres⟩ := hfg n hn
   refine ⟨ws, wt, hws, hwt, hvector, hres, ?_⟩
   let M := projectiveLineRatFuncModel κ
-  let U₁ := rationalConfigurationGeometricScheme k κ s
-  let U₂ := rationalConfigurationGeometricScheme k κ t
+  let U₁ := originalFieldGeometricScheme k κ s
+  let U₂ := originalFieldGeometricScheme k κ t
   let j₁ : U₁ ⟶ M.C := rationalConfigurationBaseChangeChart k κ s
   let j₂ : U₂ ⟶ M.C := rationalConfigurationBaseChangeChart k κ t
   let : IsOpenImmersion j₁ := rationalConfigurationBaseChangeChart_isOpenImmersion k κ s

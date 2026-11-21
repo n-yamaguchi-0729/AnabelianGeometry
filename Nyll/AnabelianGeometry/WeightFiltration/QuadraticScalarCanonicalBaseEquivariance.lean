@@ -27,23 +27,11 @@ open scoped FintypeCatDiscrete
 
 namespace AnabelianGeometry.WeightFiltration
 
-local instance canonicalQuadraticCoverIsoOverCategory (S : Scheme) :
-    Category (MorphismProperty.Over
-      (@IsFiniteEtale : MorphismProperty Scheme) ⊤ S) :=
-  AlgebraicGeometry.FiniteEtale.instCategory S
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleOverCategory
 
-local instance canonicalQuadraticCoverIsoHasPullbacksAlong
-    {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.HasPullbacksAlong
-      (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun _ _ ↦ inferInstance⟩
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleHasPullbacksAlong
 
-local instance canonicalQuadraticCoverIsoStableUnderBaseChangeAlong
-    {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.IsStableUnderBaseChangeAlong
-      (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun h hf ↦ MorphismProperty.of_isPullback
-    (P := (@IsFiniteEtale : MorphismProperty Scheme)) h hf⟩
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleIsStableUnderBaseChangeAlong
 
 variable (k κ : Type) [Field k] [Field κ] [Algebra k κ]
   [IsSepClosure k κ] [IsSepClosed κ]

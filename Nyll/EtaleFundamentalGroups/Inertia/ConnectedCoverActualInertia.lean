@@ -39,8 +39,8 @@ attribute [local instance]
   Place.instFiniteSubtypeMemValuationSubringToValuationSubringIntegralClosureAt
   placeBaseAmbientAlgebra placeBaseAmbientTower
   extendingPlaceAmbientAlgebra extendingPlaceAmbientTower
-  finiteNormalizationPlaceAlgebra finiteNormalizationPlaceTower
-  finiteNormalizationPlaceLocalization finiteNormalizationPlaceAmbientTower
+  Place.placeOfPrimeAlgebra Place.placeOfPrimeIsScalarTower
+  Place.placeOfPrimeIsLocalization finiteNormalizationPlaceAmbientTower
   originalPlaceNormalizationAction extendingPlaceNormalizationAction
 
 /-- At the same actual localized prime, inertia maps to the exact intersection

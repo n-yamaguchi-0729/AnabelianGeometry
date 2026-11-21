@@ -6,6 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 module
 
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Morphisms.HomInvertibleKerCompEqId
 public import Nyll.AlgebraicCurves.Divisors.Modulus.Modulus
 public import Nyll.AlgebraicCurves.FunctionFields.Transcendence.CurveOver
 public import Nyll.AlgebraicCurves.Geometry.Curves.SmoothProductIntegral
@@ -39,6 +40,8 @@ The actual self-product integrality is supplied from the original curve.
 -/
 
 @[expose] public section
+
+open AlgebraicGeometry.Scheme.Hom (sectionEffectiveCartierDivisor)
 
 universe u
 

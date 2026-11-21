@@ -20,7 +20,7 @@ public import Nyll.SchemeTheory.Modules.Tensor.TensorSections
 public import Nyll.AlgebraicCurves.Geometry.Projective.ProjTwistDatum
 public import Nyll.SchemeTheory.Modules.Localization.LocallyTrivialSectionsLocalization
 public import Nyll.SchemeTheory.Modules.ProjectivePresentation.ProjectivePresentationCharts
-public import Nyll.AlgebraicCurves.Geometry.Sheaves.Frames.InvertibleModuleFrames
+public import Nyll.SchemeTheory.Modules.Frames.FrameFromTrivialization
 public import Nyll.SchemeTheory.Modules.Tensor.TensorFrames
 public import Nyll.SchemeTheory.Modules.Frames.IsFrameOnPullbackIsoUnit
 public import Nyll.AlgebraicCurves.Geometry.Sheaves.Divisors.InvertiblePullbackSectionEqZeroIffMemSupport

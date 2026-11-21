@@ -44,7 +44,7 @@ theorem rationalConfigurationOpen_nonempty
   refine ⟨⟨zeroHomogeneousPoint k 1, ?_⟩⟩
   apply (mem_rationalConfigurationOpen_iff s _).mpr
   intro p _
-  exact zeroHomogeneousPoint_ne_rationalPuncturePoint p.rep p.rep_nonzero
+  exact zeroHomogeneousPoint_ne_rationalPuncturePoint p.rep p.rep_ne_zero
 
 /-- The same generic-point argument gives a point of the literal coefficient pullback. -/
 theorem rationalConfigurationBaseChange_nonempty

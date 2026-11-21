@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.AnabelianGeometry.WeightFiltration.ActualRationalCuspRecognition
 public import Nyll.EtaleFundamentalGroups.GeometricFiber.ArithmeticGeometricEquivUniqueness
 public import Nyll.AlgebraicCurves.FunctionFields.Rational.InstIsCurveOverRatFunc
@@ -32,10 +33,7 @@ section SourceChart
 open scoped RatFunc
 attribute [local instance] Polynomial.algebra
 
-local instance (priority := 2000) fixedRationalCuspRecognitionSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E]
-    [Algebra A (RatFunc E)] : SMul A (RatFunc E) :=
-  (inferInstance : Algebra A (RatFunc E)).toSMul
+attribute [local instance 2000] RatFunc.algebraSMul
 
 variable
     (k κ : Type) [Field k] [CharZero k] [Field.FG k] [Field κ] [CharZero κ] [IsAlgClosed κ]

@@ -51,19 +51,19 @@ theorem semilinear_inverse_projectiveRationalPoint
     inferInstanceAs (IsIso σ.toCommRingCatIso.hom)
   have : IsIso a := inferInstance
   let x : SchemeHomOver (𝟙 (Spec (.of K))) (π K 1) :=
-    ⟨rationalPunctureSection p.rep p.rep_nonzero,
-      rationalPunctureSection_comp_π p.rep p.rep_nonzero⟩
+    ⟨rationalPunctureSection p.rep p.rep_ne_zero,
+      rationalPunctureSection_comp_π p.rep p.rep_ne_zero⟩
   have hx : (projectiveLineRatFuncModel K).pointEquivPlace x = projectiveRatFuncPlace p := by
     refine (CurveModel.pointEquivPlace_apply (projectiveLineRatFuncModel K) x).trans ?_
     calc
       (projectiveLineRatFuncModel K).placeOfPoint (pointEquivClosedPoint (π K 1) x) =
           (projectiveLineRatFuncModel K).placeOfPoint ⟨projectiveRationalPoint p,
-            isClosed_singleton_rationalPuncturePoint p.rep p.rep_nonzero⟩ := by
+            isClosed_singleton_rationalPuncturePoint p.rep p.rep_ne_zero⟩ := by
         apply congrArg (projectiveLineRatFuncModel K).placeOfPoint
         apply Subtype.ext
-        change rationalPunctureSection p.rep p.rep_nonzero (IsLocalRing.closedPoint K) =
-          rationalPunctureSection p.rep p.rep_nonzero (coefficientFieldPoint (K := K))
-        exact congrArg (rationalPunctureSection p.rep p.rep_nonzero)
+        change rationalPunctureSection p.rep p.rep_ne_zero (IsLocalRing.closedPoint K) =
+          rationalPunctureSection p.rep p.rep_ne_zero (coefficientFieldPoint (K := K))
+        exact congrArg (rationalPunctureSection p.rep p.rep_ne_zero)
           (Subsingleton.elim _ _)
       _ = projectiveRatFuncPlace p :=
         projectiveLineRatFuncModel_placeOfPoint_projectiveRationalPoint K p
@@ -88,7 +88,7 @@ theorem semilinear_inverse_projectiveRationalPoint
     exact hy.trans
       (projectiveLineRatFuncModel_placeOfPoint_projectiveRationalPoint K _).symm
   have hp := congrArg Subtype.val hc
-  change θ.inv (rationalPunctureSection p.rep p.rep_nonzero
+  change θ.inv (rationalPunctureSection p.rep p.rep_ne_zero
     (a (IsLocalRing.closedPoint K))) = _ at hp
   rw [show a (IsLocalRing.closedPoint K) = coefficientFieldPoint (K := K) from
     Subsingleton.elim _ _] at hp

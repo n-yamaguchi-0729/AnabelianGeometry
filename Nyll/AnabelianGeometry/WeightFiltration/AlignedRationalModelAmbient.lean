@@ -41,7 +41,7 @@ def rationalModelGeometricIso
       pullback.fst (Spec.map (CommRingCat.ofHom (algebraMap k E))) f) :
     pullback (Spec.map (CommRingCat.ofHom (algebraMap E κ)))
         (pullback.fst (Spec.map (CommRingCat.ofHom (algebraMap k E))) f) ≅
-      rationalConfigurationGeometricScheme E κ s :=
+      originalFieldGeometricScheme E κ s :=
   asIso (pullback.map (Spec.map (CommRingCat.ofHom (algebraMap E κ)))
     (pullback.fst (Spec.map (CommRingCat.ofHom (algebraMap k E))) f)
     (Spec.map (CommRingCat.ofHom (algebraMap E κ)))
@@ -75,7 +75,7 @@ theorem exists_alignedRationalModel_genericAmbient
       pullback.fst (Spec.map (CommRingCat.ofHom (algebraMap k E))) f) :
     let c := pullback.fst (Spec.map (CommRingCat.ofHom (algebraMap k E))) f
     let Y := pullback (Spec.map (CommRingCat.ofHom (algebraMap E κ))) c
-    let Z := rationalConfigurationGeometricScheme E κ s
+    let Z := originalFieldGeometricScheme E κ s
     let Jκ := rationalModelGeometricIso k E κ f s J hJ
     ∃ a : Y.functionField →+* Ω,
       let _AY : Algebra Y.functionField Ω := a.toAlgebra

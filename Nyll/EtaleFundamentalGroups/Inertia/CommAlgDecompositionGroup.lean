@@ -104,7 +104,7 @@ theorem coefficientDecomposition_exists_preimage
         commAlgAutomorphismRingHom A B (f.hom'.toFun g)) :
     let : MulSemiringAction G.carrier B.carrier := a
     ∀ τ : (commAlgIdealDecompositionGroup A B Q).carrier,
-      ∃ g : G.carrier, (MulAction.stabilizer G.carrier Q).carrier g ∧
+      ∃ g : G.carrier, g ∈ MulAction.stabilizer G.carrier Q ∧
         f.hom'.toFun g = τ.val := by
   intro ringAction τ
   obtain ⟨g, hg⟩ := hsurj τ.val

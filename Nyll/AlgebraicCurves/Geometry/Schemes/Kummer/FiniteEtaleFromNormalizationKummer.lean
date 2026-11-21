@@ -262,6 +262,22 @@ theorem iSup_good_eq_top (k : ℕ) (g : X.functionField) (hg : g ≠ 0)
 
 end KFEAux
 
+private theorem normalizationRestrictionIsoSpec {X Y : Scheme.{u}} (φ : X ⟶ Y)
+    [QuasiCompact φ] [QuasiSeparated φ] (V : Y.affineOpens)
+    [IsOpenImmersion (φ.normalizationOpenCover.f V)] :
+    let e := IsOpenImmersion.isoOfRangeEq (φ.fromNormalization ⁻¹ᵁ (V : Y.Opens)).ι
+      (φ.normalizationOpenCover.f V)
+      (by simpa using congr($(φ.fromNormalization_preimage V).1))
+    (e.inv ≫ (φ.fromNormalization ∣_ (V : Y.Opens))) ≫ V.2.isoSpec.hom =
+      Spec.map (φ.normalizationDiagramMap.app (.op V)) := by
+  intro e
+  have : IsOpenImmersion V.2.fromSpec := V.2.isOpenImmersion_fromSpec
+  erw [← cancel_mono V.2.fromSpec]
+  have he : e.inv ≫ (φ.fromNormalization ⁻¹ᵁ (V : Y.Opens)).ι =
+      φ.normalizationOpenCover.f V := IsOpenImmersion.isoOfRangeEq_inv_fac _ _ _
+  erw [Category.assoc, Category.assoc, V.2.isoSpec_hom_fromSpec,
+    morphismRestrict_ι, ← Category.assoc, he, φ.ι_fromNormalization V]
+  rfl
 
 theorem _root_.AlgebraicGeometry.isFinite_and_etale_fromNormalization_kummer_of_isIntegrallyClosed
     {R : Type u} [CommRing R]
@@ -319,15 +335,8 @@ theorem _root_.AlgebraicGeometry.isFinite_and_etale_fromNormalization_kummer_of_
           X.functionField))), φ ⁻¹ᵁ (V : X.Opens)))).Finite
       rw [RingHom.finite_algebraMap]
       exact (KFEAux.key f hnorm k hk g hg U h hh V hV).1
-    convert! (IsFinite.SpecMap_iff _).mpr this
-    have : IsOpenImmersion V.2.fromSpec := V.2.isOpenImmersion_fromSpec
-    erw [← cancel_mono V.2.fromSpec]
-    have he : e.inv ≫ (φ.fromNormalization ⁻¹ᵁ (V : X.Opens)).ι =
-        φ.normalizationOpenCover.f V :=
-      IsOpenImmersion.isoOfRangeEq_inv_fac _ _ _
-    erw [Category.assoc, Category.assoc, V.2.isoSpec_hom_fromSpec,
-      morphismRestrict_ι, ← Category.assoc, he, φ.ι_fromNormalization V]
-    rfl
+    rw [normalizationRestrictionIsoSpec φ V]
+    exact (IsFinite.SpecMap_iff _).mpr this
   · rw [IsZariskiLocalAtTarget.iff_of_iSup_eq_top (P := @Etale) _ hcov]
     rintro ⟨V, hV⟩
     have : IsOpenImmersion (φ.normalizationOpenCover.f V) :=
@@ -346,15 +355,9 @@ theorem _root_.AlgebraicGeometry.isFinite_and_etale_fromNormalization_kummer_of_
           X.functionField))), φ ⁻¹ᵁ (V : X.Opens)))).Etale
       rw [RingHom.etale_algebraMap]
       exact (KFEAux.key f hnorm k hk g hg U h hh V hV).2
-    convert! (HasRingHomProperty.Spec_iff (P := @Etale)).mpr this
-    have : IsOpenImmersion V.2.fromSpec := V.2.isOpenImmersion_fromSpec
-    erw [← cancel_mono V.2.fromSpec]
-    have he : e.inv ≫ (φ.fromNormalization ⁻¹ᵁ (V : X.Opens)).ι =
-        φ.normalizationOpenCover.f V :=
-      IsOpenImmersion.isoOfRangeEq_inv_fac _ _ _
-    erw [Category.assoc, Category.assoc, V.2.isoSpec_hom_fromSpec,
-      morphismRestrict_ι, ← Category.assoc, he, φ.ι_fromNormalization V]
-    rfl
+    rw [normalizationRestrictionIsoSpec φ V]
+    exact (HasRingHomProperty.Spec_iff (P := @Etale)).mpr this
+
 end isFinite_and_etale_fromNormalization_kummer_of_isIntegrallyClosed
 end AlgebraicCurves.Geometry.Schemes.Proofs
 end ProofImplementation

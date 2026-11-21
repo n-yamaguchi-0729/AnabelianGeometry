@@ -6,6 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.AlgebraicCurves.Models.Rational.PuncturedProjectiveLineOriginalFields
 public import Nyll.JacobianVarieties.Kummer.NamedKummerCoefficientRootCoordinate
 public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
@@ -33,22 +34,7 @@ attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
   rationalConfigurationOriginalFieldAlgebra rationalConfigurationOriginalConstantAlgebra
   rationalConfigurationOriginalFieldExtensionAlgebra
 
-local instance (priority := 2000) bareRootedRestrictionSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E] [Algebra A (RatFunc E)] :
-    SMul A (RatFunc E) := (inferInstance : Algebra A (RatFunc E)).toSMul
-
-local instance bareRootedRestrictionArithmeticChart_isOpenImmersion
-    (k : Type) [Field k] (s : Finset (Projectivization k (k × k))) :
-    IsOpenImmersion (show (rationalConfigurationOpen s : Scheme) ⟶
-      (projectiveLineRatFuncModel k).C from (rationalConfigurationOpen s).ι) :=
-  inferInstanceAs (IsOpenImmersion (rationalConfigurationOpen s).ι)
-
-local instance bareRootedRestrictionGeometricChart_isOpenImmersion
-    (k κ : Type) [Field k] [Field κ] [Algebra k κ] [IsAlgClosed κ]
-    (s : Finset (Projectivization k (k × k))) :
-    IsOpenImmersion (show rationalConfigurationGeometricScheme k κ s ⟶
-      (projectiveLineRatFuncModel κ).C from rationalConfigurationBaseChangeChart k κ s) :=
-  rationalConfigurationBaseChangeChart_isOpenImmersion k κ s
+attribute [local instance 2000] RatFunc.algebraSMul
 
 /-- Equality transport retains the coordinate on the same chosen torsor. -/
 private theorem restriction_at_composite_point_rooted
@@ -94,8 +80,8 @@ theorem rationalConfiguration_namedKummer_geometricRestriction_with_rootCoordina
     [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     (n : ℕ+)
     (u : Pic0.openKummerUnits k (RatFunc k)
       ((projectiveLineRatFuncModel k).openBoundaryPlaces (rationalConfigurationOpen s).ι) n)
@@ -113,22 +99,29 @@ theorem rationalConfiguration_namedKummer_geometricRestriction_with_rootCoordina
       isUnit_iff_ne_zero.mpr (Nat.cast_ne_zero.mpr n.ne_zero)
     let hnκ : IsUnit ((n : ℕ) : κ) := by
       simpa only [map_natCast] using hn.map (algebraMap k κ)
-    let ξG := (rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω
+    let ξG := (originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω
     let ξA := rationalConfigurationArithmeticBasePoint k κ s Ω
-    let jA := (rationalConfigurationOpen s).ι
-    let jG := rationalConfigurationBaseChangeChart k κ s
     let MA := projectiveLineRatFuncModel k
     let MG := projectiveLineRatFuncModel κ
-    let hjA := rationalConfigurationOpen_denseRange k s
-    let hjG := rationalConfigurationBaseChangeChart_denseRange k κ s
-    let WA := MA.openKummerCover (MA.openBoundaryPlaces jA) n hn u jA hjA
-      (MA.place_not_mem_openBoundaryPlaces jA)
-    let WG := MG.openKummerCover (MG.openBoundaryPlaces jG) n hnκ w jG hjG
-      (MG.place_not_mem_openBoundaryPlaces jG)
+    let jA : (rationalConfigurationOpen s : Scheme) ⟶ MA.C := (rationalConfigurationOpen s).ι
+    let jG : originalFieldGeometricScheme k κ s ⟶ MG.C :=
+      rationalConfigurationBaseChangeChart k κ s
+    let : IsOpenImmersion jA :=
+      inferInstanceAs (IsOpenImmersion (rationalConfigurationOpen s).ι)
+    let : IsOpenImmersion jG := rationalConfigurationBaseChangeChart_isOpenImmersion k κ s
+    let hjA : DenseRange jA := rationalConfigurationOpen_denseRange k s
+    let hjG : DenseRange jG := rationalConfigurationBaseChangeChart_denseRange k κ s
+    let WA : FiniteEtale (rationalConfigurationOpen s : Scheme) :=
+      MA.openKummerCover (MA.openBoundaryPlaces jA) n hn u jA hjA
+        (MA.place_not_mem_openBoundaryPlaces jA)
+    let WG : FiniteEtale (originalFieldGeometricScheme k κ s) :=
+      MG.openKummerCover (MG.openBoundaryPlaces jG) n hnκ w jG hjG
+        (MG.place_not_mem_openBoundaryPlaces jG)
     let q := arithmeticFundamentalGroupHom k κ (jA ≫ MA.toBase) ξA
     let inc := rationalConfigurationGeometricInclusion k κ s Ω
-    let := CurveModel.OpenKummer.kummerGeometricRootAction MG (MG.openBoundaryPlaces jG)
-      n w jG hjG (MG.place_not_mem_openBoundaryPlaces jG) hnκ ξG
+    let : MulAction (rootsOfUnity (n : ℕ) κ) ((fiber ξG).obj WG) :=
+      CurveModel.OpenKummer.kummerGeometricRootAction MG (MG.openBoundaryPlaces jG)
+        n w jG hjG (MG.place_not_mem_openBoundaryPlaces jG) hnκ ξG
     let ξCan := (rationalConfigurationOpen s : Scheme).genericExtensionMorphism Ω
     let b := algebraMap (RatFunc k) Ω (u.val : RatFunc k)
     ∃ hp : ξA = ξCan,
@@ -158,9 +151,9 @@ theorem rationalConfiguration_namedKummer_geometricRestriction_with_rootCoordina
                 (restrictRootsOfUnity (q p).toRingHom (n : ℕ) ζ) (p • x)) ∧
           ∀ x, eBare x = eCan (((eqToIso (congrArg fiber hp)).hom.app WA) x) := by
   intro originalAlgebra arithmeticAlgebra constantAlgebra sepClosure
-    hn hnκ ξG ξA jA jG MA MG hjA hjG WA WG q inc rootAction ξCan b
+    hn hnκ ξG ξA MA MG jA jG openA openG hjA hjG WA WG q inc rootAction ξCan b
   let X := (rationalConfigurationOpen s : Scheme)
-  let Y := rationalConfigurationGeometricScheme k κ s
+  let Y := originalFieldGeometricScheme k κ s
   let a : Y ⟶ X := Limits.pullback.snd
     (Spec.map (CommRingCat.ofHom (algebraMap k κ))) (jA ≫ MA.toBase)
   let : Algebra (RatFunc κ) Ω := rationalConfigurationGeometricAmbientAlgebra k κ s Ω

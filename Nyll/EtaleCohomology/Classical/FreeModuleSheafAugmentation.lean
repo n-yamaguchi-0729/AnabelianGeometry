@@ -135,7 +135,6 @@ theorem freeModuleSheafCounit_terminal {T : X.Etale} (hT : IsTerminal T) :
     ((constantSheaf X.smallEtaleTopology (ModuleCat.{u} R)).obj (ModuleCat.of R R))).injective
   rw [freeModuleSheafCounit_yoneda_sections,
     freeModuleSheafYonedaTerminalIso_hom_sections, constantRegularUnit_toSheafify]
-  rfl
 
 /-- The original cover augmentation is the actual coalgebra counit. -/
 theorem freeModuleSheafCounit_eq_moduleCechUnitAugmentation

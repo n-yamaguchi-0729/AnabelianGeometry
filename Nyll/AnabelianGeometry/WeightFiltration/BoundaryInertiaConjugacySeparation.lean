@@ -9,7 +9,7 @@ public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaProcyclic
 
 /-! # Actual boundary places are distinguished by their inertia conjugacy classes
 
-Abelianization removes the conjugating element. The already proved separation
+Group.Abelianization removes the conjugating element. The already proved separation
 of the actual roots coordinates then distinguishes two places whenever a third
 boundary place exists. No correspondence of boundary indices is an input.
 -/

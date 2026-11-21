@@ -74,7 +74,7 @@ theorem exists_quadratic_openKummerUnit_of_two_boundary
     have h := congrFun (congrArg Multiplicative.toAdd hu) v
     change (v.val.ord (u.val : F) : ZMod 2) = a v at h
     simpa [a, hvw] using h
-  refine ⟨u, ⟨v, hv⟩, X_pow_sub_C_irreducible_of_prime Nat.prime_two ?_⟩
+  refine ⟨u, ⟨v, hv⟩, irreducible_X_pow_sub_C_of_prime Nat.prime_two ?_⟩
   intro x hx
   have hord := congrArg v.val.ord hx
   rw [← zpow_natCast, v.val.ord_zpow] at hord

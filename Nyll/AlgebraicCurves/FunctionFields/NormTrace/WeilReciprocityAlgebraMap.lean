@@ -34,16 +34,9 @@ attribute [-instance]
   instIsTorsionFreeSubtypeMemValuationSubringToValuationSubringIntegralClosureAt
   instIsDedekindDomainIntegralClosureAt
   instFiniteSubtypeMemValuationSubringToValuationSubringIntegralClosureAt
-  instIsRankOneDiscreteWithZeroMultiplicativeIntAdicValuation
-  instIsTrivialOnWithZeroMultiplicativeIntAdicValuation
 attribute [-simp] AlgebraicCurve.Place.placeOfPrime_toValuationSubring
   AlgebraicCurve.Place.mem_fiberOver AlgebraicCurve.Place.fiberEquiv_symm_apply
   AlgebraicCurve.Place.fiberEquiv_apply AlgebraicCurve.Place.centerHeightOneSpectrum_asIdeal
-  AlgebraicCurve.Place.congrEquiv_symm_apply
-  AlgebraicCurve.RationalFunctionField.heightOneSpectrumOfIrreducible_asIdeal
-  AlgebraicCurve.Place.congrRingEquiv_toValuationSubring AlgebraicCurve.Place.congrEquiv_apply
-  AlgebraicCurve.Place.coe_comapSymmRingEquiv_apply
-  AlgebraicCurve.RationalFunctionField.deg_placeOfPoint
 
 open AlgebraicCurve
 

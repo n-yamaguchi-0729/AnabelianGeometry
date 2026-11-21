@@ -44,7 +44,7 @@ theorem actualTameCharacter_surjective
     actualNormalizationInertia_compactSpace A K L Q
   have actualDegrees_nonempty :=
     (actualFiniteTameDegreeSet_nonempty A K L Q).to_subtype
-  have : ∀ n : Subtype (actualFiniteTameDegreeSet A K L Q),
+  have : ∀ n : ↥(actualFiniteTameDegreeSet A K L Q),
       T2Space ((actualFiniteTameRootsSystem A K L Q).X n) := by
     intro n
     have : DiscreteTopology ((actualFiniteTameRootsSystem A K L Q).X n) := ⟨rfl⟩

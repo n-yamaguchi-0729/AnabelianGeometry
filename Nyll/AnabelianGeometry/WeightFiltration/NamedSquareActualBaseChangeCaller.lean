@@ -33,21 +33,9 @@ open scoped RatFunc
 attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
 namespace AnabelianGeometry.WeightFiltration
 
-local instance actualNamedBaseChangeOverCategory (S : Scheme) :
-    Category (MorphismProperty.Over
-      (@IsFiniteEtale : MorphismProperty Scheme) ⊤ S) :=
-  AlgebraicGeometry.FiniteEtale.instCategory S
-local instance actualNamedBaseChangeHasPullbacksAlong
-    {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.HasPullbacksAlong
-      (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun _ _ ↦ inferInstance⟩
-local instance actualNamedBaseChangeStableUnderBaseChangeAlong
-    {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.IsStableUnderBaseChangeAlong
-      (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun h hf ↦ MorphismProperty.of_isPullback
-    (P := (@IsFiniteEtale : MorphismProperty Scheme)) h hf⟩
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleOverCategory
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleHasPullbacksAlong
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleIsStableUnderBaseChangeAlong
 
 private theorem actualNamed_functionFieldMap_eq
     {X Y : Scheme} [IsIntegral X] [IsIntegral Y]
@@ -158,7 +146,7 @@ theorem namedSquareModel_exists_actualBaseChangeIso
     let g := (rationalConfigurationOpen t).ι ≫ π E 1
     let b := pullback.snd φ f
     let Wκ := (FiniteEtale.pullback b).obj W
-    ∃ Jκ : Wκ.left ≅ rationalConfigurationGeometricScheme E κ t,
+    ∃ Jκ : Wκ.left ≅ originalFieldGeometricScheme E κ t,
       Jκ.hom ≫ pullback.snd φ g = pullback.fst W.hom b ≫ J.hom ∧
       Jκ.hom ≫ pullback.fst φ g = Wκ.hom ≫ pullback.fst φ f := by
   intro φ f g b Wκ
@@ -199,10 +187,10 @@ theorem namedSquareModel_actualBaseChange_same_point
     let Wκ := (FiniteEtale.pullback b).obj W
     let ξκ := Uκ.genericExtensionMorphism Ω
     let wκ := (pointedPullbackFiberEquiv b ξκ (ξκ ≫ b) rfl W).symm w
-    ∃ Jκ : Wκ.left ≅ rationalConfigurationGeometricScheme E κ t,
+    ∃ Jκ : Wκ.left ≅ originalFieldGeometricScheme E κ t,
       Jκ.hom ≫ pullback.snd φ g = pullback.fst W.hom b ≫ J.hom ∧
       Jκ.hom ≫ pullback.fst φ g = Wκ.hom ≫ pullback.fst φ f ∧
-      let qκ : rationalConfigurationGeometricScheme E κ t ⟶ Uκ := Jκ.inv ≫ Wκ.hom
+      let qκ : originalFieldGeometricScheme E κ t ⟶ Uκ := Jκ.inv ≫ Wκ.hom
       qκ ≫ b = pullback.snd φ g ≫ q ∧
       qκ ≫ pullback.fst φ f = pullback.fst φ g ∧
       let : IsIntegral Wκ.left := isIntegral_left_of_isConnected_finiteEtale Wκ
@@ -210,11 +198,11 @@ theorem namedSquareModel_actualBaseChange_same_point
       let lift := fiberObjEquivHom ξκ Wκ wκ
       let emb := finiteEtaleGenericHomFunctionFieldAlgHom Wκ lift
       let hJdense : DenseRange Jκ.hom := Jκ.hom.homeomorph.surjective.denseRange
-      let _ : Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ω :=
+      let _ : Algebra (originalFieldGeometricScheme E κ t).functionField Ω :=
         (emb.toRingHom.comp (Jκ.hom.functionFieldMap hJdense)).toAlgebra
-      (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω =
+      (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ω =
         actualFiberPointLift ξκ Wκ wκ ≫ Jκ.hom ∧
-      (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω ≫
+      (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ω ≫
           pullback.snd φ g =
         actualFiberPointLift (ξκ ≫ b) W w ≫ J.hom := by
   intro φ f g b Uκ Wκ ξκ wκ
@@ -239,7 +227,7 @@ theorem namedSquareModel_actualBaseChange_same_point
         (Jκ.hom_inv_id_assoc Wκ.hom)).trans hbase.symm)
   refine ⟨hqcoeff, hqbase, ?_⟩
   intro integralWκ algebraUWκ lift emb hJdense A
-  have hpoint : (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω =
+  have hpoint : (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ω =
       actualFiberPointLift ξκ Wκ wκ ≫ Jκ.hom := by
     exact recoveredCover_genericExtensionMorphism_eq Wκ wκ Jκ.symm
       (actualFiberPointLift ξκ Wκ wκ ≫ Jκ.hom)
@@ -254,7 +242,7 @@ theorem namedSquareModel_actualBaseChange_same_point
       actualFiberPointLift (ξκ ≫ b) W w :=
     hw.symm.trans (congrArg (fun v : (fiber (ξκ ≫ b)).obj W =>
       actualFiberPointLift (ξκ ≫ b) W v) hwκ)
-  exact (congrArg (fun z : Spec (.of Ω) ⟶ rationalConfigurationGeometricScheme E κ t =>
+  exact (congrArg (fun z : Spec (.of Ω) ⟶ originalFieldGeometricScheme E κ t =>
       z ≫ pullback.snd φ g) hpoint).trans
     ((Category.assoc (actualFiberPointLift ξκ Wκ wκ) Jκ.hom (pullback.snd φ g)).trans
     ((congrArg (fun z : Wκ.left ⟶ (rationalConfigurationOpen t : Scheme) =>
@@ -304,7 +292,7 @@ theorem namedSquareModel_actualBaseChange_field_square
           exact (pullback.condition (f := φ) (g := f)).trans
             (Category.assoc b j
               (show (projectiveLineRatFuncModel E).C ⟶ Spec (.of E) from π E 1)).symm)
-    ∃ Jκ : Wκ.left ≅ rationalConfigurationGeometricScheme E κ t,
+    ∃ Jκ : Wκ.left ≅ originalFieldGeometricScheme E κ t,
       Jκ.hom ≫ pullback.snd φ g = pullback.fst W.hom b ≫ J.hom ∧
       Jκ.hom ≫ pullback.fst φ g = Wκ.hom ≫ pullback.fst φ f ∧
       ∃ hjκ : IsOpenImmersion jκ,
@@ -322,7 +310,7 @@ theorem namedSquareModel_actualBaseChange_field_square
   intro φ f g b Uκ Wκ jκ
   obtain ⟨Jκ, hcoeff, hbase⟩ :=
     namedSquareModel_exists_actualBaseChangeIso E κ j W p hp t J q hJq hq
-  let qκ : rationalConfigurationGeometricScheme E κ t ⟶ Uκ := Jκ.inv ≫ Wκ.hom
+  let qκ : originalFieldGeometricScheme E κ t ⟶ Uκ := Jκ.inv ≫ Wκ.hom
   let c : (projectiveLineRatFuncModel κ).C ⟶ (projectiveLineRatFuncModel E).C := map E κ 1
   let d : (projectiveLineRatFuncModel κ).C ⟶ Spec (.of κ) := π κ 1
   have hJκq : Jκ.hom ≫ qκ = Wκ.hom := Jκ.hom_inv_id_assoc Wκ.hom
@@ -353,7 +341,7 @@ theorem namedSquareModel_actualBaseChange_field_square
   refine ⟨Jκ, hcoeff, hbase, hjκopen, ?_⟩
   intro openJκ integralWκ algebraUWκ cU cR hJdense
   let M : CurveModel κ (RatFunc κ) := projectiveLineRatFuncModel κ
-  let lκ : rationalConfigurationGeometricScheme E κ t ⟶ M.C :=
+  let lκ : originalFieldGeometricScheme E κ t ⟶ M.C :=
     rationalConfigurationBaseChangeChart E κ t
   let pκ : M.C ⟶ M.C := baseChangedModelMap (isPullback_map E κ 1) p hp
   have hpChart := ratFuncModel_chartPoint_square_of_generic E
@@ -379,13 +367,13 @@ theorem namedSquareModel_actualBaseChange_field_square
         ((congrArg (fun z : M.C ⟶ (projectiveLineRatFuncModel E).C => lκ ≫ z)
           hpcoeff).trans
         ((Category.assoc lκ c p).symm.trans
-        ((congrArg (fun z : rationalConfigurationGeometricScheme E κ t ⟶
+        ((congrArg (fun z : originalFieldGeometricScheme E κ t ⟶
             (projectiveLineRatFuncModel E).C => z ≫ p) hlcoeff).trans
         ((Category.assoc (pullback.snd φ g) l p).trans
         ((congrArg (fun z : (rationalConfigurationOpen t : Scheme) ⟶
             (projectiveLineRatFuncModel E).C => pullback.snd φ g ≫ z) hq'.symm).trans
         ((Category.assoc (pullback.snd φ g) q j).symm.trans
-        ((congrArg (fun z : rationalConfigurationGeometricScheme E κ t ⟶ X => z ≫ j)
+        ((congrArg (fun z : originalFieldGeometricScheme E κ t ⟶ X => z ≫ j)
           hqcoeff.symm).trans
         ((Category.assoc qκ b j).trans
         ((congrArg (fun z : Uκ ⟶ (projectiveLineRatFuncModel E).C => qκ ≫ z)

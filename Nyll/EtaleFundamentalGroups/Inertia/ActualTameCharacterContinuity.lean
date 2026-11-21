@@ -37,7 +37,7 @@ variable (A : Type u) (K : Type v) (L : Type w)
 /-- The actual-degree coordinate retains local constancy for the SAME
 original inertia topology. -/
 theorem actualTameCoordinate_isLocallyConstant
-    (n : Subtype (actualFiniteTameDegreeSet A K L Q)) :
+    (n : ↥(actualFiniteTameDegreeSet A K L Q)) :
     IsLocallyConstant (actualTameCoordinate A K L Q n).toFun :=
   (actualFiniteQuotientTameCoordinate_isLocallyConstant A K L Q n.property.choose).comp
     (rootsOfUnityDegreeEquiv ((normalizationCommAlgCat A L).carrier ⧸ Q)
@@ -46,7 +46,7 @@ theorem actualTameCoordinate_isLocallyConstant
 /-- Every actual-degree coordinate is continuous for the topology of
 its literal stage in the existing root system. -/
 theorem actualTameCoordinate_continuous
-    (n : Subtype (actualFiniteTameDegreeSet A K L Q)) :
+    (n : ↥(actualFiniteTameDegreeSet A K L Q)) :
     Continuous (show (actualNormalizationInertiaGroup A K L Q).carrier →
       (actualFiniteTameRootsSystem A K L Q).X n from
         (actualTameCoordinate A K L Q n).toFun) :=

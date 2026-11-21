@@ -75,7 +75,7 @@ variable (s : Finset (Projectivization k (k × k)))
 local notation "G" => pullback (Spec.map (CommRingCat.ofHom (algebraMap E κ)))
   (pullback.fst (Spec.map (CommRingCat.ofHom (algebraMap k E)))
     (Scheme.Opens.ι (rationalConfigurationOpen s) ≫ π k 1))
-local notation "V" => rationalConfigurationGeometricScheme k κ s
+local notation "V" => originalFieldGeometricScheme k κ s
 
 local instance literalPoint_matchedIntegral : IsIntegral G :=
   rationalConfiguration_coefficientTower_isIntegral k E κ s
@@ -120,7 +120,7 @@ omit [Infinite E] in
 theorem namedSquareLiteralModel_field
     (W : FiniteEtale G) [IsConnected W]
     (t : Finset (Projectivization E (E × E)))
-    (J : W.left ≅ rationalConfigurationGeometricScheme E κ t)
+    (J : W.left ≅ originalFieldGeometricScheme E κ t)
     (eκ : RatFunc κ ≃ₐ[κ] RatFunc κ)
     [IsOpenImmersion (namedSquareConstantProjectionChart k E κ s)]
     (hfield :
@@ -138,7 +138,7 @@ theorem namedSquareLiteralModel_field
     let _hW : IsIntegral WL.left := isIntegral_left_of_isConnected_finiteEtale WL
     let _AW : Algebra (V).functionField WL.left.functionField := finiteEtaleFunctionFieldAlgebra WL
     ∀ z : RatFunc κ,
-      (show WL.left ⟶ rationalConfigurationGeometricScheme E κ t from J.hom).functionFieldMap
+      (show WL.left ⟶ originalFieldGeometricScheme E κ t from J.hom).functionFieldMap
         J.hom.homeomorph.surjective.denseRange
         (rationalConfigurationGeometricFunctionFieldEquiv E κ t (ratFuncPairSquareHom eκ z)) =
       algebraMap (V).functionField WL.left.functionField
@@ -167,7 +167,7 @@ theorem namedSquare_matchedModel_exists_literal_model
     (W : FiniteEtale G) [IsConnected W]
     (w : (fiber ((G).genericExtensionMorphism Ω)).obj W)
     (t : Finset (Projectivization E (E × E)))
-    (J : W.left ≅ rationalConfigurationGeometricScheme E κ t)
+    (J : W.left ≅ originalFieldGeometricScheme E κ t)
     (eκ : RatFunc κ ≃ₐ[κ] RatFunc κ)
     (p : (projectiveLineRatFuncModel κ).C ⟶ (projectiveLineRatFuncModel κ).C)
     [IsOpenImmersion (namedSquareConstantProjectionChart k E κ s)]
@@ -184,8 +184,8 @@ theorem namedSquare_matchedModel_exists_literal_model
           (((projectiveLineRatFuncModel κ).ffEquiv.trans
             (namedSquareConstantProjectionChart k E κ s).functionFieldRingEquivOfIsOpenImmersion)
               z))
-    [Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ω]
-    (hmodel : (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω =
+    [Algebra (originalFieldGeometricScheme E κ t).functionField Ω]
+    (hmodel : (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ω =
       actualFiberPointLift ((G).genericExtensionMorphism Ω) W w ≫ J.hom) :
     let iso := namedSquareConstantProjectionIso k E κ s
     let _A : Algebra (V).functionField Ω := namedBaseTransportAmbientAlgebra iso Ω
@@ -203,14 +203,14 @@ theorem namedSquare_matchedModel_exists_literal_model
        let _AW : Algebra (V).functionField WL.left.functionField :=
          finiteEtaleFunctionFieldAlgebra WL
        ∀ z : RatFunc κ,
-         (show WL.left ⟶ rationalConfigurationGeometricScheme E κ t from J.hom).functionFieldMap
+         (show WL.left ⟶ originalFieldGeometricScheme E κ t from J.hom).functionFieldMap
            J.hom.homeomorph.surjective.denseRange
            (rationalConfigurationGeometricFunctionFieldEquiv E κ t (ratFuncPairSquareHom eκ z)) =
          algebraMap (V).functionField WL.left.functionField
            (rationalConfigurationGeometricFunctionFieldEquiv k κ s z)) ∧
-      (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω =
+      (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ω =
         actualFiberPointLift ((V).genericExtensionMorphism Ω) WL wL ≫ J.hom ∧
-      (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω ≫
+      (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ω ≫
           (J.inv ≫ WL.hom) = (V).genericExtensionMorphism Ω := by
   intro iso A WL hWL
   refine ⟨namedBaseTransport_isAlgClosure iso Ω, ?_⟩
@@ -222,7 +222,7 @@ theorem namedSquare_matchedModel_exists_literal_model
     exact ⟨namedCoverOnIsomorphicBasePoint iso W ((G).genericExtensionMorphism Ω) w,
       namedCoverOnIsomorphicBasePoint_lift iso W ((G).genericExtensionMorphism Ω) w⟩
   obtain ⟨wL, hwL⟩ := hw
-  have hm : (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω =
+  have hm : (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ω =
       actualFiberPointLift ((V).genericExtensionMorphism Ω) WL wL ≫ J.hom := by
     rw [hwL]
     exact hmodel

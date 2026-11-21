@@ -18,12 +18,16 @@ public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.OModulePresheafO
 public import Nyll.AlgebraicCurves.Geometry.Picard.Functor.Functor
 public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Complexes.DZeroModulesEqZeroIffUnique
 public import Nyll.AlgebraicCurves.Cohomology.Cech.Comparison.FiniteModules
+public import Nyll.AlgebraicCurves.Cohomology.Sheaves.Vanishing.SectionsTopEquivH0Modules
 
 /-!
 # Scheme bijective algebra Map sections of is Proper of is Integral
 -/
 
 @[expose] public section
+
+open _root_.AlgebraicGeometry.OModulePresheaf
+  (sectionsEquivH0)
 
 section ProofImplementation
 
@@ -107,74 +111,6 @@ open CategoryTheory CategoryTheory.Limits AlgebraicGeometry Opposite Topological
 
 namespace P2mH0IsProperIntegral
 
-/-- A finite ordered affine cover chosen from the canonical affine cover of a compact scheme. -/
-def coverOfCompact (X : Scheme.{u}) [CompactSpace X] : X.OrderedAffineCover :=
-  let 𝒰 := X.affineCover.finiteSubcover
-  { ι := 𝒰.I₀
-    instFintype := inferInstance
-    instLinearOrder := LinearOrder.lift' (Fintype.equivFin 𝒰.I₀) (Fintype.equivFin 𝒰.I₀).injective
-    U := fun i => (𝒰.f i).opensRange
-    isAffineOpen := fun i => isAffineOpen_opensRange (𝒰.f i)
-    iSup_eq_top := 𝒰.iSup_opensRange }
-
-section H0
-
-variable {R : Type u} [CommRing R] {V : Scheme.{u}} (π : V ⟶ Spec (.of R)) (M : V.Modules)
-  (K : V.OrderedAffineCover)
-
-/-- Restrict a global module section to the intersections forming degree-zero Cech cochains of
-the given cover. -/
-def toCochain :
-    letI := Scheme.TwoAffineOpenCover.moduleSectionsOfHom π M ⊤
-    Γ(M, ⊤) →ₗ[R] (OModulePresheaf.ofModules π M).cochain K 0 :=
-  let := Scheme.TwoAffineOpenCover.moduleSectionsOfHom π M ⊤
-  LinearMap.pi fun s => (OModulePresheaf.ofModules π M).res (le_top : K.inter s ≤ ⊤)
-
-theorem toCochain_apply (x : Γ(M, ⊤)) (s : K.Idx 0) :
-    toCochain π M K x s = M.presheaf.map (homOfLE (le_top : K.inter s ≤ ⊤)).op x := rfl
-
-theorem toCochain_apply' (x : Γ(M, ⊤)) (s : K.Idx 0) :
-    toCochain π M K x s = (OModulePresheaf.ofModules π M).res (le_top : K.inter s ≤ ⊤)
-      (show (OModulePresheaf.ofModules π M).obj ⊤ from x) := rfl
-
-theorem d_toCochain (x : Γ(M, ⊤)) :
-    (OModulePresheaf.ofModules π M).d K 0 (toCochain π M K x) = 0 := by
-  funext s
-  rw [OModulePresheaf.d_apply, Fin.sum_univ_two]
-  simp only [Fin.val_zero, pow_zero, one_smul, Fin.val_one, pow_one, neg_smul, toCochain_apply']
-  erw [(OModulePresheaf.ofModules π M).res_res, (OModulePresheaf.ofModules π M).res_res]
-  exact add_neg_cancel ((OModulePresheaf.ofModules π M).res (le_top : K.inter s ≤ ⊤)
-    (show (OModulePresheaf.ofModules π M).obj ⊤ from x))
-
-theorem toCochain_mem (x : Γ(M, ⊤)) : toCochain π M K x ∈ (OModulePresheaf.ofModules π M).H0 K :=
-  d_toCochain π M K x
-
-theorem toCochain_injective : Function.Injective (toCochain π M K) := by
-  intro x y hxy
-  obtain ⟨z, -, huniq⟩ := (OModulePresheaf.d_zero_ofModules_eq_zero_iff_existsUnique π M K _).mp
-    (d_toCochain π M K x)
-  exact (huniq x fun s => rfl).trans (huniq y fun s => by rw [hxy]; rfl).symm
-
-theorem exists_toCochain_eq (c : (OModulePresheaf.ofModules π M).cochain K 0)
-    (hc : c ∈ (OModulePresheaf.ofModules π M).H0 K) : ∃ x : Γ(M, ⊤), toCochain π M K x = c := by
-  obtain ⟨x, hx, -⟩ := (OModulePresheaf.d_zero_ofModules_eq_zero_iff_existsUnique π M K c).mp hc
-  exact ⟨x, funext fun s => (hx s).symm⟩
-
-/-- Identify degree-zero Cech cohomology with global module sections by restriction and the
-unique gluing of compatible local sections. -/
-def H0Equiv :
-    letI := Scheme.TwoAffineOpenCover.moduleSectionsOfHom π M ⊤
-    (OModulePresheaf.ofModules π M).H0 K ≃ₗ[R] Γ(M, ⊤) :=
-  let := Scheme.TwoAffineOpenCover.moduleSectionsOfHom π M ⊤
-  (LinearEquiv.ofBijective (LinearMap.codRestrict ((OModulePresheaf.ofModules π M).H0 K)
-      (toCochain π M K) (toCochain_mem π M K))
-    ⟨fun x y h => toCochain_injective π M K (congrArg Subtype.val h),
-     fun ⟨c, hc⟩ => by
-      obtain ⟨x, rfl⟩ := exists_toCochain_eq π M K c hc
-      exact ⟨x, rfl⟩⟩).symm
-
-end H0
-
 section Transport
 
 variable {R : Type u} [CommRing R] {V : Scheme.{u}} (π : V ⟶ Spec (.of R))
@@ -205,7 +141,7 @@ theorem main2 (k : Type u) [Field k] [IsAlgClosed k] {X : Scheme.{u}} (π : X �
     letI := Scheme.TwoAffineOpenCover.algebraOfHom π ⊤
     Function.Bijective (algebraMap k Γ(X, ⊤)) := by
   have : CompactSpace X := QuasiCompact.compactSpace_of_compactSpace π
-  let 𝒰 := coverOfCompact X
+  let 𝒰 := _root_.AlgebraicGeometry.Scheme.OrderedAffineCover.ofCompact X
   let 𝒪 : X.Modules := SheafOfModules.unit X.ringCatSheaf
   have htriv : ∀ x : X, ∃ V : X.Opens, x ∈ V ∧
       Nonempty ((Scheme.Modules.pullback V.ι).obj 𝒪 ≅ SheafOfModules.unit V.toScheme.ringCatSheaf)
@@ -215,7 +151,7 @@ theorem main2 (k : Type u) [Field k] [IsAlgClosed k] {X : Scheme.{u}} (π : X �
   let := Scheme.TwoAffineOpenCover.algebraOfHom π ⊤
   let := Scheme.TwoAffineOpenCover.moduleSectionsOfHom π 𝒪 ⊤
   have : Module.Finite k Γ(X, ⊤) :=
-    Module.Finite.equiv ((H0Equiv π 𝒪 𝒰).trans (unitSectionsEquiv π))
+    Module.Finite.equiv ((sectionsEquivH0 π 𝒪 𝒰).symm.trans (unitSectionsEquiv π))
   have : Algebra.IsIntegral k Γ(X, ⊤) := Algebra.IsIntegral.of_finite k _
   exact IsAlgClosed.algebraMap_bijective_of_isIntegral
 

@@ -184,14 +184,14 @@ theorem exists_completeOrthogonalIdempotents_forall_isLocalRing_quotient_of_modu
       intro m
       have h0 : π s = 0 := by rw [← hψmk]; exact hx
       exact Ideal.Quotient.eq_zero_iff_mem.mp (congrFun h0 m)
-    have hmem : Ideal.Quotient.mk J s ∈ Ideal.jacobson (⊥ : Ideal (S ⧸ J)) := by
-      rw [Ideal.jacobson, Ideal.mem_sInf]
+    have hmem : Ideal.Quotient.mk J s ∈ Ring.jacobson (S ⧸ J) := by
+      rw [← Ideal.jacobson_bot, Ideal.jacobson, Ideal.mem_sInf]
       rintro N ⟨-, hN⟩
       have := hN
       have hNc : (N.comap (Ideal.Quotient.mk J)).IsMaximal :=
         Ideal.comap_isMaximal_of_surjective (Ideal.Quotient.mk J) Ideal.Quotient.mk_surjective
       exact hs ⟨_, hNc⟩
-    obtain ⟨n, hn⟩ := IsArtinianRing.isNilpotent_jacobson_bot (R := S ⧸ J)
+    obtain ⟨n, hn⟩ := IsArtinianRing.isNilpotent_jacobson (S ⧸ J)
     refine ⟨n, ?_⟩
     have := Ideal.pow_mem_pow hmem n
     rw [hn] at this

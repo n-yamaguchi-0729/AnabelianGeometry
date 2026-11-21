@@ -68,7 +68,7 @@ theorem namedSquareOriginalLabelProjection_center (z : t) :
         pE (projectiveRationalPoint z.val) := by
   let M := projectiveLineRatFuncModel E
   let y : closedPoints M.C := ⟨projectiveRationalPoint z.val,
-    isClosed_singleton_rationalPuncturePoint z.val.rep z.val.rep_nonzero⟩
+    isClosed_singleton_rationalPuncturePoint z.val.rep z.val.rep_ne_zero⟩
   obtain ⟨hy, hplace⟩ := hplacesE y
   have hz : M.placeOfPoint y = projectiveRatFuncPlace z.val :=
     projectiveLineRatFuncModel_placeOfPoint_projectiveRationalPoint E z.val

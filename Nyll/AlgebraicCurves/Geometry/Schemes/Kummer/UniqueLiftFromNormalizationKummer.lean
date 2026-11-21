@@ -12,6 +12,7 @@ AI assistance in local adaptation and maintenance: OpenAI Codex.
 
 module
 
+public import Nyll.SchemeTheory.Morphisms.AppLECongr
 public import Mathlib.AlgebraicGeometry.Normalization
 public import Mathlib.AlgebraicGeometry.Morphisms.Etale
 
@@ -512,10 +513,6 @@ theorem appLE_eq_of_eq {Z Z' : Scheme.{u}} {f₁ f₂ : Z' ⟶ Z} (e : f₁ = f�
     (h₁ : W ≤ f₁ ⁻¹ᵁ U) (h₂ : W ≤ f₂ ⁻¹ᵁ U) : f₁.appLE U W h₁ = f₂.appLE U W h₂ := by
   subst e; rfl
 omit [IsIntegral X] in
-theorem appLE_top_top {Z Z' : Scheme.{u}} (f : Z' ⟶ Z) (e : (⊤ : Z'.Opens) ≤ f ⁻¹ᵁ ⊤) : f.appLE ⊤ ⊤
-  e = f.appTop :=
-  f.appLE_eq_app
-omit [IsIntegral X] in
 theorem fromSpec_appLE_top {Y : Scheme.{u}} {U : Y.Opens} (hU : IsAffineOpen U) (e : (⊤ : (Spec
   Γ(Y, U)).Opens) ≤ hU.fromSpec ⁻¹ᵁ U) :
     hU.fromSpec.appLE U ⊤ e = (Scheme.ΓSpecIso Γ(Y, U)).inv := by
@@ -614,7 +611,7 @@ theorem _root_.AlgebraicGeometry.existsUnique_lift_fromNormalization_kummer_of_i
     intro t e
     rw [← Scheme.Hom.appLE_comp_appLE t hπV.fromSpec (π₁ ⁻¹ᵁ V) ⊤ ⊤ e₂ le_top,
       fromSpec_appLE_top hπV e₂]
-    exact congrArg (fun f => (Scheme.ΓSpecIso _).inv ≫ f) (appLE_top_top t le_top)
+    exact congrArg (fun f => (Scheme.ΓSpecIso _).inv ≫ f) (Scheme.Hom.appLE_top_eq_appTop t)
   have hcomp : ((Z.toSpecΓ ≫ Spec.map φ) ≫ hπV.fromSpec) ≫ π₁ = z := by
     rw [Category.assoc, Category.assoc, F1, ← Spec.map_comp_assoc, hφA, ← F2]
   refine ⟨(Z.toSpecΓ ≫ Spec.map φ) ≫ hπV.fromSpec, ⟨hcomp, ?_⟩, ?_⟩

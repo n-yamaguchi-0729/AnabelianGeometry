@@ -6,6 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 module
 
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Morphisms.HomInvertibleKerCompEqId
 public import Nyll.EtaleCohomology.Classical.CartierAdicCycleClass
 public import Nyll.EtaleCohomology.Classical.DiagonalPointSectionIdeals
 public import Nyll.EtaleCohomology.Classical.DiagonalPointSections
@@ -27,6 +28,8 @@ it does not assert that the middle Künneth map surjects onto that kernel.
 -/
 
 @[expose] public section
+
+open AlgebraicGeometry.Scheme.Hom (sectionEffectiveCartierDivisor)
 
 noncomputable section
 

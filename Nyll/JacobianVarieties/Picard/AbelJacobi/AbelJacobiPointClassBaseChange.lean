@@ -19,6 +19,8 @@ public import Nyll.AlgebraicCurves.RelativeDivisors.PointSums.RelEffCartierDivOf
 public import Nyll.AlgebraicCurves.RelativeDivisors.LineBundles.InvertibleI
 public import Nyll.AlgebraicCurves.Geometry.Sheaves.Divisors.IdealSheafModule
 public import Nyll.SchemeTheory.Modules.Tensor.PullbackMonoidal
+public import Nyll.AlgebraicCurves.Geometry.Picard.RelSubPic.Presheaf
+public import Nyll.AlgebraicCurves.Geometry.Deformation.RigKerDualNumberBaseTransport
 
 /-!
 # Point classes of the actual base change of an Abel–Jacobi map
@@ -112,8 +114,8 @@ theorem abelJacobi_point_class_baseChange
       (Scheme.Modules.pullback (baseChangeSnd c (overR L xaj))).mapIso
         ((Scheme.Modules.pullback (κ c L (D.baseChange L).toBase).inv).mapIso ePL ≪≫
           toR_ofR_iso c ε L (hD.poincare.pullbackAlong α)) ≪≫
-      pullbackAlongComp hD.poincare α (overR L xaj) ≪≫
-      pullbackAlongCongr hD.poincare hcomp
+      hD.poincare.pullbackAlongPullbackAlongIso α (overR L xaj) ≪≫
+      hD.poincare.pullbackAlong_congr_hom _ _ hcomp
   have eNative : (hDL.poincare.pullbackAlong xaj).L ≅
       (Scheme.Modules.pullback (κ c L t).hom).obj
         (hD.poincare.pullbackAlong g).L :=

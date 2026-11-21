@@ -39,21 +39,13 @@ attribute [local instance]
   Place.instFiniteSubtypeMemValuationSubringToValuationSubringIntegralClosureAt
   placeBaseAmbientAlgebra placeBaseAmbientTower
   extendingPlaceAmbientAlgebra extendingPlaceAmbientTower
-  finiteNormalizationPlaceAlgebra finiteNormalizationPlaceTower
-  finiteNormalizationPlaceLocalization finiteNormalizationPlaceAmbientTower
+  Place.placeOfPrimeAlgebra Place.placeOfPrimeIsScalarTower
+  Place.placeOfPrimeIsLocalization finiteNormalizationPlaceAmbientTower
   originalPlaceNormalizationAction extendingPlaceNormalizationAction
 
 attribute [local instance] CurveModel.isIntegral CurveModel.isProper CurveModel.smooth
 
-local instance connectedCoverPlaceConstantAmbientTower
-    {κ F Ω : Type} [Field κ] [Field F] [Field Ω]
-    [Algebra κ F] [Algebra F Ω] [Algebra κ Ω]
-    [IsScalarTower κ F Ω] (p : Place κ F) :
-    IsScalarTower κ p.toValuationSubring Ω := by
-  apply IsScalarTower.of_algebraMap_eq
-  intro a
-  change algebraMap κ Ω a = algebraMap F Ω (algebraMap κ F a)
-  exact IsScalarTower.algebraMap_apply κ F Ω a
+attribute [local instance] placeConstantAmbientTower
 
 /-- The abelian images of all cuspidal elements lying in the prescribed
 connected cover are exactly the boundary coordinate ranges of that cover.

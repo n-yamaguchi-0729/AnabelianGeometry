@@ -42,7 +42,6 @@ open AlgebraicGeometry AlgebraicGeometry.RelPicard AlgebraicGeometry.SmoothPrope
 open AlgebraicCurve AlgebraicCurve.CurveModel NeronModelInfra GoodReductionJacobian
 open JacobianVarieties.Pic0.Proofs.ConormInjectivity.AlgebraicCurve.ConDesc
 open JacobianVarieties.WeilPairing
-open AlgebraicCurves.Models.Proofs.UniquePointPullbackOrder.AlgebraicGeometry
 open scoped Pointwise
 
 namespace JacobianVarieties.Kummer

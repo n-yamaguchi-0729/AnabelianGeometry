@@ -40,7 +40,7 @@ theorem rationalConfigurationBoundaryPlace_coefficient_orders
     ∀ f : RatFunc k,
       (rationalConfigurationBoundaryPlace k E s a).val.ord
         (algebraMap (RatFunc k) (RatFunc E) f) =
-      (literalRationalPuncturePlace k a.val.rep a.val.rep_nonzero).ord f := by
+      (literalRationalPuncturePlace k a.val.rep a.val.rep_ne_zero).ord f := by
   let M₀ := projectiveLineRatFuncModel k
   let M := projectiveLineRatFuncModel E
   let y : closedPoints M.C :=
@@ -50,7 +50,7 @@ theorem rationalConfigurationBoundaryPlace_coefficient_orders
     map_rationalConfigurationGeometricPoint k E a.val
   have hclosed : IsClosed ({map k E 1 y.val} : Set M₀.C) := by
     rw [hcenter]
-    exact isClosed_singleton_rationalPuncturePoint a.val.rep a.val.rep_nonzero
+    exact isClosed_singleton_rationalPuncturePoint a.val.rep a.val.rep_ne_zero
   have hinclusion := M₀.placeOfPoint_le_comap_of_functionFieldMap M
     (map k E 1) (projectiveLineMap_denseRange k E)
     (projectiveLineRatFuncEquiv_coefficientMap k E) y hclosed
@@ -58,7 +58,7 @@ theorem rationalConfigurationBoundaryPlace_coefficient_orders
     (M₀.placeOfPoint ⟨map k E 1 y.val, hclosed⟩) (M.placeOfPoint y) hinclusion
   have hpoint : (⟨map k E 1 y.val, hclosed⟩ : closedPoints M₀.C) =
       ⟨projectiveRationalPoint a.val,
-        isClosed_singleton_rationalPuncturePoint a.val.rep a.val.rep_nonzero⟩ :=
+        isClosed_singleton_rationalPuncturePoint a.val.rep a.val.rep_ne_zero⟩ :=
     Subtype.ext hcenter
   rw [hpoint] at horders
   exact horders
@@ -71,7 +71,7 @@ theorem rationalConfigurationBoundaryPlace_coefficient_evalAt
     (rationalConfigurationBoundaryPlace k E s a).val.evalAt
         (algebraMap (RatFunc k) (RatFunc E) f) =
       algebraMap k E
-        ((literalRationalPuncturePlace k a.val.rep a.val.rep_nonzero).evalAt f) := by
+        ((literalRationalPuncturePlace k a.val.rep a.val.rep_ne_zero).evalAt f) := by
   have hW : (rationalConfigurationBoundaryPlace k E s a).val.IsRational := by
     change (literalRationalPuncturePlace E (extendedPunctureCoordinates k E a.val)
       (extendedPunctureCoordinates_ne_zero k E a.val)).IsRational
@@ -80,7 +80,7 @@ theorem rationalConfigurationBoundaryPlace_coefficient_evalAt
     (algebraMap (RatFunc k) (RatFunc E))
     (fun c => (IsScalarTower.algebraMap_apply k (RatFunc k) (RatFunc E) c).symm.trans
       (IsScalarTower.algebraMap_apply k E (RatFunc E) c))
-    (literalRationalPuncturePlace k a.val.rep a.val.rep_nonzero)
+    (literalRationalPuncturePlace k a.val.rep a.val.rep_ne_zero)
     (rationalConfigurationBoundaryPlace k E s a).val
     (literalRationalPuncturePlace_isRational k _ _) hW
     (rationalConfigurationBoundaryPlace_coefficient_orders k E s a) f hf
@@ -91,7 +91,7 @@ theorem rationalConfigurationBoundaryPlace_coefficient_square_values
     (s : Finset (Projectivization k (k × k)))
     (f : RatFunc k) (hf : f ≠ 0) (r : s → E)
     (hr : ∀ a, r a ^ 2 = algebraMap k E
-      ((literalRationalPuncturePlace k a.val.rep a.val.rep_nonzero).evalAt f)) :
+      ((literalRationalPuncturePlace k a.val.rep a.val.rep_ne_zero).evalAt f)) :
     ∀ a, r a ^ 2 = (rationalConfigurationBoundaryPlace k E s a).val.evalAt
       (algebraMap (RatFunc k) (RatFunc E) f) := by
   intro a

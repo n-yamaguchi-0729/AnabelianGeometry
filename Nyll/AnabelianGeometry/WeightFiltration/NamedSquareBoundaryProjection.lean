@@ -42,7 +42,7 @@ private theorem projectiveRatFuncPlace_actual_center
   let M : CurveModel k (RatFunc k) := projectiveLineRatFuncModel k
   let x : closedPoints M.C :=
     ⟨projectiveRationalPoint z,
-      isClosed_singleton_rationalPuncturePoint z.rep z.rep_nonzero⟩
+      isClosed_singleton_rationalPuncturePoint z.rep z.rep_ne_zero⟩
   have hx : M.placeEquiv x = projectiveRatFuncPlace z :=
     (M.placeEquiv_apply x).trans
       (projectiveLineRatFuncModel_placeOfPoint_projectiveRationalPoint k z)

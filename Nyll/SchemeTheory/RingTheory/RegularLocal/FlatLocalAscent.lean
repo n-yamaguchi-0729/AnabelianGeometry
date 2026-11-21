@@ -63,9 +63,9 @@ theorem exists_isWeaklyRegular_ofList_eq_maximalIdeal_aux :
       omega
     have hne : maximalIdeal R ^ 2 ≠ maximalIdeal R := by
       intro h
-      refine hbot (Submodule.eq_bot_of_le_smul_of_le_jacobson_bot (maximalIdeal R)
+      refine hbot (Submodule.eq_bot_of_le_smul_of_le_jacobson (maximalIdeal R)
         (maximalIdeal R) (IsNoetherian.noetherian _) ?_
-        (IsLocalRing.maximalIdeal_le_jacobson _))
+        (IsLocalRing.ringJacobson_eq_maximalIdeal R).ge)
       rw [Ideal.smul_eq_mul, ← pow_two]
       exact le_of_eq h.symm
     obtain ⟨x, hx, hx2⟩ := IsConcreteLE.exists_of_lt

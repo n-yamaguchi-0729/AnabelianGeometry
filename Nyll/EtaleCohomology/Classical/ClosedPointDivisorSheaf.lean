@@ -756,7 +756,7 @@ theorem closedPointDivisorSheafComponentProjection_app_injection
   convert (@sheafCoproductComponentProjection_app_injection
     (closedPoints X) X (closedPointDivisorSummand X)
     (closedPointDivisorSheafHasColimitsOfShape X) x V z) using 1
-  all_goals rfl
+  rfl
 
 /-- The component projection annihilates every other closed-point summand
 inclusion. -/
@@ -770,7 +770,7 @@ theorem closedPointDivisorSheafComponentProjection_app_injection_of_ne
   convert (@sheafCoproductComponentProjection_app_injection_of_ne
     (closedPoints X) X (closedPointDivisorSummand X)
     (closedPointDivisorSheafHasColimitsOfShape X) x y hxy V z) using 1
-  all_goals rfl
+  rfl
 
 /-- Over a quasi-compact étale object, a section of a sheaf coproduct is a
 finite sum of the images of its component projections. -/

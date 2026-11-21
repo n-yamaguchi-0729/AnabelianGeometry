@@ -467,7 +467,7 @@ private theorem toHom_injective_of_forall_exists_pair_ne_one
   have h1 : Additive.toMul (e.toHom x) y = Additive.toMul (0 : Additive (HomPic0Gm K F n)) y := by
     rw [hx]
   rw [toHom_apply_apply] at h1
-  rw [h1, toMul_zero, AddChar.one_apply]
+  rw [h1, toMul_zero, _root_.one_apply]
 
 end DivisorialWeilPairingData
 

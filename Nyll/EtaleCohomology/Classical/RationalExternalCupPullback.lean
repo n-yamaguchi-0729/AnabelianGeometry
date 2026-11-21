@@ -94,7 +94,7 @@ theorem rationalEllAdicExternalCup_diagonal (a b c : ℕ) (h : a + b = c)
         (rationalEllAdicExternalCup ℓ f f a b c h x y) =
       rationalEllAdicCup X ℓ a b c h x y := by
   simpa only [pullback.diagonal_fst, pullback.diagonal_snd,
-    rationalEllAdicCohomologyPullback_id, Module.End.one_apply] using
+    rationalEllAdicCohomologyPullback_id, one_apply_eq_self] using
     rationalEllAdicExternalCup_pullback ℓ f f (pullback.diagonal f) a b c h x y
 
 /-- Pullback along the actual diagonal identifies the original Künneth

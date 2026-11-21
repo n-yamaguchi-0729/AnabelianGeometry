@@ -6,6 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalArithmeticRootFieldAction
 public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalThirdCuspRootSpecialization
 public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalCuspDecompositionProjection
@@ -40,9 +41,7 @@ attribute [local instance] Classical.propDecidable
   placeBaseAmbientAlgebra placeBaseAmbientTower placeConstantAmbientTower
   normalizationCommAlgGaloisAction
 
-local instance (priority := 2000) thirdCuspFiberSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E] [Algebra A (RatFunc E)] :
-    SMul A (RatFunc E) := (inferInstance : Algebra A (RatFunc E)).toSMul
+attribute [local instance 2000] RatFunc.algebraSMul
 
 /-- Compose the retained root coordinates and prove the actual source-action
 formula over abstract fields and an abstract normalization subgroup. -/
@@ -258,8 +257,8 @@ private theorem bare_fixed_root_source_data
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k)))
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     (n : ℕ) (b : Ω) (W : FiniteEtale (rationalConfigurationOpen s : Scheme))
     (ts : Torsor (rootsOfUnity n κ)
       ((fiber (rationalConfigurationArithmeticBasePoint k κ s Ω)).obj W)) :
@@ -298,8 +297,8 @@ private theorem bare_third_cusp_from_fixed_source
     (s : Finset (Projectivization k (k × k))) (a b c : s)
     (hca : c ≠ a) (hcb : c ≠ b)
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     (m : ℤ) (n : ℕ+)
     (u : Pic0.openKummerUnits k (RatFunc k)
       ((projectiveLineRatFuncModel k).openBoundaryPlaces (rationalConfigurationOpen s).ι) n)
@@ -343,10 +342,10 @@ private theorem bare_third_cusp_from_fixed_source
   let : Algebra k Ω := rationalConfigurationBaseAmbientAlgebra k κ s Ω
   let ambient := rationalConfigurationAmbient_scalarTowers k κ s Ω
   let : IsScalarTower (RatFunc κ)
-      (rationalConfigurationGeometricScheme k κ s).functionField Ω := ambient.1
+      (originalFieldGeometricScheme k κ s).functionField Ω := ambient.1
   let : IsScalarTower κ (RatFunc κ) Ω := ambient.2.1
   let : IsScalarTower κ
-      (rationalConfigurationGeometricScheme k κ s).functionField Ω := ambient.2.2.1
+      (originalFieldGeometricScheme k κ s).functionField Ω := ambient.2.2.1
   let : IsScalarTower (RatFunc k) (RatFunc κ) Ω := ambient.2.2.2.1
   let : IsScalarTower k κ Ω := ambient.2.2.2.2.1
   let : IsScalarTower k (RatFunc k) Ω := ambient.2.2.2.2.2
@@ -368,8 +367,8 @@ theorem rationalConfiguration_pair_thirdCusp_fiberCoordinates
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k))) (a b : s)
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     (m : ℤ) (n : ℕ+)
     (u : Pic0.openKummerUnits k (RatFunc k)
       ((projectiveLineRatFuncModel k).openBoundaryPlaces (rationalConfigurationOpen s).ι) n)

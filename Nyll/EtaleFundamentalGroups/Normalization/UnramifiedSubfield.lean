@@ -89,7 +89,7 @@ theorem mem_genericKernelFixedField_iff_exists_unramified_finite_subfield
     have hL : L ≤ genericKernelFixedField X :=
       IntermediateField.adjoin_simple_le_iff.mpr hx
     have hfix : (genericAbsoluteGaloisHom X).toMonoidHom.ker ≤ L.fixingSubgroup :=
-      (IntermediateField.le_iff_le _ L).mp hL
+      (IntermediateField.le_fixedField_iff_le_fixingSubgroup _ L).mp hL
     have he := (etale_normalization_iff_genericKernel_le_fixingSubgroup X L).mpr hfix
     exact ⟨L, inferInstance,
       (unramified_normalization_iff_etale_iff_finiteEtale X L).1.mpr he,
@@ -98,7 +98,7 @@ theorem mem_genericKernelFixedField_iff_exists_unramified_finite_subfield
     let : FiniteDimensional X.functionField L := hfinite
     have he := (unramified_normalization_iff_etale_iff_finiteEtale X L).1.mp hunram
     have hfix := (etale_normalization_iff_genericKernel_le_fixingSubgroup X L).mp he
-    exact ((IntermediateField.le_iff_le _ L).mpr hfix) hx
+    exact ((IntermediateField.le_fixedField_iff_le_fixingSubgroup _ L).mpr hfix) hx
 
 /-- The maximal unramified extension, written as a supremum of the
 original finite unramified subextensions, is the generic kernel's fixed field. -/

@@ -8,6 +8,7 @@ module
 
 public import Nyll.EtaleFundamentalGroups.GeometricFiber.AlgebraicClosure
 public import Nyll.EtaleFundamentalGroups.GeometricFiber.FieldSourceBasePointComparison
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.GenericPointSeparableComparison
 public import Nyll.EtaleFundamentalGroups.Inertia.GenericKernelStrictNormalGeneration
 public import Nyll.AlgebraicCurves.Geometry.IsClosedSingletonNeGenericPoint
 public import Nyll.ProCGroups.Abelian.TopologicalAbelianization
@@ -42,25 +43,11 @@ universe u
 
 variable (X : Scheme.{u}) [IsIntegral X]
 
-/-- Extension of the original generic fiber functor from the canonical
-separable closure to the canonical algebraic closure. -/
-def canonicalGenericFiberExtensionIso :
-    fiber (ξ X.functionField (SeparableClosure X.functionField) ≫
-      X.fromSpecStalk (genericPoint X)) ≅
-        fiber (X.genericExtensionMorphism (AlgebraicClosure X.functionField)) :=
-  (pullbackFiberIso (X.fromSpecStalk (genericPoint X))
-    (ξ X.functionField (SeparableClosure X.functionField))).symm ≪≫
-      Functor.isoWhiskerLeft (pullback (X.fromSpecStalk (genericPoint X)))
-        (fieldFiberExtensionIso X.functionField
-          (SeparableClosure X.functionField) (AlgebraicClosure X.functionField)) ≪≫
-      pullbackFiberIso (X.fromSpecStalk (genericPoint X))
-        (ξ X.functionField (AlgebraicClosure X.functionField))
-
 /-- The canonical generic maps commute with the actual extension of their
 geometric fiber fields, on every original absolute automorphism. -/
 theorem canonicalGenericFiberExtensionIso_galois
     (σ : Gal(SeparableClosure X.functionField/X.functionField)) :
-    (canonicalGenericFiberExtensionIso X).conjAut
+    (genericSeparableFiberIso X).conjAut
       (fieldSourceAbsoluteGaloisHom X.functionField (SeparableClosure X.functionField)
         (X.fromSpecStalk (genericPoint X)) σ) = genericAbsoluteGaloisHom X σ := by
   let e := fieldFiberExtensionIso X.functionField
@@ -82,12 +69,14 @@ theorem canonicalFieldSourceAbsoluteGaloisHom_ker :
   intro σ
   change fieldSourceAbsoluteGaloisHom X.functionField (SeparableClosure X.functionField)
       (X.fromSpecStalk (genericPoint X)) σ = 1 ↔ genericAbsoluteGaloisHom X σ = 1
+  let e := (genericSeparableFiberIso X).conjAut
+  have he := canonicalGenericFiberExtensionIso_galois X σ
+  have hOne := e.map_one
   constructor
   · intro h
-    rw [← canonicalGenericFiberExtensionIso_galois X σ, h, map_one]
+    exact he.symm.trans ((congrArg e h).trans hOne)
   · intro h
-    apply (canonicalGenericFiberExtensionIso X).conjAut.injective
-    rw [map_one, canonicalGenericFiberExtensionIso_galois X σ, h]
+    exact e.injective (he.trans (h.trans hOne.symm))
 
 /-- The original absolute inertia images at a scheme point, retaining all
 actual maximal primes of the normalization of that same scheme stalk. -/

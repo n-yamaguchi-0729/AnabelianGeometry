@@ -6,6 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 module
 
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Morphisms.HomInvertibleKerCompEqId
 public import Nyll.EtaleCohomology.Classical.Adic
 public import Nyll.EtaleCohomology.Classical.AdicPullback
 public import Nyll.EtaleCohomology.Classical.CartierAdicCycleClass
@@ -29,6 +30,8 @@ each finite level and then in the original integral and rational groups.
 -/
 
 @[expose] public section
+
+open AlgebraicGeometry.Scheme.Hom (sectionEffectiveCartierDivisor)
 
 noncomputable section
 

@@ -55,7 +55,7 @@ def actualTameRootsAction_apply
 theorem actualTameRootsAction_projection
     (d : (normalizationDecompositionGroup A K L Q).carrier)
     (x : (actualTameRootsGroup A K L Q).carrier)
-    (n : Subtype (actualFiniteTameDegreeSet A K L Q)) :
+    (n : ↥(actualFiniteTameDegreeSet A K L Q)) :
     actualTameRootsScalar A K L Q n (actualTameRootsAction_apply A K L Q d x) =
       ((actualNormalizationQuotientAction A K L Q).toFun d).toFun
         (actualTameRootsScalar A K L Q n x) := rfl

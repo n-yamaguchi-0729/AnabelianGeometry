@@ -267,8 +267,8 @@ lemma exists_prime_mem_maximalIdeal (R : Type u) [CommRing R] [IsDomain R] [IsRe
     (h : maximalIdeal R ≠ ⊥) : ∃ x ∈ maximalIdeal R, x ∉ maximalIdeal R ^ 2 ∧ Prime x := by
   have hlt : maximalIdeal R ^ 2 < maximalIdeal R := by
     refine lt_of_le_of_ne (Ideal.pow_le_self two_ne_zero) fun heq => h ?_
-    refine Submodule.eq_bot_of_le_smul_of_le_jacobson_bot (maximalIdeal R) (maximalIdeal R)
-      (IsNoetherian.noetherian _) (le_of_eq ?_) (IsLocalRing.maximalIdeal_le_jacobson _)
+    refine Submodule.eq_bot_of_le_smul_of_le_jacobson (maximalIdeal R) (maximalIdeal R)
+      (IsNoetherian.noetherian _) (le_of_eq ?_) (IsLocalRing.ringJacobson_eq_maximalIdeal R).ge
     rw [Ideal.smul_eq_mul, ← pow_two, heq]
   obtain ⟨x, hxm, hx2⟩ := IsConcreteLE.exists_of_lt hlt
   refine ⟨x, hxm, hx2, ?_⟩

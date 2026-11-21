@@ -115,8 +115,8 @@ theorem namedSquareModels_exists_geometric_cover_square
     (AS : FiniteEtale XS) (AT : FiniteEtale XT) [CategoryTheory.PreGaloisCategory.IsConnected AS]
     [CategoryTheory.PreGaloisCategory.IsConnected AT]
     (s t : Finset (Projectivization E (E × E)))
-    [Algebra (rationalConfigurationGeometricScheme E κ s).functionField Ωs]
-    [Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ωt]
+    [Algebra (originalFieldGeometricScheme E κ s).functionField Ωs]
+    [Algebra (originalFieldGeometricScheme E κ t).functionField Ωt]
     (α : π₁ᵉᵗ(xs ≫ pullback.snd _ fs) ≃ₜ* π₁ᵉᵗ(xt ≫ pullback.snd _ ft))
     (hα : ∀ z, arithmeticFundamentalGroupHom E κ ft (xt ≫ pullback.snd _ ft) (α z) =
       arithmeticFundamentalGroupHom E κ fs (xs ≫ pullback.snd _ fs) z)
@@ -138,9 +138,9 @@ theorem namedSquareModels_exists_geometric_cover_square
       namedModelPoint AS (xs ≫ pullback.snd _ fs) w JS)
     (ht : rationalConfigurationArithmeticBasePoint E κ t Ωt =
       namedModelPoint AT (xt ≫ pullback.snd _ ft) (e w) JT)
-    (qκs : rationalConfigurationGeometricScheme E κ s ⟶
+    (qκs : originalFieldGeometricScheme E κ s ⟶
       pullback (Spec.map (CommRingCat.ofHom (algebraMap E κ))) fs)
-    (qκt : rationalConfigurationGeometricScheme E κ t ⟶
+    (qκt : originalFieldGeometricScheme E κ t ⟶
       pullback (Spec.map (CommRingCat.ofHom (algebraMap E κ))) ft)
     (hcoeffS : qκs ≫ pullback.snd _ fs =
       pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap E κ)))
@@ -148,9 +148,9 @@ theorem namedSquareModels_exists_geometric_cover_square
     (hcoeffT : qκt ≫ pullback.snd _ ft =
       pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap E κ)))
         ((rationalConfigurationOpen t).ι ≫ π E 1) ≫ qt)
-    (hgeomS : (rationalConfigurationGeometricScheme E κ s).genericExtensionMorphism Ωs ≫
+    (hgeomS : (originalFieldGeometricScheme E κ s).genericExtensionMorphism Ωs ≫
       qκs = xs)
-    (hgeomT : (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ωt ≫
+    (hgeomT : (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ωt ≫
       qκt = xt) :
     let β := namedModelCoverGroupTransport AS AT
       (xs ≫ pullback.snd _ fs) (xt ≫ pullback.snd _ ft) α e he w JS JT
@@ -164,14 +164,14 @@ theorem namedSquareModels_exists_geometric_cover_square
       (∀ z, rationalConfigurationGeometricInclusion E κ t Ωt (βΔ z) =
         αR (rationalConfigurationGeometricInclusion E κ s Ωs z)) ∧
       ∀ z, pointedFundamentalGroupHom qκt
-          ((rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ωt) xt hgeomT
+          ((originalFieldGeometricScheme E κ t).genericExtensionMorphism Ωt) xt hgeomT
           (βΔ z) =
         αΔ (pointedFundamentalGroupHom qκs
-          ((rationalConfigurationGeometricScheme E κ s).genericExtensionMorphism Ωs)
+          ((originalFieldGeometricScheme E κ s).genericExtensionMorphism Ωs)
           xs hgeomS z) := by
   intro β αR
-  let rs := (rationalConfigurationGeometricScheme E κ s).genericExtensionMorphism Ωs
-  let rt := (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ωt
+  let rs := (originalFieldGeometricScheme E κ s).genericExtensionMorphism Ωs
+  let rt := (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ωt
   let ars := rationalConfigurationArithmeticBasePoint E κ s Ωs
   let art := rationalConfigurationArithmeticBasePoint E κ t Ωt
   let gs := (rationalConfigurationOpen s).ι ≫ π E 1

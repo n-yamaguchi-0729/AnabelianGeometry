@@ -101,10 +101,10 @@ private theorem remove_corrected_model_comparison
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra E κ] [IsAlgClosure E κ]
     (s t : Finset (Projectivization E (E × E)))
     (Ω₁ Ω₂ : Type) [Field Ω₁] [Field Ω₂] [IsAlgClosed Ω₁] [IsAlgClosed Ω₂]
-    [Algebra (rationalConfigurationGeometricScheme E κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme E κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme E κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme E κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme E κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme E κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme E κ t).functionField Ω₂]
     {G₁ G₂ : Type*}
     [TopologicalSpace G₁] [Group G₁]
     [TopologicalSpace G₂] [Group G₂] [IsTopologicalGroup G₂]
@@ -221,10 +221,10 @@ private theorem exists_schemeIso_of_geometric_model_comparison
     [CompactSpace (U₂ : Scheme)] [QuasiSeparatedSpace (U₂ : Scheme)]
     [GeometricallyIntegral (U₁.ι ≫ c₁)] [GeometricallyIntegral (U₂.ι ≫ c₂)]
     (s t : Finset (Projectivization E (E × E))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
-    [Algebra (rationalConfigurationGeometricScheme E κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme E κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme E κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme E κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme E κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme E κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme E κ t).functionField Ω₂]
     (I₁ : pullback c₁ (specMap k E) ≅ (projectiveLineRatFuncModel E).C)
     (I₂ : pullback c₂ (specMap k E) ≅ (projectiveLineRatFuncModel E).C)
     (hproper₁ : I₁.hom ≫ (projectiveLineRatFuncModel E).toBase =
@@ -252,9 +252,9 @@ private theorem exists_schemeIso_of_geometric_model_comparison
     (halign₂ : fieldFiberExtensionIso k κ Ω₂ ≪≫
       (eqToIso (congrArg fiber hbase₂)).symm =
       ((nonempty_fiber_iso (xi₂ ≫ (U₂.ι ≫ c₂)) (ξ k κ)).some).symm)
-    (hcoefS : (rationalConfigurationGeometricScheme E κ s).genericExtensionMorphism Ω₁ ≫
+    (hcoefS : (originalFieldGeometricScheme E κ s).genericExtensionMorphism Ω₁ ≫
       pullback.fst (specMap E κ) ((rationalConfigurationOpen s).ι ≫ π E 1) = ξ κ Ω₁)
-    (hcoefT : (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω₂ ≫
+    (hcoefT : (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ω₂ ≫
       pullback.fst (specMap E κ) ((rationalConfigurationOpen t).ι ≫ π E 1) = ξ κ Ω₂)
     (α : π₁ᵉᵗ(xi₁) ≃ₜ* π₁ᵉᵗ(xi₂))
     (hα : ∀ v, arithmeticFundamentalGroupHom k κ (U₂.ι ≫ c₂) xi₂ (α v) =
@@ -272,8 +272,8 @@ private theorem exists_schemeIso_of_geometric_model_comparison
     let ft := U₂.ι ≫ c₂
     let gs := (rationalConfigurationOpen s).ι ≫ π E 1
     let gt := (rationalConfigurationOpen t).ι ≫ π E 1
-    let Zs := rationalConfigurationGeometricScheme E κ s
-    let Zt := rationalConfigurationGeometricScheme E κ t
+    let Zs := originalFieldGeometricScheme E κ s
+    let Zt := originalFieldGeometricScheme E κ t
     let Xs := pullback (specMap k κ) fs
     let Xt := pullback (specMap k κ) ft
     let _hXs : IsIntegral Xs := IsIntegral.of_isIso (pullbackSymmetry fs (specMap k κ)).hom
@@ -530,10 +530,10 @@ private theorem exists_schemeIso_of_corrected_finite_models
     [CompactSpace (U₂ : Scheme)] [QuasiSeparatedSpace (U₂ : Scheme)]
     [GeometricallyIntegral (U₁.ι ≫ c₁)] [GeometricallyIntegral (U₂.ι ≫ c₂)]
     (s t : Finset (Projectivization E (E × E))) (hs : 3 ≤ s.card) (ht : 3 ≤ t.card)
-    [Algebra (rationalConfigurationGeometricScheme E κ s).functionField Ω₁]
-    [Algebra (rationalConfigurationGeometricScheme E κ t).functionField Ω₂]
-    [IsAlgClosure (rationalConfigurationGeometricScheme E κ s).functionField Ω₁]
-    [IsAlgClosure (rationalConfigurationGeometricScheme E κ t).functionField Ω₂]
+    [Algebra (originalFieldGeometricScheme E κ s).functionField Ω₁]
+    [Algebra (originalFieldGeometricScheme E κ t).functionField Ω₂]
+    [IsAlgClosure (originalFieldGeometricScheme E κ s).functionField Ω₁]
+    [IsAlgClosure (originalFieldGeometricScheme E κ t).functionField Ω₂]
     (I₁ : pullback c₁ (specMap k E) ≅ (projectiveLineRatFuncModel E).C)
     (I₂ : pullback c₂ (specMap k E) ≅ (projectiveLineRatFuncModel E).C)
     (hproper₁ : I₁.hom ≫ (projectiveLineRatFuncModel E).toBase =
@@ -561,9 +561,9 @@ private theorem exists_schemeIso_of_corrected_finite_models
     (halign₂ : fieldFiberExtensionIso k κ Ω₂ ≪≫
       (eqToIso (congrArg fiber hbase₂)).symm =
       ((nonempty_fiber_iso (xi₂ ≫ (U₂.ι ≫ c₂)) (ξ k κ)).some).symm)
-    (hcoefS : (rationalConfigurationGeometricScheme E κ s).genericExtensionMorphism Ω₁ ≫
+    (hcoefS : (originalFieldGeometricScheme E κ s).genericExtensionMorphism Ω₁ ≫
       pullback.fst (specMap E κ) ((rationalConfigurationOpen s).ι ≫ π E 1) = ξ κ Ω₁)
-    (hcoefT : (rationalConfigurationGeometricScheme E κ t).genericExtensionMorphism Ω₂ ≫
+    (hcoefT : (originalFieldGeometricScheme E κ t).genericExtensionMorphism Ω₂ ≫
       pullback.fst (specMap E κ) ((rationalConfigurationOpen t).ι ≫ π E 1) = ξ κ Ω₂)
     (α : π₁ᵉᵗ(xi₁) ≃ₜ* π₁ᵉᵗ(xi₂))
     (hα : ∀ v, arithmeticFundamentalGroupHom k κ (U₂.ι ≫ c₂) xi₂ (α v) =
@@ -581,8 +581,8 @@ private theorem exists_schemeIso_of_corrected_finite_models
     let ft := U₂.ι ≫ c₂
     let _gs := (rationalConfigurationOpen s).ι ≫ π E 1
     let _gt := (rationalConfigurationOpen t).ι ≫ π E 1
-    let _Zs := rationalConfigurationGeometricScheme E κ s
-    let _Zt := rationalConfigurationGeometricScheme E κ t
+    let _Zs := originalFieldGeometricScheme E κ s
+    let _Zt := originalFieldGeometricScheme E κ t
     ∀ (hxs : arithmeticConstantFieldLift k E κ fs xi₁ ≫ Js.hom =
         rationalConfigurationArithmeticBasePoint E κ s Ω₁)
       (hxt : arithmeticConstantFieldLift k E κ ft xi₂ ≫ Jt.hom =
@@ -726,8 +726,8 @@ theorem exists_schemeIso_of_genusZero_arithmeticFundamentalGroupEquiv
   let gt := (rationalConfigurationOpen t).ι ≫ π E 1
   let Ys := pullback (specMap E κ) (pullback.fst (specMap k E) fs)
   let Yt := pullback (specMap E κ) (pullback.fst (specMap k E) ft)
-  let Zs := rationalConfigurationGeometricScheme E κ s
-  let Zt := rationalConfigurationGeometricScheme E κ t
+  let Zs := originalFieldGeometricScheme E κ s
+  let Zt := originalFieldGeometricScheme E κ t
   let Jκs := rationalModelGeometricIso k E κ fs s Js hJs
   let Jκt := rationalModelGeometricIso k E κ ft t Jt hJt
   obtain ⟨hYs, hYt, aS, aT, H⟩ := H

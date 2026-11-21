@@ -4,9 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerGeometricFiber
-import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerFiberGalois
-import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackFiberPoint
+module
+
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerGeometricFiber
+public import Nyll.AnabelianGeometry.GeometricFundamentalGroup.LaurentKummerFiberGalois
+public import Nyll.EtaleFundamentalGroups.GeometricFiber.PullbackFiberPoint
 
 /-!
 # Arithmetic fibres at rational Laurent points
@@ -15,6 +17,8 @@ Pull the named Kummer cover back along a rational point to obtain an actual
 finite-etale scheme over the base field. Its geometric fibre is identified
 with the algebra-point description, through the actual pullback square.
 -/
+
+@[expose] public section
 
 noncomputable section
 

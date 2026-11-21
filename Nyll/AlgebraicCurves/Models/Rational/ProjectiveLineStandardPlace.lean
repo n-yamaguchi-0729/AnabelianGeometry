@@ -259,13 +259,13 @@ theorem projectiveLineRatFuncModel_placeOfPoint_projectiveRationalPoint
     (p : Projectivization k (k × k)) :
     (projectiveLineRatFuncModel k).placeOfPoint
         ⟨projectiveRationalPoint p,
-          isClosed_singleton_rationalPuncturePoint p.rep p.rep_nonzero⟩ =
+          isClosed_singleton_rationalPuncturePoint p.rep p.rep_ne_zero⟩ =
       if p.rep.2 = 0 then RationalFunctionField.placeInfty k
       else RationalFunctionField.placeOfPoint k (p.rep.1 / p.rep.2) := by
   classical
-  change literalRationalPuncturePlace k p.rep p.rep_nonzero = _
+  change literalRationalPuncturePlace k p.rep p.rep_ne_zero = _
   split_ifs with h
-  · exact literalRationalPuncturePlace_eq_placeInfty k p.rep p.rep_nonzero h
-  · exact literalRationalPuncturePlace_eq_placeOfPoint k p.rep p.rep_nonzero h
+  · exact literalRationalPuncturePlace_eq_placeInfty k p.rep p.rep_ne_zero h
+  · exact literalRationalPuncturePlace_eq_placeOfPoint k p.rep p.rep_ne_zero h
 
 end AlgebraicGeometry.ProjSpace

@@ -58,7 +58,7 @@ theorem rationalConfigurationBoundaryPlace_rationalPlace_mem_openBoundaryPlaces
       map_rationalConfigurationGeometricPoint]
   have hclosed : IsClosed ({map k κ 1 y.val} : Set M₀.C) := by
     rw [hcenter]
-    exact isClosed_singleton_rationalPuncturePoint a.val.rep a.val.rep_nonzero
+    exact isClosed_singleton_rationalPuncturePoint a.val.rep a.val.rep_ne_zero
   let x : closedPoints M₀.C := ⟨map k κ 1 y.val, hclosed⟩
   have hyplace : M.placeOfPoint y = W := by
     change M.placeEquiv (M.placeEquiv.symm W) = W

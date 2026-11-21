@@ -54,7 +54,7 @@ theorem rationalEllAdicEdgeMap_graphOver (i : ℕ)
       rationalEllAdicCohomologyPullback ℓ (graphOver f v hv) i
         (rationalEllAdicCohomologyPullback ℓ (pullback.snd f g) i y) := by
     simpa only [graphOver_snd, rationalEllAdicCohomologyPullback_id,
-      Module.End.one_apply, LinearMap.comp_apply] using
+      one_apply_eq_self, LinearMap.comp_apply] using
       LinearMap.congr_fun (rationalEllAdicCohomologyPullback_comp
         (graphOver f v hv) (pullback.snd f g) ℓ i) y
   change rationalEllAdicCohomologyPullback ℓ (graphOver f v hv) i

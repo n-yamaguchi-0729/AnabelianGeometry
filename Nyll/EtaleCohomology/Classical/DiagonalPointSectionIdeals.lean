@@ -131,21 +131,3 @@ theorem diagonalIdeal_comap_kunnethSectionRight :
             (congrArg (fun q : S ⟶ X => q.ker) H.isoPullback_hom_fst))
 
 end EtaleCohomology.Classical
-
-namespace EtaleCohomology
-
-/-- The original kernel of a section of a separated smooth relative
-curve, with the genuine Cartier regularity supplied by that section. -/
-def sectionEffectiveCartierDivisor
-    {X S : Scheme.{u}} (f : X ⟶ S) [IsSeparated f]
-    [SmoothOfRelativeDimension 1 f] (p : S ⟶ X) (hp : p ≫ f = 𝟙 S) :
-    Scheme.EffectiveCartierDivisor X :=
-  ⟨p.ker, (Scheme.Hom.isInvertible_ker_of_comp_eq_id p hp).isEffectiveCartier⟩
-
-/-- The divisor retains the actual point kernel ideal. -/
-theorem sectionEffectiveCartierDivisor_ideal
-    {X S : Scheme.{u}} (f : X ⟶ S) [IsSeparated f]
-    [SmoothOfRelativeDimension 1 f] (p : S ⟶ X) (hp : p ≫ f = 𝟙 S) :
-    (sectionEffectiveCartierDivisor f p hp).1 = p.ker := rfl
-
-end EtaleCohomology

@@ -61,7 +61,7 @@ def actualTameCharacterMorphism :
 
 /-- The literal coefficient of an element of the SAME actual roots group. -/
 def actualTameRootsScalar
-    (n : Subtype (actualFiniteTameDegreeSet A K L Q))
+    (n : ↥(actualFiniteTameDegreeSet A K L Q))
     (x : (actualTameRootsGroup A K L Q).carrier) :
     (normalizationCommAlgCat A L).carrier ⧸ Q :=
   ((actualFiniteTameRootsSystem A K L Q).projection n x).val.val
@@ -69,7 +69,7 @@ def actualTameRootsScalar
 /-- Literal scalar coordinates jointly separate points of the native group. -/
 theorem actualTameRootsScalar_ext
     (x y : (actualTameRootsGroup A K L Q).carrier)
-    (h : ∀ n : Subtype (actualFiniteTameDegreeSet A K L Q),
+    (h : ∀ n : ↥(actualFiniteTameDegreeSet A K L Q),
       actualTameRootsScalar A K L Q n x = actualTameRootsScalar A K L Q n y) :
     x = y := by
   apply (actualFiniteTameRootsSystem A K L Q).ext
@@ -84,7 +84,7 @@ theorem actualTameCharacterMorphism_continuous :
 
 /-- Native scalar evaluation of the SAME character is its existing actual coordinate. -/
 theorem actualTameRootsScalar_character
-    (n : Subtype (actualFiniteTameDegreeSet A K L Q))
+    (n : ↥(actualFiniteTameDegreeSet A K L Q))
     (σ : (actualNormalizationInertiaGroup A K L Q).carrier) :
     actualTameRootsScalar A K L Q n
         ((actualTameCharacterMorphism A K L Q).hom'.toFun σ) =

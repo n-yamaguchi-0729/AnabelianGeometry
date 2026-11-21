@@ -53,7 +53,7 @@ private theorem candidate_map_mem_relativeRelation
 attribute [local instance]
   placeBaseAmbientAlgebra placeBaseAmbientTower
   extendingPlaceAmbientAlgebra extendingPlaceAmbientTower
-  connectedCoverPlaceConstantAmbientTower
+  placeConstantAmbientTower
 
 variable
     (k E κ : Type) [Field k] [Field E] [CharZero E] [Field.FG E]

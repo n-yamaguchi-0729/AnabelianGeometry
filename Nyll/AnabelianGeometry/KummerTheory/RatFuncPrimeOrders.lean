@@ -71,9 +71,7 @@ theorem finitePlace_ord_eq_rationalPrimeOrder {P : k[X]} (hP : Irreducible P)
     _ = rationalPrimeOrder P f := by
       rw [finitePlace_ord_polynomial_eq_multiplicity hP f.num (RatFunc.num_ne_zero hf),
         finitePlace_ord_polynomial_eq_multiplicity hP f.denom (RatFunc.denom_ne_zero f)]
-      simp only [rationalPrimeOrder,
-        multiplicity_eq_count_normalizedFactors hP (RatFunc.num_ne_zero hf),
-        multiplicity_eq_count_normalizedFactors hP (RatFunc.denom_ne_zero f)]
+      simp only [rationalPrimeOrder, multiplicity_eq_count_normalizedFactors hP]
 
 /-- All finite actual place orders recover the square class relative to a coordinate. -/
 theorem ratFunc_eq_constant_mul_coordinate_mul_sq_of_even_orders

@@ -51,8 +51,8 @@ theorem frobenius_fixed_iff_exists_algebraMap (z : K) :
       change (Polynomial.X ^ Fintype.card k - Polynomial.X : Polynomial k).Splits
       rw [Polynomial.splits_iff_card_roots, FiniteField.roots_X_pow_card_sub_X,
         ← Finset.card_def, Finset.card_univ,
-        FiniteField.X_pow_card_sub_X_natDegree_eq k Fintype.one_lt_card]
-    have hf : f ≠ 0 := FiniteField.X_pow_card_sub_X_ne_zero k Fintype.one_lt_card
+        Polynomial.natDegree_X_pow_sub_X (R := k) Fintype.one_lt_card]
+    have hf : f ≠ 0 := Polynomial.X_pow_sub_X_ne_zero (R := k) Fintype.one_lt_card
     have hr : (f.map (algebraMap k K)).IsRoot z := by
       change Polynomial.IsRoot
         ((Polynomial.X ^ Fintype.card k - Polynomial.X : Polynomial k).map (algebraMap k K)) z

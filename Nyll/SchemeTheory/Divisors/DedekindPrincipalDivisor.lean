@@ -7,7 +7,8 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 module
 
 public import Mathlib.RingTheory.DedekindDomain.Factorization
-public import Mathlib.RingTheory.DedekindDomain.AdicValuation
+public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Completion
+public import Mathlib.RingTheory.DedekindDomain.AdicValuation.Valuation
 public import Mathlib.RingTheory.Valuation.Discrete.Basic
 public import Nyll.SchemeTheory.Divisors.DVRUnitQuotient
 public import Mathlib.RingTheory.Localization.AtPrime.Basic
@@ -121,7 +122,7 @@ theorem exists_principalDivisorAddHom_apply_eq_one
   have hs : (Ideal.span ({r} : Set R)) ≠ 0 := by
     intro h
     exact hr0 (Ideal.span_singleton_eq_bot.mp h)
-  rw [count_coe K v hs]
+  rw [count_coeIdeal K v hs]
   rw [v.intValuation_if_neg hr0, WithZero.exp_inj, neg_inj] at hr
   exact hr
 

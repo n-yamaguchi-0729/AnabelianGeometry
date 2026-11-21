@@ -36,7 +36,7 @@ theorem exists_projectiveRationalPoint_of_isRational
     ∃ p : Projectivization k (k × k),
       (projectiveLineRatFuncModel k).placeOfPoint
         ⟨projectiveRationalPoint p,
-          isClosed_singleton_rationalPuncturePoint p.rep p.rep_nonzero⟩ = V := by
+          isClosed_singleton_rationalPuncturePoint p.rep p.rep_ne_zero⟩ = V := by
   rcases eq_placeOfPoint_or_eq_placeInfty_of_isRational k V hV with ⟨a, ha⟩ | ha
   · have h : (a, (1 : k)) ≠ 0 := fun h => one_ne_zero (congrArg Prod.snd h)
     refine ⟨Projectivization.mk k (a, 1) h, ?_⟩

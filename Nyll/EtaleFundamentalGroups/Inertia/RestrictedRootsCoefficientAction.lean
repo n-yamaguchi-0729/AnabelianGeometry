@@ -76,14 +76,14 @@ def restrictedRootsCoefficientAction :
 /-- A scalar projection of the action is the actual coefficient action. -/
 theorem restrictedRootsCoefficientAction_projection
     (f : R ≃+* R) (x : ((primeToRootsSystem k R).restrict J).inverseLimit)
-    (n : Subtype J) :
+    (n : ↥J) :
     (((primeToRootsSystem k R).restrict J).projection n
       (((restrictedRootsCoefficientAction k R J).toFun f).toFun x)).val.val =
       f.toFun ((((primeToRootsSystem k R).restrict J).projection n x).val.val) := rfl
 
 /-- Coefficient maps preserve the identity of the SAME coordinatewise limit group. -/
 theorem restrictedRootsCoefficientMap_one (f : R →+* R) :
-    let : ∀ n : Subtype J,
+    let : ∀ n : ↥J,
         Group (((primeToRootsSystem k R).restrict J).X n) :=
       fun n => primeToRootsSystem_group k R n.val
     let : IsGroupSystem ((primeToRootsSystem k R).restrict J) :=
@@ -98,7 +98,7 @@ theorem restrictedRootsCoefficientMap_one (f : R →+* R) :
 /-- Coefficient maps preserve multiplication in the SAME coordinatewise group. -/
 theorem restrictedRootsCoefficientMap_mul (f : R →+* R)
     (x y : ((primeToRootsSystem k R).restrict J).inverseLimit) :
-    let : ∀ n : Subtype J,
+    let : ∀ n : ↥J,
         Group (((primeToRootsSystem k R).restrict J).X n) :=
       fun n => primeToRootsSystem_group k R n.val
     let : IsGroupSystem ((primeToRootsSystem k R).restrict J) :=

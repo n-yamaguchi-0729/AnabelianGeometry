@@ -39,7 +39,7 @@ theorem finite_fixed_frobenius_pow
   have hfinite : Set.Finite {x : Ω | (frobeniusAlgEquivOfAlgebraic k Ω ^ n) x = x} := by
     rw [hS]
     exact Polynomial.finite_setOfPred_isRoot
-      (X_pow_card_sub_X_ne_zero Ω (one_lt_pow₀ Fintype.one_lt_card hn))
+      (Polynomial.X_pow_sub_X_ne_zero (one_lt_pow₀ Fintype.one_lt_card hn))
   exact hfinite.to_subtype
 
 end FiniteField

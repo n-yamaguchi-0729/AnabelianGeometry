@@ -7,6 +7,8 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 module
 
 public import Mathlib.RingTheory.Henselian
+public import Mathlib.Algebra.Ring.GeomSum
+public import Mathlib.RingTheory.LocalRing.RingHom.Basic
 public import Mathlib.FieldTheory.IsSepClosed
 public import Mathlib.RingTheory.DiscreteValuationRing.Basic
 
@@ -21,6 +23,66 @@ hypothesis is needed.
 @[expose] public section
 
 namespace HenselianLocalRing
+
+open scoped BigOperators
+
+/-- In a Henselian local ring, taking a power with unit exponent is surjective
+on units congruent to one modulo any ideal contained in the maximal ideal.
+The lifted root retains the original ideal, including every positive power
+of the maximal ideal. -/
+theorem units_pow_root_of_sub_one_mem
+    (R : Type*) [CommRing R] [IsLocalRing R]
+    [HenselianRing R (IsLocalRing.maximalIdeal R)]
+    (I : Ideal R) (hI : I ≤ IsLocalRing.maximalIdeal R)
+    (n : ℕ) (hn : IsUnit (n : R)) (u : Rˣ) (hu : (u : R) - 1 ∈ I) :
+    ∃ v : Rˣ, (v : R) - 1 ∈ I ∧ v ^ n = u := by
+  have hn0 : n ≠ 0 := by
+    intro hzero
+    exact hn.ne_zero (by rw [hzero, Nat.cast_zero])
+  let f : Polynomial R := Polynomial.X ^ n - Polynomial.C (u : R)
+  have hroot : f.eval 1 ∈ IsLocalRing.maximalIdeal R := by
+    have hneg := hI (I.neg_mem hu)
+    simpa only [f, Polynomial.eval_sub, Polynomial.eval_pow, Polynomial.eval_X,
+      Polynomial.eval_C, one_pow, neg_sub] using hneg
+  have hder : f.derivative.eval 1 = (n : R) := by
+    simp only [f, Polynomial.derivative_sub, Polynomial.derivative_X_pow,
+      Polynomial.derivative_C, sub_zero, Polynomial.eval_mul, Polynomial.eval_C,
+      Polynomial.eval_pow, Polynomial.eval_X, one_pow, mul_one]
+  obtain ⟨b, hb, hb1⟩ := HenselianRing.is_henselian f
+    (Polynomial.monic_X_pow_sub_C (u : R) hn0) 1 hroot
+    (by rw [hder]; exact hn.map (Ideal.Quotient.mk (IsLocalRing.maximalIdeal R)))
+  have hbpow : b ^ n = (u : R) := by
+    simpa only [f, Polynomial.IsRoot.def, Polynomial.eval_sub,
+      Polynomial.eval_pow, Polynomial.eval_X, Polynomial.eval_C, sub_eq_zero] using hb
+  have hbred : IsLocalRing.residue R b = 1 := by
+    have h := (IsLocalRing.residue_eq_zero_iff (b - 1)).mpr hb1
+    rwa [map_sub, map_one, sub_eq_zero] at h
+  let S : R := ∑ i ∈ Finset.range n, b ^ i
+  have hSred : IsLocalRing.residue R S = (n : IsLocalRing.ResidueField R) := by
+    simp only [S, map_sum, map_pow, hbred, one_pow, Finset.sum_const,
+      Finset.card_range, nsmul_eq_mul, mul_one]
+  have hSunit : IsUnit S := isUnit_of_map_unit (IsLocalRing.residue R) S (by
+    rw [hSred]
+    simpa only [map_natCast] using hn.map (IsLocalRing.residue R))
+  obtain ⟨w, hw⟩ := hSunit
+  have hmul : (w : R) * (b - 1) ∈ I := by
+    rw [hw]
+    change (∑ i ∈ Finset.range n, b ^ i) * (b - 1) ∈ I
+    rw [geom_sum_mul, hbpow]
+    exact hu
+  have hbI : b - 1 ∈ I := by
+    have h := I.mul_mem_left ((w⁻¹ : Rˣ) : R) hmul
+    simpa only [← mul_assoc, Units.inv_mul, one_mul] using h
+  have hbu : IsUnit b := isUnit_of_map_unit (IsLocalRing.residue R) b (by
+    rw [hbred]
+    exact isUnit_one)
+  obtain ⟨v, hv⟩ := hbu
+  refine ⟨v, ?_, Units.ext ?_⟩
+  · rw [hv]
+    exact hbI
+  · change (v : R) ^ n = (u : R)
+    rw [hv]
+    exact hbpow
 
 /-- On a Henselian local ring with separably closed residue field,
 the nth-power map on units is surjective whenever n is a unit. -/

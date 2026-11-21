@@ -49,7 +49,7 @@ theorem actualTameCoordinate_at_stage
 /-- At an actual degree, the canonical quotient coordinate is the identity
 exactly when the SAME original finite coordinate is the identity. -/
 theorem actualTameCoordinate_eq_one_iff
-    (n : Subtype (actualFiniteTameDegreeSet A K L Q))
+    (n : ↥(actualFiniteTameDegreeSet A K L Q))
     (E : FiniteGaloisIntermediateField K L)
     (hE : actualFiniteStageTameIndex A K L Q E = n.val)
     (σ : (actualNormalizationInertiaGroup A K L Q).carrier) :

@@ -43,9 +43,9 @@ def scalarPowerCore (F : Module.End K V) (a : K) : Submodule K V :=
 theorem pow_mem_of_invariant (F : Module.End K V) (S : Submodule K V)
     (hS : ∀ x ∈ S, F x ∈ S) (n : ℕ) {x : V} (hx : x ∈ S) : (F ^ n) x ∈ S := by
   induction n with
-  | zero => simpa only [pow_zero, Module.End.one_apply] using hx
+  | zero => simpa only [pow_zero, one_apply_eq_self] using hx
   | succ n ih =>
-    rw [pow_succ', Module.End.mul_apply]
+    rw [pow_succ', mul_apply_eq_comp]
     exact hS _ ih
 
 /-- On an invariant finite-dimensional subspace, absence of the scalar-power
@@ -98,7 +98,7 @@ theorem intertwine_scalarPowerDifference
     | zero => intro y; rfl
     | succ m ih =>
       intro y
-      rw [pow_succ', pow_succ', Module.End.mul_apply, Module.End.mul_apply, he, ih]
+      rw [pow_succ', pow_succ', mul_apply_eq_comp, mul_apply_eq_comp, he, ih]
   change e ((F ^ (n : ℕ)) x - a ^ (n : ℕ) • x) =
     (F' ^ (n : ℕ)) (e x) - a ^ (n : ℕ) • e x
   rw [map_sub, map_smul, hp]

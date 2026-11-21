@@ -47,7 +47,7 @@ theorem projectiveRationalPoint_projectiveFieldMap
     (fun q => projectiveRationalPoint (projectiveFieldMap (algebraMap k E) q))
     p.mk_rep.symm).trans
       ((congrArg projectiveRationalPoint
-        (projectiveFieldMap_mk (algebraMap k E) p.rep p.rep_nonzero)).trans
+        (projectiveFieldMap_mk (algebraMap k E) p.rep p.rep_ne_zero)).trans
           (projectiveRationalPoint_mk _ _))
 
 theorem rationalConfiguration_scalarExtension_range

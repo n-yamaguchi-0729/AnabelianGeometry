@@ -104,7 +104,7 @@ end
 
 /-- Representative-independent actual rational closed points. -/
 def projectiveRationalPoint (p : Projectivization K (K × K)) : ProjectiveSpectrum 𝒜 :=
-  rationalPuncturePoint p.rep p.rep_nonzero
+  rationalPuncturePoint p.rep p.rep_ne_zero
 
 @[simp] theorem projectiveRationalPoint_mk (v : K × K) (hv : v ≠ 0) :
     projectiveRationalPoint (Projectivization.mk K v hv) = rationalPuncturePoint v hv := by

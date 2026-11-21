@@ -5,6 +5,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 -/
 module
 
+public import Nyll.SchemeTheory.FunctionFields.RatFuncScalarAction
 public import Nyll.AnabelianGeometry.WeightFiltration.BareRationalConfigurationCuspRecognition
 public import Nyll.AnabelianGeometry.WeightFiltration.BoundaryInertiaProcyclic
 public import Nyll.AnabelianGeometry.WeightFiltration.NamedModelCoverGroupSquare
@@ -36,22 +37,20 @@ attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
   rationalConfigurationGeometricField_scalarTower
   placeBaseAmbientAlgebra placeBaseAmbientTower placeConstantAmbientTower
 
-local instance chosenInertiaSMulRatFunc
-    {A E : Type*} [CommSemiring A] [Field E] [Algebra A (RatFunc E)] :
-    SMul A (RatFunc E) := (inferInstance : Algebra A (RatFunc E)).toSMul
+attribute [local instance] RatFunc.algebraSMul
 
 theorem rationalConfigurationChosenInertia_exists_ne_one
     (k κ : Type) [Field k] [Field κ] [CharZero κ] [IsAlgClosed κ]
     [Algebra k κ] [Infinite k]
     (s : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card)
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     (p : (projectiveLineRatFuncModel κ).openBoundaryPlaces
       (rationalConfigurationBaseChangeChart k κ s)) :
     ∃ z : rationalConfigurationGeometricGroup k κ s Ω,
       z ∈ rationalConfigurationChosenInertia k κ s Ω p ∧ z ≠ 1 := by
-  let U := rationalConfigurationGeometricScheme k κ s
+  let U := originalFieldGeometricScheme k κ s
   let M := projectiveLineRatFuncModel κ
   let j : U ⟶ M.C := rationalConfigurationBaseChangeChart k κ s
   let : IsOpenImmersion j := inferInstanceAs

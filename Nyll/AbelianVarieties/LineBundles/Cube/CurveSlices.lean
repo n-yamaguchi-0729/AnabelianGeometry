@@ -22,6 +22,7 @@ public import Nyll.AlgebraicCurves.Geometry.Picard.AlgebraicEquivalence.AlgEquiv
 public import Nyll.AbelianVarieties.LineBundles.Cube.CurvePicard
 public import Nyll.AlgebraicCurves.Geometry.Schemes.BaseChange.EqPullbackSndCompProper
 public import Nyll.SchemeTheory.Morphisms.GeometricallyIntegralAlgClosed
+public import Nyll.AlgebraicCurves.Geometry.Picard.RelSubPic.Presheaf
 
 /-!
 # The theorem of the cube with a relative curve factor
@@ -793,14 +794,6 @@ variable {R : Type u} [CommRing R] {C : Scheme.{u}} {c : C ⟶ Spec (CommRingCat
   {ε : SchemeHomOver (𝟙 (Spec (CommRingCat.of R))) c}
   {P : SubPicCondition c ε} {D : RelativePic0Designation R c}
 
-/-- Identify the line bundles obtained by pulling back a rigidified line bundle along a
-composite or successively. -/
-def pullbackAlongPostCompIso {T T' T'' : Scheme.{u}} {t : T ⟶ Spec (CommRingCat.of R)}
-    {t' : T' ⟶ Spec (CommRingCat.of R)} {t'' : T'' ⟶ Spec (CommRingCat.of R)}
-    (N : RigidifiedLineBundle c ε t) (φ : SchemeHomOver t' t) (ψ : SchemeHomOver t'' t') :
-    (N.pullbackAlong (postComp φ ψ)).L ≅ ((N.pullbackAlong φ).pullbackAlong ψ).L :=
-  pbCongr (baseChangeSnd_comp c φ ψ).symm N.L ≪≫ pbComp _ _ N.L
-
 theorem poincare_pullbackAlong_trivial_of_eq (h : RepresentsRelSubPic c ε P D) {T : Scheme.{u}}
     {t : T ⟶ Spec (CommRingCat.of R)} (g : SchemeHomOver t D.toBase)
     (hg : g.1 = t ≫ D.zeroSection) :
@@ -812,7 +805,8 @@ theorem poincare_pullbackAlong_trivial_of_eq (h : RepresentsRelSubPic c ε P D) 
   have hg' : g = postComp z τ := Subtype.ext hg
   subst hg'
   obtain ⟨e⟩ := RigidifiedLineBundle.pullbackAlong_congr τ h.zero
-  exact ⟨pullbackAlongPostCompIso h.poincare z τ ≪≫ e ≪≫ Scheme.Modules.pullbackUnitIso _⟩
+  exact ⟨(h.poincare.pullbackAlongPullbackAlongIso z τ).symm ≪≫ e ≪≫
+    Scheme.Modules.pullbackUnitIso _⟩
 
 theorem comp_classify_eq_zero (h : RepresentsRelSubPic c ε P D) {T T' : Scheme.{u}}
     {t : T ⟶ Spec (CommRingCat.of R)} {t' : T' ⟶ Spec (CommRingCat.of R)}
@@ -827,7 +821,7 @@ theorem comp_classify_eq_zero (h : RepresentsRelSubPic c ε P D) {T T' : Scheme.
   obtain ⟨e₁⟩ := RigidifiedLineBundle.pullbackAlong_congr ψ hcl
   obtain ⟨e₀⟩ := poincare_pullbackAlong_trivial_of_eq h g₀ rfl
   have := h.ext_of_iso t' g₁ g₀
-    ⟨pullbackAlongPostCompIso h.poincare κ ψ ≪≫ e₁ ≪≫ hψ.some ≪≫ e₀.symm⟩
+    ⟨(h.poincare.pullbackAlongPullbackAlongIso κ ψ).symm ≪≫ e₁ ≪≫ hψ.some ≪≫ e₀.symm⟩
   exact congrArg Subtype.val this
 
 end Classify

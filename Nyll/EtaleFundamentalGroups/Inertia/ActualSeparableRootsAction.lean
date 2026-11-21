@@ -68,7 +68,7 @@ theorem actualSeparableRootsAction_scalar
 /-- The current actual tame action has that same closed scalar computation. -/
 theorem actualTameRootsAction_scalar
     (d : (normalizationDecompositionGroup A K Ω Q).carrier)
-    (n : Subtype (actualFiniteTameDegreeSet A K Ω Q))
+    (n : ↥(actualFiniteTameDegreeSet A K Ω Q))
     (x : (actualTameRootsGroup A K Ω Q).carrier) :
     actualTameRootsScalar A K Ω Q n (actualTameRootsAction_apply A K Ω Q d x) =
       actualNormalizationQuotientActionScalar A K Ω Q d

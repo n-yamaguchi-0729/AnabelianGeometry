@@ -6,6 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 module
 
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Morphisms.HomInvertibleKerCompEqId
 public import Nyll.AlgebraicCurves.Geometry.Picard.AlgebraicEquivalence.AlgEquivZeroGroupCut
 public import Nyll.AlgebraicCurves.Geometry.Picard.Representability.Designation
 public import Nyll.AlgebraicCurves.Divisors.ClassGroup.PicardDegree
@@ -40,6 +41,8 @@ Kummer coefficient inclusion, without choosing another Picard dictionary.
 -/
 
 @[expose] public section
+
+open AlgebraicGeometry.Scheme.Hom (sectionEffectiveCartierDivisor)
 
 universe u
 

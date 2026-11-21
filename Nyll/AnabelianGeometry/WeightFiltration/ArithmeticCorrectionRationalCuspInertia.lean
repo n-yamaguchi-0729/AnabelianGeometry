@@ -77,8 +77,8 @@ theorem rationalConfiguration_arithmeticCorrection_chosenInertia
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card)
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     (p : (projectiveLineRatFuncModel κ).openBoundaryPlaces
       (rationalConfigurationBaseChangeChart k κ s))
     (c : rationalConfigurationArithmeticGroup k κ s Ω) :
@@ -97,7 +97,7 @@ theorem rationalConfiguration_arithmeticCorrection_chosenInertia
   let D := rationalConfigurationChosenDecomposition k κ s Ω p
   have hex := arithmetic_exactSequence_of_isSepClosure k κ
     (rationalConfigurationOpen s : Scheme) ((rationalConfigurationOpen s).ι ≫ π k 1)
-    ((rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω)
+    ((originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω)
   have hDN : D ≤ Subgroup.normalizer (I.map i : Set _) := by
     exact le_of_eq
       (rationalConfigurationChosenDecomposition_eq_normalizer k κ s Ω p hs)
@@ -125,8 +125,8 @@ theorem rationalConfiguration_arithmeticCorrection_geometricInertia
     [Field κ] [CharZero κ] [IsAlgClosed κ] [Algebra k κ] [IsAlgClosure k κ]
     (s : Finset (Projectivization k (k × k))) (hs : 3 ≤ s.card)
     (Ω : Type) [Field Ω] [IsAlgClosed Ω]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ω]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ω]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ω]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ω]
     (p : (projectiveLineRatFuncModel κ).openBoundaryPlaces
       (rationalConfigurationBaseChangeChart k κ s))
     (c : rationalConfigurationArithmeticGroup k κ s Ω)
@@ -143,7 +143,7 @@ theorem rationalConfiguration_arithmeticCorrection_geometricInertia
     k κ s hs Ω p c
   have hex := arithmetic_exactSequence_of_isSepClosure k κ
     (rationalConfigurationOpen s : Scheme) ((rationalConfigurationOpen s).ι ≫ π k 1)
-    ((rationalConfigurationGeometricScheme k κ s).genericExtensionMorphism Ω)
+    ((originalFieldGeometricScheme k κ s).genericExtensionMorphism Ω)
   refine ⟨g, correction_map_cancel i hex.1 (I.map θ)
     (I.map (MulAut.conj g).toMonoidHom) ?_⟩
   have hleft : i.comp θ = (MulAut.conj c).toMonoidHom.comp i := by

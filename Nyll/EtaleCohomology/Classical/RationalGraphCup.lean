@@ -65,7 +65,7 @@ theorem rationalEllAdicExternalCup_graphOver (a b c : ℕ) (h : a + b = c)
         (rationalEllAdicExternalCup ℓ f g a b c h x y) =
       rationalEllAdicCup Y ℓ a b c h (rationalEllAdicCohomologyPullback ℓ v a x) y := by
   simpa only [graphOver_fst, graphOver_snd,
-    rationalEllAdicCohomologyPullback_id, Module.End.one_apply] using
+    rationalEllAdicCohomologyPullback_id, one_apply_eq_self] using
     rationalEllAdicExternalCup_pullback ℓ f g (graphOver f v hv) a b c h x y
 
 /-- The actual Künneth component followed by the original graph pullback

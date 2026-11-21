@@ -209,7 +209,7 @@ theorem CurveModel.ramificationIndexAlong_pointEquivPlace_eq_one_of_formallyUnra
     rw [algebraMap_stalkMap πM hξ x₀ t, hB]
     simp only [RingHom.coe_comp, RingEquiv.toRingHom_eq_coe, Function.comp_apply, RingHom.coe_coe,
       AlgHom.toRingHom_eq_coe, RingEquiv.symm_apply_apply]
-    try rfl
+    rfl
   set w : Place K L := M.pointEquivPlace y with hw
   have hwx : w = M.placeOfPoint x := rfl
   let w' : Place K L' := M'.placeOfPoint ⟨πM.base x₀, hx'val ▸ x'.2⟩

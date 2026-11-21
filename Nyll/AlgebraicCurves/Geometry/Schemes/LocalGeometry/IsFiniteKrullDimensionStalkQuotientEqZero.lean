@@ -53,7 +53,7 @@ theorem ringKrullDim_quotient_map_maximalIdeal_eq_zero
     (isArtinianRing_iff_isNoetherianRing_krullDimLE_zero.mp hA).2
   have : Nontrivial (S ⧸ (maximalIdeal R).map (algebraMap R S)) := by
     rw [Ideal.Quotient.nontrivial_iff]
-    exact ((((local_hom_TFAE (algebraMap R S)).out 1 3 rfl rfl).mp inferInstance).trans_lt
+    exact ((((local_hom_tfae (algebraMap R S)).out 1 3 rfl rfl).mp inferInstance).trans_lt
       (inferInstance : (maximalIdeal S).IsMaximal).ne_top.lt_top).ne
   exact ringKrullDimZero_iff_ringKrullDim_eq_zero.mp inferInstance
 

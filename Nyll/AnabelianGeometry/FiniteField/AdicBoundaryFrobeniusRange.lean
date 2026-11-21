@@ -98,7 +98,7 @@ theorem exists_ellAdic_inverseCoefficient_difference_proper
   have hR : Function.Semiconj R Φ T := fun x =>
     finiteLevelKummerEquiv_pullback K θU.inv ℓ hℓ n 1 (ellAdicProjection X ℓ 1 n x)
   have hp : R ((Φ ^ (r : ℕ)) a) = (T^[r]) (R a) :=
-    (congrArg R (Module.End.pow_apply Φ (r : ℕ) a)).trans (hR.iterate_right (r : ℕ) a)
+    (congrArg R (pow_apply_eq_iterate Φ (r : ℕ) a)).trans (hR.iterate_right (r : ℕ) a)
   change finiteResidue M m j hj hm geom (R ((Φ ^ (r : ℕ)) a)) =
     Fintype.card k ^ (r : ℕ) • finiteResidue M m j hj hm geom (R a)
   funext v

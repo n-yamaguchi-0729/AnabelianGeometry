@@ -32,8 +32,8 @@ attribute [local instance]
   Place.instFiniteSubtypeMemValuationSubringToValuationSubringIntegralClosureAt
   placeBaseAmbientAlgebra placeBaseAmbientTower
   extendingPlaceAmbientAlgebra extendingPlaceAmbientTower
-  finiteNormalizationPlaceAlgebra finiteNormalizationPlaceTower
-  finiteNormalizationPlaceLocalization finiteNormalizationPlaceAmbientTower
+  Place.placeOfPrimeAlgebra Place.placeOfPrimeIsScalarTower
+  Place.placeOfPrimeIsLocalization finiteNormalizationPlaceAmbientTower
   originalPlaceNormalizationAction extendingPlaceNormalizationAction
 
 /-- Pure group calculation, so rewriting never unfolds the actual cover's

@@ -38,7 +38,8 @@ theorem primePow_dvd_principalUnit_pow_sub_one_iff
       push_cast
       rw [sub_eq_zero]
     _ ↔ p ^ k ∣ d := by
+      obtain ⟨t, rfl⟩ := Nat.exists_eq_succ_of_ne_zero hs
       rw [← orderOf_dvd_iff_pow_eq_one,
-        ZMod.orderOf_one_add_mul_prime_pow hp s hs hps a ha k]
+        ZMod.orderOf_one_add_mul_prime_pow hp (t + 1) hps a ha k]
 
 end AnabelianGeometry.KummerTheory

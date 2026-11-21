@@ -125,7 +125,8 @@ theorem JPHead.formallyUnramified_of_surjective_cotangent
       simp only [mem_maximalIdeal, mem_nonunits_iff] at ha ⊢
       exact fun h ↦ ha (isUnit_of_map_unit (algebraMap R S) a h)
     · have hFG : (maximalIdeal S).FG := IsNoetherian.noetherian _
-      refine Submodule.le_of_le_smul_of_le_jacobson_bot hFG (maximalIdeal_le_jacobson ⊥) ?_
+      refine Submodule.le_of_le_smul_of_le_jacobson hFG
+        (IsLocalRing.ringJacobson_eq_maximalIdeal S).symm.le ?_
       intro x hx
       obtain ⟨y, hy, hxy⟩ := hcot x hx
       have : x = algebraMap R S y + (x - algebraMap R S y) := by ring

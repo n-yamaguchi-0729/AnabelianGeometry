@@ -56,7 +56,7 @@ theorem fixedPointIdeal_eq_maximalIdeal (f : R →+* R)
     apply (residue_eq_zero_iff (f x - x)).mp
     rw [map_sub, sub_eq_zero]
     exact congrArg (fun g : R →+* ResidueField R => g x) hres
-  · apply Submodule.le_of_le_smul_of_le_jacobson_bot hfg (maximalIdeal_le_jacobson ⊥)
+  · apply Submodule.le_of_le_smul_of_le_jacobson hfg (ringJacobson_eq_maximalIdeal R).ge
     intro x hx
     have hxrel : f x - x ∈ f.fixedPointIdeal :=
       Ideal.subset_span ⟨x, rfl⟩

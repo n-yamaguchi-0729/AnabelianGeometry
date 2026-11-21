@@ -44,16 +44,6 @@ namespace EtaleFundamentalGroups.Inertia
 
 universe u
 
-private theorem genericExtension_point_comp
-    (U : Scheme.{u}) [IsIntegral U]
-    (Ω : Type u) [Field Ω] [Algebra U.functionField Ω] :
-    ξ U.functionField Ω ≫ U.genericExtensionMorphism U.functionField =
-      U.genericExtensionMorphism Ω := by
-  simp only [Scheme.genericExtensionMorphism]
-  rw [← Spec.map_comp_assoc]
-  congr 1
-
-
 open scoped Pointwise
 
 open AlgebraicCurve IsDedekindDomain
@@ -66,21 +56,13 @@ attribute [local instance]
   Place.instFiniteSubtypeMemValuationSubringToValuationSubringIntegralClosureAt
   placeBaseAmbientAlgebra placeBaseAmbientTower
   extendingPlaceAmbientAlgebra extendingPlaceAmbientTower
-  finiteNormalizationPlaceAlgebra finiteNormalizationPlaceTower
-  finiteNormalizationPlaceLocalization finiteNormalizationPlaceAmbientTower
+  Place.placeOfPrimeAlgebra Place.placeOfPrimeIsScalarTower
+  Place.placeOfPrimeIsLocalization finiteNormalizationPlaceAmbientTower
   originalPlaceNormalizationAction extendingPlaceNormalizationAction
 
 attribute [local instance] CurveModel.isIntegral CurveModel.isProper CurveModel.smooth
 
-local instance placeConstantAmbientTower
-    {κ F Ω : Type} [Field κ] [Field F] [Field Ω]
-    [Algebra κ F] [Algebra F Ω] [Algebra κ Ω]
-    [IsScalarTower κ F Ω] (p : Place κ F) :
-    IsScalarTower κ p.toValuationSubring Ω := by
-  apply IsScalarTower.of_algebraMap_eq
-  intro a
-  change algebraMap κ Ω a = algebraMap F Ω (algebraMap κ F a)
-  exact IsScalarTower.algebraMap_apply κ F Ω a
+attribute [local instance] placeConstantAmbientTower
 
 /-- Every actual finite Galois cover detects the inertia double coset of
 an element centralizing a nontrivial boundary inertia element. -/
@@ -133,7 +115,7 @@ theorem boundaryInertia_doubleCoset_eq_of_commute
   let : FiniteDimensional K L :=
     finiteDimensional_functionField_of_finiteEtale_isConnected W
   let : _root_.IsGalois K L := isGalois_functionField_of_isGalois_finiteEtale W hW
-  let h := genericExtension_point_comp U Ω
+  let h := U.genericExtension_point_comp Ω
   let w' := (absoluteGenericFiberIso U Ω).inv.app W w
   let lift := genericPointLiftRebase h W
     (fiberObjEquivHom (ξ K Ω ≫ U.genericExtensionMorphism K) W w')

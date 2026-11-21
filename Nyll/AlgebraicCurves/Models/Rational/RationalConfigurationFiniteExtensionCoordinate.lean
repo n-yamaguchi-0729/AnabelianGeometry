@@ -94,27 +94,27 @@ theorem rationalConfiguration_pairFunction_arithmeticPlaces_eq_literal
       W.ord (algebraMap (RatFunc k) (RatFunc κ) f) =
         (if W = (rationalConfigurationBoundaryPlace k κ s a).val then 1 else 0) -
         (if W = (rationalConfigurationBoundaryPlace k κ s b).val then 1 else 0)) :
-    V₀ = literalRationalPuncturePlace k a.val.rep a.val.rep_nonzero ∧
-      Vinf = literalRationalPuncturePlace k b.val.rep b.val.rep_nonzero := by
+    V₀ = literalRationalPuncturePlace k a.val.rep a.val.rep_ne_zero ∧
+      Vinf = literalRationalPuncturePlace k b.val.rep b.val.rep_ne_zero := by
   have hWab : (rationalConfigurationBoundaryPlace k κ s a).val ≠
       (rationalConfigurationBoundaryPlace k κ s b).val := by
     intro h
     exact hab ((rationalConfigurationBoundaryPlaceEquiv k κ s).injective (Subtype.ext h))
-  have ha : (literalRationalPuncturePlace k a.val.rep a.val.rep_nonzero).ord f = 1 := by
+  have ha : (literalRationalPuncturePlace k a.val.rep a.val.rep_ne_zero).ord f = 1 := by
     rw [← rationalConfigurationBoundaryPlace_coefficient_orders k κ s a f,
       hgeom, ite_eq_left rfl, ite_eq_right hWab, sub_zero]
-  have hb : (literalRationalPuncturePlace k b.val.rep b.val.rep_nonzero).ord f = -1 := by
+  have hb : (literalRationalPuncturePlace k b.val.rep b.val.rep_ne_zero).ord f = -1 := by
     rw [← rationalConfigurationBoundaryPlace_coefficient_orders k κ s b f,
       hgeom, ite_eq_right hWab.symm, ite_eq_left rfl, zero_sub]
   constructor
   · symm
     by_contra h
-    have h' := harith (literalRationalPuncturePlace k a.val.rep a.val.rep_nonzero)
+    have h' := harith (literalRationalPuncturePlace k a.val.rep a.val.rep_ne_zero)
     rw [ha, ite_eq_right h] at h'
     split_ifs at h' <;> norm_num at h'
   · symm
     by_contra h
-    have h' := harith (literalRationalPuncturePlace k b.val.rep b.val.rep_nonzero)
+    have h' := harith (literalRationalPuncturePlace k b.val.rep b.val.rep_ne_zero)
     rw [hb, ite_eq_right h] at h'
     split_ifs at h' <;> norm_num at h'
 
@@ -144,13 +144,13 @@ theorem rationalConfiguration_pairFunction_finiteExtension_orders_coordinate
     k κ s a b hab V₀ Vinf f harith hgeom
   have hliteral : ∀ V : Place k (RatFunc k),
       V.ord f =
-        (if V = literalRationalPuncturePlace k a.val.rep a.val.rep_nonzero then 1 else 0) -
-        (if V = literalRationalPuncturePlace k b.val.rep b.val.rep_nonzero then 1 else 0) := by
+        (if V = literalRationalPuncturePlace k a.val.rep a.val.rep_ne_zero then 1 else 0) -
+        (if V = literalRationalPuncturePlace k b.val.rep b.val.rep_ne_zero then 1 else 0) := by
     intro V
     simpa only [h₀, hinf] using harith V
   have horders := ratFunc_constantExtension_pair_orders
-    (literalRationalPuncturePlace k a.val.rep a.val.rep_nonzero)
-    (literalRationalPuncturePlace k b.val.rep b.val.rep_nonzero)
+    (literalRationalPuncturePlace k a.val.rep a.val.rep_ne_zero)
+    (literalRationalPuncturePlace k b.val.rep b.val.rep_ne_zero)
     (literalRationalPuncturePlace_isRational k _ _)
     (literalRationalPuncturePlace_isRational k _ _)
     (rationalConfigurationBoundaryPlace k E s a).val

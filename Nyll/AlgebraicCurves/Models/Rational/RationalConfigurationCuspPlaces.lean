@@ -41,16 +41,16 @@ theorem rationalConfiguration_exists_rational_boundaryPlace
             projectiveRationalPoint a ∧
         ∀ z : RatFunc k,
           p.val.ord (algebraMap (RatFunc k) (RatFunc κ) z) = V.ord z := by
-  let σ := rationalPunctureSection a.rep a.rep_nonzero
+  let σ := rationalPunctureSection a.rep a.rep_ne_zero
   have hσ : σ ≫ (projectiveLineRatFuncModel k).toBase = 𝟙 _ :=
-    rationalPunctureSection_comp_π a.rep a.rep_nonzero
+    rationalPunctureSection_comp_π a.rep a.rep_ne_zero
   have hx : σ (IsLocalRing.closedPoint k) = projectiveRationalPoint a := by
     change σ (IsLocalRing.closedPoint k) = σ (coefficientFieldPoint (K := k))
     exact congrArg σ (Subsingleton.elim _ _)
   have hclosed : IsClosed
       ({σ (IsLocalRing.closedPoint k)} : Set (projectiveLineRatFuncModel k).C) := by
     rw [hx]
-    exact isClosed_singleton_rationalPuncturePoint a.rep a.rep_nonzero
+    exact isClosed_singleton_rationalPuncturePoint a.rep a.rep_ne_zero
   have houtside : σ (IsLocalRing.closedPoint k) ∉ Set.range (rationalConfigurationOpen s).ι := by
     rintro ⟨u, hu⟩
     have hne := (mem_rationalConfigurationOpen_iff s u.val).mp u.property a ha

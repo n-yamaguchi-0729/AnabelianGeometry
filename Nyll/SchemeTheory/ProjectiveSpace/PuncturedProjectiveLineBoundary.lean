@@ -38,7 +38,7 @@ def extendedPunctureCoordinates (p : Projectivization k (k × k)) : κ × κ :=
 theorem extendedPunctureCoordinates_ne_zero (p : Projectivization k (k × k)) :
     extendedPunctureCoordinates k κ p ≠ 0 := by
   intro h
-  apply p.rep_nonzero
+  apply p.rep_ne_zero
   apply Prod.ext
   · apply (algebraMap k κ).injective
     simpa only [extendedPunctureCoordinates, Prod.fst_zero, map_zero] using congrArg Prod.fst h
@@ -71,7 +71,7 @@ theorem map_eq_projectiveRationalPoint_iff
   · intro hx
     have hm : punctureForm p.rep ∈ (map k κ 1 x).asHomogeneousIdeal := by
       rw [hx]
-      exact punctureForm_mem_rationalPuncturePoint p.rep p.rep_nonzero
+      exact punctureForm_mem_rationalPuncturePoint p.rep p.rep_ne_zero
     have hm' := (punctureForm_mem_map_iff k κ p.rep x).mp hm
     exact eq_of_punctureForm_mem (extendedPunctureCoordinates k κ p)
       (extendedPunctureCoordinates_ne_zero k κ p) x
@@ -79,10 +79,10 @@ theorem map_eq_projectiveRationalPoint_iff
       (punctureForm_mem_rationalPuncturePoint _ _)
   · intro hx
     subst x
-    apply eq_of_punctureForm_mem p.rep p.rep_nonzero
+    apply eq_of_punctureForm_mem p.rep p.rep_ne_zero
     · exact (punctureForm_mem_map_iff k κ p.rep _).mpr
         (punctureForm_mem_rationalPuncturePoint _ _)
-    · exact punctureForm_mem_rationalPuncturePoint p.rep p.rep_nonzero
+    · exact punctureForm_mem_rationalPuncturePoint p.rep p.rep_ne_zero
 
 @[simp]
 theorem map_rationalConfigurationGeometricPoint (p : Projectivization k (k × k)) :

@@ -54,7 +54,9 @@ theorem arithmeticFirstKernel_le_comap_fundamentalGroupHom :
 /-- The first arithmetic quotient map induced by the original scheme morphism. -/
 def arithmeticFirstFundamentalGroupHom :
     ArithmeticFirstQuotient DX →ₜ* ArithmeticFirstQuotient DY :=
-  ProCGroups.QuotientGroup.mapₜ (arithmeticFirstKernel DX) (arithmeticFirstKernel DY)
+  ProCGroups.QuotientGroup.mapContinuousMonoidHom
+    (N := arithmeticFirstKernel DX)
+    (M := arithmeticFirstKernel DY)
     (fundamentalGroupHom j xi)
     (arithmeticFirstKernel_le_comap_fundamentalGroupHom k L j f xi)
 

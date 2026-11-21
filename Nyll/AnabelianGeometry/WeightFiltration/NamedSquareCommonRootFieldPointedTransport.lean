@@ -24,33 +24,19 @@ open scoped FintypeCatDiscrete
 namespace AnabelianGeometry.WeightFiltration
 attribute [local instance] MvPolynomial.gradedAlgebra Polynomial.algebra
 
-local instance commonPointedRootOverCategory (S : Scheme) :
-    Category (MorphismProperty.Over (@IsFiniteEtale : MorphismProperty Scheme) ⊤ S) :=
-  AlgebraicGeometry.FiniteEtale.instCategory S
-local instance commonPointedRootHasPullbacksAlong {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.HasPullbacksAlong (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun _ _ ↦ inferInstance⟩
-local instance commonPointedRootStableUnderBaseChangeAlong {S T : Scheme} (f : S ⟶ T) :
-    MorphismProperty.IsStableUnderBaseChangeAlong (@IsFiniteEtale : MorphismProperty Scheme) f :=
-  ⟨fun h hf ↦ MorphismProperty.of_isPullback
-    (P := (@IsFiniteEtale : MorphismProperty Scheme)) h hf⟩
-
-local instance commonPointedRootChart_isOpenImmersion
-    (k : Type) [Field k] (s : Finset (Projectivization k (k × k))) :
-    IsOpenImmersion (show (rationalConfigurationOpen s : Scheme) ⟶
-      (projectiveLineRatFuncModel k).C from (rationalConfigurationOpen s).ι) := by
-  change IsOpenImmersion (rationalConfigurationOpen s).ι
-  infer_instance
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleOverCategory
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleHasPullbacksAlong
+attribute [local instance] AlgebraicGeometry.FiniteEtale.finiteEtaleIsStableUnderBaseChangeAlong
 
 theorem namedSquare_originalScalar_exists_commonRootField_pointed_transport
     (k κ : Type) [Field k] [CharZero k] [Field.FG k] [Field κ] [CharZero κ]
     [Algebra k κ] [IsAlgClosed κ] [IsAlgClosure k κ]
     (s t : Finset (Projectivization k (k × k)))
     (Ωs Ωt : Type) [Field Ωs] [Field Ωt] [IsAlgClosed Ωs] [IsAlgClosed Ωt]
-    [Algebra (rationalConfigurationGeometricScheme k κ s).functionField Ωs]
-    [Algebra (rationalConfigurationGeometricScheme k κ t).functionField Ωt]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ s).functionField Ωs]
-    [IsAlgClosure (rationalConfigurationGeometricScheme k κ t).functionField Ωt]
+    [Algebra (originalFieldGeometricScheme k κ s).functionField Ωs]
+    [Algebra (originalFieldGeometricScheme k κ t).functionField Ωt]
+    [IsAlgClosure (originalFieldGeometricScheme k κ s).functionField Ωs]
+    [IsAlgClosure (originalFieldGeometricScheme k κ t).functionField Ωt]
     (us : Pic0.openKummerUnits k (RatFunc k)
       ((projectiveLineRatFuncModel k).openBoundaryPlaces (rationalConfigurationOpen s).ι)
       (2 : ℕ+))
@@ -66,10 +52,10 @@ theorem namedSquare_originalScalar_exists_commonRootField_pointed_transport
     (H : RationalConfigurationArithmeticSquareTransportWithFiniteBase k κ s t Ωs Ωt us ut α)
     (ρS : s → κ) (ρT : t → κ)
     (hρS : ∀ x : s, ρS x ^ 2 = algebraMap k κ
-      ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt
+      ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt
         (us.val : RatFunc k)))
     (hρT : ∀ x : t, ρT x ^ 2 = algebraMap k κ
-      ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt
+      ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt
         (ut.val : RatFunc k))) :
     let fs := (rationalConfigurationOpen s).ι ≫ π k 1
     let ft := (rationalConfigurationOpen t).ι ≫ π k 1
@@ -78,14 +64,18 @@ theorem namedSquare_originalScalar_exists_commonRootField_pointed_transport
     let hn : IsUnit ((2 : ℕ) : k) :=
       isUnit_iff_ne_zero.mpr (Nat.cast_ne_zero.mpr (show (2 : ℕ) ≠ 0 from by decide))
     let M := projectiveLineRatFuncModel k
-    let AS := M.openKummerCover (M.openBoundaryPlaces (rationalConfigurationOpen s).ι)
-      (2 : ℕ+) hn us (rationalConfigurationOpen s).ι
-      (rationalConfigurationOpen_denseRange k s)
-      (M.place_not_mem_openBoundaryPlaces (rationalConfigurationOpen s).ι)
-    let AT := M.openKummerCover (M.openBoundaryPlaces (rationalConfigurationOpen t).ι)
-      (2 : ℕ+) hn ut (rationalConfigurationOpen t).ι
-      (rationalConfigurationOpen_denseRange k t)
-      (M.place_not_mem_openBoundaryPlaces (rationalConfigurationOpen t).ι)
+    let iS : (rationalConfigurationOpen s : Scheme) ⟶ M.C := (rationalConfigurationOpen s).ι
+    let : IsOpenImmersion iS :=
+      inferInstanceAs (IsOpenImmersion (rationalConfigurationOpen s).ι)
+    let iT : (rationalConfigurationOpen t : Scheme) ⟶ M.C := (rationalConfigurationOpen t).ι
+    let : IsOpenImmersion iT :=
+      inferInstanceAs (IsOpenImmersion (rationalConfigurationOpen t).ι)
+    let AS : FiniteEtale (rationalConfigurationOpen s : Scheme) :=
+      M.openKummerCover (M.openBoundaryPlaces iS) (2 : ℕ+) hn us iS
+        (rationalConfigurationOpen_denseRange k s) (M.place_not_mem_openBoundaryPlaces iS)
+    let AT : FiniteEtale (rationalConfigurationOpen t : Scheme) :=
+      M.openKummerCover (M.openBoundaryPlaces iT) (2 : ℕ+) hn ut iT
+        (rationalConfigurationOpen_denseRange k t) (M.place_not_mem_openBoundaryPlaces iT)
     ∃ (a : kˣ) (β : κˣ), β ^ 2 = Units.map (algebraMap k κ).toMonoidHom a ∧
       let E := quadraticBoundaryCoordinateField k κ β (Sum.elim ρS ρT)
       let _hFD : FiniteDimensional k E :=
@@ -116,10 +106,10 @@ theorem namedSquare_originalScalar_exists_commonRootField_pointed_transport
       ∃ (rS : s → E) (rT : t → E),
         (∀ x : s, (rS x : κ) = ρS x) ∧ (∀ x : t, (rT x : κ) = ρT x) ∧
         (∀ x : s, rS x ^ 2 = algebraMap k E
-          ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt
+          ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt
             (us.val : RatFunc k))) ∧
         (∀ x : t, rT x ^ 2 = algebraMap k E
-          ((literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt
+          ((literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt
             (ut.val : RatFunc k))) ∧
       ∃ (θ : (fiber xt).obj
           ((coverTransportOfAutEquiv (fiber xs) (fiber xt) α).functor.obj AS) ≃
@@ -160,7 +150,7 @@ theorem namedSquare_originalScalar_exists_commonRootField_pointed_transport
           (ProCGroups.innerCorrectedFiberEquiv eE c) ∧
         pointedPullbackFiberEquiv bs ys xs hs AS wE =
           coverTransportFiberEquiv (fiber xs) (fiber xt) α AS x₀ := by
-  intro fs ft xs xt hn M AS AT
+  intro fs ft xs xt hn M iS openS iT openT AS AT
   let : Algebra (rationalConfigurationOpen s : Scheme).functionField Ωs :=
     rationalConfigurationOriginalAmbientAlgebra k κ s Ωs
   let : Algebra (rationalConfigurationOpen t : Scheme).functionField Ωt :=
@@ -183,9 +173,9 @@ theorem namedSquare_originalScalar_exists_commonRootField_pointed_transport
   refine ⟨a, β, hβ, ?_⟩
   intro E hFD hsep hFE hEC ys yt bs bt hs ht αE
   let v : Sum s t → k := Sum.elim
-    (fun x : s => (literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt
+    (fun x : s => (literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt
       (us.val : RatFunc k))
-    (fun x : t => (literalRationalPuncturePlace k x.val.rep x.val.rep_nonzero).evalAt
+    (fun x : t => (literalRationalPuncturePlace k x.val.rep x.val.rep_ne_zero).evalAt
       (ut.val : RatFunc k))
   have hρ : ∀ x : Sum s t, Sum.elim ρS ρT x ^ 2 = algebraMap k κ (v x) := by
     intro x

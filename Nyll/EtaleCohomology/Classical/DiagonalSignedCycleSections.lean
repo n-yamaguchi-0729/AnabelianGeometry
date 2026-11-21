@@ -6,6 +6,7 @@ Authors: Naganori Yamaguchi (assisted by OpenAI Codex)
 
 module
 
+public import Nyll.AlgebraicCurves.Geometry.Schemes.Morphisms.HomInvertibleKerCompEqId
 public import Nyll.EtaleCohomology.Classical.CartierCycleAdditivity
 public import Nyll.EtaleCohomology.Classical.CartierCyclePullback
 public import Nyll.EtaleCohomology.Classical.DiagonalDivisorBundle
@@ -28,6 +29,8 @@ in the original Kummer cohomology for every invertible exponent.
 -/
 
 @[expose] public section
+
+open AlgebraicGeometry.Scheme.Hom (sectionEffectiveCartierDivisor)
 
 noncomputable section
 
