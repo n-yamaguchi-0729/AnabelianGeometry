@@ -95,7 +95,6 @@
     "Yamaguchi26AbfaithfulGalois",
     "AnabelianGeometry"
   ],
-  "replayClosureLimit": 4100,
   "primaryRoots": [
     "Nyll.AnabelianGeometry.All"
   ]

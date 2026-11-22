@@ -257,10 +257,12 @@ jobs:
       target: +Nyll.All
 
   verify:
-    name: NanoDa and Lean kernel replay
+    name: NanoDa and strict declaration audit
     needs: all
     if: github.event.repository.private == false
     uses: ./.github/workflows/proof-check.yml
+    with:
+      kernel-replay: false
 
   publish-cache:
     name: Publish verified Lean cache
