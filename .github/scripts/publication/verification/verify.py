@@ -18,7 +18,8 @@ import sys
 import time
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "ci_templates"))
 import generate_manifest
-from scope import select_scope
+from scope import replay_partition, select_scope
+import exact_replay
 
 LEAN = "leanprover/lean4:v4.36.0"
 LEAN_COMMIT = "611c117bfaf7b7ae1cfcf246ce6fba31e8f509e9"
@@ -227,6 +228,8 @@ class Pipeline:
         self.full_manifest, self.paths = physical_manifest(self.root, self.manifest_path)
         self.config = generate_manifest.load_json(self.config_path)
         self.manifest = select_scope(self.root, self.full_manifest, self.config, self.args.shard)
+        if self.args.shard.startswith("replay-"):
+            require(self.phase == "replay", "A replay shard cannot stand in for the whole proof")
         self.scope_path = self.out / "scope.json"
         write_json(self.scope_path, self.manifest)
         self.paths.extend([self.config_path, self.scope_path,
@@ -434,6 +437,10 @@ class Pipeline:
         require(imports[0]["roots"] == self.manifest["roots"], "Replay root mismatch")
         require(set(self.manifest["moduleRows"]) <= set(imports[0]["loaded_modules"]),
                 "Replay omitted physical manifest modules")
+        if self.args.shard.startswith("replay-"):
+            receipt = exact_replay.replay_receipt(self.out / "replay.log", self.args.shard, imports[0]["loaded_modules"])
+            require(receipt == self.replay_snapshot_before, "Replay imported artifacts changed during verification")
+            write_json(self.out / "exact-replay.json", receipt)
         return {"officialKernelReplay": "PASS", "axiomPolicyEnforcedBySeparateInventory": True,
                 "unsafeSkippedInImportClosure": imports[0]["unsafe_skipped_count"],
                 "partialSkippedInImportClosure": imports[0]["partial_skipped_count"]}
@@ -451,6 +458,15 @@ class Pipeline:
         try:
             self.inputs()
             roots = self.manifest["roots"]
+            exact_audit = self.phase == "proof" and "replayClosureLimit" in self.config
+            exact_replay_shard = self.phase == "replay" and self.args.shard.startswith("replay-")
+            required = list(PHASE_STAGES[self.phase])
+            if exact_audit:
+                required.append("exact-replay-audit")
+            if exact_replay_shard:
+                required.insert(-1, "exact-replay-before")
+            final["requiredStages"] = required
+            write_json(self.out / "final.json", final)
             self.stage("build", ["lake", "--no-ansi", "--rehash", "--wfail", "build", *roots])
             if self.phase in ("full", "proof"):
                 self.stage("inventory", ["lake", "env", str(self.lean), "-j1", "-DautoImplicit=false", "--run",
@@ -475,13 +491,44 @@ class Pipeline:
                 write_json(config_path, config)
                 self.sealed[str(config_path)] = digest(config_path)
                 self.stage("nanoda", [str(self.nanoda), str(config_path)], validate=self.check_nanoda)
+            replay_cmd = ["lake", "env", str(self.lean), "-j1", "-DautoImplicit=false", "--run",
+                          str(HERE / "ReplayKernel.lean")]
+            if exact_audit:
+                groups = replay_partition(self.root, self.full_manifest, self.config["replayClosureLimit"])
+                plan = self.out / "exact-replay-plan.json"
+                log = self.out / "exact-replay-audit.ndjson"
+                receipt = self.out / "exact-replay.json"
+                write_json(plan, [(label, group["roots"]) for label, group in groups.items()])
+                self.sealed[str(plan)] = digest(plan)
+
+                def seal_exact_audit():
+                    write_json(receipt, exact_replay.audit_receipt(log, list(groups)))
+                    return {"exactShardCount": len(groups)}
+
+                self.stage("exact-replay-audit", [*replay_cmd, "--audit-coverage", str(plan)],
+                           output=log, validate=seal_exact_audit, artifacts=[plan, receipt])
             if self.phase in ("full", "replay"):
-                self.stage("replay", ["lake", "env", str(self.lean), "-j1", "-DautoImplicit=false", "--run",
-                           str(HERE / "ReplayKernel.lean"), *roots], validate=self.check_replay)
+                args = roots
+                evidence = []
+                if exact_replay_shard:
+                    log = self.out / "replay-before.ndjson"
+
+                    def seal_pre_replay():
+                        rows = exact_replay.records(log)
+                        require(len(rows) == 1 and rows[0]["phase"] == "artifacts", "Missing pre-replay artifacts")
+                        self.replay_snapshot_before = exact_replay.replay_receipt(
+                            log, self.args.shard, [row["module"] for row in rows[0]["modules"]])
+                        return {"artifactModules": len(self.replay_snapshot_before["artifacts"])}
+
+                    self.stage("exact-replay-before", [*replay_cmd, "--attest", self.args.shard, *roots],
+                               output=log, validate=seal_pre_replay)
+                    args = ["--replay-attested", self.args.shard, *roots]
+                    evidence.append(self.out / "exact-replay.json")
+                self.stage("replay", [*replay_cmd, *args], validate=self.check_replay, artifacts=evidence)
             self.guard()
             self.check_physical_snapshot()
             require([r["stage"] for r in self.stages] ==
-                    PHASE_STAGES[self.phase]
+                    required
                     and all(r["passed"] for r in self.stages), "Missing mandatory successful stage")
             final.update(passed=self.phase == "full", fullPassed=self.phase == "full",
                          phasePassed=True, status="finished" if self.phase == "full" else "phase_finished",

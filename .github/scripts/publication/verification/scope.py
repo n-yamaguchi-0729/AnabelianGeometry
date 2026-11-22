@@ -5,6 +5,7 @@ Copyright (c) 2026 Naganori Yamaguchi. Apache-2.0.
 Authors: Naganori Yamaguchi (assisted by OpenAI Codex).
 """
 from pathlib import Path
+from functools import cache
 import argparse
 import json
 import re
@@ -78,7 +79,78 @@ def partition(root, manifest, config):
     return shards
 
 
+def replay_partition(root, manifest, limit):
+    """Partition whole import closures, never the kernel declaration map."""
+    if type(limit) is not int or limit <= 0:
+        raise ValueError("Invalid replay closure limit")
+    rows = manifest["moduleRows"]
+    sources = {name: (root / row["path"]).read_text() for name, row in rows.items()}
+    graph = {name: [dep for dep, _, _ in generate_manifest.header_imports(text)]
+             for name, text in sources.items()}
+
+    @cache
+    def closure(entry):
+        found, todo = set(), [entry]
+        while todo:
+            name = todo.pop()
+            if name not in found:
+                found.add(name)
+                todo.extend(graph.get(name, []))
+        return frozenset(found)
+
+    complete = closure("Nyll")
+    if manifest["roots"] != ["Nyll"] or complete.intersection(rows) != set(rows):
+        raise ValueError("Unpartitionable full replay scope")
+    peeled = set()
+
+    def expand(entry):
+        if entry in rows and len(closure(entry)) > limit:
+            try:
+                imports = pure_imports(sources[entry])
+            except ValueError:
+                imports = []
+            if imports and imports == graph[entry] and all(i in rows for i in imports):
+                peeled.add(entry)
+                for child in imports:
+                    yield from expand(child)
+                return
+        yield entry
+
+    entries = list(dict.fromkeys(expand("Nyll")))
+    order = {entry: i for i, entry in enumerate(entries)}
+    candidates = set(entries)
+    # A root already imported by another candidate requires no separate job.
+    roots = candidates - set().union(*(closure(n) - {n} for n in candidates))
+    groups = []
+    for name in sorted(roots, key=lambda n: (-len(closure(n)), n)):
+        members = closure(name)
+        if len(members) > limit:
+            raise ValueError("Indivisible replay closure exceeds limit: " + name)
+        fits = [(len(modules | members), i) for i, (_, modules) in enumerate(groups)
+                if len(modules | members) <= limit]
+        if fits:
+            _, i = min(fits)
+            group_roots, modules = groups[i]
+            groups[i] = (group_roots + [name], modules | members)
+        else:
+            groups.append(([name], members))
+    covered = set().union(*(modules for _, modules in groups))
+    # This also checks the exact external import boundary, not merely local rows.
+    if not groups or covered | peeled != complete:
+        raise ValueError("Replay partition omits constituents of the full environment")
+    if len(groups) + 1 > 256:
+        raise ValueError("Replay verification exceeds the GitHub job matrix limit")
+    return {f"replay-{i:02d}": {"roots": sorted(names, key=order.__getitem__), "moduleRows": {
+        n: rows[n] for n in sorted(modules.intersection(rows))}}
+        for i, (names, modules) in enumerate(groups, 1)}
+
+
 def select_scope(root, manifest, config, shard):
+    if shard.startswith("replay-"):
+        shards = replay_partition(root, manifest, config["replayClosureLimit"])
+        if shard not in shards:
+            raise ValueError("Unknown replay shard: " + shard)
+        return shards[shard]
     if shard == "all":
         return manifest
     shards = partition(root, manifest, config)
@@ -109,6 +181,12 @@ def main():
     # Every shard retains NanoDa and the axiom/coverage audit. Official replay
     # is additionally required unless the caller explicitly selects proof-only.
     plan = {"shard": keys, "phase": ["proof"] if args.proof_only else ["proof", "replay"]}
+    if "replayClosureLimit" in config:
+        if args.partition or args.proof_only:
+            raise ValueError("Separate replay sharding requires full proof and mandatory replay")
+        shards = replay_partition(args.root, manifest, config["replayClosureLimit"])
+        plan = {"include": [{"shard": "all", "phase": "proof"}] + [
+            {"shard": name, "phase": "replay"} for name in shards]}
     (args.output / "matrix.json").write_text(json.dumps(plan) + "\n")
     print(json.dumps(plan))
 

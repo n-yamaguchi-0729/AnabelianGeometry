@@ -228,6 +228,7 @@ class PipelineTests(unittest.TestCase):
 
         def inputs():
             pipeline.manifest = {"roots": ["Nyll"]}
+            pipeline.config = {}
             pipeline.lean = Path("lean")
             pipeline.scope_path = output / "scope.json"
             pipeline.export_core_dir = Path("exporter")
@@ -390,7 +391,7 @@ class WorkflowTests(unittest.TestCase):
         self.assertNotIn('continue-on-error', template)
         self.assertIn('timeout-minutes: 360', template)
         # Execute the actual final gate: all non-success outcomes must fail.
-        gate = template.split('          set -euo pipefail\n')[-1]
+        gate = template.split('          set -euo pipefail\n')[-1].split('\n      - ', 1)[0]
         for plan in ('success', 'failure', 'cancelled', 'skipped'):
             for verify_result in ('success', 'failure', 'cancelled', 'skipped'):
                 result = subprocess.run(['bash', '-c', 'set -euo pipefail\n' + gate],
